@@ -179,7 +179,23 @@ class JClip extends egret.Sprite implements IClip,IJuggle
 		this._currentLabel = null;
 		this._currentLabels = null;
 		this.labelsDict = null;
+		this.disposeChilds();
 		this.removeFromParent();
+	}
+	/**
+	 * 销毁子对象
+	 */
+	protected disposeChilds():void
+	{
+		var c:any;
+		while(this.numChildren>0)
+		{
+			c = this.removeChildAt(0);
+			if(c as BaseView)
+			{
+				(c as BaseView).dispose();
+			}
+		}
 	}
 	///////////////////////////////////////////////////////////////////////
 
