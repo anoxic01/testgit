@@ -28,9 +28,8 @@ class BetAreaUI extends BaseComponent implements  eui.UIComponent
 		this.createSeat(7,1225,198,"betArea_seat_2","betArea_seat_title_7",-1);
 		this.createSeat(8,1480,198,"betArea_seat_1","betArea_seat_title_8",-1);
 
-		console.log(ClipUtils.getMovieClips("seat_win_effect00{00}_png",1,20));
-		var mc:JBitmapClip = new JBitmapClip(ClipUtils.getMovieClips("seat_win_effect00{00}_png",1,20));
-		this.addChild(mc);
+		// var mc:JBitmapClip = new JBitmapClip(ClipUtils.getMovieClips("seat_win_effect00{00}_png",1,20));
+		// this.addChild(mc);
 	}
 	private createItem(id:number,xx:number,yy:number,res:string,titleRes:string,sx:number=1):BetAreaItem
 	{

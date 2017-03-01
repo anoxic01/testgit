@@ -31,12 +31,8 @@ var BetAreaUI = (function (_super) {
         this.createSeat(6, 970, 198, "betArea_seat_3", "betArea_seat_title_6", -1);
         this.createSeat(7, 1225, 198, "betArea_seat_2", "betArea_seat_title_7", -1);
         this.createSeat(8, 1480, 198, "betArea_seat_1", "betArea_seat_title_8", -1);
-        console.log(ClipUtils.getMovieClips("seat_win_effect00{00}_png", 1, 20));
-        var mc = new JBitmapClip(ClipUtils.getMovieClips("seat_win_effect00{00}_png", 1, 20));
-        mc.addLabel("To1", 17);
-        mc.addLabel("Too", 5);
-        mc.gotoAndPlay("Too");
-        this.addChild(mc);
+        // var mc:JBitmapClip = new JBitmapClip(ClipUtils.getMovieClips("seat_win_effect00{00}_png",1,20));
+        // this.addChild(mc);
     };
     BetAreaUI.prototype.createItem = function (id, xx, yy, res, titleRes, sx) {
         if (sx === void 0) { sx = 1; }
