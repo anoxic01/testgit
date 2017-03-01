@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BetSubmitUISkin" width="181" height="183" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="15a880fe6fa" ></w:Config>
+	<e:Image source="betAreaSubmit_bg_1_png" x="0" y="0" width="181" height="49"/>
+	<e:Label text="已下注：" x="12" y="14" size="20" textColor="0x66e6b5"/>
+	<e:Label text="0" x="84" y="14" anchorOffsetX="0" width="87.58" size="20" textColor="0xfcf807" textAlign="center" verticalAlign="middle"/>
+	<ns1:BetSubmitContentUI width="181" height="133" x="0" y="48"/>
+</e:Skin>

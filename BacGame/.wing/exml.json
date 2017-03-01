@@ -1,0 +1,57 @@
+{
+    "15a5e87f79e": {
+        "path": "..\\resource\\UI\\GameUI.ts",
+        "class": "GameUI",
+        "parentPath": "",
+        "bindingDataTestObj": [],
+        "backgroundX": 0,
+        "backgroundY": 0,
+        "backgroundWidth": -1,
+        "backgroundHeight": -1,
+        "useBgImage": true,
+        "useBgColor": true,
+        "backgroundAlpha": 100
+    },
+    "global": {
+        "globalAutoLayerMarkEnable": true,
+        "globalAdsorbEnable": false,
+        "globalRulerEnable": false,
+        "gridColor": 8421504,
+        "gridEnabled": false,
+        "gridSize": 20,
+        "globalBindingDataTestObj": []
+    },
+    "15a5eb10d7a": {
+        "path": "..\\resource\\UI\\RoadMapUI.ts",
+        "class": "RoadMapUI",
+        "parentPath": ""
+    },
+    "15a5f55a90d": {
+        "bindingDataTestObj": []
+    },
+    "15a5f778b77": {
+        "path": "..\\resource\\UI\\items\\BetAreaItemUI.ts",
+        "class": "BetAreaItemUI",
+        "parentPath": ""
+    },
+    "15a87fb9d75": {
+        "path": "..\\resource\\UI\\BetAreaSubmitUI.ts",
+        "class": "BetAreaSubmitUI",
+        "parentPath": ""
+    },
+    "15a880fe6fa": {
+        "path": "..\\resource\\UI\\BetSubmitUI.ts",
+        "class": "BetSubmitUI",
+        "parentPath": ""
+    },
+    "15a88104150": {
+        "path": "..\\resource\\UI\\BetSubmitContentUI.ts",
+        "class": "BetSubmitContentUI",
+        "parentPath": ""
+    },
+    "15a881aad43": {
+        "path": "..\\resource\\UI\\GameStatusUI.ts",
+        "class": "GameStatusUI",
+        "parentPath": ""
+    }
+}

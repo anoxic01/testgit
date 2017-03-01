@@ -1,0 +1,585 @@
+{
+	"groups": [
+		{
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,roadMap_bg_png,sta_btn0004_png,b_ask_btn0001_png,b_ask_btn0002_png,b_ask_btn0003_png,b_ask_btn0004_png,p_ask_btn0001_png,p_ask_btn0002_png,p_ask_btn0003_png,p_ask_btn0004_png,sta_btn0001_png,sta_btn0002_png,sta_btn0003_png,dealCard_bg_png,dealCard_banker_label_png,dealCard_player_label_png,main_roadMap_tie_png,main_roadMap_banker_png,main_roadMap_player_png,main_roadMap_playerPair_png,main_roadMap_bankerPair_png,roadMap_big_road_i2_png,roadMap_big_road_a_png,roadMap_big_road_b_png,roadMap_big_road_c_png,roadMap_big_road_d_png,roadMap_big_road_e_png,roadMap_big_road_f_png,roadMap_big_road_g_png,roadMap_big_road_h_png,roadMap_big_road_i_png,roadMap_bigEye_road_e_png,roadMap_bigEye_road_a_png,roadMap_small_road_e_png,roadMap_small_road_a_png,roadMap_roach_road_e_png,roadMap_roach_road_a_png,card_bg_png,card_png,card_js_png,betArea_5_2_png,betArea_1_1_png,betArea_1_2_png,betArea_2_1_png,betArea_2_2_png,betArea_3_1_png,betArea_3_2_png,betArea_4_1_png,betArea_4_2_png,betArea_5_1_png,betArea_title_banker_png,betArea_title_bankerPair_png,betArea_title_big_png,betArea_title_player_png,betArea_title_playerPair_png,betArea_title_small_png,betArea_title_tie_png,betArea_seat_1_png,betArea_seat_2_png,betArea_seat_3_png,betArea_seat_4_png,betArea_seat_title_1_png,betArea_seat_title_2_png,betArea_seat_title_3_png,betArea_seat_title_5_png,betArea_seat_title_6_png,betArea_seat_title_7_png,betArea_seat_title_8_png,betAreaSubmit_bg_1_png,betAreaSubmit_bg_2_png,seat_win_effect0020_png,seat_win_effect0001_png,seat_win_effect0002_png,seat_win_effect0003_png,seat_win_effect0004_png,seat_win_effect0005_png,seat_win_effect0006_png,seat_win_effect0007_png,seat_win_effect0008_png,seat_win_effect0009_png,seat_win_effect0010_png,seat_win_effect0011_png,seat_win_effect0012_png,seat_win_effect0013_png,seat_win_effect0014_png,seat_win_effect0015_png,seat_win_effect0016_png,seat_win_effect0017_png,seat_win_effect0018_png,seat_win_effect0019_png",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/CheckBox/checkbox_select_disabled.png",
+			"type": "image",
+			"name": "checkbox_select_disabled_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_select_down.png",
+			"type": "image",
+			"name": "checkbox_select_down_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_select_up.png",
+			"type": "image",
+			"name": "checkbox_select_up_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_unselect.png",
+			"type": "image",
+			"name": "checkbox_unselect_png"
+		},
+		{
+			"url": "assets/ItemRenderer/selected.png",
+			"type": "image",
+			"name": "selected_png"
+		},
+		{
+			"url": "assets/Panel/border.png",
+			"type": "image",
+			"name": "border_png"
+		},
+		{
+			"url": "assets/Panel/header.png",
+			"type": "image",
+			"name": "header_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_disabled.png",
+			"type": "image",
+			"name": "radiobutton_select_disabled_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_down.png",
+			"type": "image",
+			"name": "radiobutton_select_down_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_up.png",
+			"type": "image",
+			"name": "radiobutton_select_up_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_unselect.png",
+			"type": "image",
+			"name": "radiobutton_unselect_png"
+		},
+		{
+			"url": "assets/ScrollBar/roundthumb.png",
+			"type": "image",
+			"name": "roundthumb_png"
+		},
+		{
+			"url": "assets/Slider/thumb.png",
+			"type": "image",
+			"name": "thumb_png"
+		},
+		{
+			"url": "assets/Slider/track.png",
+			"type": "image",
+			"name": "track_png"
+		},
+		{
+			"url": "assets/Slider/tracklight.png",
+			"type": "image",
+			"name": "tracklight_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/handle.png",
+			"type": "image",
+			"name": "handle_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/off.png",
+			"type": "image",
+			"name": "off_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/on.png",
+			"type": "image",
+			"name": "on_png"
+		},
+		{
+			"url": "assets/Button/button_down.png",
+			"type": "image",
+			"name": "button_down_png"
+		},
+		{
+			"url": "assets/Button/button_up.png",
+			"type": "image",
+			"name": "button_up_png"
+		},
+		{
+			"url": "assets/ProgressBar/thumb_pb.png",
+			"type": "image",
+			"name": "thumb_pb_png"
+		},
+		{
+			"url": "assets/ProgressBar/track_pb.png",
+			"type": "image",
+			"name": "track_pb_png"
+		},
+		{
+			"url": "assets/ScrollBar/track_sb.png",
+			"type": "image",
+			"name": "track_sb_png"
+		},
+		{
+			"url": "assets/images/betArea.png",
+			"type": "image",
+			"name": "betArea_png"
+		},
+		{
+			"url": "assets/images/game_bg.png",
+			"type": "image",
+			"name": "game_bg_png"
+		},
+		{
+			"name": "roadMap_bg_png",
+			"type": "image",
+			"url": "assets/images/roadMap_bg.png"
+		},
+		{
+			"name": "sta_btn0004_png",
+			"type": "image",
+			"url": "assets/images/sta_btn0004.png"
+		},
+		{
+			"name": "b_ask_btn0001_png",
+			"type": "image",
+			"url": "assets/images/b_ask_btn0001.png"
+		},
+		{
+			"name": "b_ask_btn0002_png",
+			"type": "image",
+			"url": "assets/images/b_ask_btn0002.png"
+		},
+		{
+			"name": "b_ask_btn0003_png",
+			"type": "image",
+			"url": "assets/images/b_ask_btn0003.png"
+		},
+		{
+			"name": "b_ask_btn0004_png",
+			"type": "image",
+			"url": "assets/images/b_ask_btn0004.png"
+		},
+		{
+			"name": "p_ask_btn0001_png",
+			"type": "image",
+			"url": "assets/images/p_ask_btn0001.png"
+		},
+		{
+			"name": "p_ask_btn0002_png",
+			"type": "image",
+			"url": "assets/images/p_ask_btn0002.png"
+		},
+		{
+			"name": "p_ask_btn0003_png",
+			"type": "image",
+			"url": "assets/images/p_ask_btn0003.png"
+		},
+		{
+			"name": "p_ask_btn0004_png",
+			"type": "image",
+			"url": "assets/images/p_ask_btn0004.png"
+		},
+		{
+			"name": "sta_btn0001_png",
+			"type": "image",
+			"url": "assets/images/sta_btn0001.png"
+		},
+		{
+			"name": "sta_btn0002_png",
+			"type": "image",
+			"url": "assets/images/sta_btn0002.png"
+		},
+		{
+			"name": "sta_btn0003_png",
+			"type": "image",
+			"url": "assets/images/sta_btn0003.png"
+		},
+		{
+			"name": "dealCard_bg_png",
+			"type": "image",
+			"url": "assets/images/dealCard_bg.png"
+		},
+		{
+			"name": "dealCard_banker_label_png",
+			"type": "image",
+			"url": "assets/images/dealCard_banker_label.png"
+		},
+		{
+			"name": "dealCard_player_label_png",
+			"type": "image",
+			"url": "assets/images/dealCard_player_label.png"
+		},
+		{
+			"name": "main_roadMap_tie_png",
+			"type": "image",
+			"url": "assets/images/main_roadMap_tie.png"
+		},
+		{
+			"name": "main_roadMap_banker_png",
+			"type": "image",
+			"url": "assets/images/main_roadMap_banker.png"
+		},
+		{
+			"name": "main_roadMap_player_png",
+			"type": "image",
+			"url": "assets/images/main_roadMap_player.png"
+		},
+		{
+			"name": "main_roadMap_playerPair_png",
+			"type": "image",
+			"url": "assets/images/main_roadMap_playerPair.png"
+		},
+		{
+			"name": "main_roadMap_bankerPair_png",
+			"type": "image",
+			"url": "assets/images/main_roadMap_bankerPair.png"
+		},
+		{
+			"name": "roadMap_big_road_i2_png",
+			"type": "image",
+			"url": "assets/images/roadMap_big_road_i2.png"
+		},
+		{
+			"name": "roadMap_big_road_a_png",
+			"type": "image",
+			"url": "assets/images/roadMap_big_road_a.png"
+		},
+		{
+			"name": "roadMap_big_road_b_png",
+			"type": "image",
+			"url": "assets/images/roadMap_big_road_b.png"
+		},
+		{
+			"name": "roadMap_big_road_c_png",
+			"type": "image",
+			"url": "assets/images/roadMap_big_road_c.png"
+		},
+		{
+			"name": "roadMap_big_road_d_png",
+			"type": "image",
+			"url": "assets/images/roadMap_big_road_d.png"
+		},
+		{
+			"name": "roadMap_big_road_e_png",
+			"type": "image",
+			"url": "assets/images/roadMap_big_road_e.png"
+		},
+		{
+			"name": "roadMap_big_road_f_png",
+			"type": "image",
+			"url": "assets/images/roadMap_big_road_f.png"
+		},
+		{
+			"name": "roadMap_big_road_g_png",
+			"type": "image",
+			"url": "assets/images/roadMap_big_road_g.png"
+		},
+		{
+			"name": "roadMap_big_road_h_png",
+			"type": "image",
+			"url": "assets/images/roadMap_big_road_h.png"
+		},
+		{
+			"name": "roadMap_big_road_i_png",
+			"type": "image",
+			"url": "assets/images/roadMap_big_road_i.png"
+		},
+		{
+			"name": "roadMap_bigEye_road_e_png",
+			"type": "image",
+			"url": "assets/images/roadMap_bigEye_road_e.png"
+		},
+		{
+			"name": "roadMap_bigEye_road_a_png",
+			"type": "image",
+			"url": "assets/images/roadMap_bigEye_road_a.png"
+		},
+		{
+			"name": "roadMap_small_road_e_png",
+			"type": "image",
+			"url": "assets/images/roadMap_small_road_e.png"
+		},
+		{
+			"name": "roadMap_small_road_a_png",
+			"type": "image",
+			"url": "assets/images/roadMap_small_road_a.png"
+		},
+		{
+			"name": "roadMap_roach_road_e_png",
+			"type": "image",
+			"url": "assets/images/roadMap_roach_road_e.png"
+		},
+		{
+			"name": "roadMap_roach_road_a_png",
+			"type": "image",
+			"url": "assets/images/roadMap_roach_road_a.png"
+		},
+		{
+			"name": "card_bg_png",
+			"type": "image",
+			"url": "assets/images/card_bg.png"
+		},
+		{
+			"name": "card_png",
+			"type": "image",
+			"url": "assets/images/card.png"
+		},
+		{
+			"name": "card_js_png",
+			"type": "image",
+			"url": "assets/images/card_js.png"
+		},
+		{
+			"name": "betArea_5_2_png",
+			"type": "image",
+			"url": "assets/images/betArea_5_2.png"
+		},
+		{
+			"name": "betArea_1_1_png",
+			"type": "image",
+			"url": "assets/images/betArea_1_1.png"
+		},
+		{
+			"name": "betArea_1_2_png",
+			"type": "image",
+			"url": "assets/images/betArea_1_2.png"
+		},
+		{
+			"name": "betArea_2_1_png",
+			"type": "image",
+			"url": "assets/images/betArea_2_1.png"
+		},
+		{
+			"name": "betArea_2_2_png",
+			"type": "image",
+			"url": "assets/images/betArea_2_2.png"
+		},
+		{
+			"name": "betArea_3_1_png",
+			"type": "image",
+			"url": "assets/images/betArea_3_1.png"
+		},
+		{
+			"name": "betArea_3_2_png",
+			"type": "image",
+			"url": "assets/images/betArea_3_2.png"
+		},
+		{
+			"name": "betArea_4_1_png",
+			"type": "image",
+			"url": "assets/images/betArea_4_1.png"
+		},
+		{
+			"name": "betArea_4_2_png",
+			"type": "image",
+			"url": "assets/images/betArea_4_2.png"
+		},
+		{
+			"name": "betArea_5_1_png",
+			"type": "image",
+			"url": "assets/images/betArea_5_1.png"
+		},
+		{
+			"name": "betArea_title_banker_png",
+			"type": "image",
+			"url": "assets/images/betArea_title_banker.png"
+		},
+		{
+			"name": "betArea_title_bankerPair_png",
+			"type": "image",
+			"url": "assets/images/betArea_title_bankerPair.png"
+		},
+		{
+			"name": "betArea_title_big_png",
+			"type": "image",
+			"url": "assets/images/betArea_title_big.png"
+		},
+		{
+			"name": "betArea_title_player_png",
+			"type": "image",
+			"url": "assets/images/betArea_title_player.png"
+		},
+		{
+			"name": "betArea_title_playerPair_png",
+			"type": "image",
+			"url": "assets/images/betArea_title_playerPair.png"
+		},
+		{
+			"name": "betArea_title_small_png",
+			"type": "image",
+			"url": "assets/images/betArea_title_small.png"
+		},
+		{
+			"name": "betArea_title_tie_png",
+			"type": "image",
+			"url": "assets/images/betArea_title_tie.png"
+		},
+		{
+			"name": "betArea_seat_1_png",
+			"type": "image",
+			"url": "assets/images/betArea_seat_1.png"
+		},
+		{
+			"name": "betArea_seat_2_png",
+			"type": "image",
+			"url": "assets/images/betArea_seat_2.png"
+		},
+		{
+			"name": "betArea_seat_3_png",
+			"type": "image",
+			"url": "assets/images/betArea_seat_3.png"
+		},
+		{
+			"name": "betArea_seat_4_png",
+			"type": "image",
+			"url": "assets/images/betArea_seat_4.png"
+		},
+		{
+			"name": "betArea_seat_title_1_png",
+			"type": "image",
+			"url": "assets/images/betArea_seat_title_1.png"
+		},
+		{
+			"name": "betArea_seat_title_2_png",
+			"type": "image",
+			"url": "assets/images/betArea_seat_title_2.png"
+		},
+		{
+			"name": "betArea_seat_title_3_png",
+			"type": "image",
+			"url": "assets/images/betArea_seat_title_3.png"
+		},
+		{
+			"name": "betArea_seat_title_5_png",
+			"type": "image",
+			"url": "assets/images/betArea_seat_title_5.png"
+		},
+		{
+			"name": "betArea_seat_title_6_png",
+			"type": "image",
+			"url": "assets/images/betArea_seat_title_6.png"
+		},
+		{
+			"name": "betArea_seat_title_7_png",
+			"type": "image",
+			"url": "assets/images/betArea_seat_title_7.png"
+		},
+		{
+			"name": "betArea_seat_title_8_png",
+			"type": "image",
+			"url": "assets/images/betArea_seat_title_8.png"
+		},
+		{
+			"name": "betAreaSubmit_bg_1_png",
+			"type": "image",
+			"url": "assets/images/betAreaSubmit_bg_1.png"
+		},
+		{
+			"name": "betAreaSubmit_bg_2_png",
+			"type": "image",
+			"url": "assets/images/betAreaSubmit_bg_2.png"
+		},
+		{
+			"name": "seat_win_effect0020_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0020.png"
+		},
+		{
+			"name": "seat_win_effect0001_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0001.png"
+		},
+		{
+			"name": "seat_win_effect0002_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0002.png"
+		},
+		{
+			"name": "seat_win_effect0003_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0003.png"
+		},
+		{
+			"name": "seat_win_effect0004_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0004.png"
+		},
+		{
+			"name": "seat_win_effect0005_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0005.png"
+		},
+		{
+			"name": "seat_win_effect0006_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0006.png"
+		},
+		{
+			"name": "seat_win_effect0007_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0007.png"
+		},
+		{
+			"name": "seat_win_effect0008_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0008.png"
+		},
+		{
+			"name": "seat_win_effect0009_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0009.png"
+		},
+		{
+			"name": "seat_win_effect0010_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0010.png"
+		},
+		{
+			"name": "seat_win_effect0011_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0011.png"
+		},
+		{
+			"name": "seat_win_effect0012_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0012.png"
+		},
+		{
+			"name": "seat_win_effect0013_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0013.png"
+		},
+		{
+			"name": "seat_win_effect0014_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0014.png"
+		},
+		{
+			"name": "seat_win_effect0015_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0015.png"
+		},
+		{
+			"name": "seat_win_effect0016_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0016.png"
+		},
+		{
+			"name": "seat_win_effect0017_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0017.png"
+		},
+		{
+			"name": "seat_win_effect0018_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0018.png"
+		},
+		{
+			"name": "seat_win_effect0019_png",
+			"type": "image",
+			"url": "assets/images/seat_win_effect0019.png"
+		}
+	]
+}
