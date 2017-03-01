@@ -313,18 +313,25 @@ var JClip = (function (_super) {
             this.labelsDict = new Dictionary();
         this.labelsDict.clear();
         if (value != null) {
+            this._currentLabels = this.sortCurrentLabels(this._currentLabels);
             var frame;
             var nextFrame;
-            var len = value.length;
+            var len = this.currentLabels.length;
             for (var i = 0; i < len; i++) {
-                frame = value[i];
+                frame = this.currentLabels[i];
                 if (i < len - 1)
-                    nextFrame = value[i + 1];
+                    nextFrame = this.currentLabels[i + 1];
                 else
                     nextFrame = null;
                 this.labelsDict.add(frame.name, { name: frame.name, frame: frame.frame, endFrame: nextFrame ? nextFrame.frame - 1 : this.totalFrames });
             }
         }
+    };
+    JClip.prototype.sortCurrentLabels = function (arr) {
+        arr.sort(function (a, b) {
+            return (a.frame > b.frame ? 1 : -1);
+        });
+        return arr;
     };
     JClip.prototype.removeFromParent = function () {
         if (this.parent)

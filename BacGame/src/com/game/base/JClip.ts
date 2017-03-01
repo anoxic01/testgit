@@ -301,22 +301,31 @@ class JClip extends egret.Sprite implements IClip,IJuggle
 	*/		
 	protected setCurrentLabels(value:any[]):void
 	{
+	
 		this._currentLabels = value;
 		if(this.labelsDict==null)this.labelsDict = new Dictionary();
 		this.labelsDict.clear();
 		if(value!=null)
 		{
+			this._currentLabels = this.sortCurrentLabels(this._currentLabels);
 			var frame:FrameLabel;
 			var nextFrame:FrameLabel;
-			var len:number = value.length;
+			var len:number = this.currentLabels.length;
 			for (var i:number = 0; i < len; i++)
 			{
-				frame = value[i];
-				if(i<len-1)nextFrame = value[i+1];
+				frame = this.currentLabels[i];
+				if(i<len-1)nextFrame = this.currentLabels[i+1];
 				else nextFrame = null;
 				this.labelsDict.add(frame.name,{name:frame.name,frame:frame.frame,endFrame:nextFrame?nextFrame.frame-1:this.totalFrames});
 			}
 		}
+	}
+	protected sortCurrentLabels(arr:any[]):any[]
+	{
+		arr.sort((a:any,b:any)=>{
+			return (a.frame>b.frame?1:-1);
+		})
+		return arr;
 	}
 	public removeFromParent():void
 	{
