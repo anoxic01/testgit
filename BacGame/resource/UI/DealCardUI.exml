@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DealCardUISkin" width="421" height="300" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="15a5f55a90d" ></w:Config>
+	<e:Image source="dealCard_bg_png" x="0" y="0"/>
+	<e:Label id="playerPoint" text="0" x="124" y="12" size="40" bold="true" textAlign="center" width="52"/>
+	<e:Label id="bankerPoint" text="0" x="339" y="12" size="40" bold="true" width="52" textAlign="center"/>
+	<e:Image source="dealCard_player_label_png" x="24" y="12"/>
+	<e:Image source="dealCard_banker_label_png" x="234" y="12"/>
+</e:Skin>

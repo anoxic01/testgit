@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BetAreaUISkin" width="1692" height="299" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="15a5e9cc80f" ></w:Config>
+	<e:Image width="1692" height="299" x="0" y="0" source="betArea_png"/>
+</e:Skin>
