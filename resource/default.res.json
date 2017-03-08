@@ -1,0 +1,585 @@
+{
+	"groups": [
+		{
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,ad_0_jpg,line_top_png,logo_png,bg_top_png,cut_off_line_png,refresh_default_png,refresh_down_png,icon_me_png,icon_online_png,icon_money_png,refresh_disabled_png,recharge_default_png,recharge_disabled_png,recharge_down_png,zoom_in_down_png,zoom_in_default_png,theme_bg_default_png,theme_bg_down_0_png,theme_bg_down_1_png,theme_bg_down_2_png,theme_bg_down_3_png,theme_bg_down_4_png,theme_bg_down_5_png,theme_bg_down_6_png,theme_icon_0_default_png,theme_icon_0_down_png,theme_icon_1_default_png,theme_icon_1_down_png,theme_icon_2_default_png,theme_icon_2_down_png,theme_icon_3_default_png,theme_icon_3_down_png,theme_icon_4_default_png,theme_icon_4_down_png,theme_icon_5_default_png,theme_icon_5_down_png,theme_icon_6_default_png,theme_icon_6_down_png,theme_bg_png,channel_default_png,channel_down_png,detail_default_png,detail_down_png,exit_default_png,exit_down_png,full_default_png,full_down_png,full_exit_default_png,full_exit_down_png,hd_default_png,hd_down_png,other_default_png,other_down_png,person_info_default_png,person_info_down_png,record_default_png,record_down_png,sd_default_png,sd_down_png,setting_default_png,setting_down_png,theme_label_0_cn_default_png,theme_label_0_cn_over_png,theme_label_0_tw_default_png,theme_label_0_tw_over_png,theme_label_1_cn_default_png,theme_label_1_cn_over_png,theme_label_1_tw_default_png,theme_label_1_tw_over_png,theme_label_2_tw_default_png,theme_label_2_tw_over_png,theme_label_2_cn_default_png,theme_label_2_cn_over_png,theme_label_3_cn_default_png,theme_label_3_cn_over_png,theme_label_3_tw_default_png,theme_label_3_tw_over_png,theme_label_4_cn_default_png,theme_label_4_cn_over_png,theme_label_4_tw_default_png,theme_label_4_tw_over_png,theme_label_5_cn_default_png,theme_label_5_cn_over_png,theme_label_5_tw_default_png,theme_label_5_tw_over_png,theme_label_6_tw_over_png,theme_label_6_cn_default_png,theme_label_6_cn_over_png,theme_label_6_tw_default_png",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/CheckBox/checkbox_select_disabled.png",
+			"type": "image",
+			"name": "checkbox_select_disabled_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_select_down.png",
+			"type": "image",
+			"name": "checkbox_select_down_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_select_up.png",
+			"type": "image",
+			"name": "checkbox_select_up_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_unselect.png",
+			"type": "image",
+			"name": "checkbox_unselect_png"
+		},
+		{
+			"url": "assets/ItemRenderer/selected.png",
+			"type": "image",
+			"name": "selected_png"
+		},
+		{
+			"url": "assets/Panel/border.png",
+			"type": "image",
+			"name": "border_png"
+		},
+		{
+			"url": "assets/Panel/header.png",
+			"type": "image",
+			"name": "header_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_disabled.png",
+			"type": "image",
+			"name": "radiobutton_select_disabled_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_down.png",
+			"type": "image",
+			"name": "radiobutton_select_down_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_up.png",
+			"type": "image",
+			"name": "radiobutton_select_up_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_unselect.png",
+			"type": "image",
+			"name": "radiobutton_unselect_png"
+		},
+		{
+			"url": "assets/ScrollBar/roundthumb.png",
+			"type": "image",
+			"name": "roundthumb_png"
+		},
+		{
+			"url": "assets/Slider/thumb.png",
+			"type": "image",
+			"name": "thumb_png"
+		},
+		{
+			"url": "assets/Slider/track.png",
+			"type": "image",
+			"name": "track_png"
+		},
+		{
+			"url": "assets/Slider/tracklight.png",
+			"type": "image",
+			"name": "tracklight_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/handle.png",
+			"type": "image",
+			"name": "handle_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/off.png",
+			"type": "image",
+			"name": "off_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/on.png",
+			"type": "image",
+			"name": "on_png"
+		},
+		{
+			"url": "assets/Button/button_down.png",
+			"type": "image",
+			"name": "button_down_png"
+		},
+		{
+			"url": "assets/Button/button_up.png",
+			"type": "image",
+			"name": "button_up_png"
+		},
+		{
+			"url": "assets/ProgressBar/thumb_pb.png",
+			"type": "image",
+			"name": "thumb_pb_png"
+		},
+		{
+			"url": "assets/ProgressBar/track_pb.png",
+			"type": "image",
+			"name": "track_pb_png"
+		},
+		{
+			"url": "assets/ScrollBar/track_sb.png",
+			"type": "image",
+			"name": "track_sb_png"
+		},
+		{
+			"url": "assets/bg.jpg",
+			"type": "image",
+			"name": "bg_jpg"
+		},
+		{
+			"url": "assets/egret_icon.png",
+			"type": "image",
+			"name": "egret_icon_png"
+		},
+		{
+			"name": "description_json",
+			"type": "json",
+			"url": "config/description.json"
+		},
+		{
+			"name": "ad_0_jpg",
+			"type": "image",
+			"url": "assets/image/lobby/ad_0.jpg"
+		},
+		{
+			"name": "line_top_png",
+			"type": "image",
+			"url": "assets/image/lobby/line_top.png"
+		},
+		{
+			"name": "logo_png",
+			"type": "image",
+			"url": "assets/image/lobby/logo.png"
+		},
+		{
+			"name": "bg_top_png",
+			"type": "image",
+			"url": "assets/image/lobby/bg_top.png"
+		},
+		{
+			"name": "cut_off_line_png",
+			"type": "image",
+			"url": "assets/image/lobby/cut_off_line.png"
+		},
+		{
+			"name": "refresh_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/refresh_default.png"
+		},
+		{
+			"name": "refresh_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/refresh_down.png"
+		},
+		{
+			"name": "icon_me_png",
+			"type": "image",
+			"url": "assets/image/lobby/icon/icon_me.png"
+		},
+		{
+			"name": "icon_online_png",
+			"type": "image",
+			"url": "assets/image/lobby/icon/icon_online.png"
+		},
+		{
+			"name": "icon_money_png",
+			"type": "image",
+			"url": "assets/image/lobby/icon/icon_money.png"
+		},
+		{
+			"name": "refresh_disabled_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/refresh_disabled.png"
+		},
+		{
+			"name": "recharge_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/recharge_default.png"
+		},
+		{
+			"name": "recharge_disabled_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/recharge_disabled.png"
+		},
+		{
+			"name": "recharge_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/recharge_down.png"
+		},
+		{
+			"name": "zoom_in_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/zoom_in_down.png"
+		},
+		{
+			"name": "zoom_in_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/zoom_in_default.png"
+		},
+		{
+			"name": "theme_bg_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_bg_default.png"
+		},
+		{
+			"name": "theme_bg_down_0_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_bg_down_0.png"
+		},
+		{
+			"name": "theme_bg_down_1_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_bg_down_1.png"
+		},
+		{
+			"name": "theme_bg_down_2_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_bg_down_2.png"
+		},
+		{
+			"name": "theme_bg_down_3_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_bg_down_3.png"
+		},
+		{
+			"name": "theme_bg_down_4_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_bg_down_4.png"
+		},
+		{
+			"name": "theme_bg_down_5_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_bg_down_5.png"
+		},
+		{
+			"name": "theme_bg_down_6_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_bg_down_6.png"
+		},
+		{
+			"name": "theme_icon_0_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_icon_0_default.png"
+		},
+		{
+			"name": "theme_icon_0_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_icon_0_down.png"
+		},
+		{
+			"name": "theme_icon_1_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_icon_1_default.png"
+		},
+		{
+			"name": "theme_icon_1_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_icon_1_down.png"
+		},
+		{
+			"name": "theme_icon_2_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_icon_2_default.png"
+		},
+		{
+			"name": "theme_icon_2_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_icon_2_down.png"
+		},
+		{
+			"name": "theme_icon_3_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_icon_3_default.png"
+		},
+		{
+			"name": "theme_icon_3_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_icon_3_down.png"
+		},
+		{
+			"name": "theme_icon_4_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_icon_4_default.png"
+		},
+		{
+			"name": "theme_icon_4_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_icon_4_down.png"
+		},
+		{
+			"name": "theme_icon_5_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_icon_5_default.png"
+		},
+		{
+			"name": "theme_icon_5_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_icon_5_down.png"
+		},
+		{
+			"name": "theme_icon_6_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_icon_6_default.png"
+		},
+		{
+			"name": "theme_icon_6_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_icon_6_down.png"
+		},
+		{
+			"name": "theme_bg_png",
+			"type": "image",
+			"url": "assets/image/lobby/theme_bg.png"
+		},
+		{
+			"name": "channel_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/channel_default.png"
+		},
+		{
+			"name": "channel_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/channel_down.png"
+		},
+		{
+			"name": "detail_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/detail_default.png"
+		},
+		{
+			"name": "detail_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/detail_down.png"
+		},
+		{
+			"name": "exit_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/exit_default.png"
+		},
+		{
+			"name": "exit_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/exit_down.png"
+		},
+		{
+			"name": "full_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/full_default.png"
+		},
+		{
+			"name": "full_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/full_down.png"
+		},
+		{
+			"name": "full_exit_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/full_exit_default.png"
+		},
+		{
+			"name": "full_exit_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/full_exit_down.png"
+		},
+		{
+			"name": "hd_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/hd_default.png"
+		},
+		{
+			"name": "hd_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/hd_down.png"
+		},
+		{
+			"name": "other_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/other_default.png"
+		},
+		{
+			"name": "other_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/other_down.png"
+		},
+		{
+			"name": "person_info_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/person_info_default.png"
+		},
+		{
+			"name": "person_info_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/person_info_down.png"
+		},
+		{
+			"name": "record_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/record_default.png"
+		},
+		{
+			"name": "record_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/record_down.png"
+		},
+		{
+			"name": "sd_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/sd_default.png"
+		},
+		{
+			"name": "sd_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/sd_down.png"
+		},
+		{
+			"name": "setting_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/setting_default.png"
+		},
+		{
+			"name": "setting_down_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/tool_list/setting_down.png"
+		},
+		{
+			"name": "theme_label_0_cn_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_0_cn_default.png"
+		},
+		{
+			"name": "theme_label_0_cn_over_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_0_cn_over.png"
+		},
+		{
+			"name": "theme_label_0_tw_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_0_tw_default.png"
+		},
+		{
+			"name": "theme_label_0_tw_over_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_0_tw_over.png"
+		},
+		{
+			"name": "theme_label_1_cn_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_1_cn_default.png"
+		},
+		{
+			"name": "theme_label_1_cn_over_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_1_cn_over.png"
+		},
+		{
+			"name": "theme_label_1_tw_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_1_tw_default.png"
+		},
+		{
+			"name": "theme_label_1_tw_over_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_1_tw_over.png"
+		},
+		{
+			"name": "theme_label_2_tw_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_2_tw_default.png"
+		},
+		{
+			"name": "theme_label_2_tw_over_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_2_tw_over.png"
+		},
+		{
+			"name": "theme_label_2_cn_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_2_cn_default.png"
+		},
+		{
+			"name": "theme_label_2_cn_over_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_2_cn_over.png"
+		},
+		{
+			"name": "theme_label_3_cn_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_3_cn_default.png"
+		},
+		{
+			"name": "theme_label_3_cn_over_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_3_cn_over.png"
+		},
+		{
+			"name": "theme_label_3_tw_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_3_tw_default.png"
+		},
+		{
+			"name": "theme_label_3_tw_over_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_3_tw_over.png"
+		},
+		{
+			"name": "theme_label_4_cn_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_4_cn_default.png"
+		},
+		{
+			"name": "theme_label_4_cn_over_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_4_cn_over.png"
+		},
+		{
+			"name": "theme_label_4_tw_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_4_tw_default.png"
+		},
+		{
+			"name": "theme_label_4_tw_over_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_4_tw_over.png"
+		},
+		{
+			"name": "theme_label_5_cn_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_5_cn_default.png"
+		},
+		{
+			"name": "theme_label_5_cn_over_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_5_cn_over.png"
+		},
+		{
+			"name": "theme_label_5_tw_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_5_tw_default.png"
+		},
+		{
+			"name": "theme_label_5_tw_over_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_5_tw_over.png"
+		},
+		{
+			"name": "theme_label_6_tw_over_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_6_tw_over.png"
+		},
+		{
+			"name": "theme_label_6_cn_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_6_cn_default.png"
+		},
+		{
+			"name": "theme_label_6_cn_over_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_6_cn_over.png"
+		},
+		{
+			"name": "theme_label_6_tw_default_png",
+			"type": "image",
+			"url": "assets/image/lobby/button/theme/theme_label_6_tw_default.png"
+		}
+	]
+}

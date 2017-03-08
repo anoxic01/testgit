@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="NewFile" width="30" height="30" currentState="default" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"  states="default,down,disabled"  height.default="30" width.default="30">
+	<e:Image source="refresh_disabled_png" includeIn="disabled" x="0" y="0"/>
+	<e:Image source="refresh_down_png" includeIn="down" x="0" y="0"/>
+	<e:Image source="refresh_default_png" includeIn="default" y="0" left="0"/>
+</e:Skin>

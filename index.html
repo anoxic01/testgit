@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Egret</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <style>
+        html, body {
+            -ms-touch-action: none;
+            background: #000000;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+
+    <!--这个标签为通过egret提供的第三方库的方式生成的 javascript 文件。删除 modules_files 标签后，库文件加载列表将不会变化，请谨慎操作！-->
+    <!--modules_files_start-->
+	<script egret="lib" src="libs/modules/egret/egret.js" src-release="libs/modules/egret/egret.min.js"></script>
+	<script egret="lib" src="libs/modules/egret/egret.web.js" src-release="libs/modules/egret/egret.web.min.js"></script>
+	<script egret="lib" src="libs/modules/game/game.js" src-release="libs/modules/game/game.min.js"></script>
+	<script egret="lib" src="libs/modules/res/res.js" src-release="libs/modules/res/res.min.js"></script>
+	<script egret="lib" src="libs/modules/eui/eui.js" src-release="libs/modules/eui/eui.min.js"></script>
+	<script egret="lib" src="libs/modules/tween/tween.js" src-release="libs/modules/tween/tween.min.js"></script>
+	<script egret="lib" src="libs/modules/socket/socket.js" src-release="libs/modules/socket/socket.min.js"></script>
+	<script egret="lib" src="libs/modules/dragonBones/dragonBones.js" src-release="libs/modules/dragonBones/dragonBones.min.js"></script>
+	<script egret="lib" src="libs/modules/mouse/mouse.js" src-release="libs/modules/mouse/mouse.min.js"></script>
+	<!--modules_files_end-->
+
+    <!--这个标签为不通过egret提供的第三方库的方式使用的 javascript 文件，请将这些文件放在libs下，但不要放在modules下面。-->
+    <!--other_libs_files_start-->
+    <!--other_libs_files_end-->
+
+    <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
+    <!--game_files_start-->
+	<script egret="game" src="bin-debug/ui/button/Button_Tool.js"></script>
+	<script egret="game" src="bin-debug/ui/button/theme/Button_Theme.js"></script>
+	<script egret="game" src="bin-debug/ui/button/Button_Refresh.js"></script>
+	<script egret="game" src="bin-debug/ThemeAdapter.js"></script>
+	<script egret="game" src="bin-debug/config/TemConfig.js"></script>
+	<script egret="game" src="bin-debug/define/Define.js"></script>
+	<script egret="game" src="bin-debug/lobby/data/LobbyAuth.js"></script>
+	<script egret="game" src="bin-debug/lobby/data/LobbyData.js"></script>
+	<script egret="game" src="bin-debug/lobby/language/Language.js"></script>
+	<script egret="game" src="bin-debug/lobby/struct/Struct_Table.js"></script>
+	<script egret="game" src="bin-debug/lobby/struct/Struct_Theme.js"></script>
+	<script egret="game" src="bin-debug/lobby/view/Advertisement.js"></script>
+	<script egret="game" src="bin-debug/lobby/view/LobbyInformation.js"></script>
+	<script egret="game" src="bin-debug/lobby/view/LobbyToolList.js"></script>
+	<script egret="game" src="bin-debug/lobby/view/LobbyView.js"></script>
+	<script egret="game" src="bin-debug/lobby/view/Panorama.js"></script>
+	<script egret="game" src="bin-debug/lobby/view/ThemeItem.js"></script>
+	<script egret="game" src="bin-debug/lobby/view/ThemeList.js"></script>
+	<script egret="game" src="bin-debug/manager/LobbyManager.js"></script>
+	<script egret="game" src="bin-debug/tool/BitmapTool.js"></script>
+	<script egret="game" src="bin-debug/ui/button/Button_Recharge.js"></script>
+	<script egret="game" src="bin-debug/LoadingUI.js"></script>
+	<script egret="game" src="bin-debug/AssetAdapter.js"></script>
+	<script egret="game" src="bin-debug/ui/button/Button_ZoomIn.js"></script>
+	<script egret="game" src="bin-debug/Main.js"></script>
+	<script egret="game" src="bin-debug/ui/button/theme/Button_Theme_0.js"></script>
+	<script egret="game" src="bin-debug/ui/button/theme/Button_Theme_1.js"></script>
+	<script egret="game" src="bin-debug/ui/button/theme/Button_Theme_2.js"></script>
+	<script egret="game" src="bin-debug/ui/button/theme/Button_Theme_3.js"></script>
+	<script egret="game" src="bin-debug/ui/button/theme/Button_Theme_4.js"></script>
+	<script egret="game" src="bin-debug/ui/button/theme/Button_Theme_5.js"></script>
+	<script egret="game" src="bin-debug/ui/button/theme/Button_Theme_6.js"></script>
+	<script egret="game" src="bin-debug/ui/button/tool_list/Button_Channel.js"></script>
+	<script egret="game" src="bin-debug/ui/button/tool_list/Button_Detail.js"></script>
+	<script egret="game" src="bin-debug/ui/button/tool_list/Button_Exit.js"></script>
+	<script egret="game" src="bin-debug/ui/button/tool_list/Button_Exit_FullScreen.js"></script>
+	<script egret="game" src="bin-debug/ui/button/tool_list/Button_FullScreen.js"></script>
+	<script egret="game" src="bin-debug/ui/button/tool_list/Button_HD.js"></script>
+	<script egret="game" src="bin-debug/ui/button/tool_list/Button_Other.js"></script>
+	<script egret="game" src="bin-debug/ui/button/tool_list/Button_PersonInfo.js"></script>
+	<script egret="game" src="bin-debug/ui/button/tool_list/Button_Record.js"></script>
+	<script egret="game" src="bin-debug/ui/button/tool_list/Button_SD.js"></script>
+	<script egret="game" src="bin-debug/ui/button/tool_list/Button_Setting.js"></script>
+	<!--game_files_end-->
+</head>
+<body>
+
+    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+         data-entry-class="Main"
+         data-orientation="auto"
+         data-scale-mode="showAll"
+         data-frame-rate="30"
+         data-content-width="1920"
+         data-content-height="1080"
+         data-show-paint-rect="false"
+         data-multi-fingered="2"
+         data-show-fps="false" data-show-log="false"
+         data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9">
+    </div>
+    <script>
+        /**
+         * {
+         * "renderMode":, //引擎渲染模式，"canvas" 或者 "webgl"
+         * "audioType": "" //使用的音频类型，0:默认，1:qq audio，2:web audio，3:audio
+         * "antialias": //WebGL模式下是否开启抗锯齿，true:开启，false:关闭，默认为false
+         * }
+         **/
+        egret.runEgret({renderMode:"webgl", audioType:0});
+    </script>
+</body>
+</html>

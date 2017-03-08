@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ButtonSkin_exit_fullscreen" width="30" height="30" currentState="default" xmlns:e="http://ns.egret.com/eui" states="default,down,disabled" >
+	<e:Image source="full_exit_down_png" includeIn="down" x="0" y="0"/>
+	<e:Image source="full_exit_default_png" includeIn="default" x="0" y="0"/>
+</e:Skin>

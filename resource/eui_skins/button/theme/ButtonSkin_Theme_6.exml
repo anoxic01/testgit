@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="Theme_6" width="274" height="110" currentState="default" xmlns:e="http://ns.egret.com/eui" states="default,down,disabled" >
+	<e:Image source="theme_bg_down_6_png" includeIn="down" x="0" y="0"/>
+	<e:Image source="theme_icon_6_down_png" includeIn="down" x="48" y="30"/>
+	<e:Image source="theme_bg_default_png" includeIn="default" x="0" y="0"/>
+	<e:Image source="theme_icon_6_default_png" includeIn="default" x="48" y="30"/>
+</e:Skin>

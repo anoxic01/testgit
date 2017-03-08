@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ButtonSkin_zoom_in" width="23" height="20" currentState="default" xmlns:e="http://ns.egret.com/eui" states="default,down,disabled"  width.default="24">
+	<e:Image source="zoom_in_down_png" includeIn="down" x="-7" y="-6"/>
+	<e:Image source="zoom_in_default_png" x="0" y="0" includeIn="default"/>
+</e:Skin>
