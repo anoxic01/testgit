@@ -10,8 +10,8 @@ module lobby.struct {
 		
 		public TableList		:	Struct_Table[];				//桌子信息
 		
-		public IsTelBet			:	Boolean 	=	false;		//是否电投
-		public IsMaintaining	:	Boolean;					//维护状态
+		public IsTelBet			:	boolean 	=	false;		//是否电投
+		public IsMaintaining	:	boolean;					//维护状态
 		public SN				:	number;						//排列序号
 
 		public constructor() {

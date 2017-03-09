@@ -14,7 +14,7 @@ module manager {
                     this.instance = new LobbyManager();
             	}
             	return this.instance;
-     		}
+     	}
 		public constructor() {
 		}
 

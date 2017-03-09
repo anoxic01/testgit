@@ -1,4 +1,4 @@
-module data {
+module lobby.data {
 	export class LobbyData {
 
 		public lobbyInfo;
