@@ -13,15 +13,15 @@ module lobby.view {
 			let information  = new egret.DisplayObjectContainer();
 			this.addChild(information);
 
-			let logo = tool.BitmapTool.getInstance().createBitmapByName("logo_png");
+			let logo = manager.ResourceManager.getInstance().createBitmapByName("logo_png");
 			this.addChild(logo);
 
-			let line_top = tool.BitmapTool.getInstance().createBitmapByName("line_top_png");
+			let line_top = manager.ResourceManager.getInstance().createBitmapByName("line_top_png");
 			this.addChild(line_top);
 			line_top.x = 256;
 			line_top.y = 49;
 
-			let iocn_me = tool.BitmapTool.getInstance().createBitmapByName("icon_me_png");
+			let iocn_me = manager.ResourceManager.getInstance().createBitmapByName("icon_me_png");
 			this.addChild(iocn_me);
 			iocn_me.x = 235;
 			iocn_me.y = 15;
@@ -34,12 +34,12 @@ module lobby.view {
 			this.txt_name.x = 276;
 			this.txt_name.y = this.txt_y;
 
-			let cut_off_line_0 = tool.BitmapTool.getInstance().createBitmapByName("cut_off_line_png");
+			let cut_off_line_0 = manager.ResourceManager.getInstance().createBitmapByName("cut_off_line_png");
 			this.addChild(cut_off_line_0);
 			cut_off_line_0.x = 465;
 			cut_off_line_0.y = 16;
 
-			let icon_money = tool.BitmapTool.getInstance().createBitmapByName("icon_money_png");
+			let icon_money = manager.ResourceManager.getInstance().createBitmapByName("icon_money_png");
 			this.addChild(icon_money);
 			icon_money.x = 477;
 			icon_money.y = 10;
@@ -57,12 +57,12 @@ module lobby.view {
 			btn_recharge.x = 655;
 			btn_recharge.y = 14;
 
-			let cut_off_line_1 = tool.BitmapTool.getInstance().createBitmapByName("cut_off_line_png");
+			let cut_off_line_1 = manager.ResourceManager.getInstance().createBitmapByName("cut_off_line_png");
 			this.addChild(cut_off_line_1);
 			cut_off_line_1.x = 696;
 			cut_off_line_1.y = 16;
 
-			let icon_online = tool.BitmapTool.getInstance().createBitmapByName("icon_online_png");
+			let icon_online = manager.ResourceManager.getInstance().createBitmapByName("icon_online_png");
 			this.addChild(icon_online);
 			icon_online.x = 719;
 			icon_online.y = 21;

@@ -3,7 +3,7 @@ module lobby.view.advertisements {
 		public constructor() {
 			super();
 
-			let ad = tool.BitmapTool.getInstance().createBitmapByName("ad_0_jpg");
+			let ad = manager.ResourceManager.getInstance().createBitmapByName("ad_0_jpg");
 			this.addChild(ad);
 
 		}

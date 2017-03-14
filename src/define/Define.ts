@@ -83,13 +83,13 @@ module define {
 		
 		/** 主題類型 **/
 		//***** QC ***********//
-//		public static var THEME_DIAMOND					:	number	=	1;				//钻石厅
-//		public static var THEME_PLATINUM				:	number	=	2;				//铂金厅
-//		public static var THEME_BID						:	number	=	3;				//翡翠厅
-//		public static var THEME_VIP						:	number	=	4;				//银臂厅
-//		public static var THEME_TELPHONE		 		:	number	=	5;				//電話投注
-//		public static var THEME_ARM						:	number	=	6;				//金臂厅
-//		public static var THEME_MULTI_TABLE				:	number	=	7;				//好路多桌
+//		public static THEME_DIAMOND					:	number	=	1;				//钻石厅
+//		public static THEME_PLATINUM				:	number	=	2;				//铂金厅
+//		public static THEME_BID						:	number	=	3;				//翡翠厅
+//		public static THEME_VIP						:	number	=	4;				//银臂厅
+//		public static THEME_TELPHONE		 		:	number	=	5;				//電話投注
+//		public static THEME_ARM						:	number	=	6;				//金臂厅
+//		public static THEME_MULTI_TABLE				:	number	=	7;				//好路多桌
 		
 		//***** RTM ***********//
 		public static THEME_6			=	1;				//钻石厅

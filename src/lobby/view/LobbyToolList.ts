@@ -20,7 +20,7 @@ module lobby.view {
 			this.btn_refresh = new ui.button.Button_Refresh();
 			this.addChild(this.btn_refresh);
 
-			let cut_off_line_0 = tool.BitmapTool.getInstance().createBitmapByName("cut_off_line_png");
+			let cut_off_line_0 = manager.ResourceManager.getInstance().createBitmapByName("cut_off_line_png");
 			this.addChild(cut_off_line_0);
 			cut_off_line_0.x = 45;
 			cut_off_line_0.y = 1;
@@ -35,7 +35,7 @@ module lobby.view {
 			this.btn_hd.x = 65;
 			this.btn_hd.y = 0;
 
-			let cut_off_line_1 = tool.BitmapTool.getInstance().createBitmapByName("cut_off_line_png");
+			let cut_off_line_1 = manager.ResourceManager.getInstance().createBitmapByName("cut_off_line_png");
 			this.addChild(cut_off_line_1);
 			cut_off_line_1.x = 110;
 			cut_off_line_1.y = 1;
@@ -45,7 +45,7 @@ module lobby.view {
 			this.btn_channel.x = 130;
 			this.btn_channel.y = 0;
 
-			let cut_off_line_2 = tool.BitmapTool.getInstance().createBitmapByName("cut_off_line_png");
+			let cut_off_line_2 = manager.ResourceManager.getInstance().createBitmapByName("cut_off_line_png");
 			this.addChild(cut_off_line_2);
 			cut_off_line_2.x = 175;
 			cut_off_line_2.y = 1;
@@ -55,7 +55,7 @@ module lobby.view {
 			this.btn_detail.x = 196;
 			this.btn_detail.y = 1;
 
-			let cut_off_line_3 = tool.BitmapTool.getInstance().createBitmapByName("cut_off_line_png");
+			let cut_off_line_3 = manager.ResourceManager.getInstance().createBitmapByName("cut_off_line_png");
 			this.addChild(cut_off_line_3);
 			cut_off_line_3.x = 240;
 			cut_off_line_3.y = 1;
@@ -70,7 +70,7 @@ module lobby.view {
 			this.btn_exit_fullscreen.x = 261;
 			this.btn_exit_fullscreen.y = 1;
 
-			let cut_off_line_4 = tool.BitmapTool.getInstance().createBitmapByName("cut_off_line_png");
+			let cut_off_line_4 = manager.ResourceManager.getInstance().createBitmapByName("cut_off_line_png");
 			this.addChild(cut_off_line_4);
 			cut_off_line_4.x = 304;
 			cut_off_line_4.y = 1;
@@ -80,7 +80,7 @@ module lobby.view {
 			this.btn_personal_info.x = 326;
 			this.btn_personal_info.y = 0;
 
-			let cut_off_line_5 = tool.BitmapTool.getInstance().createBitmapByName("cut_off_line_png");
+			let cut_off_line_5 = manager.ResourceManager.getInstance().createBitmapByName("cut_off_line_png");
 			this.addChild(cut_off_line_5);
 			cut_off_line_5.x = 369;
 			cut_off_line_5.y = 1;
@@ -90,7 +90,7 @@ module lobby.view {
 			this.btn_record.x = 389;
 			this.btn_record.y = 0;
 
-			let cut_off_line_6 = tool.BitmapTool.getInstance().createBitmapByName("cut_off_line_png");
+			let cut_off_line_6 = manager.ResourceManager.getInstance().createBitmapByName("cut_off_line_png");
 			this.addChild(cut_off_line_6);
 			cut_off_line_6.x = 430;
 			cut_off_line_6.y = 1;
@@ -100,7 +100,7 @@ module lobby.view {
 			this.btn_other.x = 451;
 			this.btn_other.y = 0;
 
-			let cut_off_line_7 = tool.BitmapTool.getInstance().createBitmapByName("cut_off_line_png");
+			let cut_off_line_7 = manager.ResourceManager.getInstance().createBitmapByName("cut_off_line_png");
 			this.addChild(cut_off_line_7);
 			cut_off_line_7.x = 495;
 			cut_off_line_7.y = 1;
@@ -110,7 +110,7 @@ module lobby.view {
 			this.btn_setting.x = 516;
 			this.btn_setting.y = 0;
 
-			let cut_off_line_8 = tool.BitmapTool.getInstance().createBitmapByName("cut_off_line_png");
+			let cut_off_line_8 = manager.ResourceManager.getInstance().createBitmapByName("cut_off_line_png");
 			this.addChild(cut_off_line_8);
 			cut_off_line_8.x = 554;
 			cut_off_line_8.y = 1;

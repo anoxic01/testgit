@@ -14,7 +14,7 @@ module lobby.view.theme {
 		// private m_curSysCtrl			:MobileCtrl;							//当前控制器
 		private m_iCurSys				:number				 = -1;				//当前显示的系统
 		private m_iCurLayout			:number				 = -1;				//当前布局类型
-		private m_bIsShow				:Boolean;								//是否显示
+		private m_bIsShow				:boolean;								//是否显示
 		public fOnClose					:Function;						//关闭回调
 
 		public constructor(_mcAsset:egret.MovieClip ,$bShake:boolean = false) {
@@ -56,7 +56,7 @@ module lobby.view.theme {
 			// m_btnAndriod = null;
 			// if(m_allSysBtn)
 			// {
-			// 	for (var i:int = 0; i < m_allSysBtn.length; i++) 
+			// 	for (var i:number = 0; i < m_allSysBtn.length; i++) 
 			// 	{
 			// 		m_allSysBtn[i] = null;
 			// 	}
@@ -143,7 +143,7 @@ module lobby.view.theme {
 		{
 			this.setLayout(define.MobileDefine.GRID);
 		}
-		get isShow():Boolean
+		get isShow():boolean
 		{
 			return this.m_bIsShow;
 		}

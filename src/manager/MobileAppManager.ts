@@ -81,7 +81,7 @@ module manager {
 		/**
 		 * 隱藏下注紀錄面板
 		 */
-		public hidePannel(_bTween:Boolean=true):void 
+		public hidePannel(_bTween:boolean=true):void 
 		{
 			if(this.m_maMainUI==null)
 				return;
@@ -124,7 +124,7 @@ module manager {
 		 * @param sClassName
 		 * @return 
 		 */		
-		public getInstanceByNameFromDomain(sClassName:String):any{
+		public getInstanceByNameFromDomain(sClassName:string):any{
 			let _class;
 			// try
 			// {

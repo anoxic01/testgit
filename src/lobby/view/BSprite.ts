@@ -9,6 +9,22 @@ module lobby.view {
 
 		public constructor() {
 			super();
+
+			this.initialize();
+		}
+
+		public initialize():void{
+
+		}
+
+		public destroy():void{
+			if(this.nPosition){
+				this.nPosition = null;
+			}
+		}
+
+		public onChangeLanguage():void{
+
 		}
 	}
 }

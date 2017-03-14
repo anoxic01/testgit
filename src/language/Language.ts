@@ -396,8 +396,8 @@ module language {
 		public static sBig_Small						:	string	=	"sBig_Small";				//大/小
 		public static sOdd_Even							:	string	=	"sOdd_Even";				//單/雙
 		
-		public dictionarystring							:	Dictionary;
-		public dictionaryBmpd							:	Dictionary;
+		public dictionarystring							:	Object;
+		public dictionaryBmpd							:	Object;
 		
 		/** 位图按钮 **/
 		public static sMouseOver						:	string	=	"Mouse_over";				//鼠标以上

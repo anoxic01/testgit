@@ -147,7 +147,7 @@ class Main extends eui.UILayer {
         topMask.y = 33;
         this.addChild(topMask);
 
-        let icon:egret.Bitmap = tool.BitmapTool.getInstance().createBitmapByName("egret_icon_png");
+        let icon:egret.Bitmap = manager.ResourceManager.getInstance().createBitmapByName("egret_icon_png");
         this.addChild(icon);
         icon.x = 26;
         icon.y = 33;

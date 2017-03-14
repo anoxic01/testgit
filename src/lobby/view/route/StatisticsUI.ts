@@ -1,6 +1,7 @@
 module lobby.view.route {
-	export class StatisticsUI {
+	export class StatisticsUI extends BSprite {
 		public constructor() {
+			super();
 		}
 	}
 }

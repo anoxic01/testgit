@@ -55,8 +55,8 @@ module lobby.view.windows {
 			this.m_bmp2.bitmapData=null;
 			this.m_bmp2.visible=false;
 			if (GameMsgWnd.m_bmdTipArr.indexOf(str)>-1){
-				var bmd:BitmapData = BitmapManager.getInstance().getBmpdLanguage(manager.LobbyManager.getInstance().lobbyAuth.Lang,str);
-				this.m_bmp.scaleX = this.m_bmp.scaleY = scale;
+				var bmd:egret.BitmapData = manager.BitmapManager.getInstance().getBmpdLanguage(manager.LobbyManager.getInstance().lobbyAuth.Lang,str);
+				this.m_bmp.scaleX = this.m_bmp.scaleY = this.scale;
 				this.m_bmp.bitmapData = bmd;
 				this.m_bmp.smoothing = true;
 				if (time==1.5 && this.m_bmp.width>350){
@@ -85,7 +85,7 @@ module lobby.view.windows {
 			}
 			this.msg = str;
 			if (str == language.Language.sWinGold || str == language.Language.sLose){
-				var bmd:egret.BitmapData = BitmapManager.getInstance().getBmpdLanguage(manager.LobbyManager.getInstance().lobbyAuth.Lang,str);
+				var bmd:egret.BitmapData = manager.BitmapManager.getInstance().getBmpdLanguage(manager.LobbyManager.getInstance().lobbyAuth.Lang,str);
 				this.m_bmp.scaleX=this.m_bmp.scaleY=this.scale;
 				this.m_bmp.bitmapData = bmd;
 				this.m_bmp.smoothing = true;
@@ -99,7 +99,7 @@ module lobby.view.windows {
 					this.m_bmp2.scaleY=this.scale;
 				}
 				
-				var bmd2:egret.BitmapData =BitmapManager.getInstance().numberGold.conversion( <number>(value) );
+				var bmd2:egret.BitmapData = manager.BitmapManager.getInstance().numberGold.conversion( <number>(value) );
 				
 				this.m_bmp2.bitmapData = bmd2;
 				this.m_bmp2.smoothing = true;
@@ -119,7 +119,7 @@ module lobby.view.windows {
 		}
 		
 		public onChangeLanguage():void{
-			var bmd:egret.BitmapData = BitmapManager.getInstance().getBmpdLanguage(manager.LobbyManager.getInstance().lobbyAuth.Lang, this.msg);
+			var bmd:egret.BitmapData = manager.BitmapManager.getInstance().getBmpdLanguage(manager.LobbyManager.getInstance().lobbyAuth.Lang, this.msg);
 			this.m_bmp.scaleX=this.m_bmp.scaleY=this.scale;
 			this.m_bmp.bitmapData = bmd;
 			this.m_bmp.smoothing = true;

@@ -13,7 +13,7 @@ module lobby.view.theme {
 		public constructor() {
 			super();
 
-			let bg = tool.BitmapTool.getInstance().createBitmapByName("theme_bg_png");
+			let bg = manager.ResourceManager.getInstance().createBitmapByName("theme_bg_png");
 			this.addChild(bg);
 
 			this.setData();

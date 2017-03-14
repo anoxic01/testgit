@@ -17,9 +17,9 @@ module ui.button {
 			mouse.setButtonMode(this, true);
 			mouse.setMouseMoveEnabled(true);
 
-			this.btn_bg_default = tool.BitmapTool.getInstance().createBitmapByName(this.arr[0]);
+			this.btn_bg_default = manager.ResourceManager.getInstance().createBitmapByName(this.arr[0]);
 			this.addChild(this.btn_bg_default);			
-			this.btn_bg_over = tool.BitmapTool.getInstance().createBitmapByName(this.arr[1]);
+			this.btn_bg_over = manager.ResourceManager.getInstance().createBitmapByName(this.arr[1]);
 
 			this.addEventListener(mouse.MouseEvent.MOUSE_OVER, this.onOver, this);
 			this.addEventListener(mouse.MouseEvent.MOUSE_OUT,this.onOut, this);
