@@ -49,30 +49,138 @@ module lobby.view.theme {
 			this.addChild(this.m_mcAsset);
 
 		}
-
-		public setSelect($value:boolean):void{
-			this.m_mcAsset.setSelect($value);
+		
+		override public function destroy():void{
+			
+			m_mcAsset.removeEventListener(MouseEvent.CLICK, onClick);
+			m_mcAsset.removeEventListener(MouseEvent.MOUSE_OVER, onOver);
+			m_mcAsset.removeEventListener(MouseEvent.MOUSE_OUT, onOut);
+//			m_mcAsset.removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
+			
+			if(m_bmpLabel){
+				if(m_bmpLabel.parent){
+					m_bmpLabel.parent.removeChild(m_bmpLabel);
+				}
+				m_bmpLabel = null;
+			}
+			
+			if(m_themeList){
+				m_themeList = null;
+			}
+			
+			if(m_mcAsset){
+				this.removeChild(m_mcAsset);
+				m_mcAsset = null;
+			}
 		}
-
-		private onClick(evt:egret.TouchEvent):void{
-			if(this.themeStruct==null){
-				//manager.LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
+		
+		override public function onChangeLanguage():void{
+			if(m_bmpLabel){
+				if(m_bSelect){
+					m_bmpLabel.bitmapData = BitmapManager.getInstance().getBmpdLanguage(LobbyManager.getInstance().lobbyAuth.Lang, sKey+"_"+Language.sMouseOver);
+					m_bmpLabel.smoothing = true;
+					return;
+				}
+				onDefault();
+			}
+		}
+		
+		public function setSelect(_bSelect:Boolean):void{
+			if(m_bSelect != _bSelect){
+				m_bSelect = _bSelect;
+				if(m_bSelect){
+//					onMouseDown();
+					onMouseOver();
+				}else{
+					onDefault();
+				}
+			}
+		}
+		
+		public function get struct():ThemeStruct{
+			return m_themeStruct;
+		}
+		
+		protected function onOver(event:MouseEvent):void
+		{
+			if(m_bSelect){
 				return;
 			}
-			if(this.m_mcAsset.bSelect){
+//			SoundManager.getInstance().play(SoundPackage.sLobbyMouseOver);
+			onMouseOver();
+		}
+		
+		protected function onOut(event:MouseEvent):void
+		{
+			if(m_bSelect){
+				return;
+			}
+			onDefault();
+		}
+		
+		
+//		protected function onDown(event:MouseEvent):void
+//		{
+//			if(m_bSelect){
+//				return;
+//			}
+//			onMouseDown();
+//		}
+		
+		public function autoClick():void
+		{
+			onClick(null);
+		}
+		
+		protected function onClick(event:MouseEvent):void
+		{
+			if(m_themeStruct==null){
+				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
+				return;
+			}
+			if(m_bSelect){
 				return;
 			}
 			
-			if(this.m_themeList){
-				this.m_themeList.setCurrent(this);
+			if(m_themeList){
+				m_themeList.setCurrent(this);
 			}
+			
+			trace("themeID:" +  m_themeStruct.ThemeID );
 			
 			//屏蔽厅馆按钮
-			// if( this.themeStruct.ThemeID != config.TemConfig.getInstance().PhoneBetID ){   //臨時處理
-			// 	manager.LobbyManager.getInstance().lobbyView.themeList.enable(false);
-			// }
+			if( m_themeStruct.ThemeID != TemConfig.getInstance().PhoneBetID ){   //臨時處理
+				LobbyManager.getInstance().lobbyView.themeList.enable(false);
+			}
+			
+			SoundManager.getInstance().play(SoundPackage.sChangePage);
+			trace("切换厅别。。。", this.mouseEnabled);
 		}
-
+		
+		private function onDefault():void{
+			if(m_mcAsset){
+				m_mcAsset.gotoAndStop("DEFAULT");
+			}
+			if(m_bmpLabel){
+				m_bmpLabel.bitmapData = BitmapManager.getInstance().getBmpdLanguage(LobbyManager.getInstance().lobbyAuth.Lang, sKey+"_"+Language.sDefault);
+				m_bmpLabel.smoothing = true;
+			}
+			
+		}
+		private function onMouseOver():void{
+			if(m_mcAsset){
+				m_mcAsset.gotoAndStop("HOVER");
+			}
+			if(m_bmpLabel){
+				m_bmpLabel.bitmapData = BitmapManager.getInstance().getBmpdLanguage(LobbyManager.getInstance().lobbyAuth.Lang, sKey+"_"+Language.sMouseOver);
+				m_bmpLabel.smoothing = true;
+			}
+			
+			
+		}
+//		private function onMouseDown():void{
+//			m_mcAsset.gotoAndStop("HDOWN");
+//		}
 		
 	}
 }

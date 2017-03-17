@@ -1,5 +1,5 @@
 module lobby.view.windows {
-	export class MessageWindow extends egret.DisplayObjectContainer {
+	export class MessageWindow extends BSprite {
 
 		public     container			:	egret.Sprite;				//放置弹窗的容器
 		protected 	m_textField			:	egret.TextField;			//

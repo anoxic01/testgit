@@ -1,5 +1,5 @@
 module packet {
-	export class C_NAck_Pkt {
+	export class C_NAck_Pkt extends Packet{
 		public var Type	:	int;
 		public var SN	:	uint;
 		
