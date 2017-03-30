@@ -3,11 +3,11 @@ module packet.lobby {
 		public constructor() {
 		}
 		
-		public function initControler(controler:GameControler):void{
+		public initControler(controler:GameControler):void{
 			
 		}
 		
-		public function execute( _oData:Object ):void
+		public execute( _oData:Object ):void
 		{
 			var _fExitLobby:Function = LobbyManager.getInstance().leaveLobby;	
 			var _fRefresh:Function = LobbyManager.getInstance().refreshWeb;
@@ -48,7 +48,7 @@ module packet.lobby {
 				case Define.RET_10:			//大廳服務器忙碌中,需做重複登入
 					Log.getInstance().log(this, "Retry  Lobby Login:::");
 					
-					var _bRes:Boolean = LobbyManager.getInstance().reconnect();
+					var _bRes: boolean = LobbyManager.getInstance().reconnect();
 					if( _bRes == false ){
 						var _sMsg:String = LobbyManager.getInstance().getLanguageString( Language.sWarn_Server_Busy );
 						_pannelDialog = LobbyManager.getInstance().showDialog_2( _sMsg , true, false,  _fExitLobby , _fRefresh); 
@@ -69,7 +69,7 @@ module packet.lobby {
 					break;
 				
 				default:
-					trace("登录大厅异常。。。");
+					console.log("登录大厅异常。。。");
 					_pannelDialog = LobbyManager.getInstance().showDialog( LobbyManager.getInstance().getLanguageString( Language.sWarn_Login_Lobby_Other_Error ) , _fExitLobby );
 					break;
 			}

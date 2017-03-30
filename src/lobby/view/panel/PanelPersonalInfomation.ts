@@ -1,7 +1,7 @@
 module lobby.view.panel {
-	export class PanelPersonalInfomation extends PanelWindow{
-		private var m_btnClose		:	SingleButtonMC;			//关闭按钮
-//		private var m_bg			:	BitmapScale9Grid;		//背景
+	export class PanelPersonalinformation extends PanelWindow{
+		private m_btnClose		:	SingleButtonMC;			//关闭按钮
+//		private m_bg			:	BitmapScale9Grid;		//背景
 				
 		public constructor() {
 		
@@ -22,7 +22,7 @@ module lobby.view.panel {
 			
 			m_btnClose = new SingleButtonMC(m_mcAsset.mc_close,function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				LobbyManager.getInstance().hidePersonalInfomation();
+				LobbyManager.getInstance().hidePersonalinformation();
 			});
 			m_btnClose.enabled = false;
 //			m_btnClose.fOnOver = function():void{
@@ -35,13 +35,13 @@ module lobby.view.panel {
 			this.addEventListener(MouseEvent.CLICK,onclick);
 		}
 		
-		protected function onclick(event:MouseEvent):void
+		protected onclick(event:MouseEvent):void
 		{
 			// TODO Auto-generated method stub
 			event.stopImmediatePropagation();
 		}
 		
-		override public function destroy():void
+		 public destroy():void
 		{
 //			if(m_bg){
 //				if(m_bg.parent){
@@ -64,7 +64,7 @@ module lobby.view.panel {
 			super.destroy();
 		}
 		
-		public function  refresh():void{
+		public  refresh():void{
 			var str : String = Player.getInstance().sNickName;
 			m_mcAsset.tf_7.text = str;
 			m_mcAsset.tf_8.text = 	Player.getInstance().Country;
@@ -85,7 +85,7 @@ module lobby.view.panel {
 //			m_mcAsset.tf_13.text = 	String(Player.getInstance().gameSetting.UpperBetLimitId);
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 //			m_mcAsset.tf_label.text = LobbyManager.getInstance().getLanguageString(Language.sPersonal_Label);
 			m_mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			switch(LobbyManager.getInstance().lobbyAuth.Lang){
@@ -109,7 +109,7 @@ module lobby.view.panel {
 			
 		}
 		
-		private function getOnlineTime():String{
+		private getOnlineTime():String{
 			var ms : int  = getTimer();
 			var s : int = ms*0.001;
 			var m : int = s/60;

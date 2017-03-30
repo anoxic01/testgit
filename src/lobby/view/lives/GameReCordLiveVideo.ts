@@ -1,18 +1,18 @@
 module lobby.view.lives {
 	export class GameReCordLiveVideo extends LiveVideoGame{
 		
-		private var m_btnRefresh		:	SingleButtonMC;				//刷新视讯
-		private var m_btnZoomIn			:	SingleButtonMC;				//放大视讯
-		private var m_btnZoomOut		:	SingleButtonMC;				//缩小视讯
-		public var btnBack				:	SingleButtonMC;				//关闭视讯
-		private var m_btnOnOff			:	SingleButtonMC;				//显示隐藏
-		private var m_mask				:	Sprite;
+		private m_btnRefresh		:	SingleButtonMC;				//刷新视讯
+		private m_btnZoomIn			:	SingleButtonMC;				//放大视讯
+		private m_btnZoomOut		:	SingleButtonMC;				//缩小视讯
+		public btnBack				:	SingleButtonMC;				//关闭视讯
+		private m_btnOnOff			:	SingleButtonMC;				//显示隐藏
+		private m_mask				:	Sprite;
 		
-		public var zoomPt				:	Point;						//放大到的点
-		public var bTween				:	Boolean;					//放大缩小动画中
-		public var nScaleBig			:	Number = 2;					//放大參數
+		public zoomPt				:	Point;						//放大到的点
+		public bTween				:	 boolean;					//放大缩小动画中
+		public nScaleBig			:	Number = 2;					//放大參數
 		
-		public constructor(_mcParent:MovieClip,_uWidth:uint, _uHeight:uint) {
+		public constructor(_mcParent:MovieClip,_uWidth:number, _uHeight:number) {
 			
 			mcAsset = _mcParent;
 			
@@ -89,7 +89,7 @@ module lobby.view.lives {
 			hideLoding();
 		}
 		
-		override public function initializeRTMPPlayer():void{
+		 public initializeRTMPPlayer():void{
 			m_rtmpPlayer = new RTMPPlayer();
 			LobbyData.getInstance().addRtmpPlayer(m_rtmpPlayer);
 			m_rtmpPlayer.initialize( m_mcVideo, uWidth, uHeight);
@@ -98,7 +98,7 @@ module lobby.view.lives {
 			m_rtmpPlayer.fConnectFailed = connectFailed;
 			
 			m_rtmpPlayer.resize(uWidth,uHeight);
-			var _bStatus : Boolean = SharedObjectManager.getLiveOnOff();
+			var _bStatus :  boolean = SharedObjectManager.getLiveOnOff();
 			m_rtmpPlayer.setVolume(_bStatus?SharedObjectManager.getLiveVolume():0);
 			
 			m_loading = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_LOBBY,"LoadingLiveAsset");
@@ -114,7 +114,7 @@ module lobby.view.lives {
 			};
 		}
 		
-		override protected function init():void{
+		 protected init():void{
 			
 			m_mcVideo = new MovieClip();
 			
@@ -128,7 +128,7 @@ module lobby.view.lives {
 		}
 		
 		
-		public function zoomIn(_onComplete:Function) : void
+		public zoomIn(_onComplete:Function) : void
 		{
 			if (bTween)return;
 			var xx:Number= -zoomPt.x;
@@ -146,7 +146,7 @@ module lobby.view.lives {
 			return;
 		}
 		
-		public function zoomOut(_onComplete:Function) : void
+		public zoomOut(_onComplete:Function) : void
 		{
 			if (bTween)return;
 			var xx:Number= 0;
@@ -164,17 +164,17 @@ module lobby.view.lives {
 			return;
 		}
 		
-		public function normal():void {
+		public normal():void {
 			m_mcVideo.x = 0;
 			m_mcVideo.y = 0;
 			m_mcVideo.scaleX = 1;
 			m_mcVideo.scaleY = 1;
 			
-			var _bStatus : Boolean = SharedObjectManager.getLiveOnOff();
+			var _bStatus :  boolean = SharedObjectManager.getLiveOnOff();
 			m_rtmpPlayer.setVolume(_bStatus?SharedObjectManager.getLiveVolume():0);
 		}
 		
-		override protected function connectFailed(_iType:int=1):void
+		 protected connectFailed(_iType:number=1):void
 		{
 			hideLoding();
 			initWorn();
@@ -206,7 +206,7 @@ module lobby.view.lives {
 		}
 		
 		
-		override protected function loadVideoTimeOut():void {
+		 protected loadVideoTimeOut():void {
 			//	Log.getInstance().log(this, "視訊連接狀態::視訊連接逾時");
 			stop();
 			sFailedConnectType = Language.sLiveError;

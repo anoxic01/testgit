@@ -21,7 +21,7 @@ module lobby.view {
 		public spAnimationLayer			:	egret.Sprite;							//动画容器
 		public spWarn					:	egret.Sprite;							//警告窗口
 		
-//		private var m_bmpBanner				:	Bitmap;							//过渡广告
+//		private m_bmpBanner				:	Bitmap;							//过渡广告
 		public spUrgentNotice			:	egret.Sprite;							//紧急公告
 		
 		private m_stage					:	egret.Stage;							//舞台引用
@@ -55,11 +55,11 @@ module lobby.view {
 //		
 		public vecQuickTables			:	quick.QuickTable[];			//所有桌子
 		
-//		private m_vectorThemeList		:	Vector.<Sprite>;				//房间列表
+//		private m_vectorThemeList		:	<Sprite>;				//房间列表
 		public uCurrentThemeID			:	number;							//当前列表
 		public uCurrentThemeIDTemp		:	number;							
 		
-//		private m_vecSpQuickList		:	Vector.<Sprite>;				//房间列表
+//		private m_vecSpQuickList		:	<Sprite>;				//房间列表
 		public quickTableList			:	quick.QuickTableList;					//
 //		public iCurrentQuick			:	number	=	255;					//当前列表
 		public scroll_quick 			:	eui.Scroller;
@@ -79,11 +79,11 @@ module lobby.view {
 //		private _transition				:	ThemeTransition;
 		
 		private m_iSpace				:	number	=	100;					//滚动间距
-		public bWheelToTop				:	boolean;						//边界判断,厅馆列表到达顶部
-//		private var m_bWheelToBottom		:	boolean;						//边界判断,厅馆列表到达底部
+		public bWheelToTop				:	 boolean;						//边界判断,厅馆列表到达顶部
+//		private m_bWheelToBottom		:	 boolean;						//边界判断,厅馆列表到达底部
 		private m_uScrollHeight			:	number;							//重绘高度
-		private m_bResizeForUp			:	boolean;						//重绘状态,滚轮往上
-		private m_bResizeForDown		:	boolean;						//重绘状态,滚轮往下
+		private m_bResizeForUp			:	 boolean;						//重绘状态,滚轮往上
+		private m_bResizeForDown		:	 boolean;						//重绘状态,滚轮往下
 		private m_iWheelY				:	number	=	286;					//当前坐标
 		
 		protected m_lobbyAuth			:	lobby.data.LobbyAuth;
@@ -132,24 +132,24 @@ module lobby.view {
 			
 		}
 
-		public initTableList( _spContent:egret.DisplayObjectContainer, _scroll:egret.DisplayObjectContainer, _vec:table.Table[], _iIndex:number, _bInit:boolean=true):void{
+		public initTableList( _spContent:egret.DisplayObjectContainer, _scroll:egret.DisplayObjectContainer, _vec:table.Table[], _iIndex:number, _bInit: boolean=true):void{
 			// console.log("初始化桌子：>> ",System.totalMemory);
 			// var time : number = getTimer();
 			
 			// _scroll.resize( 1920, m_uScrollHeight );
 			
 			//大厅列表
-			let _themeVec : lobby.struct.Struct_Theme[] = lobby.data.LobbyData.getInstance().lobbyInfo.themeVec;
-			let _tableVec : lobby.struct.Struct_Table[] = _themeVec[_iIndex].TableList;
+			let _themeVec : struct.ThemeStruct[] = lobby.model.LobbyData.getInstance().lobbyInfo.themeVec;
+			let _tableVec : struct.TableStruct[] = _themeVec[_iIndex].TableList;
 			
 			this.uCurrentThemeID = _themeVec[_iIndex].ThemeID;
 			
 			/** 试玩过滤 **/
-			var bShow : boolean;
+			var bShow :  boolean;
 			
 			var _tableVecLen : number = _tableVec.length;
 			var _table : table.Table;
-			var _tableStruct : lobby.struct.Struct_Table;
+			var _tableStruct : lobby.struct.TableStruct;
 			for (var i:number = 0; i < _tableVecLen; i++) 
 			{
 				_tableStruct = _tableVec[i];
@@ -216,7 +216,7 @@ module lobby.view {
 			
 			//恢复厅馆按钮
 			this.themeList.enable(true);
-			var _ve : struct.Struct_Theme[] = data.LobbyData.getInstance().lobbyInfo.themeVec;
+			var _ve : struct.ThemeStruct[] = model.LobbyData.getInstance().lobbyInfo.themeVec;
 			
 			// console.log("初始桌子需要时间：",getTimer()-time, "********************************************************************************");
 			
@@ -247,7 +247,12 @@ module lobby.view {
 			}
 		}
 
+		public hideLoading():void{
 
+		}
+		public showLoading():void{
+			
+		}
 
 	}
 }

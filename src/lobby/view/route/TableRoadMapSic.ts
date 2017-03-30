@@ -5,7 +5,7 @@ module lobby.view.route {
 		}
 		
 		
-		override protected function setRoadInf():void{
+		 protected setRoadInf():void{
 			
 			//路紙參數均在此設定
 			m_beadInfo = new BeadInfo();

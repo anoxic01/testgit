@@ -1,8 +1,8 @@
 module lobby.view.animation {
 	export class AnimationGameWinA extends BSprite{
-		private var m_mcAsset	:	*;
+		private m_mcAsset	:	*;
 		
-		public constructor(_nValue:Number, _uCount:uint=1) {
+		public constructor(_nValue:Number, _uCount:number=1) {
 			super();
 			
 			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_WINA,"Game_Win_A_Asset");
@@ -13,28 +13,28 @@ module lobby.view.animation {
 			
 		}
 		
-		public function count(value:uint):void{
+		public count(value:number):void{
 			m_mcAsset.mc_0.gotoAndStop(value);
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			if(m_mcAsset){
 				this.removeChild(m_mcAsset);
 				m_mcAsset = null;
 			}
 		}
-		public function set value(_nValue:Number):void{
+		set  value(_nValue:Number){
 			if(m_mcAsset){
 				m_mcAsset.label.tf_label.text = _nValue.toString();
 			}
 		}
-		public function play():void{
+		public play():void{
 			if(m_mcAsset){
 				m_mcAsset.visible = true;
 				m_mcAsset.gotoAndPlay(1);
 			}
 		}
-		public function stop():void{
+		public stop():void{
 			if(m_mcAsset){
 				m_mcAsset.gotoAndStop(1);
 				m_mcAsset.visible = false;

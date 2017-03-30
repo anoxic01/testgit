@@ -1,6 +1,6 @@
 module lobby.view.animation {
 	export class AnimationGameWinC extends BSprite{
-		private var m_mcAsset	:	*;
+		private m_mcAsset	:	*;
 		
 		public constructor() {
 			super();
@@ -12,24 +12,24 @@ module lobby.view.animation {
 			
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			if(m_mcAsset){
 				this.removeChild(m_mcAsset);
 				m_mcAsset = null;
 			}
 		}
-		public function set value(_nValue:Number):void{
+		set  value(_nValue:Number){
 			if(m_mcAsset){
 				m_mcAsset.mc_label.tf_label.text = _nValue.toString();
 			}
 		}
-		public function play():void{
+		public play():void{
 			if(m_mcAsset){
 				m_mcAsset.visible = true;
 				m_mcAsset.gotoAndPlay(1);
 			}
 		}
-		public function stop():void{
+		public stop():void{
 			if(m_mcAsset){
 				m_mcAsset.gotoAndStop(1);
 				m_mcAsset.visible = false;

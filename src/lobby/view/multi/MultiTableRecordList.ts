@@ -1,17 +1,17 @@
 module lobby.view.multi {
 	export class MultiTableRecordList {
-		private var m_uPageCount	:	uint;								//每页10条
+		private m_uPageCount	:	number;								//每页10条
 		
-		private var m_vecRecord		:	Vector.<MultiTableRecordItem>;		//记录对象
+		private m_vecRecord		:	<MultiTableRecordItem>;		//记录对象
 		
 		public constructor(_mcAsset:MovieClip) {
-			m_vecRecord = new Vector.<MultiTableRecordItem>;
+			m_vecRecord = new <MultiTableRecordItem>;
 			
 			m_uPageCount = 10;
 			
 			var item : MultiTableRecordItem;
 			var mc : MovieClip;
-			for (var i:int = 0; i < m_uPageCount; i++) 
+			for (var i:number= 0; i < m_uPageCount; i++) 
 			{
 				mc = _mcAsset.getChildByName("mc_record_"+i) as MovieClip;
 				item = new MultiTableRecordItem(mc);
@@ -29,7 +29,7 @@ module lobby.view.multi {
 			}
 		}
 		
-		override public function destroy():void
+		 public destroy():void
 		{
 			if(m_vecRecord){
 				var item : MultiTableRecordItem;
@@ -45,14 +45,14 @@ module lobby.view.multi {
 			}
 		}
 		
-		public function setData(_vecStruct:Vector.<RecordBetStruct>,_currentPage:uint):void{
+		public setData(_vecStruct:<RecordBetStruct>,_currentPage:number):void{
 			if(_vecStruct==null){
-				trace("多桌下注记录异常...");
+				console.log("多桌下注记录异常...");
 				return;
 			}
 			var _count : int = _currentPage*m_uPageCount;
 			var _len : int = _vecStruct.length;
-			for (var i:int = 0; i < m_uPageCount; i++) 
+			for (var i:number= 0; i < m_uPageCount; i++) 
 			{
 				if((i+_count)<_len){
 					m_vecRecord[i].setData(_vecStruct[i+_count]);
@@ -62,8 +62,8 @@ module lobby.view.multi {
 			}
 		}
 		
-		override public function onChangeLanguage():void{
-			for(var i:int; i<m_vecRecord.length; i++){
+		 public onChangeLanguage():void{
+			for(var i:number; i<m_vecRecord.length; i++){
 				m_vecRecord[i].onChangeLanguage();
 			}
 		}

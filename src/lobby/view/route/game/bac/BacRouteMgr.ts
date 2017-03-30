@@ -1,17 +1,17 @@
 module lobby.view.route.game.bac {
 	export class BacRouteMgr extends EventDispatcher{
-		public static const ASK_MODE_BANKER			:	uint				=	0;
-		public static const ASK_MODE_PLAYER			:	uint				=	1;
+		public static const ASK_MODE_BANKER			:	number				=	0;
+		public static const ASK_MODE_PLAYER			:	number				=	1;
 		
 		protected var m_routeView					:	MovieClip;
 		
-		private var m_isBtnOpen						:	Boolean 			= 	false;
+		private var m_isBtnOpen						:	 boolean 			= 	false;
 		
-		private var m_islock						:	Boolean 			= 	true;
-		private var m_isUp							:	Boolean 			= 	false;
+		private var m_islock						:	 boolean 			= 	true;
+		private var m_isUp							:	 boolean 			= 	false;
 		
 		/**當前顯示路*/
-		protected var _nowRoad						:	String 				=	"";
+		protected var _nowRoad						:	string 				=	"";
 		
 		protected var m_beadPlate					:	BeadPlate;
 		
@@ -23,9 +23,9 @@ module lobby.view.route.game.bac {
 		
 		protected var m_beadInfo					:	BeadInfo;
 		protected var m_askTimer					:	JTimer;
-		private var m_bAsk							:	Boolean;														//问路状态
+		private var m_bAsk							:	 boolean;														//问路状态
 		
-		public var bError							:	Boolean;														//错误状态
+		public var bError							:	 boolean;														//错误状态
 		
 		public constructor(view:MovieClip) {
 		this.m_routeView = view;
@@ -172,11 +172,11 @@ module lobby.view.route.game.bac {
 		 * @return 
 		 * 
 		 */
-		public function get roadNum():uint{
+		public function get roadNum():number{
 			if (this._nowRoad==null ||this._nowRoad==""){
 				return 0;
 			}else{
-				var len:int = _nowRoad.split(".").length;
+				var len:number= _nowRoad.split(".").length;
 				return len;
 			}
 			return 0;
@@ -190,11 +190,11 @@ module lobby.view.route.game.bac {
 			bError = false;
 			this._nowRoad = "";			
 			this.showRoadViewInit();
-			//trace("clearRoad:" + this._nowRoad);
+			//console.log("clearRoad:" + this._nowRoad);
 		}
 		
 		/** 更新路單 */
-		public function addRoad(road:String):void {
+		public function addRoad(road:string):void {
 //			if ( this._nowRoad.length > Define.BEAD_NUM ) {
 //				this._nowRoad = "";
 //			}
@@ -205,7 +205,7 @@ module lobby.view.route.game.bac {
 			if ( road.indexOf( "#" ) != -1 ) {
 				//路紙有錯
 				bError = true;
-				trace("路紙有錯"+road);
+				console.log("路紙有錯"+road);
 				return;
 			}else{
 				bError = false;
@@ -218,7 +218,7 @@ module lobby.view.route.game.bac {
 			}
 			
 			
-		//	trace("addRoad::" + this._nowRoad );
+		//	console.log("addRoad::" + this._nowRoad );
 			//this._nowRoad = road;
 			if ( ( this._nowRoad != "null" ) && (this._nowRoad != null) )  {
 			//	this.showRoadViewInit();
@@ -226,14 +226,14 @@ module lobby.view.route.game.bac {
 			}
 		}
 		
-		protected function showRoad(road:String, isAsk:Boolean = false):void {
+		protected function showRoad(road:String, isAsk: boolean = false):void {
 			//this.showRoadViewInit();
 			this.m_roadString = BeadRoad.createRoadReanderString(road);
 			if(m_beadPlate){
 				this.m_beadPlate.addRoad(road, isAsk);
 			}
 			
-			var grids:Array = BeadRoad.createBigRoadRenderGrid( this.m_roadString.bigRoad, null );
+			var grids:any[] = BeadRoad.createBigRoadRenderGrid( this.m_roadString.bigRoad, null );
 			this.m_bigSprite.drawBigRoadDataGrid( grids , RoadBallPool.BIG_ROAD , isAsk );
 			this.m_bigEyeSprite.drawReaderDataGrid( BeadRoad.createRoadRenderGrid(this.m_roadString.bigEyeRoad, null , 6) , isAsk , RoadBallPool.BIG_EYE_ROAD );
 			this.m_smallSprite.drawReaderDataGrid( BeadRoad.createRoadRenderGrid(this.m_roadString.smallRoad, null , 6) , isAsk  , RoadBallPool.SMALL_EYE_ROAD );
@@ -252,13 +252,13 @@ module lobby.view.route.game.bac {
 			drawProbeIcon(".e");
 		}
 		
-		private function drawProbeIcon(probe:String):void{
+		private function drawProbeIcon(probe:string):void{
 			var roadStrObj:RoadStringObject = BeadRoad.createRoadReanderString(_nowRoad+probe);
-			var probeArr:Array=new Array(3);
+			var probeArr:any[]=new Array(3);
 			probeArr[0]=roadStrObj.bigEyeRoad.charAt(roadStrObj.bigEyeRoad.length-1)
 			probeArr[1] = roadStrObj.smallRoad.charAt(roadStrObj.smallRoad.length-1)
 			probeArr[2] = roadStrObj.roachRoad.charAt(roadStrObj.roachRoad.length-1)
-		//	trace("探路"+probe+"-----:"+probeArr);
+		//	console.log("探路"+probe+"-----:"+probeArr);
 			
 			if(probeArr[0])
 				probeArr[0]=m_bigEyeSprite.getRoadCell(RoadBallPool.BIG_EYE_ROAD,probeArr[0])
@@ -274,7 +274,7 @@ module lobby.view.route.game.bac {
 				sp=this.m_routeView.btn_AskPlayerRoad
 				
 			}
-			for (var i:int = 0; i < probeArr.length; i++) 
+			for (var i:number= 0; i < probeArr.length; i++) 
 			{
 				if (probeArr[i] is DisplayObject){
 					var icon:Sprite=probeArr[i];
@@ -302,7 +302,7 @@ module lobby.view.route.game.bac {
 			this.m_smallSprite.init();
 		}
 		
-		public function onAskRoad(_iMode:int):void {
+		public function onAskRoad(_iMode:number):void {
 		//	if(!m_bAsk){
 				if(m_bAsk){
 					stopAsk();
@@ -311,7 +311,7 @@ module lobby.view.route.game.bac {
 				m_bAsk = true;
 				//this._beadPlate.addEventListener(RouteEvent.ASK_Road_END, onAskRoadEnd);
 				
-				var key:String="";
+				var key:string="";
 				if (this._nowRoad!=""){
 					key=".";
 				}
@@ -329,7 +329,7 @@ module lobby.view.route.game.bac {
 // 			}
 			
 //			else{
-//				trace("问路中。。。");
+//				console.log("问路中。。。");
 //			}
 			
 		}

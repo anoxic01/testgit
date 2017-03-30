@@ -1,18 +1,18 @@
 module packet.lobby {
 	export class S_Lobby_Heart_Pkt implements IProtocolStruct{
-		public var PlayerID:int;
-		public var Identity:int;
+		public PlayerID:number;
+		public Identity:number;
 
 		public constructor() {
 
 		}
 		
 		
-		public function initControler(controler:GameControler):void
+		public initControler(controler:GameControler):void
 		{
 		}
 		
-		public function execute(oData:Object):void
+		public execute(oData:Object):void
 		{
 //			Log.getInstance().log(this , "接收心跳" );
 			var _heartStruct:HeartStruct = new HeartStruct();
@@ -32,12 +32,12 @@ module packet.lobby {
 			LobbyManager.getInstance().nRevServerTime = getTimer();
 			//服務端主動送心跳包
 			if( oData.Type == PacketDefine.C_Heart ){
-//				trace("回復服務端心跳包")
+//				console.log("回復服務端心跳包")
 				LobbyManager.getInstance().responseHeartPkt();	//回復
 			}			
 		}		
 		
-		public function illegalOperation():void {
+		public illegalOperation():void {
 			var _sMsg:String;
 			var _panelDialog:PanelWindow;
 			var _fExitLobby:Function = LobbyManager.getInstance().leaveLobby;		

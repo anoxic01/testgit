@@ -1,12 +1,12 @@
 module ui.button {
 	export class ButtonChip extends BSprite{
 		
-		private var m_mcAsset 	:	MovieClip;
-		private var m_mcContent	:	MMovieClip;
+		private m_mcAsset 	:	MovieClip;
+		private m_mcContent	:	MMovieClip;
 		
-		private var m_mcSelect	:	MovieClip;
+		private m_mcSelect	:	MovieClip;
 		
-		public var bSelect		:	Boolean;
+		public bSelect		:	 boolean;
 		
 		public constructor(_mcAsset:MovieClip) {
 			super();
@@ -26,7 +26,7 @@ module ui.button {
 			
 		}
 		
-		public function destroy():void{
+		public destroy():void{
 			m_mcAsset.mc_hot.removeEventListener(MouseEvent.MOUSE_OVER,over);
 			m_mcAsset.mc_hot.removeEventListener(MouseEvent.MOUSE_OUT,out);
 			m_mcAsset.mc_hot.removeEventListener(MouseEvent.MOUSE_DOWN,down);
@@ -36,7 +36,7 @@ module ui.button {
 				m_mcAsset = null;
 			}
 		}
-		public function set select(_bValue:Boolean):void{
+		set  select(_bValue: boolean){
 			bSelect = _bValue;
 			if(bSelect){
 				m_mcContent.gotoAndPlay("SELECT");
@@ -46,7 +46,7 @@ module ui.button {
 			
 		}
 		
-		protected function over(event:MouseEvent):void
+		protected over(event:MouseEvent):void
 		{
 			if(bSelect){
 				return;
@@ -54,7 +54,7 @@ module ui.button {
 			m_mcContent.gotoAndPlay("HOVER");
 		}
 		
-		protected function out(event:MouseEvent):void
+		protected out(event:MouseEvent):void
 		{
 			if(bSelect){
 				return;
@@ -62,7 +62,7 @@ module ui.button {
 			m_mcContent.gotoAndPlay("HOUT");
 		}
 		
-		protected function down(event:MouseEvent):void
+		protected down(event:MouseEvent):void
 		{
 			if(bSelect){
 				return;
@@ -71,7 +71,7 @@ module ui.button {
 		}
 		
 		
-		private function initContent():void{
+		private initContent():void{
 			m_mcContent.gotoAndStop("DEFAULT");
 			
 			m_mcContent.addFrameScript(3,function():void{

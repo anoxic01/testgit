@@ -1,6 +1,6 @@
 module lobby.model {
 	export class NoticeModel {
-		private var m_msList				:Vector.<MessageStruct>;
+		private m_msList				:struct.MessageStruct[];
 		
 		/**
 		 * 如果是進入大廳給的話是要提供Client去過濾維護訊息用的
@@ -9,42 +9,42 @@ module lobby.model {
 		 * 這是提供給Client過濾維護身請單如果有1,3,5桌
 		 * 過濾不顯示 
 		 */		
-		private var _NotAllowTableIDList:Array;
+		private _NotAllowTableIDList:any[];
 		
 		public constructor() {
-			m_msList = new Vector.<MessageStruct>();
+			this.m_msList = new Array<struct.MessageStruct>();
 		}
-		public function get NotAllowTableIDList():Array
+		get NotAllowTableIDList():any[]
 		{
-			return _NotAllowTableIDList;
+			return this._NotAllowTableIDList;
 		}
-		public function set NotAllowTableIDList(value:Array):void
+		set  NotAllowTableIDList(value:any[])
 		{
-			_NotAllowTableIDList = value;
+			this._NotAllowTableIDList = value;
 		}
-		public function clear():void
+		public clear():void
 		{
-			m_msList.length = 0;
+			this.m_msList.length = 0;
 		}
-		public function setData(arr:Array):void
+		public setData(arr:any[]):void
 		{
-			clear();
-			for (var i:int = 0; i < arr.length; i++) 
+			this.clear();
+			for (var i:number= 0; i < arr.length; i++) 
 			{
-				m_msList.push(arr[i]);
+				this.m_msList.push(arr[i]);
 			}
 		}
 		/**
 		 * 
 		 * @return 
 		 */		
-		public function filter():Vector.<MessageStruct>
+		public filter():struct.MessageStruct[]
 		{
-			var vec:Vector.<MessageStruct> = new Vector.<MessageStruct>();
-			var message:MessageStruct;
-			for (var i:int = 0; i < m_msList.length; i++) 
+			var vec  = new Array<struct.MessageStruct>();
+			var message:struct.MessageStruct;
+			for (var i:number= 0; i < this.m_msList.length; i++) 
 			{
-				message = filterMessage(m_msList[i]);
+				message = this.filterMessage(this.m_msList[i]);
 				if(message)
 				{
 					vec.push(message);
@@ -52,7 +52,7 @@ module lobby.model {
 			}
 			return vec;
 		}
-		public function filterMessage(vo:MessageStruct):MessageStruct
+		public filterMessage(vo:MessageStruct):MessageStruct
 		{
 			if(vo.bIsMaintain)
 			{
@@ -88,7 +88,7 @@ module lobby.model {
 							if(_gameTableID>0){
 								//当前在赌桌内,不是当前赌桌，删除
 								var table:Object;
-								for(var i:int = 0;i<vo.maMaintain.MaintainData_game.length;i++){
+								for(var i:number= 0;i<vo.maMaintain.MaintainData_game.length;i++){
 									if(vo.maMaintain.MaintainData_game[i].TableID == _gameTableID){
 										table = vo.maMaintain.MaintainData_game[i];
 										break;
@@ -135,13 +135,13 @@ module lobby.model {
 				return vo;
 			}
 		}
-		public function changeTime(now:int):void
+		public changeTime(now:number):void
 		{
-			var len:int = m_msList.length;
+			var len:number= m_msList.length;
 			if(len > 0)
 			{
 				var each:MessageStruct;
-				for (var i:int = 0; i < len; i++) 
+				for (var i:number= 0; i < len; i++) 
 				{
 					each = m_msList[i];
 					if(each.iStartShowTime + each.iShowTime < now)
@@ -151,31 +151,31 @@ module lobby.model {
 				}
 			}
 		}
-		public function addMessage(vo:MessageStruct):void
+		public addMessage(vo:MessageStruct):void
 		{
 			vo.iStartShowTime = getTimer();
 			m_msList.push(vo);
 		}
-		public function removeMessage(vo:Object):MessageStruct
+		public removeMessage(vo:Object):MessageStruct
 		{
-			var index:int = getMessageIndex(vo);
+			var index:number= getMessageIndex(vo);
 			if(index != -1)
 			{
-				var results:Vector.<MessageStruct> = m_msList.splice(index,1);
+				var results:<MessageStruct> = m_msList.splice(index,1);
 				return results[0];
 			}
 			return null;
 		}
-		public function removeMeassgeByIndex(index:int):MessageStruct
+		public removeMeassgeByIndex(index:number):MessageStruct
 		{
 			if(index>=0 && index<m_msList.length)
 			{
-				var results:Vector.<MessageStruct> = m_msList.splice(index,1);
+				var results:<MessageStruct> = m_msList.splice(index,1);
 				return results[0];
 			}
 			return null;
 		}
-		public function getMessageByIndex(index:int):MessageStruct
+		public getMessageByIndex(index:number):MessageStruct
 		{
 			if(index>=0 && index < m_msList.length)
 			{
@@ -183,9 +183,9 @@ module lobby.model {
 			}
 			return null;
 		}
-		public function getMessageIndex(vo:Object):int
+		public getMessageIndex(vo:Object):number
 		{
-			for (var i:int = 0; i < m_msList.length; i++) 
+			for (var i:number= 0; i < m_msList.length; i++) 
 			{
 				if((vo is MaintainsAnnouncementStruct) && m_msList[i].bIsMaintain)
 				{

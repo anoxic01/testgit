@@ -1,15 +1,15 @@
 module lobby.view.multi {
 	export class MultiTableRecordItem implements ISprite{
-		private var m_mcAsset	:	MovieClip;
-		private var m_spRed		:	Sprite;			//对子标识
-		private var m_spBlue	:	Sprite;			//对子标识
-		private var m_bmp		:	Bitmap;
-//		private var m_tfTable	:	TextField;
-//		private var m_tfBetPos	:	TextField;
-//		private var m_tfAmt		:	TextField;
-//		private var m_tfPayout	:	TextField;
+		private m_mcAsset	:	MovieClip;
+		private m_spRed		:	Sprite;			//对子标识
+		private m_spBlue	:	Sprite;			//对子标识
+		private m_bmp		:	Bitmap;
+//		private m_tfTable	:	TextField;
+//		private m_tfBetPos	:	TextField;
+//		private m_tfAmt		:	TextField;
+//		private m_tfPayout	:	TextField;
 		
-		private var m_struct	:	RecordBetStruct;
+		private m_struct	:	RecordBetStruct;
 		
 		public constructor(_mcAsset:MovieClip) {
 			super();
@@ -46,7 +46,7 @@ module lobby.view.multi {
 //			this.addChild(m_tfPayout);
 		}
 		
-		public function destroy():void{
+		public destroy():void{
 //			if(m_tfTable){
 //				this.removeChild(m_tfTable);
 //				m_tfTable = null;
@@ -83,7 +83,7 @@ module lobby.view.multi {
 			}
 		}
 		
-		public function setData(_struct:RecordBetStruct):void{
+		public setData(_struct:RecordBetStruct):void{
 			if(_struct==null){
 				m_mcAsset.visible = false;
 			}else{
@@ -93,7 +93,7 @@ module lobby.view.multi {
 			}
 		}
 		
-		public function onChangeLanguage():void{
+		public onChangeLanguage():void{
 			m_spRed.visible = false;
 			m_spBlue.visible = false;
 			

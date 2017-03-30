@@ -3,12 +3,12 @@ module packet.lobby {
 		public constructor() {
 		}
 		
-		public function initControler(controler:GameControler):void
+		public initControler(controler:GameControler):void
 		{
 			
 		}
 		
-		public function execute(oData:Object):void
+		public execute(oData:Object):void
 		{
 			var _simepleDeputyStruct:SimpleDeputyStruct = new SimpleDeputyStruct();
 				_simepleDeputyStruct.AgentID 			= oData.AgentID;

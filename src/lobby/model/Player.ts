@@ -1,67 +1,67 @@
 module lobby.model {
 	export class Player {
 
-		public var AccountType			:	String;					//账户类型
+		public AccountType			:	string;					//账户类型
 		
-		public var iAgentID				:	int;					//代理序号
+		public iAgentID				:	number;					//代理序号
 		
-		public var sAgentKey_Lobby		:	String;					//代理密钥(暂未使用)
-		public var sPrivateKey_Lobby	:	String;					//私人密钥
-		public var sBroadcastKey_Lobby	:	String;					//公开密钥
+		public sAgentKey_Lobby		:	string;					//代理密钥(暂未使用)
+		public sPrivateKey_Lobby	:	string;					//私人密钥
+		public sBroadcastKey_Lobby	:	string;					//公开密钥
 		
-		public var sAgentKey_Game		:	String;					//代理密钥(暂未使用)
-		public var sPrivateKey_Game		:	String;					//私人密钥
-		public var sBroadcastKey_Game	:	String;					//公开密钥
+		public sAgentKey_Game		:	string;					//代理密钥(暂未使用)
+		public sPrivateKey_Game		:	string;					//私人密钥
+		public sBroadcastKey_Game	:	string;					//公开密钥
 		
-		public var balance				:	BalanceStruct;			//玩家余额
-		public var gameSetting			:	GameSettingStruct;		//游戏设置
+		public balance				:	BalanceStruct;			//玩家余额
+		public gameSetting			:	GameSettingStruct;		//游戏设置
 		
-		public var iPlayerID			:	int;					//玩家序号
-		public var iIdentity			:	int;					//玩家身份	- 0: 玩家, 1: 槍手
-		public var bIsFirstTb			:	Boolean;				//
-		public var bIsLogin 			:	Boolean;				//登陆状态
-		public var bIsTableOwner		:	Boolean;				//桌主标志
+		public iPlayerID			:	number;					//玩家序号
+		public iIdentity			:	number;					//玩家身份	- 0: 玩家, 1: 槍手
+		public bIsFirstTb			:	boolean;				//
+		public bIsLogin 			:	boolean;				//登陆状态
+		public bIsTableOwner		:	boolean;				//桌主标志
 		
-		public var sNickName			:	String;					//玩家昵称
-		public var sHiddenNickName		:	String;					//隐藏昵称
+		public sNickName			:	string;					//玩家昵称
+		public sHiddenNickName		:	string;					//隐藏昵称
 		
-		public var iPairTableID			:	int;					//桌子序号
-		private var m_iSeatNo			:	int;					//座位序号
+		public iPairTableID			:	number;					//桌子序号
+		private m_iSeatNo			:	number;					//座位序号
 		
-		public var sLobbyServer			:	String;					//大厅地址
-		public var sLoginTime			:	String;					//登陆时间
+		public sLobbyServer			:	string;					//大厅地址
+		public sLoginTime			:	string;					//登陆时间
 		
-		public var iPPSN 				:	int;					//瞇牌位置
-		public var iBPSN 				:	int;					//瞇牌位置
+		public iPPSN 				:	number;					//瞇牌位置
+		public iBPSN 				:	number;					//瞇牌位置
 		
-		private var sDeputyAuthToken 	:	String;					//抢手配对码
+		private sDeputyAuthToken 	:	string;					//抢手配对码
 		
 		//******************************************************************************************************
-		public var iFaceID				:	int;					//头像序号
-		public var uCurrency			:	uint	=	1;			//货币类型
-		public var nBet					:	Number	=	0;			//有效下注
-		public var uLevel				:	uint;					//用户等级
-		public var uIntegral			:	uint;					//在线积分
-		public var uOnline				:	uint;					//在线时间
+		public iFaceID				:	number;					//头像序号
+		public uCurrency			:	number	=	1;			//货币类型
+		public nBet					:	Number	=	0;			//有效下注
+		public uLevel				:	number;					//用户等级
+		public numberegral			:	number;					//在线积分
+		public uOnline				:	number;					//在线时间
 		
-		private var m_Country			:	String	=	"";			//国籍
+		private m_Country			:	string	=	"";			//国籍
 		
-		private var m_nCoin				:	Number;					//当前货币
+		private m_nCoin				:	Number;					//当前货币
 		
-		private var m_vecReceiver		:	Vector.<IPlayerReceiver>;	//偵聽玩家資料更新
+		private m_vecReceiver		:	<IPlayerReceiver>;	//偵聽玩家資料更新
 		
-		public function get Country():String
+		get Country():String
 		{
 			return m_Country;
 		}
 
-		public function set Country(value:String):void
+		set  Country(value:String)
 		{
 			m_Country = value;
 			
 		}
 
-		public function get nCoin():Number
+		get nCoin():Number
 		{
 //			switch(AccountType){
 //				case Define.CASH:
@@ -76,18 +76,18 @@ module lobby.model {
 		}
 		
 
-		public function get iSeatNo():int
+		get iSeatNo():number
 		{
 			return m_iSeatNo;
 		}
 
-		public function set iSeatNo(value:int):void
+		set  iSeatNo(value:number)
 		{
 				m_iSeatNo = value;
 			
 		}
 
-		public function set PlayerInfo( oPlayerInfo:Object ):void{
+		set  PlayerInfo( oPlayerInfo:Object ){
 			AccountType		=	oPlayerInfo.AccountType;
 			iAgentID			=	oPlayerInfo.AgentID;
 			sAgentKey_Lobby		=	oPlayerInfo.AgentKey;
@@ -115,7 +115,7 @@ module lobby.model {
 			}*/
 			
 		}
-		public function set gameData( oPlayerInfo:Object ):void{
+		set  gameData( oPlayerInfo:Object ){
 			sAgentKey_Game		=	oPlayerInfo.AgentKey;
 			sPrivateKey_Game	=	oPlayerInfo.PrivateKey;
 			sBroadcastKey_Game	=	oPlayerInfo.BroadcastKey;
@@ -131,7 +131,7 @@ module lobby.model {
 		 * 更新 額度
 		 * @param	o
 		 */
-		public function updateBalance( oData:Object ):void {
+		public updateBalance( oData:Object ):void {
 			if ( oData == null ) {
 				return; 
 			}
@@ -144,9 +144,9 @@ module lobby.model {
 			
 			
 			
-			LobbyManager.getInstance().lobbyView.infomation.updateBalance();
-			if(LobbyManager.getInstance().personalInfomation){
-				LobbyManager.getInstance().personalInfomation.refresh();
+			LobbyManager.getInstance().lobbyView.information.updateBalance();
+			if(LobbyManager.getInstance().personalinformation){
+				LobbyManager.getInstance().personalinformation.refresh();
 			}
 			
 			if(LobbyManager.getInstance().chipPanelLobby){
@@ -178,7 +178,7 @@ module lobby.model {
 		 * 更新遊戲設定
 		 * @param	o
 		 */
-		public function updateGameSetting( oData:Object ):void {
+		public updateGameSetting( oData:Object ):void {
 			if ( oData == null ) {
 				return; 
 			}
@@ -188,39 +188,39 @@ module lobby.model {
 			gameSetting.UpperBetLimitId = oData.UpperBetLimitId;
 		}
 		
-		public function set DeputyAuthToken( _sValue:String ):void {
+		set  DeputyAuthToken( _sValue:String ) {
 			sDeputyAuthToken = _sValue;
-			var _iLen:int = m_vecReceiver.length;
-			for( var i:int = 0; i < _iLen; i++ ){
+			var _iLen:number= m_vecReceiver.length;
+			for( var i:number= 0; i < _iLen; i++ ){
 				m_vecReceiver[i].update(sDeputyAuthToken);
 			}
 		}
 		
-		public function get DeputyAuthToken( ):String {
+		get DeputyAuthToken( ):String {
 			return sDeputyAuthToken;
 		}
 		
-		public function addListener(_vecReceiver:IPlayerReceiver):void {
+		public addListener(_vecReceiver:IPlayerReceiver):void {
 			if( m_vecReceiver.indexOf(_vecReceiver) == -1){
 				m_vecReceiver.push(_vecReceiver);
 			}
 		}
 		
-		public function removeListener( _vecReceiver:IPlayerReceiver):void {
-			var _idx:int =  m_vecReceiver.indexOf(_vecReceiver);
+		public removeListener( _vecReceiver:IPlayerReceiver):void {
+			var _idx:number=  m_vecReceiver.indexOf(_vecReceiver);
 			if(_idx != -1){
 				m_vecReceiver.splice(_idx,1);
 			}
 		}
 		
-		public function removeAllListenr( ):void {
+		public removeAllListenr( ):void {
 			m_vecReceiver = null;
-			m_vecReceiver = new Vector.<IPlayerReceiver>();
+			m_vecReceiver = new <IPlayerReceiver>();
 		}		
 		
-		private static var m_instance	:	Player;
+		private static m_instance	:	Player;
 		
-		public static function getInstance():Player{
+		public static getInstance():Player{
 			
 			if(m_instance == null){
 				
@@ -233,10 +233,10 @@ module lobby.model {
 		public constructor(single:Singleton) {
 			
 			if(single==null){
-				trace("models.Player初始化异常...");
+				console.log("models.Player初始化异常...");
 			}
 			if( m_vecReceiver==null ){
-				m_vecReceiver = new Vector.<IPlayerReceiver>();
+				m_vecReceiver = new <IPlayerReceiver>();
 			}
 			
 		}

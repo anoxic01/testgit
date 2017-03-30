@@ -1,15 +1,15 @@
 module lobby.view.quick {
 	export class QuickTableList extends BSprite{
-		public var spMain				:	Sprite;
-		public var spLoading			:	Sprite;
+		public spMain				:	Sprite;
+		public spLoading			:	Sprite;
 		
-		private var m_spTableListMask	:	Sprite;							//维护遮罩
-		private var m_bg				:	BitmapScale9Grid;
-		private var m_mcClose			:	*;
-		private var m_btnClose			:	SingleButtonMC;
-		private var m_loading			:	*;								//加载图标
-		private var m_themeMaintain		:	GameMsgWnd;						//厅馆维护
-		private var mmc:MMovieClip;
+		private m_spTableListMask	:	Sprite;							//维护遮罩
+		private m_bg				:	BitmapScale9Grid;
+		private m_mcClose			:	*;
+		private m_btnClose			:	SingleButtonMC;
+		private m_loading			:	*;								//加载图标
+		private m_themeMaintain		:	GameMsgWnd;						//厅馆维护
+		private mmc:MMovieClip;
 		
 		public constructor() {
 		
@@ -60,7 +60,7 @@ module lobby.view.quick {
 			m_themeMaintain.y = 460;
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			
 			if(m_loading){
 				if(m_loading.parent){
@@ -98,7 +98,7 @@ module lobby.view.quick {
 			}
 		}
 		
-		public function showLoading(_bLoading:Boolean):void{
+		public showLoading(_bLoading: boolean):void{
 			if(_bLoading){
 				if(spLoading){
 					spLoading.visible = true;
@@ -110,7 +110,7 @@ module lobby.view.quick {
 			}
 		}
 		
-		public function hideLoding():void{
+		public hideLoding():void{
 			if(spLoading){
 				spLoading.visible = false;
 			}
@@ -122,14 +122,14 @@ module lobby.view.quick {
 			
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			if(m_themeMaintain){
 				m_themeMaintain.onChangeLanguage();
 			}
 			
 		}
 		//厅馆维护
-		public function showThemeMaintenance():void{
+		public showThemeMaintenance():void{
 			if(m_themeMaintain){
 //				if(spLoading){
 //					spLoading.visible = true;
@@ -144,7 +144,7 @@ module lobby.view.quick {
 				m_themeMaintain.show(Language.sMaintain_Theme,true);
 			}
 		}
-		public function hideThemeMaintenance():void{
+		public hideThemeMaintenance():void{
 			if(spLoading){
 				spLoading.visible = false;
 			}

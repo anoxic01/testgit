@@ -1,15 +1,15 @@
 module lobby.view.chip {
 	export class ChipItem extends BSprite{
-		private var m_uValue	:	uint;				//筹码面值
-//		private var m_bmpAsset	:	Bitmap;				//筹码皮肤
-		private var m_mcAsset	:	MovieClip;			//筹码按钮
-		private var m_mcContent	:	MMovieClip;
-		private var m_bSelect	:	Boolean;			//选中状态
-		private var m_chipPanel	:	ChipPanel;			//筹码面板
-		private var m_bGame		:	Boolean;			//面板类型
-		private var m_spHot		:	Sprite;				//筹码热区
+		private m_uValue	:	number;				//筹码面值
+//		private m_bmpAsset	:	Bitmap;				//筹码皮肤
+		private m_mcAsset	:	MovieClip;			//筹码按钮
+		private m_mcContent	:	MMovieClip;
+		private m_bSelect	:	 boolean;			//选中状态
+		private m_chipPanel	:	ChipPanel;			//筹码面板
+		private m_bGame		:	 boolean;			//面板类型
+		private m_spHot		:	Sprite;				//筹码热区
 		
-		public constructor(bGame:Boolean, _uValue:uint, _chipPanel:ChipPanel) {
+		public constructor(bGame: boolean, _uValue:number, _chipPanel:ChipPanel) {
 			
 			m_bGame = bGame;
 			m_uValue = _uValue;
@@ -64,7 +64,7 @@ module lobby.view.chip {
 		}
 
 		
-		override public function destroy():void
+		 public destroy():void
 		{
 			if(m_spHot){
 				m_spHot.removeEventListener(MouseEvent.CLICK, onClick);
@@ -90,7 +90,7 @@ module lobby.view.chip {
 			
 			destroyChipItem();
 		}
-		private function destroyChipItem():void{
+		private destroyChipItem():void{
 			if(m_mcAsset){
 				m_mcAsset.mc_hot.removeEventListener(MouseEvent.CLICK, onClick);
 				this.removeChild(m_mcAsset);
@@ -98,7 +98,7 @@ module lobby.view.chip {
 			}
 		}
 		
-		public function set select(_bValue:Boolean):void{
+		set  select(_bValue: boolean){
 			if(m_bSelect!=_bValue){
 				
 				m_bSelect = _bValue;
@@ -115,7 +115,7 @@ module lobby.view.chip {
 			}
 		}
 		
-		public function selectStatus(bValue:Boolean):void{
+		public selectStatus(bValue: boolean):void{
 			if(m_bSelect!=bValue){
 				m_bSelect = bValue;
 				if(m_bSelect){
@@ -126,11 +126,11 @@ module lobby.view.chip {
 			}
 		}
 		
-		public function bSelect():Boolean{
+		public bSelect(): boolean{
 			return m_bSelect;
 		}
 		
-		public function set value(_uValue:uint):void{
+		set  value(_uValue:number){
 			var _class : Class;
 //			if(m_bGame){
 				_class = ResourceManager.getInstance().getClassByNameFromDomain(Define.SWF_CHIP, ("Chip_Asset_"+String(_uValue)));
@@ -153,25 +153,25 @@ module lobby.view.chip {
 //			m_bmpAsset.smoothing = true;
 		}
 		
-		public function get uValue():uint
+		get uValue():number
 		{
 			return m_uValue;
 		}
 		
-		public function set uValue(value:uint):void
+		set  uValue(value:number)
 		{
 			m_uValue = value;
 		}
 		
 		
-		protected function onClick(event:MouseEvent):void
+		protected onClick(event:MouseEvent):void
 		{
 			select = true;
 			SoundManager.getInstance().play(SoundPackage.sChipSelect);
 			event.stopImmediatePropagation();
 		}
 		
-		protected function over(event:MouseEvent):void
+		protected over(event:MouseEvent):void
 		{
 			if(m_bSelect){
 				return;
@@ -180,7 +180,7 @@ module lobby.view.chip {
 			SoundManager.getInstance().play(SoundPackage.sChipOver);
 		}
 		
-		protected function out(event:MouseEvent):void
+		protected out(event:MouseEvent):void
 		{
 			if(m_bSelect){
 				return;
@@ -188,7 +188,7 @@ module lobby.view.chip {
 			m_mcContent.gotoAndPlay("HOUT");
 		}
 		
-		protected function down(event:MouseEvent):void
+		protected down(event:MouseEvent):void
 		{
 			if(m_bSelect){
 				return;
@@ -196,7 +196,7 @@ module lobby.view.chip {
 			m_mcContent.gotoAndPlay("HDOWN");
 		}
 		
-		private function initContent():void{
+		private initContent():void{
 			m_mcContent.gotoAndStop("DEFAULT");
 			
 			m_mcContent.addFrameScript(3,function():void{

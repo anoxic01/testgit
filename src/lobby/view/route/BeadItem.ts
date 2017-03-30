@@ -13,8 +13,8 @@ module lobby.view.route {
 		public static const	K	:	String	=	"k";
 		public static const	L	:	String	=	"l";
 		
-		protected var m_bmp		:	Bitmap;
-		protected var m_sLabel	:	String;		//标签
+		protected m_bmp		:	Bitmap;
+		protected m_sLabel	:	String;		//标签
 		
 		public constructor() {
 		
@@ -26,7 +26,7 @@ module lobby.view.route {
 			
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			if(m_bmp){
 				this.removeChild(m_bmp);
 				if(m_bmp.bitmapData){
@@ -37,7 +37,7 @@ module lobby.view.route {
 			super.destroy();
 		}
 		
-		public function setLabel(sLabel:String):void{
+		public setLabel(sLabel:String):void{
 			m_sLabel = sLabel;
 			onChangeLanguage();
 		}

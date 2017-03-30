@@ -3,131 +3,131 @@ module lobby.model.game {
 		/// <summary>
 		/// 賭桌資訊
 		/// </summary>
-		public var tableStruct 					:	TableStruct;
+		public tableStruct 					:	struct.TableStruct;
 		
 		/// <summary>
 		/// 押注模式資料(玩家自選)
 		/// </summary>
-		public var betLimits 					:	GameBetLimitBase;
+		public betLimits 					:	GameBetLimitBase;
 		
-		public var pays							:	Array;				//赔率数组
+		public pays							:	any[];				//赔率数组
 		
 		/// <summary>
 		/// 可用座位號碼
 		/// </summary>
-		public var availableSeatList 			:	Array;
+		public availableSeatList 			:	any[];
 		
-		public var betAreaNum					:	uint	=1;			//投注区数量
-		public var seatNum						:	uint	=1;			//玩家座位数量
+		public betAreaNum					:	number	=1;			//投注区数量
+		public seatNum						:	number	=1;			//玩家座位数量
 		
 		
-		public var playerDict					:	Dictionary; 		//房间玩家列表 包括旁注
+		public playerDict					; 		//房间玩家列表 包括旁注
 		/**座位数组  0号位不用  */
-		public var seats						:	Vector.<PlayerVo>;
-		public var bBet							:	Boolean 			//下注未确定
+		public seats						:	 player.PlayerVo[];
+		public bBet							:	 boolean 			//下注未确定
 		
 		/// <summary>
 		/// 局號
 		/// </summary>
-		public var gameNoSettled				:   int;
+		public gameNoSettled				:   number;
 		
-		public var isLastGame					:	Boolean;				//是否最后一局
+		public isLastGame					:	boolean;				//是否最后一局
 		
-		protected var m_sumArr					:	Array					//统计数组
+		protected m_sumArr					:	any[]					//统计数组
 		
-		public var liveServer					:	String;			//视频服务器地址
-		public var streamAppName				:	String;			//视频
+		public liveServer					:	string;			//视频服务器地址
+		public streamAppName				:	string;			//视频
 		
-		public var bGaming						:	Boolean			//是否游戏进行中状态
-		public var bActive						:	Boolean			//是否激活
-		public var bpsn							:	int;			//庄咪牌权  座位号
-		public var ppsn							:	int;			//闲咪牌权
+		public bGaming						:	boolean			//是否游戏进行中状态
+		public bActive						:	boolean			//是否激活
+		public bpsn							:	number;			//庄咪牌权  座位号
+		public ppsn							:	number;			//闲咪牌权
 		
 		/**
 		 *用于比对荷官变化 
 		 */
-		public var dealerID 				:	String	=	"";				//荷官序号
+		public dealerID 					:	string	=	"";				//荷官序号
 		
 		
 		//==============================
 		//客户端变量
-		public var prevShoeNo							:	int;			//	
-		public var prevStatus							:	String ="";    //前一次状态
-		public var bChanginComplete						:	Boolean;
+		public prevShoeNo							:	number;			//	
+		public prevStatus							:	string ="";    //前一次状态
+		public bChanginComplete						:	boolean;
 		
 		public constructor() {
-			playerDict = new Dictionary;
-			var playerVo:PlayerVo =new PlayerVo();
+			this.playerDict = {};
+			var  playerVo: player.PlayerVo =new  player.PlayerVo();
 			playerVo.id = Player.getInstance().iPlayerID;
-			playerDict[playerVo.id]=playerVo;
+			this.playerDict[ playerVo.id ]= playerVo;
 		}
 		
-		public function reset():void{
-			if(tableStruct){
-				tableStruct.GameRecordNo = 0;
-				tableStruct.TableID= 0;
-				tableStruct.ShoeNo= 0;
-				tableStruct.GameNo= 0;
-				prevShoeNo = 0;
-				gameNoSettled = 0;
-				isLastGame=false;
-				tableStruct.RoadMaps="";
-				tableStruct.LastRoadMap="";
-				tableStruct.CountDownTime = 0;
-				tableStruct.OnlinePlayers=0;
-				tableStruct.IsPaused	=false;
-				tableStruct.IsChangingShoe= false;
-				tableStruct.IsCurrFailGame= false;
-				tableStruct.IsMaintaining= false;
+		public reset():void{
+			if(this.tableStruct){
+				this.tableStruct.GameRecordNo = 0;
+				this.tableStruct.TableID= 0;
+				this.tableStruct.ShoeNo= 0;
+				this.tableStruct.GameNo= 0;
+				this.prevShoeNo = 0;
+				this.gameNoSettled = 0;
+				this.isLastGame=false;
+				this.tableStruct.RoadMaps="";
+				this.tableStruct.LastRoadMap="";
+				this.tableStruct.CountDownTime = 0;
+				this.tableStruct.OnlinePlayers=0;
+				this.tableStruct.IsPaused	=false;
+				this.tableStruct.IsChangingShoe= false;
+				this.tableStruct.IsCurrFailGame= false;
+				this.tableStruct.IsMaintaining= false;
 				
-				tableStruct.BetUpperLimit=0;
-				tableStruct.BetLowerLimit=0;
+				this.tableStruct.BetUpperLimit=0;
+				this.tableStruct.BetLowerLimit=0;
 				//joinTbStatus=tableInfo.JoinTbStatus;
-				tableStruct.GameStatus=GameStatus.WAIT_NEXT_NEWGAME;
-				if (tableStruct.StaticsInfo){
-					tableStruct.StaticsInfo.clear();
+				this.tableStruct.GameStatus = status.GameStatus.WAIT_NEXT_NEWGAME;
+				if (this.tableStruct.StaticsInfo){
+					this.tableStruct.StaticsInfo.clear();
 				}
 				
 				//updateTableStaticInfo(tableInfo.staticsInfo)
 				//				results=""	;
 			}
 			
-			liveServer = ""
-			streamAppName = "";
+			this.liveServer = ""
+			this.streamAppName = "";
 			
 			
-			gameNoSettled = 0;
-			bActive = false;
-			bGaming = false;
-			bpsn = 0;
-			ppsn = 0;
-			playerDict = new Dictionary();
+			this.gameNoSettled = 0;
+			this.bActive = false;
+			this.bGaming = false;
+			this.bpsn = 0;
+			this.ppsn = 0;
+			this.playerDict = {};
 			
 		}
 		
-		public function destroy():void{
+		public destroy():void{
 			
-			gameNoSettled = 0;
-			setTableData(null);
-			bActive = false;
-			bGaming = false;
-			bpsn = 0;
-			ppsn = 0;
+			this.gameNoSettled = 0;
+			this.setTableData(null);
+			this.bActive = false;
+			this.bGaming = false;
+			this.bpsn = 0;
+			this.ppsn = 0;
 			
-			seats=null;
-			betLimits = null;
-			tableStruct = null;
-			var vo:PlayerVo 
-			for (var sKey:String in playerDict) 
+			this.seats=null;
+			this.betLimits = null;
+			this.tableStruct = null;
+			var vo: player.PlayerVo 
+			for (var sKey in this.playerDict) 
 			{
-				vo = playerDict[sKey];
+				vo = this.playerDict[sKey];
 				if(vo){
 					vo.destroy();
-					delete playerDict[sKey];
+					delete this.playerDict[sKey];
 				}
 			}
 			vo = null;
-			playerDict=null;
+			this.playerDict=null;
 		}
 		
 		/**
@@ -135,15 +135,15 @@ module lobby.model.game {
 		 * @return 
 		 * 
 		 */
-		public function get bCanExit():Boolean{
-			if (tableStruct==null) return true;
+		get bCanExit(): boolean{
+			if (this.tableStruct==null) return true;
 			
-			if(tableStruct.GameStatus== GameStatus.CHANGING_SHOE || tableStruct.GameStatus == GameStatus.CHANG_SHOE_COMPLETED ||
-				tableStruct.GameStatus==GameStatus.FAILING_GAME || tableStruct.GameStatus == GameStatus.FAIL_GAME){
+			if(this.tableStruct.GameStatus== status.GameStatus.CHANGING_SHOE || this.tableStruct.GameStatus == status.GameStatus.CHANG_SHOE_COMPLETED ||
+				this.tableStruct.GameStatus== status.GameStatus.FAILING_GAME || this.tableStruct.GameStatus == status.GameStatus.FAIL_GAME){
 				return true;
 			}
 			
-			if (tableStruct.GameStatus != GameStatus.WAIT_NEXT_NEWGAME &&  me && me.totalBet>0 ){
+			if (this.tableStruct.GameStatus != status.GameStatus.WAIT_NEXT_NEWGAME &&  this.me && this.me.totalBet>0 ){
 				return false;
 			}
 			
@@ -154,36 +154,36 @@ module lobby.model.game {
 		
 		/**
 		 *添加玩家数据到列表 
-		 * @param playerVo
+		 * @param  player.PlayerVo
 		 * 
 		 */
-		public function addPlayer(playerVo:PlayerVo):void{
-			var seat:int = playerVo.seatNo;
-			playerDict[playerVo.id]=playerVo;
-			if(seat<0 || seat>seatNum){
+		public addPlayer( $playerVo: player.PlayerVo):void{
+			var seat:number=  $playerVo.seatNo;
+			this.playerDict[ $playerVo.id]= player.PlayerVo;
+			if(seat<0 || seat>this.seatNum){
 				return;
 			}else{
-				trace(playerVo.nickName+ " 玩家入座"+playerVo.seatNo)
-				seats[seat]	= playerVo;
+				console.log( $playerVo.nickName+ " 玩家入座"+ $playerVo.seatNo)
+				this.seats[seat]	=  $playerVo;
 			}
 		}
 		
-		public function removePlayer(id:int):void{
-			var playerVo:PlayerVo = playerDict[id];
+		public removePlayer(id:number):void{
+			var  playerVo: player.PlayerVo = this.playerDict[id];
 				
 				
-			if (playerVo ){
-				playerVo.clear();
-				if ( playerVo.seatNo>0){
-					removeSeatPlayer(playerVo.seatNo);
+			if ( playerVo ){
+				 playerVo.clear();
+				if (  playerVo.seatNo>0){
+					this.removeSeatPlayer( playerVo.seatNo);
 				}
 			}
-			playerDict[id]=null;
+			this.playerDict[id]=null;
 		}
 		
 		
-		public function removeSeatPlayer(seat:int):void{
-			seats[seat]=null;
+		public removeSeatPlayer(seat:number):void{
+			this.seats[seat]=null;
 		}
 		
 		/**
@@ -192,9 +192,9 @@ module lobby.model.game {
 		 * @return 
 		 * 
 		 */
-		public function getPlayer(id:int):PlayerVo{
+		public getPlayer(id:number): player.PlayerVo{
 			
-			return playerDict[id];
+			return this.playerDict[id];
 		}
 		
 		/**
@@ -203,13 +203,13 @@ module lobby.model.game {
 		 * @return 
 		 * 
 		 */
-		public function getSeatPlayer(seat:int):PlayerVo{
-			if(seat<0 || seat>seatNum) return null;
-			return seats[seat];
+		public getSeatPlayer(seat:number): player.PlayerVo{
+			if(seat<0 || seat>this.seatNum) return null;
+			return this.seats[seat];
 		}
 		
 		
-		private function toPlayer(player:PlayerVo,info:SimplePlayer):void{
+		private toPlayer(player: player.PlayerVo, info:player.SimplePlayer):void{
 			player.id= info.PlayerID;
 			player.nickName=info.NickName;
 			player.accountType= info.AccountType;
@@ -225,8 +225,8 @@ module lobby.model.game {
 		 * @param tableInfo
 		 * 
 		 */
-		public function setTableData(tableInfo:TableStruct):void{
-			tableStruct =tableInfo;
+		public setTableData(tableInfo:struct.TableStruct):void{
+			this.tableStruct =tableInfo;
 		/*	if (tableInfo){
 				tableStruct.ThemeID = tableInfo.ThemeID;				
 				tableStruct.TableType = tableInfo.TableType;
@@ -275,7 +275,7 @@ module lobby.model.game {
 				upperLimit=0;
 				lowerLimit=0;
 				//joinTbStatus=tableInfo.JoinTbStatus;
-				state =GameStatus.WAIT_NEXT_NEWGAME;
+				state =status.GameStatus.WAIT_NEXT_NEWGAME;
 				pools.clear();
 				//updateTableStaticInfo(tableInfo.staticsInfo)
 //				results=""	;
@@ -293,19 +293,19 @@ module lobby.model.game {
 		 * @return 
 		 * 
 		 */
-		public function get roomName():String{
+		get roomName():String{
 			var str:String="";
-			if(tableStruct){
-				switch(LobbyManager.getInstance().lobbyAuth.Lang)
+			if(this.tableStruct){
+				switch(manager.LobbyManager.getInstance().lobbyAuth.Lang)
 				{
-					case Define.LANGUAGE_CN:
-						str = tableStruct.TableName_CN;
+					case define.Define.LANGUAGE_CN:
+						str = this.tableStruct.TableName_CN;
 						break;
-					case Define.LANGUAGE_TW:
-						str = tableStruct.TableName_TW;
+					case define.Define.LANGUAGE_TW:
+						str = this.tableStruct.TableName_TW;
 						break;
-					case Define.LANGUAGE_EN:
-						str = tableStruct.TableName_EN;
+					case define.Define.LANGUAGE_EN:
+						str = this.tableStruct.TableName_EN;
 						break;
 					
 					default:
@@ -321,8 +321,8 @@ module lobby.model.game {
 			return str;
 		}
 		
-		public function get me():PlayerVo{
-			return getPlayer(Player.getInstance().iPlayerID);
+		get me(): player.PlayerVo{
+			return this.getPlayer(Player.getInstance().iPlayerID);
 		}
 		
 		/**
@@ -331,7 +331,7 @@ module lobby.model.game {
 		 * @return 
 		 * 
 		 */
-		public function getPay(id:int):uint{
+		public getPay(id:number):number{
 			return 1;
 		}
 		
@@ -340,8 +340,8 @@ module lobby.model.game {
 		 * @return 
 		 * 
 		 */
-		public function set sumArr(value:Array):void{
-			m_sumArr=value;
+		set  sumArr(value:any[]){
+			this.m_sumArr=value;
 		}
 		
 		/**
@@ -349,33 +349,33 @@ module lobby.model.game {
 		 * @return 
 		 * 
 		 */
-		public function get sumArr():Array{
-			return m_sumArr;
+		get sumArr():any[]{
+			return this.m_sumArr;
 		}
 		
 		
 		/**更新彩池， 统计数据  * */
-		public function updateTableStaticInfo( staticData:Object  ):void	{
-			tableStruct.StaticsInfo.updateStatic(staticData);
+		public updateTableStaticInfo( staticData:Object  ):void	{
+			this.tableStruct.StaticsInfo.updateStatic(staticData);
 		}
 		
 		/**更新统计数据  * */
-		public function updateSum( staticData:Object  ):void	{
-			tableStruct.StaticsInfo.updateSum(staticData);
+		public updateSum( staticData:Object  ):void	{
+			this.tableStruct.StaticsInfo.updateSum(staticData);
 		}
 		
 		
 		
-		public function clearBetList():void{
-			if (me){
-				me.clearBetList();
-				me.clearOutcomeList();
-				me.clearTmpBetList();
+		public clearBetList():void{
+			if (this.me){
+				this.me.clearBetList();
+				this.me.clearOutcomeList();
+				this.me.clearTmpBetList();
 			}
 			
-			for (var i:int = 1; i < seats.length; i++) 
+			for (var i:number= 1; i < this.seats.length; i++) 
 			{
-				var player:PlayerVo=seats[i];
+				var player: player.PlayerVo=this.seats[i];
 				if (player){
 					player.clearBetList();
 					player.clearOutcomeList();
@@ -392,25 +392,25 @@ module lobby.model.game {
 		 *设置视频连接地址 
 		 * 
 		 */
-		public function setupLive():void{
-			if (tableStruct){
-				if(SharedObjectManager.getCDNList() == null){
-					liveServer = "rtmp://"+LobbyData.getInstance().lobbyInfo.getChannelByChannelNo(tableStruct.DefCDNID).CDNUrl+"/"+tableStruct.StreamAppName;
+		public setupLive():void{
+			if (this.tableStruct){
+				if(manager.SharedObjectManager.getCDNList() == null){
+					this.liveServer = "rtmp://"+LobbyData.getInstance().lobbyInfo.getChannelByChannelNo(this.tableStruct.DefCDNID).CDNUrl+"/"+this.tableStruct.StreamAppName;
 				}else{
-					liveServer = "rtmp://"+LobbyData.getInstance().lobbyInfo.getChannelByChannelNo(SharedObjectManager.getCDNList().ChannelNo).CDNUrl+"/"+tableStruct.StreamAppName;
+					this.liveServer = "rtmp://"+LobbyData.getInstance().lobbyInfo.getChannelByChannelNo(manager.SharedObjectManager.getCDNList().ChannelNo).CDNUrl+"/"+this.tableStruct.StreamAppName;
 				}
 				
-				if(SharedObjectManager.getResolution()==null)
+				if(manager.SharedObjectManager.getResolution()==null)
 				{
 					if(LobbyData.getInstance().lobbyInfo.currentResolution)
 					{
-						streamAppName=tableStruct.StreamName+LobbyData.getInstance().lobbyInfo.currentResolution.Resolution;
+						this.streamAppName = this.tableStruct.StreamName+LobbyData.getInstance().lobbyInfo.currentResolution.Resolution;
 					}else 
 					{
-						streamAppName = "";
+						this.streamAppName = "";
 					}
 				}else{
-					streamAppName=tableStruct.StreamName+SharedObjectManager.getResolution().Resolution;
+					this.streamAppName = this.tableStruct.StreamName + manager.SharedObjectManager.getResolution().Resolution;
 				}
 				
 			}
@@ -422,15 +422,15 @@ module lobby.model.game {
 		 * @return 
 		 * 
 		 */
-		public function get bRetBet():Boolean{
-			if(me && me.totalBet==0 && me.totalTmpBet ==0 && me.lastTotalBet>0){
+		get bRetBet(): boolean{
+			if(this.me && this.me.totalBet==0 && this.me.totalTmpBet ==0 && this.me.lastTotalBet>0){
 				return true;
 			}
 			return false;
 		}
 		
 		
-		public function copy(_model:GameModel):void{
+		public copy(_model:GameModel):void{
 			this.tableStruct=_model.tableStruct;
 		//	this. betLimits=_model.betLimits;
 			
@@ -438,12 +438,12 @@ module lobby.model.game {
 			
 			this.betAreaNum=_model.betAreaNum;			//投注区数量
 			this.seatNum = _model.seatNum;			//玩家座位数量
-			var player:PlayerVo;
-			for (var key:String in _model.playerDict) 
+			var player: player.PlayerVo;
+			for (var key in _model.playerDict) 
 			{
 				player = _model.playerDict[key].clone();
 				if(player){
-					addPlayer(player);
+					this.addPlayer(player);
 				}
 			
 			}
@@ -469,8 +469,8 @@ module lobby.model.game {
 		
 		
 		/**確認通知觀察者 view */
-		 protected function onNotify(e:Object):void {
-			var o:Object = e;
+		 protected onNotify(e):void {
+			var o = e;
 			if ( o.Type != undefined ) {
 //				var data:* = this._dataStructure.parse( o.Type , o );
 //				

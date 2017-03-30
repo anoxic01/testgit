@@ -4,7 +4,7 @@ module lobby.view.route.game.sic {
 			this._roadBallPool = new RoadBallPool();
 		}
 		
-		override public function destroy():void{
+		 public function destroy():void{
 			
 			var bead:BeadItem
 			while( this.numChildren > 0 ) {
@@ -18,9 +18,9 @@ module lobby.view.route.game.sic {
 			super.destroy();
 		}
 		
-		override public function onChangeLanguage():void{
+		 public function onChangeLanguage():void{
 			var bead:BeadItem
-			for (var i:int = 0; i < this.numChildren; i++) 
+			for (var i:number= 0; i < this.numChildren; i++) 
 			{
 				bead = this.getChildAt(i) as BeadItem;
 				if (bead){
@@ -30,18 +30,18 @@ module lobby.view.route.game.sic {
 			}
 			
 		}
-		override public function setBeadSize(beadInfo:BeadInfo):void
+		 public function setBeadSize(beadInfo:BeadInfo):void
 		{
 			this._beadInfo = beadInfo;
 			
 		}
-		override public function init():void 
+		 public function init():void 
 		{
 			while (this.numChildren > 0) {
 				this.removeChildAt(0);
 			}
 		}
-		override public function put(ball:DisplayObject, symbol:String, x:Number, y:Number):void
+		 public function put(ball:DisplayObject, symbol:string, x:Number, y:Number):void
 		{
 			if (ball is MovieClip ){
 				MovieClip(ball).gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
@@ -56,9 +56,9 @@ module lobby.view.route.game.sic {
 		/**
 		 * 畫和值路
 		 */
-		public function drawTieRoad(readerDataGrid:Array  , isAsk:Boolean = false ):void {
-			var symbol:String;
-			var startX:int = readerDataGrid.length <= this._beadInfo.gridWidth ? 0 : readerDataGrid.length - this._beadInfo.gridWidth;
+		public function drawTieRoad(readerDataGrid:any[]  , isAsk: boolean = false ):void {
+			var symbol:string;
+			var startX:number= readerDataGrid.length <= this._beadInfo.gridWidth ? 0 : readerDataGrid.length - this._beadInfo.gridWidth;
 			
 			var ball:Bitmap;
 			var offtenWidth:Number;
@@ -75,10 +75,10 @@ module lobby.view.route.game.sic {
 			
 			var tf:TextFormat = new TextFormat();
 			tf.bold = false;
-			var tempChildVector:Vector.<DisplayObject> = childVector.concat();
-			for (var x:int = startX,  colIndex:int = 0, cols:int = readerDataGrid.length; x < cols; x++)
+			var tempChildVector:<DisplayObject> = childconcat();
+			for (var x:number= startX,  colIndex:number= 0, cols:number= readerDataGrid.length; x < cols; x++)
 			{
-				for (var y:int = 0, rows:int = readerDataGrid[x].length; y < rows; y++)
+				for (var y:number= 0, rows:number= readerDataGrid[x].length; y < rows; y++)
 				{
 					symbol = readerDataGrid[x][y];
 					if (x >= startX && symbol) 
@@ -103,13 +103,13 @@ module lobby.view.route.game.sic {
 							ball = _roadBallPool.getSicSumBead(symbol);
 							if(childData)childData.view = ball;
 						}
-						var tindex:int = tempChildVector.indexOf(ball);
+						var tindex:number= tempChildindexOf(ball);
 						if(tindex>=0)
 						{
-							tempChildVector.splice(tindex,1);
+							tempChildsplice(tindex,1);
 						}else
 						{
-							childVector.push(ball);
+							childpush(ball);
 						}
 						if(!childData)
 						{
@@ -133,13 +133,13 @@ module lobby.view.route.game.sic {
 					colIndex++;
 				}
 			}	
-			while(tempChildVector.length>0)
+			while(tempChildlength>0)
 			{
-				var child:DisplayObject = tempChildVector.shift();
-				var cindex:int = childVector.indexOf(child);
+				var child:DisplayObject = tempChildshift();
+				var cindex:number= childindexOf(child);
 				if(cindex>=0)
 				{
-					childVector.splice(cindex,1);
+					childsplice(cindex,1);
 				}
 				if(child.parent)child.parent.removeChild(child);
 			}
@@ -148,11 +148,11 @@ module lobby.view.route.game.sic {
 		/**
 		 * 畫珠仔路
 		 */
-		public function drawBeadRoad(readerDataGrid:Array  , isAsk:Boolean = false ):void
+		public function drawBeadRoad(readerDataGrid:any[]  , isAsk: boolean = false ):void
 		{
-			var symbol:String;
-			var startX:int = readerDataGrid.length <= this._beadInfo.gridWidth ? 0 : readerDataGrid.length - this._beadInfo.gridWidth;
-			//trace("startX::" + startX );
+			var symbol:string;
+			var startX:number= readerDataGrid.length <= this._beadInfo.gridWidth ? 0 : readerDataGrid.length - this._beadInfo.gridWidth;
+			//console.log("startX::" + startX );
 			var ball:Bitmap;
 			var offtenWidth:Number;
 			var offtenHeight:Number;
@@ -166,10 +166,10 @@ module lobby.view.route.game.sic {
 			offtenY = this._beadInfo.beadMc_OfftenY;
 			var tf:TextFormat = new TextFormat();
 			tf.bold = false;
-			var tempChildVector:Vector.<DisplayObject> = childVector.concat();
-			for (var x:int = startX,  colIndex:int = 0, cols:int = readerDataGrid.length; x < cols; x++) 
+			var tempChildVector:<DisplayObject> = childconcat();
+			for (var x:number= startX,  colIndex:number= 0, cols:number= readerDataGrid.length; x < cols; x++) 
 			{
-				for (var y:int = 0, rows:int = readerDataGrid[x].length; y < rows; y++)
+				for (var y:number= 0, rows:number= readerDataGrid[x].length; y < rows; y++)
 				{
 					symbol = readerDataGrid[x][y];
 					if (x >= startX && symbol) 
@@ -194,13 +194,13 @@ module lobby.view.route.game.sic {
 							ball = _roadBallPool.getSicBead(symbol);
 							if(childData)childData.view = ball;
 						}
-						var tindex:int = tempChildVector.indexOf(ball);
+						var tindex:number= tempChildindexOf(ball);
 						if(tindex>=0)
 						{
-							tempChildVector.splice(tindex,1);
+							tempChildsplice(tindex,1);
 						}else
 						{
-							childVector.push(ball);
+							childpush(ball);
 						}
 						if(!childData)
 						{
@@ -222,23 +222,23 @@ module lobby.view.route.game.sic {
 					colIndex++;
 				}
 			}
-			while(tempChildVector.length>0)
+			while(tempChildlength>0)
 			{
-				var child:DisplayObject = tempChildVector.shift();
-				var cindex:int = childVector.indexOf(child);
+				var child:DisplayObject = tempChildshift();
+				var cindex:number= childindexOf(child);
 				if(cindex>=0)
 				{
-					childVector.splice(cindex,1);
+					childsplice(cindex,1);
 				}
 				if(child.parent)child.parent.removeChild(child);
 			}
 		}	
-		public function drawBigSmallRoad(  readerDataGrid:Array, isAsk:Boolean = false  ):void
+		public function drawBigSmallRoad(  readerDataGrid:any[], isAsk: boolean = false  ):void
 		{
-			var symbol:String;
-			var startX:int = readerDataGrid.length <= this._beadInfo.gridWidth ? 0 : readerDataGrid.length - this._beadInfo.gridWidth;
-//			trace("data::" + readerDataGrid );
-//			trace("startX::" + startX );
+			var symbol:string;
+			var startX:number= readerDataGrid.length <= this._beadInfo.gridWidth ? 0 : readerDataGrid.length - this._beadInfo.gridWidth;
+//			console.log("data::" + readerDataGrid );
+//			console.log("startX::" + startX );
 			var ball:BeadItem;
 			var offtenWidth:Number;
 			var offtenHeight:Number;
@@ -252,10 +252,10 @@ module lobby.view.route.game.sic {
 			offtenY = this._beadInfo.bigMc_OfftenY;
 			var tf:TextFormat = new TextFormat();
 			tf.bold = false;
-			var tempChildVector:Vector.<DisplayObject> = childVector.concat();
-			for (var x:int = startX,  colIndex:int = 0, cols:int = readerDataGrid.length; x < cols; x++) 
+			var tempChildVector:<DisplayObject> = childconcat();
+			for (var x:number= startX,  colIndex:number= 0, cols:number= readerDataGrid.length; x < cols; x++) 
 			{
-				for (var y:int = 0, rows:int = readerDataGrid[x].length; y < rows; y++)
+				for (var y:number= 0, rows:number= readerDataGrid[x].length; y < rows; y++)
 				{
 					symbol = readerDataGrid[x][y];
 					if (x >= startX && symbol && symbol != "null" )
@@ -291,13 +291,13 @@ module lobby.view.route.game.sic {
 							ball.setLabel(symbol);
 							if(childData)childData.view = ball;
 						}
-						var tindex:int = tempChildVector.indexOf(ball);
+						var tindex:number= tempChildindexOf(ball);
 						if(tindex>=0)
 						{
-							tempChildVector.splice(tindex,1);
+							tempChildsplice(tindex,1);
 						}else
 						{
-							childVector.push(ball);
+							childpush(ball);
 						}
 						if(!childData)
 						{
@@ -319,18 +319,18 @@ module lobby.view.route.game.sic {
 					colIndex++;
 				}
 			}
-			while(tempChildVector.length>0)
+			while(tempChildlength>0)
 			{
-				var child:DisplayObject = tempChildVector.shift();
-				var cindex:int = childVector.indexOf(child);
+				var child:DisplayObject = tempChildshift();
+				var cindex:number= childindexOf(child);
 				if(cindex>=0)
 				{
-					childVector.splice(cindex,1);
+					childsplice(cindex,1);
 				}
 				if(child.parent)child.parent.removeChild(child);
 			}
 		}
-		override public function resetPool():void {
+		 public function resetPool():void {
 			//while (this.numChildren > 0) {
 			//this.removeChildAt(0);
 			//}
@@ -345,11 +345,11 @@ module lobby.view.route.game.sic {
 		 * @param	isAsk
 		 * @param	
 		 */
-		public function drawOddEvenRoad(readerDataGrid:Array, isAsk:Boolean = false):void 
+		public function drawOddEvenRoad(readerDataGrid:any[], isAsk: boolean = false):void 
 		{
-			var symbol:String;
-			var startX:int = readerDataGrid.length <= this._beadInfo.gridWidth ? 0 : readerDataGrid.length - this._beadInfo.gridWidth;
-			//trace("startX::" + startX );
+			var symbol:string;
+			var startX:number= readerDataGrid.length <= this._beadInfo.gridWidth ? 0 : readerDataGrid.length - this._beadInfo.gridWidth;
+			//console.log("startX::" + startX );
 			var ball:BeadItem;
 			var offtenWidth:Number;
 			var offtenHeight:Number;
@@ -362,10 +362,10 @@ module lobby.view.route.game.sic {
 			offtenX = this._beadInfo.oddMc_OfftenX;
 			offtenY = this._beadInfo.oddMc_OfftenY;
 			var _nOffY:Number = 0;
-			var tempChildVector:Vector.<DisplayObject> = childVector.concat();
-			for (var x:int = startX,  colIndex:int = 0, cols:int = readerDataGrid.length; x < cols; x++)
+			var tempChildVector:<DisplayObject> = childconcat();
+			for (var x:number= startX,  colIndex:number= 0, cols:number= readerDataGrid.length; x < cols; x++)
 			{
-				for (var y:int = 0, rows:int = readerDataGrid[x].length; y < rows; y++)
+				for (var y:number= 0, rows:number= readerDataGrid[x].length; y < rows; y++)
 				{
 					symbol = readerDataGrid[x][y];
 					if (x >= startX && symbol && symbol != "null" ) 
@@ -393,13 +393,13 @@ module lobby.view.route.game.sic {
 							ball.setLabel(symbol);
 							if(childData)childData.view = ball;
 						}
-						var tindex:int = tempChildVector.indexOf(ball);
+						var tindex:number= tempChildindexOf(ball);
 						if(tindex>=0)
 						{
-							tempChildVector.splice(tindex,1);
+							tempChildsplice(tindex,1);
 						}else
 						{
-							childVector.push(ball);
+							childpush(ball);
 						}
 						if(!childData)
 						{
@@ -421,13 +421,13 @@ module lobby.view.route.game.sic {
 					colIndex++;
 				}
 			}
-			while(tempChildVector.length>0)
+			while(tempChildlength>0)
 			{
-				var child:DisplayObject = tempChildVector.shift();
-				var cindex:int = childVector.indexOf(child);
+				var child:DisplayObject = tempChildshift();
+				var cindex:number= childindexOf(child);
 				if(cindex>=0)
 				{
-					childVector.splice(cindex,1);
+					childsplice(cindex,1);
 				}
 				if(child.parent)child.parent.removeChild(child);
 			}

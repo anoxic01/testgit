@@ -3,13 +3,13 @@ module packet.lobby {
 		public constructor() {
 		}
 		
-		public function initControler(controler:GameControler):void
+		public initControler(controler:GameControler):void
 		{
 		}
 		
-		public function execute(oData:Object):void
+		public execute(oData:Object):void
 		{
-			trace("大厅移除好路")
+			console.log("大厅移除好路")
 //			LobbyData.getInstance().removeGoodRoadMap(oData.TableID);
 			
 //			LobbyManager.getInstance().sendUnsubscribe([oData.TableID]);

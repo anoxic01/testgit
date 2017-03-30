@@ -1,14 +1,14 @@
 module manager {
 	export class NetWorkManager {
-		private static var m_instance		:	NetWorkManager;
-		private var m_bLock					:	Boolean;			//鎖視窗
-		private var m_controler				:	GameControler;
-		private var m_bGameOnlyOne			:	Boolean;			//
+		private static m_instance		:	NetWorkManager;
+		private m_bLock					:	 boolean;			//鎖視窗
+		private m_controler				:	GameControler;
+		private m_bGameOnlyOne			:	 boolean;			//
 		
-		public var iLobbyNetWorkStatus		:	int = -1;			//大廳網路狀態
-		public var iGameNetWorkStatus		:	int = -1;			//遊戲網路狀態
-		public var _gamePopMsg				:	String;
-		public static function getInstance():NetWorkManager{
+		public iLobbyNetWorkStatus		:	int = -1;			//大廳網路狀態
+		public iGameNetWorkStatus		:	int = -1;			//遊戲網路狀態
+		public _gamePopMsg				:	string;
+		public static getInstance():NetWorkManager{
 			
 			if(m_instance == null){
 				
@@ -27,10 +27,10 @@ module manager {
 		 * @param _iStatus
 		 * 
 		 */
-		public function onLobbyLogout(_reason:int):void{
+		public onLobbyLogout(_reason:number):void{
 			//提示用户
 			var _panelDialog:PanelWindow;
-			var sKey1:String;
+			var sKey1:string;
 			var func:Function;
 			
 			LobbyManager.getInstance().bImportant = true;
@@ -156,13 +156,13 @@ module manager {
 		/**
 		 * 檢測大廳網路狀態 
 		 */
-		public function checkLobbyNetWork(  _iStatus:int ):void {
+		public checkLobbyNetWork(  _iStatus:number):void {
 			//檢測大廳			
 			iLobbyNetWorkStatus = _iStatus;
 			
 			//提示用户
 			var _panelDialog:PanelWindow;
-			var sKey1:String;
+			var sKey1:string;
 			
 			switch( iLobbyNetWorkStatus ){
 				case Define.LobbyDisconnect:					//大廳斷線,鎖彈窗
@@ -175,7 +175,7 @@ module manager {
 					break;
 				case Define.LobbyConnectFailed:					//大廳連線失敗
 					//大廳重連
-					var _bRes:Boolean = LobbyManager.getInstance().reconnect();
+					var _bRes: boolean = LobbyManager.getInstance().reconnect();
 					if( _bRes == false  ) {
 						//重連失敗
 						showPannel(Language.sException_Lobby_Connect_Failed , lobbyConnectFailed );	
@@ -212,10 +212,10 @@ module manager {
 		/**
 		 * 檢測遊戲網路狀態 
 		 */
-		public function checkGameNetWork( _iStatus:int , _controler:GameControler = null ):void {
+		public checkGameNetWork( _iStatus:number, _controler:GameControler = null ):void {
 			if( iLobbyNetWorkStatus == Define.LobbyConnected ){
 				m_controler = _controler;
-				trace("游戏断线"+_iStatus+"    已存在重要信息:"+LobbyManager.getInstance().bImportant)
+				console.log("游戏断线"+_iStatus+"    已存在重要信息:"+LobbyManager.getInstance().bImportant)
 				//驗證是否收到遊戲登出消息
 				if( LobbyManager.getInstance().bImportant == false ){
 					iGameNetWorkStatus = _iStatus; 
@@ -261,8 +261,8 @@ module manager {
 		/**
 		 * 
 		 */
-		public function showPannel( _sKey:String , _func:Function  ):void {
-			trace("弹框：：："+m_bLock)
+		public showPannel( _sKey:string , _func:Function  ):void {
+			console.log("弹框：：："+m_bLock)
 			if( m_bLock ){
 				return;
 			}			
@@ -303,9 +303,9 @@ module manager {
 		}
 		
 		//大廳斷線處裡
-		public function lobbyConnectCloseed():void {
+		public lobbyConnectCloseed():void {
 			LobbyManager.getInstance().closeAllDialog();
-			var _sMsg:String;
+			var _sMsg:string;
 			var _panelDialog:PanelWindow;
 			var _fExitLobby:Function = LobbyManager.getInstance().leaveLobby;
 			var _fRefreshWeb:Function = LobbyManager.getInstance().refreshWeb;			
@@ -317,9 +317,9 @@ module manager {
 		}		
 		
 		//大廳連接失敗
-		private function lobbyConnectFailed():void {
+		private lobbyConnectFailed():void {
 			LobbyManager.getInstance().closeAllDialog();
-			var _sMsg:String;
+			var _sMsg:string;
 			var _panelDialog:PanelWindow;
 			var _fExitLobby:Function = LobbyManager.getInstance().leaveLobby;
 			var _fRefreshWeb:Function = LobbyManager.getInstance().refreshWeb;	
@@ -332,11 +332,11 @@ module manager {
 		}
 		
 		//遊戲斷縣
-		public function gameClosed():void {
+		public gameClosed():void {
 			if( m_controler ){
 				m_controler.onConnectClosed();
 				if (NetWorkManager.getInstance().iLobbyNetWorkStatus == Define.LobbyConnected){
-					var _sMsg:String = LobbyManager.getInstance().getLanguageString( Language.sNetWork_Abnormal_Game );
+					var _sMsg:string = LobbyManager.getInstance().getLanguageString( Language.sNetWork_Abnormal_Game );
 					var _panelDialog:PanelDialog = LobbyManager.getInstance().showDialog(_sMsg , onPanelDialogClose, onPanelDialogClose, true );
 					
 					LobbyManager.getInstance().aCloseWindowList.push( _panelDialog ); 
@@ -348,7 +348,7 @@ module manager {
 		/**
 		 * 点确定或x按钮，都会回到大厅
 		 */		
-		private function onPanelDialogClose():void
+		private onPanelDialogClose():void
 		{
 			_gamePopMsg="";
 			if( m_controler.view ){
@@ -360,14 +360,14 @@ module manager {
 		}
 		
 		//連接遊戲失敗
-		public function connectGameFailed():void {
+		public connectGameFailed():void {
 			
 			//沒有重連 && m_controler.reConnect() == false
 			if( m_controler){
 				Log.getInstance().log(this, "遊戲連接失敗");
 				m_controler.onConnectFailed(SocketDefine.CONNECT_FAIL);
 				
-				var _sMsg:String = LobbyManager.getInstance().getLanguageString( Language.sException_Connect_GameServer_Failed );
+				var _sMsg:string = LobbyManager.getInstance().getLanguageString( Language.sException_Connect_GameServer_Failed );
 				var _func:Function = function():void {
 					_gamePopMsg="";
 //					LobbyManager.getInstance().destroyGame();
@@ -397,10 +397,10 @@ module manager {
 		}
 		
 		//多桌斷線
-		public function connectMulitGameClosed():void {
+		public connectMulitGameClosed():void {
 			Log.getInstance().log(this, "多桌連接關閉");
 			var _panelDialog:PanelDialog;
-			var _sMsg:String ;
+			var _sMsg:string ;
 			var _func:Function 
 			if(LobbyManager.getInstance().exitLevel == Define.EXIT_GAME){
 				_sMsg = LobbyManager.getInstance().getLanguageString( Language.sEnterGoodFail );

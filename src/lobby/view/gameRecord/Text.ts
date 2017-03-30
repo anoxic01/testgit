@@ -1,8 +1,8 @@
 module lobby.view.gameRecord {
 	export class Text {
 		
-		public var txtAsset	:	TextField;
-		public var sLangKey	:	String;
+		public txtAsset	:	TextField;
+		public sLangKey	:	String;
 		
 		public constructor( _txtAsset:TextField , sLangLey:String = null) {
 			txtAsset = _txtAsset;
@@ -12,44 +12,44 @@ module lobby.view.gameRecord {
 			txtAsset.selectable = false;
 		}
 		
-		public function destroy():void{
+		public destroy():void{
 			if(txtAsset){
 				txtAsset = null;
 			}
 		}
 		
-		public function onChangeLanguage():void {
+		public onChangeLanguage():void {
 			if( sLangKey ){
 				txtAsset.defaultTextFormat =  txtAsset.getTextFormat();
 				txtAsset.text = LobbyManager.getInstance().getLanguageString( sLangKey );
 			}
 		}
 		
-		public function set text(value:String):void {
+		set  text(value:String) {
 			txtAsset.defaultTextFormat =  txtAsset.getTextFormat();
 			txtAsset.text = value;
 		}
 		
-		public function set visible(value:Boolean ):void {
+		set  visible(value: boolean ) {
 			txtAsset.visible = value
 		}
-		public function get visible( ):Boolean {
+		get visible( ): boolean {
 			return txtAsset.visible;
 		}
 		
-		public function set mouseEnabled( value:Boolean ):void {
+		set  mouseEnabled( value: boolean ) {
 			txtAsset.mouseEnabled = value;
 		}
 		
-		public function get mouseEnabled( ):Boolean {
+		get mouseEnabled( ): boolean {
 			return txtAsset.mouseEnabled;
 		}
 		
-		public function set selectable(value:Boolean ):void {
+		set  selectable(value: boolean ) {
 			txtAsset.selectable = value;	
 			
 		}
-		public function get selectable( ):Boolean {
+		get selectable( ): boolean {
 			return txtAsset.selectable;	
 		}
 	}

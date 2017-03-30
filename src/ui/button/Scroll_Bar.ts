@@ -1,23 +1,23 @@
 module ui.button {
 	export class Scroll_Bar extends BSprite{
-		public var mcAsset			:	MovieClip;
-		protected var m_bmpdDefault	:	BitmapData;
-		protected var m_bmpdHover		:	BitmapData;
-		protected var m_bmpdHdown		:	BitmapData;
-		protected var m_bmpdDisable	:	BitmapData;
+		public mcAsset			:	MovieClip;
+		protected m_bmpdDefault	:	BitmapData;
+		protected m_bmpdHover		:	BitmapData;
+		protected m_bmpdHdown		:	BitmapData;
+		protected m_bmpdDisable	:	BitmapData;
 		
-		private var m_s9Default		:	BitmapScale9Grid;
-		private var m_s9Hover		:	BitmapScale9Grid;
-		private var m_s9Hdown		:	BitmapScale9Grid;
-		private var m_s9Disable		:	BitmapScale9Grid;
+		private m_s9Default		:	BitmapScale9Grid;
+		private m_s9Hover		:	BitmapScale9Grid;
+		private m_s9Hdown		:	BitmapScale9Grid;
+		private m_s9Disable		:	BitmapScale9Grid;
 		
-		public var fOnClick			:	Function;
-		public var fOnOver			:	Function;
-		public var fOnOut			:	Function;
-		private var m_bSelectStatus	:	Boolean;
+		public fOnClick			:	Function;
+		public fOnOver			:	Function;
+		public fOnOut			:	Function;
+		private m_bSelectStatus	:	 boolean;
 		
-		public var ID				:	int;
-		protected var m_bEnable		:	Boolean;
+		public ID				:	number;
+		protected m_bEnable		:	 boolean;
 		
 		public constructor(mcButton:MovieClip, $fOnClick:Function) {
 			super();
@@ -31,10 +31,10 @@ module ui.button {
 			
 		}
 		
-		protected function initBarView():void
+		protected initBarView():void
 		{
-			var _w : uint = mcAsset.width;
-			var _h : uint = mcAsset.height;
+			var _w : number = mcAsset.width;
+			var _h : number = mcAsset.height;
 			
 			m_bmpdDefault = new BitmapData(_w, _h);
 			m_bmpdHover = new BitmapData(_w, _h);
@@ -77,7 +77,7 @@ module ui.button {
 			enabled = true;
 		}
 		
-		public function destroy() : void
+		public destroy() : void
 		{
 			removeEvent();
 //			if (mcAsset)
@@ -92,7 +92,7 @@ module ui.button {
 			
 		}
 		
-		public function setSelectedStatus(bStatus:Boolean) : void
+		public setSelectedStatus(bStatus: boolean) : void
 		{
 			if(m_bSelectStatus!=bStatus){
 				m_bSelectStatus = bStatus;
@@ -101,7 +101,7 @@ module ui.button {
 			}
 		}
 		
-		public function set enabled(bValue:Boolean) : void
+		set  enabled(bValue: boolean) 
 		{
 			m_bEnable = bValue;
 //			if (mcAsset)
@@ -118,7 +118,7 @@ module ui.button {
 			
 		}
 		
-		public function setWidth(uValue:uint) : void
+		public setWidth(uValue:number) : void
 		{
 //			mcAsset.width = nValue;
 			m_s9Default.width = uValue;
@@ -132,7 +132,7 @@ module ui.button {
 			this.graphics.endFill();
 		}
 		
-		public function setHeight(uValue:uint) : void
+		public setHeight(uValue:number) : void
 		{
 //			mcAsset.height = nValue;
 			
@@ -147,7 +147,7 @@ module ui.button {
 			this.graphics.endFill();
 		}
 		
-		protected function addEvent() : void
+		protected addEvent() : void
 		{
 //			if(mcAsset){
 				this.addEventListener("click", onClick);
@@ -159,7 +159,7 @@ module ui.button {
 			
 		}
 		
-		protected function removeEvent() : void
+		protected removeEvent() : void
 		{
 //			if(mcAsset){
 				this.removeEventListener("click", onClick);
@@ -171,7 +171,7 @@ module ui.button {
 			
 		}
 		
-		protected function onClick(event:MouseEvent) : void
+		protected onClick(event:MouseEvent) : void
 		{
 			if (fOnClick != null && !m_bSelectStatus)
 			{
@@ -179,7 +179,7 @@ module ui.button {
 			}
 		}
 		
-		protected function out(event:MouseEvent) : void
+		protected out(event:MouseEvent) : void
 		{
 			if(m_bSelectStatus){
 				return;
@@ -192,7 +192,7 @@ module ui.button {
 			}
 		}
 		
-		protected function over(event:MouseEvent) : void
+		protected over(event:MouseEvent) : void
 		{
 			if(m_bSelectStatus){
 				return;
@@ -203,7 +203,7 @@ module ui.button {
 			}
 		}
 		
-		protected function down(event:MouseEvent) : void
+		protected down(event:MouseEvent) : void
 		{
 			if(m_bSelectStatus){
 				return;
@@ -211,7 +211,7 @@ module ui.button {
 			setCurrent("HDOWN");
 		}
 		
-		protected function up(event:MouseEvent) : void
+		protected up(event:MouseEvent) : void
 		{
 			if(m_bSelectStatus){
 				return;
@@ -219,7 +219,7 @@ module ui.button {
 			setCurrent("HOVER");
 		}
 		
-		protected function setCurrent(sFrame:String):void{
+		protected setCurrent(sFrame:String):void{
 			m_s9Default.visible = false;
 			m_s9Hover.visible = false;
 			m_s9Hdown.visible = false;

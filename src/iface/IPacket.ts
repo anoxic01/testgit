@@ -1,5 +1,5 @@
 module iface {
 	export interface IPacket {
-		pack( type:uint , sendData:Object ):ByteArray;
+		pack( type:number , sendData:Object ):egret.ByteArray;
 	}
 }

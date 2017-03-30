@@ -1,86 +1,86 @@
 module lobby.view.gameRecord {
 	export class BetRecordUI extends PanelWindow{
-		public var txtStartTime					:	Text;								//開始時間
-		public var txtEndTime					:	Text;								//結束時間
+		public txtStartTime					:	Text;								//開始時間
+		public txtEndTime					:	Text;								//結束時間
 		
-		public var selectStartTime				:	SingleButtonMC;						//選擇開始時間
-		public var selectEndTime				:	SingleButtonMC; 					//選擇結束時間
+		public selectStartTime				:	SingleButtonMC;						//選擇開始時間
+		public selectEndTime				:	SingleButtonMC; 					//選擇結束時間
 		
-		public var search						:	Btn; 								//查詢按鈕
+		public search						:	Btn; 								//查詢按鈕
 		
-		public var txt_SingleShowPage			:	Text;								//單頁顯示
-		public var txt_TotalPage				:	Text;								//總頁數
-		public var txt_Page						:	Text;								//頁數
+		public txt_SingleShowPage			:	Text;								//單頁顯示
+		public txt_TotalPage				:	Text;								//總頁數
+		public txt_Page						:	Text;								//頁數
 		
-		public var singleShowCount				:	int;								//單頁顯示幾筆
-		public var totalShowCount				:	int;								//共計幾筆
+		public singleShowCount				:	number;								//單頁顯示幾筆
+		public totalShowCount				:	number;								//共計幾筆
 		
-		public var btnGo						:	SingleButtonMC; 					//查詢按鈕
+		public btnGo						:	SingleButtonMC; 					//查詢按鈕
 		
-		public var subListDistanceY				:	int 	=	30;						//下注細單 Y間距
-		public var mcMoveLight					:	MovieClip;							//滑鼠移動亮條
-		public var mcClickLight					:	MovieClip;							//滑鼠選擇亮條
-		public var mcPos						:	MovieClip;							//下注細單 對位元件
+		public subListDistanceY				:	int 	=	30;						//下注細單 Y間距
+		public mcMoveLight					:	MovieClip;							//滑鼠移動亮條
+		public mcClickLight					:	MovieClip;							//滑鼠選擇亮條
+		public mcPos						:	MovieClip;							//下注細單 對位元件
 		
-		public var btnClose						:	SingleButtonMC;
-		public var btnFirstPage					:	SingleButtonMC;						//第1頁
-		public var btnLastPage					:	SingleButtonMC;						//最後1頁
-		public var btnPreviousPage				:	SingleButtonMC;						//上1頁
-		public var btnNextPage					:	SingleButtonMC;						//下1頁	
+		public btnClose						:	SingleButtonMC;
+		public btnFirstPage					:	SingleButtonMC;						//第1頁
+		public btnLastPage					:	SingleButtonMC;						//最後1頁
+		public btnPreviousPage				:	SingleButtonMC;						//上1頁
+		public btnNextPage					:	SingleButtonMC;						//下1頁	
 		
-		public var txt_inputPage				:	Text;								//輸入頁數框
+		public txt_inputPage				:	Text;								//輸入頁數框
 		
-		private var m_iCurrentPage				:	int 	= 	1;						//當前頁碼
-		private var m_iCurrentIdx				:	int 	= 	0;						//當前索引
-		private var m_iMaxPage					:	int 	= 	1;						//最大頁數
-		private var m_iDataSize					:	int 	= 	0;						//資料筆數
+		private m_iCurrentPage				:	int 	= 	1;						//當前頁碼
+		private m_iCurrentIdx				:	int 	= 	0;						//當前索引
+		private m_iMaxPage					:	int 	= 	1;						//最大頁數
+		private m_iDataSize					:	int 	= 	0;						//資料筆數
 		
-		public var gameID						:	int;
-		public var sStartTime					:	String;								//開始時間
-		public var sEndTime						:	String;								//結束時間
+		public gameID						:	number;
+		public sStartTime					:	String;								//開始時間
+		public sEndTime						:	String;								//結束時間
 		
-		private var sPreStartTime				:	String;								//上一個搜尋的開始時間
-		private var sPreEndTime					:	String;								//上一個搜尋的結束時間
+		private sPreStartTime				:	String;								//上一個搜尋的開始時間
+		private sPreEndTime					:	String;								//上一個搜尋的結束時間
 		
-		public var iRequestDataSize				:	int 	= 	12;						//要求資料筆數
+		public iRequestDataSize				:	int 	= 	12;						//要求資料筆數
 		
-		public var txtBetGold_Sum				:	Text;								//下注金額(小計)
-		public var txtPayOut_Sum				:	Text;								//派彩(小計)
-		public var txtAvailableBet_Sum			:	Text;								//有效投注(小計)
+		public txtBetGold_Sum				:	Text;								//下注金額(小計)
+		public txtPayOut_Sum				:	Text;								//派彩(小計)
+		public txtAvailableBet_Sum			:	Text;								//有效投注(小計)
 		
-		public var txtBetGold_Total_Sum			:	Text;								//下注金額(總計)
-		public var txtPayOut_Total_Sum			:	Text;								//派彩(總計)
-		public var txtAvailableBet_Total_Sum	:	Text;								//有效投注(總計)
+		public txtBetGold_Total_Sum			:	Text;								//下注金額(總計)
+		public txtPayOut_Total_Sum			:	Text;								//派彩(總計)
+		public txtAvailableBet_Total_Sum	:	Text;								//有效投注(總計)
 		
-		private var m_pool						: 	SubListPool;
-		public var _dateChooser					: 	DatePannel;
-		public var gameRecordApiStruct			: 	GameRecordApiStruct;				//下注紀錄資料
+		private m_pool						: 	SubListPool;
+		public _dateChooser					: 	DatePannel;
+		public gameRecordApiStruct			: 	GameRecordApiStruct;				//下注紀錄資料
 		
-		public var m_txtInput					: 	TextField;							//輸入頁碼
+		public m_txtInput					: 	TextField;							//輸入頁碼
 		
-		private var m_nMinSearchTime			: 	Number 	= 	0;						//最小可搜尋的  開始日期 毫秒
-		private var m_nMaxSearchTime			: 	Number 	= 	0;						//最大可搜尋的 結束日期 毫秒
+		private m_nMinSearchTime			: 	Number 	= 	0;						//最小可搜尋的  開始日期 毫秒
+		private m_nMaxSearchTime			: 	Number 	= 	0;						//最大可搜尋的 結束日期 毫秒
 		
-		private var m_startYear					: 	int		= 	0;
-		private var m_startMonth				: 	int 	= 	0;
-		private var m_startDay					: 	int 	= 	0;
+		private m_startYear					: 	int		= 	0;
+		private m_startMonth				: 	int 	= 	0;
+		private m_startDay					: 	int 	= 	0;
 		
-		private var m_searchEndYear				: 	int 	= 	0;
-		private var m_searchEndMonth			: 	int 	= 	0;
-		private var m_searchEndDay				: 	int 	= 	0;		
+		private m_searchEndYear				: 	int 	= 	0;
+		private m_searchEndMonth			: 	int 	= 	0;
+		private m_searchEndDay				: 	int 	= 	0;		
 		
-		private var m_searchStartYear			:	int 	= 	0;
-		private var m_searchStartMonth			:	int 	= 	0;
-		private var m_searchStartDay			: 	int 	= 	0;
+		private m_searchStartYear			:	int 	= 	0;
+		private m_searchStartMonth			:	int 	= 	0;
+		private m_searchStartDay			: 	int 	= 	0;
 		
-		private var m_gameLogListStruct			:	GameRecordApiStruct;
-		private var m_mcNoLog					: 	MovieClip;
-		private var m_loading					: 	*;									//加载图标
-		private var m_selectSubList				: 	SubBetList;							//選擇子單
-		private var m_stage						: 	Stage;								//
+		private m_gameLogListStruct			:	GameRecordApiStruct;
+		private m_mcNoLog					: 	MovieClip;
+		private m_loading					: 	*;									//加载图标
+		private m_selectSubList				: 	SubBetList;							//選擇子單
+		private m_stage						: 	Stage;								//
 		
 		
-		public constructor(_mcAsset:MovieClip ,$bShake:Boolean = false ) {
+		public constructor(_mcAsset:MovieClip ,$bShake: boolean = false ) {
 			super( $bShake );
 			
 			m_mcAsset 		= _mcAsset;
@@ -177,19 +177,19 @@ module lobby.view.gameRecord {
 			
 			onChangeLanguage();
 		}
-		public function addKeyBoardListen(_stage:Stage):void {
+		public addKeyBoardListen(_stage:Stage):void {
 			m_stage = _stage;
 			m_stage.addEventListener(KeyboardEvent.KEY_DOWN, onkeyHandler);
 		}
 		
-		protected function onkeyHandler(event:KeyboardEvent):void
+		protected onkeyHandler(event:KeyboardEvent):void
 		{
 			/*if( event.charCode == 13 ){
 				goPage(null);
 			}*/
 		}		
 		
-		protected function mouseHandler(event:MouseEvent):void
+		protected mouseHandler(event:MouseEvent):void
 		{
 			if( event.type == MouseEvent.MOUSE_MOVE ){
 				m_mcAsset.mc_input.gotoAndStop(2);
@@ -200,7 +200,7 @@ module lobby.view.gameRecord {
 			
 		}
 		
-		private function resetText():void {
+		private resetText():void {
 			txtBetGold_Sum.text = "";
 			txtPayOut_Sum.text = "";
 			txtAvailableBet_Sum.text = "";
@@ -211,21 +211,21 @@ module lobby.view.gameRecord {
 			txtAvailableBet_Total_Sum.text = "";
 		}
 		
-		public function init():void {
+		public init():void {
 			_dateChooser.enabled = true;
 		}
 		
-		protected function playerInput(event:TextEvent):void{
+		protected playerInput(event:TextEvent):void{
 			if( m_txtInput.text == "0" ){
 				m_txtInput.text = "";
 			}
 		}
 		
-		private function nextPageHandler(event:MouseEvent):void
+		private nextPageHandler(event:MouseEvent):void
 		{
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			
-			var _iFCurrentIdx:int = m_iCurrentIdx;
+			var _iFCurrentIdx:number= m_iCurrentIdx;
 			if( m_iCurrentPage < m_iMaxPage ){
 				m_iCurrentPage += 1;
 				m_iCurrentIdx += iRequestDataSize;
@@ -238,10 +238,10 @@ module lobby.view.gameRecord {
 			}
 		}
 		
-		private function previousPageHandler(event:MouseEvent):void{
+		private previousPageHandler(event:MouseEvent):void{
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			
-			var _iFCurrentIdx:int = m_iCurrentIdx;
+			var _iFCurrentIdx:number= m_iCurrentIdx;
 			if( m_iCurrentPage > 1 ){
 				m_iCurrentPage -= 1;
 				m_iCurrentIdx -= iRequestDataSize;
@@ -257,11 +257,11 @@ module lobby.view.gameRecord {
 			}
 		}
 		
-		private function lastPageHandler(event:MouseEvent):void
+		private lastPageHandler(event:MouseEvent):void
 		{
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			
-			var _iFCurrentIdx:int = m_iCurrentIdx;
+			var _iFCurrentIdx:number= m_iCurrentIdx;
 			if( m_iCurrentPage != m_iMaxPage ){
 				m_iCurrentPage = m_iMaxPage;
 				m_iCurrentIdx = iRequestDataSize * ( m_iMaxPage -1 );
@@ -280,12 +280,12 @@ module lobby.view.gameRecord {
 
 		}
 		
-		private function firstPageHandler(event:MouseEvent):void
+		private firstPageHandler(event:MouseEvent):void
 		{
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			
 			// TODO Auto Generated method stub
-			var _iFCurrentIdx:int = m_iCurrentIdx;
+			var _iFCurrentIdx:number= m_iCurrentIdx;
 			if( m_iCurrentPage != 1 ){
 				m_iCurrentPage = 1;
 				m_iCurrentIdx = 0;
@@ -302,12 +302,12 @@ module lobby.view.gameRecord {
 			
 		}			
 		
-		private function closeWindowHandler(event:MouseEvent):void{
+		private closeWindowHandler(event:MouseEvent):void{
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			GameRecordManager.getInstance().hideBetRecordPannel();
 		}
 		
-		private function selectEndTimeHandler(event:MouseEvent):void{
+		private selectEndTimeHandler(event:MouseEvent):void{
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			
 			if( _dateChooser.selectType == _dateChooser.EndTimeType ){
@@ -323,7 +323,7 @@ module lobby.view.gameRecord {
 			addChild( _dateChooser );
 		}
 		
-		private function selectStartTimeHandler(event:MouseEvent):void{
+		private selectStartTimeHandler(event:MouseEvent):void{
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			if( _dateChooser.selectType == _dateChooser.StartTimeType ){
 				_dateChooser.visible = !_dateChooser.visible;
@@ -339,10 +339,10 @@ module lobby.view.gameRecord {
 		}
 		
 		//設定查詢開始日期
-		private function setSearchStartDate():void {
-			var _year:int;			
-			var _month:int;
-			var _day:int;
+		private setSearchStartDate():void {
+			var _year:number;			
+			var _month:number;
+			var _day:number;
 			
 			_year = m_startYear;
 			_month = m_startMonth;
@@ -361,7 +361,7 @@ module lobby.view.gameRecord {
 		/**
 		 * 搜尋下注紀錄
 		 */
-		public function searchBetGameRecord(event:MouseEvent=null):void {
+		public searchBetGameRecord(event:MouseEvent=null):void {
 
 			if(event != null){
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
@@ -388,11 +388,11 @@ module lobby.view.gameRecord {
 		/**
 		 * 跳轉頁
 		 */
-		private function goPage(event:MouseEvent):void {
+		private goPage(event:MouseEvent):void {
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			
-			var _iPage:int = int(m_txtInput.text); 
-			var startRowNo:int = ( iRequestDataSize * ( m_iMaxPage -1 ) ) + 1;
+			var _iPage:number= int(m_txtInput.text); 
+			var startRowNo:number= ( iRequestDataSize * ( m_iMaxPage -1 ) ) + 1;
 			var _sMsg:String;
 			if( _iPage > m_iMaxPage ){
 				/*m_txtInput.text = String(m_iMaxPage);
@@ -438,7 +438,7 @@ module lobby.view.gameRecord {
 		/**
 		 * 確認 開始日期跟結束日期 是否在正確範圍   開始日期 不能大於 結束日期
 		 */
-		public function setDate( _iYear:int , _iMonth:int , _iDay:int  ):void  {
+		public setDate( _iYear:number, _iMonth:number, _iDay:number ):void  {
 			var _date:Date;
 			
 			if( _dateChooser.selectType == _dateChooser.StartTimeType ){
@@ -505,7 +505,7 @@ module lobby.view.gameRecord {
 		/**
 		 * 更新日期
 		 */
-		public function updateDate( _iYear:int , _iMonth:int , _iDay:int ):void {
+		public updateDate( _iYear:number, _iMonth:number, _iDay:number):void {
 			var _tfTarget:Text;
 			if( _dateChooser.selectType == _dateChooser.StartTimeType ){
 				_tfTarget = txtStartTime;
@@ -519,7 +519,7 @@ module lobby.view.gameRecord {
 			
 		}
 		
-		override public function onChangeLanguage():void {
+		 public onChangeLanguage():void {
 			m_mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			m_mcNoLog.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			
@@ -532,9 +532,9 @@ module lobby.view.gameRecord {
 		/**
 		 * 
 		 */
-		public function updateUI(_gameRecordApiStruct:GameRecordApiStruct):void {
+		public updateUI(_gameRecordApiStruct:GameRecordApiStruct):void {
 			m_gameLogListStruct = _gameRecordApiStruct;
-			var _bHasLog:Boolean = false;
+			var _bHasLog: boolean = false;
 			var _gameLogListStruct:GameLogListStruct = _gameRecordApiStruct.RecordList;
 			if( _gameLogListStruct != null ){
 				resetText();
@@ -568,9 +568,9 @@ module lobby.view.gameRecord {
 			hideLoding();
 		}
 		
-		private function updateText():void {
+		private updateText():void {
 			var _gameLogListStruct:GameLogListStruct = m_gameLogListStruct.RecordList;
-			var _iPage:int =int(_gameLogListStruct.LogSummary.TotalDataCount / iRequestDataSize );
+			var _iPage:number=int(_gameLogListStruct.LogSummary.TotalDataCount / iRequestDataSize );
 			
 			//選擇其他日期
 			if( (sPreEndTime != sEndTime) || (sPreStartTime != sStartTime) ){
@@ -596,7 +596,7 @@ module lobby.view.gameRecord {
 			}			
 		}
 		
-		private function updateSummary(_gameLogSummaryStruct:GameLogSummaryStruct):void {
+		private updateSummary(_gameLogSummaryStruct:GameLogSummaryStruct):void {
 			/**小計*/
 			txtBetGold_Sum.text = String(_gameLogSummaryStruct.SubtotalBetAmount);
 			txtPayOut_Sum.text = String(_gameLogSummaryStruct.SubtotalResultAmount);
@@ -625,8 +625,8 @@ module lobby.view.gameRecord {
 		/**
 		 * 更新下注紀錄結果
 		 */
-		public function updateGameRecord( _sGameNo:String ):void {
-			var _bRes:Boolean = m_pool.find( _sGameNo );
+		public updateGameRecord( _sGameNo:String ):void {
+			var _bRes: boolean = m_pool.find( _sGameNo );
 			if( _bRes ){
 				searchBetGameRecord();
 			}
@@ -634,7 +634,7 @@ module lobby.view.gameRecord {
 		}
 
 		
-		private function updateComplexGameList( _aComplexGameList:Array ):void {
+		private updateComplexGameList( _aComplexGameList:any[] ):void {
 			if( !m_pool ){
 				return;
 			}
@@ -644,7 +644,7 @@ module lobby.view.gameRecord {
 			}
 			
 			m_pool.reset();
-			var _iDateSize:int = m_gameLogListStruct.RecordList.LogSummary.TotalDataCount;				//總資料筆數
+			var _iDateSize:number= m_gameLogListStruct.RecordList.LogSummary.TotalDataCount;				//總資料筆數
 			
 			if( _iDateSize % iRequestDataSize > 0 ){
 				m_iMaxPage = int( _iDateSize / iRequestDataSize) + 1 ;							//最大頁數 = 總筆數 / 單頁資料筆數
@@ -674,7 +674,7 @@ module lobby.view.gameRecord {
 				btnNextPage.enabled = true;				
 			}
 			
-			var _iLength:int = m_gameLogListStruct.RecordList.ComplexGameList.length;
+			var _iLength:number= m_gameLogListStruct.RecordList.ComplexGameList.length;
 			var _subList:SubBetList;
 			
 			var listNumber:String = "";
@@ -687,7 +687,7 @@ module lobby.view.gameRecord {
 			var availableBet:String = "";
 			var state:String = "";
 			
-			for( var i:int = 0; i < _iLength ; i++)
+			for( var i:number= 0; i < _iLength ; i++)
 			{
 				_subList = m_pool.getSubList();
 				_subList.complexGameRecordStruct = _aComplexGameList[i];
@@ -696,7 +696,7 @@ module lobby.view.gameRecord {
 				_subList.fClick	   = showClickLight;
 				
 				
-				var _gameID:int = ComplexGameRecordStruct( _aComplexGameList[i] ).BaseRecord.GameID;
+				var _gameID:number= ComplexGameRecordStruct( _aComplexGameList[i] ).BaseRecord.GameID;
 				var _baseRecordStruct:BaseRecordStruct = ( _aComplexGameList[i].BaseRecord as BaseRecordStruct); 
 				var _baccaratData:BaccaratGameRecordStruct	= ( _aComplexGameList[i].BaccaratData as BaccaratGameRecordStruct);
 				var _sicboData:SicboGameRecordStruct	= ( _aComplexGameList[i].SicboData as SicboGameRecordStruct);
@@ -709,13 +709,13 @@ module lobby.view.gameRecord {
 				//_subList.txtAvailableBet.text 	=  String(_baseRecordStruct.RakeAmount);		
 				
 				var _str:String = String(_baseRecordStruct.BetCreateDateTime);
-				var _ar:Array = _str.split("T");
-				var _ar2:Array = _ar[0].split('-');
+				var _ar:any[] = _str.split("T");
+				var _ar2:any[] = _ar[0].split('-');
 				var _nYear:Number = Number(_ar2[0]);
 				var _nMonth:Number = Number(_ar2[1])-1
 				var _nDay:Number = Number(_ar2[2]);
 
-				var _ar3:Array = _ar[1].split(':');
+				var _ar3:any[] = _ar[1].split(':');
 				var _nHour:Number = Number(_ar3[0]);
 				var _nMin:Number = Number(_ar3[1])
 				var _nSec:Number = Number(_ar3[2]);			
@@ -724,9 +724,9 @@ module lobby.view.gameRecord {
 				var _date:Date = new Date(_nYear , _nMonth ,_nDay , _nHour , _nMin , _nSec  );
 				var offsetMilliseconds:Number = _date.getTimezoneOffset() * 60 * 1000;
 				
-//				trace("offsetMilliseconds::" + offsetMilliseconds );
+//				console.log("offsetMilliseconds::" + offsetMilliseconds );
 				_date.setTime( _date.getTime() - offsetMilliseconds );
-				var _iMonth:int = _date.getMonth();
+				var _iMonth:number= _date.getMonth();
 				var _sMonth:String;
 				if( _iMonth < 9 ){
 					_sMonth = "0" + (_iMonth+1);
@@ -735,7 +735,7 @@ module lobby.view.gameRecord {
 					_sMonth = String(_iMonth+1);
 				}
 				
-				var _iDay:int = _date.getDate();
+				var _iDay:number= _date.getDate();
 				var _sDay:String;
 				if( _iDay < 10 ){
 					_sDay = "0" + (_iDay);
@@ -745,7 +745,7 @@ module lobby.view.gameRecord {
 				}
 				
 				
-				var _iHours:int = _date.getHours();
+				var _iHours:number= _date.getHours();
 				var _sHours:String;
 				if( _iHours < 10 ){
 					_sHours = "0" + (_iHours);
@@ -757,7 +757,7 @@ module lobby.view.gameRecord {
 					_sHours = String(_iHours);
 				}
 				
-				var _iMin:int = _date.getMinutes();
+				var _iMin:number= _date.getMinutes();
 				var _sMin:String;
 				
 				
@@ -800,7 +800,7 @@ module lobby.view.gameRecord {
 				}
 				else if( _gameID == GameDefine.SIC ){
 					gameType 	=  LobbyManager.getInstance().getLanguageString( Language.sGame_Name_Sic );
-					var _sicAr:Array = [_sicboData.Dice_1 , _sicboData.Dice_2 , _sicboData.Dice_3 ];
+					var _sicAr:any[] = [_sicboData.Dice_1 , _sicboData.Dice_2 , _sicboData.Dice_3 ];
 					_sicAr.sort(Array.NUMERIC);
 					result = String(_sicAr[0]) + String(_sicAr[1]) + String(_sicAr[2]);
 					//_subList.txtResult.text = String(_sicAr[0]) + String(_sicAr[1]) + String(_sicAr[2]);
@@ -839,7 +839,7 @@ module lobby.view.gameRecord {
 		
 		}
 		
-		private function transDtfPoints(_iPoint:int):String {
+		private transDtfPoints(_iPoint:number):String {
 			var _str:String = "";
 			
 			if( _iPoint == 1 ){
@@ -862,11 +862,11 @@ module lobby.view.gameRecord {
 			return _str;
 		}		
 		
-		private function hideMoveLight(event:MouseEvent):void{
+		private hideMoveLight(event:MouseEvent):void{
 			mcMoveLight.visible = false;
 		}
 		
-		private function showMoveLight(event:MouseEvent):void {
+		private showMoveLight(event:MouseEvent):void {
 			if( m_selectSubList == event.currentTarget ){
 				return;
 			}			
@@ -875,31 +875,31 @@ module lobby.view.gameRecord {
 			mcMoveLight.visible = true;
 		}
 		
-		private function showClickLight(_target:SubBetList):void {
+		private showClickLight(_target:SubBetList):void {
 			m_selectSubList = _target;
 			mcClickLight.x = _target.x - 1;
 			mcClickLight.y = _target.y - 1;
 			mcClickLight.visible = true;			
 		}
 		
-		public function hideClickLight():void {
+		public hideClickLight():void {
 			mcClickLight.visible = false;
 		}
 		
-		override public function destroy():void {
+		 public destroy():void {
 			if( _dateChooser ){
 				_dateChooser.enabled = false;
 			}
 						
 		}
 		
-		public function set enabled( _bValue:Boolean ):void {
+		set  enabled( _bValue: boolean ) {
 			if( _dateChooser ){
 				_dateChooser.enabled = true;
 			}
 		}
 		
-		public function showLoading():void{
+		public showLoading():void{
 			if(m_loading){
 				m_loading.gotoAndPlay(1);
 				m_loading.visible = true;
@@ -909,7 +909,7 @@ module lobby.view.gameRecord {
 			}
 			
 		}
-		public function hideLoding():void{
+		public hideLoding():void{
 			if(m_loading){
 				m_loading.gotoAndStop(1);
 				m_loading.visible = false;
@@ -917,7 +917,7 @@ module lobby.view.gameRecord {
 			
 		}	
 		
-		public function checkBetCord():void {
+		public checkBetCord():void {
 			//
 			if( !m_gameLogListStruct ){
 				//驗證是否有紀錄
@@ -932,7 +932,7 @@ module lobby.view.gameRecord {
 			}
 			
 			
-			var _bHasLog:Boolean = false;
+			var _bHasLog: boolean = false;
 			var _gameLogListStruct:GameLogListStruct = m_gameLogListStruct.RecordList;			
 			if( _gameLogListStruct.LogSummary.TotalDataCount == 0 ){
 				_bHasLog = false;
@@ -963,13 +963,13 @@ import manager.LobbyManager;
 
 
 class Btn extends SingleButtonMC {
-	public var txtLabel:MovieClip;
-	public function Btn(mcButton:MovieClip, $fOnClick:Function , sLangLey:String ):void {
+	public txtLabel:MovieClip;
+	public Btn(mcButton:MovieClip, $fOnClick:Function , sLangLey:String ):void {
 		super(mcButton , $fOnClick );
 		txtLabel = mcButton.tf_label;
 	}
 	
-	public function onChangeLanguage():void {
+	public onChangeLanguage():void {
 		txtLabel.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 	}	
 }

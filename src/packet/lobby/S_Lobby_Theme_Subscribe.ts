@@ -1,21 +1,21 @@
 module packet.lobby {
 	export class S_Lobby_Theme_Subscribe implements IProtocolStruct{
-		public var Type					:	int;			//封包命令
-		public var SubRet				:	int;			//订阅结果	0-成功	1-失败
-		public var UnsubRet				:	int;			//取消订阅结果	0-成功	1-失败
-		public var SubscribleThemeID	:	int;			//订阅厅馆ID
-		public var UnsubscribleThemeID	:	int;			//取消订阅厅馆ID
-		public var TableList			:	Array;			//訂閱廳館賭桌資料
-		public var IsMaintaining		:	Boolean;		//维护状态
+		public Type					:	number;			//封包命令
+		public SubRet				:	number;			//订阅结果	0-成功	1-失败
+		public UnsubRet				:	number;			//取消订阅结果	0-成功	1-失败
+		public SubscribleThemeID	:	number;			//订阅厅馆ID
+		public UnsubscribleThemeID	:	number;			//取消订阅厅馆ID
+		public TableList			:	any[];			//訂閱廳館賭桌資料
+		public IsMaintaining		:	 boolean;		//维护状态
 		
 		public constructor() {
 		}
 		
-		public function initControler(controler:GameControler):void
+		public initControler(controler:GameControler):void
 		{
 		}
 		
-		public function execute(oData:Object):void
+		public execute(oData:Object):void
 		{
 			LobbyManager.getInstance().bSubscribeTheme = false;
 			LobbyManager.getInstance().lobbyView.hideLoading();
@@ -29,40 +29,40 @@ module packet.lobby {
 			UnsubscribleThemeID = oData.UnsubscribleThemeID;
 			TableList = oData.TableList;
 			IsMaintaining = oData.IsMaintaining;
-			trace("订阅厅馆返回消息 =====================================");
+			console.log("订阅厅馆返回消息 =====================================");
 			if(SubscribleThemeID>0){
 				var _currentThemeStruct : ThemeStruct = LobbyData.getInstance().lobbyInfo.getThemeStruct(LobbyManager.getInstance().lobbyView.uCurrentThemeID);
 				var _themeStruct : ThemeStruct = LobbyData.getInstance().lobbyInfo.getThemeStruct(SubscribleThemeID);
 				if(_themeStruct){
 					_themeStruct.updateTableList(TableList);
-					trace("订阅厅馆返回消息，更新桌子数据完成================================");
+					console.log("订阅厅馆返回消息，更新桌子数据完成================================");
 				}else{
 					_themeStruct = new ThemeStruct();
 					_themeStruct.ThemeID = SubscribleThemeID;
 					_themeStruct.TableCnt = TableList?TableList.length:0;
-					for (var i:int = 0; i < _themeStruct.TableCnt; i++) 
+					for (var i:number= 0; i < _themeStruct.TableCnt; i++) 
 					{
 						_themeStruct.TableList.push(new TableStruct(TableList[i]));
-//						trace("厅馆名称：",TableList[i].ThemeName_CN," GameID:",TableList[i].GameID," TableType:", TableList[i].TableType, " 桌子ID：",TableList[i].TableID, "桌子名称:",TableList[i].TableName_CN);
+//						console.log("厅馆名称：",TableList[i].ThemeName_CN," GameID:",TableList[i].GameID," TableType:", TableList[i].TableType, " 桌子ID：",TableList[i].TableID, "桌子名称:",TableList[i].TableName_CN);
 					}
 				}
 				_themeStruct.IsMaintaining = IsMaintaining;
 				
 				if(LobbyManager.getInstance().lobbyView.uCurrentThemeID==SubscribleThemeID){
 					//桌子关闭退回大厅需要将关闭桌显示为维护中
-					for (var j:int = 0; j < LobbyData.getInstance().MaintainTableStruct.length; j++) 
+					for (var j:number= 0; j < LobbyData.getInstance().MaintainTableStruct.length; j++) 
 					{
 						_themeStruct.addTableStruct(LobbyData.getInstance().MaintainTableStruct[j]);
 					}
 				}else{
-					for (var k:int = 0; k < LobbyData.getInstance().MaintainTableStruct.length; k++) 
+					for (var k:number= 0; k < LobbyData.getInstance().MaintainTableStruct.length; k++) 
 					{
 						_currentThemeStruct.removeTableStruct(LobbyData.getInstance().MaintainTableStruct[k].TableID);
 					}
 					LobbyData.getInstance().removeAllMaintainTableStruct();
 				}
 				
-				_themeStruct.TableList.sort(function(a:TableStruct, b:TableStruct):int{
+				_themeStruct.TableList.sort(function(a:TableStruct, b:TableStruct):number{
 					if(a.TableID>b.TableID){
 						return 1;
 					}else if(a.TableID<b.TableID){
@@ -75,16 +75,16 @@ module packet.lobby {
 				
 			}
 			
-			trace("封包命令：",Type, "订阅状态：",SubRet,"订阅厅馆ID",SubscribleThemeID, "取消订阅状态：",UnsubRet, "取消订阅厅馆ID：",UnsubscribleThemeID);
+			console.log("封包命令：",Type, "订阅状态：",SubRet,"订阅厅馆ID",SubscribleThemeID, "取消订阅状态：",UnsubRet, "取消订阅厅馆ID：",UnsubscribleThemeID);
 			
 			if(SubRet==0){
-				trace("exitLevel:" + LobbyManager.getInstance().exitLevel );
+				console.log("exitLevel:" + LobbyManager.getInstance().exitLevel );
 				//游戏中的快速转桌列表
 				if(LobbyManager.getInstance().exitLevel == Define.EXIT_GAME){
 					
 					if( LobbyManager.getInstance().lobbyAuth.loginMode == Define.INTERNET_BET_LOBBY ){
 						if(LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme){
-							var _id:int = LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme.struct.ThemeID;
+							var _id:number= LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme.struct.ThemeID;
 							if(LobbyManager.getInstance().lobbyView.quickThemeList.bInit){
 								LobbyManager.getInstance().lobbyView.quickThemeList.bInit = false;
 								

@@ -3,83 +3,83 @@ module packet.game {
      	/// <summary>
         /// 遊戲ID
         /// </summary>
-        private var gameID:int;
+        private gameID:number;
 
         /// <summary>
         /// 賭桌ID
         /// </summary>
-        private var tableID:int;
+        private tableID:number;
 
 
         /// <summary>
         /// 玩家ID
         /// </summary>
-        private var playerID:int;
+        private playerID:number;
 
 
         /// <summary>
         /// 是否跨Server
         /// </summary>
-        private var isCrossServer :Boolean;
+        private isCrossServer : boolean;
 
 
         /// <summary>
         /// 押注要求資料
         /// </summary>
-        private var betList:Vector.<GameBetBase>;
+        private betList:<GameBetBase>;
 		
 		public constructor() {
-			this.betList = new Vector.<GameBetBase>();
+			this.betList = new <GameBetBase>();
 
 		}
 
 		
-		public function get GameID():int 
+		get GameID():number
 		{
 			return gameID;
 		}
 		
-		public function set GameID(value:int):void 
+		set  GameID(value:number) 
 		{
 			gameID = value;
 		}
 		
-		public function get TableID():int 
+		get TableID():number
 		{
 			return tableID;
 		}
 		
-		public function set TableID(value:int):void 
+		set  TableID(value:number) 
 		{
 			tableID = value;
 		}
 		
-		public function get PlayerID():int 
+		get PlayerID():number
 		{
 			return playerID;
 		}
 		
-		public function set PlayerID(value:int):void 
+		set  PlayerID(value:number) 
 		{
 			playerID = value;
 		}
 		
-		public function get IsCrossServer():Boolean 
+		get IsCrossServer(): boolean 
 		{
 			return isCrossServer;
 		}
 		
-		public function set IsCrossServer(value:Boolean):void 
+		set  IsCrossServer(value: boolean) 
 		{
 			isCrossServer = value;
 		}
 		
-		public function get BetList():Vector.<GameBetBase> 
+		get BetList():<GameBetBase> 
 		{
 			return betList;
 		}
 		
-		public function set BetList(value:Vector.<GameBetBase>):void 
+		set  BetList(value:<GameBetBase>) 
 		{
 			betList = value;
 		}

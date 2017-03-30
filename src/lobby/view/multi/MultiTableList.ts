@@ -1,24 +1,24 @@
 module lobby.view.multi {
 	export class MultiTableList extends PanelPage{
-		public static const COUNT		:	uint	=	16;							//桌子数量
+		public static const COUNT		:	number	=	16;							//桌子数量
 		
-		private var m_vecList			:	Vector.<MultiTableItem>;				//桌子数组
-		private var m_vecSpList			:	Vector.<Sprite>;						//分页列表
-		private var m_iTotalPage		:	int;									//分页数量
-		private var m_iCurrentPage		:	int;									//当前页数
-//		private var m_iCurrentIndex		:	int;									//当前序号
-		private var m_uMode				:	uint;									//多桌模式
-		private var m_spCurrentPage		:	Sprite;									//当前页面
-		private var m_spContent			:	Sprite;									//桌子容器
+		private m_vecList			:	<MultiTableItem>;				//桌子数组
+		private m_vecSpList			:	<Sprite>;						//分页列表
+		private m_iTotalPage		:	number;									//分页数量
+		private m_iCurrentPage		:	number;									//当前页数
+//		private m_iCurrentIndex		:	number;									//当前序号
+		private m_uMode				:	number;									//多桌模式
+		private m_spCurrentPage		:	Sprite;									//当前页面
+		private m_spContent			:	Sprite;									//桌子容器
 		
-		private var m_pageNumberList	:	PageNumberListMultitable;				//页码列表
-		private var m_pageNumX			:	int;
-		public var bCheckDetection	:	Boolean = false;			//检测 高低配置切换
-		public function get currentPage():int{
+		private m_pageNumberList	:	PageNumberListMultitable;				//页码列表
+		private m_pageNumX			:	number;
+		public bCheckDetection	:	 boolean = false;			//检测 高低配置切换
+		get currentPage():number{
 			return m_iCurrentPage;
 		}
 		
-		public constructor(_uMode:uint) {
+		public constructor(_uMode:number) {
 			var date : Number = getTimer();
 			super();
 			m_uMode = _uMode;
@@ -28,12 +28,12 @@ module lobby.view.multi {
 			
 			m_iTotalPage = Math.ceil(COUNT/m_uMode);
 			
-			m_vecSpList = new Vector.<Sprite>;
+			m_vecSpList = new <Sprite>;
 			var _sp	:	Sprite;
-			m_vecList = new Vector.<MultiTableItem>;
+			m_vecList = new <MultiTableItem>;
 			var _item : MultiTableItem;
-			var _index : int;
-			for (var j:int = 0; j < m_iTotalPage; j++) 
+			var _index : number;
+			for (var j:number= 0; j < m_iTotalPage; j++) 
 			{
 				_sp = new Sprite();
 				m_spContent.addChild(_sp);
@@ -41,7 +41,7 @@ module lobby.view.multi {
 				_sp.visible = false;
 				m_vecSpList.push(_sp);
 			
-				for (var i:int = 0; i < m_uMode; i++) 
+				for (var i:number= 0; i < m_uMode; i++) 
 				{
 					_item = new MultiTableItem(m_uMode, this, j);
 					_item.index=i;
@@ -89,16 +89,16 @@ module lobby.view.multi {
 			m_pageNumberList.x = int(1600-m_pageNumberList.width);
 			m_pageNumberList.y = -45;
 			m_pageNumberList.mouseChildren=false;
-			trace("多桌列表初始化需要时间: ",getTimer()-date,"**************");
+			console.log("多桌列表初始化需要时间: ",getTimer()-date,"**************");
 			TweenLite.delayedCall(1,setData);
 			//setData();
 		}
-		override public function destroy():void{
+		 public destroy():void{
 			TweenLite.killDelayedCallsTo(setData);
 			if(m_vecList){
 				var item : MultiTableItem;
-				var _len :int = m_vecList.length;
-				for (var i:int = 0; i < _len; i++) 
+				var _len :number= m_vecList.length;
+				for (var i:number= 0; i < _len; i++) 
 				{
 					item = m_vecList.pop() as MultiTableItem;
 					if(item.parent){
@@ -133,7 +133,7 @@ module lobby.view.multi {
 			}
 		}
 		
-		override public function set iCurrentPage(_iPage:int):void{
+		 set  iCurrentPage(_iPage:number){
 			
 //			if(!bTurn()){
 //				return;
@@ -155,7 +155,7 @@ module lobby.view.multi {
 			SoundManager.getInstance().play(SoundPackage.sChangePage);
 		}
 		
-		public function setData():void{
+		public setData():void{
 			LobbyData.getInstance().resetGoodRoadTemp();
 			var _goodRoadStruct : GoodRoadStruct = LobbyData.getInstance().getGoodRoadByIndex(m_iCurrentPage*m_uMode) as GoodRoadStruct;
 			if(_goodRoadStruct){
@@ -172,25 +172,25 @@ module lobby.view.multi {
 			
 		}
 		
-		public function setMultitableItemStruct(_goodRoadStruct:GoodRoadStruct):void{
+		public setMultitableItemStruct(_goodRoadStruct:GoodRoadStruct):void{
 			
 			var _item : MultiTableItem = getEmptyMultitableItem();
 			if(_item){
 				_item.setData(_goodRoadStruct);
 			}else{
-				trace("多桌页面 >> setMultitableItemStruct() 没有空桌");
+				console.log("多桌页面 >> setMultitableItemStruct() 没有空桌");
 			}
 			
 		}
 		
 		
-		public function turning():void{
+		public turning():void{
 			m_vecSpList[m_iCurrentPage].visible = true;
 			m_pageNumberList.mouseChildren=false;
 			
 			
 			var _len : int = m_vecList.length;
-			for (var i:int = 0; i < _len; i++) 
+			for (var i:number= 0; i < _len; i++) 
 			{
 				if(m_vecList[i].gameApp){
 					m_vecList[i].gameApp.setCacheBitmap(false);
@@ -205,7 +205,7 @@ module lobby.view.multi {
 			}
 			LobbyManager.getInstance().multiTableView.setBg(0);
 			TweenLite.to(m_spContent, Define.SPEED,{x:-m_iCurrentPage*1908, onComplete:function():void{
-				trace("==============翻页===================="+m_iCurrentPage)
+				console.log("==============翻页===================="+m_iCurrentPage)
 				if(m_spCurrentPage){
 					m_spCurrentPage.visible = false;
 				}
@@ -220,7 +220,7 @@ module lobby.view.multi {
 				LobbyManager.getInstance().multiTableView.setBg(m_uMode);
 				//设置好路
 				setData();
-				for (var i:int = 0; i < _len; i++) 
+				for (var i:number= 0; i < _len; i++) 
 				{
 					if(m_vecList[i].gameApp){
 						m_vecList[i].gameApp.setCacheBitmap(true);
@@ -231,11 +231,11 @@ module lobby.view.multi {
 			
 		}
 		
-//		public function show():void{
+//		public show():void{
 //			if(m_spCurrentPage){
 //				//开启视讯
 //				var item : MultiTableItem;
-//				for (var i:int = 0; i < m_spCurrentPage.numChildren; i++) 
+//				for (var i:number= 0; i < m_spCurrentPage.numChildren; i++) 
 //				{
 //					item = m_spCurrentPage.getChildAt(i) as MultiTableItem;
 //					item.gameApp.playVideo();
@@ -249,11 +249,11 @@ module lobby.view.multi {
 //			}
 //		}
 		
-		public function hide():void{
+		public hide():void{
 			if(m_spCurrentPage){
 				//关闭视讯
 				var item : MultiTableItem;
-				for (var i:int = 0; i < m_spCurrentPage.numChildren; i++) 
+				for (var i:number= 0; i < m_spCurrentPage.numChildren; i++) 
 				{
 					item = m_spCurrentPage.getChildAt(i) as MultiTableItem;
 					item.gameApp.stopVideo();
@@ -266,10 +266,10 @@ module lobby.view.multi {
 			}
 			
 		}
-		public function updateVideoData(aData:Array):void{
+		public updateVideoData(aData:any[]):void{
 			if(m_spCurrentPage){
 				var item : MultiTableItem;
-				for (var i:int = 0; i < m_spCurrentPage.numChildren; i++) 
+				for (var i:number= 0; i < m_spCurrentPage.numChildren; i++) 
 				{
 					item = m_spCurrentPage.getChildAt(i) as MultiTableItem;
 					if(item && item.gameApp){
@@ -283,11 +283,11 @@ module lobby.view.multi {
 			}
 		}
 		
-		public function PlayAllVideo():void{
+		public PlayAllVideo():void{
 			if(m_spCurrentPage){
 				//关闭视讯
 				var item : MultiTableItem;
-				for (var i:int = 0; i < m_spCurrentPage.numChildren; i++) 
+				for (var i:number= 0; i < m_spCurrentPage.numChildren; i++) 
 				{
 					item = m_spCurrentPage.getChildAt(i) as MultiTableItem;
 					if(item && item.gameApp){
@@ -302,10 +302,10 @@ module lobby.view.multi {
 		}
 		
 		/** 添加好路 **/
-		public function addGoodRoadStruct( _goodRoadMapStruct:GoodRoadStruct ):void{
+		public addGoodRoadStruct( _goodRoadMapStruct:GoodRoadStruct ):void{
 			if(m_spCurrentPage){
 				var item : MultiTableItem;
-				for (var i:int = 0; i < m_spCurrentPage.numChildren; i++) 
+				for (var i:number= 0; i < m_spCurrentPage.numChildren; i++) 
 				{
 					item = m_spCurrentPage.getChildAt(i) as MultiTableItem;
 					if(item.isEmptyTable()){
@@ -316,7 +316,7 @@ module lobby.view.multi {
 			}
 		}
 		/** 移除好路 **/
-		public function removeGoodRoadStruct(_tableID:int):void{
+		public removeGoodRoadStruct(_tableID:number):void{
 			if(m_spCurrentPage){
 				var _item : MultiTableItem = getTableItemByTableID(_tableID);
 				if(_item){
@@ -324,9 +324,9 @@ module lobby.view.multi {
 				}
 			}
 		}
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			var _len : int = m_vecList.length;
-			for (var i:int = 0; i < _len; i++) 
+			for (var i:number= 0; i < _len; i++) 
 			{
 				if(m_vecList[i]){
 					m_vecList[i].onChangeLanguage();
@@ -334,10 +334,10 @@ module lobby.view.multi {
 			}
 		}
 		
-		public function getTableItemByTableID(_iTableID:int):MultiTableItem{
+		public getTableItemByTableID(_iTableID:number):MultiTableItem{
 			if(m_vecList){
 				var _len : int = m_vecList.length;
-				for (var i:int = 0; i < _len; i++) 
+				for (var i:number= 0; i < _len; i++) 
 				{
 					if(m_vecList[i].goodRoadStruct && m_vecList[i].goodRoadStruct.TableID == _iTableID){
 						return m_vecList[i];
@@ -348,9 +348,9 @@ module lobby.view.multi {
 			return null;
 		}
 		
-		public function clearLive():void{
+		public clearLive():void{
 			var _len : int = m_vecList.length;
-			for (var i:int = 0; i < _len; i++) 
+			for (var i:number= 0; i < _len; i++) 
 			{
 				if(m_vecList[i].gameApp){
 					m_vecList[i].gameApp.stopVideo();
@@ -359,18 +359,18 @@ module lobby.view.multi {
 			}
 		}
 		
-		public function clearTableList():void{
+		public clearTableList():void{
 			var _len : int = m_vecList.length;
-			for (var i:int = 0; i < _len; i++) 
+			for (var i:number= 0; i < _len; i++) 
 			{
 				m_vecList[i].clearTable();
 			}
 		}
 		
-		public function bTurn():Boolean{
+		public bTurn(): boolean{
 			var _len : int = m_vecList.length;
-			var bStatus : Boolean;
-			for (var i:int = 0; i < _len; i++) 
+			var bStatus :  boolean;
+			for (var i:number= 0; i < _len; i++) 
 			{
 				bStatus = m_vecList[i].gameApp.bCanExit;
 				if(bStatus == false){
@@ -381,14 +381,14 @@ module lobby.view.multi {
 			return true;
 		}
 		
-		private function getEmptyMultitableItem():MultiTableItem{
+		private getEmptyMultitableItem():MultiTableItem{
 			if(m_vecList==null){
 				return null;
 			}
 			var _len : int = m_vecList.length;
 			var _item : MultiTableItem;
-			var _bStatus : Boolean;		//是否存在于好路类型列表中
-			for (var i:int = m_iCurrentPage*m_uMode; i < _len; i++) 
+			var _bStatus :  boolean;		//是否存在于好路类型列表中
+			for (var i:number= m_iCurrentPage*m_uMode; i < _len; i++) 
 			{
 				if(i<m_iCurrentPage*m_uMode+m_uMode){
 					if(m_vecList[i].isEmptyTable()){
@@ -398,7 +398,7 @@ module lobby.view.multi {
 //					else{
 //						if(m_vecList[i].goodRoadStruct && m_vecList[i].goodRoadStruct.MatchList){
 //							_bStatus = false;
-//							for (var j:int = 0; j < m_vecList[i].goodRoadStruct.MatchList.length; j++) 
+//							for (var j:number= 0; j < m_vecList[i].goodRoadStruct.MatchList.length; j++) 
 //							{
 //								if(LobbyData.getInstance().judgeGoodRoadType(m_vecList[i].goodRoadStruct.MatchList[j])){
 //									break;

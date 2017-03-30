@@ -1,24 +1,24 @@
 module lobby.view.lives {
 	export class LiveVideoGame extends BLiveVideo{
-		protected var m_mcVideo			:	MovieClip;							//视讯容器
-		protected var m_btnTextClose	:	TextButton;							//关闭按钮
-		protected var m_loading			:	MovieClip;							//加载图标
+		protected m_mcVideo			:	MovieClip;							//视讯容器
+		protected m_btnTextClose	:	TextButton;							//关闭按钮
+		protected m_loading			:	MovieClip;							//加载图标
 		public 	var mcAsset				:	MovieClip;
-		protected var m_tfWarn			:	TextField;							//连接失效文本
-		protected var m_format			:	TextFormat;
-		protected var m_parent			:	MovieClip;							//父类容器
+		protected m_tfWarn			:	TextField;							//连接失效文本
+		protected m_format			:	TextFormat;
+		protected m_parent			:	MovieClip;							//父类容器
 		
 		public	var sServer				:	String;
-		public var uX				:	uint=0;
-		public var uY				:	uint=0;
-		public 	var uWidth				:	uint;
-		public 	var uHeight				:	uint;
+		public uX				:	number=0;
+		public uY				:	number=0;
+		public 	var uWidth				:	number;
+		public 	var uHeight				:	number;
 		public	var sFailedConnectType	:	String;
-		public var centerPoint			:  Point;								//文本 loading位置
-		public var fontSize				:   int =18;
-		public var channelX				:  int = 0;						//频道选择偏移X
-		private var bisMachine			:	Boolean;
-		public constructor(_uWidth:uint, _uHeight:uint, _uX:uint=0,_uY:uint=0,_isMachine:Boolean = false) {
+		public centerPoint			:  Point;								//文本 loading位置
+		public fontSize				:   int =18;
+		public channelX				:  int = 0;						//频道选择偏移X
+		private bisMachine			:	 boolean;
+		public constructor(_uWidth:number, _uHeight:number, _uX:number=0,_uY:number=0,_isMachine: boolean = false) {
 			super();
 			this.uWidth=_uWidth;
 			this.uHeight = _uHeight;
@@ -27,7 +27,7 @@ module lobby.view.lives {
 			this.bisMachine = _isMachine;
 			init();
 		}
-		protected function init():void{
+		protected init():void{
 			mcAsset = new MovieClip();
 //			mcAsset.graphics.beginFill(0x333333);
 //			mcAsset.graphics.drawRect(0, 0, uWidth, uHeight);
@@ -42,7 +42,7 @@ module lobby.view.lives {
 			initializeRTMPPlayer()
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 //			super.destroy();
 			if(m_btnTextClose){
 				mcAsset.removeChild(m_btnTextClose);
@@ -85,16 +85,16 @@ module lobby.view.lives {
 			TimeManager.getInstance().removeFun(loadVideoTimeOut);
 		}
 		
-		public function setup(_server:String,_steams:Array):void{
+		public setup(_server:String,_steams:any[]):void{
 			this.sServer = _server;
 		}
 		
-		public function setupServer(_server:String,_steamApp:String):void{
+		public setupServer(_server:String,_steamApp:String):void{
 			this.sServer = _server;
 			this.m_sStream = _steamApp;
 		}
 		
-		public function initializeRTMPPlayer():void{
+		public initializeRTMPPlayer():void{
 			m_rtmpPlayer = new RTMPPlayer(LobbyManager.getInstance().stage, 0, LobbyManager.getInstance().bStageVideoAvailable);
 			LobbyData.getInstance().addRtmpPlayer(m_rtmpPlayer);
 			m_rtmpPlayer.initialize( m_mcVideo, uWidth, uHeight);
@@ -105,7 +105,7 @@ module lobby.view.lives {
 			
 			
 			m_rtmpPlayer.resize(uWidth,uHeight);
-			var _bStatus : Boolean = SharedObjectManager.getLiveOnOff();
+			var _bStatus :  boolean = SharedObjectManager.getLiveOnOff();
 			m_rtmpPlayer.setVolume(_bStatus?SharedObjectManager.getLiveVolume():0);
 			
 			m_loading = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_LOBBY,"LoadingLiveAsset");
@@ -133,11 +133,11 @@ module lobby.view.lives {
 		
 		
 		
-//		public function get curStream():String{
+//		get curStream():String{
 //			return streams[iStreamIndex];
 //		}
 		
-		public function play():void{
+		public play():void{
 			if(m_loading.parent==null){
 				mcAsset.addChild(m_loading);
 				
@@ -149,7 +149,7 @@ module lobby.view.lives {
 			if(sServer!=null && m_sStream!=null && sServer!="" && m_sStream!=""){
 				hash(sServer, m_sStream);
 			//	Log.getInstance().log(this,"播放游戏视讯:"+sServer+"/"+m_sStream);
-			//	trace("游戏视频地址"+sServer+"/"+m_sStream)
+			//	console.log("游戏视频地址"+sServer+"/"+m_sStream)
 				m_rtmpPlayer.play(sServer, m_sHash, m_sSharedSecuret);
 			}
 			sFailedConnectType = null;
@@ -159,7 +159,7 @@ module lobby.view.lives {
 		
 
 		
-		public function stop():void{
+		public stop():void{
 			if(m_rtmpPlayer){
 				m_rtmpPlayer.stop();
 				hideLoding();
@@ -168,19 +168,19 @@ module lobby.view.lives {
 		}
 		
 		
-		override public function refresh():void{
+		 public refresh():void{
 			stop();
 			play();
 		}
 		/**
 		 * 清除視頻畫面
 		 */
-		public function clearVideoFull():void {
+		public clearVideoFull():void {
 			m_rtmpPlayer.clearVideoFull();
 		}
 		
 		
-		public function showLoading():void{
+		public showLoading():void{
 			if(m_loading){
 				m_loading.gotoAndPlay(1);
 				m_loading.visible = true;
@@ -192,7 +192,7 @@ module lobby.view.lives {
 
 		}
 		
-		protected function loadVideoTimeOut():void {
+		protected loadVideoTimeOut():void {
 		//	Log.getInstance().log(this, "視訊連接狀態::視訊連接逾時");
 			stop();
 			sFailedConnectType = Language.sLiveError;
@@ -210,7 +210,7 @@ module lobby.view.lives {
 			}
 		}
 		
-		public function hideLoding():void{
+		public hideLoding():void{
 			if(m_loading){
 				m_loading.gotoAndStop(1);
 				m_loading.visible = false;
@@ -218,7 +218,7 @@ module lobby.view.lives {
 			TimeManager.getInstance().removeFun(loadVideoTimeOut);
 		}
 		
-		protected function initWorn():void {
+		protected initWorn():void {
 			if(!m_tfWarn){
 				m_tfWarn = new TextField();
 				//m_tfWarn.width=400;
@@ -252,7 +252,7 @@ module lobby.view.lives {
 	
 		
 		
-		protected function connectFailed(_iType:int=1):void
+		protected connectFailed(_iType:number=1):void
 		{
 			hideLoding();
 			initWorn();
@@ -287,7 +287,7 @@ module lobby.view.lives {
 				}
 			}
 		}
-		public function onChangeLanguage():void {
+		public onChangeLanguage():void {
 			if(m_tfWarn && sFailedConnectType){
 				m_tfWarn.text = LobbyManager.getInstance().getLanguageString( sFailedConnectType );	
 			}
@@ -298,7 +298,7 @@ module lobby.view.lives {
 		
 		
 		
-		public function resize( uWidth:uint ,uHeight:uint ):void {
+		public resize( uWidth:number ,uHeight:number ):void {
 			
 //			if( mcAsset ){
 //				mcAsset.graphics.clear();
@@ -315,7 +315,7 @@ module lobby.view.lives {
 			
 		}
 		
-		protected function setLoadingPosition():void{
+		protected setLoadingPosition():void{
 			if(centerPoint){
 				m_loading.x = centerPoint.x-50;
 				m_loading.y = centerPoint.y-23;

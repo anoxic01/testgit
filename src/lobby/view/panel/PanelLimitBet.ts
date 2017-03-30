@@ -1,21 +1,21 @@
 module lobby.view.panel {
 	export class PanelLimitBet  extends PanelWindow{
-//		private var m_bg				:	BitmapScale9Grid;
-		private var m_btnOk				:	SingleButtonMC;
-		private var m_btnNo				:	SingleButtonMC;
-		private var m_btnClose			:	SingleButtonMC;
+//		private m_bg				:	BitmapScale9Grid;
+		private m_btnOk				:	SingleButtonMC;
+		private m_btnNo				:	SingleButtonMC;
+		private m_btnClose			:	SingleButtonMC;
 		
-		private var m_current			:	SingleButtonMC;
-		private var m_currentID			:	int;
-		private var m_struct			:	TableStruct;
-		private var m_sName				:	String;
-		private var m_items 			: 	Vector.<SingleButtonMC>;
+		private m_current			:	SingleButtonMC;
+		private m_currentID			:	number;
+		private m_struct			:	TableStruct;
+		private m_sName				:	String;
+		private m_items 			: 	<SingleButtonMC>;
 		
-		private var m_sTableName		:	String;
+		private m_sTableName		:	String;
 		
-		private var m_listStruct 		:	 BetLimitListStruct;
+		private m_listStruct 		:	 BetLimitListStruct;
 		
-		public constructor(_struct:TableStruct,$bShake:Boolean=false) {
+		public constructor(_struct:TableStruct,$bShake: boolean=false) {
 		
 			super($bShake);
 			m_struct = 	_struct;
@@ -32,7 +32,7 @@ module lobby.view.panel {
 //			m_mcAsset.x = -int(1162*0.5);
 //			m_mcAsset.y = -int(588*0.5);
 			
-			m_items = new Vector.<SingleButtonMC>();
+			m_items = new <SingleButtonMC>();
 			m_listStruct = LobbyData.getInstance().getBetLimitByGameID(m_struct.GameID);
 			
 			var bmp : Bitmap;
@@ -43,7 +43,7 @@ module lobby.view.panel {
 			nAssetWidth = m_mcAsset.width;
 			nAssetHeight = m_mcAsset.height;
 			var _item : SingleButtonMC;
-			for (var i:int = 0; i < _len; i++) 
+			for (var i:number= 0; i < _len; i++) 
 			{
 				bmp = new Bitmap();
 				_item =  new SingleButtonMC(m_mcAsset.mc.getChildByName("mc_"+String(i)) as MovieClip, function(event:MouseEvent):void{
@@ -139,7 +139,7 @@ module lobby.view.panel {
 			onChangeLanguage();
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			if(m_current){
 				m_current = null;
 			}
@@ -165,7 +165,7 @@ module lobby.view.panel {
 			
 			var _len : int = m_items.length;
 			var _item : SingleButtonMC;
-			for (var i:int = 0; i < _len; i++) 
+			for (var i:number= 0; i < _len; i++) 
 			{
 				_item = m_items.pop() as SingleButtonMC;
 				_item.destroy();
@@ -177,7 +177,7 @@ module lobby.view.panel {
 			m_items = null;
 		}
 		
-		private function exitGame():void{
+		private exitGame():void{
 //			PopupManager.getInstance().fCloseWindowComplete = showGame;
 			
 			if(LobbyManager.getInstance().lobbyView.toolView.fExitGame != null){
@@ -188,7 +188,7 @@ module lobby.view.panel {
 
 		}
 		
-		private function select(_item:SingleButtonMC):void{
+		private select(_item:SingleButtonMC):void{
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			if(m_current != _item){
 				m_current.setSelectedStatus(false);
@@ -198,14 +198,14 @@ module lobby.view.panel {
 			}
 		}
 		
-		override public function onChangeLanguage():void{
-			for (var i:int = 0; i < m_items.length; i++) 
+		 public onChangeLanguage():void{
+			for (var i:number= 0; i < m_items.length; i++) 
 			{
 				m_items[i].mcAsset.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			}
 			
 //			var _listStruct : BetLimitListStruct = LobbyData.getInstance().getBetLimitByGameID(m_struct.GameID);
-//			for (var i:int = 0; i < 5; i++) 
+//			for (var i:number= 0; i < 5; i++) 
 //			{
 //				if(_listStruct.vecBetLimitList.length>i){
 //					m_items[i].mcAsset.tf_label.text = LobbyManager.getInstance().getLanguageString(m_sName) + " " + m_struct.TableID ;//+ LobbyManager.getInstance().getLanguageString(Language.sTable);
@@ -231,13 +231,13 @@ module lobby.view.panel {
 			
 		}
 		
-		protected function isSelf():Boolean{
+		protected isSelf(): boolean{
 			if(LobbyManager.getInstance().currentTableStruct){
 				return LobbyManager.getInstance().currentTableStruct.TableID==m_struct.TableID;
 			}
 			return false;
 		}
-		private function changeGame():void{
+		private changeGame():void{
 			switch(m_struct.GameID){
 				case GameDefine.BAC:
 				case GameDefine.DTF:
@@ -255,13 +255,13 @@ module lobby.view.panel {
 			LobbyManager.getInstance().enterGame(m_struct);
 		}
 		
-		protected function IsAllowToLogin():Boolean{
+		protected IsAllowToLogin(): boolean{
 			var len : int = m_listStruct.vecBetLimitList.length>6?6:m_listStruct.vecBetLimitList.length;
 			var limitStruct:BetLimitStruct;
-			var bAllow : Boolean
+			var bAllow :  boolean
 			var str : String;
 			
-			for(var i:int = 0 ; i < len ; i++){
+			for(var i:number= 0 ; i < len ; i++){
 				if(m_listStruct.vecBetLimitList[i].ID == m_currentID){
 					limitStruct = m_listStruct.vecBetLimitList[i];
 					

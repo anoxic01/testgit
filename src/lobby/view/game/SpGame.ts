@@ -1,16 +1,16 @@
 module lobby.view.game {
 	export class SpGame extends BSprite {
 
-		private var m_game		:	Game;				//添加的游戏
-		private var m_bAdded	:	Boolean;			//还能添加一个
-		private var m_gameBg	:	Shape;
+		private m_game		:	Game;				//添加的游戏
+		private m_bAdded	:	 boolean;			//还能添加一个
+		private m_gameBg	:	Shape;
 
 		public constructor() {
 			super();
 		}
 
 		
-		override public function destroy():void{
+		 public destroy():void{
 			if(m_game){
 				if(m_game.parent){
 					m_game.parent.removeChild(m_game);
@@ -22,7 +22,7 @@ module lobby.view.game {
 			}
 		}
 		
-		public function addGame(_game:Game):void{
+		public addGame(_game:Game):void{
 			if(!m_bAdded){
 				m_game = _game;
 				if (m_gameBg==null){
@@ -31,18 +31,18 @@ module lobby.view.game {
 				//showBg();
 				this.addChild(m_game);
 			}else{
-				trace("添加游戏异常...");
+				console.log("添加游戏异常...");
 			}	
 		}
 		
 		
-		override public function resize(_w:int=0, _h:int=0):void{
+		 public resize(_w:number=0, _h:number=0):void{
 			if(m_game){
 				m_game.resize();
 			}
 		}
 		
-		private function drawBg(w:Number ,h:Number,alpha:Number=1):void{
+		private drawBg(w:Number ,h:Number,alpha:Number=1):void{
 			m_gameBg=new Shape();
 			var g:Graphics=m_gameBg.graphics;
 			g.beginFill(0x000000);
@@ -52,12 +52,12 @@ module lobby.view.game {
 			//this.addChildAt(m_gameBg,0);
 		}
 		
-		/*public function showBg():void{
+		/*public showBg():void{
 			m_gameBg.visible = true;
 			
 		}
 		
-		public function hideBg():void{
+		public hideBg():void{
 			m_gameBg.visible = false;
 		}*/
 	}

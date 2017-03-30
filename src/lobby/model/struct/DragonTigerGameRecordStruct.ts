@@ -1,23 +1,23 @@
 module lobby.model.struct {
 	export class DragonTigerGameRecordStruct {
 		
-		public var DragonCard:String;
+		public DragonCard:String;
 		
-		public var TigerCard:String;
-		public var DragonPoint:int;
-		public var TigerPoint:int;
-		public var Bet_Dragon:Number;
-		public var Bet_Tiger:Number;
-		public var Bet_Tie:Number;
+		public TigerCard:String;
+		public DragonPoint:number;
+		public TigerPoint:number;
+		public Bet_Dragon:Number;
+		public Bet_Tiger:Number;
+		public Bet_Tie:Number;
 		
-		public var Win_Dragon:Number;
-		public var Win_Tiger:Number;
-		public var Win_Tie:Number;
+		public Win_Dragon:Number;
+		public Win_Tiger:Number;
+		public Win_Tie:Number;
 		/// <summary>下注物件</summary>
-		public var DragonTigerObjectBet :Object
+		public DragonTigerObjectBet :Object
 		
 		/// <summary>贏錢物件</summary>
-		public var DragonTigerObjectWin :Object;
+		public DragonTigerObjectWin :Object;
 		
 		public constructor() {
 		}

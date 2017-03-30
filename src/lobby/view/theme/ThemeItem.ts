@@ -2,16 +2,16 @@ module lobby.view.theme {
 	export class ThemeItem extends egret.DisplayObjectContainer {
 
 		private m_mcAsset 		:	ui.button.theme.Button_Theme;		//美术资源
-		private m_bSelect		:	boolean	=	false;					//选中状态
-		public themeStruct		:	struct.Struct_Theme;				//数据结构
+		private m_bSelect		:	 boolean	=	false;					//选中状态
+		public themeStruct		:	struct.ThemeStruct;				//数据结构
 		private m_themeList 	:	ThemeList;				//厅别列表
 		private m_bmpLabel;												//标签位图
-		private m_buttonMode 	: 	boolean	=	false;					//鼠标手型
+		private m_buttonMode 	: 	 boolean	=	false;					//鼠标手型
 		
 		public constructor($themeID:number, $themeList:ThemeList) {
 			super();
 			this.m_themeList = $themeList;
-			this.themeStruct = new struct.Struct_Theme();
+			this.themeStruct = new struct.ThemeStruct();
 			this.themeStruct.ThemeID = $themeID;
 
 			switch($themeID){			
@@ -50,7 +50,7 @@ module lobby.view.theme {
 
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			
 			m_mcAsset.removeEventListener(MouseEvent.CLICK, onClick);
 			m_mcAsset.removeEventListener(MouseEvent.MOUSE_OVER, onOver);
@@ -74,7 +74,7 @@ module lobby.view.theme {
 			}
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			if(m_bmpLabel){
 				if(m_bSelect){
 					m_bmpLabel.bitmapData = BitmapManager.getInstance().getBmpdLanguage(LobbyManager.getInstance().lobbyAuth.Lang, sKey+"_"+Language.sMouseOver);
@@ -85,7 +85,7 @@ module lobby.view.theme {
 			}
 		}
 		
-		public function setSelect(_bSelect:Boolean):void{
+		public setSelect(_bSelect: boolean):void{
 			if(m_bSelect != _bSelect){
 				m_bSelect = _bSelect;
 				if(m_bSelect){
@@ -97,11 +97,11 @@ module lobby.view.theme {
 			}
 		}
 		
-		public function get struct():ThemeStruct{
+		get struct():ThemeStruct{
 			return m_themeStruct;
 		}
 		
-		protected function onOver(event:MouseEvent):void
+		protected onOver(event:MouseEvent):void
 		{
 			if(m_bSelect){
 				return;
@@ -110,7 +110,7 @@ module lobby.view.theme {
 			onMouseOver();
 		}
 		
-		protected function onOut(event:MouseEvent):void
+		protected onOut(event:MouseEvent):void
 		{
 			if(m_bSelect){
 				return;
@@ -119,7 +119,7 @@ module lobby.view.theme {
 		}
 		
 		
-//		protected function onDown(event:MouseEvent):void
+//		protected onDown(event:MouseEvent):void
 //		{
 //			if(m_bSelect){
 //				return;
@@ -127,12 +127,12 @@ module lobby.view.theme {
 //			onMouseDown();
 //		}
 		
-		public function autoClick():void
+		public autoClick():void
 		{
 			onClick(null);
 		}
 		
-		protected function onClick(event:MouseEvent):void
+		protected onClick(event:MouseEvent):void
 		{
 			if(m_themeStruct==null){
 				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
@@ -146,7 +146,7 @@ module lobby.view.theme {
 				m_themeList.setCurrent(this);
 			}
 			
-			trace("themeID:" +  m_themeStruct.ThemeID );
+			console.log("themeID:" +  m_themeStruct.ThemeID );
 			
 			//屏蔽厅馆按钮
 			if( m_themeStruct.ThemeID != TemConfig.getInstance().PhoneBetID ){   //臨時處理
@@ -154,10 +154,10 @@ module lobby.view.theme {
 			}
 			
 			SoundManager.getInstance().play(SoundPackage.sChangePage);
-			trace("切换厅别。。。", this.mouseEnabled);
+			console.log("切换厅别。。。", this.mouseEnabled);
 		}
 		
-		private function onDefault():void{
+		private onDefault():void{
 			if(m_mcAsset){
 				m_mcAsset.gotoAndStop("DEFAULT");
 			}
@@ -167,7 +167,7 @@ module lobby.view.theme {
 			}
 			
 		}
-		private function onMouseOver():void{
+		private onMouseOver():void{
 			if(m_mcAsset){
 				m_mcAsset.gotoAndStop("HOVER");
 			}
@@ -178,7 +178,7 @@ module lobby.view.theme {
 			
 			
 		}
-//		private function onMouseDown():void{
+//		private onMouseDown():void{
 //			m_mcAsset.gotoAndStop("HDOWN");
 //		}
 		

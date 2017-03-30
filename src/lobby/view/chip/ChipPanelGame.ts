@@ -1,6 +1,6 @@
 module lobby.view.chip {
 	export class ChipPanelGame extends ChipPanel{
-		public constructor( _iMode:int = 0 , _fReBet:Function=null) {
+		public constructor( _iMode:number= 0 , _fReBet:Function=null) {
 			
 			this.mouseEnabled=false;
 			
@@ -93,12 +93,12 @@ module lobby.view.chip {
 			
 			hideHint();
 			
-			var aCustom : Array = Player.getInstance().gameSetting.aCustChips;
+			var aCustom : any[] = Player.getInstance().gameSetting.aCustChips;
 			m_aChipValues = [[10,50,100,300,500],[1000,3000,5000,10000,30000],[30000,50000,100000,300000,500000],aCustom];
 			m_iTotalPage = m_aChipValues.length;
-			m_vectorChipList = new Vector.<ChipList>;
+			m_vectorChipList = new <ChipList>;
 			var _chipList	:	ChipList;
-			for (var i:int = 0; i < m_iTotalPage; i++) 
+			for (var i:number= 0; i < m_iTotalPage; i++) 
 			{
 				_chipList = new ChipList((_iMode==0?1:2), m_aChipValues[i], this as ChipPanelGame);
 				m_spChipList.addChild(_chipList);
@@ -107,7 +107,7 @@ module lobby.view.chip {
 			}
 			currentChipItem = getDefault();
 			if(currentChipItem==null){
-				trace("当前筹码获取异常...");
+				console.log("当前筹码获取异常...");
 			}else{
 				currentChipItem.select = true;
 			}
@@ -121,23 +121,23 @@ module lobby.view.chip {
 			onChangeLanguage();
 		}
 		
-		private function btnRebetTip():void{
+		private btnRebetTip():void{
 			if(btnReBet){
 				btnReBet.mcAsset.mc_tip.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			}
 		}
-		private function btnSettingTip():void{
+		private btnSettingTip():void{
 			if(btnSetting){
 				btnSetting.mcAsset.mc_tip.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			}
 		}
 		
-		override public function turning():void{
+		 public turning():void{
 			TweenLite.to(m_spChipList, Define.SPEED, {x:-m_vectorChipList[m_iCurrentPage].x});
 			//			TweenUtil.moveToX(m_spChipList,50,50,10,-m_iCurrentPage*600,0.7);
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 //			switch(LobbyManager.getInstance().lobbyAuth.Lang){
 //				case 0:
 //					btnReBet = btnReBet_cn;
@@ -169,14 +169,14 @@ module lobby.view.chip {
 			}
 		}
 		
-		override public function getDefault():ChipItem{
+		 public getDefault():ChipItem{
 			if(m_vectorChipList && m_vectorChipList.length>0){
 				return m_vectorChipList[0].getFirstChipItem();
 			}
 			return null;
 		}
 		
-		private function rebet():void{
+		private rebet():void{
 			TipManager.getInstance().hide();
 			if(m_fReBet!=null){
 				m_fReBet();

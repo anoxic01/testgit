@@ -6,17 +6,17 @@ module packet.lobby {
 		//  1: 登出"
 		//
         /// </summary>
-        private var type :int;
+        private type :number;
 
 		public constructor() {
 		}
 		
-		public function get Type():int 
+		get Type():number
 		{
 			return type;
 		}
 		
-		public function set Type(value:int):void 
+		set  Type(value:number) 
 		{
 			type = value;
 		}

@@ -1,15 +1,15 @@
 module lobby.view.other {
 	export class PageNumberListMultitable extends BSprite{
-		private var m_aPageNumbers			:	Array;						//所有页码
-		private var m_uCurrentPageNumber	:	PageNumberMutitable;		//当前页码
-		private var m_pagePanel				:	PanelPage;					//
+		private m_aPageNumbers			:	any[];						//所有页码
+		private m_uCurrentPageNumber	:	PageNumberMutitable;		//当前页码
+		private m_pagePanel				:	PanelPage;					//
 		
-		public constructor(_pagePanel:PanelPage, _uPage:uint) {
+		public constructor(_pagePanel:PanelPage, _uPage:number) {
 			super();
 			m_pagePanel = _pagePanel;
 			
 			m_aPageNumbers = [];
-			for (var i:int = 0; i < _uPage; i++) 
+			for (var i:number= 0; i < _uPage; i++) 
 			{
 				addPageNumber(i);
 			}
@@ -21,7 +21,7 @@ module lobby.view.other {
 			}
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			
 			if(m_pagePanel){
 				m_pagePanel = null;
@@ -46,7 +46,7 @@ module lobby.view.other {
 			}
 		}
 		
-		public function addPageNumber(_uPage:uint):void{
+		public addPageNumber(_uPage:number):void{
 			var pageNumber : PageNumberMutitable = new PageNumberMutitable(m_pagePanel, _uPage);
 			this.addChild(pageNumber);
 			pageNumber.x = m_aPageNumbers.length * (pageNumber.width+13) - 13;
@@ -55,13 +55,13 @@ module lobby.view.other {
 			pageNumber = null;
 		}
 		
-		public function setCurrentPageNumber(_pageNumber:PageNumberMutitable):void{
+		public setCurrentPageNumber(_pageNumber:PageNumberMutitable):void{
 			m_uCurrentPageNumber.select = false;
 			m_uCurrentPageNumber = _pageNumber;
 			m_uCurrentPageNumber.select = true;
 		}
 		
-		public function setCurrentPageNumberByIndex(_uIndex:uint):void{
+		public setCurrentPageNumberByIndex(_uIndex:number):void{
 			if(m_uCurrentPageNumber.pageID!=_uIndex){
 				m_uCurrentPageNumber.select = false;
 				m_uCurrentPageNumber = m_aPageNumbers[_uIndex];

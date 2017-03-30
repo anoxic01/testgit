@@ -206,7 +206,7 @@ module language {
 		public static sDragon							:	string	=	"Dragon";				//龙
 		public static sTiger							:	string	=	"Tiger";				//虎
 		public static sDragonRoute 						:	string	=	"Dragon_Route";			//龙问路
-		public static sTigerRoute						:	String 	= 	"Tiger_Route";			//虎问路
+		public static sTigerRoute						:	string 	= 	"Tiger_Route";			//虎问路
 		public static sDragon_Win						:	string	=	"sDragon_Win";			//龍贏
 		public static sTiger_Win						:	string	=	"sTiger_Win";			//虎贏
 		
@@ -337,7 +337,7 @@ module language {
 		public static sTelGunnerNotEnough				:	string	= 	"sTelGunnerNotEnough";		//槍手不夠
 		public static sTel_Telephone_Failed				:	string	=	"sTel_Telephone_Failed";	//槍手打不通
 		public static sTel_Gunner_Log_Out				:	string	=	"sTel_LOG_OUT";				//槍手登出
-		public static sTel_number						:	string	=	"sTel_number";				//客服電話
+		public static sTel_Number						:	string	=	"sTel_number";				//客服電話
 		public static sTel_ID_Code						:	string	=	"sTel_ID_Code";				//驗證碼
 		public static sTel_Gunner_Login_Success			:	string	=	"sTel_Gunner_Login_Success";//槍手登入成功
 		public static sTel_Gunner_LogOut_KNOCK_OFF		:	string	=	"sTel_Gunner_Log_KNOCK_OFF";//槍手收工登出
@@ -355,7 +355,7 @@ module language {
 		public static sTel_PairMaxBet					:	string	=	"sTel_PairMaxBet";			//對子最高
 		public static sTel_PairMinBet					:	string	=	"sTel_PairMinBet";			//對子最低
 		public static sTel_GiveChips					:	string	=	"sTel_GiveChips";			//小費
-		public static sTel_GiveChipsFailed				:	String 	=	"sTel_GiveChipsFailed";		//給小費失敗
+		public static sTel_GiveChipsFailed				:	string 	=	"sTel_GiveChipsFailed";		//給小費失敗
 		public static sTel_EnterTable					:	string	=	"sTel_EnterTable";			//進入本桌
 		public static sTel_ConnectPrinterSuccess		:	string	=	"sTel_ConnectPtSuccess";	//連接印表機成功
 		public static sTel_ConnectPrinterFailed			:	string	=	"sTel_ConnectPtFailed";		//連接印表機失敗
@@ -364,7 +364,7 @@ module language {
 		public static sTel_VideoPeek					:	string	=	"sTel_VideoPeek";			//視頻瞇牌
 		public static sTel_ElectronicPeek				:	string	=	"sTel_ElectronicPeek";		//電子瞇牌
 		public static sTel_NoPeek						:	string	=	"sTel_NoPeek";				//不瞇牌
-		public static sTel_Table_Full_Strength		:	String = "sTel_Table_Full_Strength";  	// 此桌座位已满，请转往其他桌进行游戏
+		public static sTel_Table_Full_Strength		:	string = "sTel_Table_Full_Strength";  	// 此桌座位已满，请转往其他桌进行游戏
 		
 		
 		/**好路***/
@@ -396,7 +396,7 @@ module language {
 		public static sBig_Small						:	string	=	"sBig_Small";				//大/小
 		public static sOdd_Even							:	string	=	"sOdd_Even";				//單/雙
 		
-		public dictionarystring							:	Object;
+		public dictionaryString							:	Object;
 		public dictionaryBmpd							:	Object;
 		
 		/** 位图按钮 **/
@@ -424,12 +424,12 @@ module language {
 		public static sTableMaintain					:	string	=	"sTableMaintain";			//賭桌維護中,請返回大廳
 		
 		/**大廳登入錯誤回復*/
-		public static sWarn_ServerConnect_Fail				:	String 	=	"sServerConnect_Fail";					//伺服器異常,請詢問相關人員
+		public static sWarn_ServerConnect_Fail				:	string 	=	"sServerConnect_Fail";					//伺服器異常,請詢問相關人員
 		public static sWarn_Login_Lobby_Fail				:	string	=	"sServer_Login_Lobby_Fail";				//登入大廳失敗
 		public static sWarn_Boss_Never_Login				:	string	=	"sBoss_Never_Login";					//老闆尚未登入
 		public static sWarn_Deputy_Never_Reviewed			:	string	=	"sDeputy_Never_Reviewed";				//槍手尚未審核
-		public static sWarn_System_Maintain					:	String 	=	"sSystem_Maintain";						//系統維護中
-		public static sWarn_Login_Lobby_Other_Error			:	String 	=	"sLogin_Lobby_Other_Error";				//登入大廳,其他錯誤
+		public static sWarn_System_Maintain					:	string 	=	"sSystem_Maintain";						//系統維護中
+		public static sWarn_Login_Lobby_Other_Error			:	string 	=	"sLogin_Lobby_Other_Error";				//登入大廳,其他錯誤
 		public static sWarn_Lobby_Disconnect				:	string	=	"sLobby_Disconnect";					//大廳斷線
 		public static sWarn_LobbyConnecting					:	string	=	"sLobbyConnecting";						//大廳連線中
 		public static sWarn_Web_Data_Error					:	string	=	"sWarn_Web_Data_Error";					//網頁數據錯誤
@@ -444,7 +444,7 @@ module language {
 
 
 		/**登出原因  這邊少列到一個 因為上面有重複了 => sTel_Gunner_LogOut_Relief 槍手換班登出 */
-		public static sLogout_Lobby_Repeat_Login					:	String 	=	"sWarn_Lobby_Repeat_Login";			//大廳重複登入
+		public static sLogout_Lobby_Repeat_Login					:	string 	=	"sWarn_Lobby_Repeat_Login";			//大廳重複登入
 		public static sLogout_Player_Active_Logout					:	string	=	"sLogout_Player_Active_Logout";		//玩家主動登出	
 		public static sLogout_TRY_ACCOUNT_TIME_OUT					:	string	=	"sLogout_TRY_ACCOUNT_TIME_OUT";		//試玩帳號超過試玩時間		
 		public static sLogout_CANCEL_SUBSCRIPTION_MULTI				:	string	=	"sLogout_CANCEL_SUBSCRIPTION_MULTI";//取消訂閱多桌登出
@@ -472,23 +472,23 @@ module language {
 		public static sException_BetLimit_Is_NULL					:	string	=	"sException_BetLimit_Is_NULL";			//服務器下注限額錯誤,該賭桌維修中
 		
 		/**下注紀錄*/
-		public static sSearch							:	String 	= 	"sSearch";					//查詢
-		public static sListnumber						:	String 	= 	"sListnumber";				//訂單號
-		public static sBetTime							:	String 	= 	"sBetTime";					//下注時間
-		public static sGameType							:	String 	= 	"sGameType";				//遊戲類型
-		public static sTableID							:	String 	= 	"sTableID";					//桌號
-		public static sResult							:	String 	= 	"sResult";					//結果
-		public static sTotalBet							:	String 	= 	"sTotalBet";				//總投注
-		public static sPayOut							:	String 	= 	"sPayOut";					//派彩
-		public static sAvailableBet						:	String 	= 	"sAvailableBet";			//有效投住
-		public static sListState						:	String 	= 	"sListState";				//下注單狀態
-		public static sSmallSum							:	String 	= 	"sSmallSum";				//小計
-		public static sTotalSum							:	String 	= 	"sTotalSum";				//總計
-		public static sSingleShow						:	String 	=	"sSingleShow";				//單頁顯示
-		public static sTotalShow						:	String 	=	"sTotalShow";				//共計
-		public static sGo								:	String 	=	"sGo";						//跳轉到
-		public static sIsPayOuted						:	String 	=	"sIsPayOuted";				//已派彩
-		public static sNoPayOut							:	String 	=	"sNoPayOut";				//未派彩
+		public static sSearch							:	string 	= 	"sSearch";					//查詢
+		public static sListNumber						:	string 	= 	"sListNumber";				//訂單號
+		public static sBetTime							:	string 	= 	"sBetTime";					//下注時間
+		public static sGameType							:	string 	= 	"sGameType";				//遊戲類型
+		public static sTableID							:	string 	= 	"sTableID";					//桌號
+		public static sResult							:	string 	= 	"sResult";					//結果
+		public static sTotalBet							:	string 	= 	"sTotalBet";				//總投注
+		public static sPayOut							:	string 	= 	"sPayOut";					//派彩
+		public static sAvailableBet						:	string 	= 	"sAvailableBet";			//有效投住
+		public static sListState						:	string 	= 	"sListState";				//下注單狀態
+		public static sSmallSum							:	string 	= 	"sSmallSum";				//小計
+		public static sTotalSum							:	string 	= 	"sTotalSum";				//總計
+		public static sSingleShow						:	string 	=	"sSingleShow";				//單頁顯示
+		public static sTotalShow						:	string 	=	"sTotalShow";				//共計
+		public static sGo								:	string 	=	"sGo";						//跳轉到
+		public static sIsPayOuted						:	string 	=	"sIsPayOuted";				//已派彩
+		public static sNoPayOut							:	string 	=	"sNoPayOut";				//未派彩
 		public static sYear								:	string	=	"sYear";					//年
 		public static sMonth							:	string	=	"sMonth";					//月
 		public static sDay								:	string	=	"sDay";						//日
@@ -509,7 +509,7 @@ module language {
 		public static sPageLimit						:	string	=	"sPageLimit";				//輸入頁碼超過合法範圍
 		public static sPleaseEnter						:	string	=	"sPleaseEnter";				//請輸入
 		public static sValue							:	string	=	"sValue";					//值
-		public static sFournumber						:	string	=	"sFournumber";				//四數
+		public static sFourNumber						:	string	=	"sFourNumber";				//四數
 		
 		public static sSicbo_X8_7						:	string	=	"X8_7";				//
 		public static sSicbo_X8_6						:	string	=	"X8_6";				//

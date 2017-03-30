@@ -2,29 +2,29 @@ module lobby.view.route.game.rou {
 	export class RouData {
 		private static var rouData:RouData;
 		
-		public static const RED:String = '0';
-		public static const BLACK:String = '1';
+		public static const RED:string = '0';
+		public static const BLACK:string = '1';
 		
-		public static const BIG:String = '2';
-		public static const SMALL:String = '3';
-		public static const ODD:String = '4';
-		public static const EVEN:String = '5';
+		public static const BIG:string = '2';
+		public static const SMALL:string = '3';
+		public static const ODD:string = '4';
+		public static const EVEN:string = '5';
 		
 		//打
-		public static const ZOEN_1:String = '0';
-		public static const ZOEN_2:String = '1';
-		public static const ZOEN_3:String = '2';
+		public static const ZOEN_1:string = '0';
+		public static const ZOEN_2:string = '1';
+		public static const ZOEN_3:string = '2';
 		
 		//列
-		public static const ROW_1:String = '4';
-		public static const ROW_2:String = '5';
-		public static const ROW_3:String = '6';
+		public static const ROW_1:string = '4';
+		public static const ROW_2:string = '5';
+		public static const ROW_3:string = '6';
 		
-		public static const ZERO:String = 'i';
+		public static const ZERO:string = 'i';
 		
-		public static const COLOR_RED:uint = 1;
-		public static const COLOR_BLACK:uint = 2;
-		public static const COLOR_ZERO:uint = 3;
+		public static const COLOR_RED:number = 1;
+		public static const COLOR_BLACK:number = 2;
+		public static const COLOR_ZERO:number = 3;
 		
 		private var _redBlackStructure:Dictionary;
 		private var _bigSmallStructure:Dictionary;
@@ -81,11 +81,11 @@ module lobby.view.route.game.rou {
 			_bigSmallStructure = new Dictionary();
 			_bigSmallStructure[0] = ZERO; //通殺
 			
-			for (var a:int = 1; a <= 18; a++) 
+			for (var a:number= 1; a <= 18; a++) 
 			{
 				_bigSmallStructure[a] = SMALL;
 			}
-			for (var b:int = 19; b <= 36; b++) 
+			for (var b:number= 19; b <= 36; b++) 
 			{
 				_bigSmallStructure[b] = BIG;
 			}
@@ -95,11 +95,11 @@ module lobby.view.route.game.rou {
 			_oddEvenData = new Dictionary();
 			_oddEvenData[0] = ZERO;  //通殺
 			
-			for (var c:int = 2; c <= 36; c+=2) 
+			for (var c:number= 2; c <= 36; c+=2) 
 			{
 				_oddEvenData[c] = EVEN;
 			}
-			for (var d:int = 1; d <= 35; d+=2) 
+			for (var d:number= 1; d <= 35; d+=2) 
 			{
 				_oddEvenData[d] = ODD;
 			}
@@ -108,25 +108,25 @@ module lobby.view.route.game.rou {
 			//打列
 			_zoenData = new Dictionary();
 		
-			for (var e:int = 1; e <= 12; e++) {
+			for (var e:number= 1; e <= 12; e++) {
 				_zoenData[e] = ZOEN_1;
 			}
-			for (var f:int = 13; f <= 24; f++) {
+			for (var f:number= 13; f <= 24; f++) {
 				_zoenData[f] = ZOEN_2;
 			}
-			for (var g:int = 25; g <= 36; g++) {
+			for (var g:number= 25; g <= 36; g++) {
 				_zoenData[g] = ZOEN_3;
 			}
 			
 			_rowData = new Dictionary();
 			
-			for (var h:int = 1; h <= 34; h+=3) {
+			for (var h:number= 1; h <= 34; h+=3) {
 				_rowData[h] = ROW_1;
 			}
-			for (var i:int = 2; i <= 35; i+=3) {
+			for (var i:number= 2; i <= 35; i+=3) {
 				_rowData[i] = ROW_2;
 			}
-			for (var j:int = 3; j <= 36; j+=3) {
+			for (var j:number= 3; j <= 36; j+=3) {
 				_rowData[j] = ROW_3;
 			}
 			
@@ -150,13 +150,13 @@ module lobby.view.route.game.rou {
 		 * @param	str
 		 * @return
 		 */
-		public function findRedBlack(str:String):String {
-			var ar:Array = str.split('.');
-			var len:int = ar.length;
-			var temp:String = '';
-			var result:String = '';
+		public function findRedBlack(str:string):string {
+			var ar:any[] = str.split('.');
+			var len:number= ar.length;
+			var temp:string = '';
+			var result:string = '';
 			
-			for (var i:int = 0; i < len; i++) {
+			for (var i:number= 0; i < len; i++) {
 				temp = _redBlackStructure[int(ar[i])];
 				
 				if ( result != '' ) {
@@ -176,17 +176,17 @@ module lobby.view.route.game.rou {
 		 * @param	str
 		 * @return
 		 */
-		public function findBigSmall(str:String):String {
-			var ar:Array = str.split('.');
-			var len:int = ar.length;
-			var temp:String = '';
-			var result:String = '';
+		public function findBigSmall(str:string):string {
+			var ar:any[] = str.split('.');
+			var len:number= ar.length;
+			var temp:string = '';
+			var result:string = '';
 			
-			for (var i:int = 0; i < len; i++) {
+			for (var i:number= 0; i < len; i++) {
 				temp = _bigSmallStructure[int(ar[i])];
 				
 				if( !temp ){
-					trace("輪盤路單資料錯誤:" + ar[i] );
+					console.log("輪盤路單資料錯誤:" + ar[i] );
 					continue;								//這邊會因服務端傳來錯誤的數據造成 客戶端路紙顯示錯誤。
 				}
 				
@@ -208,13 +208,13 @@ module lobby.view.route.game.rou {
 		 * @param	str
 		 * @return
 		 */
-		public function findOddEven(str:String):String {
-			var ar:Array = str.split('.');
-			var len:int = ar.length;
-			var temp:String = '';
-			var result:String = '';
+		public function findOddEven(str:string):string {
+			var ar:any[] = str.split('.');
+			var len:number= ar.length;
+			var temp:string = '';
+			var result:string = '';
 			
-			for (var i:int = 0; i < len; i++) {
+			for (var i:number= 0; i < len; i++) {
 				temp = _oddEvenData[int(ar[i])];
 				
 				if ( result != '' ) {
@@ -230,14 +230,14 @@ module lobby.view.route.game.rou {
 		}
 		
 		
-		public function findZoenRowData(str:String):String {
-			var ar:Array = str.split('.');
-			var len:int = ar.length;
-			var temp:String = '';
-			var temp2:String = '';
-			var result:String = '';
+		public function findZoenRowData(str:string):string {
+			var ar:any[] = str.split('.');
+			var len:number= ar.length;
+			var temp:string = '';
+			var temp2:string = '';
+			var result:string = '';
 			
-			for (var i:int = 0; i < len; i++) {
+			for (var i:number= 0; i < len; i++) {
 				if ( _zeroData[int(ar[i])] == undefined ) {
 					//打
 					temp = _zoenData[int(ar[i])]
@@ -276,7 +276,7 @@ module lobby.view.route.game.rou {
 			
 		}
 		
-		public function getColor(no:int):uint{
+		public function getColor(no:number):number{
 			
 			if (_redBlackStructure[no]==RED){
 				return COLOR_RED

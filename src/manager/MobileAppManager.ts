@@ -3,7 +3,7 @@ module manager {
 
 		private m_maMainUI						:	lobby.view.theme.MobileAppUI;
 		// private m_loader						:	Loader;
-		private m_bIsLoaded						:	Boolean;
+		private m_bIsLoaded						:	 boolean;
 
 		private static instance	:	MobileAppManager;
 
@@ -81,7 +81,7 @@ module manager {
 		/**
 		 * 隱藏下注紀錄面板
 		 */
-		public hidePannel(_bTween:boolean=true):void 
+		public hidePannel(_bTween: boolean=true):void 
 		{
 			if(this.m_maMainUI==null)
 				return;

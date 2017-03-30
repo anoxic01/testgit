@@ -7,7 +7,7 @@ module ui.button {
 		
 		private arr:string[];
 
-		public bSelect : boolean = false;
+		public bSelect :  boolean = false;
 
 		public constructor($arr:string[]) {
 			super();
@@ -64,7 +64,7 @@ module ui.button {
 			// this.setSelect(!this.bSelect);
 		}
 
-		public setSelect(value:boolean):void{
+		public setSelect(value: boolean):void{
 			if(this.bSelect != value){
 				this.bSelect = value;
 

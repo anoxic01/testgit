@@ -3,12 +3,12 @@ module packet.lobby {
 		public constructor() {
 		}
 		
-		public function initControler(controler:GameControler):void
+		public initControler(controler:GameControler):void
 		{
 			
 		}
 				
-		public function execute( _oData:Object ):void
+		public execute( _oData:Object ):void
 		{
 			Log.getInstance().log(this,"自订筹码数据包序号："+_oData.SN);
 			Player.getInstance().gameSetting.CustChips = _oData.PlayerCustChipsInfo.CustChips;

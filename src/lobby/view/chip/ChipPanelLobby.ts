@@ -1,10 +1,10 @@
 module lobby.view.chip {
 	export class ChipPanelLobby extends ChipPanel{
-//		private var m_btnOk			:	SingleButtonMC;
-//		private var m_btnCancel		:	SingleButtonMC;
-//		private var m_bRebet		:	Boolean;
-		private var m_bmpBet		:	Bitmap;					//下注金额
-		private var m_bmpHaveBet	:	Bitmap;					//已下注金额
+//		private m_btnOk			:	SingleButtonMC;
+//		private m_btnCancel		:	SingleButtonMC;
+//		private m_bRebet		:	 boolean;
+		private m_bmpBet		:	Bitmap;					//下注金额
+		private m_bmpHaveBet	:	Bitmap;					//已下注金额
 		
 		public constructor( _fReBet:Function=null) {
 //			m_fReBet = _fReBet;
@@ -83,12 +83,12 @@ module lobby.view.chip {
 			
 			hideHint();
 			
-			var aCustom : Array = Player.getInstance().gameSetting.aCustChips;
+			var aCustom : any[] = Player.getInstance().gameSetting.aCustChips;
 			m_aChipValues = [[10,50,100,300,500],[1000,3000,5000,10000,30000],[30000,50000,100000,300000,500000],aCustom];
 			m_iTotalPage = m_aChipValues.length;
-			m_vectorChipList = new Vector.<ChipList>;
+			m_vectorChipList = new <ChipList>;
 			var _chipList	:	ChipList;
-			for (var i:int = 0; i < m_iTotalPage; i++) 
+			for (var i:number= 0; i < m_iTotalPage; i++) 
 			{
 				_chipList = new ChipList(0, m_aChipValues[i], this);
 				m_spChipList.addChild(_chipList);
@@ -97,7 +97,7 @@ module lobby.view.chip {
 			}
 			currentChipItem = getDefault();
 			if(currentChipItem==null){
-				trace("当前筹码获取异常...");
+				console.log("当前筹码获取异常...");
 			}else{
 				currentChipItem.select = true;
 			}
@@ -110,7 +110,7 @@ module lobby.view.chip {
 			onChangeLanguage();
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			if(m_bmpBet){
 				if(m_bmpBet.parent){
 					m_bmpBet.parent.removeChild(m_bmpBet);
@@ -127,12 +127,12 @@ module lobby.view.chip {
 			super.destroy();
 		}
 		
-		override public function turning():void{
+		 public turning():void{
 			TweenLite.to(m_spChipList, Define.SPEED, {x:-m_vectorChipList[m_iCurrentPage].x});
 //			TweenUtil.moveToX(m_spChipList,50,50,10,-m_iCurrentPage*302,0.7);
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 //			m_mcAsset.tf_0.text = LobbyManager.getInstance().getLanguageString(Language.sBetCount);
 //			m_mcAsset.tf_1.text = LobbyManager.getInstance().getLanguageString(Language.sBetedCount);
 //			(m_mcAsset.mc_total as MovieClip).gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
@@ -150,28 +150,28 @@ module lobby.view.chip {
 			}
 		}
 		
-		public function updateBetTotal(_nValue:Number):void{
+		public updateBetTotal(_nValue:Number):void{
 			if(m_bmpBet){
 				m_bmpBet.bitmapData = BitmapManager.getInstance().numberChip.conversion(_nValue);
 				m_bmpBet.smoothing = true;
 			}
 		}
 		
-		public function updateHaveBetTotal(_nValue:Number):void{
+		public updateHaveBetTotal(_nValue:Number):void{
 			if(m_bmpHaveBet){
 				m_bmpHaveBet.bitmapData = BitmapManager.getInstance().numberBetedGCoin.conversion(_nValue);
 				m_bmpHaveBet.smoothing = true;
 			}
 		}
 		
-		override public function getDefault():ChipItem{
+		 public getDefault():ChipItem{
 			if(m_vectorChipList && m_vectorChipList.length>0){
 				return m_vectorChipList[0].getFirstChipItem();
 			}
 			return null;
 		}
 		
-		private function btnSettingTip():void{
+		private btnSettingTip():void{
 //			if(m_btnSetting){
 //				m_btnSetting.mcAsset.mc_tip.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 //			}

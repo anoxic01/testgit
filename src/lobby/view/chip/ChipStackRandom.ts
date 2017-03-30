@@ -32,7 +32,7 @@ module lobby.view.chip {
 		//	txtMc.y=-60;
 		}
 		
-		override public function set bSelf(value:Boolean):void
+		 set  bSelf(value: boolean)
 		{
 			m_bSelf = value;
 //			if (value){
@@ -45,15 +45,15 @@ module lobby.view.chip {
 //			}
 		}
 		
-		override public function set count(value:Number):void
+		 set  count(value:Number)
 		{
 			if (_count==value) return;
-			var oldCount:int = _count;
+			var oldCount:number= _count;
 			_count = value;
 			var clip:DisplayObject ;
-			var list:Array ;
-			var j:int=0;
-			var chipNum:uint;
+			var list:any[] ;
+			var j:number=0;
+			var chipNum:number;
 			if (value==0){
 				removeChips();
 				return;
@@ -89,7 +89,7 @@ module lobby.view.chip {
 
 		}
 		
-		override protected function getChipsClip(value:int):DisplayObject{
+		 protected getChipsClip(value:number):DisplayObject{
 			var chip:Bitmap = new Bitmap(BitmapManager.getInstance().getBmpdGameChip(value),"auto",true);
 			chip.name="chip"+value;
 			chip.scaleX=chip.scaleY=0.80;
@@ -104,11 +104,11 @@ module lobby.view.chip {
 		 * @param list2 现在筹码组
 		 * 
 		 */
-		protected function addChips(list:Array):void{
+		protected addChips(list:any[]):void{
 			var addClip:DisplayObject;
 			
-			var chipNum:uint = list.length
-			for (var j:int=0;j < chipNum;j++){
+			var chipNum:number = list.length
+			for (var j:number=0;j < chipNum;j++){
 				addClip = this.getChipsClip(list[j]);
 				setChip(addClip);
 				addClip.alpha = 0;
@@ -126,9 +126,9 @@ module lobby.view.chip {
 		
 		
 		
-		public function moveIn():void{
-		//		trace("聚拢筹码")
-			for (var i:int = 0; i < chipBox.numChildren; i++) 
+		public moveIn():void{
+		//		console.log("聚拢筹码")
+			for (var i:number= 0; i < chipBox.numChildren; i++) 
 			{
 				var chip:DisplayObject = chipBox.getChildAt(i);
 				TweenLite.to(chip, 0.4, {
@@ -138,17 +138,17 @@ module lobby.view.chip {
 			
 		}
 		
-		public function moveOut():void{
+		public moveOut():void{
 			
 		}
 		
-		override public function setChip(chip:DisplayObject):void{
+		 public setChip(chip:DisplayObject):void{
 				chip.x = this.rangeRandom(range.left, range.right-chip.width);
 				chip.y = this.rangeRandom(range.y-CHIP_Y, range.y+range.height-CHIP_Y-chip.height);
 			
 		}
 		
-		override protected function addComplete(clip:DisplayObject):void{
+		 protected addComplete(clip:DisplayObject):void{
 				chipBox.addChild(clip);
 		}
 		

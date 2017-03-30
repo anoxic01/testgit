@@ -1,21 +1,21 @@
 module lobby.view.panel {
 	export class PanelTableSetting extends PanelWindow{
-//		private var m_bg			:	BitmapScale9Grid;
-		private var m_mcAsset		:	*;
-		private var m_btnOk			:	SingleButtonMC;
-		private var m_btnNo			:	SingleButtonMC;
-		private var m_select_0		:	SelectItem;
-		private var m_select_1		:	SelectItem;
-		private var m_select_2		:	SelectItem;
-		private var m_current		:	SelectItem;
-		private var m_struct		:	TableStruct;
-		private var m_fQuickTable	:	Function;
-		private var m_bNeedInput	:	Boolean;							//需要输入密码
+//		private m_bg			:	BitmapScale9Grid;
+		private m_mcAsset		:	*;
+		private m_btnOk			:	SingleButtonMC;
+		private m_btnNo			:	SingleButtonMC;
+		private m_select_0		:	SelectItem;
+		private m_select_1		:	SelectItem;
+		private m_select_2		:	SelectItem;
+		private m_current		:	SelectItem;
+		private m_struct		:	TableStruct;
+		private m_fQuickTable	:	Function;
+		private m_bNeedInput	:	 boolean;							//需要输入密码
 		
-		private var tf_4 			:	TextField;
-		private var mc_label		:	MovieClip;
+		private tf_4 			:	TextField;
+		private mc_label		:	MovieClip;
 		
-		public constructor(_struct:TableStruct,$bShake:Boolean=false,_fQuickTable:Function=null) {
+		public constructor(_struct:TableStruct,$bShake: boolean=false,_fQuickTable:Function=null) {
 		
 			super($bShake);
 			m_struct = _struct;
@@ -73,13 +73,13 @@ module lobby.view.panel {
 			this.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
 		}
 		
-		protected function onKeyDown(event:KeyboardEvent):void
+		protected onKeyDown(event:KeyboardEvent):void
 		{
 			if( event.charCode == Keyboard.ENTER ){
 				btnOkEnter(null);
 			}
 		}
-		override public function destroy():void{
+		 public destroy():void{
 //			if(m_bg){
 //				if(m_bg.parent){
 //					m_bg.parent.removeChild(m_bg);
@@ -123,7 +123,7 @@ module lobby.view.panel {
 			super.destroy();
 		}
 		
-		private function btnOkEnter(event:MouseEvent):void{
+		private btnOkEnter(event:MouseEvent):void{
 			if(m_bNeedInput){
 				if(tf_4.text.length==0){
 					LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sTableEnter_0),function():void{
@@ -147,7 +147,7 @@ module lobby.view.panel {
 			}
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			m_mcAsset.mc_0.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			m_mcAsset.mc_1.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			m_mcAsset.mc_2.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
@@ -157,7 +157,7 @@ module lobby.view.panel {
 			m_mcAsset.mc_no.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 		}
 		//临时代码
-		private function vipSetting(_struct:TableStruct):void{
+		private vipSetting(_struct:TableStruct):void{
 			var csetting:CharterSettingStruct = new CharterSettingStruct();
 			csetting.CType = m_current.uType;
 			csetting.CPwd = tf_4.text;
@@ -167,7 +167,7 @@ module lobby.view.panel {
 				_struct.CharterSettingInfo = csetting;
 			}	
 		}
-		protected function click(event:MouseEvent):void
+		protected click(event:MouseEvent):void
 		{
 			m_current.select = false;
 			
@@ -213,11 +213,11 @@ import flash.events.MouseEvent;
 import views.BSprite;
 
 class SelectItem extends BSprite{
-	private var m_mcAsset 	: 	MovieClip;
-	private var m_bSelect	:	Boolean;
-	public var uType		:	uint;
+	private m_mcAsset 	: 	MovieClip;
+	private m_bSelect	:	 boolean;
+	public uType		:	number;
 	
-	public function SelectItem(_mc:MovieClip, _uType:uint){
+	public SelectItem(_mc:MovieClip, _uType:number){
 		m_mcAsset = _mc;
 		uType = _uType;
 		
@@ -227,7 +227,7 @@ class SelectItem extends BSprite{
 		m_mcAsset.mouseChildren = false;
 		m_mcAsset.gotoAndStop(1);
 	}
-	override public function destroy():void{
+	 public destroy():void{
 		m_mcAsset.removeEventListener(MouseEvent.MOUSE_OVER,over);
 		m_mcAsset.removeEventListener(MouseEvent.MOUSE_OUT,out);
 		
@@ -235,7 +235,7 @@ class SelectItem extends BSprite{
 			m_mcAsset = null;
 		}
 	}
-	public function set select(_bValue:Boolean):void{
+	set  select(_bValue: boolean){
 		if(m_bSelect!=_bValue){
 			m_bSelect = _bValue;
 			m_mcAsset.gotoAndStop(m_bSelect?2:1);
@@ -243,7 +243,7 @@ class SelectItem extends BSprite{
 		
 	}
 	
-	protected function over(event:MouseEvent):void
+	protected over(event:MouseEvent):void
 	{
 		if(m_bSelect){
 			return;
@@ -251,7 +251,7 @@ class SelectItem extends BSprite{
 		m_mcAsset.gotoAndStop(2);
 	}
 	
-	protected function out(event:MouseEvent):void
+	protected out(event:MouseEvent):void
 	{
 		if(m_bSelect){
 			return;

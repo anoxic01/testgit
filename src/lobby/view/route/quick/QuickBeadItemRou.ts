@@ -1,6 +1,6 @@
 module lobby.view.route.quick {
 	export class QuickBeadItemRou extends BeadItem{
-		private var m_sLabel	:	String;				//标签
+		private var m_sLabel	:	string;				//标签
 		
 		public constructor() {
 		
@@ -8,12 +8,12 @@ module lobby.view.route.quick {
 			
 		}
 		
-		override public function destroy():void{
+		 public function destroy():void{
 			super.destroy();
 			
 		}
 		
-		override public function setLabel(sLabel:String):void{
+		 public function setLabel(sLabel:string):void{
 			m_sLabel = sLabel;
 			m_bmp.bitmapData = getRouBead(m_sLabel);
 			m_bmp.width = 19;
@@ -24,17 +24,17 @@ module lobby.view.route.quick {
 //			onChangeLanguage();
 		}
 		
-		override public function onChangeLanguage():void{
+		 public function onChangeLanguage():void{
 			if(m_bmp){
 				m_bmp.bitmapData = getRouBead(m_sLabel);
 				m_bmp.smoothing = true;
 			}else{
-				trace("设置珠子位图异常...");
+				console.log("设置珠子位图异常...");
 			}
 			
 		}
 		
-		public function getRouBead(str:String):BitmapData{
+		public function getRouBead(str:string):BitmapData{
 			return  BitmapManager.getInstance().getBmpdBeadRouNum(str);
 		}
 		

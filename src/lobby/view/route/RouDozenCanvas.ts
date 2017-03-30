@@ -5,7 +5,7 @@ module lobby.view.route {
 		}
 		
 		
-		override public function drawBg(colNum:Number,rowNum:Number,size:Number,lineBordSize:int = 1):void{
+		 public drawBg(colNum:Number,rowNum:Number,size:Number,lineBordSize:number= 1):void{
 			var w:Number=headW+colNum*size;
 			var h:Number = rowNum * size;
 			
@@ -18,7 +18,7 @@ module lobby.view.route {
 			g.endFill();
 			g.lineStyle(1, 0xBBBBBB, 0.75,false,"normal",CapsStyle.NONE);
 			
-			for (var i:int = 0; i <= colNum; i++) 
+			for (var i:number= 0; i <= colNum; i++) 
 			{
 				if(i==0 || i==colNum){
 					g.lineStyle(1.5, 0, 0.75,false,"normal",CapsStyle.NONE);
@@ -28,7 +28,7 @@ module lobby.view.route {
 				g.moveTo(headW+i*size,0);
 				g.lineTo(headW+i*size,h);
 			}
-			for (var j:int = 0; j <= rowNum; j++) 
+			for (var j:number= 0; j <= rowNum; j++) 
 			{
 				if(j==rowNum){
 					g.lineStyle(1.5, 0, 0.75);

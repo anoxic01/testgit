@@ -1,44 +1,44 @@
 module lobby.view.chip {
 	export class ChipStack extends MovieClip{
 		
-		public var txtMc				:	MovieClip;
-		public var chips				:	Array;
-		protected var _count			:	Number;
-		protected var CHIP_THICK		:	Number = 8;						//籌碼跟籌碼之間的間距
-		protected var CHIP_X			:	Number = -31;
-		protected var CHIP_Y			:	Number = -22;
-		//private var CHIP_LIST			:Array = [1, 2, 5, 10, 50, 100, 300, 500];
-		public var seat					:	int;	//所属座位
-		public var m_chipNo				:	int = -1;
-		public var betId				:	int = -1;
-		public var bFlash				:	Boolean ;
-		protected var m_mcFlash			:	MovieClip;
-		public var chipBox				:	Sprite;					//筹码容器
-		protected var chipBox2			:   Sprite;					//待播动画筹码
-		public var bAddText				:	Boolean = true;			//是否加入籌碼面額文字框
-		public var _startPoint			:	Point;					//待加入筹码初始位置
-		public var bTween				:	Boolean;				//是否播放投注动画
-		protected var m_bSelf			:	Boolean;				//是否是自己的筹码(影响文本颜色)
-		public var color1				:	uint = 0xFFD66F;		//自己筹码颜色
-		public var color2				:	uint = 0xFFFF99;		//他人筹码颜色
-		public var color3				:	uint = 0x2A1B11;		//他人筹码文本阴影色
-		public var bRandom				:	Boolean;				//是否随机散落
-		public var range				:	Rectangle;				//随机散落范围
-		protected var shadowFilter		:	DropShadowFilter;		//筹码阴影
-		protected static var shadowFilter2		:	DropShadowFilter;		//文本阴影
-		protected var m_bmpGold			:	Bitmap;					//金額
-		protected var shadow			:	Bitmap;
+		public txtMc				:	MovieClip;
+		public chips				:	any[];
+		protected _count			:	Number;
+		protected CHIP_THICK		:	Number = 8;						//籌碼跟籌碼之間的間距
+		protected CHIP_X			:	Number = -31;
+		protected CHIP_Y			:	Number = -22;
+		//private CHIP_LIST			:any[] = [1, 2, 5, 10, 50, 100, 300, 500];
+		public seat					:	number;	//所属座位
+		public m_chipNo				:	int = -1;
+		public betId				:	int = -1;
+		public bFlash				:	 boolean ;
+		protected m_mcFlash			:	MovieClip;
+		public chipBox				:	Sprite;					//筹码容器
+		protected chipBox2			:   Sprite;					//待播动画筹码
+		public bAddText				:	 boolean = true;			//是否加入籌碼面額文字框
+		public _startPoint			:	Point;					//待加入筹码初始位置
+		public bTween				:	 boolean;				//是否播放投注动画
+		protected m_bSelf			:	 boolean;				//是否是自己的筹码(影响文本颜色)
+		public color1				:	number = 0xFFD66F;		//自己筹码颜色
+		public color2				:	number = 0xFFFF99;		//他人筹码颜色
+		public color3				:	number = 0x2A1B11;		//他人筹码文本阴影色
+		public bRandom				:	 boolean;				//是否随机散落
+		public range				:	Rectangle;				//随机散落范围
+		protected shadowFilter		:	DropShadowFilter;		//筹码阴影
+		protected static shadowFilter2		:	DropShadowFilter;		//文本阴影
+		protected m_bmpGold			:	Bitmap;					//金額
+		protected shadow			:	Bitmap;
 		/**
 		 *没有阴影 文本  纯动画使用  
 		 * 1  有文本，阴影，闪烁 在座位上显示用
 		 */
-		protected var type				:	uint				
-		private var beginCall			:Function = null;
-		private var beginCallArg		:Array = null;
-		private var endCall				:Function = null;
-		private var endCallArg			:Array = null;
+		protected type				:	number				
+		private beginCall			:Function = null;
+		private beginCallArg		:any[] = null;
+		private endCall				:Function = null;
+		private endCallArg			:any[] = null;
 		
-		public constructor(type:uint=1) {
+		public constructor(type:number=1) {
 			
 			this.type=type;
 			/*
@@ -113,7 +113,7 @@ module lobby.view.chip {
 			
 		}
 		
-		public function destroy():void {
+		public destroy():void {
 			this.beginCall=null;
 			this.beginCallArg=null;
 			this.endCall=null;
@@ -152,7 +152,7 @@ module lobby.view.chip {
 			
 		}
 		
-		public function drawRect():void{
+		public drawRect():void{
 			if (range){
 				this.graphics.beginFill(0x990000,0.1);
 				this.graphics.drawRect(range.x,range.y,range.width,range.height)
@@ -162,28 +162,28 @@ module lobby.view.chip {
 		
 		
 
-		public function get count():Number
+		get count():Number
 		{
 			return _count;
 		}
 		
-		public function set count(value:Number):void
+		set  count(value:Number)
 		{
 			if (_count==value) return;
-			var oldCount:int = _count;
+			var oldCount:number= _count;
 			_count = value;
 			
 			
 			if (bTween){
-				var userChips:Array = this.creatChipList(oldCount);
-				var addChips:Array = this.creatChipList(value);
+				var userChips:any[] = this.creatChipList(oldCount);
+				var addChips:any[] = this.creatChipList(value);
 				this.moveAddChips(userChips, addChips);
 			}else{
 				removeChips();
-				var arr:Array = creatChipList(value);
-				var chipNum:uint = arr.length
+				var arr:any[] = creatChipList(value);
+				var chipNum:number = arr.length
 					chipNum = Math.min(5,chipNum);
-				for (var j:int=0;j < chipNum;j++){
+				for (var j:number=0;j < chipNum;j++){
 					var clip:DisplayObject = this.getChipsClip(arr[j]);
 					clip.x = 0;
 					clip.y = (-(this.CHIP_THICK) *( this.chipBox.numChildren ));
@@ -228,23 +228,23 @@ module lobby.view.chip {
 			adjustWidth();
 		}
 		
-		public function get iStackChipHeight():int {
-			var stackChipHeight:int =  ((this.CHIP_THICK) *( this.chipBox.numChildren ));
+		get iStackChipHeight():number{
+			var stackChipHeight:number=  ((this.CHIP_THICK) *( this.chipBox.numChildren ));
 			return stackChipHeight;
 		}
 		
-		public function adjustWidth():void{
+		public adjustWidth():void{
 			//this.txtMc.back.width = Math.max(60,textField.textWidth+20);
 			
 			this.txtMc.back.width = Math.max(60,m_bmpGold.width+20);
 		}
 		
-		public function get bSelf():Boolean
+		get bSelf(): boolean
 		{
 			return m_bSelf;
 		}
 		
-		public function set bSelf(value:Boolean):void
+		set  bSelf(value: boolean)
 		{
 			m_bSelf = value;
 			if (value){
@@ -264,27 +264,27 @@ module lobby.view.chip {
 			}
 		}
 		
-		protected function rangeRandom(min:int, max:int):int{
+		protected rangeRandom(min:number, max:number):number{
 		//	return 0;
 			return ((Math.floor((Math.random() * ((max - min) + 1))) + min));
 		}
 		
-		public function setChip(chip:DisplayObject):void{
+		public setChip(chip:DisplayObject):void{
 				chip.x = 0;
 				chip.y = (-(this.CHIP_THICK) * chipBox.numChildren);
 			
 		}
 		
 		
-		protected function creatChipList(value:Number):Array{
-			var num:int;
-			var len:int;
-			var list:Array = new Array();
+		protected creatChipList(value:Number):any[]{
+			var num:number;
+			var len:number;
+			var list:any[] = new any[]();
 			var chipsnum:Number = value;
-			for (var i:int = GameDefine.CHIP_LIST.length - 1; i >= 0; i--) 
+			for (var i:number= GameDefine.CHIP_LIST.length - 1; i >= 0; i--) 
 			{
 				num = int((chipsnum / GameDefine.CHIP_LIST[i]));
-				for (var j:int = 0; j < num; j++) 
+				for (var j:number= 0; j < num; j++) 
 				{
 					list.push(GameDefine.CHIP_LIST[i]);
 				}
@@ -297,12 +297,12 @@ module lobby.view.chip {
 			return list;
 		}
 		
-		protected function checkTwoArray(list1:Array, list2:Array):Array{
-			var num:int;
-			var index:int;
-			var showList:Array = [];
-			var addList:Array = [];
-			var list:Array = [];
+		protected checkTwoArray(list1:any[], list2:any[]):any[]{
+			var num:number;
+			var index:number;
+			var showList:any[] = [];
+			var addList:any[] = [];
+			var list:any[] = [];
 			while (list2.length > 0) {
 				num = list2.shift();
 				index = list1.indexOf(num);
@@ -321,7 +321,7 @@ module lobby.view.chip {
 		
 		
 		
-		protected var bReplace:Boolean;
+		protected bReplace: boolean;
 		
 		/**
 		 * 
@@ -329,16 +329,16 @@ module lobby.view.chip {
 		 * @param list2 现在筹码组
 		 * 
 		 */
-		protected function moveAddChips(list1:Array, list2:Array):void{
-			var list:Array;
-			var showList:Array;
-			var addList:Array;
-			var j:int;
+		protected moveAddChips(list1:any[], list2:any[]):void{
+			var list:any[];
+			var showList:any[];
+			var addList:any[];
+			var j:number;
 			var clip:DisplayObject;
 			var addClip:DisplayObject;
 			
 			
-//			for (var j:int=0;j < chipNum;j++){
+//			for (var j:number=0;j < chipNum;j++){
 //				//				var clip:DisplayObject = this.getChipsClip(arr[j]);
 //				//				clip.x = -clip.width/2;
 //				//				clip.y = (-(this.CHIP_THICK) * this.numChildren)-clip.height/2;
@@ -347,12 +347,12 @@ module lobby.view.chip {
 //							}
 			
 			
-			var i:int;
+			var i:number;
 				list = this.checkTwoArray(list1, list2);
 				showList = list[0];
 				addList = list[1];
 			var baseY:Number = 0;
-			//var stayNum:uint = showList.length;
+			//var stayNum:number = showList.length;
 			endTweenChips();
 				if(showList.length==0 && list1.length>0 && addList.length==1){
 					addClip = this.getChipsClip(addList[0]);
@@ -396,7 +396,7 @@ module lobby.view.chip {
 //						if(Y==0){
 //							_ease=Bounce.easeOut;
 //						}else{
-//							_ease = Quint.easeOut;
+//							_ease = Qnumber.easeOut;
 //						}
 						_ease=Bounce.easeOut;
 						TweenLite.to(addClip, 0.3, {
@@ -416,7 +416,7 @@ module lobby.view.chip {
 		}
 		
 		
-		protected function addComplete(clip:DisplayObject):void{
+		protected addComplete(clip:DisplayObject):void{
 //			if (bReplace){
 //				clip.y=0;
 //				chipBox.removeChildAt(0);
@@ -446,7 +446,7 @@ module lobby.view.chip {
 			
 		}
 		
-		protected function endTweenChips(stayNum:uint=0):void{
+		protected endTweenChips(stayNum:number=0):void{
 //			while (chipBox2.numChildren > 0) {
 //				var readChip:DisplayObject = chipBox2.getChildAt(0);
 //				//TweenLite.killTweensOf(readChip, false,{complete:true});
@@ -458,9 +458,9 @@ module lobby.view.chip {
 				chipBox.removeChildAt(stayNum);
 			};
 			
-			var stayNum2:uint = stayNum-chipBox.numChildren;
+			var stayNum2:number = stayNum-chipBox.numChildren;
 			
-			for (var i:int = 0; i < chipBox2.numChildren; i++) 
+			for (var i:number= 0; i < chipBox2.numChildren; i++) 
 			{
 				var readChip:DisplayObject = chipBox2.getChildAt(i);
 				if (i>=stayNum2){
@@ -479,7 +479,7 @@ module lobby.view.chip {
 		}
 		
 		
-		protected function removeChips(deep:int=0):void{
+		protected removeChips(deep:number=0):void{
 			if(chipBox){
 				while (chipBox.numChildren > deep) {
 					chipBox.removeChildAt(deep);
@@ -500,7 +500,7 @@ module lobby.view.chip {
 			
 		}
 		
-		public function setTextVisible(value:Boolean):void{
+		public setTextVisible(value: boolean):void{
 			if (txtMc){
 				txtMc.visible = value;
 			}
@@ -508,7 +508,7 @@ module lobby.view.chip {
 		}
 		
 
-		protected function getChipsClip(value:int):DisplayObject{
+		protected getChipsClip(value:number):DisplayObject{
 			var chip:Bitmap = new Bitmap(BitmapManager.getInstance().getBmpdGameChip(value),"auto",true);
 			chip.name="chip"+value;
 			chip.smoothing = true;
@@ -516,7 +516,7 @@ module lobby.view.chip {
 		}
 		
 		
-		public function flash():void{
+		public flash():void{
 			TweenLite.killDelayedCallsTo(stopFlash);
 			bFlash = true;
 			m_mcFlash.visible=true;
@@ -525,7 +525,7 @@ module lobby.view.chip {
 		}
 		
 		
-		public function stopFlash():void{
+		public stopFlash():void{
 			bFlash=false;
 			if(m_mcFlash){
 				m_mcFlash.gotoAndStop(1);
@@ -541,8 +541,8 @@ module lobby.view.chip {
 		 * @param time
 		 * 
 		 */
-		public function moveTo(gpoint:Point,time:Number=1,delay:Number=0,beginCall:Function=null,beginCallArg:Array=null,endCall:Function=null,endCallArg:Array=null):Number{
-			var k:int
+		public moveTo(gpoint:Point,time:Number=1,delay:Number=0,beginCall:Function=null,beginCallArg:any[]=null,endCall:Function=null,endCallArg:any[]=null):Number{
+			var k:number
 			this.beginCall=beginCall;
 			this.beginCallArg=beginCallArg;
 			this.endCall=endCall;
@@ -583,7 +583,7 @@ module lobby.view.chip {
 			return during;
 		}
 		
-		private function moveCompleteHandler(obj:DisplayObject):void{
+		private moveCompleteHandler(obj:DisplayObject):void{
 			
 			if(beginCall != null){
 				//第一个筹码移动到位置 触发一次

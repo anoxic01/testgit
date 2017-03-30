@@ -1,12 +1,12 @@
 module manager {
 	export class PacketManager {
 		
-		public var injects				:	Dictionary;
-		private var m_packetMap			:	Dictionary;
+		public injects				:	Dictionary;
+		private m_packetMap			:	Dictionary;
 		
-		private static var m_instance	:	PacketManager;
+		private static m_instance	:	PacketManager;
 		
-		public static function getInstance():PacketManager{
+		public static getInstance():PacketManager{
 			
 			if(m_instance == null){
 				
@@ -109,7 +109,7 @@ module manager {
 		}
 
 		
-		public function getProtocolClass( _uModel:uint, _uType:uint, _uTableType:uint=0 ) : IProtocolStruct
+		public getProtocolClass( _uModel:number, _uType:number, _uTableType:number=0 ) : IProtocolStruct
 		{
 			var _class : Class;
 			switch(_uTableType){
@@ -138,7 +138,7 @@ module manager {
 			return null;
 		}
 		
-		public function toString( _uModel:uint, _uType:uint ) : String
+		public toString( _uModel:number, _uType:number ) : string
 		{
 			return getQualifiedClassName(m_packetMap[_uModel][_uType]);
 		}
@@ -151,7 +151,7 @@ module manager {
 		 * @param sType
 		 * 
 		 */		
-		public function addProtocol( _uModel:uint, _uType:uint, _handler:Class) : void
+		public addProtocol( _uModel:number, _uType:number, _handler:Class) : void
 		{
 			if (_handler)
 			{
@@ -169,7 +169,7 @@ module manager {
 		 * @param subId
 		 * 
 		 */		
-		public function removeProtocol( _uModel:uint, _uType:uint) : void
+		public removeProtocol( _uModel:number, _uType:number) : void
 		{
 			delete m_packetMap[_uModel][_uType];
 			

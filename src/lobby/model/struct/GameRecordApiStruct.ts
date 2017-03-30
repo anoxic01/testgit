@@ -1,48 +1,48 @@
 module lobby.model.struct {
 	export class GameRecordApiStruct {
-		public var SearchCondition		:	GameRecordSearchStruct;			//查詢條件
-		public var RecordList			:	GameLogListStruct;				//取得的遊戲紀錄
+		public SearchCondition		:	GameRecordSearchStruct;			//查詢條件
+		public RecordList			:	GameLogListStruct;				//取得的遊戲紀錄
 	
 		public constructor() {
-			SearchCondition = new GameRecordSearchStruct();
+			this.SearchCondition = new GameRecordSearchStruct();
 		}
 		
-		public function init( _oData:Object ):void {
+		public init( _oData ):void {
 			if( _oData == null ){
-				trace("遊戲紀錄 數據錯誤::");
+				console.log("遊戲紀錄 數據錯誤::");
 				return;
 			}
 			
 			
 			if(  _oData.RecordList != null ){
 				
-				RecordList = new GameLogListStruct();
-				RecordList.LogSummary.SubtotalBetAmount =  _oData.RecordList.LogSummary.SubtotalBetAmount;
-				RecordList.LogSummary.SubtotalResultAmount =  _oData.RecordList.LogSummary.SubtotalResultAmount;
-				RecordList.LogSummary.SubtotalRakeAmount =  _oData.RecordList.LogSummary.SubtotalRakeAmount;
-				RecordList.LogSummary.TotalBetAmount =  _oData.RecordList.LogSummary.TotalBetAmount;
-				RecordList.LogSummary.TotalResultAmount =  _oData.RecordList.LogSummary.TotalResultAmount;
-				RecordList.LogSummary.TotalRakeAmount =  _oData.RecordList.LogSummary.TotalRakeAmount;
-				RecordList.LogSummary.TotalDataCount =  _oData.RecordList.LogSummary.TotalDataCount;
+				this.RecordList = new GameLogListStruct();
+				this.RecordList.LogSummary.SubtotalBetAmount =  _oData.RecordList.LogSummary.SubtotalBetAmount;
+				this.RecordList.LogSummary.SubtotalResultAmount =  _oData.RecordList.LogSummary.SubtotalResultAmount;
+				this.RecordList.LogSummary.SubtotalRakeAmount =  _oData.RecordList.LogSummary.SubtotalRakeAmount;
+				this.RecordList.LogSummary.TotalBetAmount =  _oData.RecordList.LogSummary.TotalBetAmount;
+				this.RecordList.LogSummary.TotalResultAmount =  _oData.RecordList.LogSummary.TotalResultAmount;
+				this.RecordList.LogSummary.TotalRakeAmount =  _oData.RecordList.LogSummary.TotalRakeAmount;
+				this.RecordList.LogSummary.TotalDataCount =  _oData.RecordList.LogSummary.TotalDataCount;
 				
-				var _ar:Array = _oData.RecordList.ComplexGameList;
+				var _ar:any[] = _oData.RecordList.ComplexGameList;
 				var _complexGameRecordStruct:ComplexGameRecordStruct;
-				for( var i:int = 0; i < _ar.length ; i++ ){
+				for( var i:number= 0; i < _ar.length ; i++ ){
 					_complexGameRecordStruct = new ComplexGameRecordStruct();
 					_complexGameRecordStruct.init( _ar[i] );
-					RecordList.ComplexGameList.push( _complexGameRecordStruct );
+					this.RecordList.ComplexGameList.push( _complexGameRecordStruct );
 				}	
 				
 			}
 			
 			if( _oData.SearchCondition != null ){
-				SearchCondition.EndDateTime 	= _oData.SearchCondition.EndDateTime;
-				SearchCondition.UserID 			= _oData.SearchCondition.UserID;
-				SearchCondition.Identity 		= _oData.SearchCondition.Identity;
-				SearchCondition.StartRowNo 		= _oData.SearchCondition.StartRowNo;
-				SearchCondition.RequestDataSize = _oData.SearchCondition.RequestDataSize;
-				SearchCondition.GameID 			= _oData.SearchCondition.GameID;
-				SearchCondition.StartDateTime 	= _oData.SearchCondition.StartDateTime;	
+				this.SearchCondition.EndDateTime 	= _oData.SearchCondition.EndDateTime;
+				this.SearchCondition.UserID 			= _oData.SearchCondition.UserID;
+				this.SearchCondition.Identity 		= _oData.SearchCondition.Identity;
+				this.SearchCondition.StartRowNo 		= _oData.SearchCondition.StartRowNo;
+				this.SearchCondition.RequestDataSize = _oData.SearchCondition.RequestDataSize;
+				this.SearchCondition.GameID 			= _oData.SearchCondition.GameID;
+				this.SearchCondition.StartDateTime 	= _oData.SearchCondition.StartDateTime;	
 			}
 
 	

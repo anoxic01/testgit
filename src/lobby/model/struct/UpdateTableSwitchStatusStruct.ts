@@ -1,37 +1,37 @@
 module lobby.model.struct {
 	export class UpdateTableSwitchStatusStruct {
-		public var ThemeID		:	int;
-		public var TableID		:	int;
-		public var TableStatus	:	int;			//0-关闭		2-开启
-		public var TableInfo	:	TableStruct;	
+		public ThemeID		:	number;
+		public TableID		:	number;
+		public TableStatus	:	number;			//0-关闭		2-开启
+		public TableInfo	:	TableStruct;	
 		
-		public constructor(oData:Object) {
-			ThemeID = oData.ThemeID;
-			TableID = oData.TableID;
-			TableStatus = oData.TableStatus;
+		public constructor(oData) {
+			this.ThemeID = oData.ThemeID;
+			this.TableID = oData.TableID;
+			this.TableStatus = oData.TableStatus;
 			
 			
-			TableInfo = LobbyData.getInstance().lobbyInfo.findTableStructByTT(ThemeID, TableID);
-			if(TableInfo==null){
-				TableInfo = new TableStruct(oData.TableInfo);
-				TableInfo.ThemeID = ThemeID;
-				TableInfo.TableID = TableID;
-				LobbyData.getInstance().lobbyInfo.addTable(ThemeID,TableInfo);
+			this.TableInfo = model.LobbyData.getInstance().lobbyInfo.findTableStructByTT(this.ThemeID, this.TableID);
+			if(this.TableInfo==null){
+				this.TableInfo = new TableStruct(oData.TableInfo);
+				this.TableInfo.ThemeID = this.ThemeID;
+				this.TableInfo.TableID = this.TableID;
+				model.LobbyData.getInstance().lobbyInfo.addTable(this.ThemeID,this.TableInfo);
 			}else{
-				TableInfo.update(oData.TableInfo);
+				this.TableInfo.update(oData.TableInfo);
 			}
 			
-			if(ThemeID==LobbyManager.getInstance().lobbyView.uCurrentThemeID){
-				if(TableStatus==0){
-					LobbyData.getInstance().addMaintainTableStruct(TableInfo);
-				}else if(TableStatus==2){
-					LobbyData.getInstance().removeMaintainTableStruct(TableInfo);
+			if(this.ThemeID==manager.LobbyManager.getInstance().lobbyView.uCurrentThemeID){
+				if(this.TableStatus==0){
+					model.LobbyData.getInstance().addMaintainTableStruct(this.TableInfo);
+				}else if(this.TableStatus==2){
+					model.LobbyData.getInstance().removeMaintainTableStruct(this.TableInfo);
 				}
 			}
 			
 			
 			//关闭或者开启桌子
-			LobbyManager.getInstance().lobbyView.changeTableList(TableStatus,TableInfo);
+			manager.LobbyManager.getInstance().lobbyView.changeTableList(this.TableStatus,this.TableInfo);
 		}
 	}
 }

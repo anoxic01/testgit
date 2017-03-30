@@ -3,12 +3,12 @@ module lobby.view.route.game.sic {
 		private static var sicData:SicData;
 		
 		
-		public static const SMALL:String = "b";
-		public static const BIG:String = "c";
-		public static const EVEN:String = "d";
-		public static const ODD:String = "f";
+		public static const SMALL:string = "b";
+		public static const BIG:string = "c";
+		public static const EVEN:string = "d";
+		public static const ODD:string = "f";
 		/**圍榖*/
-		public static const SURROUND_DICE:String = "g";
+		public static const SURROUND_DICE:string = "g";
 		
 		
 		
@@ -36,7 +36,7 @@ module lobby.view.route.game.sic {
 			//大小
 			_bigSmallStructure = new Dictionary();
 
-			for (var l:int = 4; l <= 10; l++) 
+			for (var l:number= 4; l <= 10; l++) 
 			{
 				_bigSmallStructure[l] = SMALL;
 			}
@@ -49,11 +49,11 @@ module lobby.view.route.game.sic {
 			//單雙
 			_oddEvenData = new Dictionary();
 			
-			for (var k:int = 5; k <= 17; k+=2) 
+			for (var k:number= 5; k <= 17; k+=2) 
 			{
 				_oddEvenData[k] = ODD;
 			}
-			for (var j:int = 4; j <= 16; j+=2) 
+			for (var j:number= 4; j <= 16; j+=2) 
 			{
 				_oddEvenData[j] = EVEN;
 			}
@@ -75,24 +75,24 @@ module lobby.view.route.game.sic {
 		 * @param	str
 		 * @return
 		 */
-		public function findTie(str:String):String {
-			var ar:Array = str.split('.');
-			var len:int = ar.length;
-			var temp:String = '';
-			var result:String = '';
-			var ar2:Array
-			var totalPoint:int = 0;
+		public function findTie(str:string):string {
+			var ar:any[] = str.split('.');
+			var len:number= ar.length;
+			var temp:string = '';
+			var result:string = '';
+			var ar2:any[]
+			var totalPoint:number= 0;
 			
-			for (var i:int = 0; i < len; i++) {
+			for (var i:number= 0; i < len; i++) {
 				ar2 = ar[i].split('');
 				totalPoint = 0;
 				
-				for (var j:int = 0; j < ar2.length; j++) {
+				for (var j:number= 0; j < ar2.length; j++) {
 					totalPoint += int(ar2[j]);
 				}
 				
 				temp = '';
-				temp = String(totalPoint);
+				temp = string(totalPoint);
 				
 				if ( result != '' ) {
 					result += '.'+temp;
@@ -112,17 +112,17 @@ module lobby.view.route.game.sic {
 		 * @param	str
 		 * @return
 		 */
-		public function findBigSmall(str:String):String {
-			var ar:Array = str.split('.');
-			var len:int = ar.length;
-			var temp:String = '';
-			var result:String = '';
-			var ar2:Array
-			var totalPoint:int = 0;
+		public function findBigSmall(str:string):string {
+			var ar:any[] = str.split('.');
+			var len:number= ar.length;
+			var temp:string = '';
+			var result:string = '';
+			var ar2:any[]
+			var totalPoint:number= 0;
 			
-			var surround:String = "";
+			var surround:string = "";
 			
-			for (var i:int = 0; i < len; i++) {
+			for (var i:number= 0; i < len; i++) {
 				surround = _surroundData[ar[i]];
 				
 				//判斷圍骰
@@ -130,7 +130,7 @@ module lobby.view.route.game.sic {
 					ar2 = ar[i].split('');
 					totalPoint = 0;
 					
-					for (var j:int = 0; j < ar2.length; j++) {
+					for (var j:number= 0; j < ar2.length; j++) {
 						totalPoint += int(ar2[j]);
 					}
 					
@@ -172,17 +172,17 @@ module lobby.view.route.game.sic {
 		 * @param	str
 		 * @return
 		 */
-		public function findOddEven(str:String):String {
-			var ar:Array = str.split('.');
-			var len:int = ar.length;
-			var temp:String = '';
-			var result:String = '';
-			var ar2:Array
-			var totalPoint:int = 0;
+		public function findOddEven(str:string):string {
+			var ar:any[] = str.split('.');
+			var len:number= ar.length;
+			var temp:string = '';
+			var result:string = '';
+			var ar2:any[]
+			var totalPoint:number= 0;
 			
-			var surround:String = "";
+			var surround:string = "";
 			
-			for (var i:int = 0; i < len; i++) {
+			for (var i:number= 0; i < len; i++) {
 				surround = _surroundData[ar[i]];
 				
 				//判斷圍骰
@@ -190,7 +190,7 @@ module lobby.view.route.game.sic {
 					ar2 = ar[i].split('');
 					totalPoint = 0;
 					
-					for (var j:int = 0; j < ar2.length; j++) {
+					for (var j:number= 0; j < ar2.length; j++) {
 						totalPoint += int(ar2[j]);
 					}
 					

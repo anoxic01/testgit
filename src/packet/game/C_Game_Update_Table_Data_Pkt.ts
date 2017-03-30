@@ -4,12 +4,12 @@ module packet.game {
 		 * 填入抓取資料的類型
 			0: 取得賭桌路紙恢復資料
 		 */
-		public var ReqType:int;
+		public ReqType:number;
 		/**
 		 * 配合抓取資料的類型有不同的資料型態
 			0: int 填入賭桌 ID
 		 */
-		public var ArgInfo:Object;
+		public ArgInfo:Object;
 		
 		public constructor() {
 		}

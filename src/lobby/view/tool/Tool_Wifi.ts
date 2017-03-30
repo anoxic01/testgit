@@ -6,7 +6,7 @@ module lobby.view.tool {
 		public static const POOR	:	String	=	"POOR";			//信号很差
 		public static const NO		:	String	=	"NO";			//没有信号
 		
-		private var m_mcAsset		:	MovieClip;					//资源容器
+		private m_mcAsset		:	MovieClip;					//资源容器
 		
 		public constructor( _mcAsset:MovieClip 	) {
 		
@@ -14,16 +14,16 @@ module lobby.view.tool {
 			m_mcAsset.gotoAndStop( POOR );
 		}
 		
-		public function destroy():void
+		public destroy():void
 		{
 			if(m_mcAsset){
 				m_mcAsset = null;
 			}
 		}
 		
-		public function set status( _sStatus:String ):void
+		set  status( _sStatus:String )
 		{
-//			trace("测试");
+//			console.log("测试");
 			if(m_mcAsset){
 				m_mcAsset.gotoAndStop(_sStatus);
 			}

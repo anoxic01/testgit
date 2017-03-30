@@ -1,31 +1,31 @@
 module lobby.model.struct {
 	export class StaticsInfoSic extends StaticsInfoStruct{
 		
-		public var BigBetAmt 		:	Number;			//大押注金額
-		public var BigBetCnt 		:	int;			//大押注次數
-		public var BigWinCnt		:	int;			//大赢次数
+		public BigBetAmt 		:	Number;			//大押注金額
+		public BigBetCnt 		:	number;			//大押注次數
+		public BigWinCnt		:	number;			//大赢次数
 		
-		public var EvenBetCnt		:	int;
-		public var EvenBetAmt		:	int;
-		public var EvenWinCnt		:	int;			//赢率?
+		public EvenBetCnt		:	number;
+		public EvenBetAmt		:	number;
+		public EvenWinCnt		:	number;			//赢率?
 		
-		public var OddBetAmt		:	int;
-		public var OddBetCnt		:	int;
-		public var OddWinCnt		:	int;			//?
+		public OddBetAmt		:	number;
+		public OddBetCnt		:	number;
+		public OddWinCnt		:	number;			//?
 		
-		public var SmallBetAmt 		:	Number;			//小押注金額
-		public var SmallBetCnt 		:	int;			//小押注次數
-		public var SmallWinCnt		:	int;			//小赢次数
+		public SmallBetAmt 		:	Number;			//小押注金額
+		public SmallBetCnt 		:	number;			//小押注次數
+		public SmallWinCnt		:	number;			//小赢次数
 		
-		public var TripleX24BetAmt	:	int;			//
-		public var TripleX24BetCnt	:	int;			//
-		public var TripleX24WinCnt	:	int;			//
+		public TripleX24BetAmt	:	number;			//
+		public TripleX24BetCnt	:	number;			//
+		public TripleX24WinCnt	:	number;			//
 		
-		public var X12_X24BetAmt	:	int;
-		public var X1BetAmt			:	int;
-		public var X50_X150BetAmt	:	int;
-		public var X5_X8BetAmt		:	int;
-		public var X1_X3BetAmt		:	int;
+		public X12_X24BetAmt	:	number;
+		public X1BetAmt			:	number;
+		public X50_X150BetAmt	:	number;
+		public X5_X8BetAmt		:	number;
+		public X1_X3BetAmt		:	number;
 		
 		
 		public constructor() {
@@ -36,7 +36,7 @@ module lobby.model.struct {
 		 * 更新彩池
 		 * @param	o
 		 */
-		override public function updateStatic( oData:Object ):void {
+		 public updateStatic( oData:Object ):void {
 			
 			this.setData( "BigBetAmt" , oData );
 			this.setData( "BigBetCnt" , oData );
@@ -67,7 +67,7 @@ module lobby.model.struct {
 			super.updateStatic(oData);
 		}
 		
-		override public function updateSum(oData:Object):void
+		 public updateSum(oData:Object):void
 		{
 			this.setData( "BigWinCnt" , oData );
 			this.setData( "EvenWinCnt" , oData );

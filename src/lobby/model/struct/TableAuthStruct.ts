@@ -1,132 +1,132 @@
 module lobby.model.struct {
 	export class TableAuthStruct {
-		private var gameID				:	int;						//遊戲ID
-        private var tableID				:	int;						//桌號
-        private var authToken			:	String						//認證碼 - 由Web端取得
-        private var identity			:	int;						//身份 - 0: 玩家, 1: 槍手
-        private var lang 				:	int;						//語系 0: CN, 1: TW, 2: EN
-        private var platform 			:	int;						//遊戲平台 - 0: Web, 1: Mobile
-        private var lobbyServer			:	String						//Lobby Server
-        private var joinTbType			:	int;						//进桌模式
-        private var betLimitID			:	int;						//限紅模式
-        private var joinTbPwd			:	String;						//進桌密碼
-        private var charterSettingInfo	:	CharterSettingStruct;		//包桌設定
+		private gameID				:	number;						//遊戲ID
+        private tableID				:	number;						//桌號
+        private authToken			:	String						//認證碼 - 由Web端取得
+        private identity			:	number;						//身份 - 0: 玩家, 1: 槍手
+        private lang 				:	number;						//語系 0: CN, 1: TW, 2: EN
+        private platform 			:	number;						//遊戲平台 - 0: Web, 1: Mobile
+        private lobbyServer			:	String						//Lobby Server
+        private joinTbType			:	number;						//进桌模式
+        private betLimitID			:	number;						//限紅模式
+        private joinTbPwd			:	String;						//進桌密碼
+        private charterSettingInfo	:	CharterSettingStruct;		//包桌設定
 		
-        public var ProtocolVer			:	int;						//通訊版號
+        public ProtocolVer			:	number;						//通訊版號
 		
 		
 		public constructor() {
-			charterSettingInfo = new CharterSettingStruct();
+			this.charterSettingInfo = new CharterSettingStruct();
 		}
 		
-		public function get CharterSettingInfo():CharterSettingStruct 
+		get CharterSettingInfo():CharterSettingStruct 
 		{
-			return charterSettingInfo;
+			return this.charterSettingInfo;
 		}
 		
-		public function set CharterSettingInfo(value:CharterSettingStruct):void 
+		set  CharterSettingInfo(value:CharterSettingStruct) 
 		{
-			charterSettingInfo = value;
+			this.charterSettingInfo = value;
 		}
 		
-		public function get JoinTbPwd():String 
+		get JoinTbPwd():String 
 		{
-			return joinTbPwd;
+			return this.joinTbPwd;
 		}
 		
-		public function set JoinTbPwd(value:String):void 
+		set  JoinTbPwd(value:String) 
 		{
-			joinTbPwd = value;
+			this.joinTbPwd = value;
 		}
 		
-		public function get BetLimitID():int 
+		get BetLimitID():number
 		{
-			return betLimitID;
+			return this.betLimitID;
 		}
 		
-		public function set BetLimitID(value:int):void 
+		set  BetLimitID(value:number) 
 		{
-			betLimitID = value;
+			this.betLimitID = value;
 		}
 		
-		public function get JoinTbType():int 
+		get JoinTbType():number
 		{
-			return joinTbType;
+			return this.joinTbType;
 		}
 		
-		public function set JoinTbType(value:int):void 
+		set  JoinTbType(value:number) 
 		{
-			joinTbType = value;
+			this.joinTbType = value;
 		}
 		
-		public function get LobbyServer():String 
+		get LobbyServer():String 
 		{
-			return lobbyServer;
+			return this.lobbyServer;
 		}
 		
-		public function set LobbyServer(value:String):void 
+		set  LobbyServer(value:String) 
 		{
-			lobbyServer = value;
+			this.lobbyServer = value;
 		}
 		
-		public function get Platform():int 
+		get Platform():number
 		{
-			return platform;
+			return this.platform;
 		}
 		
-		public function set Platform(value:int):void 
+		set  Platform(value:number) 
 		{
-			platform = value;
+			this.platform = value;
 		}
 		
-		public function get Lang():int 
+		get Lang():number
 		{
-			return lang;
+			return this.lang;
 		}
 		
-		public function set Lang(value:int):void 
+		set  Lang(value:number) 
 		{
-			lang = value;
+			this.lang = value;
 		}
 		
-		public function get Identity():int 
+		get Identity():number
 		{
-			return identity;
+			return this.identity;
 		}
 		
-		public function set Identity(value:int):void 
+		set  Identity(value:number) 
 		{
-			identity = value;
+			this.identity = value;
 		}
 		
-		public function get AuthToken():String 
+		get AuthToken():String 
 		{
-			return authToken;
+			return this.authToken;
 		}
 		
-		public function set AuthToken(value:String):void 
+		set  AuthToken(value:String) 
 		{
-			authToken = value;
+			this.authToken = value;
 		}
 		
-		public function get TableID():int 
+		get TableID():number
 		{
-			return tableID;
+			return this.tableID;
 		}
 		
-		public function set TableID(value:int):void 
+		set  TableID(value:number) 
 		{
-			tableID = value;
+			this.tableID = value;
 		}
 		
-		public function get GameID():int 
+		get GameID():number
 		{
-			return gameID;
+			return this.gameID;
 		}
 		
-		public function set GameID(value:int):void 
+		set  GameID(value:number) 
 		{
-			gameID = value;
+			this.gameID = value;
 		}
 		
 	}

@@ -62,7 +62,7 @@ module tool {
             let _iIndex : number = 0;
             let _bmp : egret.Bitmap;
             let _sp : egret.Sprite = new egret.Sprite();
-            let _sNum : String = num.toString();
+            let _sNum : string = num.toString();
             
             while (_iIndex < _sNum.length)
             {
@@ -95,7 +95,7 @@ module tool {
             let _iIndex : number;
             let _bmp : egret.Bitmap;
             let _sp : egret.Sprite = new egret.Sprite();
-            let _sNum : String = num.toString();
+            let _sNum : string = num.toString();
             
             while (_iIndex < _sNum.length)
             {
@@ -132,9 +132,9 @@ module tool {
             let _iIndex : number;
             let _bmp : egret.Bitmap = null;
             let _sp: egret.Sprite = new egret.Sprite();
-            let _sNum : String = num.toString();
+            let _sNum : string = num.toString();
 			
-            if (num.toString().indexOf("-") != -1)
+            if (num.tostring().indexOf("-") != -1)
             {
                 _sNum = _sNum.slice((_sNum.indexOf("-") + 1));
             }
@@ -190,8 +190,8 @@ module tool {
 			let _iLastIndex : number;
 			let _bmp : egret.Bitmap = null;
 			let _sp: egret.Sprite = new egret.Sprite();
-			let _sFront : String = uFront.toString();
-			let _sLast	: String = uLast.toString();
+			let _sFront : string = uFront.toString();
+			let _sLast	: string = uLast.toString();
 			
 			while (_iFrontIndex < _sFront.length)
 			{
@@ -236,8 +236,8 @@ module tool {
 			let _iLastIndex : number;
 			let _bmp : egret.Bitmap = null;
 			let _sp: egret.Sprite = new egret.Sprite();
-			let _sFront : String = uFront.toString();
-			let _sLast	: String = uLast.toString();
+			let _sFront : string = uFront.toString();
+			let _sLast	: string = uLast.toString();
 			
 			while (_iFrontIndex < _sFront.length)
 			{
@@ -281,8 +281,8 @@ module tool {
 			let _iIndex : number;
 			let _bmp : egret.Bitmap;
 			let _sp : egret.Sprite = new egret.Sprite();
-			let _aTmp:any[] = String(num).split('.');
-			let _sNum : String = _aTmp[0].toString();
+			let _aTmp:any[] = string(num).split('.');
+			let _sNum : string = _aTmp[0].toString();
 			let _iFrontIndex : number;
 			let _iLastIndex : number;
 			
@@ -307,7 +307,7 @@ module tool {
 				_bmpSign.x = Math.round(_iFrontIndex * this.m_nWidth);
 				_iFrontIndex++;				
 				
-				var _sNum2 : String = _aTmp[1];
+				var _sNum2 : string = _aTmp[1];
 				while (_iLastIndex < _sNum2.length)
 				{
 					_bmp = this.m_data[_sNum2.charAt(_iLastIndex)];

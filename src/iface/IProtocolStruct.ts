@@ -1,6 +1,6 @@
 module iface {
 	export interface IProtocolStruct {
-		initControler(controler:GameControler):void;
+		initControler(controler:ctrl.GameControler):void;
 		execute( oData:Object ):void;
 	}
 }

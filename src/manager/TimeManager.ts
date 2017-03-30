@@ -1,18 +1,18 @@
 module manager {
 	export class TimeManager {
 		
-		private static var m_instance	:	TimeManager;
+		private static m_instance	:	TimeManager;
 		
-		private var m_dicTimer			:	Dictionary 	=	new Dictionary();
-		private var m_dicCallBack		:	Dictionary 	=	new Dictionary();
-		private var m_vecFunc			:	Vector.<FStruct> = new Vector.<FStruct>;
-		private var m_timer				:	JTimer;
-		private var m_interval			:	Number = 1000;
+		private m_dicTimer			:	Dictionary 	=	new Dictionary();
+		private m_dicCallBack		:	Dictionary 	=	new Dictionary();
+		private m_vecFunc			:	<FStruct> = new <FStruct>;
+		private m_timer				:	JTimer;
+		private m_interval			:	Number = 1000;
 		
 		public const  iTimeOutSec		:	int		= 15000;
 		
 		
-		public static function getInstance():TimeManager{
+		public static getInstance():TimeManager{
 			
 			if(m_instance == null){
 				
@@ -23,10 +23,10 @@ module manager {
 		}
 		
 		public constructor() {
-			m_vecFunc = new Vector.<FStruct>();
+			m_vecFunc = new <FStruct>();
 		}
 		
-		public function start(sKey:String, _fun:Function):void{
+		public start(sKey:string, _fun:Function):void{
 			/*var timer : Timer = new Timer(iTimeOutSec,1);
 			timer.addEventListener(TimerEvent.TIMER_COMPLETE,onComplete);
 			timer.start();*/
@@ -41,7 +41,7 @@ module manager {
 			}
 		}
 		
-		public function stop(sKey:String):void{
+		public stop(sKey:string):void{
 			var timer : JTimer = m_dicTimer[sKey];
 			if (timer){
 				/*timer.removeEventListener(TimerEvent.TIMER_COMPLETE, onComplete);
@@ -54,19 +54,19 @@ module manager {
 			
 		}
 		
-		public function stopAll():void{
-			for (var param:String in m_dicTimer) 
+		public stopAll():void{
+			for (var param:string in m_dicTimer) 
 			{
 				stop(param);
 			}
 			
 		}
 		
-		private function onComplete(timer:JTimer):void{
+		private onComplete(timer:JTimer):void{
 			/*var timer : Timer = event.currentTarget as Timer;
 			timer.removeEventListener(TimerEvent.TIMER_COMPLETE, onComplete);
 			timer.stop();*/
-			var skey : String = search(timer);
+			var skey : string = search(timer);
 			if(m_dicCallBack[skey] != null){
 				m_dicCallBack[skey]();
 			}
@@ -74,18 +74,18 @@ module manager {
 			timer.dispose();
 			timer = null;
 		}
-		private function search(_timer:JTimer):String{
-			for (var sKey:String in m_dicTimer) 
+		private search(_timer:JTimer):string{
+			for (var sKey:string in m_dicTimer) 
 			{
 				if(_timer==m_dicTimer[sKey]){
 					return sKey;
 				}
 			}
-			trace("查询不到对应的timer");
+			console.log("查询不到对应的timer");
 			return "";
 		}
-		private function deleteTimer(_timer:JTimer):void{
-			for (var sKey:String in m_dicTimer) 
+		private deleteTimer(_timer:JTimer):void{
+			for (var sKey:string in m_dicTimer) 
 			{
 				if(_timer==m_dicTimer[sKey]){
 					delete m_dicTimer[sKey];
@@ -93,14 +93,14 @@ module manager {
 				}
 			}
 			
-			trace("没有找到相关timer...");
+			console.log("没有找到相关timer...");
 		}
 		
 		//*****************//
 		
-		public function addFun( _func:Function , _interval:Number ):void {
-			var _bRes:Boolean = false;
-			for( var i:int = 0; i < m_vecFunc.length ; i++ ){
+		public addFun( _func:Function , _interval:Number ):void {
+			var _bRes: boolean = false;
+			for( var i:number= 0; i < m_vecFunc.length ; i++ ){
 				if( m_vecFunc[i].func == _func ){
 					m_vecFunc[i].func = _func;
 					m_vecFunc[i].interval = _interval;
@@ -120,10 +120,10 @@ module manager {
 			}
 		}
 		
-		public function removeFun( _func:Function ):void {
+		public removeFun( _func:Function ):void {
 			
-			var _idx:int = -1;
-			for( var i:int = 0; i < m_vecFunc.length ; i++ ){
+			var _idx:number= -1;
+			for( var i:number= 0; i < m_vecFunc.length ; i++ ){
 				if( m_vecFunc[i].func == _func ){
 					_idx = i;
 					break;
@@ -135,7 +135,7 @@ module manager {
 			}
 		}
 		
-		public function run():void {
+		public run():void {
 			if( !m_timer ){
 				/*m_timer = new Timer(m_interval);
 				m_timer.addEventListener(TimerEvent.TIMER , onTimer);
@@ -147,14 +147,14 @@ module manager {
 			
 		}
 		
-		public function stop2():void {
+		public stop2():void {
 			if( m_timer ){
 				m_timer.stop();
 			}
 		}		
 		
-		public function onTimer():void {
-			for( var i:int = 0; i < m_vecFunc.length ; i++ ){
+		public onTimer():void {
+			for( var i:number= 0; i < m_vecFunc.length ; i++ ){
 				m_vecFunc[i].count +=1;
 				if( m_vecFunc[i].count >= m_vecFunc[i].totalCount ){
 					m_vecFunc[i].count = 0;
@@ -173,11 +173,11 @@ module manager {
 	}
 }
 class FStruct {
-	public var func				:	Function;
-	public var interval			:	Number;
-	public var count			:	int = 0;
-	public var totalCount		:	int = 0;
-	public function FStruct():void {
+	public func				:	Function;
+	public interval			:	Number;
+	public count			:	int = 0;
+	public totalCount		:	int = 0;
+	public FStruct():void {
 		
 	}
 }

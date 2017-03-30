@@ -3,80 +3,80 @@ module lobby.model.game {
 		 /// <summary>
         /// 座位號碼
         /// </summary>
-        protected var seatNo :int;
+        protected seatNo :number;
 
-	    protected var gCoinBet :Number
+	    protected gCoinBet :number
 
         /// <summary>
         /// 信用押注
         /// </summary>
-        //protected var creditBet :Number;
-        protected var totalBet :Number;
+        //protected creditBet :number;
+        protected totalBet :number;
 	
-	    protected var totalWin :Number;
+	    protected totalWin :number;
 
-        protected var totalNetWin :Number;
+        protected totalNetWin :number;
 		public constructor() {
 		}
 		
-		public function get SeatNo():int 
+		get SeatNo():number
 		{
-			return seatNo;
+			return this.seatNo;
 		}
 		
-		public function set SeatNo(value:int):void 
+		set  SeatNo(value:number) 
 		{
-			seatNo = value;
+			this.seatNo = value;
 		}
 		
-		public function get GCoinBet():Number 
+		get GCoinBet():number 
 		{
-			return gCoinBet;
+			return this.gCoinBet;
 		}
 		
-		public function set GCoinBet(value:Number):void 
+		set  GCoinBet(value:number) 
 		{
-			gCoinBet = value;
+			this.gCoinBet = value;
 		}
 		
-		/*public function get CreditBet():Number 
+		/*get CreditBet():number 
 		{
 			return creditBet;
 		}
 		
-		public function set CreditBet(value:Number):void 
+		set  CreditBet(value:number) 
 		{
 			creditBet = value;
 		}*/
 		
-		public function get TotalBet():Number 
+		get TotalBet():number 
 		{
-			return totalBet;
+			return this.totalBet;
 		}
 		
-		public function set TotalBet(value:Number):void 
+		set  TotalBet(value:number) 
 		{
-			totalBet = value;
+			this.totalBet = value;
 		}
 		
-		public function get TotalWin():Number 
+		get TotalWin():number 
 		{
-			return totalWin;
+			return this.totalWin;
 		}
 		
-		public function set TotalWin(value:Number):void 
+		set  TotalWin(value:number) 
 		{
-			totalWin = value;
+			this.totalWin = value;
 		}
 		
-		public function get TotalNetWin():Number 
+		get TotalNetWin():number 
 		{
-			return totalNetWin;
+			return this.totalNetWin;
 		}
 		
-		public function set TotalNetWin(value:Number):void 
+		set  TotalNetWin(value:number) 
 		{
-			totalNetWin = value;
+			this.totalNetWin = value;
 		}
 		
 	

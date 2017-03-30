@@ -4,33 +4,33 @@ module packet.lobby {
         /// 更新種類
 		///0: 更新在線人數
         /// </summary>
-        private var updateType:int;
+        private updateType:number;
 
         /// <summary>
         /// 更新資料
 		///0: int
         /// </summary>
-        private var updateData:Object;
+        private updateData:Object;
 		
 		public constructor() {
 		}
 		
-		public function get UpdateType():int 
+		get UpdateType():number
 		{
 			return updateType;
 		}
 		
-		public function set UpdateType(value:int):void 
+		set  UpdateType(value:number) 
 		{
 			updateType = value;
 		}
 		
-		public function get UpdateData():Object 
+		get UpdateData():Object 
 		{
 			return updateData;
 		}
 		
-		public function set UpdateData(value:Object):void 
+		set  UpdateData(value:Object) 
 		{
 			updateData = value;
 		}

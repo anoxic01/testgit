@@ -1,22 +1,22 @@
-module lobby.data {
+module lobby.model {
 	export class CData {
 
-		private var _COK:String = "!=~4b7#1R814@4a8";
-		protected var _a:AES;
+		private _COK:string = "!=~4b7#1R814@4a8";
+		protected _a:util.AES;
 
-		public constructor( str:String = '' ) {
+		public constructor( str:string = '' ) {
 			this._COK = str;
 			
 			if ( this._COK != null ) {
-				var  byte:ByteArray = new ByteArray();
-					byte.writeUTFBytes( _COK );
+				var  byte:egret.ByteArray = new egret.ByteArray();
+					byte.writeUTFBytes( this._COK );
 					byte.position = 0;
 					
-				var  md5:MD5 = new MD5();
+				var  md5:util.MD5 = new util.MD5();
 				
 					byte = md5.hash(byte);
 					
-				this._a = new AES(byte , byte, "aes-128-cbc","pkcs5");		
+				this._a = new util.AES(byte , byte, "aes-128-cbc","pkcs5");		
 			}
 
 			
@@ -27,15 +27,15 @@ module lobby.data {
 		 * @param	str
 		 * @return
 		 */
-		public function decryptStringFromBase64( str:String ):String {
+		public decryptStringFromBase64( str:string ):string {
 			//var str:String = aes.decryptStringFromBase64( "ufXkzMRFwCqi4dmYVoaVKw==");
 			try {
-				var Cstr:String = this._a.decryptStringFromBase64( str );
+				var Cstr:string = this._a.decryptStringFromBase64( str );
 				return Cstr;
 			}
-			catch (e:Error ) {
+			catch (e ) {
 				
-				//trace("CData.run() ")
+				//console.log("CData.run() ")
 			}
 			return '';
 		}
@@ -45,27 +45,27 @@ module lobby.data {
 		 * @param	byte
 		 * @return
 		 */
-		public function decrypt( byte:ByteArray ):ByteArray {
+		public decrypt( byte:egret.ByteArray ):egret.ByteArray {
 			try {
 				return this._a.decrypt( byte );
 			}
-			catch (e:Error ) {
-				trace("CData.run2() ",e.message)
+			catch (e ) {
+				console.log("CData.run2() ",e.message)
 			}
-			return new ByteArray();
+			return new egret.ByteArray();
 		}
 		
 		/**
 		 * 
 		 */
-		public function encrypt(byte:ByteArray ):ByteArray {
+		public encrypt(byte:egret.ByteArray ):egret.ByteArray {
 			try {
 				return this._a.encrypt(byte);
 			}
-			catch (e:Error ) {
-				//trace("CData.run3() ")
+			catch (e ) {
+				//console.log("CData.run3() ")
 			}
-			return new ByteArray();
+			return new egret.ByteArray();
 		}
 		
 		/**
@@ -73,25 +73,25 @@ module lobby.data {
 		 * @param	str
 		 * @return
 		 */
-		public function encryptString2Base64( str:String ):String {
+		public encryptString2Base64( str:string ):string {
 			try {
-				var Cstr:String = this._a.encryptString2Base64( str );
+				var Cstr:string = this._a.encryptString2Base64( str );
 				return Cstr;	
 			}
-			catch (e:Error ) {
-				trace("Cdata.ReRun()");
+			catch (e ) {
+				console.log("Cdata.ReRun()");
 			}
 			return '';
 		}
 		
-		public function get COK():String 
+		get COK():string 
 		{
-			return _COK;
+			return this._COK;
 		}
 		
-		public function set COK(value:String):void 
+		set  COK(value:string) 
 		{
-			_COK = value;
+			this._COK = value;
 		}
 		
 		

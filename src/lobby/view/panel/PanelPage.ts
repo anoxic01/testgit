@@ -4,11 +4,11 @@ module lobby.view.panel {
 			super();
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			
 		}
 		
-		public function set iCurrentPage(value:int):void{
+		set  iCurrentPage(value:number){
 			
 		}
 	}

@@ -1,50 +1,50 @@
 module lobby.view.chip {
 	export class ChipPanel extends PanelPage{
-		protected var m_mcAsset				:	MovieClip;					//美术资源
+		protected m_mcAsset				:	MovieClip;					//美术资源
 		
-		protected var m_btnLeft				:	SingleButtonMC;				//翻页按钮
-		protected var m_btnRight			:	SingleButtonMC;				//翻页按钮
-		public var btnReBet					:	SingleButtonMC;				//重复下注
-//		protected var btnReBet_cn			:	SingleButtonMC;				//
-//		protected var btnReBet_tw			:	SingleButtonMC;				//
-//		protected var btnReBet_en			:	SingleButtonMC;				//
-		public var btnSetting				:	SingleButtonMC;				//自订筹码
-		protected var m_btnRecharge			:	SingleButtonMC;				//充值按钮
+		protected m_btnLeft				:	SingleButtonMC;				//翻页按钮
+		protected m_btnRight			:	SingleButtonMC;				//翻页按钮
+		public btnReBet					:	SingleButtonMC;				//重复下注
+//		protected btnReBet_cn			:	SingleButtonMC;				//
+//		protected btnReBet_tw			:	SingleButtonMC;				//
+//		protected btnReBet_en			:	SingleButtonMC;				//
+		public btnSetting				:	SingleButtonMC;				//自订筹码
+		protected m_btnRecharge			:	SingleButtonMC;				//充值按钮
 		
-		protected var m_pageNumberList		:	PageNumberListChip;			//页码列表
+		protected m_pageNumberList		:	PageNumberListChip;			//页码列表
 		
-		protected var m_spChipList			:	Sprite;						//列表容器
-		//protected var m_bmpGold				:	Bitmap;
-		protected var goldNum:JNumber;
+		protected m_spChipList			:	Sprite;						//列表容器
+		//protected m_bmpGold				:	Bitmap;
+		protected goldNum:JNumber;
 		
-		protected var m_iCurrentPage		:	int;						//当前页面
-		protected var m_iTotalPage			:	int;						//页面数量
-		protected var m_uWidth				:	uint;						//筹码宽度
+		protected m_iCurrentPage		:	number;						//当前页面
+		protected m_iTotalPage			:	number;						//页面数量
+		protected m_uWidth				:	number;						//筹码宽度
 		
-		protected var m_aChipValues			:	Array;						//筹码数值	临时数据
-		protected var m_vectorChipList		:	Vector.<ChipList>;			//筹码列表
+		protected m_aChipValues			:	any[];						//筹码数值	临时数据
+		protected m_vectorChipList		:	<ChipList>;			//筹码列表
 		
-		protected var m_mcWin				:	MovieClip;					//收钱动画
+		protected m_mcWin				:	MovieClip;					//收钱动画
 		
-		protected var m_nValue				:	Number;
+		protected m_nValue				:	Number;
 		
 		
-		public function get fReBet():Function
+		get fReBet():Function
 		{
 			return m_fReBet;
 		}
 
-		public function set fReBet(value:Function):void
+		set  fReBet(value:Function)
 		{
 			m_fReBet = value;
 		}
 
-		public function get currentChipItem():ChipItem
+		get currentChipItem():ChipItem
 		{
 			return m_currentChipItem;
 		}
 
-		public function set currentChipItem(value:ChipItem):void
+		set  currentChipItem(value:ChipItem)
 		{
 			m_currentChipItem = value;
 			
@@ -64,9 +64,9 @@ module lobby.view.chip {
 			}
 		}
 
-		protected var m_fReBet				:	Function;					//回调函数
+		protected m_fReBet				:	Function;					//回调函数
 		
-		protected var m_currentChipItem		:	ChipItem;					//当前筹码
+		protected m_currentChipItem		:	ChipItem;					//当前筹码
 		
 		public constructor(_mcAsset:MovieClip=null) {
 			m_mcWin = _mcAsset.mc_win;
@@ -79,7 +79,7 @@ module lobby.view.chip {
 			super();
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			
 			if(m_btnLeft){
 				m_btnLeft.destroy();
@@ -124,7 +124,7 @@ module lobby.view.chip {
 			if(m_vectorChipList){
 				var _len : int = m_vectorChipList.length;
 				var list : ChipList;
-				for (var i:int = 0; i < _len; i++) 
+				for (var i:number= 0; i < _len; i++) 
 				{
 					list = m_vectorChipList.pop();
 					if(list){
@@ -149,14 +149,14 @@ module lobby.view.chip {
 			}
 		}
 		
-		public function getChip(uValue:uint):ChipItem{
+		public getChip(uValue:number):ChipItem{
 			if(m_vectorChipList){
-				var _len : int;
+				var _len : number;
 				var _page : int = m_vectorChipList.length-1;
-				for (var i:int = 0; i < _page; i++) 
+				for (var i:number= 0; i < _page; i++) 
 				{
 					_len = m_vectorChipList[i].aChipItems.length;
-					for (var j:int = 0; j < _len; j++) 
+					for (var j:number= 0; j < _len; j++) 
 					{
 						if((m_vectorChipList[i].aChipItems[j] as ChipItem).uValue == uValue){
 							return m_vectorChipList[i].aChipItems[j] as ChipItem;
@@ -169,14 +169,14 @@ module lobby.view.chip {
 		}
 		
 		//设置相关筹码的选中状态
-		public function setChipSelect(uValue:uint):void{
+		public setChipSelect(uValue:number):void{
 			if(m_vectorChipList){
-				var _len : int;
+				var _len : number;
 				var _page : int = m_vectorChipList.length;
-				for (var i:int = 0; i < _page; i++) 
+				for (var i:number= 0; i < _page; i++) 
 				{
 					_len = m_vectorChipList[i].aChipItems.length;
-					for (var j:int = 0; j < _len; j++) 
+					for (var j:number= 0; j < _len; j++) 
 					{
 						if((m_vectorChipList[i].aChipItems[j] as ChipItem).uValue == uValue){
 							(m_vectorChipList[i].aChipItems[j] as ChipItem).selectStatus(true);
@@ -186,12 +186,12 @@ module lobby.view.chip {
 			}
 		}
 		
-		public function get iCurrentPage():int
+		get iCurrentPage():number
 		{
 			return m_iCurrentPage;
 		}
 		
-		override public function set iCurrentPage(value:int):void
+		 set  iCurrentPage(value:number)
 		{
 			m_iCurrentPage = value;
 			if(m_iCurrentPage<0){
@@ -205,12 +205,12 @@ module lobby.view.chip {
 			turning();
 		}
 		
-		public function turning():void{
+		public turning():void{
 			TweenLite.to(m_spChipList, Define.SPEED, {x:-m_iCurrentPage*600});
 //			TweenUtil.moveToX(m_spChipList,50,50,10,-m_iCurrentPage*600,0.7);
 		}
 		
-		public function judgeArrow():void{
+		public judgeArrow():void{
 			if(m_iCurrentPage >= (m_iTotalPage-1)){
 				m_btnRight.enabled = false;
 				m_btnLeft.enabled = true;
@@ -224,7 +224,7 @@ module lobby.view.chip {
 		}
 		
 		
-		public function updateGold():void{
+		public updateGold():void{
 			if(m_nValue != Player.getInstance().nCoin)
 			{
 				if(Player.getInstance().nCoin>m_nValue)
@@ -238,60 +238,60 @@ module lobby.view.chip {
 			}
 		}
 		
-		public function addCustomChip( _uIndex:uint, _uValue:uint):void{
+		public addCustomChip( _uIndex:number, _uValue:number):void{
 			if(_uIndex>=0 && _uIndex<5){
 				m_aChipValues[3][_uIndex] = _uValue;
 				m_vectorChipList[3].addChip(_uIndex,_uValue);
 				
 			}else{
-				trace("添加非法自订筹码...");
+				console.log("添加非法自订筹码...");
 			}
 		}
-		public function clearCustomChip():void{
+		public clearCustomChip():void{
 			if(m_vectorChipList==null){
 				Log.getInstance().log(this,"筹码面板清空异常...");
 			}
 			m_vectorChipList[3].clearChip();
 		}
-		public function removeCustomChip(_uIndex:uint):void{
+		public removeCustomChip(_uIndex:number):void{
 			if(_uIndex>=0 && _uIndex<5){
 				m_vectorChipList[3].removeChip(_uIndex);
 			}else{
-				trace("删除不存在的筹码...");
+				console.log("删除不存在的筹码...");
 			}
 		}
 		
 		/** 自选页面 **/
-		public function goCustomPage():void{
+		public goCustomPage():void{
 			iCurrentPage = m_iTotalPage-1;
 		}
 		
 		/** 自选筹码 **/
-		public function getCustom():Array{
+		public getCustom():any[]{
 			return m_aChipValues[3];
 		}
 		
-		public function getDefault():ChipItem{
+		public getDefault():ChipItem{
 			return null;
 		}
 		
-		public function showHint():void{
+		public showHint():void{
 			if(m_mcAsset && m_mcAsset.mc_hint){
 				(m_mcAsset.mc_hint as MovieClip).visible = true;
 			}
 		}
 		
-		public function hideHint():void{
+		public hideHint():void{
 			if(m_mcAsset && m_mcAsset.mc_hint){
 				(m_mcAsset.mc_hint as MovieClip).visible = false;
 			}
 		}
 		
-		public function unselect():void{
+		public unselect():void{
 			if(m_vectorChipList){
-				var _chipLen : int;
+				var _chipLen : number;
 				var _listLen : int = m_vectorChipList.length;
-				for (var i:int = 0; i < _listLen; i++) 
+				for (var i:number= 0; i < _listLen; i++) 
 				{
 					if(m_vectorChipList[i]){
 						m_vectorChipList[i].unselect();
@@ -301,7 +301,7 @@ module lobby.view.chip {
 			}
 		}
 		
-		public function win():void{
+		public win():void{
 			if(m_mcWin && LobbyManager.getInstance().uRenderMode==0){
 				m_mcWin.visible = true;
 				m_mcWin.gotoAndPlay(1);

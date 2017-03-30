@@ -1,54 +1,54 @@
 module lobby.model.player {
 	export class PlayerVo {
 		
-		public var agentID							:		int;				// 代理ID
+		public agentID							:		number;				// 代理ID
 		
-		public var id								:		int;				// 玩家ID
+		public id								:		number;				// 玩家ID
 		
-		public var accountType						:		String="C";			// 帳戶種類
+		public accountType						:		String="C";			// 帳戶種類
 		
-		public var identity							:		int;				// 身份 - 0: 玩家, 1: 槍手
+		public identity							:		number;				// 身份 - 0: 玩家, 1: 槍手
 		
-		public var nickName							:		String;				// 暱稱
+		public nickName							:		String;				// 暱稱
 		
-		public var hiddenNickName					:		String;				// 暱稱2
+		public hiddenNickName					:		String;				// 暱稱2
 		
-		public var pairTableID						:		int;				//配對桌ID
+		public pairTableID						:		number;				//配對桌ID
 		
-		private var m_iSeatNo						:		int=-1;				// 座位號碼
+		private m_iSeatNo						:		number=-1;				// 座位號碼
 			
 		
-		public var gold								:		Number				// 玩家餘額
+		public gold								:		Number				// 玩家餘額
 		
-		public var balance							:		BalanceStruct		// 玩家全部币别餘額
+		public balance							:		struct.BalanceStruct		// 玩家全部币别餘額
 		
 		
 		/// <summary>
 		/// Lobby Server
 		/// </summary>
-		public var lobbyServer						:		String;
+		public lobbyServer						:		String;
 		
 		
 		/// <summary>
 		/// 是否為桌主
 		/// </summary>
-		public var isTableOwner						:		Boolean;
+		public isTableOwner						:		 boolean;
 		
 		/// <summary>
 		/// 閒家瞇牌權位置 座位号
 		/// </summary>
-		public var PPSN 							:		int;
+		public PPSN 							:		number;
 		
 		
 		/// <summary>
 		/// 庄家瞇牌權位置 座位号
 		/// </summary>
-		public var BPSN 							:		int;
+		public BPSN 							:		number;
 		
 		
-		public var joinTbType 						:		int;
+		public joinTbType 						:		number;
 		
-		public var isLogin 							:		Boolean;		// 玩家是否登入
+		public isLogin 							:		 boolean;		// 玩家是否登入
 		
 		
 		/**
@@ -57,37 +57,37 @@ module lobby.model.player {
 		 *   betList[1]=100
 		 * 
 		 */
-		public var betList							:		Array;			
-		public var totalBet							:		Number=0; 		//总投注额
-		public var outcomeList						:		Array;			//赢金列表
-		public var lastBetList						:		Array;			//上次投注
-		public var sendTmpBetList					:		Array;			//要送給服務端暫存的下注列表
-		public var winGold							:		Number=0; 		//赢金
+		public betList							:		any[];			
+		public totalBet							:		Number=0; 		//总投注额
+		public outcomeList						:		any[];			//赢金列表
+		public lastBetList						:		any[];			//上次投注
+		public sendTmpBetList					:		any[];			//要送給服務端暫存的下注列表
+		public winGold							:		Number=0; 		//赢金
 		
 		public constructor() {
-			betList=[];
-			outcomeList=[];
-			balance= new BalanceStruct();
-			lastBetList = [];
-			sendTmpBetList = [];
+			this.betList=[];
+			this.outcomeList=[];
+			this.balance= new struct.BalanceStruct();
+			this.lastBetList = [];
+			this.sendTmpBetList = [];
 		}
 		
 	
-		public function get seatNo():int
+		get seatNo():number
 		{
-			return m_iSeatNo;
+			return this.m_iSeatNo;
 		}
 
-		public function set seatNo(value:int):void
+		set  seatNo(value:number)
 		{
-				m_iSeatNo = value;
+				this.m_iSeatNo = value;
 		}
 		
-		public function clear():void{
-			clearBetList();
-			clearOutcomeList();
-			clearLastBetList();
-			clearTmpBetList();
+		public clear():void{
+			this.clearBetList();
+			this.clearOutcomeList();
+			this.clearLastBetList();
+			this.clearTmpBetList();
 		}
 		
 		
@@ -97,9 +97,9 @@ module lobby.model.player {
 		 * @return 
 		 * 
 		 */
-		public function get nCoin():Number
+		get nCoin():number
 		{
-//			var coin:Number=0;
+//			var coin:number=0;
 //			switch(accountType){
 //				case Define.CASH:
 //					coin = balance.GCoin;
@@ -108,37 +108,37 @@ module lobby.model.player {
 //					coin = balance.TotalCredit;
 //					break;
 //			}
-			return balance.GCoin;
+			return this.balance.GCoin;
 		}
 		
-		public function initBetList(num:uint):void{
-			for (var i:int = 0; i < num; i++) 
+		public initBetList(num:number):void{
+			for (var i:number= 0; i < num; i++) 
 			{
-				betList[i]=0;
-				outcomeList[i]=0;
-				sendTmpBetList[i]=0;
+				this.betList[i]=0;
+				this.outcomeList[i]=0;
+				this.sendTmpBetList[i]=0;
 			}
 			
 		}
 
-		public function getBet(id:Number):Number{
-			if (betList[id]){
-				return betList[id];
+		public getBet(id:number):number{
+			if (this.betList[id]){
+				return this.betList[id];
 			}
 			return 0;
 		}
-		public function setBet(id:int,value:Number):void{
-			betList[id]= value;
+		public setBet(id:number,value:number):void{
+			this.betList[id]= value;
 			
 		}
-		public function getTmpBet(id:Number):Number{
-			if (sendTmpBetList[id]){
-				return sendTmpBetList[id];
+		public getTmpBet(id:number):number{
+			if (this.sendTmpBetList[id]){
+				return this.sendTmpBetList[id];
 			}
 			return 0;
 		}
-		public function setTmpBet(id:int,value:Number):void{
-			sendTmpBetList[id]= value;
+		public setTmpBet(id:number,value:number):void{
+			this.sendTmpBetList[id]= value;
 			
 		}
 		
@@ -147,12 +147,12 @@ module lobby.model.player {
 		 * @return 
 		 * 
 		 */
-		public function get totalTmpBet():Number{
-			var sum:Number=0;
-			for (var i:int = 0; i < sendTmpBetList.length; i++) 
+		get totalTmpBet():number{
+			var sum:number=0;
+			for (var i:number= 0; i < this.sendTmpBetList.length; i++) 
 			{
-				if( sendTmpBetList[i] ){
-					sum+=sendTmpBetList[i];
+				if( this.sendTmpBetList[i] ){
+					sum+=this.sendTmpBetList[i];
 				}
 			}
 			
@@ -164,12 +164,12 @@ module lobby.model.player {
 		 * @return 
 		 * 
 		 */
-		public function get lastTotalBet():Number{
-			var sum:Number=0;
-			for (var i:int = 0; i < lastBetList.length; i++) 
+		get lastTotalBet():number{
+			var sum:number=0;
+			for (var i:number= 0; i < this.lastBetList.length; i++) 
 			{
-				if( lastBetList[i] ){
-					sum+=lastBetList[i];
+				if( this.lastBetList[i] ){
+					sum+=this.lastBetList[i];
 				}
 			}
 			
@@ -180,11 +180,11 @@ module lobby.model.player {
 		 *清空投注金额 
 		 * 
 		 */
-		public function clearBetList():void
+		public clearBetList():void
 		{
-			for (var i:int = 0; i < betList.length; i++) 
+			for (var i:number= 0; i < this.betList.length; i++) 
 			{
-				betList[i]=0;	
+				this.betList[i]=0;	
 			}
 			
 		}
@@ -193,57 +193,57 @@ module lobby.model.player {
 		 *清空输赢金额 
 		 * 
 		 */
-		public function clearOutcomeList():void
+		public clearOutcomeList():void
 		{
-			winGold = 0;
-			for (var i:int = 0; i < outcomeList.length; i++) 
+			this.winGold = 0;
+			for (var i:number= 0; i < this.outcomeList.length; i++) 
 			{
-				outcomeList[i]=0;	
+				this.outcomeList[i]=0;	
 			}
 		}
 		
 		/**
 		 * 清空上一局投注金額
 		 */
-		public function clearLastBetList():void {
-			for (var i:int = 0; i < lastBetList.length; i++) {
-				lastBetList[i]=0;	
+		public clearLastBetList():void {
+			for (var i:number= 0; i < this.lastBetList.length; i++) {
+				this.lastBetList[i]=0;	
 			}
 		}
 		
 		/**
 		 * 清空暫存下注列表
 		 */
-		public function clearTmpBetList():void {
-			for (var i:int = 0; i < sendTmpBetList.length; i++) {
-				sendTmpBetList[i]=0;	
+		public clearTmpBetList():void {
+			for (var i:number= 0; i < this.sendTmpBetList.length; i++) {
+				this.sendTmpBetList[i]=0;	
 			}
 		}
 		
-		public function destroy():void {
-			if( sendTmpBetList ){
-				sendTmpBetList = null;
+		public destroy():void {
+			if( this.sendTmpBetList ){
+				this.sendTmpBetList = null;
 			}
-			if( lastBetList ){
-				lastBetList = null;
+			if( this.lastBetList ){
+				this.lastBetList = null;
 			}
-			if( betList ){
-				betList = null;
+			if( this.betList ){
+				this.betList = null;
 			}
-			if( outcomeList ){
-				outcomeList = null;
+			if( this.outcomeList ){
+				this.outcomeList = null;
 			}
-			if( balance ){
-				balance = null;
+			if( this.balance ){
+				this.balance = null;
 			}
 		}
 		
-		public function sortLastBet():void{
-			clearLastBetList();
-			lastBetList = betList.concat();
+		public sortLastBet():void{
+			this.clearLastBetList();
+			this.lastBetList = this.betList.concat();
 		}
 		
-		public function clone():PlayerVo{
+		public clone():PlayerVo{
 			var vo:PlayerVo = new PlayerVo();
 			vo.agentID=this.agentID;
 			
@@ -258,7 +258,7 @@ module lobby.model.player {
 			
 			vo.pairTableID		=this.pairTableID;		
 			
-			 m_iSeatNo		=seatNo;			
+			this.m_iSeatNo		=this.seatNo;			
 			
 			vo.gold		=this.gold;
 			

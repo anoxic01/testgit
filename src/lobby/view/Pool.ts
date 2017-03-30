@@ -1,16 +1,16 @@
 module lobby.view {
 	export class Pool implements ISprite{
-		protected var _pool:Vector.<MovieClip>;
+		protected _pool:<MovieClip>;
 		/**已取出幾個*/
-		protected var _getLen:int;
+		protected _getLen:number;
 		
 		public constructor() {
-			this._pool = new Vector.<MovieClip>();
+			this._pool = new <MovieClip>();
 			this._getLen = 0;
 		}
 
 		
-		public function destroy():void{
+		public destroy():void{
 			if( _pool != null ) {
 				var mc : MovieClip;
 				while(_pool.length>0)
@@ -31,10 +31,10 @@ module lobby.view {
 		/**
 		 * 要道物件池中的物件
 		 */
-		public function getObject( Cls:Class ):MovieClip {
+		public getObject( Cls:Class ):MovieClip {
 			
 			
-			var lackLen:int = this._pool.length - this._getLen;
+			var lackLen:number= this._pool.length - this._getLen;
 			var mc:MovieClip;
 			//在物件池中有剩下的原件]
 			if ( lackLen > 0 ) {
@@ -43,7 +43,7 @@ module lobby.view {
 			}
 			else {
 				
-				//trace("this._pool  LEN::::::::" + this._pool.length );
+				//console.log("this._pool  LEN::::::::" + this._pool.length );
 				var classObj:Object = new Cls();
 				
 				if ( classObj is MovieClip ) {
@@ -64,7 +64,7 @@ module lobby.view {
 			
 		}
 		
-		public function getPoolLength():int {
+		public getPoolLength():number{
 			return _pool.length;
 		}
 		
@@ -72,7 +72,7 @@ module lobby.view {
 		 * 用完放回物件池
 		 * @param	mc
 		 */
-		public function putObject( mc:MovieClip ):void {
+		public putObject( mc:MovieClip ):void {
 			if ( this._getLen > 0 )  {
 				this._getLen -= 1;
 			}
@@ -81,7 +81,7 @@ module lobby.view {
 		/**
 		 * 全部放回物件池
 		 */
-		public function allPutPool():void {
+		public allPutPool():void {
 			this._getLen = 0;
 			allPutOut();
 		}
@@ -89,7 +89,7 @@ module lobby.view {
 		/**
 		 * 全部放回物件池
 		 */
-		public function allPutOut():void {
+		public allPutOut():void {
 			this._getLen = 0;
 			while(_pool.length>0)
 			{

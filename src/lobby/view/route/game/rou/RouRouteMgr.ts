@@ -2,13 +2,13 @@ module lobby.view.route.game.rou {
 	export class RouRouteMgr extends BSprite{
 		public var m_routeView			:	MovieClip;
 		
-		private var _isBtnOpen			:	Boolean 			= 	false;
+		private var _isBtnOpen			:	 boolean 			= 	false;
 		
-		private var _islock				:	Boolean 			= 	true;
-		private var _isUp				:	Boolean 			= 	false;
+		private var _islock				:	 boolean 			= 	true;
+		private var _isUp				:	 boolean 			= 	false;
 		
 		/**當前顯示路*/
-		private var _nowRoad			:	String 				= 	"";
+		private var _nowRoad			:	string 				= 	"";
 		
 		
 		//private var _beadPlate:BeadPlate;
@@ -23,7 +23,7 @@ module lobby.view.route.game.rou {
 		private const LIMITDATA			:	int = 372;
 		
 		
-		public var bError				:	Boolean;														//错误状态
+		public var bError				:	 boolean;														//错误状态
 		
 
 		public constructor(view:MovieClip) {
@@ -66,7 +66,7 @@ module lobby.view.route.game.rou {
 			//this._beadSp.visible = false;
 		}
 		
-		override public function destroy():void {
+		 public function destroy():void {
 			_beadSp.destroy();
 			_bigSmallSp.destroy();
 			_oddEvenSp.destroy();
@@ -75,7 +75,7 @@ module lobby.view.route.game.rou {
 			
 		}
 		
-		override public function onChangeLanguage():void{
+		 public function onChangeLanguage():void{
 			_bigSmallSp.onChangeLanguage();
 			_oddEvenSp.onChangeLanguage();
 			_redBlackSp.onChangeLanguage();
@@ -136,7 +136,7 @@ module lobby.view.route.game.rou {
 			this.m_beadInfo.zoenRowW =  20.57;
 			this.m_beadInfo.zoenRowH =  20.57;
 			
-			var _colNum:int=19
+			var _colNum:number=19
 			this._bigSmallSp.setBeadSize(this.m_beadInfo);
 			this._bigSmallSp.drawBg(_colNum,6,24);
 			this._oddEvenSp.setBeadSize(this.m_beadInfo);
@@ -162,7 +162,7 @@ module lobby.view.route.game.rou {
 		}
 		
 		
-		public function changeRoad( type:String ):void {
+		public function changeRoad( type:string ):void {
 			switch (type) 
 			{
 				case RouRoadType.BIG_SMALL:
@@ -209,11 +209,11 @@ module lobby.view.route.game.rou {
 		 * @return 
 		 * 
 		 */
-		public function get roadNum():uint{
+		public function get roadNum():number{
 			if (this._nowRoad==null ||this._nowRoad==""){
 				return 0;
 			}else{
-				var len:int = _nowRoad.split(".").length;
+				var len:number= _nowRoad.split(".").length;
 				return len;
 			}
 			return 0;
@@ -227,11 +227,11 @@ module lobby.view.route.game.rou {
 			bError = false;
 			this._nowRoad = "";			
 			this.showRoadViewInit();
-			//trace("clearRoad:" + this._nowRoad);
+			//console.log("clearRoad:" + this._nowRoad);
 		}
 		/** 更新路單 */
-		public function addRoad(road:String):void {
-			//trace("更新路單 : " + road);
+		public function addRoad(road:string):void {
+			//console.log("更新路單 : " + road);
 			//road+="2.3.4.5.6.7.8.9.0.1.2.7.15.16.19.17.36"
 //			if ( this._nowRoad.length > LIMITDATA ) {
 //				this._nowRoad = this._nowRoad.substr( LIMITDATA - 1 , this._nowRoad.length );
@@ -258,7 +258,7 @@ module lobby.view.route.game.rou {
 			if ( this._nowRoad == "null" || this._nowRoad == null ) {
 				this._nowRoad = '';
 			}				
-			//trace("addRouRoad::" + this._nowRoad );
+			//console.log("addRouRoad::" + this._nowRoad );
 			//this._nowRoad = road;
 			if ( ( this._nowRoad != "null" ) && (this._nowRoad != null) )  {
 				this.showRoadViewInit();
@@ -266,14 +266,14 @@ module lobby.view.route.game.rou {
 			}
 		}
 		
-		private function showRoad(road:String, isAsk:Boolean = false):void {
+		private function showRoad(road:string, isAsk: boolean = false):void {
 			//this.showRoadViewInit();
-			var roadString:String   
-			var bigSmallAr:Array 
-			var oddEvenAr:Array;
-			var redBlackAr:Array;
-			var zoenRowAr:Array;
-			var beadAr:Array;
+			var roadString:string   
+			var bigSmallAr:any[] 
+			var oddEvenAr:any[];
+			var redBlackAr:any[];
+			var zoenRowAr:any[];
+			var beadAr:any[];
 			//大小
 			roadString = RouData.getInstance().findBigSmall( road );//資料格式: 2.3.3.2.3.2.2.2.i.2.i.i.i
 			bigSmallAr = RouBeadRoad.createRoadRenderGrid( roadString, null );
@@ -311,7 +311,7 @@ module lobby.view.route.game.rou {
 		}
 		
 		
-		private function cacheToBmp(isCache:Boolean):void {
+		private function cacheToBmp(isCache: boolean):void {
 			this._bigSmallSp.cacheAsBitmap = isCache;
 			this._oddEvenSp.cacheAsBitmap = isCache;
 			this._redBlackSp.cacheAsBitmap = isCache;

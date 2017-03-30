@@ -1,8 +1,8 @@
 module lobby.view.bet {
 	export class BetSelectPanel extends BSprite{
 		
-		public static const RIGHT:uint=1;
-		public static const LEFT:uint=2;
+		public static const RIGHT:number=1;
+		public static const LEFT:number=2;
 		public 	var xLeft:Number	=130		//原来的视图上组件的x坐标
 		public 	var xRight:Number	=1733		//原来的视图上组件的x坐标
 		public 	var xLeft2:Number	= -200	//隐藏时组件的x坐标
@@ -14,40 +14,40 @@ module lobby.view.bet {
 		/**显示待确认下注金额**/		
 		protected	var needConfirmBetView:Bitmap;					//投注未提交金额
 		/**已确认下注金额**/		
-		protected var confirmBetNum:int = 0;
+		protected confirmBetNum:number= 0;
 		/**待确认下注金额**/		
-		protected var needConfirmBetNum:int = 0;
+		protected needConfirmBetNum:number= 0;
 		/**展开时的位置**/		
-		protected var unfoldPoint:Point;
+		protected unfoldPoint:Ponumber;
 		/**收起时的位置**/		
-		protected var rollUpPoint:Point;
-		protected var view:MovieClip;
+		protected rollUpPoint:Ponumber;
+		protected view:MovieClip;
 		/**当前显示的方向**/		
-		protected var direct:int = -1;
-		protected var prevDirect:int = -1;
+		protected direct:number= -1;
+		protected prevDirect:number= -1;
 		/**取消按钮**/
-		private var cancelBtn:BetSelectButton;
-		private var confirmBtn:BetSelectButton;
+		private cancelBtn:BetSelectButton;
+		private confirmBtn:BetSelectButton;
 		/**
 		 *設置下注狀態更改囘調  onBetChange(state:String);
 		 */		
-		public var onBetChange:Function = null;
-		private var isHiding:Boolean = false;
-		private var playEffectTimeOutID:int = 0;
+		public onBetChange:Function = null;
+		private isHiding: boolean = false;
+		private playEffectTimeOutID:number= 0;
 		/**
 		 *是否需要先收缩到边上再从另一边显示 
 		 */		
-		private var isNeedReceiveSide:Boolean = false;
-		private var mParent:Sprite;
-		private var tweenDuration:Number = 0.28;
+		private isNeedReceiveSide: boolean = false;
+		private mParent:Sprite;
+		private tweenDuration:Number = 0.28;
 		/**
 		 * 是否显示并且展开面板
 		 */
-		private var isShowNeedUnfold:Boolean = true;
+		private isShowNeedUnfold: boolean = true;
 		/**
 		 * 当前动画完成后是否强制收起
 		 */		
-		private var isForceRollup:Boolean = false;
+		private isForceRollup: boolean = false;
 		
 		
 		public constructor(p:Sprite) {
@@ -59,11 +59,11 @@ module lobby.view.bet {
 			initView();
 		}
 		
-		protected function createPanel():MovieClip
+		protected createPanel():MovieClip
 		{
 			return ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_PANEL,"Bet_Select_Asset");
 		}
-		private function initView():void
+		private initView():void
 		{
 			confirmBtn = new BetSelectButton(view.content.sureBtn,onConfirmClick);
 			cancelBtn = new BetSelectButton(view.content.cancelBtn,onCancelClick);
@@ -78,23 +78,23 @@ module lobby.view.bet {
 			onChangeLanguage();
 		}
 		
-		protected function onPlayConfirmEffectComplete():void
+		protected onPlayConfirmEffectComplete():void
 		{
 			//confirmBtn.clickable = true;
 		}
 		
-		protected function onPlayCancelEffectComplete():void
+		protected onPlayCancelEffectComplete():void
 		{
 			//cancelBtn.clickable = true;
 		}
 		
-		protected function onConfirmClick(evt:MouseEvent):void
+		protected onConfirmClick(evt:MouseEvent):void
 		{
 			/*confirmBtn.clickable = false;*/
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			excuteBetChange("SURE_BET");
 		}
-		protected function onCancelClick(evt:MouseEvent):void
+		protected onCancelClick(evt:MouseEvent):void
 		{
 			cancelBtn.clickable = false;
 			playCancelEffect();
@@ -103,7 +103,7 @@ module lobby.view.bet {
 			excuteBetChange("CANCEL_BET");
 		}
 		/**播放确定特效**/
-		public function playConfirmEffect():void
+		public playConfirmEffect():void
 		{
 			////// 
 			confirmBtn.clickable = false;
@@ -114,13 +114,13 @@ module lobby.view.bet {
 		/**
 		 * 播放取消特效
 		 */		
-		public function playCancelEffect():void
+		public playCancelEffect():void
 		{
 			clearPlayEffectTimeOut();
 			playEffectTimeOutID = setTimeout(rollUp,500);
 //			Log.getInstance().log(this,"------------>playCancelEffect: "+getTimer());
 		}
-		private function clearPlayEffectTimeOut():void
+		private clearPlayEffectTimeOut():void
 		{
 			if(playEffectTimeOutID!=0)
 			{
@@ -131,19 +131,19 @@ module lobby.view.bet {
 		/**
 		 * 是否正在播放特效
 		 */		
-		public function isPlayingEffect():Boolean
+		public isPlayingEffect(): boolean
 		{
 			return playEffectTimeOutID!=0;
 		}
 		
-		public function show(direct:int,isNeedUnfold:Boolean=true):void
+		public show(direct:number,isNeedUnfold: boolean=true):void
 		{
 			if(!view)return;
 			isHiding = false;
 			isShowNeedUnfold = isNeedUnfold;
 			clearPlayEffectTimeOut();
-			var endPoint:Point;
-			var startPoint:Point;
+			var endPoint:Ponumber;
+			var startPoint:Ponumber;
 			var fromAlpha:Number = 1;
 			if(isShow())
 			{
@@ -184,13 +184,13 @@ module lobby.view.bet {
 			this.direct = direct;
 			tweenView(tweenDuration,startPoint,endPoint,onShowTransformComplete,null,true,fromAlpha);
 		}
-		public function hide():void
+		public hide():void
 		{
 			if(!view)return;
 			if(isNeedReceiveSide)
 			{
-				var startPoint:Point;
-				var endPoint:Point;
+				var startPoint:Ponumber;
+				var endPoint:Ponumber;
 				if(this.direct==RIGHT)
 				{
 					startPoint = new Point(xRight,yRight);
@@ -213,7 +213,7 @@ module lobby.view.bet {
 			}
 		}
 		/**展开**/
-		public function unfold(isTween:Boolean=true):void
+		public unfold(isTween: boolean=true):void
 		{
 			if(!view)return;
 			if(isForceRollup)return;/// 处于强制收起状态中展开无效
@@ -222,7 +222,7 @@ module lobby.view.bet {
 //			Log.getInstance().log(this,"------------>unfold: 展开中。。。");
 		}
 		/**收起**/
-		public function rollUp(isTween:Boolean=true):void
+		public rollUp(isTween: boolean=true):void
 		{
 			if(!view)return;
 			clearPlayEffectTimeOut();
@@ -244,7 +244,7 @@ module lobby.view.bet {
 			confirmBtn.clickable = false;
 			tweenContent(0.2,null,rollUpPoint,onRollUpComplete,Back.easeIn,isTween);
 		}
-		public function forceRollUp(isTween:Boolean=true):void
+		public forceRollUp(isTween: boolean=true):void
 		{
 			if(getNeedConfirmBetNum()>0)
 				resetNeedConfirmBet();
@@ -253,7 +253,7 @@ module lobby.view.bet {
 			rollUp(isTween);
 		}
 		
-		private function onUnfoldComplete():void
+		private onUnfoldComplete():void
 		{
 			if(!view)return;
 			cancelBtn.clickable = true;
@@ -261,7 +261,7 @@ module lobby.view.bet {
 			view.content.x=unfoldPoint.x;
 			view.content.y=unfoldPoint.y;
 		}
-		private function onRollUpComplete():void
+		private onRollUpComplete():void
 		{
 			if(!view)return;
 			if(isHiding)
@@ -282,11 +282,11 @@ module lobby.view.bet {
 		/**
 		 * 
 		 */		
-		public function resetNeedConfirmBet():void
+		public resetNeedConfirmBet():void
 		{
 			updateTmpBetGold(0);
 		}
-		private function onShowTransformComplete():void
+		private onShowTransformComplete():void
 		{
 			if(!view)return;
 			if(isForceRollup)//// 强制收起
@@ -315,7 +315,7 @@ module lobby.view.bet {
 				}
 			}
 		}
-		private function onHideEffectComplete():void
+		private onHideEffectComplete():void
 		{
 			if(!view)return;
 			if(view.parent)view.parent.removeChild(view);
@@ -323,7 +323,7 @@ module lobby.view.bet {
 			if(isNeedReceiveSide)
 			{
 				isNeedReceiveSide = false;
-				var tempDirect:int = direct;
+				var tempDirect:number= direct;
 				direct = -1;
 				show(tempDirect,isShowNeedUnfold);
 			}else
@@ -333,11 +333,11 @@ module lobby.view.bet {
 			}
 		}
 		
-		public function setViewX(_x:int):void{
+		public setViewX(_x:number):void{
 			TweenLite.to(view,tweenDuration,{x:_x});
 		}
 		
-		private function tweenView(durtion:Number,startPoint:Point,endPoint:Point,onComplete:Function,ease:Object=null,isTween:Boolean=true,fromAlpha:Number = 1,toAlpha:Number = 1):void
+		private tweenView(durtion:Number,startPoint:Point,endPoint:Point,onComplete:Function,ease:Object=null,isTween: boolean=true,fromAlpha:Number = 1,toAlpha:Number = 1):void
 		{
 			if(!view)return;
 			var t:MovieClip = view;
@@ -360,7 +360,7 @@ module lobby.view.bet {
 				if(onComplete!=null){}
 			}
 		}
-		private function tweenContent(durtion:Number,startPoint:Point,endPoint:Point,onComplete:Function,ease:Object=null,isTween:Boolean=true):void
+		private tweenContent(durtion:Number,startPoint:Point,endPoint:Point,onComplete:Function,ease:Object=null,isTween: boolean=true):void
 		{
 			var t:DisplayObject = view.content;
 			TweenLite.killTweensOf(t,true);
@@ -383,7 +383,7 @@ module lobby.view.bet {
 		/**
 		 * 切換下注狀態
 		 */		
-		private function excuteBetChange(state:String):void
+		private excuteBetChange(state:String):void
 		{
 			if(onBetChange!=null)
 				onBetChange(state);
@@ -391,7 +391,7 @@ module lobby.view.bet {
 		/**
 		 * 更新总下注金额
 		 */		
-		public function updateTotalBetGold( gold:int ):void 
+		public updateTotalBetGold( gold:number):void 
 		{
 			confirmBetNum=gold;
 			confirmBetView.bitmapData	= BitmapManager.getInstance().numberBetedGCoin.conversion( gold );
@@ -399,7 +399,7 @@ module lobby.view.bet {
 		/**
 		 * 更新临时下注金额
 		 */		
-		public function updateTmpBetGold(gold:int):void
+		public updateTmpBetGold(gold:number):void
 		{
 			needConfirmBetNum=gold;
 //			Log.getInstance().log(this,"------------>updateTmpBetGold= "+needConfirmBetNum);
@@ -411,25 +411,25 @@ module lobby.view.bet {
 		 * 變更語系
 		 * @param	lang
 		 */
-		override public function onChangeLanguage():void
+		 public onChangeLanguage():void
 		{
-			var lang:int =LobbyManager.getInstance().lobbyAuth.Lang;
+			var lang:number=LobbyManager.getInstance().lobbyAuth.Lang;
 			view.mc.gotoAndStop(lang+1);
 			confirmBtn.onChangeLanguage(lang);
 			cancelBtn.onChangeLanguage(lang);
 		}
 		
 		/**得到临时下注的筹码数**/
-		public function getNeedConfirmBetNum():int{return needConfirmBetNum;}
+		public getNeedConfirmBetNum():number{return needConfirmBetNum;}
 		/**当前的方向**/		
-		public function getCurrentDirect():int{return direct;}
+		public getCurrentDirect():number{return direct;}
 		/**上一个方向**/		
-		public function getPrevDirect():int{return prevDirect;}
+		public getPrevDirect():number{return prevDirect;}
 		/**当前是否已经展开**/		
-		public function isUnfold():Boolean{return view.content.x ==unfoldPoint.x&&view.content.y ==unfoldPoint.y ;}
+		public isUnfold(): boolean{return view.content.x ==unfoldPoint.x&&view.content.y ==unfoldPoint.y ;}
 		/**是否是显示状态 **/		
-		public function isShow():Boolean{return view&&view.parent&&view.visible;}
-		override public function destroy():void
+		public isShow(): boolean{return view&&view.parent&&view.visible;}
+		 public destroy():void
 		{
 			super.destroy();
 			clearPlayEffectTimeOut();

@@ -6,13 +6,13 @@ module lobby.view.route.game.dtf {
 		protected var m_view				:	MovieClip;
 		protected var m_routeView			:	MovieClip;
 		
-		protected var m_isBtnOpen			:	Boolean 			= 	false;
+		protected var m_isBtnOpen			:	 boolean 			= 	false;
 		
-		protected var m_islock				:	Boolean 			=	true;
-		protected var m_isUp				:	Boolean 			= 	false;
+		protected var m_islock				:	 boolean 			=	true;
+		protected var m_isUp				:	 boolean 			= 	false;
 		
 		/**當前顯示路*/
-		protected var m_nowRoad				:	String = "";
+		protected var m_nowRoad				:	string = "";
 		
 		protected var m_beadPlate			:	DtfBeadPlate;
 		
@@ -23,12 +23,12 @@ module lobby.view.route.game.dtf {
 		protected var m_roachSprite			:	DtfRoadCanvas 		= 	new DtfRoadCanvas;
 		
 		/*protected var m_roadUpdateTimer		:	JTimer;*/
-		protected var m_roadBufferTime		:	uint 				= 	100;
+		protected var m_roadBufferTime		:	number 				= 	100;
 		protected var m_beadInfo			:	BeadInfo;
 		private var m_askTimer				:	JTimer;
-		private var m_bAsk					:	Boolean;														//问路状态
+		private var m_bAsk					:	 boolean;														//问路状态
 		
-		public var bError					:	Boolean;														//错误状态
+		public var bError					:	 boolean;														//错误状态
 		
 		
 		public constructor(view:MovieClip) {
@@ -128,11 +128,11 @@ module lobby.view.route.game.dtf {
 		 * @return 
 		 * 
 		 */
-		public function get roadNum():uint{
+		public function get roadNum():number{
 			if (this.m_nowRoad==null ||this.m_nowRoad==""){
 				return 0;
 			}else{
-				var len:int = m_nowRoad.split(".").length;
+				var len:number= m_nowRoad.split(".").length;
 				return len;
 			}
 			return 0;
@@ -145,12 +145,12 @@ module lobby.view.route.game.dtf {
 			bError = false;
 			this.m_nowRoad = "";			
 			this.showRoadViewInit();
-			//trace("clearRoad:" + this._nowRoad);
+			//console.log("clearRoad:" + this._nowRoad);
 		}		
 		
 		/** 更新路單 */
-		public function addRoad(road:String):void {
-			//trace("更新路單 : " + road);
+		public function addRoad(road:string):void {
+			//console.log("更新路單 : " + road);
 			//road = "iiaaaeeeaeaaeeaeaaaaeaaeiaiia";
 			//road = "aaaaabcaeeeifeaaiabaaeaibaeeeafaeeaaeafeeeaeaaehlgahaeeeefieeieeeeeegeeefaeikagaeeaagaaejiiaaaaaakabceaaaeeeeeeeeaaaaaeeeeaeaeaaaaaabbbbbbbbbbbbbeeeeeeeeeeee";
 			//road = "aaaaabcaee" + "eifeaaiaba" + "aeaibaeeea" + "faeeaaeafe" + "eeaeaaehlg" + "ahaeceaeak" + "akaaeieeeg" + "cefefeeeieeaaceeaacaeeaabefcheafdafbcaaedaabbfeeejaeeeaabaafebeeeeeeeeeeeeebfeeeeaaceeeeceeeeeeeeeafeeeefieeieeeeeegeeefaeikagaeeaagaaejiiaaaaaakabce";
@@ -180,7 +180,7 @@ module lobby.view.route.game.dtf {
 				this.m_nowRoad += "." + road;
 			}
 			
-			trace("addRoad::" + this.m_nowRoad );
+			console.log("addRoad::" + this.m_nowRoad );
 			//this._nowRoad = road;
 			
 			/*if ( !this.m_roadUpdateTimer.running ) {
@@ -205,12 +205,12 @@ module lobby.view.route.game.dtf {
 			}
 		}
 		
-		protected function showRoad(road:String, isAsk:Boolean = false):void {
+		protected function showRoad(road:string, isAsk: boolean = false):void {
 			//this.showRoadViewInit();
 			this.m_roadString = BeadRoad.createRoadReanderString(road);
 			this.m_beadPlate.addRoad(road, isAsk);
 			
-			var grids:Array = BeadRoad.createBigRoadRenderGrid( this.m_roadString.bigRoad, null );
+			var grids:any[] = BeadRoad.createBigRoadRenderGrid( this.m_roadString.bigRoad, null );
 			this.m_bigSprite.drawBigRoadDataGrid( grids , RoadBallPool.BIG_ROAD , isAsk );
 			this.m_bigEyeSprite.drawReaderDataGrid( BeadRoad.createRoadRenderGrid(this.m_roadString.bigEyeRoad, null , 6) , isAsk , RoadBallPool.BIG_EYE_ROAD );
 			this.m_smallSprite.drawReaderDataGrid( BeadRoad.createRoadRenderGrid(this.m_roadString.smallRoad, null , 6) , isAsk  , RoadBallPool.SMALL_EYE_ROAD );
@@ -237,7 +237,7 @@ module lobby.view.route.game.dtf {
 		}	
 		
 		protected function updateRoadHandler():void {
-			trace("updateRoadHandler::" + m_nowRoad);
+			console.log("updateRoadHandler::" + m_nowRoad);
 			if ( ( this.m_nowRoad != "null" ) && (this.m_nowRoad != null) && ( m_nowRoad != "") )  {
 //				this.cacheToBmp(false);
 				this.showRoadViewInit();
@@ -303,7 +303,7 @@ module lobby.view.route.game.dtf {
 		}
 		
 		
-		public function onAskRoad(_iMode:int):void {
+		public function onAskRoad(_iMode:number):void {
 				if(m_bAsk){
 					stopAsk();
 				}
@@ -312,7 +312,7 @@ module lobby.view.route.game.dtf {
 				
 				
 				//this._beadPlate.addEventListener(RouteEvent.ASK_Road_END, onAskRoadEnd);
-				var key:String="";
+				var key:string="";
 				if (this.m_nowRoad!=""){
 					key=".";
 				}
@@ -329,7 +329,7 @@ module lobby.view.route.game.dtf {
 				m_askTimer.start();
 			
 		}		
-		protected function cacheToBmp(isCache:Boolean):void {
+		protected function cacheToBmp(isCache: boolean):void {
 			this.m_beadPlate.cacheAsBitmap = isCache;
 			this.m_bigSprite.cacheAsBitmap = isCache;
 			this.m_bigEyeSprite.cacheAsBitmap = isCache;

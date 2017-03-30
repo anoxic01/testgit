@@ -1,32 +1,32 @@
 module packet.lobby {
 	export class S_Lobby_Update_Marquee_Pkt implements IProtocolStruct{
-		public var Type			:	int;
-		public var SN			:	int;
-		public var vecList		:	Vector.<MarqueeStruct>;
+		public Type			:	number;
+		public SN			:	number;
+		public vecList		:	<MarqueeStruct>;
 		
 		public constructor() {
 		}
 		
-		public function initControler(controler:GameControler):void
+		public initControler(controler:GameControler):void
 		{
 		}
 		
-		public function execute(oData:Object):void
+		public execute(oData:Object):void
 		{
 			Type	=	oData.Type;
 			SN		=	oData.SN;
-			trace("S_Lobby_Update_Marquee_Pkt:"+oData.MarqueeList);
+			console.log("S_Lobby_Update_Marquee_Pkt:"+oData.MarqueeList);
 			
-//			var m_vecMarqueeList : Vector.<MarqueeStruct> = new Vector.<MarqueeStruct>();
+//			var m_vecMarqueeList : <MarqueeStruct> = new <MarqueeStruct>();
 //			var marqueeStruct : MarqueeStruct;
-//			for (var j:int = 0; j < oData.MarqueeList.length; j++) 
+//			for (var j:number= 0; j < oData.MarqueeList.length; j++) 
 //			{
 //				marqueeStruct = new MarqueeStruct(oData.MarqueeList[j]);
 //				m_vecMarqueeList.push(marqueeStruct);
 //			}
 //			
 //			LobbyData.getInstance().MarqueeList = m_vecMarqueeList;
-//			LobbyManager.getInstance().lobbyView.infomation.marquee.setData();
+//			LobbyManager.getInstance().lobbyView.information.marquee.setData();
 			
 		}
 	}

@@ -1,16 +1,16 @@
 module packet.lobby {
 	export class S_Lobby_Real_Time_Bet_Info_Pkt implements IProtocolStruct{
-		public var Type			:	int;
-		public var SN			:	int;
+		public Type			:	number;
+		public SN			:	number;
 		
 		public constructor() {
 		}
 		
-		public function initControler(controler:GameControler):void
+		public initControler(controler:GameControler):void
 		{
 		}
 		
-		public function execute(oData:Object):void
+		public execute(oData:Object):void
 		{
 			Type	=	oData.Type;
 			SN		=	oData.SN;
@@ -19,7 +19,7 @@ module packet.lobby {
 			var tableStruct : TableStruct;
 			var TableStatics : StaticsInfoStruct;
 			var quickTable : QuickTable;
-			for (var i:int = 0; i < _len; i++) 
+			for (var i:number= 0; i < _len; i++) 
 			{
 				
 				switch(oData.TableStaticsList[i].GameID){
@@ -44,10 +44,10 @@ module packet.lobby {
 				
 				tableStruct = LobbyData.getInstance().getTableStructByTableID(oData.TableStaticsList[i].TableID);
 				if(tableStruct==null){
-						trace("更新彩池时，找不到对应桌子...oData.TableStaticsList[i].GameID:",oData.TableStaticsList[i].GameID, "oData.TableStaticsList[i].TableID:",oData.TableStaticsList[i].TableID);
+						console.log("更新彩池时，找不到对应桌子...oData.TableStaticsList[i].GameID:",oData.TableStaticsList[i].GameID, "oData.TableStaticsList[i].TableID:",oData.TableStaticsList[i].TableID);
 				}else{
 					if(tableStruct.TableID==15){
-						trace();
+						console.log();
 					}
 					tableStruct.updateStaticsInfo(TableStatics);
 				}

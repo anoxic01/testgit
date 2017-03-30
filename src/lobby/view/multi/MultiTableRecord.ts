@@ -1,19 +1,19 @@
 module lobby.view.multi {
 	export class MultiTableRecord extends BSprite{
-		private var m_mcAsset		:	*;
+		private m_mcAsset		:	*;
 		
-		private var m_recordList	:	MultiTableRecordList;
+		private m_recordList	:	MultiTableRecordList;
 		
-		private var m_btnFirst		:	SingleButtonMC;
-		private var m_btnLeft		:	SingleButtonMC;
-		private var m_btnNext		:	SingleButtonMC;
-		private var m_btnLast		:	SingleButtonMC;
-		private var m_btnSetting	:	SingleButtonMC;
+		private m_btnFirst		:	SingleButtonMC;
+		private m_btnLeft		:	SingleButtonMC;
+		private m_btnNext		:	SingleButtonMC;
+		private m_btnLast		:	SingleButtonMC;
+		private m_btnSetting	:	SingleButtonMC;
 		
-		private var m_uTotalPage	:	uint	=	10;					//最多10页
-		private var m_uTotalCount	:	uint	=	100;				//最高100条记录，超过覆盖旧记录
-		private var m_uCurrent		:	uint	=	1;					//当前页数
-		private var m_vecRecordData	:	Vector.<RecordBetStruct>;		//所有记录
+		private m_uTotalPage	:	number	=	10;					//最多10页
+		private m_uTotalCount	:	number	=	100;				//最高100条记录，超过覆盖旧记录
+		private m_uCurrent		:	number	=	1;					//当前页数
+		private m_vecRecordData	:	<RecordBetStruct>;		//所有记录
 		
 		public constructor() {
 			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_MULTITABLE, "Multi_Record_Asset");
@@ -58,7 +58,7 @@ module lobby.view.multi {
 				uCurrent = m_uTotalPage;
 			});
 			
-			m_vecRecordData = new Vector.<RecordBetStruct>();
+			m_vecRecordData = new <RecordBetStruct>();
 			
 			m_recordList = new MultiTableRecordList(m_mcAsset);
 			m_mcAsset.addChild(m_recordList);
@@ -70,8 +70,8 @@ module lobby.view.multi {
 			onChangeLanguage();
 			
 			//虚拟数据——测试
-//			var vec : Vector.<RecordBetStruct> = new Vector.<RecordBetStruct>();
-//			for (var i:int = 0; i < 32; i++) 
+//			var vec : <RecordBetStruct> = new <RecordBetStruct>();
+//			for (var i:number= 0; i < 32; i++) 
 //			{
 //				var struct : RecordBetStruct = new RecordBetStruct();
 //				struct.Amt = 100;
@@ -84,7 +84,7 @@ module lobby.view.multi {
 //			addRecord(vec);
 		}
 		
-		override public function destroy():void
+		 public destroy():void
 		{
 			if(m_btnSetting){
 				m_btnSetting.destroy();
@@ -121,9 +121,9 @@ module lobby.view.multi {
 			}
 		}
 		
-		public function addRecord(_vecStruct:Vector.<RecordBetStruct>):void{
+		public addRecord(_vecStruct:<RecordBetStruct>):void{
 			var _len : int = _vecStruct.length
-			for (var i:int = 0; i < _len; i++) 
+			for (var i:number= 0; i < _len; i++) 
 			{
 				m_vecRecordData.unshift(_vecStruct[i]);
 			}
@@ -137,7 +137,7 @@ module lobby.view.multi {
 			judgeBtn();
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 //			m_mcAsset.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			m_mcAsset.mc_title.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			
@@ -150,7 +150,7 @@ module lobby.view.multi {
 //			m_mcAsset.tf_2.text = LobbyManager.getInstance().getLanguageString(Language.sMulti_Table_Payout);
 		}
 				
-		private function judgeBtn():void{
+		private judgeBtn():void{
 			if(m_uTotalPage==1){
 				m_btnFirst.enabled = false;
 				m_btnLeft.enabled = false;
@@ -176,7 +176,7 @@ module lobby.view.multi {
 			}
 			
 		}
-		public function set uCurrent(_uValue:uint):void{
+		set  uCurrent(_uValue:number){
 			m_uCurrent = _uValue;
 			judgeBtn();
 			m_recordList.setData(m_vecRecordData,m_uCurrent-1);

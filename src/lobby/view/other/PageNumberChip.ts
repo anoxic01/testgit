@@ -1,11 +1,11 @@
 module lobby.view.other {
 	export class PageNumberChip extends BSprite{
-		private var m_mAsset			:	*;							//页码资源
-		private var m_bSelect			:	Boolean;					//选中状态
-		private var m_pagePanel			:	PanelPage;					//
-		private var m_uPage				:	uint;						//页码序号
+		private m_mAsset			:	*;							//页码资源
+		private m_bSelect			:	 boolean;					//选中状态
+		private m_pagePanel			:	PanelPage;					//
+		private m_uPage				:	number;						//页码序号
 		
-		public constructor( _uMode:uint,_pagePanel:PanelPage, _uPage:uint) {
+		public constructor( _uMode:number,_pagePanel:PanelPage, _uPage:number) {
 			super();
 			
 			m_pagePanel = _pagePanel;
@@ -21,7 +21,7 @@ module lobby.view.other {
 			this.buttonMode = true;
 			this.addEventListener(MouseEvent.CLICK, onClick);
 		}
-		override public function destroy():void{
+		 public destroy():void{
 			
 			if(m_pagePanel){
 				m_pagePanel = null;
@@ -34,16 +34,16 @@ module lobby.view.other {
 			}
 		}
 		
-		public function set select(_bValue:Boolean):void{
+		set  select(_bValue: boolean){
 			m_bSelect = _bValue;
 			m_mAsset.mc_select.visible = m_bSelect;
 		}
 		
-		public function get pageID():uint{
+		get pageID():number{
 			return m_uPage;
 		}
 		
-		protected function onClick(event:MouseEvent):void
+		protected onClick(event:MouseEvent):void
 		{
 			if(!m_bSelect){
 				if(m_pagePanel){

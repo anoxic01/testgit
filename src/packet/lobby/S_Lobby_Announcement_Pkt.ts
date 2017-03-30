@@ -1,24 +1,24 @@
 module packet.lobby {
 	export class S_Lobby_Announcement_Pkt implements IProtocolStruct{
-		public var TimeStamp	:	String;
+		public TimeStamp	:	String;
 		
 		/**
 		 * 发送对象
 		 * 0-all
 		 * 1-agent group
 		 */		
-		public var ToType		:	int;
+		public ToType		:	number;
 		
 		public constructor() {
 		}
 		
-		public function initControler(controler:GameControler):void
+		public initControler(controler:GameControler):void
 		{
 		}
 		
-		public function execute(oData:Object):void
+		public execute(oData:Object):void
 		{
-			trace("公告数据包序号：", oData.SN);
+			console.log("公告数据包序号：", oData.SN);
 			TimeStamp = oData.TimeStamp;
 			ToType = oData.ToType;
 			

@@ -1,8 +1,8 @@
 module lobby.view.table {
 	export class TableLoginNormal extends TableLogin{
-//		private var m_btnLogin	:	ButtonMcLanguage;			//进入游戏
-		private var m_btnLogin	:	MMovieClip;
-		private var m_btnLimit	:	ButtonMcLanguage;			//限红选择
+//		private m_btnLogin	:	ButtonMcLanguage;			//进入游戏
+		private m_btnLogin	:	MMovieClip;
+		private m_btnLimit	:	ButtonMcLanguage;			//限红选择
 		
 		public constructor( _tableStruct:TableStruct ) {
 		
@@ -72,7 +72,7 @@ module lobby.view.table {
 			onChangeLanguage();
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			
 			if(m_btnLimit){
 				m_btnLimit.destroy();
@@ -91,7 +91,7 @@ module lobby.view.table {
 		}
 		
 		
-		override public function show():void{
+		 public show():void{
 			super.show();
 			
 			if(m_btnLogin){
@@ -104,7 +104,7 @@ module lobby.view.table {
 				TweenLite.to(m_btnLimit.mcAsset, Define.SPEED,{alpha:1});
 			}
 		}
-		override public function hide():void{
+		 public hide():void{
 			super.hide();
 			
 			if(m_btnLogin){
@@ -120,7 +120,7 @@ module lobby.view.table {
 			}
 		}
 		
-//		override public function init():void{
+//		 public init():void{
 //			if(m_bInit){
 //				return;
 //			}else{
@@ -138,7 +138,7 @@ module lobby.view.table {
 //			
 //		}
 		
-		protected function over(event:MouseEvent):void
+		protected over(event:MouseEvent):void
 		{
 			// TODO Auto-generated method stub
 			if(m_btnLogin){
@@ -146,7 +146,7 @@ module lobby.view.table {
 			}
 		}
 		
-		protected function out(event:MouseEvent):void
+		protected out(event:MouseEvent):void
 		{
 			if(m_btnLogin){
 				m_btnLogin.gotoAndStop("DEFAULT");
@@ -154,7 +154,7 @@ module lobby.view.table {
 			
 		}
 		
-		protected function onClick(event:MouseEvent):void
+		protected onClick(event:MouseEvent):void
 		{
 			playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_tableStruct.TableID);
 			if(playerTableOwnStatusStruct){
@@ -171,7 +171,7 @@ module lobby.view.table {
 			SoundManager.getInstance().play(SoundPackage.sEnterGame);
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 //			m_mcAsset.mc_0.tf_label.text = LobbyManager.getInstance().getLanguageString(Language.sLimitSelect);
 			m_mcAsset.mc_1.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			if(m_btnLimit){
@@ -179,7 +179,7 @@ module lobby.view.table {
 			}
 		}
 		
-		private function enterGame():void{
+		private enterGame():void{
 			LobbyManager.getInstance().gamePoint = getGlobalPoint();
 			LobbyManager.getInstance().enterGame(m_tableStruct);	
 		}

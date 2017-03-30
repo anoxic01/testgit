@@ -4,105 +4,105 @@ module lobby.model.player {
         /// <summary>
         /// 代理ID
         /// </summary>
-        public var AgentID:int;
+        public AgentID:number;
 
 
         /// <summary>
         /// 玩家ID
         /// </summary>
-        public var PlayerID:int;
+        public PlayerID:number;
 
         /// <summary>
         /// 帳戶種類
         /// </summary>
-        public var AccountType:String;
+        public AccountType:String;
 
         /// <summary>
         /// 身份 - 0: 玩家, 1: 槍手
         /// </summary>
-        public var Identity:int;
+        public Identity:number;
 
         /// <summary>
         /// 暱稱
         /// </summary>
-        public var NickName:String;
+        public NickName:String;
 
         /// <summary>
         /// 暱稱
         /// </summary>
-        public var HiddenNickName:String;
+        public HiddenNickName:String;
 
         /// <summary>
         /// 配對桌ID
         /// </summary>
-        public var PairTableID:int;
+        public PairTableID:number;
 
         /// <summary>
         /// 座位號碼
         /// </summary>
-        public var SeatNo:int;
+        public SeatNo:number;
 
 
         /// <summary>
         /// 玩家餘額
         /// </summary>
-        public var Balance:BalanceStruct
+        public Balance:struct.BalanceStruct
 
         /// <summary>
         /// 玩家遊戲設定
         /// </summary>
-        public var GameSetting:GameSettingStruct
+        public GameSetting:struct.GameSettingStruct
 
         /// <summary>
         /// 玩家加/解秘金鑰
         /// </summary>
-        public var PrivateKey:String;
+        public PrivateKey:String;
 
         /// <summary>
         /// 廣播金鑰
         /// </summary>
-        public var BroadcastKey:String;
+        public BroadcastKey:String;
 
 
         /// <summary>
         /// 代理金鑰
         /// </summary>
-        public var AgentKey:String
+        public AgentKey:String
 
         /// <summary>
         /// Lobby Server
         /// </summary>
-        public var LobbyServer:String;
+        public LobbyServer:String;
 
 
         /// <summary>
         /// 是否為桌主
         /// </summary>
-        public var IsTableOwner :Boolean;
+        public IsTableOwner : boolean;
 
         /// <summary>
         /// 閒家瞇牌權位置
         /// </summary>
-        public var PPSN :int;
+        public PPSN :number;
 
 
         /// <summary>
         /// 庄家瞇牌權位置
         /// </summary>
-        public var BPSN :int;
+        public BPSN :number;
 
         /// <summary>
         /// 玩家是否登入
         /// </summary>
 
-        public var IsLogin :Boolean;
+        public IsLogin : boolean;
 		
 		
-		public var DeputyAuthToken	:	String;		//老板重新登陆大厅取得配抢手的配对码
+		public DeputyAuthToken	:	String;		//老板重新登陆大厅取得配抢手的配对码
 		
 		public constructor() {
-			Balance = new BalanceStruct();
-			GameSetting = new GameSettingStruct();
+			this.Balance = new struct.BalanceStruct();
+			this.GameSetting = new struct.GameSettingStruct();
 			
 		}
 		
@@ -110,25 +110,25 @@ module lobby.model.player {
 		 * 更新 額度
 		 * @param	o
 		 */
-		public function updateBalance( o:Object ):void {
+		public updateBalance( o ):void {
 			if ( o == null ) return; 
 			
-			Balance.AvailableCredit = o.AvailableCredit;
-			Balance.BCoin =  o.BCoin
-			Balance.GCoin =  o.GCoin
-			Balance.RemainingCredit =  o.RemainingCredit
-			Balance.TotalCredit =  o.TotalCredit
+			this.Balance.AvailableCredit = o.AvailableCredit;
+			this.Balance.BCoin =  o.BCoin
+			this.Balance.GCoin =  o.GCoin
+			this.Balance.RemainingCredit =  o.RemainingCredit
+			this.Balance.TotalCredit =  o.TotalCredit
 		}
 		/**
 		 * 更新遊戲設定
 		 * @param	o
 		 */
-		public function updateGameSetting( o:Object ):void {
+		public updateGameSetting( o ):void {
 			if ( o == null ) return; 
 			
-			GameSetting.BetLimitId = o.BetLimitId;
-			GameSetting.CustChips = o.CustChips;
-			GameSetting.UpperBetLimitId = o.UpperBetLimitId;
+			this.GameSetting.BetLimitId = o.BetLimitId;
+			this.GameSetting.CustChips = o.CustChips;
+			this.GameSetting.UpperBetLimitId = o.UpperBetLimitId;
 		}
 		
 		

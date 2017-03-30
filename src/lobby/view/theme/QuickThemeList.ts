@@ -1,20 +1,20 @@
 module lobby.view.theme {
 	export class QuickThemeList extends BSprite{
-		private var m_mcAsset				:	*;
-		private var m_vecTheme			:	Vector.<QuickThemeItem>;		//所有厅馆
-		private var m_vectorThemeList	:	Vector.<ThemeStruct>;			//主题数据
+		private m_mcAsset				:	*;
+		private m_vecTheme			:	<QuickThemeItem>;		//所有厅馆
+		private m_vectorThemeList	:	<ThemeStruct>;			//主题数据
 		
-		private var m_currentTheme		:	QuickThemeItem;					//当前主题
-		public var iCurrentTheme		:	int	=	-1;						//当前主题
-		public var bInit				:	Boolean;						//初始状态
+		private m_currentTheme		:	QuickThemeItem;					//当前主题
+		public iCurrentTheme		:	int	=	-1;						//当前主题
+		public bInit				:	 boolean;						//初始状态
 		
-		public var m_btnDownApp			:	SingleButtonMC;					//下载APP
-		public var mc_btnStatistics		:	SingleButtonMC;					//统计
+		public m_btnDownApp			:	SingleButtonMC;					//下载APP
+		public mc_btnStatistics		:	SingleButtonMC;					//统计
 
-		private var mcStatistics:MovieClip;
-		private var bgApp:MovieClip;
+		private mcStatistics:MovieClip;
+		private bgApp:MovieClip;
 		
-		private var _gameID:int;
+		private _gameID:number;
 		public constructor() {
 		
 			super();
@@ -52,17 +52,17 @@ module lobby.view.theme {
 			bInit = true;
 		}
 		
-		public function get currentTheme():QuickThemeItem
+		get currentTheme():QuickThemeItem
 		{
 			return m_currentTheme;
 		}
 
-		public function set currentTheme(value:QuickThemeItem):void
+		set  currentTheme(value:QuickThemeItem)
 		{
 			m_currentTheme = value;
 		}
 
-		override public function destroy():void{
+		 public destroy():void{
 			if(m_vecTheme){
 				var themeItem : QuickThemeItem;
 				while(m_vecTheme.length>0){
@@ -84,17 +84,17 @@ module lobby.view.theme {
 			}
 		}
 		
-		public function setData():void{
+		public setData():void{
 			
 			m_vectorThemeList = LobbyData.getInstance().lobbyInfo.themeVec;
-			m_vecTheme = new Vector.<QuickThemeItem>;
+			m_vecTheme = new <QuickThemeItem>;
 			var themeItem : QuickThemeItem;
-			var _aTheme	:	Array =  TemConfig.getInstance().ThemeList.slice();
+			var _aTheme	:	any[] =  TemConfig.getInstance().ThemeList.slice();
 			
 			var _iFindThemeId	: 	int	  = -1;
 			
 			var _iLen  : int = m_vectorThemeList.length;
-			var _index : int;
+			var _index : number;
 			
 			//临时模拟多桌
 			var _multiThemeStruct : ThemeStruct = new ThemeStruct({"ThemeID":Define.THEME_MULTI_TABLE,"TableList":[]});
@@ -104,7 +104,7 @@ module lobby.view.theme {
 			m_vecTheme.push(themeItem);
 			_index++;
 			
-			for (var i:int = 0; i < _iLen; i++)
+			for (var i:number= 0; i < _iLen; i++)
 			{
 				if(m_vectorThemeList[i].ThemeID == Define.THEME_TELPHONE){//快速转桌列表去掉电投厅按钮
 					_aTheme.splice(_aTheme.indexOf(m_vectorThemeList[i].ThemeID),1);
@@ -119,7 +119,7 @@ module lobby.view.theme {
 				_index++;
 			}
 			
-			for (var j:int = 0; j < _aTheme.length; j++) 
+			for (var j:number= 0; j < _aTheme.length; j++) 
 			{
 				themeItem = new QuickThemeItem(null, this, _aTheme[j]);
 				this.addChild(themeItem);
@@ -133,7 +133,7 @@ module lobby.view.theme {
 			themeItem = null;
 		}
 		
-		public function setCurrent(_themeItem:QuickThemeItem):void{
+		public setCurrent(_themeItem:QuickThemeItem):void{
 			if(currentTheme!=_themeItem){
 				if(!_themeItem.struct.IsTelBet && _themeItem.struct.ThemeID!=Define.THEME_MULTI_TABLE){
 					//订阅
@@ -149,7 +149,7 @@ module lobby.view.theme {
 				if(LobbyManager.getInstance().bQuickChangeTable){
 					LobbyManager.getInstance().bQuickChangeTable = false;
 					//订阅
-					var _id : int;
+					var _id : number;
 					if(currentTheme){
 						if(_themeItem.struct.ThemeID == currentTheme.struct.ThemeID){
 							_id = -1;
@@ -167,7 +167,7 @@ module lobby.view.theme {
 			}
 		}
 		
-		public function setCurrentThemeButtonSelect( _iThemeId:int ):void {
+		public setCurrentThemeButtonSelect( _iThemeId:number):void {
 			if( m_vecTheme[_iThemeId-1] ){
 				
 				if( currentTheme != m_vecTheme[_iThemeId-1] ){
@@ -178,10 +178,10 @@ module lobby.view.theme {
 			}
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			if(m_vecTheme){
 				var themeItem : QuickThemeItem;
-				for (var i:int = 0; i < m_vecTheme.length; i++) 
+				for (var i:number= 0; i < m_vecTheme.length; i++) 
 				{
 					themeItem = m_vecTheme[i];
 					themeItem.onChangeLanguage();
@@ -204,9 +204,9 @@ module lobby.view.theme {
 		}
 		
 		
-		public function enable(_bValue:Boolean):void{
+		public enable(_bValue: boolean):void{
 			var _len : int = m_vecTheme.length;
-			for (var i:int = 0; i < _len; i++) 
+			for (var i:number= 0; i < _len; i++) 
 			{
 				m_vecTheme[i].mouseEnabled = _bValue;
 				m_vecTheme[i].mouseChildren = _bValue;
@@ -218,13 +218,13 @@ module lobby.view.theme {
 			}
 		}
 		
-		public function updateOnline():void{
+		public updateOnline():void{
 			m_mcAsset.tf_1.text = LobbyData.getInstance().lobbyInfo.OnlinePlayers.toString();
 		}
 		
-		public function setMaintain(_themeID:int, bMaintain:Boolean):void{
+		public setMaintain(_themeID:number, bMaintain: boolean):void{
 			var _len : int = m_vecTheme.length;
-			for (var i:int = 0; i < _len; i++) 
+			for (var i:number= 0; i < _len; i++) 
 			{
 				if(m_vecTheme[i].struct.ThemeID == _themeID){
 					m_vecTheme[i].struct.IsMaintaining = bMaintain;
@@ -233,7 +233,7 @@ module lobby.view.theme {
 			}
 		}
 		
-		public function setType(_gameID:int):void{
+		public setType(_gameID:number):void{
 			this._gameID = _gameID;
 			switch(_gameID){
 				case GameDefine.SIC:
@@ -255,13 +255,13 @@ module lobby.view.theme {
 			}
 		}
 		
-		public function toBac():void{
+		public toBac():void{
 			if(m_mcAsset){
 				m_mcAsset.mc_bg.height = 436;
 			}
 		}
 		
-		public function toSic():void{
+		public toSic():void{
 			if(m_mcAsset){
 				m_mcAsset.mc_bg.height = 456;
 			}

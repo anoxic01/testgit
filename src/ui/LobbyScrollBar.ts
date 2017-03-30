@@ -1,17 +1,17 @@
 module ui {
 	export class LobbyScrollBar extends Scroll_Bar{
 		
-		private var mWidth:int;
-		private var mHeight:int;
-		private var currentStatue:String;
-		private var isRollOver:Boolean = false;
-		private var isDown:Boolean = false;
+		private mWidth:number;
+		private mHeight:number;
+		private currentStatue:string;
+		private isRollOver: boolean = false;
+		private isDown: boolean = false;
 		
 		public constructor(mcButton:MovieClip, $fOnClick:Function) {
 			super(mcButton,$fOnClick);
 		}
 		
-		override protected function initBarView():void
+		 protected initBarView():void
 		{
 			if(mcAsset)
 			{
@@ -25,41 +25,41 @@ module ui {
 			if(stage)onAddToStage();
 			else addEventListener(Event.ADDED_TO_STAGE,onAddToStage);
 		}
-		override protected function addEvent():void
+		 protected addEvent():void
 		{
 			super.addEvent();
 		}
-		private function onAddToStage(e:Event=null):void
+		private onAddToStage(e:Event=null):void
 		{
 			this.removeEventListener(Event.ADDED_TO_STAGE,onAddToStage);
 			this.stage.addEventListener(MouseEvent.MOUSE_UP,up);
 		}
-		override protected function removeEvent():void
+		 protected removeEvent():void
 		{
 			super.removeEvent();
 			///////////////////
 			this.removeEventListener(Event.ADDED_TO_STAGE,onAddToStage);
 			if(this.stage)this.stage.removeEventListener(MouseEvent.MOUSE_UP,up);
 		}
-		public override function setWidth(uValue:uint) : void
+		public  setWidth(uValue:number) : void
 		{
 			mWidth = uValue;
 			invalidate();
 		}
-		public override function setHeight(uValue:uint) : void
+		public  setHeight(uValue:number) : void
 		{
 			mHeight = uValue;
 			invalidate();
 		}
-		protected override function setCurrent(sFrame:String):void
+		protected  setCurrent(sFrame:string):void
 		{
 			invalidate();
 		}
-		protected function invalidate():void
+		protected invalidate():void
 		{
 			onScrollBarStyleChange();
 		}
-		protected function onScrollBarStyleChange():void
+		protected onScrollBarStyleChange():void
 		{
 			if(mWidth==0||mHeight==0)return;
 			if(m_bEnable==false)
@@ -77,9 +77,9 @@ module ui {
 				currentStatue = "DISABLE";
 			}
 			
-			var colors:Array = [0xFF0000, 0x0000FF];
-			var alphas:Array = [1, 1];
-			var ratios:Array = [0x00, 0xFF];
+			var colors:any[] = [0xFF0000, 0x0000FF];
+			var alphas:any[] = [1, 1];
+			var ratios:any[] = [0x00, 0xFF];
 			if(currentStatue=="HOVER")
 			{
 				colors = [0xF9E600, 0xFF9B0A];
@@ -101,8 +101,8 @@ module ui {
 				ratios = [0, 125,255];
 				alphas = [1, 1,1];
 			}
-			var spreadMethod:String = SpreadMethod.PAD;
-			var fillType:String = GradientType.LINEAR;
+			var spreadMethod:string = SpreadMethod.PAD;
+			var fillType:string = GradientType.LINEAR;
 			var matr:Matrix = new Matrix();
 			matr.createGradientBox(mWidth, mHeight, 0, 0, 0);
 			this.graphics.clear();
@@ -110,24 +110,24 @@ module ui {
 			this.graphics.drawRect(0,0,mWidth,mHeight); 
 			this.graphics.endFill();
 		}
-		override protected function down(event:MouseEvent):void
+		 protected down(event:MouseEvent):void
 		{
 			isDown = true;
 			invalidate();
 		}
-		override protected function out(event:MouseEvent):void
+		 protected out(event:MouseEvent):void
 		{
 			isRollOver = false;
 			if(fOnOut!=null)fOnOut();
 			invalidate();
 		}
-		override protected function over(event:MouseEvent):void
+		 protected over(event:MouseEvent):void
 		{
 			isRollOver = true;
 			if(fOnOver!=null)fOnOver();
 			invalidate();
 		}
-		override protected function up(event:MouseEvent):void
+		 protected up(event:MouseEvent):void
 		{
 			isDown = false;
 			invalidate();

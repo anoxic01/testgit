@@ -1,28 +1,28 @@
 module lobby.view.notice {
 	export class NoticeView extends BSprite{
-		private const SPACE			:	uint 	= 	10;					//间隔距离
+		private const SPACE			:	number 	= 	10;					//间隔距离
 		private const SPEED			:	Number 	=	1;					//滚动速度
 		
-		private var m_spMask		:	Sprite;							//遮罩容器
-		private var m_txtSp			:	Sprite;							//文字容器
+		private m_spMask		:	Sprite;							//遮罩容器
+		private m_txtSp			:	Sprite;							//文字容器
 		
-		private var m_mcAsset		:	MovieClip;
+		private m_mcAsset		:	MovieClip;
 		
-		private var m_vecTextfields	:	Vector.<NoticeItemView>;		//所有内容
+		private m_vecTextfields	:	<NoticeItemView>;		//所有内容
 
-		private var m_vecPool		:	Vector.<NoticeItemView>;		//对象池
-		private var m_vecShowList	:	Vector.<MessageStruct>;			//当前显示的数据列表
-		private var m_iCurIndex		:	int;							//最左边的显示的index
+		private m_vecPool		:	<NoticeItemView>;		//对象池
+		private m_vecShowList	:	<MessageStruct>;			//当前显示的数据列表
+		private m_iCurIndex		:	number;							//最左边的显示的index
 		
 		public constructor() {
 			super();
 			this.mouseChildren = false;
 			this.mouseEnabled = false;
 			
-			m_vecShowList = new Vector.<MessageStruct>();
-			m_vecTextfields = new Vector.<NoticeItemView>();
-			m_vecPool = new Vector.<NoticeItemView>();
-			for (var i:int = 0; i < 3; i++) 
+			m_vecShowList = new <MessageStruct>();
+			m_vecTextfields = new <NoticeItemView>();
+			m_vecPool = new <NoticeItemView>();
+			for (var i:number= 0; i < 3; i++) 
 			{
 				m_vecPool.push(new NoticeItemView());
 			}
@@ -30,7 +30,7 @@ module lobby.view.notice {
 			toLobbyUrgentNotice();
 			onChangeLanguage();
 		}
-		override public function initilize():void{
+		 public initilize():void{
 			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_PANEL,"Dialog_Asset_3");
 			this.addChild(m_mcAsset);
 			
@@ -61,7 +61,7 @@ module lobby.view.notice {
 			m_mcAsset.mc_title.gotoAndStop(1);
 			m_mcAsset.tf_0.text = "";
 		}
-		override public function destroy() : void
+		 public destroy() : void
 		{
 			if (nPosition)
 			{
@@ -77,7 +77,7 @@ module lobby.view.notice {
 				m_txtSp = null;
 			}
 		}
-		public function clear():void
+		public clear():void
 		{
 			m_iCurIndex = 0;
 			m_vecShowList.length = 0;
@@ -86,7 +86,7 @@ module lobby.view.notice {
 				shiftTf();
 			}
 		}
-		public function setData(vec:Vector.<MessageStruct>):void
+		public setData(vec:<MessageStruct>):void
 		{
 			while(m_vecTextfields.length>0)
 			{
@@ -104,28 +104,28 @@ module lobby.view.notice {
 			}
 			pushTf();
 		}
-		public function addMessage(vo:MessageStruct):void
+		public addMessage(vo:MessageStruct):void
 		{
 			if(vo==null)
 				return;
-			var index:int = m_vecShowList.indexOf(vo);
+			var index:number= m_vecShowList.indexOf(vo);
 			if(index == -1)
 			{
 				m_vecShowList.push(vo);
 				pushTf();
 			}
 		}
-		public function wantToRemove(vo:MessageStruct):void
+		public wantToRemove(vo:MessageStruct):void
 		{
 			if(vo==null)
 				return;
 			removeShowTf(vo);
 		}
-		public function removeMessage(vo:MessageStruct):void
+		public removeMessage(vo:MessageStruct):void
 		{
 			if(vo==null)
 				return;
-			var index:int = m_vecShowList.indexOf(vo);
+			var index:number= m_vecShowList.indexOf(vo);
 			if(index != -1)
 			{
 				m_vecShowList.splice(index,1);
@@ -135,14 +135,14 @@ module lobby.view.notice {
 				}
 			}
 		}
-		private function pushTf():void
+		private pushTf():void
 		{
 			if(m_vecTextfields.length >= m_vecShowList.length)
 			{
 				return;
 			}
-			var can:Boolean;
-			var offsetx:int;
+			var can: boolean;
+			var offsetx:number;
 			if(m_vecTextfields.length > 0)
 			{
 				var last:NoticeItemView = m_vecTextfields[m_vecTextfields.length-1];
@@ -182,7 +182,7 @@ module lobby.view.notice {
 				m_iCurIndex++;
 			}
 		}
-		private function shiftTf():MessageStruct
+		private shiftTf():MessageStruct
 		{
 			if(m_vecTextfields.length>0)
 			{
@@ -195,13 +195,13 @@ module lobby.view.notice {
 			}
 			return null;
 		}
-		private function removeShowTf(vo:MessageStruct):void
+		private removeShowTf(vo:MessageStruct):void
 		{
-			var len:int = m_vecTextfields.length;
+			var len:number= m_vecTextfields.length;
 			if(len > 0)
 			{
 				var view:NoticeItemView;
-				for (var i:int = 0; i < m_vecTextfields.length; i++) 
+				for (var i:number= 0; i < m_vecTextfields.length; i++) 
 				{
 					view = m_vecTextfields[i];
 					if(view.maData == vo)
@@ -216,11 +216,11 @@ module lobby.view.notice {
 				}
 			}
 		}
-		public function get showCount():int
+		get showCount():number
 		{
 			return m_vecShowList.length;
 		}
-		public function going() : MessageStruct
+		public going() : MessageStruct
 		{
 			if(m_vecShowList.length == 0)
 			{
@@ -229,8 +229,8 @@ module lobby.view.notice {
 			var data:MessageStruct;
 			if(m_vecTextfields.length>0)
 			{
-				var lastEndx:int;
-				for (var i:int = 0; i < m_vecTextfields.length; i++) 
+				var lastEndx:number;
+				for (var i:number= 0; i < m_vecTextfields.length; i++) 
 				{
 					if(i > 1)
 					{
@@ -255,28 +255,28 @@ module lobby.view.notice {
 			return data;
 		}
 		//游戏中的定位
-		public function toGamgeUrgentNotice():void{
+		public toGamgeUrgentNotice():void{
 			this.x = LobbyManager.getInstance().stage.stageWidth * 0.5 - 1077*0.5;
 			this.y = LobbyManager.getInstance().stage.stageHeight * 0.5 - 120;
 		}
 		//厅馆
-		public function toLobbyUrgentNotice():void{
+		public toLobbyUrgentNotice():void{
 			this.x = LobbyManager.getInstance().stage.stageWidth * 0.5 - 1077*0.5;
 			this.y = LobbyManager.getInstance().stage.stageHeight * 0.5 - 100;
 		}
 		//多桌
-		public function toMultiUrgentNotice():void{
+		public toMultiUrgentNotice():void{
 			this.x = LobbyManager.getInstance().stage.stageWidth * 0.5 - 1077*0.5 - 150;
 			this.y = 0;
 		}
-		override public function onChangeLanguage():void{
-			for (var i:int = 0; i < m_vecTextfields.length; i++) 
+		 public onChangeLanguage():void{
+			for (var i:number= 0; i < m_vecTextfields.length; i++) 
 			{
 				m_vecTextfields[i].onChangeLanguage();
 			}
 			if(m_vecTextfields.length>0)
 			{
-				var lastx:int;
+				var lastx:number;
 				for (i = 0; i < m_vecTextfields.length; i++) 
 				{
 					if(i==0)

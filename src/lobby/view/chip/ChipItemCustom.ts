@@ -1,14 +1,14 @@
 module lobby.view.chip {
 	export class ChipItemCustom extends BSprite{
-		private var m_uValue	:	uint;					//筹码面值
-//		private var m_bmpAsset	:	Bitmap;					//筹码皮肤
-		private var m_btnChip	:	ButtonChip;				//筹码按钮
-		private var m_bSelect	:	Boolean;				//选中状态
-		private var m_chipPanel	:	PanelChipCustom;		//
+		private m_uValue	:	number;					//筹码面值
+//		private m_bmpAsset	:	Bitmap;					//筹码皮肤
+		private m_btnChip	:	ButtonChip;				//筹码按钮
+		private m_bSelect	:	 boolean;				//选中状态
+		private m_chipPanel	:	PanelChipCustom;		//
 		
-		private var m_bStatus	:	Boolean;				//操作状态
+		private m_bStatus	:	 boolean;				//操作状态
 		
-		public constructor(_uValue:uint, _chipPanel:PanelChipCustom) {
+		public constructor(_uValue:number, _chipPanel:PanelChipCustom) {
 			super();
 			m_uValue = _uValue;
 			m_chipPanel = _chipPanel;
@@ -29,7 +29,7 @@ module lobby.view.chip {
 //			this.addEventListener(MouseEvent.MOUSE_OUT, onOut);
 			this.addEventListener(MouseEvent.CLICK, onClick);
 		}
-		override public function destroy():void
+		 public destroy():void
 		{
 			this.removeEventListener(MouseEvent.CLICK, onClick);
 			if(m_chipPanel){
@@ -48,7 +48,7 @@ module lobby.view.chip {
 			
 		}
 		
-		public function set select(_bValue:Boolean):void{
+		set  select(_bValue: boolean){
 			
 //			m_mcSelect.visible = m_bSelect;
 			if(!m_bSelect){
@@ -70,7 +70,7 @@ module lobby.view.chip {
 			m_btnChip.select = m_bSelect;
 		}
 		
-		public function set value(_uValue:uint):void{
+		set  value(_uValue:number){
 			if(m_btnChip!=null){
 				this.removeChild(m_btnChip);
 				m_btnChip.destroy();
@@ -83,18 +83,18 @@ module lobby.view.chip {
 //			m_bmpAsset.smoothing = true;
 		}
 		
-		public function get _uValue():uint
+		get _uValue():number
 		{
 			return m_uValue;
 		}
 		
-		public function set _uValue(value:uint):void
+		set  _uValue(value:number)
 		{
 			m_uValue = value;
 		}
 		
 		
-		protected function onOver(event:MouseEvent):void
+		protected onOver(event:MouseEvent):void
 		{
 			if(m_bSelect){
 				return;
@@ -103,7 +103,7 @@ module lobby.view.chip {
 			SoundManager.getInstance().play(SoundPackage.sChipOver);
 		}
 		
-//		protected function onOut(event:MouseEvent):void
+//		protected onOut(event:MouseEvent):void
 //		{
 //			if(m_bSelect){
 //				return;
@@ -112,7 +112,7 @@ module lobby.view.chip {
 //			this.filters = [];
 //		}		
 		
-		protected function onClick(event:MouseEvent):void
+		protected onClick(event:MouseEvent):void
 		{
 			select = !m_bSelect;
 		}

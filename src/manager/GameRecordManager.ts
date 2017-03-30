@@ -1,18 +1,18 @@
 module manager {
 	export class GameRecordManager {
-		private static var m_instance		:	GameRecordManager;
+		private static m_instance		:	GameRecordManager;
 		
-		public var betRecordPannel			:	BetRecordUI;
-		public var betResultPannel			:	BetResultUI;
-		public var videoPlayPannel			:	VideoPlayUI;	
+		public betRecordPannel			:	BetRecordUI;
+		public betResultPannel			:	BetResultUI;
+		public videoPlayPannel			:	VideoPlayUI;	
 		
-		private var nSendTime				:	Number;
-		private var nReceiveTime			:	Number;
+		private nSendTime				:	Number;
+		private nReceiveTime			:	Number;
 		
 		public constructor() {
 		}
 
-		public static function getInstance() : GameRecordManager
+		public static getInstance() : GameRecordManager
 		{
 			if (!m_instance)
 			{
@@ -21,7 +21,7 @@ module manager {
 			return m_instance;
 		}
 		
-		public function initialize():void {
+		public initialize():void {
 //			Security.loadPolicyFile( UrlManager.getInstance().getRootDomain()+"/crossdomain.xml" );
 			
 			betRecordPannel = new BetRecordUI(ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_BET_CORD,"Link_BetRecord_Asset")  );
@@ -32,7 +32,7 @@ module manager {
 		/**
 		 * 取得下注紀錄數據
 		 */
-		public function sendGetGameRecord(  _iStartNo:int , _iRequestDataSize:int , _iGameID:int , _sStartDateTime:String, _sEndDateTime:String ):void {
+		public sendGetGameRecord(  _iStartNo:number, _iRequestDataSize:number, _iGameID:number, _sStartDateTime:string, _sEndDateTime:string ):void {
 			//新方式
 			var _gameRecordApiStruct:GameRecordApiStruct = new GameRecordApiStruct();
 			_gameRecordApiStruct.SearchCondition.GameID = _iGameID;
@@ -60,10 +60,10 @@ module manager {
 		/**
 		 * 接收資料
 		 */
-		public function receiveWebAPIData(_oData:Object):void {
+		public receiveWebAPIData(_oData:Object):void {
 			nReceiveTime = getTimer()/1000;
-			//trace("收到的時間(秒): " , nReceiveTime );			
-			//trace("花費時間(秒): " , (nReceiveTime - nSendTime) );
+			//console.log("收到的時間(秒): " , nReceiveTime );			
+			//console.log("花費時間(秒): " , (nReceiveTime - nSendTime) );
 			
 			var _gameRecordApiStruct:GameRecordApiStruct = new GameRecordApiStruct();
 				_gameRecordApiStruct.init( _oData );
@@ -74,21 +74,21 @@ module manager {
 		/**
 		 * 取得下注紀錄
 		 */
-		public function getBetRecord( _iStartNo:int , _iRequestDataSize:int , _iGameID:int , _sStartDateTime:String, _sEndDateTime:String  ):void {
-			Log.getInstance().log(this,"getBetRecord::>>" + String(_iStartNo) + "_" + String(_iRequestDataSize) + "_" + String(_iGameID) + "+" + _sStartDateTime + "_" + _sEndDateTime + "_" + String(Player.getInstance().iPlayerID));
+		public getBetRecord( _iStartNo:number, _iRequestDataSize:number, _iGameID:number, _sStartDateTime:string, _sEndDateTime:string  ):void {
+			Log.getInstance().log(this,"getBetRecord::>>" + string(_iStartNo) + "_" + string(_iRequestDataSize) + "_" + string(_iGameID) + "+" + _sStartDateTime + "_" + _sEndDateTime + "_" + string(Player.getInstance().iPlayerID));
 			
 			sendGetGameRecord( _iStartNo, _iRequestDataSize, _iGameID, _sStartDateTime, _sEndDateTime );
 			
 			nSendTime = getTimer() /1000 ;
 			betRecordPannel.hideClickLight();				
-				//trace("送出去的時間(秒): " , nSendTime );
+				//console.log("送出去的時間(秒): " , nSendTime );
 		}
 		
 		
 		/**
 		 * 顯示下注紀錄 面板
 		 */
-		public function showBetRecordPannel():void {
+		public showBetRecordPannel():void {
 			if(betRecordPannel==null){
 				betRecordPannel = new BetRecordUI(ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_BET_CORD,"Link_BetRecord_Asset")  );
 			}
@@ -118,7 +118,7 @@ module manager {
 		/**
 		 * 隱藏下注紀錄面板
 		 */
-		public function hideBetRecordPannel(_bTween:Boolean=true):void {
+		public hideBetRecordPannel(_bTween: boolean=true):void {
 			if(betRecordPannel==null){
 				return;
 			}
@@ -151,7 +151,7 @@ module manager {
 		/**
 		 * 顯示下注紀錄 子單
 		 */
-		public function showBetResultPannel(_complexGameRecordStruct: ComplexGameRecordStruct):void {
+		public showBetResultPannel(_complexGameRecordStruct: ComplexGameRecordStruct):void {
 			
 			if(betResultPannel==null){
 				betResultPannel = new BetResultUI( ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_BET_CORD,"Link_Bet_Result_Asset")  );
@@ -175,7 +175,7 @@ module manager {
 		/**
 		 * 隱藏下注紀錄 子單
 		 */
-		public function hideBetResultPannel(_bTween:Boolean=true):void {
+		public hideBetResultPannel(_bTween: boolean=true):void {
 			if(betResultPannel==null){
 				return;
 			}
@@ -199,7 +199,7 @@ module manager {
 			}
 		}		
 		
-		public function showVideoPlayPannel(_complexGameRecordStruct: ComplexGameRecordStruct):void {
+		public showVideoPlayPannel(_complexGameRecordStruct: ComplexGameRecordStruct):void {
 			if(videoPlayPannel==null){
 				videoPlayPannel = new VideoPlayUI(ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_BET_CORD,"Link_Record_Video_Asset") );
 			}
@@ -217,7 +217,7 @@ module manager {
 			TweenLite.to(videoPlayPannel,Define.SPEED,{scaleX:1, scaleY:1});
 			SoundManager.getInstance().play(SoundPackage.sPopupPanel);
 		}
-		public function hideVideoPlayPannel(_bTween:Boolean=true):void {
+		public hideVideoPlayPannel(_bTween: boolean=true):void {
 			if(videoPlayPannel==null){
 				return;
 			}
@@ -243,7 +243,7 @@ module manager {
 			
 		}	
 		
-		/*public function scaleVideoPannel( _bBig:Boolean ):void {
+		/*public scaleVideoPannel( _bBig: boolean ):void {
 			var _videoPlayUI:PanelWindow = GameRecordManager.getInstance().videoPlayPannel;
 			if(_bBig ){								//放大
 				LobbyManager.getInstance().stage.displayState = StageDisplayState.FULL_SCREEN; 
@@ -253,7 +253,7 @@ module manager {
 		}*/
 		
 		
-		public function onChangeLanguage():void {
+		public onChangeLanguage():void {
 			if( betRecordPannel ){
 				betRecordPannel.onChangeLanguage();
 			}

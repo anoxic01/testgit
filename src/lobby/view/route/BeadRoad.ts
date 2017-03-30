@@ -2,8 +2,8 @@ module lobby.view.route {
 	export class BeadRoad {
 		public constructor() {
 		}
-	public static var _posX:int =  0;
-		public static var _posY:int =  0;
+	public static _posX:number=  0;
+		public static _posY:number=  0;
 		
 		
 	
@@ -14,25 +14,25 @@ module lobby.view.route {
 		 * @param	rowHeight
 		 * @return
 		 */
-		static public function createRoadRenderGrid(roadMap:String, skipChars:Array, rowHeight:int = 6):Array {
+		static public createRoadRenderGrid(roadMap:String, skipChars:any[], rowHeight:number= 6):any[] {
 			
 			// 資料格與行列索引、標記用的參數
-			var grid:Array = [], x:int = 0, y:int = -1, offsetX:int = 0, currentSymbol:String = null, prevSymbol:String = null;
-			var ignoreChars:Array = skipChars || ["i"];
-			var nextY:int;
+			var grid:any[] = [], x:number= 0, y:number= -1, offsetX:number= 0, currentSymbol:String = null, prevSymbol:String = null;
+			var ignoreChars:any[] = skipChars || ["i"];
+			var nextY:number;
 			
 			// 繪製的高度。這會影響珠子轉彎的時機。預設6
-			var height:int = rowHeight;
+			var height:number= rowHeight;
 			
 			// 簡化來源字串
-			var roadMapArray:Array = roadMap.split("");
-			var offX:int = 0;
+			var roadMapArray:any[] = roadMap.split("");
+			var offX:number= 0;
 			
-			for (var i:int = 0, len:int = roadMapArray.length; i < len; i++) {
+			for (var i:number= 0, len:number= roadMapArray.length; i < len; i++) {
 				
 				// 當前要處理的結果字串樣式
 				currentSymbol = roadMapArray[i];
-				//trace( "currentSymbol : " + currentSymbol );
+				//console.log( "currentSymbol : " + currentSymbol );
 				
 				// 直線邏輯
 				if (prevSymbol === null || currentSymbol == prevSymbol || ignoreChars.indexOf(currentSymbol) > -1) {
@@ -40,7 +40,7 @@ module lobby.view.route {
 					// 動態建立陣列
 					grid[x] = grid[x] || [];
 					
-					//trace("x:" + x + ",grid[x]::" + grid[x] );
+					//console.log("x:" + x + ",grid[x]::" + grid[x] );
 					
 					nextY = y + 1;
 					// 假如該grid[x][y + 1]尚未被建立，表示路可以向下，y索引值+1
@@ -92,39 +92,39 @@ module lobby.view.route {
 		 * @param	rowHeight
 		 * @return
 		 */
-		static public function createBigRoadRenderGrid(roadMap:String, skipChars:Array, rowHeight:int = 6):Array {
+		static public createBigRoadRenderGrid(roadMap:String, skipChars:any[], rowHeight:number= 6):any[] {
 			
 			// 資料格與行列索引、標記用的參數
-			var grid:Array = [], x:int = 0, y:int = -1, offsetX:int = 0, currentSymbol:String = null, prevSymbol:String = null;
-			var ignoreChars:Array = skipChars || ["i"];
-			var nextY:int;
+			var grid:any[] = [], x:number= 0, y:number= -1, offsetX:number= 0, currentSymbol:String = null, prevSymbol:String = null;
+			var ignoreChars:any[] = skipChars || ["i"];
+			var nextY:number;
 			
 			// 繪製的高度。這會影響珠子轉彎的時機。預設6
-			var height:int = rowHeight;
+			var height:number= rowHeight;
 			
 			// 簡化來源字串
-			var roadMapArray:Array = roadMap.split(".");
+			var roadMapArray:any[] = roadMap.split(".");
 			
 			var roadValue:String = '';
-			var iGrid:Array = [];  //和的資料格
+			var iGrid:any[] = [];  //和的資料格
 			
-			var offX:int = 0;
+			var offX:number= 0;
 			
 			//obj = {"0":[i,i,i,i,i], "1":[i,i,i]};
 			
-			//trace("roadMapArray::" + roadMapArray );
+			//console.log("roadMapArray::" + roadMapArray );
 			//iaaaaiiiiaaeeeeee
-			for (var i:int = 0, len:int = roadMapArray.length; i < len; i++) {
+			for (var i:number= 0, len:number= roadMapArray.length; i < len; i++) {
 				// 當前要處理的結果字串樣式
 				currentSymbol = roadMapArray[i];
-				//trace( "currentSymbol : " + currentSymbol );
+				//console.log( "currentSymbol : " + currentSymbol );
 				
 				// 直線邏輯
 				if ( ( prevSymbol === null || currentSymbol == prevSymbol )  && ignoreChars.indexOf(currentSymbol) == -1 ) {
 					// 動態建立陣列
 					grid[x] = grid[x] || [];
 					
-					//trace("x:" + x + ",grid[x]::" + grid[x] );
+					//console.log("x:" + x + ",grid[x]::" + grid[x] );
 					
 					nextY = y + 1;
 					// 假如該grid[x][y + 1]尚未被建立，表示路可以向下，y索引值+1
@@ -142,8 +142,8 @@ module lobby.view.route {
 				} 
 				else if ( ignoreChars.indexOf(currentSymbol) > -1 ) {  //找到i
 					
-					var x2:int = offsetX + x;
-					//trace("x2::" + x2 );
+					var x2:number= offsetX + x;
+					//console.log("x2::" + x2 );
 					
 					nextY = y;
 					if ( nextY == -1 ) 
@@ -190,11 +190,11 @@ module lobby.view.route {
 					
 				}
 				
-				//trace("offsetX::" + offsetX) ;
+				//console.log("offsetX::" + offsetX) ;
 				
 			}
 			var lastPoint:Point=new Point((x + offsetX),_posY)
-			//trace("offX::" + offX );
+			//console.log("offX::" + offX );
 						
 			return [grid, iGrid , offX,lastPoint];  //一個是沒有和的grid  , 一個是有和的grid
 		}
@@ -204,15 +204,15 @@ module lobby.view.route {
 		 * @radMapString {String} 要分析的資料字串，會自動簡化剩下莊(a)閒(e)和(i)再分析
 		 * @returns {Array} 轉換過的"大路"資料格
 		 */
-		static public function createRoadReanderString(roadMap:String):RoadStringObject {
+		static public createRoadReanderString(roadMap:String):RoadStringObject {
 			// 資料格與行列索引、標記用的參數
-			var grid:Array = [], x:int = 0, y:int = -1, currentSymbol:String = null, prevSymbol:String = null, mark:Array = [], result:RoadStringObject = new RoadStringObject();
+			var grid:any[] = [], x:number= 0, y:number= -1, currentSymbol:String = null, prevSymbol:String = null, mark:any[] = [], result:RoadStringObject = new RoadStringObject();
 			// 簡化來源字串
 			result.bigRoad = roadMap.replace(/[abcd]/gi, 'a').replace(/[efgh]/gi, 'e').replace(/[ijkl]/gi, 'i');
 			
-			var roadMapArray:Array = result.bigRoad.split('.');
+			var roadMapArray:any[] = result.bigRoad.split('.');
 			
-			for (var index:int = 0; index < roadMapArray.length; index++) {
+			for (var index:number= 0; index < roadMapArray.length; index++) {
 				// 當前要處理的結果字串樣式
 				
 				currentSymbol = roadMapArray[index];
@@ -241,8 +241,8 @@ module lobby.view.route {
 				}
 			}
 			
-			for (var i:int = 0; i < grid.length; i++) {
-				for (var j:int = 0; j < grid[i].length; j++) {
+			for (var i:number= 0; i < grid.length; i++) {
+				for (var j:number= 0; j < grid[i].length; j++) {
 					
 					if(grid[0][0] == "i"){
 						grid[0][0]="a" //第一局和局 特殊处理
@@ -251,18 +251,18 @@ module lobby.view.route {
 					}
 					
 					//k = 大陸1 , 小路2 , 蟑螂露3
-					for (var k:int = 1; k <= 3; k++) {
+					for (var k:number= 1; k <= 3; k++) {
 						if (i > (k - 1) && !(i === k && j === 0)) {
-							var matchCol:Array = grid[i - k].join('').replace(/[i]/gi, '').split('');
-							var qLen:int = grid[i].join("").match(/[i]/g).length;
-							var iLength:int = qLen ? qLen : 0;
+							var matchCol:any[] = grid[i - k].join('').replace(/[i]/gi, '').split('');
+							var qLen:number= grid[i].join("").match(/[i]/g).length;
+							var iLength:number= qLen ? qLen : 0;
 							mark[k - 1] = matchCol[j-iLength] || (!matchCol[j] && !matchCol[j - 1-iLength]) ? 'a' : 'e';
 							
 							if (j === 0) {
-								var qALen:int = grid[i - 1].join("").match(/[ae]/g).length;
-								var aLength:int = qALen ? qALen : 0;
-								var qBLen:int = grid[i - (k + 1)].join("").match(/[ae]/g).length;
-								var bLength:int = qBLen ? qBLen : 0;
+								var qALen:number= grid[i - 1].join("").match(/[ae]/g).length;
+								var aLength:number= qALen ? qALen : 0;
+								var qBLen:number= grid[i - (k + 1)].join("").match(/[ae]/g).length;
+								var bLength:number= qBLen ? qBLen : 0;
 								mark[k - 1] = grid[i - (k + 1)] && aLength == bLength ? "a" : "e";
 							}
 						}
@@ -270,24 +270,24 @@ module lobby.view.route {
 					result.bigEyeRoad += mark[0] ? mark[0] : "";
 					result.smallRoad += mark[1] ? mark[1] : "";
 					result.roachRoad += mark[2] ? mark[2] : "";
-					//trace(result.bigEyeRoad)
+					//console.log(result.bigEyeRoad)
 				}
 			}
 			
 			return result;
 		}
 		
-		static public function drawReaderDataGrid(readerDataGrid:Array, ballClass:Class, width:int, height:int, isAsk:Boolean = false):RoadCanvas {
+		static public drawReaderDataGrid(readerDataGrid:any[], ballClass:Class, width:number, height:number, isAsk: boolean = false):RoadCanvas {
 			var symbol:String;
-			var gridWidth:int = width || 14;
-			var gridHeight:int = height || 6;
-			var startX:int = readerDataGrid.length <= 14 ? 0 : readerDataGrid.length - gridWidth;
+			var gridWidth:number= width || 14;
+			var gridHeight:number= height || 6;
+			var startX:number= readerDataGrid.length <= 14 ? 0 : readerDataGrid.length - gridWidth;
 			
 			var canvas:RoadCanvas = new RoadCanvas;
 			var ball:MovieClip;
 			
-			for (var x:int = 0, colIndex:int = 0, cols:int = readerDataGrid.length; x < cols; x++) {
-				for (var y:int = 0, rows:int = readerDataGrid[x].length; y < rows; y++) {
+			for (var x:number= 0, colIndex:number= 0, cols:number= readerDataGrid.length; x < cols; x++) {
+				for (var y:number= 0, rows:number= readerDataGrid[x].length; y < rows; y++) {
 					symbol = readerDataGrid[x][y];
 					if (x >= startX && symbol) {
 						ball = new ballClass();

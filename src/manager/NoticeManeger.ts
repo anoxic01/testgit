@@ -1,13 +1,13 @@
 module lobby.view.notice {
 	export class NoticeManeger {
-		private var m_nmModel				:NoticeModel;
-		private var m_nmView				:NoticeView;
-		private var m_bIsInit				:Boolean;
-		private var m_spContainer			:Sprite;
-		private var m_jTimer				:JTimer;
-		private var m_bIsShow				:Boolean;
+		private m_nmModel				:NoticeModel;
+		private m_nmView				:NoticeView;
+		private m_bIsInit				: boolean;
+		private m_spContainer			:Sprite;
+		private m_jTimer				:JTimer;
+		private m_bIsShow				: boolean;
 		
-		private static var _instance		:NoticeManeger;
+		private static _instance		:NoticeManeger;
 		
 		public constructor() {
 			if(_instance)
@@ -20,7 +20,7 @@ module lobby.view.notice {
 			m_jTimer = JTimer.getTimer(30);
 			m_jTimer.addTimerCallback(going);
 		}
-		public static function getInstance():NoticeManeger
+		public static getInstance():NoticeManeger
 		{
 			if(_instance==null)
 			{
@@ -28,18 +28,18 @@ module lobby.view.notice {
 			}
 			return _instance;
 		}
-		public function init(container:Sprite):void
+		public init(container:Sprite):void
 		{
 			if(m_bIsInit)
 				return;
 			m_bIsInit = true;
 			m_spContainer = container;
 		}
-		public function set NotAllowTableIDList(arr:Array):void
+		set  NotAllowTableIDList(arr:any[])
 		{
 			m_nmModel.NotAllowTableIDList = arr;
 		}
-		public function reciveMaintain(data:Object):void
+		public reciveMaintain(data:Object):void
 		{
 			var vo:MaintainsAnnouncementStruct = new MaintainsAnnouncementStruct(data);
 			switch(vo.MaintainStatus){
@@ -52,13 +52,13 @@ module lobby.view.notice {
 					break;
 			}
 		}
-		public function setMaintains(datas:Array):void
+		public setMaintains(datas:any[]):void
 		{
 			if(datas==null || datas.length==0)
 				return;
-			var vos:Array = [];
+			var vos:any[] = [];
 			var vo:MessageStruct;
-			for (var i:int = 0; i < datas.length; i++) 
+			for (var i:number= 0; i < datas.length; i++) 
 			{
 				vo = new MessageStruct();
 				vo.oData = new MaintainsAnnouncementStruct(datas[i]);
@@ -67,7 +67,7 @@ module lobby.view.notice {
 			m_nmModel.setData(vos);
 			refresh();
 		}
-		public function refresh():void
+		public refresh():void
 		{
 			//进入電投大厅，不显示
 			if(LobbyManager.getInstance().exitLevel==Define.EXIT_TEL_LOBBY)
@@ -75,7 +75,7 @@ module lobby.view.notice {
 				hide();
 				return;
 			}
-			var filtered:Vector.<MessageStruct> = m_nmModel.filter();
+			var filtered:<MessageStruct> = m_nmModel.filter();
 			m_nmView.setData(filtered);
 			if(filtered && filtered.length>0)
 			{
@@ -86,12 +86,12 @@ module lobby.view.notice {
 				hide();
 			}
 		}
-		public function setUrgents(datas:Array):void
+		public setUrgents(datas:any[]):void
 		{
 			if(datas==null || datas.length==0)
 				return;
 			var vo:MessageStruct;
-			for (var i:int = 0; i < datas.length; i++) 
+			for (var i:number= 0; i < datas.length; i++) 
 			{
 				vo = new MessageStruct();
 				vo.oData = datas[i];
@@ -101,11 +101,11 @@ module lobby.view.notice {
 			show();
 		}
 		
-		private function addMaintain(vo:MaintainsAnnouncementStruct):void
+		private addMaintain(vo:MaintainsAnnouncementStruct):void
 		{
 			var message:MessageStruct = new MessageStruct();
 			message.oData = vo;
-			var index:int = m_nmModel.getMessageIndex(vo);
+			var index:number= m_nmModel.getMessageIndex(vo);
 			if(index != -1)
 			{
 				var removed:MessageStruct = m_nmModel.removeMeassgeByIndex(index);
@@ -129,7 +129,7 @@ module lobby.view.notice {
 			}
 			
 		}
-		private function removeMessage(vo:Object):void
+		private removeMessage(vo:Object):void
 		{
 			var removed:MessageStruct = m_nmModel.removeMessage(vo);
 			if(removed)
@@ -137,9 +137,9 @@ module lobby.view.notice {
 				m_nmView.wantToRemove(removed);
 			}
 		}
-		private function going() : void
+		private going() : void
 		{
-			var now:int = getTimer();
+			var now:number= getTimer();
 			m_nmModel.changeTime(now);
 			if(m_nmView.showCount>0)
 			{
@@ -155,7 +155,7 @@ module lobby.view.notice {
 				hide();
 			}
 		}
-		private function show():void{
+		private show():void{
 			if(m_bIsShow)
 				return;
 			if(LobbyManager.getInstance().exitLevel==Define.EXIT_TEL_LOBBY)
@@ -164,7 +164,7 @@ module lobby.view.notice {
 			m_jTimer.start();
 			m_spContainer.addChild(m_nmView);
 		}
-		public function hide():void{
+		public hide():void{
 			if(m_bIsShow==false)
 				return;
 			m_bIsShow = false;
@@ -172,16 +172,16 @@ module lobby.view.notice {
 			m_nmView.clear();
 			m_spContainer.removeChild(m_nmView);
 		}
-		public function toGamgeUrgentNotice():void{
+		public toGamgeUrgentNotice():void{
 			m_nmView.toGamgeUrgentNotice();
 		}
-		public function toLobbyUrgentNotice():void{
+		public toLobbyUrgentNotice():void{
 			m_nmView.toLobbyUrgentNotice();
 		}
-		public function toMultiUrgentNotice():void{
+		public toMultiUrgentNotice():void{
 			m_nmView.toMultiUrgentNotice();
 		}
-		public function onChangeLanguage():void{
+		public onChangeLanguage():void{
 			m_nmView.onChangeLanguage();
 		}
 	}

@@ -3,11 +3,11 @@ module packet.lobby {
 		public constructor() {
 		}
 		
-		public function initControler(controler:GameControler):void
+		public initControler(controler:GameControler):void
 		{
 		}
 		
-		public function execute(oData:Object):void
+		public execute(oData:Object):void
 		{
 			LobbyManager.getInstance().exitMultiTable();
 		}

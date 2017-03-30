@@ -1,28 +1,28 @@
 module packet.lobby {
 	export class S_Lobby_Update_LobbyInfo_Pkt implements IProtocolStruct{
-		public var Type			:	int;
-		public var SN			:	int;
+		public Type			:	number;
+		public SN			:	number;
 		/**
 		 0: 更新大廳在線人數
 		 1: 更新賭桌在線人數
 		 2: 通知視訊重載重連 
 		 */		
-		public var UpdateType	:	int;			//更新种类
+		public UpdateType	:	number;			//更新种类
 		/**
 		 0: class LobbyUpdateOnlinePlayers
 		 1: class UpdateTableOnlinePlayers
 		 2: class VideoReload 
 		 */		
-		public var UpdateData	:	*;				//更新资料
+		public UpdateData	:	*;				//更新资料
 		
 		public constructor() {
 		}
 		
-		public function initControler(controler:GameControler):void
+		public initControler(controler:GameControler):void
 		{
 		}
 		
-		public function execute(oData:Object):void
+		public execute(oData:Object):void
 		{
 			Type		=	oData.Type;
 			SN			=	oData.SN;

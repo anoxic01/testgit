@@ -1,25 +1,25 @@
 module lobby.model.struct {
 	export class GameRecordSearchStruct {
 		//玩家ID
-		public var UserID:int;
+		public UserID:number;
 		
 		//玩家身分(正式帳號/試玩帳號)<
-		public var Identity:int;
+		public Identity:number;
 		
 		//資料起始編號
-		public var StartRowNo:int;
+		public StartRowNo:number;
 		
 		//要求取得的資料筆數
-		public var RequestDataSize:int;
+		public RequestDataSize:number;
 		
 		//遊戲類型   
-		public var GameID:int;
+		public GameID:number;
 		
 		//查詢開始時間    
-		public var StartDateTime:String;
+		public StartDateTime:String;
 		
 		//查詢結束時間 
-		public var EndDateTime:String;		
+		public EndDateTime:String;		
 		
 		public constructor() {
 		}

@@ -1,22 +1,22 @@
 module packet {
 	export class SocketParser {
-		public static const bKey		:	String	=	"b";
-		public static const pKey		:	String	=	"p";
-		public static const aKey		:	String	=	"a";
+		public static const bKey		:	string	=	"b";
+		public static const pKey		:	string	=	"p";
+		public static const aKey		:	string	=	"a";
 		
 		private const TYPE				:	int = 1;
 		
-		private var m_uCheckSum			:	uint;
-		private var m_uCrc16Obj			:	CRC16;
-		private var m_pData				:	CData;
-		private var m_bData				:	CData;
-		private var m_aData				:	CData;
-		private var m_iGameType			:	int;
-		private var m_bNotReceivePkt	:	Boolean	=	false;
-		private var m_bInit				:	Boolean =	true;
+		private m_uCheckSum			:	number;
+		private m_uCrc16Obj			:	CRC16;
+		private m_pData				:	CData;
+		private m_bData				:	CData;
+		private m_aData				:	CData;
+		private m_iGameType			:	number;
+		private m_bNotReceivePkt	:	 boolean	=	false;
+		private m_bInit				:	 boolean =	true;
 		
-		public var uncompressData		:	Object;			//大廳封包
-		public var dictionaryData		:	Object; 		//Cdata.
+		public uncompressData		:	Object;			//大廳封包
+		public dictionaryData		:	Object; 		//Cdata.
 		
 		
 		public constructor() {
@@ -56,11 +56,11 @@ module packet {
 			dictionaryData[PacketDefine.GAME] =  new Dictionary();
 		}
 		
-		public function onPacketData(_tagTCPData:ITagTCPData):Object {
+		public onPacketData(_tagTCPData:ITagTCPData):Object {
 			var content:ByteArray = _tagTCPData.getContent();
 			var header:ByteArray = _tagTCPData.getHeader();
 			
-			//trace("check header::" );
+			//console.log("check header::" );
 			
 			//檢查碼
 			this.m_uCheckSum = SocketHeader.getCheckCode( header  );
@@ -68,19 +68,19 @@ module packet {
 			this.m_uCrc16Obj.reset();
 			this.m_uCrc16Obj.update( content );
 			
-			var checkSum:int = this.m_uCrc16Obj.valueOf();	
+			var checkSum:number= this.m_uCrc16Obj.valueOf();	
 			
 			//檢查碼相等
 			if ( checkSum == this.m_uCheckSum ) {
 				
 				return parserToJson( content , TYPE );
 			}else{
-				trace("收到的数据包异常...");
+				console.log("收到的数据包异常...");
 			}
 			return null;
 		}
 		
-		public function setCData(type:int):void {
+		public setCData(type:number):void {
 			this.m_iGameType = type;
 		}
 	
@@ -88,7 +88,7 @@ module packet {
 		 * true:送出 false:收到
 		 * @param	str
 		 */
-		public function setPData(str:String ):void {
+		public setPData(str:string ):void {
 			
 			m_pData = new CData(str);
 			
@@ -151,7 +151,7 @@ module packet {
 			
 		}		
 		
-		public function setBData(str:String):void {
+		public setBData(str:string):void {
 			m_bData = new CData(str);
 			
 			//大廳封包
@@ -198,7 +198,7 @@ module packet {
 			
 		}
 //		
-//		public static function getInstance():SocketParser {
+//		public static getInstance():SocketParser {
 //			return _socketParser;
 //		}
 //		
@@ -209,7 +209,7 @@ module packet {
 		 * @param	key
 		 * @param	compress
 		 */
-		public  function addListen( gameType:int, pID:uint , key:String = bKey , compress:Boolean = true , str:String = "" ):void {
+		public  addListen( gameType:number, pID:number , key:string = bKey , compress: boolean = true , str:string = "" ):void {
 
 			if ( key == bKey && dictionaryData[gameType][pID] == undefined ) {
 				this.m_bData = new CData(str);
@@ -227,17 +227,17 @@ module packet {
 		}
 		
 		
-		public function setAData(str:String):void {
+		public setAData(str:string):void {
 			this.m_aData = new CData(str);
 		}
 		
 		/**
 		 * 判斷是否該 壓縮/解壓縮
 		 */
-		public function judgeUncompress( type:int ):Boolean {
+		public judgeUncompress( type:number): boolean {
 			if ( uncompressData ) {
 				if ( uncompressData[this.m_iGameType][type] != undefined ) {
-					//trace("judgeUncompress==================>" + this._uncompressData[this._gameType][type] );
+					//console.log("judgeUncompress==================>" + this._uncompressData[this._gameType][type] );
 					return uncompressData[this.m_iGameType][type];
 				}
 			}
@@ -245,7 +245,7 @@ module packet {
 			return false;
 		}
 		
-		public function judgeCData(  type:int , byte:ByteArray  , twoWay:String = null  ):ByteArray {
+		public judgeCData(  type:number, byte:ByteArray  , twoWay:string = null  ):ByteArray {
 			var byte2:ByteArray;
 			
 			if ( dictionaryData == null ) {
@@ -256,7 +256,7 @@ module packet {
 				
 				
 				var cData:CData =  dictionaryData[this.m_iGameType][type][0];
-				var pType:Boolean = dictionaryData[this.m_iGameType][type][1];
+				var pType: boolean = dictionaryData[this.m_iGameType][type][1];
 				
 				byte.position = 0;
 				
@@ -289,7 +289,7 @@ module packet {
 		/**
 		 * 發到上層
 		 */
-		protected function parserToJson( byte:ByteArray , _iType:int ):Object {
+		protected parserToJson( byte:ByteArray , _iType:number):Object {
 			var payData:ByteArray = new ByteArray();
 			payData.writeBytes( byte , _iType , byte.length - _iType );  //type 之後 取 payLoadData
 			payData.position = 0;
@@ -298,9 +298,9 @@ module packet {
 			typeData.writeBytes( byte , 0 , 1);
 			typeData.position = 0;
 				
-				//trace("typeData.readByte():::" + typeData.readByte() );
+				//console.log("typeData.readByte():::" + typeData.readByte() );
 				//typeData.position = 0;
-			var Type:int = typeData[0];  //真正的type ,用此type判斷是否該解析封包
+			var Type:number= typeData[0];  //真正的type ,用此type判斷是否該解析封包
 
 			//cdata run
 			
@@ -321,7 +321,7 @@ module packet {
 				}
 				
 			}*/
-			var twoWay:String = null;
+			var twoWay:string = null;
 			if ( Type == PacketDefine.PEEK_PROGRESS ) {
 				twoWay = PacketDefine.RECEIVE;
 			}else if( Type == PacketDefine.ACK || Type == PacketDefine.N_ACK ){
@@ -348,13 +348,13 @@ module packet {
 				if ( Type == PacketDefine.S_LOGIN_IN  || Type == PacketDefine.S_ENTER_TABLE ) {
 					m_bNotReceivePkt = true;
 				}				
-				//trace(" is ERROR");
+				//console.log(" is ERROR");
 			}
 			
 			if ( m_bNotReceivePkt ) return{};
 						
 			
-			var uncompress:Boolean = judgeUncompress(Type);
+			var uncompress: boolean = judgeUncompress(Type);
 			
 			//解壓縮
 			if ( uncompress ) {		
@@ -364,15 +364,15 @@ module packet {
 				payData = _gzipEncoder.uncompressToByteArray( payData );
 			}
 				
-			//trace("payData LEN::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" + payData.length);
+			//console.log("payData LEN::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" + payData.length);
 			
 			
 			
 			payData.position = 0;
 			
-			var jsonStr:String = payData.readUTFBytes( payData.length );	//轉 json
+			var jsonStr:string = payData.readUTFBytes( payData.length );	//轉 json
 			var outData:Object;
-			var key:String = "";
+			var key:string = "";
 
 			
 			//清除記憶體
@@ -380,10 +380,10 @@ module packet {
 			typeData.clear();
 			byte.clear();
 			
-			//trace("Type-------------------------------->" + Type );
+			//console.log("Type-------------------------------->" + Type );
 
 			
-		//	trace("PackID: "+Type+ "jsonStr::" + jsonStr );
+		//	console.log("PackID: "+Type+ "jsonStr::" + jsonStr );
 			
 			if ( jsonStr != ""  &&  jsonStr != "\b" &&  !m_bNotReceivePkt ) {
 				
@@ -391,7 +391,7 @@ module packet {
 					outData = JSON.parse(jsonStr);
 					outData.Type = Type;
 					outData.str = jsonStr;
-					PacketSN.SN = uint(outData.SN);
+					PacketSN.SN = number(outData.SN);
 				}catch (e:Error ) {
 					
 					if ( Type == PacketDefine.S_LOGIN_IN || Type == PacketDefine.S_ENTER_TABLE ) {
@@ -401,12 +401,12 @@ module packet {
 				}
 				
 				if ( outData != null ) {
-					LobbyData.getInstance().addSN(uint(outData.SN), false);
+					LobbyData.getInstance().addSN(number(outData.SN), false);
 					return outData ;
 				}else{
 					//当前包解析失败获取不到当前包的SN，用上一个包的SN
 					LobbyData.getInstance().addSN(PacketSN.SN, true);
-					trace("解析数据失败，协议ID：",Type);
+					console.log("解析数据失败，协议ID：",Type);
 				}
 				
 			}
@@ -417,14 +417,14 @@ module packet {
 		/**
 		 * 取得檢查碼
 		 */
-		protected function getCheckCode( data:ByteArray ):int {
-			var num5:int = data[8] << 24;
-			var num6:int = data[9] << 16;
-			var num7:int = data[10] << 8;
-			var num8:int = data[11] & 0xFF;
+		protected getCheckCode( data:ByteArray ):number{
+			var num5:number= data[8] << 24;
+			var num6:number= data[9] << 16;
+			var num7:number= data[10] << 8;
+			var num8:number= data[11] & 0xFF;
 			
 			//檢查碼
-			var checkSum:int = num5 + num6 + num7 + num8;
+			var checkSum:number= num5 + num6 + num7 + num8;
 			
 			return checkSum;
 		}		

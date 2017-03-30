@@ -21,10 +21,10 @@ module lobby.view.table {
 		protected m_iCountDown					:	number;						//时间记录
 		protected m_iGameNo						:	number;						//本地局号
 		protected m_iShoeNo						:	number;						//本地靴号
-		protected m_bNotFinished				:	boolean;					//路纸异常
-		protected m_bSettled					:	boolean;					//结算状态
+		protected m_bNotFinished				:	 boolean;					//路纸异常
+		protected m_bSettled					:	 boolean;					//结算状态
 		
-		protected m_bHotOver					:	boolean;					//
+		protected m_bHotOver					:	 boolean;					//
 		
 		protected m_timer						;
 		protected m_bmpBgOver					;
@@ -37,7 +37,7 @@ module lobby.view.table {
 		protected m_btnStatistics_cn			;				//统计按钮
 		protected m_btnStatistics_tw			;				//统计按钮
 		protected m_btnStatistics_en			;				//统计按钮
-		protected m_bStatistic					:	boolean;					//按钮状态
+		protected m_bStatistic					:	 boolean;					//按钮状态
 		
 		protected m_Statistic_topY				:	number;
 		protected m_Statistic_bottomY			:	number;
@@ -225,7 +225,7 @@ module lobby.view.table {
 			}
 			if(this.m_struct){
 //				m_struct.removeEventListener(TableEvent.CHANGE, onChange);
-//				trace("移除struct侦听，tableid：",m_struct.TableID);
+//				console.log("移除struct侦听，tableid：",m_struct.TableID);
 				// this.m_struct.destroy();
 				this.m_struct = null;
 			}
@@ -293,7 +293,7 @@ module lobby.view.table {
 		}
 		private destroyFaceContainer():void{
 			if(this.m_spFaceContainer){
-//				trace("m_spFaceContainer.numChildren:>>",m_spFaceContainer.numChildren);
+//				console.log("m_spFaceContainer.numChildren:>>",m_spFaceContainer.numChildren);
 				var imgloader : egret.ImageLoader;
 				while(this.m_spFaceContainer.numChildren>0){
 					imgloader = this.m_spFaceContainer.getChildAt(0) as egret.ImageLoader;
@@ -309,13 +309,13 @@ module lobby.view.table {
 		public setData(_struct:struct.Struct_Table):void{
 			if(_struct==null){
 //				m_struct.removeEventListener(TableEvent.CHANGE, onChange);
-//				trace("移除struct侦听，tableid：",m_struct.TableID);
+//				console.log("移除struct侦听，tableid：",m_struct.TableID);
 				return;
 			}
 			
 			if(this.m_struct && (this.m_struct != _struct)){
 //				m_struct.removeEventListener(TableEvent.CHANGE, onChange);
-//				trace("移除struct侦听，tableid：",m_struct.TableID);
+//				console.log("移除struct侦听，tableid：",m_struct.TableID);
 			}
 			
 			this.m_struct = _struct;
@@ -330,7 +330,7 @@ module lobby.view.table {
 		}
 		
 		//更新桌子
-		public update(_bInit:boolean=false):void{
+		public update(_bInit: boolean=false):void{
 			
 		}
 		
@@ -414,7 +414,7 @@ module lobby.view.table {
 //		}
 		
 		//更新路纸
-		public updateRoad(_bInit:boolean):void{
+		public updateRoad(_bInit: boolean):void{
 			
 		}
 		
@@ -429,7 +429,7 @@ module lobby.view.table {
 		}
 		
 		/** 维护状态 **/
-		public showMaintain(_bMc:boolean=true):void{
+		public showMaintain(_bMc: boolean=true):void{
 			// this.m_mcAsset.mc_mask.visible = _bMc;
 			// this.m_mcAsset.mc_hint.visible = true;
 			if(this.m_struct.GameStatus==define.GameStatus.FAILING_GAME||this.m_struct.GameStatus==define.GameStatus.FAIL_GAME)
@@ -522,7 +522,7 @@ module lobby.view.table {
 		}
 		
 		//游戏进行中
-		public isGameStart():boolean{
+		public isGameStart(): boolean{
 			// 如果游戏处于下注或者发牌阶段，说明游戏已经开始
 			switch(this.m_struct.GameStatus){
 				case define.GameStatus.BETTING:
@@ -557,7 +557,7 @@ module lobby.view.table {
 		}
 		
 		//判断是否支持使用
-		protected isSupportTrial():boolean{
+		protected isSupportTrial(): boolean{
 			
 			switch(this.m_struct.TableType){
 				case define.Define.TABLE_TYPE_NORMAL:
@@ -573,15 +573,15 @@ module lobby.view.table {
 			return false;
 		}
 		
-		protected isHaveDealer():boolean{
+		protected isHaveDealer(): boolean{
 			if(this.m_struct.DealerLoginID==null || this.m_struct.DealerLoginID==""){
 				return false;
 			}
 			return true;
 		}
 		
-		protected isNotFinish():boolean{
-			return Boolean(this.m_struct.GameStatus==define.GameStatus.NOT_FINISHED);
+		protected isNotFinish(): boolean{
+			return  boolean(this.m_struct.GameStatus==define.GameStatus.NOT_FINISHED);
 		}
 		
 		protected  over(event:MouseEvent):void
@@ -598,7 +598,7 @@ module lobby.view.table {
 		
 		protected hotOver():void{
 			if(this.m_struct.TableID==10){
-				trace("struct.TableID:",this.m_struct.TableID,"hotOver");
+				console.log("struct.TableID:",this.m_struct.TableID,"hotOver");
 			}
 			if(this.tableLoginType){
 				this.tableLoginType.show();
@@ -654,7 +654,7 @@ module lobby.view.table {
 			}
 		}
 		
-		set setBetLimitVisible(_bValue:boolean) {
+		set setBetLimitVisible(_bValue: boolean) {
 //			if( m_btnLimit && m_btnLimit.mcAsset ){
 //				m_btnLimit.mcAsset.visible = _bValue;
 //			}

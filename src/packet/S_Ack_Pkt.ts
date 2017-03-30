@@ -3,15 +3,15 @@ module packet {
 		public constructor() {
 		}
 		
-		public function initControler(controler:GameControler):void
+		public initControler(controler:GameControler):void
 		{
 			
 		}
 		
-		public function execute( _oData:Object ):void
+		public execute( _oData:Object ):void
 		{
 			
-			trace("服務器回應 ACK封包序號：",_oData.SN);
+			console.log("服務器回應 ACK封包序號：",_oData.SN);
 			if( _oData.SN == ClientPacketSN.instance().Login_Lobby_Check_SN ){
 				LobbyManager.getInstance().nRevServerTime = getTimer();
 				Log.getInstance().log(this, "RevServerTime:" + LobbyManager.getInstance().nRevServerTime );

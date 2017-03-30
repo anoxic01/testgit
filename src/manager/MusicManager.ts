@@ -1,18 +1,18 @@
 module manager {
 	export class MusicManager {
-		private var m_bEnabled				:	Boolean	=	true;			//音乐开关
-		private var m_sTrack				:	String;						//音乐名称
-		private var m_resources				:	Object;						//播放记录
-		private var m_playingSoundChannel	:	SoundChannel;				//当前声道
-		private var m_oldSound				:	SoundChannel;				//旧声道
-		private var m_duckingCount			:	Number;						//缓动系数
-		private  var m_playSound			:	Sound;
-		private var m_tweenLite				:	TweenLite;
-		private var m_nVolume				:	Number	=	0.6;			//音乐音量
-		private var m_transform 			: 	SoundTransform;
-		private var m_nPausePosition		:	Number = 0;					//當前播放位置
+		private m_bEnabled				:	 boolean	=	true;			//音乐开关
+		private m_sTrack				:	string;						//音乐名称
+		private m_resources				:	Object;						//播放记录
+		private m_playingSoundChannel	:	SoundChannel;				//当前声道
+		private m_oldSound				:	SoundChannel;				//旧声道
+		private m_duckingCount			:	Number;						//缓动系数
+		private  m_playSound			:	Sound;
+		private m_tweenLite				:	TweenLite;
+		private m_nVolume				:	Number	=	0.6;			//音乐音量
+		private m_transform 			: 	SoundTransform;
+		private m_nPausePosition		:	Number = 0;					//當前播放位置
 		
-		private static var _instance		:	MusicManager;
+		private static _instance		:	MusicManager;
 		public constructor() {
 			m_resources = {};
 			m_duckingCount = 0;
@@ -21,14 +21,14 @@ module manager {
 		}
 
 		
-		public function easingVolume( dur:Number, to:Number ) : void
+		public easingVolume( dur:Number, to:Number ) : void
 		{
 			if (m_playSound&&m_bEnabled){
 				fadeVolume( dur, to);
 			}
 		}
 		
-		public function set nVolume(nV:Number) : void
+		set  nVolume(nV:Number) 
 		{
 			m_nVolume = nV;
 			
@@ -43,18 +43,18 @@ module manager {
 			
 		}
 		
-		public function get nVolume() : Number
+		get nVolume() : Number
 		{
 			return m_nVolume;
 		}
 		
-		private function fadeVolume(  dur:Number, to:Number) : void{
+		private fadeVolume(  dur:Number, to:Number) : void{
 			if (m_transform){
 				TweenLite.to(m_transform, dur, { volume: to, onUpdate: updateChannel } );  
 			}
 		}
 		
-		private function updateChannel():void {  
+		private updateChannel():void {  
 			if( m_playingSoundChannel ){
 				m_playingSoundChannel.soundTransform = m_transform; 
 			}	 
@@ -67,7 +67,7 @@ module manager {
 		 * @param crossfade		是否过渡
 		 * 
 		 */		
-		protected function play(songName:String, loops:int = -1, crossfade:Boolean = false) : void
+		protected play(songName:string, loops:number= -1, crossfade: boolean = false) : void
 		{
 			if (songName == null)
 			{
@@ -119,13 +119,13 @@ module manager {
 				var songClass:Class = ResourceManager.getInstance().getClassByNameFromDomain("sound.swf",songName) as Class;
 				if (songClass == null)
 				{
-					trace("背景音乐找不到:",songName);
+					console.log("背景音乐找不到:",songName);
 					return;
 				}
 				var sd:Sound = new songClass() as Sound;
 				sd.addEventListener("ioError", function () : void
 				{
-					trace("IOERROR IN PLAY");
+					console.log("IOERROR IN PLAY");
 				});
 				m_resources[songName] = sd;
 			}
@@ -135,7 +135,7 @@ module manager {
 			
 		}
 		
-		public function stop() : void
+		public stop() : void
 		{
 			if( m_tweenLite ){
 				m_tweenLite.kill( null, m_playSound);
@@ -148,12 +148,12 @@ module manager {
 			return;
 		}
 		
-		public function get enabled() : Boolean
+		get enabled() :  boolean
 		{
 			return m_bEnabled;
 		}
 		
-		public function set enabled(value:Boolean) : void
+		set  enabled(value: boolean) 
 		{
 			m_bEnabled = value;
 			if (value)
@@ -173,13 +173,13 @@ module manager {
 			return;
 		}
 		
-		public function toggleEnabled() : void
+		public toggleEnabled() : void
 		{
 			enabled = !enabled;
 			return;
 		}
 		
-		public function set track(songName:String) : void
+		set  track(songName:string) 
 		{
 			if (m_sTrack != songName)
 			{
@@ -188,12 +188,12 @@ module manager {
 			return;
 		}
 		
-		public function get track() : String
+		get track() : string
 		{
 			return m_sTrack;
 		}
 		
-		public static function get singleton() : MusicManager
+		public static get singleton() : MusicManager
 		{
 			if (!_instance)
 			{
@@ -202,7 +202,7 @@ module manager {
 			return _instance;
 		}
 		
-		public function setSoundData( _sound:Sound , _soundChannel:SoundChannel ):void {
+		public setSoundData( _sound:Sound , _soundChannel:SoundChannel ):void {
 			clear();
 			m_playSound =  _sound;
 			nVolume = m_nVolume;
@@ -216,7 +216,7 @@ module manager {
 
 		}
 		
-		protected function soundPlayComplete(event:Event):void{
+		protected soundPlayComplete(event:Event):void{
 			m_nPausePosition = 0;
 			if( m_bEnabled ){
 				if( m_playSound && m_playingSoundChannel ){
@@ -228,7 +228,7 @@ module manager {
 			}
 		}	
 		
-		private function clear():void {
+		private clear():void {
 			//清除之前的實體
 			if( m_playingSoundChannel ){
 				m_playingSoundChannel.removeEventListener(Event.SOUND_COMPLETE , soundPlayComplete);

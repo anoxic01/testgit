@@ -1,12 +1,12 @@
 module lobby.view.multi {
 	export class MultiTableModeItem implements ISprite{
-		private var m_mcAsset	:	MovieClip;
-		private var m_list		:	MultiTableModeList;
+		private m_mcAsset	:	MovieClip;
+		private m_list		:	MultiTableModeList;
 		
-		private var m_bSelect	:	Boolean;
-		private var m_uMode		:	uint;
+		private m_bSelect	:	 boolean;
+		private m_uMode		:	number;
 		
-		public constructor(_mcAsset:MovieClip, _list:MultiTableModeList, _uMode:uint) {
+		public constructor(_mcAsset:MovieClip, _list:MultiTableModeList, _uMode:number) {
 			m_mcAsset = _mcAsset;
 			m_list = _list;
 			m_uMode = _uMode;
@@ -28,7 +28,7 @@ module lobby.view.multi {
 			});
 		}
 		
-		public function destroy():void
+		public destroy():void
 		{
 			m_mcAsset.removeEventListener(MouseEvent.MOUSE_OVER, over);
 			m_mcAsset.removeEventListener(MouseEvent.MOUSE_OUT, out);
@@ -43,7 +43,7 @@ module lobby.view.multi {
 			}
 		}
 		
-		public function setSelect(_bValue:Boolean):void{
+		public setSelect(_bValue: boolean):void{
 			if(m_bSelect != _bValue){
 				m_bSelect = _bValue;
 				
@@ -57,7 +57,7 @@ module lobby.view.multi {
 			}
 		}
 		
-		public function changeMode():void{
+		public changeMode():void{
 			if(m_mcAsset){
 				m_mcAsset.gotoAndStop(24);
 				LobbyManager.getInstance().resetBet();
@@ -67,20 +67,20 @@ module lobby.view.multi {
 			}
 		}
 		
-		public function unSelect():void{
+		public unSelect():void{
 			if (m_mcAsset){
 				m_mcAsset.gotoAndStop(38);
 			}
 		}
 		
-		public function set enable(bValue:Boolean):void{
+		set  enable(bValue: boolean){
 			if(m_mcAsset){
 				m_mcAsset.mouseEnabled = bValue;
 				m_mcAsset.buttonMode = bValue;
 			}
 		}
 		
-		protected function over(event:MouseEvent):void
+		protected over(event:MouseEvent):void
 		{
 			if(m_bSelect){
 				return;
@@ -90,7 +90,7 @@ module lobby.view.multi {
 			}
 		}
 		
-		protected function out(event:MouseEvent):void
+		protected out(event:MouseEvent):void
 		{
 			if(m_bSelect){
 				return;
@@ -101,7 +101,7 @@ module lobby.view.multi {
 			}
 		}
 		
-		protected function click(event:MouseEvent):void
+		protected click(event:MouseEvent):void
 		{
 			if(m_list){
 				SoundManager.getInstance().play(SoundPackage.sChangePage);

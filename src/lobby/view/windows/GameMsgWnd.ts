@@ -37,7 +37,7 @@ module lobby.view.windows {
 		}	
 		
 		
-		public showBmp(key:string, keep:boolean = false):void{
+		public showBmp(key:string, keep: boolean = false):void{
 			this.m_bmp.visible=true;
 			let bmd:egret.BitmapData = manager.BitmapManager.getInstance().getBmpdLanguage(manager.LobbyManager.getInstance().lobbyAuth.Lang,language.Language.sBmdBetStart);
 			this.m_bmp.bitmapData = bmd;
@@ -47,7 +47,7 @@ module lobby.view.windows {
 			super.show("",keep);
 		}
 		
-		public show(str:string , keep:boolean =false ,time:number=1.5):void{
+		public show(str:string , keep: boolean =false ,time:number=1.5):void{
 			if (this.msg==str &&  this.msg != language.Language.sBmdBetSuccess && this.alpha>0.4){
 				return;
 			}
@@ -79,7 +79,7 @@ module lobby.view.windows {
 		
 		
 		//含位图数字
-		public show2(str:string , value:number,keep:boolean =false ,time:number=1.5):void{
+		public show2(str:string , value:number,keep: boolean =false ,time:number=1.5):void{
 			if (this.msg==str && this.alpha>0.4){
 				return;
 			}
@@ -109,7 +109,7 @@ module lobby.view.windows {
 				if (this.m_bmp.width + this.m_bmp2.width>220){
 					this.m_bmp.scaleX = this.m_bmp.scaleY = this.scale-0.2;
 					this.m_bmp2.scaleX = this.m_bmp2.scaleY =this.scale-0.2;
-				//	trace(m_bmp2.scaleX+"弹出bmd信息："+str);
+				//	console.log(m_bmp2.scaleX+"弹出bmd信息："+str);
 				}
 				
 				super.show("",keep,time);

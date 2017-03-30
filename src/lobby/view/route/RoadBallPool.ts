@@ -1,29 +1,29 @@
 module lobby.view.route {
 	export class RoadBallPool implements ISprite {
-		protected var _bigRoadPool		:	Pool;  //大陸
-		protected var _bigEyeRoadPool	:	Pool; //大眼路
-		protected var _smallEyeRoadPool	:	Pool; //小眼露
-		protected var _cockroachRoadPool:	Pool; //小強路
+		protected _bigRoadPool		:	Pool;  //大陸
+		protected _bigEyeRoadPool	:	Pool; //大眼路
+		protected _smallEyeRoadPool	:	Pool; //小眼露
+		protected _cockroachRoadPool:	Pool; //小強路
 		
-		protected var _bigPool			:	Pool; //
-		protected var _smallPool		:	Pool; //
-		protected var _oddPool			:	Pool; //
-		protected var _evenPool			:	Pool; //
+		protected _bigPool			:	Pool; //
+		protected _smallPool		:	Pool; //
+		protected _oddPool			:	Pool; //
+		protected _evenPool			:	Pool; //
 		
-		protected var _redPool			:	Pool; //
-		protected var _blackPool		:	Pool; //
-		protected var _zeroPool			:	Pool; //
-		protected var _tiePool			:	Pool; //
-		protected var _beadPool			:	Pool; //
+		protected _redPool			:	Pool; //
+		protected _blackPool		:	Pool; //
+		protected _zeroPool			:	Pool; //
+		protected _tiePool			:	Pool; //
+		protected _beadPool			:	Pool; //
 		
-		protected var _redBallPool		:	Pool;
-		protected var _blueBallPool		:	Pool;
-		protected var _greenBallPool	:	Pool;
-		protected var _surroundPool		:	Pool;
+		protected _redBallPool		:	Pool;
+		protected _blueBallPool		:	Pool;
+		protected _greenBallPool	:	Pool;
+		protected _surroundPool		:	Pool;
 		
 		/**骰寶*/
-		protected static var m_mcSicBead	:	MovieClip;				//珠仔
-		protected static var m_mcSicSumBead	:	MovieClip;				//和值
+		protected static m_mcSicBead	:	MovieClip;				//珠仔
+		protected static m_mcSicSumBead	:	MovieClip;				//和值
 		
 		//百家
 		public static const BIG_ROAD:String = "BIG_ROAD";
@@ -100,7 +100,7 @@ module lobby.view.route {
 			m_mcSicSumBead.stop();
 		}
 		
-		public function destroy():void {
+		public destroy():void {
 			
 			if( this._bigRoadPool != null ) {
 				this._bigRoadPool.destroy();
@@ -188,7 +188,7 @@ module lobby.view.route {
 		 * @param	type
 		 * @return
 		 */
-		public function getBall( type:String ):MovieClip {
+		public getBall( type:String ):MovieClip {
 			var mc:MovieClip;
 			switch (type) 
 			{
@@ -260,7 +260,7 @@ module lobby.view.route {
 		}
 		
 		
-		/*public function getBallBmp(type:String ):Bitmap{
+		/*public getBallBmp(type:String ):Bitmap{
 			var bmp:Bitmap ;
 			var bmd:BitmapData;
 			switch (type) 
@@ -280,7 +280,7 @@ module lobby.view.route {
 			
 		}*/
 		
-		public function getRouBead(str:String):Bitmap {
+		public getRouBead(str:String):Bitmap {
 			
 			var bmd:BitmapData = BitmapManager.getInstance().getBmpdBeadRouNum(str);
 			var bmp:Bitmap=new Bitmap(bmd,"auto",true);
@@ -290,7 +290,7 @@ module lobby.view.route {
 		/**
 		 * 獲得 骰寶珠仔組件
 		 */		
-		public function getSicBead( str:String ):Bitmap {
+		public getSicBead( str:String ):Bitmap {
 			m_mcSicBead.tf_0.text = str;
 			m_mcSicBead.tf_0.autoSize = TextFieldAutoSize.LEFT;		
 			
@@ -301,7 +301,7 @@ module lobby.view.route {
 		/**
 		 * 獲得 骰寶和值組件
 		 */
-		public function getSicSumBead( str:String ):Bitmap {
+		public getSicSumBead( str:String ):Bitmap {
 			m_mcSicSumBead.tf_0.text = str;
 			
 			var bmd:BitmapData = BitmapUtil.snapshot(m_mcSicSumBead);
@@ -313,7 +313,7 @@ module lobby.view.route {
 		 * 重製物件池
 		 * @param	type
 		 */
-		public function resetPool( type:String):void {
+		public resetPool( type:String):void {
 			switch (type) 
 			{
 				case RoadBallPool.BIG_EYE_ROAD:
@@ -380,7 +380,7 @@ module lobby.view.route {
 		/**
 		 * 放回物件池
 		 */
-		public function putBall( type:String , mc:MovieClip ):void {
+		public putBall( type:String , mc:MovieClip ):void {
 			switch (type) {
 				case RoadBallPool.BIG_EYE_ROAD:
 					this._bigRoadPool.putObject( mc );

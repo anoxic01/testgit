@@ -1,14 +1,14 @@
 module lobby.view.table {
 	export class TableDTF extends Table{
-//		private var m_bmpChip		:	Bitmap;						//总筹码数
-//		private var m_bmpOnline		:	Bitmap;						//在线人数
-//		private var m_bmpBanker		:	Bitmap;						//下注数据
-//		private var m_bmpPlayer		:	Bitmap;						//下注数据
-//		private var m_bmpTie		:	Bitmap;						//下注数据
+//		private m_bmpChip		:	Bitmap;						//总筹码数
+//		private m_bmpOnline		:	Bitmap;						//在线人数
+//		private m_bmpBanker		:	Bitmap;						//下注数据
+//		private m_bmpPlayer		:	Bitmap;						//下注数据
+//		private m_bmpTie		:	Bitmap;						//下注数据
 				
-		private var m_btnDragon		:	SingleButtonMC;				//龙问路
-		private var m_btnTiger		:	SingleButtonMC;				//虎问路
-		private var m_road			:	TableRoadMapDTF;			//路子
+		private m_btnDragon		:	SingleButtonMC;				//龙问路
+		private m_btnTiger		:	SingleButtonMC;				//虎问路
+		private m_road			:	TableRoadMapDTF;			//路子
 		
 		public constructor() {
 			super();
@@ -108,7 +108,7 @@ module lobby.view.table {
 			
 			super();
 		}
-		override public function destroy():void{
+		 public destroy():void{
 			super.destroy();
 			
 			if(m_btnDragon){
@@ -134,7 +134,7 @@ module lobby.view.table {
 			}
 			
 		}
-		override public function setData(_struct:TableStruct):void{
+		 public setData(_struct:TableStruct):void{
 			if(_struct==null){
 				super.setData(_struct);
 				return;
@@ -174,7 +174,7 @@ module lobby.view.table {
 //			m_mcContent.tf_tieTitle.text = LobbyManager.getInstance().getLanguageString(Language.sTie);
 //			m_mcContent.tf_tieGold.text = String(_struct.staticsInfo["TieBetAmt"]) + "/" + String(_struct.staticsInfo["TieBetCnt"]);
 		}
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			
 			m_mcContent.mc_1.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			m_mcContent.mc_2.x = m_mcContent.mc_1.x + m_mcContent.mc_1.width;
@@ -224,7 +224,7 @@ module lobby.view.table {
 //			m_mcContent.tf_tieTitle.text = LobbyManager.getInstance().getLanguageString(Language.sTie);
 		}
 		
-		override public function update(_bInit:Boolean=false):void{
+		 public update(_bInit: boolean=false):void{
 			
 			updateRoad(_bInit);
 			
@@ -262,7 +262,7 @@ module lobby.view.table {
 						
 			m_mcContent.tf_8.text = m_struct.OnlinePlayers.toString();
 		}
-		override public function updateRoad(_bInit:Boolean):void{
+		 public updateRoad(_bInit: boolean):void{
 			if(m_struct.IsCurrFailGame){
 				if(m_struct.RoadMaps.length==1){
 					m_struct.RoadMaps = m_struct.RoadMaps.replace("#","");
@@ -278,7 +278,7 @@ module lobby.view.table {
 				m_road.bError = false;
 				
 				if(_bInit){
-					var _len : int;
+					var _len : number;
 					if(m_struct.RoadMaps!="" && m_struct.RoadMaps!=null){
 						_len = m_struct.RoadMaps.split(".").length;
 					}
@@ -315,7 +315,7 @@ module lobby.view.table {
 				}
 			}
 		}
-		override public function updateStaticsInfo():void{
+		 public updateStaticsInfo():void{
 			
 			//			m_bmpChip.bitmapData = BitmapManager.getInstance().numberChip.conversionSlash(m_struct.staticsInfo.TotalBet, m_struct.staticsInfo.TotalBetCnt);
 			//			m_bmpChip.smoothing = true;
@@ -344,7 +344,7 @@ module lobby.view.table {
 		}
 		
 		//更新维护状态
-		override public function updateMaintenanceStatus():void{
+		 public updateMaintenanceStatus():void{
 			if(struct.IsMaintaining){
 				updateHint(Language.sMaintenance);
 				showMaintain();
@@ -360,7 +360,7 @@ module lobby.view.table {
 			
 			//身份判断
 			if(Player.getInstance().iIdentity==2){
-				var _bTrial : Boolean = isSupportTrial();
+				var _bTrial :  boolean = isSupportTrial();
 				if(_bTrial){
 					otherCheck();
 				}else{
@@ -373,7 +373,7 @@ module lobby.view.table {
 			}
 		}
 		
-		protected function otherCheck():void{
+		protected otherCheck():void{
 			if(isNotFinish()){
 				//游戏未完成
 				m_bNotFinished = true;
@@ -399,7 +399,7 @@ module lobby.view.table {
 				hideMaintain();
 			}
 			
-			m_bSettled = Boolean(m_struct.GameStatus==GameStatus.SETTLED);
+			m_bSettled =  boolean(m_struct.GameStatus==GameStatus.SETTLED);
 			
 			if(m_struct.IsChangingShoe){
 				//洗牌中
@@ -420,7 +420,7 @@ module lobby.view.table {
 			}
 		}
 		
-		override public function initRoad(_sRoad:String):void{
+		 public initRoad(_sRoad:String):void{
 			m_iGameNo = isGameStart()?m_struct.GameNo-1:m_struct.GameNo;
 			
 			m_road.clearRoad();

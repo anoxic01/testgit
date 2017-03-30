@@ -1,21 +1,21 @@
 module lobby.view.lives {
 	export class LiveVideo extends BLiveVideo {
 
-		private var m_btnRefresh		:	SingleButtonMC;						//刷新视讯
-		private var m_btnFull			:	SingleButtonMC;						//放大视讯
-		private var m_btnOnOff			:	MovieClip;							//显示隐藏
-		private var m_loading			:	*;									//加载图标
+		private m_btnRefresh		:	SingleButtonMC;						//刷新视讯
+		private m_btnFull			:	SingleButtonMC;						//放大视讯
+		private m_btnOnOff			:	MovieClip;							//显示隐藏
+		private m_loading;									//加载图标
 		
-		private var m_bControl			:	Boolean		=	true;				//显示状态
-		private var m_parent			:	MovieClip;							//父类容器
+		private m_bControl			:	 boolean		=	true;				//显示状态
+		private m_parent			:	MovieClip;							//父类容器
 		
-		private var m_tfWarn			:	TextField;							//连接失效
-		public 	var bIsPlaying			:	Boolean		=	false;				//播放狀態
+		private m_tfWarn			:	TextField;							//连接失效
+		public 	var bIsPlaying			:	 boolean		=	false;				//播放狀態
 		
-		private var m_bPanoramaNull		:	Boolean		=	false;				//全景視訊數據為空
+		private m_bPanoramaNull		:	 boolean		=	false;				//全景視訊數據為空
 		public	var sFailedConnectType	:	String;
-		public var bAddToStage			:	Boolean;							//是否添加到舞台
-		private var m_bSetData			:	Boolean;							//是否读取到数据
+		public bAddToStage			:	 boolean;							//是否添加到舞台
+		private m_bSetData			:	 boolean;							//是否读取到数据
 		
 		public constructor( _mcParent:MovieClip) {
 			super();
@@ -61,7 +61,7 @@ module lobby.view.lives {
 			onChangeLanguage();
 		}
 		
-		public function onAddToStage():void{
+		public onAddToStage():void{
 			bAddToStage = true;
 			
 			m_rtmpPlayer = new RTMPPlayer(LobbyManager.getInstance().stage,0,LobbyManager.getInstance().bStageVideoAvailable);
@@ -88,7 +88,7 @@ module lobby.view.lives {
 			}
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			
 			if(m_tfWarn){
 				if(m_tfWarn.parent){
@@ -119,13 +119,13 @@ module lobby.view.lives {
 			super.destroy();
 		}
 		
-		public function setData():void{
+		public setData():void{
 			m_bSetData = true;
 			
 			if(bAddToStage==false){
 				return;
 			}
-//			LobbyData.getInstance().lobbyInfo.panoramaVec = new Vector.<PanoramaStruct>(); 測試代碼
+//			LobbyData.getInstance().lobbyInfo.panoramaVec = new <PanoramaStruct>(); 測試代碼
 			if( LobbyData.getInstance().lobbyInfo.panoramaVec.length > 0 ){
 				var panoramaStruct : PanoramaStruct = LobbyData.getInstance().lobbyInfo.currentPanoramaStruct;
 				if(panoramaStruct==null){
@@ -151,7 +151,7 @@ module lobby.view.lives {
 
 		}
 		
-		public function play():void{
+		public play():void{
 			if(LobbyManager.getInstance().exitLevel!=Define.EXIT_LOBBY){
 				return;
 			}
@@ -167,7 +167,7 @@ module lobby.view.lives {
 			
 			if(m_rtmpPlayer){
 				m_rtmpPlayer.play(m_sServer, m_sHash, m_sSharedSecuret);
-//				var _bStatus : Boolean = SharedObjectManager.getLiveOnOff();
+//				var _bStatus :  boolean = SharedObjectManager.getLiveOnOff();
 				m_rtmpPlayer.setVolume(0);//(_bStatus?SharedObjectManager.getLiveVolume():0);
 				m_rtmpPlayer.iVideoConnectStatus = 0;	
 			}
@@ -179,7 +179,7 @@ module lobby.view.lives {
 			
 		}
 		
-		protected function loadVideoTimeOut():void {
+		protected loadVideoTimeOut():void {
 			Log.getInstance().log(this, "視訊連接狀態::視訊連接逾時");
 			hideLoding();
 			stop();
@@ -195,7 +195,7 @@ module lobby.view.lives {
 			}
 		}
 		
-		private function notOpen():void{
+		private notOpen():void{
 			if(!m_tfWarn){
 				m_tfWarn = new TextField();
 				m_tfWarn.autoSize = TextFieldAutoSize.LEFT;
@@ -211,7 +211,7 @@ module lobby.view.lives {
 			m_bPanoramaNull = true;
 		}
 		
-		protected function initWorn():void
+		protected initWorn():void
 		{
 			if(!m_tfWarn){
 				m_tfWarn = new TextField();
@@ -227,14 +227,14 @@ module lobby.view.lives {
 			}
 		}
 		
-		public function stop():void{
+		public stop():void{
 			if(m_rtmpPlayer){
 				m_rtmpPlayer.stop();
 			}
 			bIsPlaying = false;
 		}
 		
-		public function onChangeLanguage():void{
+		public onChangeLanguage():void{
 			if(m_loading){
 				m_loading.tf_label.text = LobbyManager.getInstance().getLanguageString(Language.sLiveVideo);
 			}
@@ -247,7 +247,7 @@ module lobby.view.lives {
 			}			
 		}
 			
-		private function showLoading():void{
+		private showLoading():void{
 			m_loading.gotoAndPlay(1);
 			m_loading.visible = true;
 			clearView();
@@ -256,13 +256,13 @@ module lobby.view.lives {
 			}
 			
 		}
-		private function hideLoding():void{
+		private hideLoding():void{
 			m_loading.gotoAndStop(1);
 			m_loading.visible = false;
 			TimeManager.getInstance().removeFun(loadVideoTimeOut);
 		}
 		
-		private function connectFailed(_iType:int=1):void
+		private connectFailed(_iType:number=1):void
 		{
 			hideLoding();
 			initWorn();
@@ -289,7 +289,7 @@ module lobby.view.lives {
 		}
 		
 		
-		private function showOrHideHandler(evt:MouseEvent):void{
+		private showOrHideHandler(evt:MouseEvent):void{
 			
 			if(m_bControl){
 				m_rtmpPlayer.stop();
@@ -307,7 +307,7 @@ module lobby.view.lives {
 			
 		}
 		
-		private function setLoadingPostition():void {
+		private setLoadingPostition():void {
 			if( m_tfWarn ){
 				m_tfWarn.x = (426-m_tfWarn.width) >> 1//(m_parent.width-m_tfWorn.width) >> 1;
 				m_tfWarn.y = (m_parent.height-m_tfWarn.height) >> 1;	
@@ -315,7 +315,7 @@ module lobby.view.lives {
 		}
 		
 		
-		public function toGame():void{
+		public toGame():void{
 			stop();
 			
 			if(m_rtmpPlayer){
@@ -323,7 +323,7 @@ module lobby.view.lives {
 			}
 			
 		}
-		public function toLobby():void{
+		public toLobby():void{
 			if(m_rtmpPlayer){
 				m_rtmpPlayer.setStageVideo(1494,46,426,240);
 			}

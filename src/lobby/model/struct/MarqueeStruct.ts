@@ -1,14 +1,14 @@
 module lobby.model.struct {
 	export class MarqueeStruct {
-		public var Lang				:	int;			// 語系
-        public var MarqueeMessage	:	Array;			// 跑馬燈訊息
+		public Lang				:	number;			// 語系
+        public MarqueeMessage	:	any[];			// 跑馬燈訊息
 		
-		public constructor( oData:Object=null ) {
+		public constructor( oData=null ) {
 			if(oData){
-				Lang = oData.Lang;
-				MarqueeMessage = oData.MarqueeMessage;
+				this.Lang = oData.Lang;
+				this.MarqueeMessage = oData.MarqueeMessage;
 			}else{
-				MarqueeMessage = [];
+				this.MarqueeMessage = [];
 			}
 		}
 	}

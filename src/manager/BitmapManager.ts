@@ -322,14 +322,14 @@ module manager {
 			this.m_dicBeads[define.Define.BEAD_ZERO_DZ+define.Define.LANGUAGE_TW] = ResourceManager.getInstance().createBitmapByName("Bead_Zero_CN_DZ_Asset");
 			this.m_dicBeads[define.Define.BEAD_ZERO_DZ+define.Define.LANGUAGE_EN] = ResourceManager.getInstance().createBitmapByName("Bead_Zero_EN_DZ_Asset");
 			
-			// var m_rouBead:MovieClip = ResourceManager.getInstance().createBitmapByName("linkRouBead");
+			// m_rouBead:MovieClip = ResourceManager.getInstance().createBitmapByName("linkRouBead");
 			// m_rouBead.stop();
 			// for (var i:number = 0; i <= 36; i++) 
 			// {
 			// 	m_dicBeads[define.Define.BEAD_NUMBER+i] = null;
 			// 	var color:number = RouData.getInstance().getColor(i);
 			// 	m_rouBead.gotoAndStop(color);
-			// 	m_rouBead.contentTxt.text = String(i);
+			// 	m_rouBead.contentTxt.text = string(i);
 			// 	m_dicBeads[Define.BEAD_NUMBER+i] = BitmapUtil.snapshot(m_rouBead);
 			// }
 			// m_rouBead = null;
@@ -395,7 +395,7 @@ module manager {
 		}
 		 
 		// private addBmpdLanguage( _sKey:string, _bmpd:egret.BitmapData):void{
-		// 	var arr : Array = tool.BitmapLanguageUtil.cut(_bmpd,3);
+		// 	var arr : any[] = tool.BitmapLanguageUtil.cut(_bmpd,3);
 		// 	this.m_aLanguage[define.Define.LANGUAGE_CN][_sKey] = arr[define.Define.LANGUAGE_CN];
 		// 	this.m_aLanguage[define.Define.LANGUAGE_TW][_sKey] = arr[define.Define.LANGUAGE_TW];
 		// 	this.m_aLanguage[define.Define.LANGUAGE_EN][_sKey] = arr[define.Define.LANGUAGE_EN];
@@ -438,11 +438,11 @@ module manager {
 			this.m_dicCardBig = new Object();
 			
 			var arr : string[] = ["s","h","c","d"];
-			var strA : String = "A";
-			var strT : String = "T";
-			var strJ : String = "J";
-			var strQ : String = "Q";
-			var strK : String = "K";
+			var strA : string = "A";
+			var strT : string = "T";
+			var strJ : string = "J";
+			var strQ : string = "Q";
+			var strK : string = "K";
 			
 			var _w : number = 237;
 			var _h : number = 330;
@@ -508,12 +508,12 @@ module manager {
 							break;
 						
 						default:
-							card = ResourceManager.getInstance().createBitmapByName("Card_"+String(j+1)+arr[i]);
-							// this.m_dicCard[String(j+1)+arr[i]] = BitmapUtil.snapshot(card);
-							// this.m_dicCardSmall[String(j+1)+arr[i]] = BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_"+String(j+1)+arr[i]));
+							card = ResourceManager.getInstance().createBitmapByName("Card_"+string(j+1)+arr[i]);
+							// this.m_dicCard[string(j+1)+arr[i]] = BitmapUtil.snapshot(card);
+							// this.m_dicCardSmall[string(j+1)+arr[i]] = BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_"+string(j+1)+arr[i]));
 							card.width = 214;
 							card.height = 292;
-							// this.m_dicCardBig[String(j+1)+arr[i]] = BitmapUtil.snapshot(card,214,292);
+							// this.m_dicCardBig[string(j+1)+arr[i]] = BitmapUtil.snapshot(card,214,292);
 							break;
 					}
 				}
@@ -527,7 +527,7 @@ module manager {
 		private initMultitableStransition():void{
 			this.m_dicMultiTrans = new Object();
 			
-			// var _mc : MovieClip = ResourceManager.getInstance().createBitmapByName("Multi_Table_Item_Asset_4_default");
+			// _mc : MovieClip = ResourceManager.getInstance().createBitmapByName("Multi_Table_Item_Asset_4_default");
 			// _mc.gotoAndStop(Define.LANGUAGE_CN+1);
 			// this.m_dicMultiTrans[Define.LANGUAGE_CN+Define.MULTI_TABLE_MODE_4] = BitmapUtil.snapshot(_mc);
 			// _mc.gotoAndStop(Define.LANGUAGE_TW+1);
@@ -558,7 +558,7 @@ module manager {
 		
 		private initTableBg():void{
 			this.m_aTableBg = [];
-			// var _mc:MovieClip = ResourceManager.getInstance().createBitmapByName("Table_bg_Asset");
+			// _mc:MovieClip = ResourceManager.getInstance().createBitmapByName("Table_bg_Asset");
 			
 			// _mc.gotoAndStop(1);
 			// this.m_aTableBg[0] =  BitmapUtil.snapshot(_mc);
@@ -571,9 +571,9 @@ module manager {
 			// }
 		}
 		private initTableBgHover():void{
-			// var _mc : MovieClip = ResourceManager.getInstance().createBitmapByName("Lobby_Table_Hover_Asset");
-			// var _len : int = _mc.totalFrames;
-			// var _bmpd : BitmapData;
+			// _mc : MovieClip = ResourceManager.getInstance().createBitmapByName("Lobby_Table_Hover_Asset");
+			// _len : int = _mc.totalFrames;
+			// _bmpd : BitmapData;
 			// aTableBgHover = [];
 			// for (var i:number = 0; i < _len; i++)
 			// {
@@ -593,10 +593,10 @@ module manager {
 		private initMultitableBg():void{
 			this.m_dicMultitableBg = new Object();
 			
-			// var _mc:MovieClip;
-			// var _bmd:BitmapData;
-			// var _fillBmd:BitmapData 
-			// var pt:Point = new Point(0,0);
+			// _mc:MovieClip;
+			// _bmd:BitmapData;
+			// _fillBmd:BitmapData 
+			// pt:Point = new Point(0,0);
 			// _mc = ResourceManager.getInstance().createBitmapByName("Table_bg_Asset_4");
 			// _bmd = BitmapUtil.snapshot(_mc);
 			// _fillBmd = new BitmapData(426,240);
@@ -628,7 +628,7 @@ module manager {
 		
 		private initTableDefault():void{
 			this.m_dicTable = new Object();
-			// var _mc : MovieClip = ResourceManager.getInstance().createBitmapByName("Table_Default_Asset");
+			// _mc : MovieClip = ResourceManager.getInstance().createBitmapByName("Table_Default_Asset");
 			// _mc.gotoAndStop(1);
 			// this.m_dicTable[Define.LANGUAGE_CN] = BitmapUtil.snapshot(_mc);
 			

@@ -1,16 +1,16 @@
 module lobby.view.panel {
 	export class PanelChipCustom extends PanelWindow{
-//		private var m_bg			:	BitmapScale9Grid;
-		private var m_mcAsset		:	*;										//资源容器
-		private var m_mcText		:	MovieClip;								//文本
-		private var m_btnOk			:	SingleButtonMC;							//确认按钮
-		private var m_btnCancel		:	SingleButtonMC;							//取消按钮
-		private var m_btnClose		:	SingleButtonMC;							//关闭按钮
+//		private m_bg			:	BitmapScale9Grid;
+		private m_mcAsset		:	*;										//资源容器
+		private m_mcText		:	MovieClip;								//文本
+		private m_btnOk			:	SingleButtonMC;							//确认按钮
+		private m_btnCancel		:	SingleButtonMC;							//取消按钮
+		private m_btnClose		:	SingleButtonMC;							//关闭按钮
 		
-		private var m_aChipValues	:	Array;									//筹码面值
-		private var m_vectorChip	:	Vector.<ChipItemCustom>;				//筹码数组
-		private var m_aCustom		:	Array;									//选中筹码
-		private var m_uSelect		:	uint;									//已选数量
+		private m_aChipValues	:	any[];									//筹码面值
+		private m_vectorChip	:	<ChipItemCustom>;				//筹码数组
+		private m_aCustom		:	any[];									//选中筹码
+		private m_uSelect		:	number;									//已选数量
 		
 		public constructor() {
 		
@@ -48,12 +48,12 @@ module lobby.view.panel {
 			
 			m_aCustom = [];
 			m_aChipValues = [10,50,100,300,500,1000,3000,5000,10000,30000,50000,100000,300000,500000];
-			m_vectorChip = new Vector.<ChipItemCustom>;
+			m_vectorChip = new <ChipItemCustom>;
 			
 			onChangeLanguage();
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 //			if(m_bg){
 //				if(m_bg.parent){
 //					m_bg.parent.removeChild(m_bg);
@@ -98,11 +98,11 @@ module lobby.view.panel {
 			}
 		}
 		
-		public function init():void{
-			var _aCustom : Array = Player.getInstance().gameSetting.aCustChips;
+		public init():void{
+			var _aCustom : any[] = Player.getInstance().gameSetting.aCustChips;
 			var _len : int = m_aChipValues.length;
 			var _chip : ChipItemCustom;
-			for (var i:int = 0; i < _len; i++) 
+			for (var i:number= 0; i < _len; i++) 
 			{
 				_chip = new ChipItemCustom(m_aChipValues[i],this);
 				m_mcAsset.addChild(_chip);
@@ -111,7 +111,7 @@ module lobby.view.panel {
 				m_vectorChip.push(_chip);
 				
 				if(_aCustom){
-					for (var j:int = 0; j < _aCustom.length; j++) 
+					for (var j:number= 0; j < _aCustom.length; j++) 
 					{
 						if(m_aChipValues[i] == _aCustom[j]){
 							_chip.select  = true;
@@ -127,28 +127,28 @@ module lobby.view.panel {
 			}
 			
 		}
-		public function setSelect():void{
+		public setSelect():void{
 			
 		}
 		
-		public function addSelect(_uValue:uint):Boolean{
+		public addSelect(_uValue:number): boolean{
 			if(m_aCustom.length<5){
 				m_uSelect++;
 				m_aCustom.push(_uValue);
-				m_aCustom.sort(Array.NUMERIC);
+				m_aCustom.sort(any[].NUMERIC);
 				m_mcAsset.tf_0.text = String(5-m_aCustom.length);//LobbyManager.getInstance().getLanguageString(Language.sChipPanelCustom) + ":" + String(5-m_aCustom.length);
 				return true;
 			}
 			return false;
 		}
-		public function removeSelect(_uValue:uint):Boolean{
+		public removeSelect(_uValue:number): boolean{
 			if(m_aCustom.length>0){
-				for (var i:int = 0; i < m_aCustom.length; i++) 
+				for (var i:number= 0; i < m_aCustom.length; i++) 
 				{
 					if(m_aCustom[i] == _uValue){
 						m_uSelect--;
 						m_aCustom.splice(i,1);
-						m_aCustom.sort(Array.NUMERIC);
+						m_aCustom.sort(any[].NUMERIC);
 						m_mcAsset.tf_0.text = String(5-m_aCustom.length);//LobbyManager.getInstance().getLanguageString(Language.sChipPanelCustom) + ":" + String(5-m_aCustom.length);
 						return true;
 					}
@@ -157,7 +157,7 @@ module lobby.view.panel {
 			return false;
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			m_mcText.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			m_mcAsset.tf_0.text = String(5-m_aCustom.length);//LobbyManager.getInstance().getLanguageString(Language.sChipPanelCustom) + ":" + String(5-m_aCustom.length);
 			m_mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);// LobbyManager.getInstance().getLanguageString(Language.sChipPanelCustom_Label);
@@ -165,7 +165,7 @@ module lobby.view.panel {
 			m_mcAsset.mc_no.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 		}
 		
-		private function getCustomChip():String{
+		private getCustomChip():String{
 			if(m_aCustom){
 				while(m_aCustom.length<5){
 					m_aCustom.push(0);

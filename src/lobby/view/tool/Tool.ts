@@ -1,38 +1,38 @@
 module lobby.view.tool {
 	export class Tool implements ISprite{
-		private var m_mcAsset				:	*;							//美术资源
+		private m_mcAsset				:	*;							//美术资源
 		
-		private var m_btnRefresh			:	SingleButtonMC;				//重整视讯
+		private m_btnRefresh			:	SingleButtonMC;				//重整视讯
 		
-		private var m_btnResolution			:	Resolution;					//分辨率
-		private var m_btnChannel			:	SingleButtonMC;				//频道选择
-		private var m_btnPersonalInfomation	:	SingleButtonMC;				//个人资讯
-		private var m_btnContact			:	SingleButtonMC;				//联系客服
-		private var m_btnFull				:	SingleButtonMC;				//全屏按钮
-		private var m_btnNormal				:	SingleButtonMC;				//退出全屏
-		private var m_btnDetail				:	SingleButtonMC;				//桌子详情
-		private var m_btnRecord				:	SingleButtonMC;				//账户记录
-		private var m_btnSetting			:	SingleButtonMC;				//设置按钮
-		public var btnExit					:	SingleButtonMC;				//退出按钮
+		private m_btnResolution			:	Resolution;					//分辨率
+		private m_btnChannel			:	SingleButtonMC;				//频道选择
+		private m_btnPersonalinformation	:	SingleButtonMC;				//个人资讯
+		private m_btnContact			:	SingleButtonMC;				//联系客服
+		private m_btnFull				:	SingleButtonMC;				//全屏按钮
+		private m_btnNormal				:	SingleButtonMC;				//退出全屏
+		private m_btnDetail				:	SingleButtonMC;				//桌子详情
+		private m_btnRecord				:	SingleButtonMC;				//账户记录
+		private m_btnSetting			:	SingleButtonMC;				//设置按钮
+		public btnExit					:	SingleButtonMC;				//退出按钮
 		
-		public var fRefresh					:	Function;					//重整视讯
-		public var fDetail					:	Function;					//桌子详情
-		public var fExitGame				:	Function;					//退出游戏
+		public fRefresh					:	Function;					//重整视讯
+		public fDetail					:	Function;					//桌子详情
+		public fExitGame				:	Function;					//退出游戏
 		
-		public var iExitLevel				:	int;						//退出等级	0-大厅，1-游戏
-//		public var wifi						:	Tool_Wifi;					//网络信号
-		public var toolContact				:	Tool_Contact;				//联系客服
-		private var m_bmpBg					:	*;							//功能列背景
-		private var m_spParent				:	Sprite;						//外部容器
+		public iExitLevel				:	number;						//退出等级	0-大厅，1-游戏
+//		public wifi						:	Tool_Wifi;					//网络信号
+		public toolContact				:	Tool_Contact;				//联系客服
+		private m_bmpBg					:	*;							//功能列背景
+		private m_spParent				:	Sprite;						//外部容器
 		
-		private var m_currentResolution		:	int;						//当前模式
+		private m_currentResolution		:	number;						//当前模式
 		
-		private var m_mcHint				:	MovieClip;					//全屏提示
-		private var m_mcHintFull			:	MMovieClip;
-		private var m_btnHintClose			:	SingleButtonMC;				//关闭按钮
-		private var m_mcHintLabel			:	MovieClip;					//提示标签
-		private var m_bHint					:	Boolean;					//提示状态
-		public var iMode					:	uint;						//当前模式
+		private m_mcHint				:	MovieClip;					//全屏提示
+		private m_mcHintFull			:	MMovieClip;
+		private m_btnHintClose			:	SingleButtonMC;				//关闭按钮
+		private m_mcHintLabel			:	MovieClip;					//提示标签
+		private m_bHint					:	 boolean;					//提示状态
+		public iMode					:	number;						//当前模式
 		public constructor(_spParent:Sprite) {
 		
 			if(SharedObjectManager.getClickFullScreenCount()<12){
@@ -57,7 +57,7 @@ module lobby.view.tool {
 				}
 				LobbyManager.getInstance().hideChannel();
 				LobbyManager.getInstance().hidePanelDetail();
-				LobbyManager.getInstance().hidePersonalInfomation();
+				LobbyManager.getInstance().hidePersonalinformation();
 				toolContact.hide();
 			});
 			m_btnRefresh.fOnOver = function():void{
@@ -75,7 +75,7 @@ module lobby.view.tool {
 				if(toolContact){
 					toolContact.hide();
 				}
-				LobbyManager.getInstance().hidePersonalInfomation();
+				LobbyManager.getInstance().hidePersonalinformation();
 				LobbyManager.getInstance().hideSystemSetting();
 				LobbyManager.getInstance().hidePanelDetail();
 				LobbyManager.getInstance().showChannel();
@@ -88,8 +88,8 @@ module lobby.view.tool {
 			};
 			(m_mcAsset.mc_channel.mc_label as MovieClip).gotoAndStop(5);
 			
-//			var _bPersonal	:	Boolean;
-			m_btnPersonalInfomation = new SingleButtonMC(m_mcAsset.mc_personal, function(evt:MouseEvent):void{
+//			var _bPersonal	:	 boolean;
+			m_btnPersonalinformation = new SingleButtonMC(m_mcAsset.mc_personal, function(evt:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sPopupPanel);
 				
 				TipManager.getInstance().hide();
@@ -103,15 +103,15 @@ module lobby.view.tool {
 				var point:Point = m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_personal.x+15,m_mcAsset.mc_contact.y+30));
 				switch(LobbyManager.getInstance().exitLevel){
 					case Define.EXIT_LOBBY:
-						LobbyManager.getInstance().showPersonalInfomation(point.x, point.y);
+						LobbyManager.getInstance().showPersonalinformation(point.x, point.y);
 						break;
 					case Define.EXIT_GAME:
-						LobbyManager.getInstance().showPersonalInfomation(point.x, point.y);
+						LobbyManager.getInstance().showPersonalinformation(point.x, point.y);
 						break;
 					case Define.EXIT_TEL_LOBBY:
 						break;
 					case Define.EXIT_MULTI_TABLE:
-						LobbyManager.getInstance().showPersonalInfomation(point.x, point.y);
+						LobbyManager.getInstance().showPersonalinformation(point.x, point.y);
 						break;
 				}
 					
@@ -119,10 +119,10 @@ module lobby.view.tool {
 //				
 //				_bPersonal = !_bPersonal;
 			});
-			m_btnPersonalInfomation.fOnOver = function():void{
+			m_btnPersonalinformation.fOnOver = function():void{
 				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_PersonalInfo),TipManager.UP,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_personal.x+15,m_mcAsset.mc_personal.y+30)),1);
 			};
-			m_btnPersonalInfomation.fOnOut = function():void{
+			m_btnPersonalinformation.fOnOut = function():void{
 				TipManager.getInstance().hide();
 			};
 			
@@ -177,7 +177,7 @@ module lobby.view.tool {
 					toolContact.hide();
 				}
 				LobbyManager.getInstance().hideChannel();
-				LobbyManager.getInstance().hidePersonalInfomation();
+				LobbyManager.getInstance().hidePersonalinformation();
 				LobbyManager.getInstance().hideSystemSetting();
 				
 				if(fDetail!=null){
@@ -200,7 +200,7 @@ module lobby.view.tool {
 					toolContact.hide();
 				}
 				LobbyManager.getInstance().hideChannel();
-				LobbyManager.getInstance().hidePersonalInfomation();
+				LobbyManager.getInstance().hidePersonalinformation();
 				LobbyManager.getInstance().hideSystemSetting();
 				LobbyManager.getInstance().hidePanelDetail();
 //				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
@@ -220,7 +220,7 @@ module lobby.view.tool {
 					toolContact.hide();
 				}
 				LobbyManager.getInstance().hideChannel();
-				LobbyManager.getInstance().hidePersonalInfomation();
+				LobbyManager.getInstance().hidePersonalinformation();
 				LobbyManager.getInstance().hidePanelDetail();
 				LobbyManager.getInstance().showSystemSetting();
 				SoundManager.getInstance().play(SoundPackage.sPopupPanel);
@@ -238,7 +238,7 @@ module lobby.view.tool {
 				SoundManager.getInstance().play(SoundPackage.sPopupPanel);
 				TipManager.getInstance().hide();
 				LobbyManager.getInstance().hideChannel();
-				LobbyManager.getInstance().hidePersonalInfomation();
+				LobbyManager.getInstance().hidePersonalinformation();
 				LobbyManager.getInstance().hideSystemSetting();
 				LobbyManager.getInstance().hidePanelDetail();
 				toolContact.showOrHide();
@@ -309,16 +309,16 @@ module lobby.view.tool {
 			toLobby();
 		}
 		
-		public function destroy():void
+		public destroy():void
 		{
 			
 			if(fExitGame!=null){
 				fExitGame = null;
 			}
 			
-			if(m_btnPersonalInfomation){
-				m_btnPersonalInfomation.destroy();
-				m_btnPersonalInfomation = null;
+			if(m_btnPersonalinformation){
+				m_btnPersonalinformation.destroy();
+				m_btnPersonalinformation = null;
 			}
 			
 			if(m_btnRecord){
@@ -355,25 +355,25 @@ module lobby.view.tool {
 			
 		}
 		
-		public function cleanGameFun():void{
+		public cleanGameFun():void{
 			fRefresh=null;
 			fDetail=null;
 			fExitGame=null;
 		}
 		
 		
-		public function resize():void{
+		public resize():void{
 			if(m_mcAsset){
 				m_mcAsset.x = LobbyManager.getInstance().stage.stageWidth - 630;
 				m_mcAsset.y = 0;
 			}
 		}
 		
-		public function getView():Sprite{
+		public getView():Sprite{
 			return m_mcAsset as Sprite;
 		}
 		
-		public function toLobby():void{
+		public toLobby():void{
 		
 //			LobbyManager.getInstance().videoMaxBytePerSecond = LobbyManager.getInstance().lobbyView.liveVideo;
 			if( m_bmpBg ){
@@ -395,7 +395,7 @@ module lobby.view.tool {
 			m_btnDetail.visible = false;
 			m_btnRecord.visible=true;
 			
-			for (var i:int = 3; i < 9; i++) 
+			for (var i:number= 3; i < 9; i++) 
 			{
 				m_mcAsset["mc_"+i].visible = true;
 			}
@@ -413,8 +413,8 @@ module lobby.view.tool {
 			m_mcAsset.mc_8.visible = true;
 			
 			var uInitX:	int	=	45;
-			var uW : uint = 65;
-			var uY : uint = 0;
+			var uW : number = 65;
+			var uY : number = 0;
 			m_mcAsset.mc_refresh.x = 0;
 			m_mcAsset.mc_refresh.y = uY;
 			
@@ -475,24 +475,24 @@ module lobby.view.tool {
 		}
 		
 		//个人资讯
-		public function getBtnDetailPoint():Point{
+		public getBtnDetailPoint():Point{
 			var point:Point = m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_detail.x+15,m_mcAsset.mc_detail.y+30));;
 			return point;
 		}
 		
 		//频道
-		public function getBtnChannelPoint():Point{
+		public getBtnChannelPoint():Point{
 			var point:Point = m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_channel.x+15,m_mcAsset.mc_channel.y+30));;
 			return point;
 		}
 		
 		//系统设置
-		public function getBtnSettingPoint():Point{
+		public getBtnSettingPoint():Point{
 			var point:Point = m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_setting.x+15,m_mcAsset.mc_setting.y+30));;
 			return point;
 		}
 		
-		public function toGame(_fQuality:Function, _fRefresh:Function, _fDetail:Function, _fExit:Function,isMachine=false):void{
+		public toGame(_fQuality:Function, _fRefresh:Function, _fDetail:Function, _fExit:Function,isMachine=false):void{
 			if(fRefresh!=null){
 				fRefresh = null;
 			}
@@ -531,14 +531,14 @@ module lobby.view.tool {
 			m_btnDetail.visible = true;
 //			m_btnQulity.visible = true;
 			
-			for (var i:int = 0 ; i < 9; i++) 
+			for (var i:number= 0 ; i < 9; i++) 
 			{
 				m_mcAsset["mc_"+i].visible = true;
 			}
 			
 			var uInitX:	int	=	45;
-			var uW : uint = 65;
-			var uY : uint = 0;
+			var uW : number = 65;
+			var uY : number = 0;
 			m_mcAsset.mc_refresh.x = 0;
 			m_mcAsset.mc_refresh.y = uY;
 			
@@ -612,7 +612,7 @@ module lobby.view.tool {
 			}
 		}
 		
-		public function toMulti():void{
+		public toMulti():void{
 			if( m_bmpBg ){
 				if( m_bmpBg.parent){
 					m_bmpBg.parent.removeChild( m_bmpBg );
@@ -630,7 +630,7 @@ module lobby.view.tool {
 //			m_mcAsset.mc_wifi.visible = false;
 			m_mcAsset.mc_8.visible = false;
 			
-			for (var i:int = 3 ; i < 8; i++) 
+			for (var i:number= 3 ; i < 8; i++) 
 			{
 				m_mcAsset["mc_"+i].visible = true;
 			}
@@ -639,8 +639,8 @@ module lobby.view.tool {
 			hideHint();
 			
 			var iInitX : int = 340;
-			var uW : uint = 50;
-			var uY : uint = 0;
+			var uW : number = 50;
+			var uY : number = 0;
 //			m_mcAsset.mc_wifi.x = iInitX;
 //			m_mcAsset.mc_wifi.y = uY;
 			
@@ -690,7 +690,7 @@ module lobby.view.tool {
 			}
 		}
 		
-		public function toMachine(_fQuality:Function, _fRefresh:Function, _fDetail:Function, _fExit:Function):void{
+		public toMachine(_fQuality:Function, _fRefresh:Function, _fDetail:Function, _fExit:Function):void{
 			if (m_bmpBg){
 				m_bmpBg.visible=false;
 			}
@@ -717,7 +717,7 @@ module lobby.view.tool {
 			m_btnChannel.visible = true;
 			m_btnDetail.visible = true;
 			
-			for (var i:int = 0; i < 9; i++) 
+			for (var i:number= 0; i < 9; i++) 
 			{
 				m_mcAsset["mc_"+i].visible = false;
 			}
@@ -772,7 +772,7 @@ module lobby.view.tool {
 			m_mcAsset.mc_record.y	= _nY2;	
 		}
 		
-		public function onChangeLanguage():void{
+		public onChangeLanguage():void{
 			if(toolContact){
 				toolContact.onChangeLanguage();
 			}
@@ -783,27 +783,27 @@ module lobby.view.tool {
 				
 		
 		
-		public function screenFull(_bValue:Boolean):void{
+		public screenFull(_bValue: boolean):void{
 			m_btnNormal.visible = _bValue;
 			m_btnFull.visible = !_bValue;
 		}
 		
-		public function changeResolution():void{
+		public changeResolution():void{
 			m_btnResolution.changeResolution();
 		}
 		
 		
-		public function get currentResolution():int
+		get currentResolution():number
 		{
 			return m_currentResolution;
 		}
 		
-		public function set currentResolution(value:int):void
+		set  currentResolution(value:number)
 		{
 			m_currentResolution = value;
 		}
 		
-		public function setBtnChannelValue(_uValue:uint):void{
+		public setBtnChannelValue(_uValue:number):void{
 			if(m_mcAsset){
 				if(_uValue>4){
 					_uValue = 5;
@@ -813,7 +813,7 @@ module lobby.view.tool {
 			}
 		}
 		
-		public function setData():void{
+		public setData():void{
 			if(SharedObjectManager.getResolution()==null){
 				if(LobbyData.getInstance().lobbyInfo.currentResolution)
 				{
@@ -827,7 +827,7 @@ module lobby.view.tool {
 		}
 		
 		
-		private function initHint():void{
+		private initHint():void{
 			m_mcHint = m_mcAsset.mc_hint;
 			m_mcHintLabel = m_mcHint.mc_label;
 			if(m_mcHintLabel){
@@ -844,11 +844,11 @@ module lobby.view.tool {
 			});
 //			m_mcHint.gotoAndPlay(1);
 //			
-//			var hintOver : Function = function():void{
+//			var hintOver : = function():void{
 //				m_mcHint.gotoAndStop(m_mcHint.currentFrame);
 //			};
 //			
-//			var hintOut : Function = function():void{
+//			var hintOut : = function():void{
 //				m_mcHint.gotoAndPlay(m_mcHint.currentFrame);
 //			};
 //			
@@ -856,7 +856,7 @@ module lobby.view.tool {
 //			m_mcHint.addEventListener(MouseEvent.MOUSE_OUT, hintOut);
 			
 		}
-		private function showHint():void{
+		private showHint():void{
 			if(m_mcHint){
 //				m_mcHint.gotoAndPlay(1);
 				m_mcHint.visible = true;
@@ -865,7 +865,7 @@ module lobby.view.tool {
 				m_mcHintFull.gotoAndPlay(1);
 			}
 		}
-		private function hideHint():void{
+		private hideHint():void{
 			if(m_mcHint){
 //				m_mcHint.gotoAndStop(1);
 				m_mcHint.visible = false;
@@ -879,7 +879,7 @@ module lobby.view.tool {
 }
 import flash.display.MovieClip;
 import flash.events.MouseEvent;
-import flash.geom.Point;
+import flash.geom.Ponumber;
 
 import component.button.SingleButtonMC;
 
@@ -898,12 +898,12 @@ import models.struct.ResolutionStruct;
 import sounds.SoundPackage;
 
 class Resolution{
-	private var m_btnSD					:	SingleButtonMC;				//标清频道
-	private var m_btnHD					:	SingleButtonMC;				//高清频道
-	private var m_btnCurrent			:	SingleButtonMC;
-	private var m_mcAsset				:	MovieClip;
+	private m_btnSD					:	SingleButtonMC;				//标清频道
+	private m_btnHD					:	SingleButtonMC;				//高清频道
+	private m_btnCurrent			:	SingleButtonMC;
+	private m_mcAsset				:	MovieClip;
 	
-	public function Resolution(_mcAsset:MovieClip){
+	public Resolution(_mcAsset:MovieClip){
 		m_mcAsset = _mcAsset;
 		
 		m_btnSD = new SingleButtonMC(_mcAsset.mc_sd, function(evt:MouseEvent):void{
@@ -928,7 +928,7 @@ class Resolution{
 			
 			LobbyManager.getInstance().hideChannel();
 			LobbyManager.getInstance().hidePanelDetail();
-			LobbyManager.getInstance().hidePersonalInfomation();
+			LobbyManager.getInstance().hidePersonalinformation();
 			LobbyManager.getInstance().lobbyView.toolView.toolContact.hide();
 		});
 		m_btnSD.fOnOver = function():void{
@@ -961,7 +961,7 @@ class Resolution{
 			
 			LobbyManager.getInstance().hideChannel();
 			LobbyManager.getInstance().hidePanelDetail();
-			LobbyManager.getInstance().hidePersonalInfomation();
+			LobbyManager.getInstance().hidePersonalinformation();
 			LobbyManager.getInstance().lobbyView.toolView.toolContact.hide();
 		});
 		m_btnHD.fOnOver = function():void{
@@ -975,11 +975,11 @@ class Resolution{
 		
 	}
 	
-	public function setData():void{
+	public setData():void{
 		changeResolution();
 	}
 	
-	public function set visible(_bValue:Boolean):void{
+	set  visible(_bValue: boolean){
 		if(m_btnCurrent){
 			m_btnCurrent.visible = _bValue;
 		}
@@ -992,19 +992,19 @@ class Resolution{
 		}
 	}
 	
-	public function set x(_iValue:int):void{
+	set  x(_iValue:number){
 		m_mcAsset.mc_sd.x = _iValue;
 		m_mcAsset.mc_hd.x = _iValue;
 	}
 	
-	public function set y(_iValue:int):void{
+	set  y(_iValue:number){
 		m_mcAsset.mc_sd.y = _iValue;
 		m_mcAsset.mc_hd.y = _iValue;
 	}
 	
-	public function IsQualified():Boolean{
+	public IsQualified(): boolean{
 		//检测视讯解析度资料笔数和priorityNo是否正确
-		var data:Vector.<ResolutionStruct> = LobbyData.getInstance().lobbyInfo.vecResolutionList;
+		var data:<ResolutionStruct> = LobbyData.getInstance().lobbyInfo.vecResolutionList;
 		if(!data || data.length != 3){//解析度資料筆數必须为3筆
 			m_btnSD.visible = false;
 			m_btnHD.visible = false;
@@ -1020,7 +1020,7 @@ class Resolution{
 		return true;
 	}
 	
-	public function changeResolution():void{
+	public changeResolution():void{
 		if(!IsQualified()){
 			return;
 		}

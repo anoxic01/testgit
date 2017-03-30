@@ -3,18 +3,18 @@ module packet.lobby {
         /// <summary>
         /// 跑馬燈資訊
         /// </summary>
-        private var marqueeList:Vector.<MarqueeStruct>;
+        private marqueeList:<MarqueeStruct>;
 
 		public constructor() {
-			marqueeList = new Vector.<MarqueeStruct>();
+			marqueeList = new <MarqueeStruct>();
 		}
 		
-		public function get MarqueeList():Vector.<MarqueeStruct> 
+		get MarqueeList():<MarqueeStruct> 
 		{
 			return marqueeList;
 		}
 		
-		public function set MarqueeList(value:Vector.<MarqueeStruct>):void 
+		set  MarqueeList(value:<MarqueeStruct>) 
 		{
 			marqueeList = value;
 		}

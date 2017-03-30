@@ -1,84 +1,84 @@
 module packet.sink {
-	export class GameTCPSocketSink  implements ITCPSocketSink{
-		public var controler		:	GameControler;
-		public var proxy			:	GameProxy;
-		public var gameType			:	uint;
-		private var bShowDialog		:	Boolean = false;			//是否已顯示彈窗
+	export class GameTCPSocketSink  implements socket.ITCPSocketSink{
+		public controler		:	ctrl.GameControler;
+		public proxy			:	lobby.view.game.GameProxy;
+		public gameType			:	number;
+		private bShowDialog		:	 boolean = false;			//是否已顯示彈窗
 		
-		public constructor(_gameType:uint,_controler:GameControler=null) {
+		public constructor(_gameType:number,_controler:ctrl.GameControler=null) {
 			this.gameType=_gameType;
 			this.controler= _controler;
 		}
 		
-		public function destroy():void {
-			if( controler ){
-				controler = null;
+		public destroy():void {
+			if( this.controler ){
+				this.controler = null;
 			}
-			if( proxy ){
-				proxy = null;
+			if( this.proxy ){
+				this.proxy = null;
 			}
-			LobbyManager.getInstance().bEnterGame=false;
+			manager.LobbyManager.getInstance().bEnterGame=false;
 		}
 		
-		public function onCTCPSocketConnecting(_uSocketID:int):void
+		public onCTCPSocketConnecting(_uSocketID:number):void
 		{
 		}
 		
-		public function onCTCPSocketConnected(_uSocketID:int):void
+		public onCTCPSocketConnected(_uSocketID:number):void
 		{
-			trace("游戏连接成功... _uSocketID:",_uSocketID );
+			console.log("游戏连接成功... _uSocketID:",_uSocketID );
 			this.proxy = this.controler.proxy;
-			controler.onConnect();
-			bShowDialog = false;
-			NetWorkManager.getInstance().iGameNetWorkStatus = Define.GameConnected;
+			this.controler.onConnect();
+			this.bShowDialog = false;
+			manager.NetWorkManager.getInstance().iGameNetWorkStatus = define.Define.GameConnected;
 			
 		}
 		
-		public function onCTCPSocketClose(_uSocketID:int, _cmd:int):void
+		public onCTCPSocketClose(_uSocketID:number, _cmd:number):void
 		{
-//			trace("游戏连接关闭...");
-			Log.getInstance().log(this, "游戏连接关闭..." +",TableID:"+ controler.model.tableStruct.TableID );
-			NetWorkManager.getInstance().checkGameNetWork(	Define.GameDisconnect, controler );		
+//			console.log("游戏连接关闭...");
+			console.log(this, "游戏连接关闭..." +",TableID:"+ this.controler.model.tableStruct.TableID );
+			manager.NetWorkManager.getInstance().checkGameNetWork(	define.Define.GameDisconnect, this.controler );		
 		}
 		
 		
-		public function onCTCPSocketError(_uFail:int):void{
-//			trace("游戏连接错误..."+_uFail );
-			Log.getInstance().log(this, "游戏连接错误..." +",TableID:"+ controler.model.tableStruct.TableID );
+		public onCTCPSocketError(_uFail:number):void{
+//			console.log("游戏连接错误..."+_uFail );
+			console.log(this, "游戏连接错误..." +",TableID:"+ this.controler.model.tableStruct.TableID );
 			//只友連接失敗要處理
-			if( _uFail == SocketDefine.CONNECT_FAIL ||_uFail == SocketDefine.SOCKET_SECURITY_ERROR) {
-				NetWorkManager.getInstance().checkGameNetWork(	Define.GameConnectFailed, controler);
+			if( _uFail == socket.SocketDefine.CONNECT_FAIL ||_uFail == socket.SocketDefine.SOCKET_SECURITY_ERROR) {
+				manager.NetWorkManager.getInstance().checkGameNetWork(	define.Define.GameConnectFailed, this.controler);
 			}
 				
 		}
 		
 		
-		public function onCTCPSocketRead(_uSocketID:int, _tagTCPData:ITagTCPData):void
+		public onCTCPSocketRead(_uSocketID:number, _tagTCPData:socket.ITagTCPData):void
 		{
 			
-			var _oData : Object = proxy.socketParser.onPacketData( _tagTCPData );
+			var _oData = this.proxy.socketParser.onPacketData( _tagTCPData );
 			if (_oData==null){
-				trace("GAME解析数据为NULL ")
+				console.log("GAME解析数据为NULL ")
 				return;
 			}
 			
-			if( !controler ) {
-				trace("GameControler is NULL");
+			if( !this.controler ) {
+				console.log("GameControler is NULL");
 				return;
 			}
 			
-			var protocolClass : IProtocolStruct = PacketManager.getInstance().getProtocolClass( gameType, _oData.Type);
+			var protocolClass : iface.IProtocolStruct = manager.PacketManager.getInstance().getProtocolClass( this.gameType, _oData.Type);
 			if (protocolClass)
 			{
 				if (_oData.Type == 0x09){
-					trace("GAME_uSocketID:"+_uSocketID, _oData.Type.toString(16)+" 收到数据："+_oData.str);
+					console.log("GAME_uSocketID:"+_uSocketID, _oData.Type.toString(16)+" 收到数据："+_oData.str);
 				}
 				
 				
-				protocolClass.initControler( controler );
+				protocolClass.initControler( this.controler );
 				protocolClass.execute( _oData );
 			}else{
-				trace("GAME_uSocketID收到数据，找不到对应处理协议..." + _oData.Type );
+				console.log("GAME_uSocketID收到数据，找不到对应处理协议..." + _oData.Type );
 			}
 			
 			//回复告知

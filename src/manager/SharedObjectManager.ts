@@ -1,282 +1,282 @@
 module manager {
 	export class SharedObjectManager {
-		public static const	FILE_NAME				:	String	=	"game_2015_11_30";
+		public static const	FILE_NAME			:	string	=	"game_2015_11_30";
 		
-        private static var m_soSharedObject			:	SharedObject;
+        private static m_soSharedObject			:	SharedObject;
 
 		public constructor() {
 		}
 		
-        public static function get data() : Object
+        public static get data() : Object
         {
             try
             {
-                m_soSharedObject = SharedObject.getLocal(FILE_NAME);
+                SharedObjectManager.m_soSharedObject = SharedObject.getLocal(SharedObjectManager.FILE_NAME);
             }
-            catch (err:Error)
+            catch (err)
             {
-                trace("本地缓存文件读取失败...");
+                console.log("本地缓存文件读取失败...");
             }
-            return m_soSharedObject.data;
+            return SharedObjectManager.m_soSharedObject.data;
         }
 
-        public static function flush() : void
+        public static flush() : void
         {
-            m_soSharedObject = SharedObject.getLocal(FILE_NAME);
+            SharedObjectManager.m_soSharedObject = SharedObject.getLocal(SharedObjectManager.FILE_NAME);
             try
             {
-                m_soSharedObject.flush();
+                SharedObjectManager.m_soSharedObject.flush();
             }
-            catch (err:Error)
+            catch (err)
             {
-                trace("本地缓存文件存储失败...");
+                console.log("本地缓存文件存储失败...");
             }
             
         }
 
-        public static function clear() : void
+        public static clear() : void
         {
-            m_soSharedObject = SharedObject.getLocal(FILE_NAME);
-            m_soSharedObject.clear();
+            SharedObjectManager.m_soSharedObject = SharedObject.getLocal(SharedObjectManager.FILE_NAME);
+            SharedObjectManager.m_soSharedObject.clear();
             SharedObjectManager.flush();
         }
 
-        public static function initialize() : void
+        public static initialize() : void
         {
-            if (!data["SystemSetting"])
+            if (!this.data["SystemSetting"])
             {
-                data["SystemSetting"] = {};
+                this.data["SystemSetting"] = {};
             }
 			
-			if(!data["SystemSetting"]["language sound"]){
-				data["SystemSetting"]["language sound"] = 0;
+			if(!this.data["SystemSetting"]["language sound"]){
+				this.data["SystemSetting"]["language sound"] = 0;
 			}
             
-			if (!data["SystemSetting"]["music on_off"]==null)
+			if (!this.data["SystemSetting"]["music on_off"]==null)
 			{
-				data["SystemSetting"]["music on_off"] = true;
+				this.data["SystemSetting"]["music on_off"] = true;
 			}
-			if (!data["SystemSetting"]["effect on_off"]==null)
+			if (!this.data["SystemSetting"]["effect on_off"]==null)
 			{
-				data["SystemSetting"]["effect on_off"] = true;
+				this.data["SystemSetting"]["effect on_off"] = true;
 			}
-			if (!data["SystemSetting"]["sound on_off"]==null)
+			if (!this.data["SystemSetting"]["sound on_off"]==null)
 			{
-				data["SystemSetting"]["sound on_off"] = true;
+				this.data["SystemSetting"]["sound on_off"] = true;
 			}
             
-            if (!data["SystemSetting"]["music value"])
+            if (!this.data["SystemSetting"]["music value"])
             {
-                data["SystemSetting"]["music value"] = 0.6;
+                this.data["SystemSetting"]["music value"] = 0.6;
             }
-			if (!data["SystemSetting"]["effect value"])
+			if (!this.data["SystemSetting"]["effect value"])
 			{
-				data["SystemSetting"]["effect value"] = 0.6;
+				this.data["SystemSetting"]["effect value"] = 0.6;
 			}
-            if (!data["SystemSetting"]["live value"])
+            if (!this.data["SystemSetting"]["live value"])
             {
-                data["SystemSetting"]["live value"] = 0.6;
+               this.data["SystemSetting"]["live value"] = 0.6;
             }
-			if(!data["SystemSetting"]["music selectIndex"])
+			if(!this.data["SystemSetting"]["music selectIndex"])
 			{
-				data["SystemSetting"]["music selectIndex"] = 0;
+				this.data["SystemSetting"]["music selectIndex"] = 0;
 			}
 			
 			
 			/** 好路提示设置 **/
-			if(!data["GoodRoadSetting"])
+			if(!this.data["GoodRoadSetting"])
 			{
-				data["GoodRoadSetting"] = [true, true, true, true, true, true, true, true, true, true];
+				this.data["GoodRoadSetting"] = [true, true, true, true, true, true, true, true, true, true];
 			}
 			
-			if(!data["PeekSelect"]){
-				data["PeekSelect"] = {};
-				data["PeekSelect"]["Type"] = 3;
+			if(!this.data["PeekSelect"]){
+				this.data["PeekSelect"] = {};
+				this.data["PeekSelect"]["Type"] = 3;
 			}
 			
 			/** 点击全屏按钮次数 **/
-			if(!data["ClickFullScreenCount"]){
-				data["ClickFullScreenCount"] = 0;
+			if(!this.data["ClickFullScreenCount"]){
+				this.data["ClickFullScreenCount"] = 0;
 			}
 			
-			flush();
+			this.flush();
         }
 		
-		public static function setLanguageSound(_iValue:int):void{
-			data["SystemSetting"]["language sound"] = _iValue;
+		public static setLanguageSound(_iValue:number):void{
+			this.data["SystemSetting"]["language sound"] = _iValue;
 		}
-		public static function getLanguageSound():int{
-			return data["SystemSetting"]["language sound"];
+		public static getLanguageSound():number{
+			return this.data["SystemSetting"]["language sound"];
 		}
 		
-		public static function setMusicOnOff(_bValue:Boolean):void{
-			data["SystemSetting"]["music on_off"] = _bValue;
+		public static setMusicOnOff(_bValue: boolean):void{
+			this.data["SystemSetting"]["music on_off"] = _bValue;
 		}
-		public static function getMusicOnOff():Boolean{
-			return data["SystemSetting"]["music on_off"];
+		public static getMusicOnOff(): boolean{
+			return this.data["SystemSetting"]["music on_off"];
 		}
-		public static function setEffectOnOff(_bValue:Boolean):void{
-			data["SystemSetting"]["effect on_off"] = _bValue;
+		public static setEffectOnOff(_bValue: boolean):void{
+			this.data["SystemSetting"]["effect on_off"] = _bValue;
 		}
-		public static function getEffectOnOff():Number{
-			return data["SystemSetting"]["effect on_off"];
+		public static getEffectOnOff():Number{
+			return this.data["SystemSetting"]["effect on_off"];
 		}
-		public static function setLiveOnOff(_bValue:Boolean):void{
-			data["SystemSetting"]["live on_off"] = _bValue;
+		public static setLiveOnOff(_bValue: boolean):void{
+			this.data["SystemSetting"]["live on_off"] = _bValue;
 		}
-		public static function getLiveOnOff():Number{
-			return data["SystemSetting"]["live on_off"];
+		public static getLiveOnOff():Number{
+			return this.data["SystemSetting"]["live on_off"];
 		}
 		
 		/**
 		 * 设置选中的背景音乐
 		 */
-		public static function setMusicSelectIndex(value:int):void
+		public static setMusicSelectIndex(value:number):void
 		{
-			data["SystemSetting"]["music selectIndex"] = value;
+			this.data["SystemSetting"]["music selectIndex"] = value;
 		}
 		/**
 		 * 获取选中的背景音乐
 		 */
-		public static function getMusicSelectIndex():int
+		public static getMusicSelectIndex():number
 		{
-			return data["SystemSetting"]["music selectIndex"];
+			return this.data["SystemSetting"]["music selectIndex"];
 		}
 		
-		public static function setMusicVolume(_nValue:Number):void{
-			data["SystemSetting"]["music value"] = _nValue.toFixed(2);
+		public static setMusicVolume(_nValue:Number):void{
+			this.data["SystemSetting"]["music value"] = _nValue.toFixed(2);
 		}
-		public static function getMusicVolume():Number{
-			return data["SystemSetting"]["music value"];
-		}
-		
-		public static function setEffectVolume(_nValue:Number):void{
-			data["SystemSetting"]["effect value"] = _nValue.toFixed(2);
-		}
-		public static function getEffectVolume():Number{
-			return data["SystemSetting"]["effect value"];
+		public static getMusicVolume():Number{
+			return this.data["SystemSetting"]["music value"];
 		}
 		
-		public static function setLiveVolume(_nValue:Number):void{
-			data["SystemSetting"]["live value"] = _nValue.toFixed(2);
+		public static setEffectVolume(_nValue:Number):void{
+			this.data["SystemSetting"]["effect value"] = _nValue.toFixed(2);
 		}
-		public static function getLiveVolume():Number{
-			return data["SystemSetting"]["live value"];
+		public static getEffectVolume():Number{
+			return this.data["SystemSetting"]["effect value"];
+		}
+		
+		public static setLiveVolume(_nValue:Number):void{
+			this.data["SystemSetting"]["live value"] = _nValue.toFixed(2);
+		}
+		public static getLiveVolume():Number{
+			return this.data["SystemSetting"]["live value"];
 		}
 		
 		
 		
-		public static function setGoodRoadSetting(_iIndex:int, _bValue:Boolean):void{
-			data["GoodRoadSetting"][_iIndex] = _bValue;
+		public static setGoodRoadSetting(_iIndex:number, _bValue: boolean):void{
+			this.data["GoodRoadSetting"][_iIndex] = _bValue;
 		}
-		public static function getGoodRoadSetting():Array{
-			return data["GoodRoadSetting"];
+		public static getGoodRoadSetting():any[]{
+			return this.data["GoodRoadSetting"];
 		}
 		
 		
 		/** 视讯频道 **/
-		public static function setCDNList(_strct:VideoCDNStruct):void{
-			data["CDNList"] = _strct;
+		public static setCDNList(_strct:lobby.model.struct.VideoCDNStruct):void{
+			this.data["CDNList"] = _strct;
 		}
-		public static function getCDNList():Object{
-			return data["CDNList"];
+		public static getCDNList():any{
+			return this.data["CDNList"];
 		}
 		
 		
 		
 		/** 视讯分辨率 **/
-		public static function setResolution(_strct:ResolutionStruct):void{
-			data["Resolution"] = _strct;
+		public static setResolution(_strct:lobby.model.struct.ResolutionStruct):void{
+			this.data["Resolution"] = _strct;
 		}
-		public static function getResolution():Object{
-			return data["Resolution"];
+		public static getResolution():any{
+			return this.data["Resolution"];
 		}
 		/**電投百家瞇牌選擇*/
-		public static function setPeekSelect(_iVlaue:int):void {
-			data["PeekSelect"]["Type"] = _iVlaue;
+		public static setPeekSelect(_iVlaue:number):void {
+			this.data["PeekSelect"]["Type"] = _iVlaue;
 		}
-		public static function getPeekSelect():int {
-			return data["PeekSelect"]["Type"];
+		public static getPeekSelect():number{
+			return this.data["PeekSelect"]["Type"];
 		}
-		public static function clearPeekSelect():void {
-			data["PeekSelect"] = null;
-			flush();
+		public static clearPeekSelect():void {
+			this.data["PeekSelect"] = null;
+			this.flush();
 		}
 		
 		/** 全屏按钮点击次数 **/
-		public static function setClickFullScreenCount():void{
-			data["ClickFullScreenCount"] += 1; 
+		public static setClickFullScreenCount():void{
+			this.data["ClickFullScreenCount"] += 1; 
 		}
-		public static function getClickFullScreenCount():int{
-			return data["ClickFullScreenCount"];
+		public static getClickFullScreenCount():number{
+			return this.data["ClickFullScreenCount"];
 		}
 
-//        public static function setPlazaCheckBoxStatus(uIndex:uint, bStatus:Boolean) : void
+//        public static setPlazaCheckBoxStatus(uIndex:number, bStatus: boolean) : void
 //        {
 //            data["SystemSettingPlaza"]["status"][uIndex] = bStatus;
 //            return;
 //        }// end function
 
-//        public static function get plazaCheckBoxStatus() : Array
+//        public static get plazaCheckBoxStatus() : any[]
 //        {
 //            return data["SystemSettingPlaza"]["status"];
 //        }// end function
 
-//        public static function get plazaBlueFilter() : Boolean
+//        public static get plazaBlueFilter() :  boolean
 //        {
 //            return data["SystemSettingPlaza"]["status"][1];
 //        }// end function
 //
-//        public static function get plazaMusic() : Boolean
+//        public static get plazaMusic() :  boolean
 //        {
 //            return data["SystemSettingPlaza"]["status"][2];
 //        }// end function
 //
-//        public static function set plazaMusic(bValue:Boolean) : void
+//        public static set plazaMusic(bValue: boolean) : void
 //        {
 //            data["SystemSettingPlaza"]["status"][2] = bValue;
 //            return;
 //        }// end function
 //
-//        public static function get plazaSound() : Boolean
+//        public static get plazaSound() :  boolean
 //        {
 //            return data["SystemSettingPlaza"]["status"][3];
 //        }// end function
 //
-//        public static function set plazaSound(bValue:Boolean) : void
+//        public static set plazaSound(bValue: boolean) : void
 //        {
 //            data["SystemSettingPlaza"]["status"][3] = bValue;
 //            return;
 //        }// end function
 //
-//        public static function get plazaMusicVolume() : Number
+//        public static get plazaMusicVolume() : Number
 //        {
 //            return data["SystemSettingPlaza"]["music value"];
 //        }// end function
 //
-//        public static function set plazaMusicVolume(nVolume:Number) : void
+//        public static set plazaMusicVolume(nVolume:Number) : void
 //        {
 //            data["SystemSettingPlaza"]["music value"] = nVolume.toFixed(2);
 //            return;
 //        }// end function
 //
-//        public static function get plazaSoundVolume() : Number
+//        public static get plazaSoundVolume() : Number
 //        {
 //            return data["SystemSettingPlaza"]["sound value"];
 //        }// end function
 //
-//        public static function set plazaSoundVolume(nVolume:Number) : void
+//        public static set plazaSoundVolume(nVolume:Number) : void
 //        {
 //            data["SystemSettingPlaza"]["sound value"] = nVolume.toFixed(2);
 //            return;
 //        }// end function
 
-//        public static function get bright() : Number
+//        public static get bright() : Number
 //        {
 //            return data["bright"];
 //        }// end function
 //
-//        public static function set bright(nValue:Number) : void
+//        public static set bright(nValue:Number) : void
 //        {
 //            data["bright"] = nValue;
 //            return;

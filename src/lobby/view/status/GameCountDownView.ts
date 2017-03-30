@@ -1,13 +1,13 @@
 module lobby.view.status {
 	export class GameCountDownView extends Sprite{
-		protected var countDownValue:int = -1;
-		protected var view:Bitmap;
+		protected countDownValue:number= -1;
+		protected view:Bitmap;
 		
 		public constructor() {
 		view = addChild(new Bitmap()) as Bitmap; 
 			view.smoothing = true;
 		}
-		public function setCountDown(value:int,gameStatus:String):void
+		public setCountDown(value:number,gameStatus:String):void
 		{
 			if(gameStatus!=GameStatus.BETTING && gameStatus!=GameStatus.FIRST_PEEK &&
 				gameStatus!= GameStatus.PLAYER_SECOND_PEEK && gameStatus!=GameStatus.BANKER_SECOND_PEEK){
@@ -37,7 +37,7 @@ module lobby.view.status {
 		}
 		
 		
-		protected function playCountDownSound(value:int,gameStatus:String):void
+		protected playCountDownSound(value:number,gameStatus:String):void
 		{
 			if(gameStatus==GameStatus.BETTING || gameStatus==GameStatus.FIRST_PEEK ||
 				gameStatus == GameStatus.PLAYER_SECOND_PEEK || gameStatus ==GameStatus.BANKER_SECOND_PEEK)
@@ -46,7 +46,7 @@ module lobby.view.status {
 				else if(value<=10)SoundManager.getInstance().play(SoundPackage.sCountDown0_10);
 			}
 		}
-		protected function getCountDownNumBitmap(num:int):BitmapData
+		protected getCountDownNumBitmap(num:number):BitmapData
 		{
 			if(num<=5)
 			{
@@ -57,21 +57,21 @@ module lobby.view.status {
 			}
 		}
 		
-		protected function playCountDownEffect(needEffectNum:int):void
+		protected playCountDownEffect(needEffectNum:number):void
 		{
 			if(countDownValue<=needEffectNum)
 			{
 				TweenLite.killTweensOf(view,true);
-				var xx:int = -view.width/2;
+				var xx:number= -view.width/2;
 				var scale:Number = 1.6;
-				var scaleWidth:int = view.width*scale;
-				var scaleHeight:int = view.height*scale;
-				var offX:int = (scaleWidth-view.width)*0.5;
-				var offY:int = (scaleHeight-view.height)*0.5;
+				var scaleWidth:number= view.width*scale;
+				var scaleHeight:number= view.height*scale;
+				var offX:number= (scaleWidth-view.width)*0.5;
+				var offY:number= (scaleHeight-view.height)*0.5;
 				TweenLite.fromTo(view,GameDefine.COUNTDOWN_SPEED,{y:-offY,x:xx-offX,scaleX:scale, scaleY:scale},{y:0,x:xx,scaleX:1, scaleY:1});
 			}
 		}
-		public function dispose():void
+		public dispose():void
 		{
 			if(view&&view.parent)
 			{
@@ -79,7 +79,7 @@ module lobby.view.status {
 				view.parent.removeChild(view);
 			}
 		}
-		public function getCountDown():int
+		public getCountDown():number
 		{
 			return countDownValue;
 		}

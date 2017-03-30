@@ -5,7 +5,7 @@ module lobby.view.route {
 			super(view);
 			m_beadPlate.setBeads(1,0,28,27);
 		}
-		override protected function setRoadInf():void{
+		 protected setRoadInf():void{
 			//路紙參數均在此設定
 			this.m_beadInfo = new BeadInfo();
 			this.m_beadInfo.gridWidth = 30;

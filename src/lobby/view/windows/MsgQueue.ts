@@ -1,10 +1,10 @@
 module lobby.view.windows {
 	export class MsgQueue {
-		protected   var m_vecMsg		:		Vector.<MsgData>;
-		protected   var m_window		:		MessageWindow;
-		protected   var m_timer			:		JTimer;
+		protected   m_vecMsg		:		<MsgData>;
+		protected   m_window		:		MessageWindow;
+		protected   m_timer			:		JTimer;
 		public constructor(_window:MessageWindow) {
-		m_vecMsg   = new Vector.<MsgData>();
+		m_vecMsg   = new <MsgData>();
 			m_window   = _window;
 			m_timer    = JTimer.getTimer(1000);//new Timer(1000);
 			m_timer.addTimerCallback(onTimer);
@@ -12,7 +12,7 @@ module lobby.view.windows {
 			m_timer.start();
 		}
 		
-		protected function onTimer():void {
+		protected onTimer():void {
 			if( m_vecMsg.length > 0 ){
 				var _msgData:MsgData = m_vecMsg.shift();
 			
@@ -24,7 +24,7 @@ module lobby.view.windows {
 			}
 		}
 		
-		public function show( _sMsg:String , _bKeep:Boolean =false  ):void {
+		public show( _sMsg:String , _bKeep: boolean =false  ):void {
 			var _msgData:MsgData = new MsgData();
 			if( _sMsg != null && _sMsg != '') {
 				_msgData.sMsg = _sMsg;
@@ -36,7 +36,7 @@ module lobby.view.windows {
 			}
 		}
 		
-		public function destroy():void{
+		public destroy():void{
 			m_window=null;
 			m_vecMsg=null;
 			if(m_timer){
@@ -53,9 +53,9 @@ module lobby.view.windows {
 
 }
 class MsgData {
-	public var sMsg:String;
-	public var keep:Boolean;
-	public function MsgData():void {
+	public sMsg:String;
+	public keep: boolean;
+	public MsgData():void {
 		
 	}
 	

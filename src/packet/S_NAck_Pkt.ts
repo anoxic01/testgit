@@ -3,15 +3,15 @@ module packet {
 		public constructor() {
 		}
 		
-		public function initControler(controler:GameControler):void
+		public initControler(controler:GameControler):void
 		{
 			
 		}
 		
-		public function execute( _oData:Object ):void
+		public execute( _oData:Object ):void
 		{
 			
-			trace("服務器回應 NACK封包序號：",_oData.SN);
+			console.log("服務器回應 NACK封包序號：",_oData.SN);
 			
 		}
 	}

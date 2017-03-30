@@ -3,25 +3,25 @@ module lobby.view.route {
 		private static const PREFIX:String = "#";//#25
 		private static const EMPTY:String = "　";
 		
-		private static const FACE_COUNT:int = 99;
-		private static const FACE_SIZE:int = 30;
+		private static const FACE_COUNT:number= 99;
+		private static const FACE_SIZE:number= 30;
 		
-		private var _tf:TextField;
-		private var _box:Sprite;
+		private _tf:TextField;
+		private _box:Sprite;
 		
-		private var _text:String;
-		private var _width:Number;
-		private var _convertStr:String;
+		private _text:String;
+		private _width:Number;
+		private _convertStr:String;
 		
-		private var _faces:Array;
+		private _faces:any[];
 		
-		private var _faceIdLen:int;
-		private var _faceLen:int;
-		private var _emptyLen:int;
-		private var _timer:int = -1;
+		private _faceIdLen:number;
+		private _faceLen:number;
+		private _emptyLen:number;
+		private _timer:number= -1;
 
-		private var _textFormat:TextFormat;
-		private var _faceFormat:TextFormat;
+		private _textFormat:TextFormat;
+		private _faceFormat:TextFormat;
 		
 		public constructor() {
 		
@@ -49,7 +49,7 @@ module lobby.view.route {
 			
 			this.mouseEnabled=this.mouseChildren=false;
 		}
-		override public function destroy():void
+		 public destroy():void
 		{
 			_faces = null;
 			if(_box.numChildren>0)
@@ -62,7 +62,7 @@ module lobby.view.route {
 				_timer = -1;
 			}
 		}
-		public function clear():void
+		public clear():void
 		{
 			_faces.length = 0;
 			if(_box.numChildren>0)
@@ -75,17 +75,17 @@ module lobby.view.route {
 				_timer = -1;
 			}
 		}
-		override public function set width(value:Number):void
+		 set  width(value:Number)
 		{
 			_width = value;
 			_tf.width = _width;
 			super.width = _width;
 		}
-		public function get text():String
+		get text():String
 		{
 			return _text;
 		}
-		public function set text(value:String):void
+		set  text(value:String)
 		{
 			clear();
 			
@@ -96,22 +96,22 @@ module lobby.view.route {
 			//setTextFormat之后立即执行getCharBoundaries，得不到正确的矩形
 			_timer = setTimeout(onTimer,80);
 		}
-		private function changeFaceFormat():void
+		private changeFaceFormat():void
 		{
-			var len:int = _faces.length;
+			var len:number= _faces.length;
 			if(len > 0)
 			{
 				var vo:FaceVO;
 				var rect:Rectangle;
 				var face:Face;
-				for (var i:int = 0; i < len; i++) 
+				for (var i:number= 0; i < len; i++) 
 				{
 					vo = _faces[i];
 					_tf.setTextFormat(_faceFormat,vo.index,vo.index+1);
 				}
 			}
 		}
-		private function onTimer():void
+		private onTimer():void
 		{
 			if(_timer > -1)
 			{
@@ -123,15 +123,15 @@ module lobby.view.route {
 		/**
 		 * setTextFormat之后立即执行getCharBoundaries，得不到正确的矩形
 		 */		
-		private function addFace():void
+		private addFace():void
 		{
-			var len:int = _faces.length;
+			var len:number= _faces.length;
 			if(len > 0)
 			{
 				var vo:FaceVO;
 				var rect:Rectangle;
 				var face:Face;
-				for (var i:int = 0; i < len; i++) 
+				for (var i:number= 0; i < len; i++) 
 				{
 					vo = _faces[i];
 					rect = _tf.getCharBoundaries(vo.index);
@@ -142,15 +142,15 @@ module lobby.view.route {
 				}
 			}
 		}
-		private function convert(value:String):String
+		private convert(value:String):String
 		{
 			if(value==null || value.length==0)
 			{
 				return "";
 			}
-			var startIndex:int;
+			var startIndex:number;
 			var faceStr:String;
-			var faceId:int;
+			var faceId:number;
 			var faceIdStr:String;
 			while(true)
 			{
@@ -180,13 +180,13 @@ module lobby.view.route {
 					}
 					else
 					{
-						trace("匹配完了: "+startIndex+","+value.length);
+						console.log("匹配完了: "+startIndex+","+value.length);
 						break;
 					}
 				}
 				else
 				{
-					trace("匹配完了");
+					console.log("匹配完了");
 					break;
 				}
 			}
@@ -199,12 +199,12 @@ import flash.display.Sprite;
 
 class FaceVO
 {
-	public var faceID:int;
-	public var index:int;
+	public faceID:number;
+	public index:number;
 }
 class Face extends Sprite
 {
-	public function Face(size:int):void
+	public Face(size:number):void
 	{
 		graphics.beginFill(0xff0000,0.6);
 		graphics.drawRect(0,0,size,size);

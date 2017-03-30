@@ -12,7 +12,7 @@ module lobby.view.windows {
 		public 		duration			:   number=0.35;
 		public 		keepTime			:	number=2;
 		public		m_delayHide			:	number = 1000;
-		public		lockWindow			:	boolean;
+		public		lockWindow			:	 boolean;
 //		protected 	m_bg				:	BitmapScale9Grid;
 		protected 	m_bg				:	egret.MovieClip;
 		public 		msg					:	string;
@@ -21,8 +21,8 @@ module lobby.view.windows {
 		public		sAutoSize			:	string = "left";
 		public		iWidth				:	number =0;
 		public		iHeight				:	number =0;
-		public 		bAutoSize			:	boolean = true;
-		public		bKeep				:	boolean;
+		public 		bAutoSize			:	 boolean = true;
+		public		bKeep				:	 boolean;
 
 		public constructor(w:number=700,h:number=200,size:number=38) {
 			super();
@@ -89,7 +89,7 @@ module lobby.view.windows {
 			this.m_textField.text = "";
 		}
 		
-		public show(str:string , keep:boolean =false ,time:number=1.5):void{
+		public show(str:string , keep: boolean =false ,time:number=1.5):void{
 			if (this.m_textField==null) return;
 			this.m_textField.text = str;
 			this.bKeep=keep;

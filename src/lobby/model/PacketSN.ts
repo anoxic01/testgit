@@ -1,19 +1,23 @@
 module lobby.model {
 	export class PacketSN {
-		private static var _packetSNInstance:PacketSN;
-		public  static var SN:uint = 0;
+		private static _packetSNInstance:PacketSN;
+		public  static SN:number = 0;
 		
-		public constructor() {
+		public constructor(pkt:PKT) {
 		}
-		public static function instance():PacketSN {
-			if ( _packetSNInstance == null ) {
-				_packetSNInstance = new PacketSN(new PKT());
+		public static instance():PacketSN {
+			if ( PacketSN._packetSNInstance == null ) {
+				PacketSN._packetSNInstance = new PacketSN(new PKT());
 			}
-			return _packetSNInstance;
+			return PacketSN._packetSNInstance;
 		}
 		
 	
 		
 	
 	}
+}
+
+export class PKT{
+
 }

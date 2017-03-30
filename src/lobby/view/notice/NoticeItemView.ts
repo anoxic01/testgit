@@ -1,9 +1,9 @@
 module lobby.view.notice {
 	export class NoticeItemView extends BSprite{
-		protected var m_tfLabel			:	TextField;
-		protected var m_format 			: 	TextFormat; 
+		protected m_tfLabel			:	TextField;
+		protected m_format 			: 	TextFormat; 
 		
-		public var maData				:	MessageStruct;
+		public maData				:	MessageStruct;
 		public constructor() {
 			super();
 			m_format = new TextFormat("Arial",18,0xffffff);//0xffffff
@@ -15,7 +15,7 @@ module lobby.view.notice {
 			m_tfLabel.mouseEnabled = false;
 			m_tfLabel.cacheAsBitmap = true;
 		}
-		override public function destroy():void
+		 public destroy():void
 		{
 			maData = null;
 			m_tfLabel.text = "";
@@ -30,13 +30,13 @@ module lobby.view.notice {
 			super.destroy();
 		}
 		
-		public function clear():void
+		public clear():void
 		{
 			maData = null;
 			m_tfLabel.text = "";
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			var sValue : String= "";
 			if(maData)
 			{

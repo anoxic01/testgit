@@ -1,12 +1,12 @@
 module lobby.view.panel {
 	export class PanelTableEnter extends PanelWindow{
-//		private var m_bg			:	BitmapScale9Grid;
-		private var m_btnOk			:	SingleButtonMC;
-		private var m_btnNo			:	SingleButtonMC;
-		private var m_fQuickTable	:	Function;
-		private var m_struct		:	TableStruct;
+//		private m_bg			:	BitmapScale9Grid;
+		private m_btnOk			:	SingleButtonMC;
+		private m_btnNo			:	SingleButtonMC;
+		private m_fQuickTable	:	Function;
+		private m_struct		:	TableStruct;
 		
-		public constructor(_struct:TableStruct,$bShake:Boolean=false, _fQuickTable:Function=null) {
+		public constructor(_struct:TableStruct,$bShake: boolean=false, _fQuickTable:Function=null) {
 		
 			super($bShake);
 			m_struct = _struct;
@@ -47,7 +47,7 @@ module lobby.view.panel {
 			this.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 //			if(m_bg){
 //				if(m_bg.parent){
 //					m_bg.parent.removeChild(m_bg);
@@ -79,20 +79,20 @@ module lobby.view.panel {
 			super.destroy();
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			m_mcAsset.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);;
 			m_mcAsset.mc_ok.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			m_mcAsset.mc_no.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 		}
 		
-		protected function onKeyDown(event:KeyboardEvent):void
+		protected onKeyDown(event:KeyboardEvent):void
 		{
 			if( event.charCode == Keyboard.ENTER ){
 				btnOkEnter(null);
 			}
 		}
 		
-		private function btnOkEnter(event:MouseEvent):void{
+		private btnOkEnter(event:MouseEvent):void{
 			this.removeEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
 			
 			m_struct.joinTbPwd = m_mcAsset.tf_1.text;

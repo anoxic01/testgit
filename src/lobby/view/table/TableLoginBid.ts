@@ -1,12 +1,12 @@
 module lobby.view.table {
 	export class TableLoginBid extends TableLogin{
-//		private var m_btnSideBet	:	ButtonMcLanguage;					//旁观下注
-//		private var m_btnLogin		:	ButtonMcLanguage;					//进座下注
-		private var m_btnSideBet	:	MMovieClip;							//旁观下注
-		private var m_btnLogin		:	MMovieClip;							//进座下注
-		private var m_bAnimation	:	Boolean;							//播放状态
-		private var m_bSideVisible	:	Boolean;
-		private var m_bLoginVisible	:	Boolean;
+//		private m_btnSideBet	:	ButtonMcLanguage;					//旁观下注
+//		private m_btnLogin		:	ButtonMcLanguage;					//进座下注
+		private m_btnSideBet	:	MMovieClip;							//旁观下注
+		private m_btnLogin		:	MMovieClip;							//进座下注
+		private m_bAnimation	:	 boolean;							//播放状态
+		private m_bSideVisible	:	 boolean;
+		private m_bLoginVisible	:	 boolean;
 		
 		public constructor(_tableStruct:TableStruct) {
 		
@@ -72,7 +72,7 @@ module lobby.view.table {
 			onChangeLanguage();
 		}
 		
-		protected function btnSideBetover(event:MouseEvent):void
+		protected btnSideBetover(event:MouseEvent):void
 		{
 			if(m_bAnimation){
 				return;
@@ -82,7 +82,7 @@ module lobby.view.table {
 			}
 		}
 		
-		protected function btnSideBetout(event:MouseEvent):void
+		protected btnSideBetout(event:MouseEvent):void
 		{
 			if(m_bAnimation){
 				return;
@@ -92,7 +92,7 @@ module lobby.view.table {
 			}
 		}
 		
-		protected function btnSideBetonClick(event:MouseEvent):void
+		protected btnSideBetonClick(event:MouseEvent):void
 		{
 			playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_tableStruct.TableID);
 			if(playerTableOwnStatusStruct){
@@ -110,7 +110,7 @@ module lobby.view.table {
 			SoundManager.getInstance().play(SoundPackage.sEnterGame);
 		}
 		
-		protected function Loginover(event:MouseEvent):void
+		protected Loginover(event:MouseEvent):void
 		{
 			if(m_bAnimation){
 				return;
@@ -120,7 +120,7 @@ module lobby.view.table {
 			}
 		}
 		
-		protected function Loginout(event:MouseEvent):void
+		protected Loginout(event:MouseEvent):void
 		{
 			if(m_bAnimation){
 				return;
@@ -130,7 +130,7 @@ module lobby.view.table {
 			}
 		}
 		
-		protected function LoginonClick(event:MouseEvent):void
+		protected LoginonClick(event:MouseEvent):void
 		{
 			playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_tableStruct.TableID);
 			if(playerTableOwnStatusStruct){
@@ -150,7 +150,7 @@ module lobby.view.table {
 			SoundManager.getInstance().play(SoundPackage.sEnterGame);
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			
 			if(m_btnSideBet){
 				m_btnSideBet.mcAsset.removeEventListener(MouseEvent.ROLL_OVER,btnSideBetover);
@@ -170,7 +170,7 @@ module lobby.view.table {
 			super.destroy();
 		}
 		
-		override public function show():void{
+		 public show():void{
 			super.show();
 			
 //			m_bAnimation = true;
@@ -185,7 +185,7 @@ module lobby.view.table {
 				m_btnLogin.gotoAndPlay("SHOW");
 			}
 		}
-		override public function hide():void{
+		 public hide():void{
 			super.hide();
 			
 			if(m_btnSideBet && m_bSideVisible){
@@ -196,7 +196,7 @@ module lobby.view.table {
 			}
 		}
 		
-//		override public function init():void{
+//		 public init():void{
 //			if(m_bInit){
 //				return;
 //			}
@@ -221,12 +221,12 @@ module lobby.view.table {
 //		}
 		
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			m_mcAsset.mc_0.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			m_mcAsset.mc_1.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 		}
 		
-		override public function updateStatus():void{
+		 public updateStatus():void{
 			
 			m_aShow = [];
 			playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_tableStruct.TableID);
@@ -242,7 +242,7 @@ module lobby.view.table {
 				sortBtn();
 				return;
 			}
-			var arr : Array = m_tableStruct.JoinTbStatus.split("");
+			var arr : any[] = m_tableStruct.JoinTbStatus.split("");
 			
 			
 			if(arr[2] == 0){	//旁注
@@ -262,7 +262,7 @@ module lobby.view.table {
 			
 			sortBtn();
 		}
-		private function sideEnable(_bEnable:Boolean):void{
+		private sideEnable(_bEnable: boolean):void{
 			m_bSideVisible = _bEnable;
 			if(m_bShow){
 				m_btnSideBet.mcAsset.gotoAndStop(showEnd);
@@ -273,7 +273,7 @@ module lobby.view.table {
 			m_btnSideBet.mcAsset.enabled = _bEnable;
 			m_btnSideBet.mcAsset.buttonMode = _bEnable;
 		}
-		private function loginEnable(_bEnable:Boolean):void{
+		private loginEnable(_bEnable: boolean):void{
 			m_bLoginVisible = _bEnable;
 			if(m_bShow){
 				m_btnLogin.mcAsset.visible = _bEnable;
@@ -284,7 +284,7 @@ module lobby.view.table {
 			m_btnLogin.mcAsset.enabled = _bEnable;
 			m_btnLogin.mcAsset.buttonMode = _bEnable;
 		}
-		private function checkStatus():void{
+		private checkStatus():void{
 			m_btnSideBet.gotoAndStop(showEnd);
 			m_bAnimation = false;
 			
@@ -298,7 +298,7 @@ module lobby.view.table {
 				return;
 			}
 			
-			var arr : Array = m_tableStruct.JoinTbStatus.split("");
+			var arr : any[] = m_tableStruct.JoinTbStatus.split("");
 			
 			if(arr[1] == 0){	//进桌
 				m_btnLogin.gotoAndStop("DISABLE");

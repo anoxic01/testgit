@@ -1,17 +1,17 @@
 module packet {
 	export class Packet {
      	
-        protected var _SN	:	uint;		//封包序号 
+        protected _SN	:	number;		//封包序号 
 		
 		public constructor() {
 		}
 		
-		public function get SN():uint 
+		get SN():number 
 		{
 			return _SN;
 		}
 		
-		public function set SN(value:uint):void 
+		set  SN(value:number) 
 		{
 			_SN = value;
 		}

@@ -3,12 +3,12 @@ module lobby.view.route.quick {
 		protected var m_routeView					:	MovieClip;
 		
 		/**當前顯示路*/
-		protected var _nowRoad						:	String 				=	"";
+		protected var _nowRoad						:	string 				=	"";
 		
 		protected var m_beadPlate					:	QuickBeadPlate;
 		protected var m_beadInfo					:	BeadInfo;
 		
-		public var bError							:	Boolean;														//错误状态
+		public var bError							:	 boolean;														//错误状态
 		
 		public constructor(view:MovieClip) {
 		
@@ -108,10 +108,10 @@ module lobby.view.route.quick {
 			bError = false;
 			this._nowRoad = "";			
 			this.showRoadViewInit();
-			//trace("clearRoad:" + this._nowRoad);
+			//console.log("clearRoad:" + this._nowRoad);
 		}
 		/** 更新路單 */
-		public function addRoad(road:String):void {
+		public function addRoad(road:string):void {
 			//			if ( this._nowRoad.length > Define.BEAD_NUM ) {
 			//				this._nowRoad = "";
 			//			}
@@ -123,7 +123,7 @@ module lobby.view.route.quick {
 			
 			if ( road.indexOf( "#" ) != -1 ) {
 				//路紙有錯
-				trace("路紙有錯"+road);
+				console.log("路紙有錯"+road);
 				bError = true;
 				return;
 			}else{
@@ -138,7 +138,7 @@ module lobby.view.route.quick {
 				this._nowRoad += "."+road;
 			}
 			
-			//	trace("addRoad::" + this._nowRoad );
+			//	console.log("addRoad::" + this._nowRoad );
 			//this._nowRoad = road;
 			if ( ( this._nowRoad != "null" ) && (this._nowRoad != null) )  {
 				this.showRoadViewInit();
@@ -149,20 +149,20 @@ module lobby.view.route.quick {
 		/**
 		 * 路紙排列
 		 */
-		protected function sortRoad(road:String):String {
-			var _ar:Array = road.split('.');
-			var _len:int = _ar.length;
-			var _ar2:Array;
-			for( var i:int = 0 ; i < _len; i++ ){
+		protected function sortRoad(road:string):string {
+			var _ar:any[] = road.split('.');
+			var _len:number= _ar.length;
+			var _ar2:any[];
+			for( var i:number= 0 ; i < _len; i++ ){
 				_ar2 = _ar[i].split('');
-				_ar2.sort( Array.NUMERIC );
+				_ar2.sort( any[].NUMERIC );
 				_ar[i] = _ar2.join('');
 			}
 			road = _ar.join('.');
 			return road;
 		}		
 		
-		protected function showRoad(road:String, isAsk:Boolean = false):void {
+		protected function showRoad(road:string, isAsk: boolean = false):void {
 			//this.showRoadViewInit();
 			if(m_beadPlate){
 				this.m_beadPlate.addRoad(road);
@@ -175,13 +175,13 @@ module lobby.view.route.quick {
 			drawProbeIcon("e");
 		}
 		
-		private function drawProbeIcon(probe:String):void{
+		private function drawProbeIcon(probe:string):void{
 			var roadStrObj:RoadStringObject = BeadRoad.createRoadReanderString(_nowRoad+probe);
-			var probeArr:Array=new Array(3);
+			var probeArr:any[]=new Array(3);
 			probeArr[0]=roadStrObj.bigEyeRoad.charAt(roadStrObj.bigEyeRoad.length-1)
 			probeArr[1] = roadStrObj.smallRoad.charAt(roadStrObj.smallRoad.length-1)
 			probeArr[2] = roadStrObj.roachRoad.charAt(roadStrObj.roachRoad.length-1)
-			//	trace("探路"+probe+"-----:"+probeArr);
+			//	console.log("探路"+probe+"-----:"+probeArr);
 			
 			var sp:Sprite;
 			if (probe=="a"){
@@ -190,7 +190,7 @@ module lobby.view.route.quick {
 				sp=this.m_routeView.btn_AskPlayerRoad
 				
 			}
-			for (var i:int = 0; i < probeArr.length; i++) 
+			for (var i:number= 0; i < probeArr.length; i++) 
 			{
 				if (probeArr[i] is DisplayObject){
 					var icon:Sprite=probeArr[i];

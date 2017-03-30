@@ -1,16 +1,16 @@
 module lobby.view.game {
 	export class GameView  extends BSprite implements IConnectState{
 		
-		public var model				:	GameModel;
-		public var sendFun				:	Function;
-		public var gameType				:	int;
-		public var bInited				:	Boolean			//是否已登录成功,收到初始化数据
+		public model				:	GameModel;
+		public sendFun				:	Function;
+		public gameType				:	number;
+		public bInited				:	 boolean			//是否已登录成功,收到初始化数据
 		
-		public constructor(gameType:int) {
+		public constructor(gameType:number) {
 			this.gameType=gameType;
 		}
 		
-		override public function destroy():void {
+		 public destroy():void {
 			bInited = false;
 			model = null;
 			sendFun = null;
@@ -22,50 +22,50 @@ module lobby.view.game {
 		 * @param model
 		 * 
 		 */
-		public function setup(model:GameModel):void{
+		public setup(model:GameModel):void{
 			
 		}
 		
 		
 		
 		
-		public function updateView(model:GameModel):void{
+		public updateView(model:GameModel):void{
 			
 		}
 		
-		public function onConnectFailed():void {
+		public onConnectFailed():void {
 
 		}
 		
-		public function onConnectClosed():void {
+		public onConnectClosed():void {
 
 		}
 		
-		public function onConnect():void {
+		public onConnect():void {
 
 		}		
 		
 		
-		public function onReConnect():void
+		public onReConnect():void
 		{
 			
 		}
 		
 		//销毁视讯
-		public function destroyVideo():void{
+		public destroyVideo():void{
 			
 		}
 		
 		/**
 		 * 显示房间资讯面板
 		 */
-		public function showRoomInf():void{
+		public showRoomInf():void{
 			
 		}
 		/**
 		 * 关闭房间资讯面板
 		 */
-		public function hideRoomInf():void{
+		public hideRoomInf():void{
 			
 		}
 		

@@ -1,17 +1,17 @@
 module lobby.view.theme {
 	export class ThemeTransition extends BSprite{
-		public var fOnComp:Function;
+		public fOnComp:Function;
 		
-		private var m_bms:Array;
-		private var m_objs:Array;
-		private var m_spParent:Sprite;
+		private m_bms:any[];
+		private m_objs:any[];
+		private m_spParent:Sprite;
 		public constructor(parent:Sprite) {
 			super();
 			m_spParent = parent;
 			m_bms = [];
 			m_objs = [];
 			var bm:Bitmap;
-			for (var i:int = 0; i < 8; i++) 
+			for (var i:number= 0; i < 8; i++) 
 			{
 				bm = new Bitmap();
 				bm.x = i%2 * 950;
@@ -22,14 +22,14 @@ module lobby.view.theme {
 			}
 			this.mouseEnabled=this.mouseChildren=false;
 		}
-		public function start():void
+		public start():void
 		{
 			if(this.parent)
 				return;
 			m_spParent.addChild(this);
 			var bm:Bitmap;
 			var obj:Object;
-			for (var i:int = 0; i < m_bms.length; i++) 
+			for (var i:number= 0; i < m_bms.length; i++) 
 			{
 				bm = m_bms[i];
 				bm.y = int(i/2) * 281;
@@ -52,7 +52,7 @@ module lobby.view.theme {
 				TweenLite.from(bm,0.2,obj);
 			}
 		}
-		private function onComplete():void
+		private onComplete():void
 		{
 			if(parent)
 			{
@@ -60,7 +60,7 @@ module lobby.view.theme {
 			}
 			fOnComp();
 		}
-		public function removeFromParent():void
+		public removeFromParent():void
 		{
 			if(parent)
 			{

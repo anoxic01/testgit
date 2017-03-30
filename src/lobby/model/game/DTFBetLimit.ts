@@ -2,20 +2,20 @@ module lobby.model.game {
 	export class DTFBetLimit extends GameBetLimitBase{
 		
 
-		public var TieBetUpperLimit		:Number;
-		public var TieBetUnderLimit		:Number;
+		public TieBetUpperLimit		:Number;
+		public TieBetUnderLimit		:Number;
 		
-		public var SingleBetUnderLimit	:Number;
-		public var SingleBetUpperLimit	:Number;
+		public SingleBetUnderLimit	:Number;
+		public SingleBetUpperLimit	:Number;
 		
 		public constructor() {
 			super();
 			
-			TieBetUpperLimit 			= 0;
-			TieBetUnderLimit 			= 0;
+			this.TieBetUpperLimit 			= 0;
+			this.TieBetUnderLimit 			= 0;
 			
-			SingleBetUnderLimit 		= 0;
-			SingleBetUpperLimit			= 0;
+			this.SingleBetUnderLimit 		= 0;
+			this.SingleBetUpperLimit			= 0;
 		}
 	}
 }

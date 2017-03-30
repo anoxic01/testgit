@@ -1,13 +1,13 @@
 module lobby.view.route {
 	export class BeadPlate extends BSprite{
-		protected var maxNum					:int = 66;
-		protected var maxCol					:int = 11;
+		protected maxNum					:number= 66;
+		protected maxCol					:number= 11;
 		
-		protected var _beadPlate_vct		:Vector.<BeadItem>; //珠路盤
-		protected var _lastIndex			:int;
-		protected var _timer				:JTimer;
-		protected var m_class				:Class;
-		protected var m_mcAsset				:MovieClip;
+		protected _beadPlate_vct		:<BeadItem>; //珠路盤
+		protected _lastIndex			:number;
+		protected _timer				:JTimer;
+		protected m_class				:Class;
+		protected m_mcAsset				:MovieClip;
 		
 		public constructor( _mcAsset:MovieClip, _class:Class=null,col=10) {
 		
@@ -16,13 +16,13 @@ module lobby.view.route {
 			this.m_class = _class;
 			this.maxCol = col;
 			this.maxNum = maxCol*6;
-		//	_beadPlate_vct = new Vector.<BeadItem>(maxNum); //珠路盤
+		//	_beadPlate_vct = new <BeadItem>(maxNum); //珠路盤
 		//	setBeads();
 			_timer = JTimer.getTimer(1000,5);
 			_timer.addTimerCallback(flash,onAskEnd);
 		}
 		
-		override public function destroy():void {
+		 public destroy():void {
 			super.destroy();
 			
 			clear();
@@ -42,10 +42,10 @@ module lobby.view.route {
 		}
 		
 		
-		public function init():void {
+		public init():void {
 			if (askCell)
 				askCell.visible=true;
-			for (var i:int = 0; i < this.maxNum; i++) {
+			for (var i:number= 0; i < this.maxNum; i++) {
 				if (this._beadPlate_vct[i]){
 					this._beadPlate_vct[i].visible = false;
 				}
@@ -53,7 +53,7 @@ module lobby.view.route {
 			}
 		}
 		
-		private function clear():void{
+		private clear():void{
 			var tmp:BeadItem;
 			if(_beadPlate_vct ){
 				while(_beadPlate_vct.length>0){
@@ -78,12 +78,12 @@ module lobby.view.route {
 		 * @param beadH
 		 * 
 		 */
-		public function setBeads(offX:Number=0,offY:Number=0,beadW:Number=0,beadH:Number=0):void{
+		public setBeads(offX:Number=0,offY:Number=0,beadW:Number=0,beadH:Number=0):void{
 			clear();
 			var tmp:BeadItem;
 			
-			_beadPlate_vct		= new Vector.<BeadItem>(maxNum); //珠路盤
-			for (var i:int = 0; i < this.maxNum; i++) {
+			_beadPlate_vct		= new <BeadItem>(maxNum); //珠路盤
+			for (var i:number= 0; i < this.maxNum; i++) {
 				tmp = new m_class();
 				
 				m_mcAsset.addChild(tmp);
@@ -101,7 +101,7 @@ module lobby.view.route {
 		}
 		
 		
-		public function addRoad(road:String, isAsk:Boolean = false):void {
+		public addRoad(road:String, isAsk: boolean = false):void {
 			
 			if (road == "" || road == null || road == "null") {
 				return;
@@ -109,13 +109,13 @@ module lobby.view.route {
 			
 			this.init();
 			
-			var roadTips:Array = road.split(".");
-			var length:int = roadTips.length;
-			var colNum:int = Math.ceil(length / 6) 
+			var roadTips:any[] = road.split(".");
+			var length:number= roadTips.length;
+			var colNum:number= Math.ceil(length / 6) 
 			
-			var fix:int = colNum>maxCol ? (colNum-maxCol) * 6:0 ;
+			var fix:number= colNum>maxCol ? (colNum-maxCol) * 6:0 ;
 			var label:String = "";
-			for (var i:int = 0; i < this.maxNum; i ++) {
+			for (var i:number= 0; i < this.maxNum; i ++) {
 				if (roadTips[i + fix] != undefined ) {
 					this._beadPlate_vct[i].visible = true;
 					
@@ -134,24 +134,24 @@ module lobby.view.route {
 			}
 		}
 		
-		private var askCell:DisplayObject;
-		public function ask():void {
+		private askCell:DisplayObject;
+		public ask():void {
 			askCell=this._beadPlate_vct[this._lastIndex]
 			this._beadPlate_vct[this._lastIndex].visible = true;
 			
 		}
 		
-		public function flash():void {
+		public flash():void {
 			askCell.visible=!askCell.visible;
 		}
 		
-		private function onAskEnd():void {
-			trace("onAskEnd")
+		private onAskEnd():void {
+			console.log("onAskEnd")
 			this.dispatchEvent(new RouteEvent(RouteEvent.ASK_Road_END,null) );
 		}
 		
-		override public function onChangeLanguage():void{
-			for (var i:int = 0; i < _beadPlate_vct.length; i++) 
+		 public onChangeLanguage():void{
+			for (var i:number= 0; i < _beadPlate_vct.length; i++) 
 			{
 				if (_beadPlate_vct[i]){
 					_beadPlate_vct[i].onChangeLanguage();

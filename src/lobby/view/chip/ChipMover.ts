@@ -1,18 +1,18 @@
 module lobby.view.chip {
 	export class ChipMover {
-		public var chips				:	Array;
-		protected var _count			:	Number;
-		protected var CHIP_THICK		:	Number = 8;						//籌碼跟籌碼之間的間距
-		protected var CHIP_X			:	Number = -31;
-		protected var CHIP_Y			:	Number = -22;
-		public var offset				:Point;
-		public var container			:	Sprite;					//筹码容器
-		public var _startPoint			:	Point;					//待加入筹码初始位置
-		private var beginCall			:Function = null;
-		private var beginCallArg		:Array = null;
-		private var endCall				:Function = null;
-		private var endCallArg			:Array = null;
-		public var scale				:Number=1;
+		public chips				:	any[];
+		protected _count			:	Number;
+		protected CHIP_THICK		:	Number = 8;						//籌碼跟籌碼之間的間距
+		protected CHIP_X			:	Number = -31;
+		protected CHIP_Y			:	Number = -22;
+		public offset				:Ponumber;
+		public container			:	Sprite;					//筹码容器
+		public _startPoint			:	Ponumber;					//待加入筹码初始位置
+		private beginCall			:Function = null;
+		private beginCallArg		:any[] = null;
+		private endCall				:Function = null;
+		private endCallArg			:any[] = null;
+		public scale				:Number=1;
 		public constructor(container:Sprite,stack:Sprite=null,scale:Number=1,offset:Point=null) {
 			chips=[];
 			this.container=container;
@@ -21,18 +21,18 @@ module lobby.view.chip {
 			addChips(stack);
 		}
 		
-		public function get count():Number
+		get count():Number
 		{
 			return _count;
 		}
 		
-		public function set count(value:Number):void
+		set  count(value:Number)
 		{
 			if (_count==value) return;
 			_count = value;
 		}
 		
-		public function destroy():void {
+		public destroy():void {
 			this.beginCall=null;
 			this.beginCallArg=null;
 			this.endCall=null;
@@ -49,10 +49,10 @@ module lobby.view.chip {
 			}
 		}
 		
-		public function addChips(sp:Sprite):void{
+		public addChips(sp:Sprite):void{
 			while(sp.numChildren>0){
 				var chip:DisplayObject=sp.getChildAt(0)
-				var point:Point;
+				var point:Ponumber;
 				if(offset){
 					chip.x=offset.x+chip.x;
 					chip.y=offset.y+chip.y;
@@ -74,15 +74,15 @@ module lobby.view.chip {
 		 * @param time
 		 * 
 		 */
-		public function moveTo(gpoint:Point,time:Number=1,delay:Number=0,beginCall:Function=null,beginCallArg:Array=null,endCall:Function=null,endCallArg:Array=null):Number{
-			var k:int
+		public moveTo(gpoint:Point,time:Number=1,delay:Number=0,beginCall:Function=null,beginCallArg:any[]=null,endCall:Function=null,endCallArg:any[]=null):Number{
+			var k:number
 			this.beginCall=beginCall;
 			this.beginCallArg=beginCallArg;
 			this.endCall=endCall;
 			this.endCallArg=endCallArg
 			var during:Number = 0;
 			var chip:DisplayObject;
-			var localPoint:Point;
+			var localPoint:Ponumber;
 			localPoint = this.container.globalToLocal(gpoint);
 			
 			localPoint.x+=CHIP_X;
@@ -112,7 +112,7 @@ module lobby.view.chip {
 			return during;
 		}
 		
-		private function moveCompleteHandler(obj:DisplayObject):void{
+		private moveCompleteHandler(obj:DisplayObject):void{
 			
 			if(beginCall != null){
 				//第一个筹码移动到位置 触发一次
@@ -124,7 +124,7 @@ module lobby.view.chip {
 			if(obj){
 				if (obj.parent){
 					obj.parent.removeChild(obj)
-					var index:int=chips.indexOf(obj)
+					var index:number=chips.indexOf(obj)
 					if(index>-1){
 						chips.splice(index,1);
 					}

@@ -1,21 +1,21 @@
 module lobby.view.table {
 	export class TableSic extends Table{
-//		private var m_btmChip		:	Bitmap;						//总筹码数
-//		private var m_bmpOnline		:	Bitmap;						//在线人数
-//		private var m_bmpBig		:	Bitmap;						//下注数据
-//		private var m_bmpSmall		:	Bitmap;						//下注数据
-//		private var m_bmpOdd		:	Bitmap;						//下注数据
-//		private var m_bmpDouble		:	Bitmap;						//下注数据
+//		private m_btmChip		:	Bitmap;						//总筹码数
+//		private m_bmpOnline		:	Bitmap;						//在线人数
+//		private m_bmpBig		:	Bitmap;						//下注数据
+//		private m_bmpSmall		:	Bitmap;						//下注数据
+//		private m_bmpOdd		:	Bitmap;						//下注数据
+//		private m_bmpDouble		:	Bitmap;						//下注数据
 		
-		private var m_btnOddEven		:	ButtonMcLanguage;			//单双
-		private var m_btnBigSmall		:	ButtonMcLanguage;			//大小
-		private var m_btnTie			:	ButtonMcLanguage;			//和值
-		private var m_btnBead			:	ButtonMcLanguage;			//珠仔
-		private var m_btnCurrent		:	ButtonMcLanguage;			//当前
+		private m_btnOddEven		:	ButtonMcLanguage;			//单双
+		private m_btnBigSmall		:	ButtonMcLanguage;			//大小
+		private m_btnTie			:	ButtonMcLanguage;			//和值
+		private m_btnBead			:	ButtonMcLanguage;			//珠仔
+		private m_btnCurrent		:	ButtonMcLanguage;			//当前
 		
-		private var m_road				:	TableRoadMapSic;			//路子
+		private m_road				:	TableRoadMapSic;			//路子
 		
-		private var m_panelStatistic_1	:	StatisticsUI;				//统计面板
+		private m_panelStatistic_1	:	StatisticsUI;				//统计面板
 		
 		public constructor() {
 			super();
@@ -87,7 +87,7 @@ module lobby.view.table {
 //				}
 //			});
 			
-			m_btnBigSmall = new ButtonMcLanguage(m_mcContent.mc_7, function (evt:MouseEvent):void{
+			m_btnBigSmall = new ButtonMcLanguage(m_mcContent.mc_7, (evt:MouseEvent):void{
 				LobbyManager.getInstance().hideAllPanel();
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				m_btnCurrent.setSelectedStatus(false);
@@ -99,7 +99,7 @@ module lobby.view.table {
 				evt.stopImmediatePropagation();
 			});
 			
-			m_btnOddEven = new ButtonMcLanguage(m_mcContent.mc_8, function (evt:MouseEvent):void{
+			m_btnOddEven = new ButtonMcLanguage(m_mcContent.mc_8, (evt:MouseEvent):void{
 				LobbyManager.getInstance().hideAllPanel();
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				m_btnCurrent.setSelectedStatus(false);
@@ -111,7 +111,7 @@ module lobby.view.table {
 				evt.stopImmediatePropagation();
 			});
 			
-			m_btnTie = new ButtonMcLanguage(m_mcContent.mc_9, function (evt:MouseEvent):void{
+			m_btnTie = new ButtonMcLanguage(m_mcContent.mc_9, (evt:MouseEvent):void{
 				LobbyManager.getInstance().hideAllPanel();
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				m_btnCurrent.setSelectedStatus(false);
@@ -122,7 +122,7 @@ module lobby.view.table {
 				}
 				evt.stopImmediatePropagation();
 			});
-			m_btnBead = new ButtonMcLanguage(m_mcContent.mc_10, function (evt:MouseEvent):void{
+			m_btnBead = new ButtonMcLanguage(m_mcContent.mc_10, (evt:MouseEvent):void{
 				LobbyManager.getInstance().hideAllPanel();
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				m_btnCurrent.setSelectedStatus(false);
@@ -172,7 +172,7 @@ module lobby.view.table {
 			m_spStatisticMask.y = m_Statistic_topY;
 			m_spstatisticContain.y = m_Statistic_bottomY;
 		}
-		override public function destroy():void{
+		 public destroy():void{
 			super.destroy();
 			
 			if(m_btnCurrent){
@@ -215,7 +215,7 @@ module lobby.view.table {
 				tableLoginType=null;
 			}
 		}
-		override public function setData(_struct:TableStruct):void{
+		 public setData(_struct:TableStruct):void{
 			if(_struct==null){
 				super.setData(_struct);
 				return;
@@ -242,7 +242,7 @@ module lobby.view.table {
 //			m_mcContent.mc_6.tf_label.text = m_struct.DealerName?m_struct.DealerName:"";
 			
 		}
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			
 			m_mcContent.mc_1.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			m_mcContent.mc_2.x = m_mcContent.mc_1.x + m_mcContent.mc_1.width;
@@ -278,7 +278,7 @@ module lobby.view.table {
 			super.onChangeLanguage();
 		}
 		
-		override public function update(_bInit:Boolean=false):void{
+		 public update(_bInit: boolean=false):void{
 			
 			updateRoad(_bInit);
 			
@@ -317,7 +317,7 @@ module lobby.view.table {
 			m_mcContent.tf_8.text = m_struct.OnlinePlayers.toString();
 		}
 		
-		override public function updateRoad(_bInit:Boolean):void{
+		 public updateRoad(_bInit: boolean):void{
 			if(m_struct.IsCurrFailGame){
 				if(m_struct.RoadMaps.length==1){
 					m_struct.RoadMaps = m_struct.RoadMaps.replace("#","");
@@ -333,7 +333,7 @@ module lobby.view.table {
 				m_road.bError = false;
 				
 				if(_bInit){
-					var _len : int;
+					var _len : number;
 					if(m_struct.RoadMaps!="" && m_struct.RoadMaps!=null){
 						_len = m_struct.RoadMaps.split(".").length;
 					}
@@ -369,7 +369,7 @@ module lobby.view.table {
 				}
 			}
 		}
-		override public function updateStaticsInfo():void{
+		 public updateStaticsInfo():void{
 			
 			m_mcContent.tf_7.text = m_struct.StaticsInfo.TotalBet.toString() + "/" + m_struct.StaticsInfo.TotalBetCnt.toString();
 			m_mcContent.tf_9.text = (m_struct.StaticsInfo as StaticsInfoSic).BigBetAmt.toString() + "/" + (m_struct.StaticsInfo as StaticsInfoSic).BigBetCnt.toString();
@@ -397,7 +397,7 @@ module lobby.view.table {
 		}
 		
 		//更新维护状态
-		override public function updateMaintenanceStatus():void{
+		 public updateMaintenanceStatus():void{
 			if(struct.IsMaintaining){
 				updateHint(Language.sMaintenance);
 				showMaintain();
@@ -412,7 +412,7 @@ module lobby.view.table {
 			}
 			//身份判断
 			if(Player.getInstance().iIdentity==2){
-				var _bTrial : Boolean = isSupportTrial();
+				var _bTrial :  boolean = isSupportTrial();
 				if(_bTrial){
 					otherCheck();
 				}else{
@@ -425,7 +425,7 @@ module lobby.view.table {
 			}
 		}
 		
-		protected function otherCheck():void{
+		protected otherCheck():void{
 			if(isNotFinish()){
 				//游戏未完成
 				m_bNotFinished = true;
@@ -451,7 +451,7 @@ module lobby.view.table {
 				hideMaintain();
 			}
 			
-			m_bSettled = Boolean(m_struct.GameStatus==GameStatus.SETTLED);
+			m_bSettled =  boolean(m_struct.GameStatus==GameStatus.SETTLED);
 			
 			if(m_struct.IsChangingShoe){
 				//洗牌中
@@ -472,7 +472,7 @@ module lobby.view.table {
 			}
 		}
 		
-		override public function initRoad(_sRoad:String):void{
+		 public initRoad(_sRoad:String):void{
 			m_iGameNo = isGameStart()?m_struct.GameNo-1:m_struct.GameNo;
 			
 			m_road.clearRoad();

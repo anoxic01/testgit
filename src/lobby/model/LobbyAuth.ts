@@ -1,4 +1,4 @@
-module lobby.data {
+module lobby.model {
 	export class LobbyAuth {
 
 		public AuthToken	:	string	=	"";			//認證碼 - 由Web端取得
@@ -9,47 +9,44 @@ module lobby.data {
 		public ServerIP		:	string 	= 	"";			//连接地址
 		public ServerPort	:	number	=	0; 			//连接端口
 		
-		public init			:	boolean = false;
+		public init			:	 boolean = false;
 
 		public constructor() {
-			var _parameters : Object = UrlManager.getInstance().root.loaderInfo.parameters;
+			// var _parameters = manager.UrlManager.getInstance().root.loaderInfo.parameters;
 			var _sVersion : String;
-			var obj : Object; 
+			var obj; 
 			
 			var sData:String;
-			if(ExternalInterface.available){
-				_sVersion = _parameters.Data;
-				if(_sVersion){
-					obj = JSON.parse(_sVersion);
-				}else{
-					obj = TemConfig.getInstance().Data;
-				}
 			
-				this.m_sAuthToken = obj.AuthToken;
-				this.Identity = obj.Identity;
-				this.m_iLang = obj.Lang;
-				this.m_iLoginMode = obj.loginMode;
+			// _sVersion = _parameters.Data;
+			// if(_sVersion){
+			// 	obj = JSON.parse(_sVersion);
+			// }else{
+			// 	obj = config.TemConfig.getInstance().Data;
+			// }
+			// this.AuthToken = obj.AuthToken;
+			// this.Identity = obj.Identity;
+			// this.Lang = obj.Lang;
+			// this.LoginMode = obj.loginMode;
+			// sData = obj.LobbyServerUrl;
+
+			obj = config.TemConfig.getInstance().Data;
+			this.AuthToken = config.TemConfig.getInstance().AuthToken; //poiny008
+			this.Identity = config.TemConfig.getInstance().Data.Identity;//o.Identity;
+			this.Lang = config.TemConfig.getInstance().Data.Lang;//o.Lang;
+			this.LoginMode = config.TemConfig.getInstance().LoginMode;
 				
-				sData = obj.LobbyServerUrl;
-			}else{
-				obj = TemConfig.getInstance().Data;
-				AuthToken = TemConfig.getInstance().AuthToken; //poiny008
-				this.Identity = TemConfig.getInstance().Data.Identity;//o.Identity;
-				this.m_iLang = TemConfig.getInstance().Data.Lang;//o.Lang;
-				this.m_iLoginMode = TemConfig.getInstance().LoginMode;
-			}
-			
 			if ( sData == null ) {
-				sData = TemConfig.getInstance().ServerIp;
+				sData = config.TemConfig.getInstance().ServerIp;
 			}
 			
-			var sAr:Array = sData.split(":");
+			var sAr:any[] = sData.split(":");
 			
-			trace("m_sAuthToken::" + m_sAuthToken );
-			trace("sData::" + sData );
+			console.log("m_sAuthToken::" + this.AuthToken );
+			console.log("sData::" + sData );
 			
-			m_sServerIP = sAr[0];
-			m_iServerPort = sAr[1];
+			this.ServerIP = sAr[0];
+			this.ServerPort = sAr[1];
 			
 			this.init = true;
 		}

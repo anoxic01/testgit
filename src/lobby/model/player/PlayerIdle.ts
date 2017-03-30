@@ -3,107 +3,107 @@ module lobby.model.player {
 		 /// <summary>
         /// 廳館ID
         /// </summary>
-        private var themeID :int;
+        private themeID :number;
 
         /// <summary>
         /// 桌號
         /// </summary>
-        private var tableID :int;
+        private tableID :number;
 
         /// <summary>
         /// 代理ID
         /// </summary>
-        private var agentID :int;
+        private agentID :number;
         /// <summary>
         /// 玩家ID
         /// </summary>
-        private var playerID :int;
+        private playerID :number;
 
         /// <summary>
         /// 閒置局數
         /// </summary>
-        private var idleRound :int;
+        private idleRound :number;
         
         /// <summary>
         /// 最大閒置局數
         /// </summary>
-        private var maxIdleRound:int;
+        private maxIdleRound:number;
 
         /// <summary>
         /// 是否踢出賭桌
         /// </summary>
-        private var isKickout :Boolean;
+        private isKickout : boolean;
 		public constructor() {
 		}
 		
-		public function get ThemeID():int 
+		get ThemeID():number
 		{
-			return themeID;
+			return this.themeID;
 		}
 		
-		public function set ThemeID(value:int):void 
+		set  ThemeID(value:number) 
 		{
-			themeID = value;
+			this.themeID = value;
 		}
 		
-		public function get TableID():int 
+		get TableID():number
 		{
-			return tableID;
+			return this.tableID;
 		}
 		
-		public function set TableID(value:int):void 
+		set  TableID(value:number) 
 		{
-			tableID = value;
+			this.tableID = value;
 		}
 		
-		public function get AgentID():int 
+		get AgentID():number
 		{
-			return agentID;
+			return this.agentID;
 		}
 		
-		public function set AgentID(value:int):void 
+		set  AgentID(value:number) 
 		{
-			agentID = value;
+			this.agentID = value;
 		}
 		
-		public function get PlayerID():int 
+		get PlayerID():number
 		{
-			return playerID;
+			return this.playerID;
 		}
 		
-		public function set PlayerID(value:int):void 
+		set  PlayerID(value:number) 
 		{
-			playerID = value;
+			this.playerID = value;
 		}
 		
-		public function get IdleRound():int 
+		get IdleRound():number
 		{
-			return idleRound;
+			return this.idleRound;
 		}
 		
-		public function set IdleRound(value:int):void 
+		set  IdleRound(value:number) 
 		{
-			idleRound = value;
+			this.idleRound = value;
 		}
 		
-		public function get MaxIdleRound():int 
+		get MaxIdleRound():number
 		{
-			return maxIdleRound;
+			return this.maxIdleRound;
 		}
 		
-		public function set MaxIdleRound(value:int):void 
+		set  MaxIdleRound(value:number) 
 		{
-			maxIdleRound = value;
+			this.maxIdleRound = value;
 		}
 		
-		public function get IsKickout():Boolean 
+		get IsKickout(): boolean 
 		{
-			return isKickout;
+			return this.isKickout;
 		}
 		
-		public function set IsKickout(value:Boolean):void 
+		set  IsKickout(value: boolean) 
 		{
-			isKickout = value;
+			this.isKickout = value;
 		}
 		
 		

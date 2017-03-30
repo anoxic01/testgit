@@ -5,19 +5,19 @@ module lobby.view.theme {
 		// private m_btnAndriod			:SingleButtonMC;
 		// private m_mcBtnIos_label		:MovieClip;
 		// private m_mcBtnAndriod_label	:MovieClip;
-		// private m_allSysBtn				:Array;
+		// private m_allSysBtn				:any[];
 		// private m_mcDetail				:MovieClip;
 		// private m_ctrlIos				:MobileCtrl;							//ios控制器
 		// private m_ctrlAnd				:MobileCtrl;							//android控制器
 		// private m_ctrlDetail			:MobileCtrl;							//详情页控制器
-		// private m_allCtrls				:Array;									//所欲控制器列表
+		// private m_allCtrls				:any[];									//所欲控制器列表
 		// private m_curSysCtrl			:MobileCtrl;							//当前控制器
 		private m_iCurSys				:number				 = -1;				//当前显示的系统
 		private m_iCurLayout			:number				 = -1;				//当前布局类型
-		private m_bIsShow				:boolean;								//是否显示
+		private m_bIsShow				: boolean;								//是否显示
 		public fOnClose					:Function;						//关闭回调
 
-		public constructor(_mcAsset:egret.MovieClip ,$bShake:boolean = false) {
+		public constructor(_mcAsset:egret.MovieClip ,$bShake: boolean = false) {
 			super($bShake);
 			// m_mcAsset = _mcAsset;
 			// m_mcAsset.x = -m_mcAsset.width*0.5;
@@ -91,7 +91,7 @@ module lobby.view.theme {
 		{
 			if(this.m_iCurSys != sys)
 			{
-				// var btnSys:SingleButtonMC;
+				// btnSys:SingleButtonMC;
 				// btnSys = m_allSysBtn[m_iCurSys];
 				// if(btnSys)
 				// {
@@ -135,7 +135,7 @@ module lobby.view.theme {
 		private enterDetail(index:number):void
 		{
 			this.setLayout(define.MobileDefine.HORIZONTAL);
-			// var detailCtrl:MobileCtrlDetail = m_curSysCtrl as MobileCtrlDetail;
+			// detailCtrl:MobileCtrlDetail = m_curSysCtrl as MobileCtrlDetail;
 			// detailCtrl.setSys(m_iCurSys);
 			// detailCtrl.setSelect(index);
 		}
@@ -143,7 +143,7 @@ module lobby.view.theme {
 		{
 			this.setLayout(define.MobileDefine.GRID);
 		}
-		get isShow():boolean
+		get isShow(): boolean
 		{
 			return this.m_bIsShow;
 		}

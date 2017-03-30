@@ -1,11 +1,11 @@
 module lobby.model.struct {
 	export class GameLogListStruct {
-		public var ComplexGameList:Array;					//遊戲紀錄
-		public var LogSummary:GameLogSummaryStruct;			//紀錄統計資訊
+		public ComplexGameList:any[];					//遊戲紀錄
+		public LogSummary:GameLogSummaryStruct;			//紀錄統計資訊
 		
 		public constructor() {
-			LogSummary = new GameLogSummaryStruct();
-			ComplexGameList = [];
+			this.LogSummary = new GameLogSummaryStruct();
+			this.ComplexGameList = [];
 		}
 	}
 }

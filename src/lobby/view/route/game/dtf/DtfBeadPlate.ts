@@ -6,19 +6,19 @@ module lobby.view.route.game.dtf {
 			
 		}
 		
-		override public function addRoad(road:String, isAsk:Boolean = false):void {
+		 public function addRoad(road:string, isAsk: boolean = false):void {
 			if (road == "" || road == null || road == "null") {
 				return;
 			}
 			
 			this.init();
 			
-			var roadTips:Array = road.split(".");
-			var length:int = roadTips.length;
-			var fix:int = length > this.maxNum ? (Math.ceil(length / 6) - this.maxCol) * 6 : 0;
-			var label:String = "";
+			var roadTips:any[] = road.split(".");
+			var length:number= roadTips.length;
+			var fix:number= length > this.maxNum ? (Math.ceil(length / 6) - this.maxCol) * 6 : 0;
+			var label:string = "";
 			var mcChild:MovieClip;
-			for (var i:int = 0; i < this.maxNum; i ++) {
+			for (var i:number= 0; i < this.maxNum; i ++) {
 				if (roadTips[i + fix] != undefined ) {
 					this._beadPlate_vct[i].visible = true;
 					

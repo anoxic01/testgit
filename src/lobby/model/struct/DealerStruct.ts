@@ -1,18 +1,18 @@
 module lobby.model.struct {
 	export class DealerStruct {
-		public var ThemeID	:	int;
-		public var TableID	:	int;
-		public var LoginID	:	String;
-		public var Name		:	String;
-		public var PhotoUrl	:	String;
+		public ThemeID	:	number;
+		public TableID	:	number;
+		public LoginID	:	String;
+		public Name		:	String;
+		public PhotoUrl	:	String;
 		
-		public constructor() {
+		public constructor(_oData) {
 			if (_oData){
-				ThemeID = _oData.ThemeID;
-				TableID = _oData.TableID;
-				LoginID = _oData.LoginID;
-				Name = _oData.Name;
-				PhotoUrl = _oData.PhotoUrl;
+				this.ThemeID = _oData.ThemeID;
+				this.TableID = _oData.TableID;
+				this.LoginID = _oData.LoginID;
+				this.Name = _oData.Name;
+				this.PhotoUrl = _oData.PhotoUrl;
 			}
 			
 		}

@@ -1,10 +1,10 @@
 module lobby.view.route {
 	export class BeadItemBaccarat extends BeadItem{
-		private var m_spRed		:	Sprite;		//对子标识
-		private var m_spBlue	:	Sprite;		//对子标识
-		private var m_uMode		:	uint;		//珠子类型	0-大厅	1-转桌	2-好路通知	3-好路多桌	4-游戏	
+		private m_spRed		:	Sprite;		//对子标识
+		private m_spBlue	:	Sprite;		//对子标识
+		private m_uMode		:	number;		//珠子类型	0-大厅	1-转桌	2-好路通知	3-好路多桌	4-游戏	
 		
-		public constructor(_uMode:uint=0) {
+		public constructor(_uMode:number=0) {
 		
 			super();
 			m_uMode = _uMode;
@@ -26,7 +26,7 @@ module lobby.view.route {
 			m_spBlue.visible = false;
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			super.destroy();
 			
 			if(m_spRed){
@@ -39,7 +39,7 @@ module lobby.view.route {
 			}
 		}
 		
-		override public function setLabel(sLabel:String):void{
+		 public setLabel(sLabel:String):void{
 			m_sLabel = sLabel;
 			m_spRed.visible = false;
 			m_spBlue.visible = false;
@@ -65,7 +65,7 @@ module lobby.view.route {
 			onChangeLanguage();
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			if(m_bmp){
 				switch(m_sLabel){
 					case A:
@@ -92,7 +92,7 @@ module lobby.view.route {
 				}
 				m_bmp.smoothing = true;
 			}else{
-				trace("设置珠子位图异常...");
+				console.log("设置珠子位图异常...");
 			}
 			
 		}

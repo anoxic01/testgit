@@ -1,7 +1,7 @@
 module lobby.view.gameRecord.dates {
 	export class DatePannel extends BSprite{
 		public var mcAsset					:	MovieClip;
-		public var _aDate					:	Array;					//12個月各月的天數, 2月會拉出來 額外計算是否為閏年
+		public var _aDate					:	any[];					//12個月各月的天數, 2月會拉出來 額外計算是否為閏年
 		public var _iLimitMinYear			:	int = 2000;				//最小2000年
 		
 		public var btnPreious				:	SingleButtonMC;
@@ -15,30 +15,30 @@ module lobby.view.gameRecord.dates {
 		private var m_nSelectMonth2			:	Number;						//玩家選擇的月
 		private var m_nSelectDay2			:	Number;						//玩家選擇的日
 		
-		private var m_vecDate				:	Vector.<McDate>;
+		private var m_vecDate				:	<McDate>;
 		
-		public var selectType				:	int;
+		public var selectType				:	number;
 		
 		public const StartTimeType			:	int = 0;
 		public const EndTimeType			:	int = 1;
 		
-		public const noCurrentMonthTextColor:uint = 0xCCCCCC;		//不是當月的 文字格式
-		public const selectTextColor		:uint  = 0xFFFFFF;		//選取的文字格式
-		public const normalTextColor		:uint  = 0x767676;		//當月的文字格式
+		public const noCurrentMonthTextColor:number = 0xCCCCCC;		//不是當月的 文字格式
+		public const selectTextColor		:number  = 0xFFFFFF;		//選取的文字格式
+		public const normalTextColor		:number  = 0x767676;		//當月的文字格式
 		
 		private var m_tfSelect			:	TextFormat;
 		private var m_tfNormal			:	TextFormat;
 		private var m_tfNoCurrentMonth	:	TextFormat;
 		
-		public  var iCurrentYear		:	int;					//當年
-		public  var iCurrentMonth		:	int;					//當月
-		public  var iCurrentDay			:	int;					//當天
+		public  var iCurrentYear		:	number;					//當年
+		public  var iCurrentMonth		:	number;					//當月
+		public  var iCurrentDay			:	number;					//當天
 		
-		private var m_iMinYear			:	int;					//最小查詢年
-		private var m_iMinMonth			:	int;					//最小查詢月
-		private var m_iMinDay			:	int;					//最小查詢天
+		private var m_iMinYear			:	number;					//最小查詢年
+		private var m_iMinMonth			:	number;					//最小查詢月
+		private var m_iMinDay			:	number;					//最小查詢天
 		private var m_timer				:	JTimer;					//計時器
-		private var m_bInit				:	Boolean;				//
+		private var m_bInit				:	 boolean;				//
 
 		private var bgsprite			:	Sprite;					//背景
 		public constructor() {
@@ -57,8 +57,8 @@ module lobby.view.gameRecord.dates {
 
 		
 		public function drawBG():void{
-			var stageW:int = LobbyManager.getInstance().stage.width;
-			var stageH:int = LobbyManager.getInstance().stage.height;
+			var stageW:number= LobbyManager.getInstance().stage.width;
+			var stageH:number= LobbyManager.getInstance().stage.height;
 			
 			bgsprite = new Sprite();
 			bgsprite.graphics.beginFill(0x000000, 0);
@@ -73,7 +73,7 @@ module lobby.view.gameRecord.dates {
 			this.visible = false;
 		}
 		
-		public function set enabled( _bValue:Boolean ):void {
+		set enabled( _bValue: boolean ) {
 			if( _bValue ){
 				m_timer.start();
 			}else {
@@ -93,22 +93,22 @@ module lobby.view.gameRecord.dates {
 			m_nSelectMonth2 = m_nSelectMonth = iCurrentMonth;
 			m_nSelectDay2 = m_nSelectDay = iCurrentDay;
 			
-			var _sYear:String =  String( _nYear )+ LobbyManager.getInstance().getLanguageString(Language.sYear);
-			var _sMonth:String;
+			var _sYear:string =  string( _nYear )+ LobbyManager.getInstance().getLanguageString(Language.sYear);
+			var _sMonth:string;
 			if( _nMonth < 10 ){
-				_sMonth =  String("0" + _nMonth )+ LobbyManager.getInstance().getLanguageString(Language.sMonth);
+				_sMonth =  string("0" + _nMonth )+ LobbyManager.getInstance().getLanguageString(Language.sMonth);
 			}
 			else {
-				_sMonth =  String( _nMonth )+ LobbyManager.getInstance().getLanguageString(Language.sMonth);
+				_sMonth =  string( _nMonth )+ LobbyManager.getInstance().getLanguageString(Language.sMonth);
 			}
 			
 			
-			var _sDay:String;
+			var _sDay:string;
 			if( _nDay < 10 ){
-				_sDay =  String("0" + _nDay )+ LobbyManager.getInstance().getLanguageString(Language.sDay);
+				_sDay =  string("0" + _nDay )+ LobbyManager.getInstance().getLanguageString(Language.sDay);
 			}
 			else {
-				_sDay =  String( _nDay )+ LobbyManager.getInstance().getLanguageString(Language.sDay);
+				_sDay =  string( _nDay )+ LobbyManager.getInstance().getLanguageString(Language.sDay);
 			}			
 			
 			//顯示面板中的 年月日
@@ -120,7 +120,7 @@ module lobby.view.gameRecord.dates {
 			btnNext =  new SingleButtonMC( mcAsset.mc_next , onNext );
 			btnNext.enabled = false;
 			
-			m_vecDate = new Vector.<McDate>();
+			m_vecDate = new <McDate>();
 			
 			//文字樣式  , 可選擇, 當月, 不是當月  
 			m_tfSelect 			= new TextFormat( null, null ,selectTextColor); 
@@ -130,7 +130,7 @@ module lobby.view.gameRecord.dates {
 			//設定最小年月日
 			setMinDate();
 			
-			var _iDate:int = countDate( m_nSelectYear2 , m_nSelectMonth2+1 );		//計算出這個月的第一天是 星期幾
+			var _iDate:number= countDate( m_nSelectYear2 , m_nSelectMonth2+1 );		//計算出這個月的第一天是 星期幾
 			updateDateUI( _iDate );
 
 			onChangeLanguage();
@@ -154,7 +154,7 @@ module lobby.view.gameRecord.dates {
 		}
 		
 		protected function onTimer():void{
-//			trace("Timer::::::::::::::::::::::::::::::::::::::::::::::::");
+//			console.log("Timer::::::::::::::::::::::::::::::::::::::::::::::::");
 			
 			//設定最新日期
 			setCurrentDate();
@@ -163,7 +163,7 @@ module lobby.view.gameRecord.dates {
 			
 			var _date:Date = new Date();
 			
-			var _iDate:int = countDate( m_nSelectYear2 , m_nSelectMonth2+1 );		//計算出這個月的第一天是 星期幾
+			var _iDate:number= countDate( m_nSelectYear2 , m_nSelectMonth2+1 );		//計算出這個月的第一天是 星期幾
 			updateDateUI(_iDate);
 			
 			
@@ -223,7 +223,7 @@ module lobby.view.gameRecord.dates {
 					m_iMinMonth = 12;
 				}
 				
-				var _isubDay:int = 14 - iCurrentDay;
+				var _isubDay:number= 14 - iCurrentDay;
 				
 				m_iMinDay = countTotalDay( m_iMinYear , m_iMinMonth );
 				m_iMinDay = m_iMinDay - _isubDay + 1;
@@ -234,9 +234,9 @@ module lobby.view.gameRecord.dates {
 			m_iMinMonth = _date.getMonth();
 			m_iMinDay = _date.getDate();
 			
-/*			trace("最小年:" + m_iMinYear );
-			trace("最小月:" + (m_iMinMonth+1) );
-			trace("最小日:" + m_iMinDay );*/
+/*			console.log("最小年:" + m_iMinYear );
+			console.log("最小月:" + (m_iMinMonth+1) );
+			console.log("最小日:" + m_iMinDay );*/
 			
 		}
 		
@@ -244,7 +244,7 @@ module lobby.view.gameRecord.dates {
 		
 		public function reset():void {
 			var _mc:McDate;
-			var i:int;
+			var i:number;
 			if( m_vecDate.length == 0 ){
 				for( i = 0 ; i < 42 ; i++ ){
 					_mc = new McDate(mcAsset["mc_" + i] , m_tfSelect , m_tfNormal );
@@ -271,7 +271,7 @@ module lobby.view.gameRecord.dates {
 		/**
 		 * 選擇日期
 		 */
-		private function selectDate( _aDate:Array ):void {
+		private function selectDate( _aDate:any[] ):void {
 
 			m_nSelectYear	=  _aDate[0];
 			m_nSelectMonth  =  _aDate[1];
@@ -289,7 +289,7 @@ module lobby.view.gameRecord.dates {
 		{
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			
-			var _iDate:int;
+			var _iDate:number;
 			
 			if( m_nSelectMonth2 > 0 ){
 				m_nSelectMonth = m_nSelectMonth2 = iCurrentMonth -1;
@@ -316,7 +316,7 @@ module lobby.view.gameRecord.dates {
 		{
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			
-			var _date:int;
+			var _date:number;
 			if( m_nSelectMonth2 < 11 ){
 				m_nSelectMonth2 = m_nSelectMonth = m_nSelectMonth2+1;
 				m_nSelectDay2 = m_nSelectDay = 0;
@@ -334,12 +334,12 @@ module lobby.view.gameRecord.dates {
 			
 		}	
 		
-		override public function set visible( _bValue:Boolean ):void {
+		 public function set visible( _bValue: boolean ):void {
 			super.visible = _bValue;
 			onTimer();
 		}
 		
-		override public function destroy():void {
+		 public function destroy():void {
 
 			if( m_timer ){
 				m_timer.dispose();
@@ -356,7 +356,7 @@ module lobby.view.gameRecord.dates {
 		}
 		
 		
-		override public function onChangeLanguage():void {
+		 public function onChangeLanguage():void {
 			mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			updateTitle();
 			
@@ -364,22 +364,22 @@ module lobby.view.gameRecord.dates {
 		
 		private function updateTitle():void {
 			var _nYear:Number = m_nSelectYear;
-			var _sYear:String =  String( _nYear )+ LobbyManager.getInstance().getLanguageString(Language.sYear);
+			var _sYear:string =  string( _nYear )+ LobbyManager.getInstance().getLanguageString(Language.sYear);
 			var _nMonth:Number =  m_nSelectMonth+1;
-			var _sMonth:String;
+			var _sMonth:string;
 			if( _nMonth < 10 ){
-				_sMonth =  String("0" + _nMonth )+ LobbyManager.getInstance().getLanguageString(Language.sMonth);
+				_sMonth =  string("0" + _nMonth )+ LobbyManager.getInstance().getLanguageString(Language.sMonth);
 			}
 			else {
-				_sMonth =  String( _nMonth )+ LobbyManager.getInstance().getLanguageString(Language.sMonth);
+				_sMonth =  string( _nMonth )+ LobbyManager.getInstance().getLanguageString(Language.sMonth);
 			}		
 //			sDay
-			var _sDay:String;
+			var _sDay:string;
 			if( m_nSelectDay < 10 && m_nSelectDay > 0 ){
-				_sDay = String("0" + m_nSelectDay )+ LobbyManager.getInstance().getLanguageString(Language.sDay);
+				_sDay = string("0" + m_nSelectDay )+ LobbyManager.getInstance().getLanguageString(Language.sDay);
 			}
 			else {
-				_sDay =  String( m_nSelectDay )+ LobbyManager.getInstance().getLanguageString(Language.sDay);
+				_sDay =  string( m_nSelectDay )+ LobbyManager.getInstance().getLanguageString(Language.sDay);
 			}
 			
 			if( m_nSelectDay == 0 ){
@@ -392,7 +392,7 @@ module lobby.view.gameRecord.dates {
 			
 		}
 		
-		private function isLeapYear( _iYear:int ):int {
+		private function isLeapYear( _iYear:number):number{
 			if( ( _iYear % 4 == 0 ) && ( _iYear % 100 != 0 ) ||  _iYear % 400 == 0 ){
 				return 29;		//閏年
 			}
@@ -405,13 +405,13 @@ module lobby.view.gameRecord.dates {
 		 * 計算星期幾
 		 * 年月日
 		 */
-		private function countDate( iYear:int , iMonth:int , iDay:int = 1 ):int {
+		private function countDate( iYear:number, iMonth:number, iDay:number= 1 ):number{
 			
 			//如果是閏年，2月就多加1天變成29天 
 			_aDate[1] = isLeapYear(iYear);
 			//計算這一天是一年中的第幾天 
-			var d:int;
-			var i:int;
+			var d:number;
+			var i:number;
 			d = iDay;
 			for (i=0; i<iMonth-1; i++) {
 				d += _aDate[i];
@@ -430,11 +430,11 @@ module lobby.view.gameRecord.dates {
 		/**
 		 * @param _iDate 星期幾
 		 */
-		private function updateDateUI(_iDate:int):void {
+		private function updateDateUI(_iDate:number):void {
 			reset();
 			
-			var _iCurrentDay:int = countTotalDay( m_nSelectYear2 , m_nSelectMonth2+1 );		//計算當月天數
-			var _idx:int = _iDate;
+			var _iCurrentDay:number= countTotalDay( m_nSelectYear2 , m_nSelectMonth2+1 );		//計算當月天數
+			var _idx:number= _iDate;
 			var _date3:Date = new Date();
 			var _nCurrentTimeMs:Number;
 			var _nSelectTimeMs:Number;
@@ -443,8 +443,8 @@ module lobby.view.gameRecord.dates {
 			if( _iDate == 0 ){
 				_idx += 7;
 			}			
-			for( var i:int = 0 ; i < _iCurrentDay ; i++ ){
-				m_vecDate[_idx].mcAsset.tf_label.text = String(i+1);
+			for( var i:number= 0 ; i < _iCurrentDay ; i++ ){
+				m_vecDate[_idx].mcAsset.tf_label.text = string(i+1);
 				m_vecDate[_idx].iYear = m_nSelectYear2;
 				m_vecDate[_idx].iMonth = m_nSelectMonth2;
 				m_vecDate[_idx].iDay = i+1;
@@ -475,10 +475,10 @@ module lobby.view.gameRecord.dates {
 			}
 			_date3 = null;
 			
-			var _nPreviousYear:int = m_nSelectYear2;					//上個月     年
-			var _nPreviousMonth:int = m_nSelectMonth2;				//上個月    月
-			var _iDayCount:int;										//上個月   天數
-			var j:int;
+			var _nPreviousYear:number= m_nSelectYear2;					//上個月     年
+			var _nPreviousMonth:number= m_nSelectMonth2;				//上個月    月
+			var _iDayCount:number;										//上個月   天數
+			var j:number;
 			var _minDate:Date = new Date( m_iMinYear , m_iMinMonth , m_iMinDay );
 			var _cmpDate:Date;
 				
@@ -493,7 +493,7 @@ module lobby.view.gameRecord.dates {
 						_iDate-=1;
 						
 						TextField(m_vecDate[_iDate].mcAsset.tf_label).defaultTextFormat = m_tfNoCurrentMonth;
-						m_vecDate[_iDate].mcAsset.tf_label.text = String(_iDayCount);
+						m_vecDate[_iDate].mcAsset.tf_label.text = string(_iDayCount);
 						m_vecDate[_iDate].iYear = _nPreviousYear;
 						m_vecDate[_iDate].iMonth = _nPreviousMonth;
 						m_vecDate[_iDate].iDay = _iDayCount;	
@@ -513,7 +513,7 @@ module lobby.view.gameRecord.dates {
 				else if( _iDate == 0 ){
 					for( j = 6 ; j >= 0 ; j-- ) {
 						TextField(m_vecDate[j].mcAsset.tf_label).defaultTextFormat = m_tfNoCurrentMonth;
-						m_vecDate[j].mcAsset.tf_label.text = String(_iDayCount);
+						m_vecDate[j].mcAsset.tf_label.text = string(_iDayCount);
 						m_vecDate[j].iYear = _nPreviousYear;
 						m_vecDate[j].iMonth = _nPreviousMonth;
 						m_vecDate[j].iDay 	= _iDayCount;	
@@ -546,7 +546,7 @@ module lobby.view.gameRecord.dates {
 					while( _iDate > 0 ){
 						_iDate-=1;
 						TextField(m_vecDate[_iDate].mcAsset.tf_label).defaultTextFormat = m_tfNoCurrentMonth;
-						m_vecDate[_iDate].mcAsset.tf_label.text = String(_iDayCount);
+						m_vecDate[_iDate].mcAsset.tf_label.text = string(_iDayCount);
 						m_vecDate[_iDate].iYear = _nPreviousYear;
 						m_vecDate[_iDate].iMonth = _nPreviousMonth;
 						m_vecDate[_iDate].iDay = _iDayCount;	
@@ -566,7 +566,7 @@ module lobby.view.gameRecord.dates {
 				else if( _iDate == 0 ){
 					for( j = 6 ; j >= 0 ; j--  ) {
 						TextField(m_vecDate[j].mcAsset.tf_label).defaultTextFormat = m_tfNoCurrentMonth;
-						m_vecDate[j].mcAsset.tf_label.text = String(_iDayCount);
+						m_vecDate[j].mcAsset.tf_label.text = string(_iDayCount);
 						m_vecDate[j].iYear = _nPreviousYear;
 						m_vecDate[j].iMonth = _nPreviousMonth;
 						m_vecDate[j].iDay 	= _iDayCount;	
@@ -590,9 +590,9 @@ module lobby.view.gameRecord.dates {
 
 	
 			
-			var _nNextMonth:int = m_nSelectMonth2;
-			var _nNextYear:int = m_nSelectYear2;	
-			var _iCmpMonth:int = _nNextMonth +1 ;
+			var _nNextMonth:number= m_nSelectMonth2;
+			var _nNextYear:number= m_nSelectYear2;	
+			var _iCmpMonth:number= _nNextMonth +1 ;
 			if( _iCmpMonth < 11 ){
 				_nNextMonth+=1;
 			}
@@ -602,12 +602,12 @@ module lobby.view.gameRecord.dates {
 			}
 			
 			//更新下個月的日期
-			var _iday:int = 1;
+			var _iday:number= 1;
 			var _d1:Date = new Date( iCurrentYear , iCurrentMonth , iCurrentDay );
 			
 			while( _idx < 42 ){
 				TextField(m_vecDate[_idx].mcAsset.tf_label).defaultTextFormat = m_tfNoCurrentMonth;
-				m_vecDate[_idx].mcAsset.tf_label.text = String(_iday);
+				m_vecDate[_idx].mcAsset.tf_label.text = string(_iday);
 				m_vecDate[_idx].iYear	= _nNextYear;
 				m_vecDate[_idx].iMonth 	= _nNextMonth;
 				m_vecDate[_idx].iDay 	= _iday;	
@@ -615,8 +615,8 @@ module lobby.view.gameRecord.dates {
 				m_vecDate[_idx].tfNormal = m_tfNoCurrentMonth;	
 				
 				var _d2:Date = new Date( _nNextYear , _nNextMonth , _iday );
-//				trace("_d2.getTime() ::" + _d2.getTime()  );
-//				trace("_d1.getTime() ::" + _d1.getTime()  );
+//				console.log("_d2.getTime() ::" + _d2.getTime()  );
+//				console.log("_d1.getTime() ::" + _d1.getTime()  );
 				if( _d2.getTime() > _d1.getTime()  ){
 					m_vecDate[_idx].enable 	= false;
 					m_vecDate[_idx].canSelectState = false;
@@ -645,7 +645,7 @@ module lobby.view.gameRecord.dates {
 		
 		
 		
-		public function countTotalDay( _iYear:int , _iMonth:int ):int {
+		public function countTotalDay( _iYear:number, _iMonth:number):number{
 			if( _iMonth == 2 ){			//2月 天數
 				if( ( _iYear % 4 == 0 ) && ( _iYear % 100 != 0 ) ||  _iYear % 400 == 0 ){
 					return 29;
@@ -665,8 +665,8 @@ module lobby.view.gameRecord.dates {
 			return 0;
 		}
 		
-		public function setDate( _iYear:int , _iYear:int , _iDay:int ):void {
-			/*var _iDate:int  = countDate( _iYear , _iYear );		//計算出這個月的第一天是 星期幾
+		public function setDate( _iYear:number, _iYear:number, _iDay:number):void {
+			/*var _iDate:number = countDate( _iYear , _iYear );		//計算出這個月的第一天是 星期幾
 			updateDate( _iDate );*/
 		}
 		
@@ -688,14 +688,14 @@ import sounds.SoundPackage;
 
 class McDate {
 	public var mcAsset:MovieClip;
-	public var iYear:int;
-	public var iMonth:int;
-	public var iDay:int;
+	public var iYear:number;
+	public var iMonth:number;
+	public var iDay:number;
 	public var fClick:Function;
 	public var tfSelect:TextFormat;
 	public var tfNormal:TextFormat;
 	public var tfCanSelect:TextFormat;
-	public var bSelect:Boolean;
+	public var bSelect: boolean;
 	public function McDate(_mcAsset:MovieClip , _tfSelect:TextFormat , _tfNormal:TextFormat ):void {
 		mcAsset = _mcAsset;
 		mcAsset.tf_label.text = "";
@@ -753,13 +753,13 @@ class McDate {
 		
 	}
 	
-	public function set enable( _bValue:Boolean ):void {
+	set enable( _bValue: boolean ) {
 		mcAsset.mouseEnabled = _bValue;
 		mcAsset.enabled = _bValue;
 		mcAsset.buttonMode = _bValue;
 	}
 	
-	public function set canSelectState (_bValue:Boolean):void {
+	set canSelectState (_bValue: boolean) {
 //		mcAsset.mc_red.visible = _bValue;
 		if( _bValue ){
 			TextField(mcAsset.tf_label).defaultTextFormat = tfCanSelect;

@@ -1,9 +1,9 @@
 module lobby.model.struct {
 	export class TableNameStruct {
-		public var TableID	:	int;
-		public var CN		:	String;
-		public var TW		:	String;
-		public var EN		:	String;
+		public TableID	:	number;
+		public CN		:	String;
+		public TW		:	String;
+		public EN		:	String;
 		
 		public constructor() {
 		}

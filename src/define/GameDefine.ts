@@ -1,14 +1,14 @@
 module define {
 	export class GameDefine {
 		/** 游戏名称 **/
-		public static BAC_NAME							:	String 	= 	"GameBaccarat";
-		public static DTF_NAME							:	String 	= 	"GameDrTi";
-		public static ROU_NAME							:	String 	= 	"GameRoulette";
-		public static SIC_NAME							:	String 	= 	"GameSicBo";
-		public static TEL_BAC_NAME						:	String 	= 	"Tel_GameBaccarat";
-		public static TEL_BAC_SIDE_NAME						:	String 	= 	"Tel_GameBaccarat_Side";
-		public static ROBOT_BAC_NAME						:	String 	= 	"GameMachineBaccarat";
-		public static BAC_MULTI_NAME						:	String 	= 	"GameBaccaratMulti";
+		public static BAC_NAME							:	string 	= 	"GameBaccarat";
+		public static DTF_NAME							:	string 	= 	"GameDrTi";
+		public static ROU_NAME							:	string 	= 	"GameRoulette";
+		public static SIC_NAME							:	string 	= 	"GameSicBo";
+		public static TEL_BAC_NAME						:	string 	= 	"Tel_GameBaccarat";
+		public static TEL_BAC_SIDE_NAME						:	string 	= 	"Tel_GameBaccarat_Side";
+		public static ROBOT_BAC_NAME						:	string 	= 	"GameMachineBaccarat";
+		public static BAC_MULTI_NAME						:	string 	= 	"GameBaccaratMulti";
 		
 		/** 游戏类型 **/
 		public static LOBBY								:	number 	= 	0;							//大厅

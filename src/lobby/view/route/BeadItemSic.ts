@@ -4,7 +4,7 @@ module lobby.view.route {
 		super();
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			if(m_bmp){
 				switch(m_sLabel){
 					case SicData.SURROUND_DICE:
@@ -30,7 +30,7 @@ module lobby.view.route {
 				}
 				m_bmp.smoothing = true;
 			}else{
-				trace("设置骰宝路位图异常...");
+				console.log("设置骰宝路位图异常...");
 			}
 		}
 		

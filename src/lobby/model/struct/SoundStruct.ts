@@ -1,11 +1,11 @@
 module lobby.model.struct {
 	export class SoundStruct {
 		
-		public var key:String;
-		public var loop:int;
-		public var lowerVolume:Boolean = false;
-		public var fSoundLoadComplete:Function;
-		public var fPlayComplete:Function;
+		public key:String;
+		public loop:number;
+		public lowerVolume: boolean = false;
+		public fSoundLoadComplete:Function;
+		public fPlayComplete:Function;
 
 		public constructor() {
 		}

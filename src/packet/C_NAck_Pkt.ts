@@ -1,7 +1,7 @@
 module packet {
 	export class C_NAck_Pkt extends Packet{
-		public var Type	:	int;
-		public var SN	:	uint;
+		public Type	:	number;
+		public SN	:	number;
 		
 		public constructor() {
 			Type = PacketDefine.N_ACK;

@@ -1,42 +1,42 @@
 module manager {
 	export class SoundManager {
-		private var m_bSoundEffectSwitch	:	Boolean = true;			//音效开关
-		private var m_soundTimer			:	Timer;					//
-		private var m_uDelayTime			:	uint = 60;				//音效 與 音效 播放的間隔時間
-		private var m_vecSound				:	Vector.<SoundStruct>;
+		private m_bSoundEffectSwitch	:	 boolean = true;			//音效开关
+		private m_soundTimer			:	Timer;					//
+		private m_uDelayTime			:	number = 60;				//音效 與 音效 播放的間隔時間
+		private m_vecSound				:	<SoundStruct>;
 
-		public var nVolume					:	Number;					//音量
+		public nVolume					:	Number;					//音量
 		
-		public  var soundPkg				:	SoundPackage;		
-		private	var m_bPlaying				:	Boolean = false;
-		private var m_dicActiveChannels		:	Dictionary;
-        private static var m_instance		:	SoundManager;
+		public  soundPkg				:	SoundPackage;		
+		private	var m_bPlaying				:	 boolean = false;
+		private m_dicActiveChannels		:	Dictionary;
+        private static m_instance		:	SoundManager;
 
 		public constructor() {
 			nVolume = SharedObjectManager.getEffectVolume();
 			soundPkg = new SoundPackage();
 			m_soundTimer = new Timer(m_uDelayTime,1);
 			m_soundTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onPlayList);
-			m_vecSound = new Vector.<SoundStruct>();
+			m_vecSound = new <SoundStruct>();
 			m_dicActiveChannels = new Dictionary();
 		}
 		
-        public function destroy() : void
+        public destroy() : void
         {
             
         }
 
-        public function set soundEffectSwitch(bValue:Boolean) : void
+        set  soundEffectSwitch(bValue: boolean) 
         {
             m_bSoundEffectSwitch = bValue;
         }
 
-        public function get soundEffectSwitch() : Boolean
+        get soundEffectSwitch() :  boolean
         {
             return m_bSoundEffectSwitch;
         }
 
-        public function play( key:String, loop:int = 0, lowerVolume:Boolean = true, fSoundLoadComplete:Function = null,fPlayComplete:Function = null , bPlayList:Boolean = false ,fSoundError:Function=null) : void
+        public play( key:string, loop:number= 0, lowerVolume: boolean = true, fSoundLoadComplete:Function = null,fPlayComplete:Function = null , bPlayList: boolean = false ,fSoundError:Function=null) : void
         {
             loop = loop;
             lowerVolume = lowerVolume;
@@ -104,18 +104,18 @@ module manager {
 				
             }
 			else {
-			//	trace("音效靜音 ::" + m_bSoundEffectSwitch );
+			//	console.log("音效靜音 ::" + m_bSoundEffectSwitch );
 			}
         }
 
-        public function stopSoundByKey(_sKey:String) : void
+        public stopSoundByKey(_sKey:string) : void
         {
             if (m_dicActiveChannels[_sKey])
             {
                 m_dicActiveChannels[_sKey].destroy();
                 delete m_dicActiveChannels[_sKey];
             }
-            for(var i:int=0; i < m_vecSound.length ; i++) {
+            for(var i:number=0; i < m_vecSound.length ; i++) {
 				if( m_vecSound[i].key == _sKey ){
 					m_vecSound.splice( 	i , 1);
 				}
@@ -123,9 +123,9 @@ module manager {
 			MusicManager.singleton.easingVolume( 0.5 , SharedObjectManager.getMusicVolume() );
         }
 
-        public function stopAllSound() : void
+        public stopAllSound() : void
         {
-            for (var _param:String in m_dicActiveChannels)
+            for (var _param:string in m_dicActiveChannels)
             {
                 
                 m_dicActiveChannels[_param].destroy();
@@ -133,16 +133,16 @@ module manager {
             }
 			m_bPlaying = false;
 			m_vecSound = null;
-			m_vecSound = new Vector.<SoundStruct>();
+			m_vecSound = new <SoundStruct>();
 			MusicManager.singleton.easingVolume( 0.5 , SharedObjectManager.getMusicVolume() );
         }
 		
-		public function changeLanguage( _iLanguage:int ):void {
+		public changeLanguage( _iLanguage:number):void {
 			soundPkg.changeLanguage(_iLanguage);
 		}
 		
 		
-		public function playList( key:String, loop:int = 0 , lowerVolume:Boolean = true, fSoundLoadComplete:Function = null,fPlayComplete:Function = null ):void {
+		public playList( key:string, loop:number= 0 , lowerVolume: boolean = true, fSoundLoadComplete:Function = null,fPlayComplete:Function = null ):void {
 			if(soundEffectSwitch==false)return;
 			var _soundStruct:SoundStruct = new SoundStruct();
 				_soundStruct.key = key;
@@ -161,8 +161,8 @@ module manager {
 				}
 		}
 		
-		private function onPlayList(event:TimerEvent):void{
-			trace("循序播放:::::" )
+		private onPlayList(event:TimerEvent):void{
+			console.log("循序播放:::::" )
 			if( m_vecSound.length == 0){
 				m_bPlaying = false;
 			}
@@ -174,7 +174,7 @@ module manager {
 		}
 		
 		
-        public static function getInstance() : SoundManager
+        public static getInstance() : SoundManager
         {
             if (!m_instance)
             {

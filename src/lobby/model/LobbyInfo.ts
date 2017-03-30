@@ -1,107 +1,107 @@
 module lobby.model {
 	export class LobbyInfo {
-		protected var m_vecorTheme			:	Vector.<ThemeStruct>;				//各厅资料
-		protected var m_vectorPanoramaVec	:	Vector.<PanoramaStruct>;			//全景资料
-		public var currentPanoramaStruct	:	PanoramaStruct;						//默认全景
+		protected m_vecorTheme			:	struct.ThemeStruct[];				//各厅资料
+		protected m_vectorPanoramaVec	:	struct.PanoramaStruct[];			//全景资料
+		public currentPanoramaStruct	:	struct.PanoramaStruct;						//默认全景
 		
-		public var CashInOutUrl				:	String;								//出入金网址
-		public var vecCDNList				:	Vector.<VideoCDNStruct>;			//视讯列表	四组CDN_URL
-		public var CustServiceUrl			:	String;								//客服网址
-		public var GameLogUrl				:	String;								//游戏记录网址
-		public var GameRuleUrl				:	String;								//游戏规则网址
-		public var MobileResolutionList		:	String;								//视讯分辨率
-		public var NetBetLoginUrl			:	String;								//下注地址
-		private var m_OnlinePlayers			:	int;								//在线人数
+		public CashInOutUrl				:	String;								//出入金网址
+		public vecCDNList				:	struct.VideoCDNStruct[];			//视讯列表	四组CDN_URL
+		public CustServiceUrl			:	String;								//客服网址
+		public GameLogUrl				:	String;								//游戏记录网址
+		public GameRuleUrl				:	String;								//游戏规则网址
+		public MobileResolutionList		:	String;								//视讯分辨率
+		public NetBetLoginUrl			:	String;								//下注地址
+		private m_OnlinePlayers			:	number;								//在线人数
 		
-		public var vecResolutionList		:	Vector.<ResolutionStruct>;			//解析列表 rtmp://CDN_URL/AppName/StreamName@解析度		
-		public var Tels						:	String;								//客服電話
+		public vecResolutionList		:	struct.ResolutionStruct[];			//解析列表 rtmp://CDN_URL/AppName/StreamName@解析度		
+		public Tels						:	String;								//客服電話
 		
-		public var DefThemeID				:	int;								//默认厅馆
+		public DefThemeID				:	number;								//默认厅馆
 		
 		/** 本地数据 **/
-		public var multiTabelStrct			:	TableStruct;						//多桌入口资料(该类型桌子人数最少)
-		private var m_currentCDN			:	VideoCDNStruct;						//当前频道
-		private var m_currentResolution		:	ResolutionStruct;					//当前分辨率
+		public multiTabelStrct			:	struct.TableStruct;						//多桌入口资料(该类型桌子人数最少)
+		private m_currentCDN			:	struct.VideoCDNStruct;						//当前频道
+		private m_currentResolution		:	struct.ResolutionStruct;					//当前分辨率
 
-		public constructor( oLobbyInfo:Object ) {
-			CashInOutUrl = oLobbyInfo.CashInOutUrl;
+		public constructor( oLobbyInfo ) {
+			this.CashInOutUrl = oLobbyInfo.CashInOutUrl;
 			
-			vecCDNList = new Vector.<VideoCDNStruct>;
+			this.vecCDNList = new Array<struct.VideoCDNStruct>();
 			
 			if(oLobbyInfo.CDNList){
-				for (var k:int = 0; k < oLobbyInfo.CDNList.length; k++) 
+				for (var k:number= 0; k < oLobbyInfo.CDNList.length; k++) 
 				{
-					vecCDNList.push(new VideoCDNStruct(oLobbyInfo.CDNList[k]));
-					if(vecCDNList[k].IsDef){
-						currentCDN = vecCDNList[k];
+					this.vecCDNList.push(new struct.VideoCDNStruct(oLobbyInfo.CDNList[k]));
+					if(this.vecCDNList[k].IsDef){
+						this.currentCDN = this.vecCDNList[k];
 					}
 				}
 			}else{
-				trace("Error:设置CDNList数据异常。。。");
+				console.log("Error:设置CDNList数据异常。。。");
 			}
 			
-			CustServiceUrl = oLobbyInfo.CustServiceUrl;
-			GameLogUrl = oLobbyInfo.GameLogUrl;
-			GameRuleUrl = oLobbyInfo.GameRuleUrl==null?"":oLobbyInfo.GameRuleUrl;
-			NetBetLoginUrl = oLobbyInfo.NetBetLoginUrl;
-			OnlinePlayers = oLobbyInfo.OnlinePlayers;
+			this.CustServiceUrl = oLobbyInfo.CustServiceUrl;
+			this.GameLogUrl = oLobbyInfo.GameLogUrl;
+			this.GameRuleUrl = oLobbyInfo.GameRuleUrl==null?"":oLobbyInfo.GameRuleUrl;
+			this.NetBetLoginUrl = oLobbyInfo.NetBetLoginUrl;
+			this.OnlinePlayers = oLobbyInfo.OnlinePlayers;
 			
 			
-			this.m_vecorTheme = new Vector.<ThemeStruct>();
+			this.m_vecorTheme = new Array<struct.ThemeStruct>();
 			
 			/* 全景资料	*/
-			setPanoramaData(oLobbyInfo.PanoramaList);
+			this.setPanoramaData(oLobbyInfo.PanoramaList);
 			
 			
-			vecResolutionList = new Vector.<ResolutionStruct>;
+			this.vecResolutionList = new Array<struct.ResolutionStruct>();
 			if(oLobbyInfo.ResolutionList){
-				for (var i2:int = 0; i2 < oLobbyInfo.ResolutionList.length; i2++) 
+				for (var i2:number= 0; i2 < oLobbyInfo.ResolutionList.length; i2++) 
 				{
-					vecResolutionList.push(new ResolutionStruct(oLobbyInfo.ResolutionList[i2]));
-					if(vecResolutionList[i2].IsDef){
-						currentResolution = vecResolutionList[i2];
+					this.vecResolutionList.push(new struct.ResolutionStruct(oLobbyInfo.ResolutionList[i2]));
+					if(this.vecResolutionList[i2].IsDef){
+						this.currentResolution = this.vecResolutionList[i2];
 					}
 				}
 			}else{
-				trace("解析度列表读取异常...");
+				console.log("解析度列表读取异常...");
 			}
 			
-			Tels = oLobbyInfo.Tels==null?"":oLobbyInfo.Tels;
+			this.Tels = oLobbyInfo.Tels==null?"":oLobbyInfo.Tels;
 			
 			/* 各厅资料*/
-			var _arrThemeList : Array = oLobbyInfo.ThemeList;
+			var _arrThemeList = oLobbyInfo.ThemeList;
 			if( _arrThemeList != null ){
-				_arrThemeList.sortOn("SN",Array.NUMERIC);
-				var uThemeListLen : uint = _arrThemeList.length;
-				for (var j:int = 0; j < uThemeListLen; j++) 
+				_arrThemeList.sortOn("SN", Array.NUMERIC);
+				var uThemeListLen : number = _arrThemeList.length;
+				for (var j:number= 0; j < uThemeListLen; j++) 
 				{
 					if(_arrThemeList[j].ThemeID>0 && _arrThemeList[j].ThemeID<7){
-						m_vecorTheme.push(new ThemeStruct(_arrThemeList[j]));
+						this.m_vecorTheme.push(new struct.ThemeStruct(_arrThemeList[j]));
 					}
 				}
 				_arrThemeList = null;
 			}
 			
-			DefThemeID = oLobbyInfo.DefThemeID;
+			this.DefThemeID = oLobbyInfo.DefThemeID;
 		}
 		
-		public function setPanoramaData(_arrPanoramaList : Array):void{
-			this.m_vectorPanoramaVec = new Vector.<PanoramaStruct>();
+		public setPanoramaData(_arrPanoramaList : any[]):void{
+			this.m_vectorPanoramaVec = new Array<struct.PanoramaStruct>();
 			
 			if ( _arrPanoramaList == null ) {
 				return;
 			}
 			
-			var _uLen : uint = _arrPanoramaList.length;
-			var _panoramaStruct : PanoramaStruct;
+			var _uLen : number = _arrPanoramaList.length;
+			var _panoramaStruct : struct.PanoramaStruct;
 			
-			for ( var i:int = 0; i < _uLen; i++) {
-				_panoramaStruct = new PanoramaStruct(_arrPanoramaList[i]);
+			for ( var i:number= 0; i < _uLen; i++) {
+				_panoramaStruct = new struct.PanoramaStruct(_arrPanoramaList[i]);
 				if(_panoramaStruct.IsDef){
-					currentPanoramaStruct = _panoramaStruct;
+					this.currentPanoramaStruct = _panoramaStruct;
 				}
-				m_vectorPanoramaVec.push( _panoramaStruct );
-				trace("StreamUrl:",_panoramaStruct.StreamUrl);
+				this.m_vectorPanoramaVec.push( _panoramaStruct );
+				console.log("StreamUrl:",_panoramaStruct.StreamUrl);
 			}
 //			if(currentPanoramaStruct==null && m_vectorPanoramaVec.length>0){
 //				currentPanoramaStruct = m_vectorPanoramaVec[0];
@@ -110,47 +110,47 @@ module lobby.model {
 			_arrPanoramaList = null;
 		}
 		
-		public function get OnlinePlayers():int
+		get OnlinePlayers():number
 		{
-			return m_OnlinePlayers;
+			return this.m_OnlinePlayers;
 		}
 
-		public function set OnlinePlayers(value:int):void
+		set  OnlinePlayers(value:number)
 		{
-			m_OnlinePlayers = value;
+			this.m_OnlinePlayers = value;
 		}
 
-		public function get currentResolution():ResolutionStruct
+		get currentResolution():struct.ResolutionStruct
 		{
-			return m_currentResolution;
+			return this.m_currentResolution;
 		}
 
-		public function set currentResolution(value:ResolutionStruct):void
+		set  currentResolution(value:struct.ResolutionStruct)
 		{
-			m_currentResolution = value;
+			this.m_currentResolution = value;
 			
 		}
 
-		public function get currentCDN():VideoCDNStruct
+		get currentCDN():struct.VideoCDNStruct
 		{
-			return m_currentCDN;
+			return this.m_currentCDN;
 		}
 
-		public function set currentCDN(value:VideoCDNStruct):void
+		set  currentCDN(value:struct.VideoCDNStruct)
 		{
-			m_currentCDN = value;
-			if(m_currentCDN){
-				LobbyManager.getInstance().lobbyView.toolView.setBtnChannelValue(m_currentCDN.ChannelNo);
+			this.m_currentCDN = value;
+			if(this.m_currentCDN){
+				manager.LobbyManager.getInstance().lobbyView.toolView.setBtnChannelValue(this.m_currentCDN.ChannelNo);
 			}else{
-				LobbyManager.getInstance().lobbyView.toolView.setBtnChannelValue(5);
+				manager.LobbyManager.getInstance().lobbyView.toolView.setBtnChannelValue(5);
 			}
 			
 		}
 		
-		public function getChannelIndex(_channelNo:int):int{
-			for (var i:int = 0; i < vecCDNList.length; i++) 
+		public getChannelIndex(_channelNo:number):number{
+			for (var i:number= 0; i < this.vecCDNList.length; i++) 
 			{
-				if(vecCDNList[i].ChannelNo == _channelNo){
+				if(this.vecCDNList[i].ChannelNo == _channelNo){
 					return i+1;
 				}
 			}
@@ -158,24 +158,24 @@ module lobby.model {
 			return 1;
 		}
 		
-		public function addTableList(_ThemeIndex:int, _themeStruct:ThemeStruct):void{
-			m_vecorTheme[_ThemeIndex] = _themeStruct;
+		public addTableList(_ThemeIndex:number, _themeStruct:struct.ThemeStruct):void{
+			this.m_vecorTheme[_ThemeIndex] = _themeStruct;
 		}
-		public function addTable(_ThemeID:int, _tableStruct:TableStruct):void{
-			var len : int = m_vecorTheme.length;
-			for (var i:int = 0; i < len; i++) 
+		public addTable(_ThemeID:number, _tableStruct:struct.TableStruct):void{
+			var len : number = this.m_vecorTheme.length;
+			for (var i:number= 0; i < len; i++) 
 			{
-				if(m_vecorTheme[i].ThemeID==_ThemeID){
-					m_vecorTheme[i].addTableStruct(_tableStruct);
+				if(this.m_vecorTheme[i].ThemeID==_ThemeID){
+					this.m_vecorTheme[i].addTableStruct(_tableStruct);
 					break;
 				}
 			}
 			
 		}
 		
-		public function replaceTheme( theme:ThemeStruct ):void {
-			var len:int = this.m_vecorTheme.length;
-			for (var i:int = 0; i < len; i++) {
+		public replaceTheme( theme:struct.ThemeStruct ):void {
+			var len:number= this.m_vecorTheme.length;
+			for (var i:number= 0; i < len; i++) {
 				if ( this.m_vecorTheme[i].ThemeID == theme.ThemeID ) {
 					this.m_vecorTheme[i] = theme;
 					break;
@@ -189,52 +189,52 @@ module lobby.model {
 		 * @param	themeID
 		 * @return
 		 */
-		public function findTheme(_themeID:int):ThemeStruct {
-			var len:int = m_vecorTheme.length;
-			var theme:ThemeStruct;
-			for (var i:int = 0; i <len ; i++) {
-				if ( m_vecorTheme[i].ThemeID == _themeID ) {
-					theme = m_vecorTheme[i];
+		public findTheme(_themeID:number):struct.ThemeStruct {
+			var len:number= this.m_vecorTheme.length;
+			var theme:struct.ThemeStruct;
+			for (var i:number= 0; i <len ; i++) {
+				if ( this.m_vecorTheme[i].ThemeID == _themeID ) {
+					theme = this.m_vecorTheme[i];
 					break;
 				}
 			}
 			
 			return theme;
 		}
-		public function findTableStructByTT(_themeID:int, _tableID:uint):TableStruct{
-			var _theme : ThemeStruct = findTheme(_themeID);
-			var _tableStruct : TableStruct = _theme.findTableStruct(_tableID);
+		public findTableStructByTT(_themeID:number, _tableID:number):struct.TableStruct{
+			var _theme : struct.ThemeStruct = this.findTheme(_themeID);
+			var _tableStruct : struct.TableStruct = _theme.findTableStruct(_tableID);
 			return _tableStruct;
 		}
 		
 		
-		public function get themeVec():Vector.<ThemeStruct> 
+		get themeVec():struct.ThemeStruct[]
 		{
-			return m_vecorTheme;
+			return this.m_vecorTheme;
 		}
 		
-		public function get panoramaVec():Vector.<PanoramaStruct> 
+		get panoramaVec():struct.PanoramaStruct[] 
 		{
-			return m_vectorPanoramaVec;
+			return this.m_vectorPanoramaVec;
 		}
 		
-		public function set panoramaVec(_value:Vector.<PanoramaStruct> ):void
+		set  panoramaVec(_value:struct.PanoramaStruct[] )
 		{
-			m_vectorPanoramaVec = _value;
+			this.m_vectorPanoramaVec = _value;
 		}		
 		
 		/**
 		 *	桌子资料 
 		 */		
-		public function findTableStructGT(GameID:int, TableID:int):TableStruct{
-			if( m_vecorTheme){
-				var _uThemeListLen : uint = m_vecorTheme.length;
-				var _themeStruct : ThemeStruct;
-				var _tableStruct : TableStruct;
-				for (var j:int = 0; j < _uThemeListLen; j++) 
+		public findTableStructGT(GameID:number, TableID:number):struct.TableStruct{
+			if( this.m_vecorTheme){
+				var _uThemeListLen : number = this.m_vecorTheme.length;
+				var _themeStruct : struct.ThemeStruct;
+				var _tableStruct : struct.TableStruct;
+				for (var j:number= 0; j < _uThemeListLen; j++) 
 				{
-					_themeStruct = m_vecorTheme[j];
-					for (var i:int = 0; i < _themeStruct.TableList.length; i++) 
+					_themeStruct = this.m_vecorTheme[j];
+					for (var i:number= 0; i < _themeStruct.TableList.length; i++) 
 					{
 						if((_themeStruct.TableList[i].GameID==GameID) && (_themeStruct.TableList[i].TableID==TableID)){
 							_tableStruct = _themeStruct.TableList[i];
@@ -250,22 +250,22 @@ module lobby.model {
 			return _tableStruct;
 		}
 		
-		public function getThemeStruct(_themeID:int):ThemeStruct{
-			var len : int = m_vecorTheme.length;
-			for (var i:int = 0; i < len; i++) 
+		public getThemeStruct(_themeID:number):struct.ThemeStruct{
+			var len : number = this.m_vecorTheme.length;
+			for (var i:number= 0; i < len; i++) 
 			{
-				if(m_vecorTheme[i].ThemeID==_themeID){
-					return m_vecorTheme[i];
+				if(this.m_vecorTheme[i].ThemeID==_themeID){
+					return this.m_vecorTheme[i];
 				}
 			}
 			return null;
 		}
 		
-		public function getThemeIndex( _iThemeID:int):int{
-			var _len : int = m_vecorTheme.length;
-			for (var i:int = 0; i < _len; i++) 
+		public getThemeIndex( _iThemeID:number):number{
+			var _len : number = this.m_vecorTheme.length;
+			for (var i:number= 0; i < _len; i++) 
 			{
-				if(_iThemeID == m_vecorTheme[i].ThemeID){
+				if(_iThemeID == this.m_vecorTheme[i].ThemeID){
 					return i;
 				}
 			}
@@ -279,20 +279,20 @@ module lobby.model {
 		 * @return 
 		 * 
 		 */		
-		public function setChanelByChannelNo(_channelNo:int, _struct:VideoCDNStruct):void{
-			for (var i:int = 0; i < vecCDNList.length; i++) 
+		public setChanelByChannelNo(_channelNo:number, _struct:struct.VideoCDNStruct):void{
+			for (var i:number= 0; i < this.vecCDNList.length; i++) 
 			{
-				if(vecCDNList[i].ChannelNo == _channelNo){
-					vecCDNList[i] = _struct;
+				if(this.vecCDNList[i].ChannelNo == _channelNo){
+					this.vecCDNList[i] = _struct;
 					return;
 				}
 			}
 		}
-		public function getChannelByChannelNo(_channelNo:int):VideoCDNStruct{
-			for (var i:int = 0; i < vecCDNList.length; i++) 
+		public getChannelByChannelNo(_channelNo:number):struct.VideoCDNStruct{
+			for (var i:number= 0; i < this.vecCDNList.length; i++) 
 			{
-				if(vecCDNList[i].ChannelNo == _channelNo){
-					return vecCDNList[i];
+				if(this.vecCDNList[i].ChannelNo == _channelNo){
+					return this.vecCDNList[i];
 				}
 			}
 			
@@ -300,13 +300,13 @@ module lobby.model {
 //				return vecCDNList[0];
 //			}
 			
-			return new VideoCDNStruct({ChannelNo:"0",IsDef:false,CDNUrl:"xxx"});
+			return new struct.VideoCDNStruct({ChannelNo:"0",IsDef:false,CDNUrl:"xxx"});
 		}
-		public function getDefaultCDNStruct():VideoCDNStruct{
-			for (var i:int = 0; i < vecCDNList.length; i++) 
+		public getDefaultCDNStruct():struct.VideoCDNStruct{
+			for (var i:number= 0; i < this.vecCDNList.length; i++) 
 			{
-				if(vecCDNList[i].IsDef == true){
-					return vecCDNList[i];
+				if(this.vecCDNList[i].IsDef == true){
+					return this.vecCDNList[i];
 				}
 			}
 			return null;
@@ -315,25 +315,25 @@ module lobby.model {
 		/**
 		 *	视讯分辨率 
 		 */	
-		public function setResolutionByPriorityNo(_PriorityNo:int, _struct:ResolutionStruct):void{
-			for (var i:int = 0; i < vecResolutionList.length; i++) 
+		public setResolutionByPriorityNo(_PriorityNo:number, _struct:struct.ResolutionStruct):void{
+			for (var i:number= 0; i < this.vecResolutionList.length; i++) 
 			{
-				if(vecResolutionList[i].PriorityNo == _PriorityNo){
-					vecResolutionList[i] = _struct;
+				if(this.vecResolutionList[i].PriorityNo == _PriorityNo){
+					this.vecResolutionList[i] = _struct;
 					return;
 				}
 			}
 		}
-		public function getResolutionByIndex(_iIndex:int):ResolutionStruct{
-			for (var i:int = 0; i < vecResolutionList.length; i++) 
+		public getResolutionByIndex(_iIndex:number):struct.ResolutionStruct{
+			for (var i:number= 0; i < this.vecResolutionList.length; i++) 
 			{
-				if(vecResolutionList[i].PriorityNo == _iIndex){
-					return vecResolutionList[i];
+				if(this.vecResolutionList[i].PriorityNo == _iIndex){
+					return this.vecResolutionList[i];
 				}
 			}
 			
-			if(vecResolutionList.length>0){
-				return vecResolutionList[0];
+			if(this.vecResolutionList.length>0){
+				return this.vecResolutionList[0];
 			}
 			
 			return null;

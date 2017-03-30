@@ -1,24 +1,24 @@
 module lobby.view.panel {
 	export class PanelLiveVideo extends PanelWindow{
-		private var m_bg				:	BitmapScale9Grid;
-		private var m_rtmpPlayer		:	RTMPPlayer;							//播放视讯
-//		private var m_mcVideo			:	MovieClip;							//视讯容器
-		private var m_btnClose			:	SingleButtonMC;						//关闭按钮
-		private var m_btnRefresh		:	SingleButtonMC;						//刷新按钮
-		private var m_loading			:	*;									//加载图标
-		private var m_sSharedSecuret	:	String;								//共享密钥
-		private var m_sStream			:	String;								//媒体名称
-		private var m_tfWorn			:	TextField;							//连接失效
-		private var m_nVolume			:	Number;								//音量
+		private m_bg				:	BitmapScale9Grid;
+		private m_rtmpPlayer		:	RTMPPlayer;							//播放视讯
+//		private m_mcVideo			:	MovieClip;							//视讯容器
+		private m_btnClose			:	SingleButtonMC;						//关闭按钮
+		private m_btnRefresh		:	SingleButtonMC;						//刷新按钮
+		private m_loading			:	*;									//加载图标
+		private m_sSharedSecuret	:	String;								//共享密钥
+		private m_sStream			:	String;								//媒体名称
+		private m_tfWorn			:	TextField;							//连接失效
+		private m_nVolume			:	Number;								//音量
 		
-		private var m_sServer			:	String;								//传入参数
-		private var m_sStreamName		:	String;								//传入参数
-		private var sFailedConnectType	:	String;
+		private m_sServer			:	String;								//传入参数
+		private m_sStreamName		:	String;								//传入参数
+		private sFailedConnectType	:	String;
 		
-		private var uCount				:	uint;								//重连次数
-		private var m_bPanoramaNull		:	Boolean		=	false;				//全景視訊數據為空
+		private uCount				:	number;								//重连次数
+		private m_bPanoramaNull		:	 boolean		=	false;				//全景視訊數據為空
 		
-		public constructor( _uWidth:uint, _uHeight:uint ) {
+		public constructor( _uWidth:number, _uHeight:number ) {
 		
 			super();
 			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_PANEL,"Live_Full_Asset");
@@ -76,7 +76,7 @@ module lobby.view.panel {
 			onChangeLanguage();
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			
 			if(m_bg){
 				if(m_bg.parent){
@@ -121,14 +121,14 @@ module lobby.view.panel {
 			super.destroy();
 		}
 		
-		public function initializeRTMPPlayer(_sServer:String="rtmp://192.168.201.211:1935/live_v2_origin", _sStream:String="tb025@1280x720"):void{
+		public initializeRTMPPlayer(_sServer:String="rtmp://192.168.201.211:1935/live_v2_origin", _sStream:String="tb025@1280x720"):void{
 			m_rtmpPlayer = new RTMPPlayer();
 			m_rtmpPlayer.initialize( m_mcAsset.mc_0, 1280, 720);
 			m_rtmpPlayer.resize(1280,720);
 			m_rtmpPlayer.resizeAlignCenter(1280, 720);
 			m_rtmpPlayer.fHideLoading = hideLoding; 
 			m_rtmpPlayer.fConnectFailed = connectFailed;
-			var _bStatus : Boolean = SharedObjectManager.getLiveOnOff();
+			var _bStatus :  boolean = SharedObjectManager.getLiveOnOff();
 			m_rtmpPlayer.setVolume(_bStatus?SharedObjectManager.getLiveVolume():0);
 			
 			m_rtmpPlayer.fConnectSuccess = function():void{
@@ -139,11 +139,11 @@ module lobby.view.panel {
 			play();
 		}
 		
-		public function get iMaxBytePerSecond():int{
+		get iMaxBytePerSecond():number{
 			return m_rtmpPlayer.iMaxBytePerSecond;
 		}
-		public function setData():void{
-			//			LobbyData.getInstance().lobbyInfo.panoramaVec = new Vector.<PanoramaStruct>(); 測試代碼
+		public setData():void{
+			//			LobbyData.getInstance().lobbyInfo.panoramaVec = new <PanoramaStruct>(); 測試代碼
 			if( LobbyData.getInstance().lobbyInfo.panoramaVec.length > 0 ){
 				var panoramaStruct : PanoramaStruct = LobbyData.getInstance().lobbyInfo.currentPanoramaStruct;
 				if(panoramaStruct==null){
@@ -168,7 +168,7 @@ module lobby.view.panel {
 			}
 			
 		}
-		private function notOpen():void{
+		private notOpen():void{
 			if(!m_tfWorn){
 				m_tfWorn = new TextField();
 				m_tfWorn.autoSize = TextFieldAutoSize.LEFT;
@@ -183,7 +183,7 @@ module lobby.view.panel {
 			hideLoding();
 			m_bPanoramaNull = true;
 		}
-		private function play():void{
+		private play():void{
 			
 			if(m_sServer==null || m_sStreamName==null){
 				notOpen();
@@ -202,7 +202,7 @@ module lobby.view.panel {
 			m_rtmpPlayer.iVideoConnectStatus = 0;					
 		}
 		
-		protected function loadVideoTimeOut():void {
+		protected loadVideoTimeOut():void {
 			Log.getInstance().log(this, "視訊連接狀態::視訊連接逾時");
 			if( m_mcAsset ){
 				hideLoding();
@@ -220,28 +220,28 @@ module lobby.view.panel {
 			}
 		}		
 		
-		private function hash(_sServer:String, _sStream:String):void{
+		private hash(_sServer:String, _sStream:String):void{
 			m_sSharedSecuret = "Aa123456Aa";	//stage.loaderInfo.parameters["sharedSecuret"];
 			var _sParameterPrefix : String = "wowzatoken";	//stage.loaderInfo.parameters["parameterPrefix"];
-			var _uEndtime : uint = 1544267500;			//stage.loaderInfo.parameters["endtime"];
-			var _uStarttime : uint = 0;					//stage.loaderInfo.parameters["starttime"];
+			var _uEndtime : number = 1544267500;			//stage.loaderInfo.parameters["endtime"];
+			var _uStarttime : number = 0;					//stage.loaderInfo.parameters["starttime"];
 			var _sHash : String = _sServer.slice(_sServer.lastIndexOf("/")+1) + "/" + _sStream + "?" + m_sSharedSecuret + "&" + _sParameterPrefix + "endtime=" + String(_uEndtime) + "&" + _sParameterPrefix + "starttime=" + String(_uStarttime);
 			var _SHA256 : SHA256 = new SHA256();
 			var data : ByteArray = Hex.toArray(Hex.fromString(_sHash));
 			var _sHashValue : ByteArray = _SHA256.hash(data);
 			var _usableHash	:String	= Base64.encodeByteArray(_sHashValue);
-			trace("base64.encode:",_usableHash);
+			console.log("base64.encode:",_usableHash);
 			var _add : RegExp = /\+/g;
 			var _slash : RegExp = /\//g;
 			//RegExp /a/是要替换的字符，g全部有关字符串都将被替换 
 			_usableHash = _usableHash.replace(_add, '-'); 
-			trace('提示：+替换-之后的字符串为: ' + _usableHash); 
+			console.log('提示：+替换-之后的字符串为: ' + _usableHash); 
 			_usableHash = _usableHash.replace(_slash, '_'); 
-			trace('提示：\\替换_之后的字符串为: ' + _usableHash);
+			console.log('提示：\\替换_之后的字符串为: ' + _usableHash);
 			m_sStream = _sStream+"?"+_sParameterPrefix+"endtime="+String(_uEndtime)+"&"+_sParameterPrefix+"starttime="+String(_uStarttime)+"&"+_sParameterPrefix+"hash="+_usableHash;
 		}
 		
-		private function showLoading():void{
+		private showLoading():void{
 			
 			if(m_loading){
 				m_rtmpPlayer.clearVideoFull();
@@ -253,7 +253,7 @@ module lobby.view.panel {
 				m_tfWorn.visible = false;
 			}
 		}
-		private function hideLoding():void{
+		private hideLoding():void{
 			if(m_loading){
 				m_loading.gotoAndStop(1);
 				m_loading.visible = false;
@@ -261,7 +261,7 @@ module lobby.view.panel {
 			TimeManager.getInstance().removeFun(loadVideoTimeOut);
 		}
 		
-		protected function initWorn():void
+		protected initWorn():void
 		{
 			if(!m_tfWorn && m_mcAsset){
 				m_tfWorn = new TextField();
@@ -276,7 +276,7 @@ module lobby.view.panel {
 			}
 		}			
 		
-		private function connectFailed(_iType:int=1):void
+		private connectFailed(_iType:number=1):void
 		{
 			Log.getInstance().log(this, "視訊連接狀態::" + _iType);
 			hideLoding();
@@ -311,14 +311,14 @@ module lobby.view.panel {
 		/**
 		 * 設置音量
 		 */
-		public function setVolume( _nVol:Number , _nPannging:Number = 0 ):void {
+		public setVolume( _nVol:Number , _nPannging:Number = 0 ):void {
 			if( m_rtmpPlayer ){
 				m_rtmpPlayer.setVolume( _nVol  , _nPannging );
 			}
 		}
 		
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			m_mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);// LobbyManager.getInstance().getLanguageString(Language.sLive);
 			
 			if(m_loading){
@@ -330,14 +330,14 @@ module lobby.view.panel {
 			
 		}
 		
-		private function setLoadingPostition():void {
+		private setLoadingPostition():void {
 			if( m_tfWorn && m_tfWorn.parent ){
 				m_tfWorn.x = (m_tfWorn.parent.width-m_tfWorn.width) >> 1;
 				m_tfWorn.y = (m_tfWorn.parent.height-m_tfWorn.height) >> 1;	
 			}
 			
 		}	
-		public function stop():void{
+		public stop():void{
 			if(m_rtmpPlayer){
 				m_rtmpPlayer.stop();
 			}

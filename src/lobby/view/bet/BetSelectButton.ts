@@ -1,16 +1,16 @@
 module lobby.view.bet {
 	export class BetSelectButton {
 		
-		private var mc:MovieClip;
+		private mc:MovieClip;
 		
 
-		private var onClick:Function;
-		private var isPlayEffect:Boolean = false;
-		private var isEnable:Boolean = true;
-		private var hasHDOWN:Boolean = false;
-		private var hasCLICK:Boolean = false;
-		public var clickEffectComplete:Function;
-		private var clickEffectMC:MovieClip;
+		private onClick:Function;
+		private isPlayEffect: boolean = false;
+		private isEnable: boolean = true;
+		private hasHDOWN: boolean = false;
+		private hasCLICK: boolean = false;
+		public clickEffectComplete:Function;
+		private clickEffectMC:MovieClip;
 		
 		public constructor(mc:MovieClip,onClick:Function) {
 			this.mc = mc;
@@ -22,7 +22,7 @@ module lobby.view.bet {
 			this.mc.buttonMode = true;
 			this.mc.useHandCursor = true;
 			
-			for (var i:int = 0; i < mc.currentLabels.length; i++) 
+			for (var i:number= 0; i < mc.currentLabels.length; i++) 
 			{
 				if((mc.currentLabels[i] as FrameLabel).name=="HDOWN")
 				{
@@ -34,7 +34,7 @@ module lobby.view.bet {
 			}	
 		}
 		
-		private function onMouseHandler(e:MouseEvent):void
+		private onMouseHandler(e:MouseEvent):void
 		{
 			if(!isEnable||!mc)return;
 			if(e.type==MouseEvent.MOUSE_DOWN)
@@ -93,10 +93,10 @@ module lobby.view.bet {
 			}
 			e.stopImmediatePropagation();
 		}
-		private function stopMovieClip(m:MovieClip):void
+		private stopMovieClip(m:MovieClip):void
 		{
 			if(m==null)return;
-			for (var j:int = 0; j < m.numChildren; j++) 
+			for (var j:number= 0; j < m.numChildren; j++) 
 			{
 				var mc:MovieClip = m.getChildAt(j) as MovieClip;
 				if(mc)
@@ -107,7 +107,7 @@ module lobby.view.bet {
 			}
 		}
 		
-		private function onClickEffectPlayComplete():void
+		private onClickEffectPlayComplete():void
 		{
 			isPlayEffect = false;
 			clickEffectMC&&clickEffectMC.stop();
@@ -119,7 +119,7 @@ module lobby.view.bet {
 				clickEffectComplete();
 		}
 		
-		public function enable(isEnable:Boolean):void
+		public enable(isEnable: boolean):void
 		{
 			this.isEnable = isEnable;
 			if(!isPlayEffect)
@@ -134,18 +134,18 @@ module lobby.view.bet {
 				}
 			}
 		}
-		public function get clickable():Boolean
+		get clickable(): boolean
 		{
 			if(!mc)return false;
 			return mc.mouseEnabled&&mc.mouseChildren;
 		}
-		public function set clickable(value:Boolean):void
+		set  clickable(value: boolean)
 		{
 			if(!mc)return;
 			mc.mouseEnabled = value;
 			mc.mouseChildren = value;
 		}
-		public function destroy():void
+		public destroy():void
 		{
 			if(!mc)return;
 			mc.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseHandler);
@@ -158,7 +158,7 @@ module lobby.view.bet {
 			clickEffectMC = null;
 			mc = null;
 		}
-		public function onChangeLanguage(index:int):void
+		public onChangeLanguage(index:number):void
 		{
 			if(mc==null)return;
 			mc.mc_label.gotoAndStop(index+1);

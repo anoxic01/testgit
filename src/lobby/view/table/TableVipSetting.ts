@@ -1,8 +1,8 @@
 module lobby.view.table {
 	export class TableVipSetting extends BSprite{
-		private var m_csetting : CharterSettingStruct;
-//		private var m_btnOk		:	;
-//		private var m_btnCancel	:	;
+		private m_csetting : CharterSettingStruct;
+//		private m_btnOk		:	;
+//		private m_btnCancel	:	;
 		
 		public constructor(_struct:TableStruct) {
 		
@@ -19,7 +19,7 @@ module lobby.view.table {
 			}	
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			
 		}
 		

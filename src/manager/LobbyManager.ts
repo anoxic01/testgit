@@ -8,11 +8,11 @@ module manager {
 		
 
 		/** 大厅通讯 **/
-		private m_socket				:	TCPSocket;							//通讯连接
-		private m_lobbySocketSink		:	ITCPSocketSink;						//通讯连接
-		public lobbyAuth 				: 	lobby.data.LobbyAuth;				//登陆数据
-		public socketParser				:	SocketParser;						//数据解析
-		public dataPacket 				: 	DataPacket;							//数据封包
+		private m_socket				:	socket.TCPSocket;							//通讯连接
+		private m_lobbySocketSink		:	socket.ITCPSocketSink;						//通讯连接
+		public lobbyAuth 				: 	lobby.model.LobbyAuth;				//登陆数据
+		public socketParser				:	packet.SocketParser;						//数据解析
+		public dataPacket 				: 	packet.DataPacket;							//数据封包
 		
 		/** 初始大厅 **/
 		public lobbyView 		: lobby.view.LobbyView;							//主类容器
@@ -21,27 +21,27 @@ module manager {
 		
 		get uWindowIndex():number
 		{
-			return m_uWindowIndex;
+			return this.m_uWindowIndex;
 		}
 		
 		set uWindowIndex(value:number)
 		{
-			m_uWindowIndex = value;
-			if(m_uWindowIndex<0){
-				m_uWindowIndex = 0;
+			this.m_uWindowIndex = value;
+			if(this.m_uWindowIndex<0){
+				this.m_uWindowIndex = 0;
 			}
 		}
 		
-		get videoMaxBytePerSecond():BLiveVideo
+		get videoMaxBytePerSecond():lobby.view.lives.BLiveVideo
 		{
-			return m_videoMaxBytePerSecond;
+			return this.m_videoMaxBytePerSecond;
 		}
 		
-		set videoMaxBytePerSecond(value:BLiveVideo):void
+		set videoMaxBytePerSecond(value:lobby.view.lives.BLiveVideo)
 		{
-			m_videoMaxBytePerSecond = value;
+			this.m_videoMaxBytePerSecond = value;
 			
-			if( m_videoMaxBytePerSecond == null ){
+			if( this.m_videoMaxBytePerSecond == null ){
 				return;
 			}
 			
@@ -54,63 +54,63 @@ module manager {
 		}
 		
 		private m_fInit					:	Function;							//回调函数
-		public stage					:	Stage;								//舞台引用
-		private m_uWindowIndex			:	uint;								//窗口数量
+		public stage					:	egret.Stage;								//舞台引用
+		private m_uWindowIndex			:	number;								//窗口数量
 		
 		/** 功能界面 **/
-		public personalInfomation		:	PanelPersonalInfomation;			//个人资讯
-		public panelLiveVideo			:	PanelLiveVideo;						//全景视讯
-		public channel					:	PanelChannel;						//视讯频道
-		private m_panelChipCustom		:	PanelChipCustom;					//自订筹码
-		public systemSetting			:	PanelSystemSetting;					//系统设置
-		private m_tableSetting			:	PanelTableSetting;					//包桌设置
-		private m_tableEnter			:	PanelTableEnter;					//进桌密码
-		private m_limitBet				:	PanelLimitBet;						//限红选择
+		public personalinformation		:	lobby.view.panel.PanelPersonalinformation;			//个人资讯
+		public panelLiveVideo			:	lobby.view.panel.PanelLiveVideo;						//全景视讯
+		public channel					:	lobby.view.panel.PanelChannel;						//视讯频道
+		private m_panelChipCustom		:	lobby.view.panel.PanelChipCustom;					//自订筹码
+		public systemSetting			:	lobby.view.panel.PanelSystemSetting;					//系统设置
+		private m_tableSetting			:	lobby.view.panel.PanelTableSetting;					//包桌设置
+		private m_tableEnter			:	lobby.view.panel.PanelTableEnter;					//进桌密码
+		private m_limitBet				:	lobby.view.panel.PanelLimitBet;						//限红选择
 		
 		/** 状态设置 **/
-		public bPlazaBlueFilter			:	Boolean	=	false;					//模糊状态
+		public bPlazaBlueFilter			:	 boolean	=	false;					//模糊状态
 		
 		/** 语言设置 **/
-		public lang						:	Language;							//当前语言
-		private m_language_cn			:	Language_CN;						//简体中文
-		private m_language_en			:	Language_EN;						//英文语言
-		private m_language_tw			:	Language_TW;						//繁体中文
+		public lang						:	language.Language;							//当前语言
+		private m_language_cn			:	language.Language_CN;						//简体中文
+		private m_language_en			:	language.Language_EN;						//英文语言
+		private m_language_tw			:	language.Language_TW;						//繁体中文
 		
 		/** 多桌界面 **/
-		public multiTableView			:	MultiTableView;						//
-		private m_vecLive				:	Vector.<Object>;					//打开视讯的桌子
-		private m_arrVideoNo			:   Array;
+		public multiTableView			:	lobby.view.multi.MultiTableView;						//
+		private m_vecLive				:	any[];					//打开视讯的桌子
+		private m_arrVideoNo			:   any[];
 		private m_nTotalBet				:	Number	=	0;						//下注金额
 		private m_nTotalHaveBet			:	Number	=	0;						//已下注金额
-		public multiTableEntryStruct	:	TableStruct;						//多桌入口
-		public iEnterMultitableThemeID	:	int		=	255;					//进多桌时的厅馆id
-		public multiEnterGame			:	Game;								//多桌入口桌实例
-		public maintainLevel			:	uint 	= 	0;						//维护级别 SysMaintainType
-		public maintainAgent			:	uint	=	0;						//代理维护ID
-		public bMultiExit				:	Boolean;							//入口桌socket关闭 ，登入失败、维护、超时退出
+		public multiTableEntryStruct	:	lobby.model.struct.TableStruct;						//多桌入口
+		public iEnterMultitableThemeID	:	number		=	255;					//进多桌时的厅馆id
+		public multiEnterGame			:	lobby.view.game.Game;								//多桌入口桌实例
+		public maintainLevel			:	number 	= 	0;						//维护级别 SysMaintainType
+		public maintainAgent			:	number	=	0;						//代理维护ID
+		public bMultiExit				:	 boolean;							//入口桌socket关闭 ，登入失败、维护、超时退出
 		
 		/** 胜利动画 **/
-		private m_animationGameWinC		:	AnimationGameWinC;
-		private m_animationGameWinA		:	AnimationGameWinA;
+		private m_animationGameWinC		:	lobby.view.animation.AnimationGameWinC;
+		private m_animationGameWinA		:	lobby.view.animation.AnimationGameWinA;
 		
 		/**	好路设置 **/
-		public panelGoodRoadType		:	PanelGoodRoadSetting;
+		public panelGoodRoadType		:	lobby.view.panel.PanelGoodRoadSetting;
 		
 		/** 多桌通讯 **/
-		public socket_multi				:	TCPSocket;							//通讯连接
-		public multiTableSocketSink		:	MultiTableTCPSink;					//通讯连接
-		public socketParser_multi		:	SocketParser;						//数据解析
-		public dataPacket_multi			: 	DataPacket;							//数据封包
-		public multiTableId				:	int									//接口桌ID
-		public goodTableId				:	int									//好路接口桌ID
+		public socket_multi				:	socket.TCPSocket;							//通讯连接
+		public multiTableSocketSink		:	packet.sink.MultiTableTCPSink;					//通讯连接
+		public socketParser_multi		:	packet.SocketParser;						//数据解析
+		public dataPacket_multi			: 	packet.DataPacket;							//数据封包
+		public multiTableId				:	number									//接口桌ID
+		public goodTableId				:	number									//好路接口桌ID
 		
 		//		public dataPacket_good			:	DataPacket;							//数据封包
 		
-		private m_bLoginMultiTable		:	Boolean;							//登陆状态
+		private m_bLoginMultiTable		:	 boolean;							//登陆状态
 		
 		/** 视讯声音 **/
-		private m_nLiveVolume			:	Number;								//视讯音量
-		private m_bLiveStatus			:	Boolean;							//禁音开关
+		private m_nLiveVolume			:	number;								//视讯音量
+		private m_bLiveStatus			:	 boolean;							//禁音开关
 		
 		public fChangChannel			:	Function;							//切换频道
 		
@@ -128,64 +128,64 @@ module manager {
 		public chipPanelLobby			:	ChipPanelLobby;						//筹码面板
 		
 		/**臨時處理 , 之後 視窗看要不要更改*/			
-		public aCloseWindowList			:	Vector.<PanelWindow>;				//待關閉的視窗列表,用於 大廳連線 或登入 等例外處理
+		public aCloseWindowList			:	PanelWindow[];				//待關閉的視窗列表,用於 大廳連線 或登入 等例外處理
 		
 		/** 快速转桌 **/
-		public bQuickTableListTween		:	Boolean;							//缓动状态
-		public bQuickChangeTable		:	Boolean;							//快速转桌
-		public bQuickToMultiTable		:	Boolean;							//快速转桌
+		public bQuickTableListTween		:	 boolean;							//缓动状态
+		public bQuickChangeTable		:	 boolean;							//快速转桌
+		public bQuickToMultiTable		:	 boolean;							//快速转桌
 		
 		/** 自订筹码 **/
-		private m_uPanelChipCustom		:	uint;
+		private m_uPanelChipCustom		:	number;
 		
 		/** 当前桌子 **/
-		public currentTableStruct		:	TableStruct;
+		public currentTableStruct		:	lobby.model.struct.TableStruct;
 		
 		/** 个人资讯 **/
-		private m_aData 				: 	CData;
+		private m_aData 				: 	lobby.model.CData;
 		
 		private static m_instance		:	LobbyManager;
-		public iReTryConnect			:	int;								//重連次數
+		public iReTryConnect			:	number;								//重連次數
 //		private m_tHeart				:	JTimer;
-//		public iSendHeartFailCount		:	int;								//送大廳心跳包失敗次數
-		public nRevServerTime			:	Number = 0;							//紀錄接收心跳包時間
-		public nHeartRate				:	Number	= 5000;						//心跳包送的速率
+//		public iSendHeartFailCount		:	number;								//送大廳心跳包失敗次數
+		public nRevServerTime			:	number = 0;							//紀錄接收心跳包時間
+		public nHeartRate				:	number	= 5000;						//心跳包送的速率
 		
 		
-//		public iReTryConnectM			:	int;								//重連次數
-//		public iSendHeartFailCountM		:	int;								//送大廳心跳包失敗次數
-		public nRevServerTimeM			:	Number = 0;							//紀錄接收心跳包時間
-		public loginNM					:	int;								//多桌登入次數
-		public bRetryM					:	Boolean;							//是否重连多桌中
+//		public iReTryConnectM			:	number;								//重連次數
+//		public iSendHeartFailCountM		:	number;								//送大廳心跳包失敗次數
+		public nRevServerTimeM			:	number = 0;							//紀錄接收心跳包時間
+		public loginNM					:	number;								//多桌登入次數
+		public bRetryM					:	 boolean;							//是否重连多桌中
 		
 		private m_gameTransition		:	GameSceneTransformer;				//进桌过渡
 		
-		public bImportant				:	Boolean;							//保留重要弹窗提示，取消网络断开的提示
+		public bImportant				:	 boolean;							//保留重要弹窗提示，取消网络断开的提示
 		
-		public bStageVideoAvailable		:	Boolean;							//支持显卡渲染
+		public bStageVideoAvailable		:	 boolean;							//支持显卡渲染
 		private m_timer					:	JTimer;
-		public transparentLayer			:	Sprite;
+		public transparentLayer			:	egret.Sprite;
 		
-		public uDialogCount				:	uint;								//提示框数量
+		public uDialogCount				:	number;								//提示框数量
 		
-		public bSubscribeTheme			:	Boolean;							//订阅厅馆
+		public bSubscribeTheme			:	 boolean;							//订阅厅馆
 		
-		public bEnterGame				:	Boolean;							//进桌状态
+		public bEnterGame				:	 boolean;							//进桌状态
 
-		public bRegist					:	Boolean;							//点击注册
+		public bRegist					:	 boolean;							//点击注册
 		
 		/**
 		 *	当前模式：
 		 * 	高配版-0
 		 * 	低配版-1
 		 */		
-		public uRenderMode				:	uint;								//当前模式
-		private m_uDetection			:	uint;								//检测次数
-		private m_uDetectionCount		:	uint;								//总检测数
-		private m_detectionTimer		:	Timer;
-		private m_bDetection			:	Boolean	=	true;					//功能开关
+		public uRenderMode				:	number;								//当前模式
+		private m_uDetection			:	number;								//检测次数
+		private m_uDetectionCount		:	number;								//总检测数
+		private m_detectionTimer		:	egret.Timer;
+		private m_bDetection			:	 boolean	=	true;					//功能开关
 		
-		public bClickResolution			:	Boolean;
+		public bClickResolution			:	 boolean;
 		
 
 		private static instance	:	LobbyManager;
@@ -199,27 +199,27 @@ module manager {
 		public constructor() {
 		}
 
-		public  initialize( _stage:Stage, $lobbyAuth:lobby.data.LobbyAuth, $lobbyView:lobby.view.LobbyView, _init:Function ):void{
+		public  initialize( _stage, $lobbyAuth:lobby.model.LobbyAuth, $lobbyView:lobby.view.LobbyView, _init:Function ):void{
 			
-			stage		=	_stage;
+			this.stage		=	_stage;
 			this.lobbyAuth = $lobbyAuth;
 			this.lobbyView = $lobbyView;
-			m_fInit 	=	_init;
+			this.m_fInit 	=	_init;
 			
-			if(!socketParser){
-				socketParser = new SocketParser();
+			if(!this.socketParser){
+				this.socketParser = new packet.SocketParser();
 			}
 			
-			if(!dataPacket){
-				dataPacket = new DataPacket(socketParser);
+			if(!this.dataPacket){
+				this.dataPacket = new packet.DataPacket(this.socketParser);
 			}
 			
-			if(!m_socket){
-				if(!m_lobbySocketSink){
-					m_lobbySocketSink = new LobbyTCPSocketSink();
+			if(!this.m_socket){
+				if(!this.m_lobbySocketSink){
+					this.m_lobbySocketSink = new packet.sink.LobbyTCPSocketSink();
 				}
 				
-				m_socket = new TCPSocket(m_lobbySocketSink, 0, 0);
+				this.m_socket = new TCPSocket(m_lobbySocketSink, 0, 0);
 			}
 			
 			if(m_bDetection){
@@ -266,7 +266,7 @@ module manager {
 			} );*/
 			
 			
-			aCloseWindowList = new Vector.<PanelWindow>();
+			aCloseWindowList = new PanelWindow[]();
 			m_nLiveVolume 	 = SharedObjectManager.getLiveVolume();
 			
 			nRevServerTime   = getTimer();
@@ -328,7 +328,7 @@ module manager {
 		 */		
 		public connect(_sServerIP:string, _iServerPort:number):void{
 			
-			trace("连接大厅...","m_socket:", m_socket.getUid(), "_sServerIP:", _sServerIP, "_iServerPort:",_iServerPort,"###");
+			console.log("连接大厅...","m_socket:", m_socket.getUid(), "_sServerIP:", _sServerIP, "_iServerPort:",_iServerPort,"###");
 			m_socket.connect( _sServerIP, _iServerPort );
 			
 			//			m_socket.connect( "127.0.0.1", _iServerPort );			//測試代碼
@@ -354,12 +354,12 @@ module manager {
 //				_lobbyLoginReqPkt.AuthInfo.DefThemeID   	=   lobbyAuth.loginMode;							//網投
 				
 				/** 新做法 **/
-				var _byte : ByteArray = new ByteArray();
+				var _byte : egret.ByteArray = new egret.ByteArray();
 				var _urlloader : URLLoader = new URLLoader();
-				_urlloader.addEventListener(Event.COMPLETE, function onComplete1(event:Event):void{
+				_urlloader.addEventListener(Event.COMPLETE, onComplete1(evt){
 					_urlloader.removeEventListener(Event.COMPLETE, onComplete1);
 					
-					var byte : ByteArray = event.currentTarget.data;
+					var byte : ByteArray = evt.currentTarget.data;
 					byte[0] -= 8;
 					byte[1] -= 8;
 					byte[2] -= 8;
@@ -367,7 +367,7 @@ module manager {
 					
 					var _loader : Loader = new Loader();
 					_loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,function onError():void{});
-					_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function onComplete2(event:Event):void{
+					_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete2(event:Event):void{
 						_loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, onError);
 						_loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onComplete2);
 						
@@ -389,13 +389,13 @@ module manager {
 				_urlloader.load(new URLRequest(UrlManager.getInstance().getImageUrl("test.png")));
 				
 //				var byte:ByteArray = dataPacket.pack( PacketDefine.LOGIN_IN , _lobbyLoginReqPkt );
-//				trace("登陆大厅..." , _lobbyLoginReqPkt.AuthInfo.ThemeType );
+//				console.log("登陆大厅..." , _lobbyLoginReqPkt.AuthInfo.ThemeType );
 //				Utils.DumpBinary( "", _byte, 0, 11);
 //				m_socket.send( _byte, 0,  _byte.length);
 //				
 //				Log.getInstance().log(this, "登陆大厅..." );
 			} else {
-				trace("打开页面时，没有获取到web数据.");
+				console.log("打开页面时，没有获取到web数据.");
 			}
 		}
 		
@@ -403,17 +403,17 @@ module manager {
 		public sendLoginLobbySuccess():void {
 			if ( this.lobbyAuth != null ) {
 				var _pkt:C_Lobby_Login_OK_Pkt = new C_Lobby_Login_OK_Pkt();
-				_pkt.AuthToken = String(Player.getInstance().iPlayerID);
+				_pkt.AuthToken = string(Player.getInstance().iPlayerID);
 				_pkt.Identity  = lobbyAuth.Identity;
 				
 				var byte:ByteArray = dataPacket.pack( PacketDefine.C_LOGIN_LOBBY_OK , _pkt );
-				trace("回復 確認登陆大厅成功消息...");
+				console.log("回復 確認登陆大厅成功消息...");
 				Utils.DumpBinary( "", byte, 0, 11);
 				m_socket.send( byte, 0,  byte.length);
 				
 			}
 			else {
-				trace("打开页面时，没有获取到web数据.");
+				console.log("打开页面时，没有获取到web数据.");
 			}
 		}
 		
@@ -457,7 +457,7 @@ module manager {
 			_subscribeTheme.UnsubscribleThemeID = _iUnsubscribe;
 			
 			var byte:ByteArray = dataPacket.pack( PacketDefine.C_Lobby_Theme_Subscribe , _subscribeTheme );
-		//	trace("订阅厅馆..."+_iSubscribe);
+		//	console.log("订阅厅馆..."+_iSubscribe);
 			Log.getInstance().log(this, "订阅厅馆..."+_iSubscribe);
 			m_socket.send( byte, 0,  byte.length);
 		}
@@ -478,7 +478,7 @@ module manager {
 			var _class : Class = getDefinitionByName("KeyTest") as Class;
 			if(_class){
 				Log.getInstance().log(this," 请求个人资料 >>> 执行类"+_class);
-				var data : * = new _class();
+				var data = new _class();
 				data.fUserDataComplete = function(oData:Object):void{
 					Player.getInstance().Country = oData.CountryCode;
 				};
@@ -496,22 +496,22 @@ module manager {
 			}
 		}
 		
-		//		private function openHandler(event:Event):void {
-		//			trace("openHandler: " + event);
+		//		private openHandler(event:Event):void {
+		//			console.log("openHandler: " + event);
 		//		}
-		//		private function httpStatusHandler(event:HTTPStatusEvent):void {
-		//			trace("httpStatusHandler: " + event);
+		//		private httpStatusHandler(event:HTTPStatusEvent):void {
+		//			console.log("httpStatusHandler: " + event);
 		//		}
 		protected onError(event:IOErrorEvent):void
 		{
 			// TODO Auto-generated method stub
-			trace("httpStatusHandler: " + event);
+			console.log("httpStatusHandler: " + event);
 			event.target.removeEventListener(IOErrorEvent.IO_ERROR,onError);
 			event.target.removeEventListener(Event.COMPLETE, onComplete);
 			event.target.removeEventListener(SecurityErrorEvent.SECURITY_ERROR , securityError);
 		}
 		protected securityError(event:SecurityErrorEvent):void{
-			trace("GameReCord securityError");
+			console.log("GameReCord securityError");
 			event.target.removeEventListener(Event.COMPLETE , onComplete );
 			event.target.removeEventListener(IOErrorEvent.IO_ERROR , onError );
 			event.target.removeEventListener(SecurityErrorEvent.SECURITY_ERROR , securityError);				
@@ -519,31 +519,31 @@ module manager {
 		}
 		protected onComplete(event:Event):void
 		{
-			trace("httpStatusHandler: " + event);
+			console.log("httpStatusHandler: " + event);
 			event.target.removeEventListener(IOErrorEvent.IO_ERROR,onError);
 			event.target.removeEventListener(SecurityErrorEvent.SECURITY_ERROR , securityError);
 			event.target.removeEventListener(Event.COMPLETE, onComplete);
 			
 			// TODO Auto-generated method stub
-			trace(event.target.data);
-			var jsonStr : String = event.target.data;
+			console.log(event.target.data);
+			var jsonStr : string = event.target.data;
 			if( jsonStr != "" ){
 				jsonStr = m_aData.decryptStringFromBase64(jsonStr);
 				var oData : Object = JSON.parse(jsonStr);
-				trace(oData);
+				console.log(oData);
 				Player.getInstance().Country = oData.Country;
 			}
 			
 		}		
 		
 		
-		public getRoadmapReqInfo(_tableList:Array):void{
+		public getRoadmapReqInfo(_tableList:any[]):void{
 			var c_lobby_info : C_Lobby_Info_Pkt = new C_Lobby_Info_Pkt();
 			c_lobby_info.ReqType = 0;
 			c_lobby_info.ArgInfo.TableIDList = _tableList;
 			
 			var byte:ByteArray = dataPacket.pack( PacketDefine.C_LOBBY_INFO , c_lobby_info );
-			trace("补全路纸请求...");
+			console.log("补全路纸请求...");
 			m_socket.send( byte, 0,  byte.length);
 		}
 		
@@ -566,9 +566,9 @@ module manager {
 		/**
 		 *	个人资讯
 		 */		
-		public showPersonalInfomation(_x:number, _y:number):void{
+		public showPersonalinformation(_x:number, _y:number):void{
 			if(!lobbyView ){
-				trace("大厅未初始化，显示异常...");
+				console.log("大厅未初始化，显示异常...");
 				return;
 			}
 			
@@ -581,10 +581,10 @@ module manager {
 			return;*/
 			
 			
-			if(personalInfomation==null){
-				personalInfomation = new PanelPersonalInfomation();
+			if(personalinformation==null){
+				personalinformation = new PanelPersonalinformation();
 				
-				lobbyView.spWindowLayer.addChild(personalInfomation);
+				lobbyView.spWindowLayer.addChild(personalinformation);
 				
 				var move_y:number;
 				
@@ -595,23 +595,23 @@ module manager {
 					move_y = 150;
 				}
 				
-				personalInfomation.x = _x;
-				personalInfomation.y = _y;
+				personalinformation.x = _x;
+				personalinformation.y = _y;
 				
-				TweenLite.to(personalInfomation, Define.SPEED, {y:move_y});
+				TweenLite.to(personalinformation, Define.SPEED, {y:move_y});
 			}else{
-				hidePersonalInfomation();
+				hidePersonalinformation();
 			}
 			
 		}
-		public hidePersonalInfomation():void{
-			if(personalInfomation){
-				//				PopupManager.getInstance().close( m_personalInfomation );
-				TweenLite.to(personalInfomation, Define.SPEED,{y:Define.PERSON_INFO_OUT_POSY, ease:Back.easeIn, onComplete:function():void{
-					if(personalInfomation){
-						lobbyView.spWindowLayer.removeChild(personalInfomation);
-						personalInfomation.destroy();
-						personalInfomation = null;
+		public hidePersonalinformation():void{
+			if(personalinformation){
+				//				PopupManager.getInstance().close( m_personalinformation );
+				TweenLite.to(personalinformation, Define.SPEED,{y:Define.PERSON_INFO_OUT_POSY, ease:Back.easeIn, onComplete:function():void{
+					if(personalinformation){
+						lobbyView.spWindowLayer.removeChild(personalinformation);
+						personalinformation.destroy();
+						personalinformation = null;
 					}
 				}});
 				//				uWindowIndex--;
@@ -676,7 +676,7 @@ module manager {
 		 * @param _sLanguage
 		 * 
 		 */		
-		public showChannel(_default:boolean=true,offX:number=0):void{
+		public showChannel(_default: boolean=true,offX:number=0):void{
 			if(m_bChannelTween){
 				m_fDelayTween = function():void{
 					showChannel(_default,offX);
@@ -712,7 +712,7 @@ module manager {
 				}
 			}
 		}
-		private m_bChannelTween : Boolean;
+		private m_bChannelTween :  boolean;
 		private m_fDelayTween	: Function;
 		public hideChannel():void{
 			if(m_bChannelTween){
@@ -755,8 +755,8 @@ module manager {
 				lobbyView.onChangeLanguage();
 			}
 			
-			if(personalInfomation){
-				personalInfomation.onChangeLanguage();
+			if(personalinformation){
+				personalinformation.onChangeLanguage();
 			}
 			
 			if(m_nowScene){
@@ -826,9 +826,9 @@ module manager {
 		 * @param evt
 		 * 
 		 */		
-		//		private function onTimer(evt:TimerEvent):void{
+		//		private onTimer(evt:TimerEvent):void{
 		//			if(m_videoMaxBytePerSecond){
-		////				trace("spLobbyView.liveVideo.iMaxBytePerSecond:",lobbyView.liveVideo.iMaxBytePerSecond);
+		////				console.log("spLobbyView.liveVideo.iMaxBytePerSecond:",lobbyView.liveVideo.iMaxBytePerSecond);
 		//				if(m_videoMaxBytePerSecond.iMaxBytePerSecond > 1000){
 		//					lobbyView.toolView.wifi.status = Tool_Wifi.FULL; 
 		//				} else if (m_videoMaxBytePerSecond.iMaxBytePerSecond > 500 ){
@@ -875,7 +875,7 @@ module manager {
 		 * @return 
 		 * 
 		 */
-		public isNowGameTable(_tableId:number):boolean
+		public isNowGameTable(_tableId:number): boolean
 		{
 			if(m_nowScene && (m_nowScene.GameID==GameDefine.BAC || m_nowScene.GameID==GameDefine.MACHINE_BAC) && m_nowScene.tableStruct.TableID==_tableId){
 				return true;
@@ -904,7 +904,7 @@ module manager {
 			//屏蔽退出按钮
 			LobbyManager.getInstance().lobbyView.toolView.btnExit.enabled = false;
 			
-			var _gameName : String;
+			var _gameName : string;
 			switch(_tableStruct.GameID){
 				case GameDefine.BAC:
 					_gameName = GameDefine.BAC_NAME;//+".swf";
@@ -984,7 +984,7 @@ module manager {
 			if(bQuickChangeTable){
 				bQuickChangeTable = false;
 				
-				var _bStatus : Boolean;
+				var _bStatus :  boolean;
 				if(_game.tableStruct.GameID==GameDefine.BAC || _game.tableStruct.GameID==GameDefine.MACHINE_BAC)
 				{//转到百家乐不调用移除 好路
 					_bStatus = true;
@@ -1023,7 +1023,7 @@ module manager {
 			//关闭视讯
 			lobbyView.liveVideo.toGame();
 			//停放跑马
-			lobbyView.infomation.stopMarquee();
+			lobbyView.information.stopMarquee();
 			//隐藏大厅
 			lobbyView.toGame();
 			//停止广告
@@ -1035,8 +1035,8 @@ module manager {
 				
 				lobbyView.spGame.visible = true;
 				
-				trace("width:::" + lobbyView.spGame.width);
-				trace("height:::" + lobbyView.spGame.height);
+				console.log("width:::" + lobbyView.spGame.width);
+				console.log("height:::" + lobbyView.spGame.height);
 				
 //				lobbyView.spGame.scaleX = 0;
 //				lobbyView.spGame.scaleY = 0;
@@ -1048,7 +1048,7 @@ module manager {
 //				}});	
 			}
 			
-			hidePersonalInfomation();	//收合個人資訊面板
+			hidePersonalinformation();	//收合個人資訊面板
 			//隐藏紧急公告
 //			lobbyView.urgentNotice.hide();
 			NoticeManeger.getInstance().hide();
@@ -1138,7 +1138,7 @@ module manager {
 			//			lobbyView.iCurrentQuick = 255;
 			
 			//收合個人資訊面板
-			hidePersonalInfomation();
+			hidePersonalinformation();
 			//收和客服面板
 			lobbyView.toolView.toolContact.hide();
 			//收好路设置面板
@@ -1157,12 +1157,12 @@ module manager {
 			
 			//提示窗口
 			var _wc : int = lobbyView.spWarn.numChildren;
-			var _panel : *;
+			var _panel;
 			var _iValue:number=0;
 			for (var i:number = 0; i < _wc; i++) 
 			{
 				_panel = lobbyView.spWarn.getChildAt(i);
-				if((_panel is PanelDialog) || (_panel is PanelDialog_2)){
+				if((_panel instanceof PanelDialog) || (_panel instanceof PanelDialog_2)){
 					_panel.destroy();
 					_iValue = uWindowIndex - 1;
 					if( _iValue > 0 ){
@@ -1210,8 +1210,8 @@ module manager {
 				//开启视讯
 				lobbyView.liveVideo.toLobby();
 				//开启跑马
-				lobbyView.infomation.playMarquee();
-				lobbyView.infomation.visible = true;
+				lobbyView.information.playMarquee();
+				lobbyView.information.visible = true;
 				//开启广告
 				if(!lobbyView.bWheelToTop){
 					lobbyView.advertisement.start();
@@ -1283,7 +1283,7 @@ module manager {
 			return new BitmapData(2,2);
 		}
 		
-		public destroyGame(bGC:boolean=true):void {
+		public destroyGame(bGC: boolean=true):void {
 			if ( m_nowScene != null ) {
 				
 				//激活退出按钮
@@ -1333,12 +1333,12 @@ module manager {
 		 * 
 		 */	
 		/** 登陆状态 **/
-		get bLoginMultiTable():boolean
+		get bLoginMultiTable(): boolean
 		{
 			return m_bLoginMultiTable;
 		}
 		
-		set bLoginMultiTable(value:boolean)
+		set bLoginMultiTable(value: boolean)
 		{
 			m_bLoginMultiTable = value;
 		}
@@ -1389,7 +1389,7 @@ module manager {
 			//关闭视讯
 			lobbyView.liveVideo.stop();
 			//停放跑马
-			lobbyView.infomation.stopMarquee();
+			lobbyView.information.stopMarquee();
 			//退出等级
 			exitLevel = Define.EXIT_MULTI_TABLE;
 			//屏蔽大厅桌子
@@ -1413,7 +1413,7 @@ module manager {
 				multiTableView.x = 960;
 				multiTableView.y = 540;
 				lobbyView.spMultiTableLayer.addChild(multiTableView);
-				m_vecLive = new Vector.<Object>;
+				m_vecLive = new any[];
 				m_arrVideoNo=[false,false,false,false];
 				multiTableView.scaleX = 0.3;
 				multiTableView.scaleY = 0.3;
@@ -1491,7 +1491,7 @@ module manager {
 			destroyMultiSocket();
 			
 			//隐藏个人资讯
-			hidePersonalInfomation();
+			hidePersonalinformation();
 			
 			//退出等级
 			exitLevel = Define.EXIT_LOBBY;
@@ -1501,14 +1501,14 @@ module manager {
 			//开启视讯
 			lobbyView.liveVideo.toLobby();
 			//开启跑马
-			lobbyView.infomation.playMarquee();
+			lobbyView.information.playMarquee();
 			//开启广告
 			if(!lobbyView.bWheelToTop){
 				lobbyView.advertisement.start();
 			}
 			
 			//收合個人資訊面板
-			hidePersonalInfomation();
+			hidePersonalinformation();
 			//收和客服面板
 			lobbyView.toolView.toolContact.hide();
 			//收好路设置面板
@@ -1555,10 +1555,10 @@ module manager {
 			var loader:Loader = ResourceManager.getInstance().getLoader("GameBaccaratGood.swf");
 			if (loader){
 				var swf:Game =	loader.content as Game;
-				trace("remove GameBaccaratGood Packet")
+				console.log("remove GameBaccaratGood Packet")
 				swf.removePacket();
 			}else{
-				trace("removeMultiTablePacket 不存在好路百家乐swf")
+				console.log("removeMultiTablePacket 不存在好路百家乐swf")
 			}
 			//removeMultiTablePacket();
 		}
@@ -1601,7 +1601,7 @@ module manager {
 					ob.Channel = getEmptyVideoIndex();
 					m_arrVideoNo[ob.Channel]=true;
 					m_vecLive.push(ob);
-				//	trace("台子：：：："+_TableID+"  使用通道  "+ob.Channel)
+				//	console.log("台子：：：："+_TableID+"  使用通道  "+ob.Channel)
 					return ob.Channel;
 				}else{
 					if(multiTableView){
@@ -1609,11 +1609,11 @@ module manager {
 						if(_multiTableItem){
 							ob.Channel = m_vecLive[0].Channel;
 							m_arrVideoNo[ob.Channel]=true;
-						//	trace("关闭台子"+m_vecLive[0].TableID+"  开启台子：：：："+_TableID+"  使用通道  "+ob.Channel)
+						//	console.log("关闭台子"+m_vecLive[0].TableID+"  开启台子：：：："+_TableID+"  使用通道  "+ob.Channel)
 							_multiTableItem.gameApp.stopVideo();
 							_multiTableItem = null;
 						}else{
-							trace("多桌视讯数量限制异常...");
+							console.log("多桌视讯数量限制异常...");
 							ob.Channel = m_vecLive[0].Channel;
 							m_arrVideoNo[ob.Channel]=true;
 						}
@@ -1626,7 +1626,7 @@ module manager {
 			return -1;
 		}
 		public removeMultiTableLive(_iTableID:number):void{
-		//	trace("移除多桌视频----"+_iTableID)
+		//	console.log("移除多桌视频----"+_iTableID)
 			var _len : int = m_vecLive.length;
 			for (var i:number = 0; i < _len; i++) 
 			{
@@ -1688,7 +1688,7 @@ module manager {
 		public decreaseHaveBet(_nValue:Number):void{
 			m_nTotalHaveBet -= _nValue;
 			if (m_nTotalHaveBet<0){
-				trace("WARN!!! 多桌已下注额出现负数"+m_nTotalHaveBet);
+				console.log("WARN!!! 多桌已下注额出现负数"+m_nTotalHaveBet);
 				m_nTotalHaveBet=0;
 			}
 			if(multiTableView){
@@ -1710,7 +1710,7 @@ module manager {
 		}
 		
 		/** 下注记录 **/
-		public addBetRecord(_vecStruct:Vector.<RecordBetStruct>):void{
+		public addBetRecord(_vecStruct:RecordBetStruct[]):void{
 			if(multiTableView){
 				multiTableView.record.addRecord(_vecStruct);
 			}
@@ -1726,10 +1726,10 @@ module manager {
 			var loader:Loader = ResourceManager.getInstance().getLoader("GameBaccaratMulti.swf");
 			if (loader){
 				var swf:Game =	loader.content as Game;
-				trace("removeMultiTablePacket")
+				console.log("removeMultiTablePacket")
 				swf.removePacket();
 			}else{
-				trace("removeMultiTablePacket 不存在百家乐多桌swf")
+				console.log("removeMultiTablePacket 不存在百家乐多桌swf")
 			}
 		}
 		/** 连接多桌 **/
@@ -1738,12 +1738,12 @@ module manager {
 			addMultiTablePacket();
 			//			var _struct : TableStruct = LobbyData.getInstance().getMultiTableStruct(GameDefine.BAC);
 			if(_struct){
-				Log.getInstance().log(this,"连接游戏...struct.ServerIP:" + String(_struct.ServerIP)+ "struct.ServerPort:"+String(_struct.ServerPort));
+				Log.getInstance().log(this,"连接游戏...struct.ServerIP:" + string(_struct.ServerIP)+ "struct.ServerPort:"+string(_struct.ServerPort));
 				
-				trace("连接游戏...","m_socket_multi:", socket_multi.getUid(), "struct.ServerIP:", _struct.ServerIP, "struct.ServerPort:", _struct.ServerPort,"###");
+				console.log("连接游戏...","m_socket_multi:", socket_multi.getUid(), "struct.ServerIP:", _struct.ServerIP, "struct.ServerPort:", _struct.ServerPort,"###");
 				socket_multi.connect( _struct.ServerIP, _struct.ServerPort );
 			}else{
-				trace("获取多桌入口资料失败...");
+				console.log("获取多桌入口资料失败...");
 				Log.getInstance().log(this,"获取多桌入口资料失败...");
 			}
 		}
@@ -1751,13 +1751,13 @@ module manager {
 		public sendLoginMultiTable():void  {
 			//bLoginMultiTable = true;
 			
-			trace("Login MultiTable");
+			console.log("Login MultiTable");
 			if ( lobbyAuth != null ) {
 				
 				//新方法
 				var _class : Class = getDefinitionByName("KeyTest") as Class;
 				if(_class){
-					var data : * = new _class();
+					var data  = new _class();
 					
 					var byte:ByteArray = data.enterMultiTable(LobbyManager.getInstance().lobbyAuth);
 					
@@ -1784,14 +1784,14 @@ module manager {
 //				bLoginMultiTable = false;
 //				multiTableId=multiTableEntryStruct.TableID;
 //				
-//				TimeManager.getInstance().start(PacketDefine.ENTER_TABLE.toString(16) ,warnConnect);
+//				TimeManager.getInstance().start(PacketDefine.ENTER_TABLE.tostring(16) ,warnConnect);
 //				
 //				var byte:ByteArray = dataPacket_multi.pack( PacketDefine.ENTER_TABLE , _gameLoginPkt );
-//				trace("登陆多桌..."+multiTableEntryStruct.GameID +"台号"+multiTableEntryStruct.TableID);
+//				console.log("登陆多桌..."+multiTableEntryStruct.GameID +"台号"+multiTableEntryStruct.TableID);
 //				socket_multi.send( byte, 0,  byte.length);
 				
 			} else {
-				trace("打开页面时，没有获取到web数据.");
+				console.log("打开页面时，没有获取到web数据.");
 			}
 			
 		}
@@ -1807,11 +1807,11 @@ module manager {
 		/** 登陆多桌 **/
 		public sendLoginMultiTableOK():void  {
 			var _pkt:C_Game_Login_OK_Pkt = new C_Game_Login_OK_Pkt();
-			_pkt.AuthToken = String(Player.getInstance().iPlayerID);
+			_pkt.AuthToken = string(Player.getInstance().iPlayerID);
 			_pkt.Identity  = lobbyAuth.Identity;
 			
 			var byte:ByteArray = dataPacket_multi.pack( PacketDefine.C_ENTER_TABLE_OK , _pkt );
-			trace("回復 多桌登录成功消息...");
+			console.log("回復 多桌登录成功消息...");
 			Utils.DumpBinary( "", byte, 0, 11);
 			socket_multi.send( byte, 0,  byte.length);
 		}
@@ -1846,7 +1846,7 @@ module manager {
 			
 		}
 		/** 订阅多桌 **/
-		public sendSubscription(_aData:Array):void{
+		public sendSubscription(_aData:any[]):void{
 			if(socket_multi){
 				//				_aData.push( 1 ); 	//測試代碼
 				var _subscriptionPkt : C_Multi_Table_Subscription_Pkt = new C_Multi_Table_Subscription_Pkt();
@@ -1854,7 +1854,7 @@ module manager {
 				
 				var byte:ByteArray = dataPacket_multi.pack( PacketDefine.C_MULTI_TABLE_REQ , _subscriptionPkt );
 				
-		//		trace("订阅多桌..."+_aData);
+		//		console.log("订阅多桌..."+_aData);
 				Utils.DumpBinary( "", byte, 0, 11);
 				socket_multi.send( byte, 0,  byte.length);
 				byte.clear();
@@ -1862,7 +1862,7 @@ module manager {
 			}
 		}
 		/** 取消订阅 **/
-		public sendUnsubscribe(_aData:Array):void{
+		public sendUnsubscribe(_aData:any[]):void{
 			if(socket_multi){
 				for (var i:number = 0; i < _aData.length; i++) 
 				{
@@ -1879,19 +1879,19 @@ module manager {
 					_unsubscribePkt.TableSubscriptionList = _aData;
 					
 					var byte:ByteArray = dataPacket_multi.pack( PacketDefine.C_MULTI_TABLE_UNSUBSCRIBE , _unsubscribePkt );
-				//	trace("取消订阅..."+_aData);
+				//	console.log("取消订阅..."+_aData);
 					Utils.DumpBinary( "", byte, 0, 11);
 					socket_multi.send( byte, 0,  byte.length);
 				}else{
-					trace("取消订阅的桌子未订阅。。。");
+					console.log("取消订阅的桌子未订阅。。。");
 				}
 				
 			}
 		}
 		/** 订阅多桌 **/
-		//		public function sendSubscriptionAll(n:number= 16):void{
-		//			var arr : Array = [];
-		//			var ad : Array = LobbyData.getInstance().aGoodRoadMapList;
+		//		public sendSubscriptionAll(n:number= 16):void{
+		//			var arr : any[] = [];
+		//			var ad : any[] = LobbyData.getInstance().aGoodRoadMapList;
 		//			//var len:number = Math.min(n,ad.length);
 		//			var len:number = ad.length;
 		//			for (var i:number = 0; i < len; i++) 
@@ -1913,7 +1913,7 @@ module manager {
 			var _exitPkt:C_Multi_Table_Exit_Pkt = new C_Multi_Table_Exit_Pkt();
 			
 			var byte:ByteArray = dataPacket_multi.pack( PacketDefine.C_EXIT_TABLE , _exitPkt );
-			trace("退出多桌...");
+			console.log("退出多桌...");
 			//判斷是否為NULL
 			if( socket_multi ){
 				socket_multi.send( byte, 0,  byte.length);
@@ -1927,7 +1927,7 @@ module manager {
 				
 			}
 			var byte:ByteArray = dataPacket_multi.pack( PacketDefine.C_BET_INFO , data );
-			trace("入口ID:"+multiTableId+"多桌投注..."+data.TableID+"是否跨桌"+data.IsCrossServer);
+			console.log("入口ID:"+multiTableId+"多桌投注..."+data.TableID+"是否跨桌"+data.IsCrossServer);
 			if( socket_multi ){
 				socket_multi.send( byte, 0,  byte.length);
 			}
@@ -2075,7 +2075,7 @@ module manager {
 				//				m_panelChipCustom = null;
 			}
 		}
-		public setCustomChip(_aCustomChip:Array):void{
+		public setCustomChip(_aCustomChip:any[]):void{
 			if(chipPanelGame_1){
 				chipPanelGame_1.clearCustomChip();
 				for (var i:number = 0; i < _aCustomChip.length; i++) 
@@ -2177,7 +2177,7 @@ module manager {
 			if(chipPanelGame && chipPanelGame.currentChipItem){
 				return chipPanelGame.currentChipItem.uValue;
 			}
-			trace("获取当前筹码异常...");
+			console.log("获取当前筹码异常...");
 			return 10;
 		}
 		
@@ -2186,7 +2186,7 @@ module manager {
 			if(chipPanelLobby && chipPanelLobby.currentChipItem){
 				return chipPanelLobby.currentChipItem.uValue;
 			}
-			trace("获取当前筹码异常...");
+			console.log("获取当前筹码异常...");
 			return 10;
 		}
 		
@@ -2251,7 +2251,7 @@ module manager {
 		/**
 		 *	提示对话 
 		 */		
-		public showDialog( _sValue:string ,_fOk:Function = null, _fNo:Function=null, _bSingleMode:boolean=false, _autoClose:number=0):PanelDialog{
+		public showDialog( _sValue:string ,_fOk:Function = null, _fNo:Function=null, _bSingleMode: boolean=false, _autoClose:number=0):PanelDialog{
 			uDialogCount++;
 			var _dialog : PanelDialog = new PanelDialog(false, _fOk, _fNo, _bSingleMode, _autoClose);
 			
@@ -2294,7 +2294,7 @@ module manager {
 		 */		
 		public showSystemSetting():void{
 			if(!lobbyView ){
-				trace("大厅未初始化，显示异常...");
+				console.log("大厅未初始化，显示异常...");
 				return;
 			}
 			
@@ -2359,7 +2359,7 @@ module manager {
 		 */		
 		public showTableSetting(_struct:TableStruct,_fQuickTable:Function=null):void{
 			if(!lobbyView){
-				trace("大厅未初始化，显示异常...");
+				console.log("大厅未初始化，显示异常...");
 				return;
 			}
 			
@@ -2379,7 +2379,7 @@ module manager {
 				uWindowIndex++;
 			}
 		}
-		public hideTableSetting(_bTween:boolean=true):void{
+		public hideTableSetting(_bTween: boolean=true):void{
 			if(m_tableSetting){
 				if(_bTween){
 					//					PopupManager.getInstance().close( m_tableSetting );
@@ -2419,7 +2419,7 @@ module manager {
 		 */		
 		public showTableEnterPwd(_struct:TableStruct,_fQuickTable:Function=null):void{
 			if(!lobbyView){
-				trace("大厅未初始化，显示异常...");
+				console.log("大厅未初始化，显示异常...");
 				return;
 			}
 			
@@ -2439,7 +2439,7 @@ module manager {
 				uWindowIndex++;
 			}
 		}
-		public hideTableEnterPwd(_bTween:boolean=true):void{
+		public hideTableEnterPwd(_bTween: boolean=true):void{
 			if(m_tableEnter){
 				
 				if(_bTween){
@@ -2478,7 +2478,7 @@ module manager {
 		 */		
 		public showLimitBet(_struct:TableStruct=null):void{
 			if(!lobbyView){
-				trace("大厅未初始化，显示异常...");
+				console.log("大厅未初始化，显示异常...");
 				return;
 			}
 			
@@ -2498,7 +2498,7 @@ module manager {
 				uWindowIndex++;
 			}
 		}
-		public hideLimitBet(_bTween:boolean=true):void{
+		public hideLimitBet(_bTween: boolean=true):void{
 			if(m_limitBet){
 				
 				if(_bTween){
@@ -2541,7 +2541,7 @@ module manager {
 		public addGoodRoadNotification(_goodroadMapStruct:GoodRoadStruct):void{
 			if (maintainLevel==0){
 				if(multiTableView && bMultiExit==false){
-					//	trace("通知多桌加入好路"+_goodroadMapStruct.TableID)
+					//	console.log("通知多桌加入好路"+_goodroadMapStruct.TableID)
 					multiTableView.addGoodRoadStruct(_goodroadMapStruct);
 				}
 				if(m_nowScene && (m_nowScene.GameID==GameDefine.BAC || m_nowScene.GameID==GameDefine.MACHINE_BAC)){
@@ -2559,7 +2559,7 @@ module manager {
 			
 			
 			if(m_nowScene && (m_nowScene.GameID==GameDefine.BAC || m_nowScene.GameID==GameDefine.MACHINE_BAC)){
-				trace("游戏好路通知移除好路桌TableID:"+_tableID);
+				console.log("游戏好路通知移除好路桌TableID:"+_tableID);
 				m_nowScene.removeGoodRoadNotification(_tableID);
 			}
 		}
@@ -2721,7 +2721,7 @@ module manager {
 			_logoutLobbyPkt.LogoutInfo = new LogoutStruct( _oData );
 			
 			var byte:ByteArray = dataPacket.pack( PacketDefine.C_LOGIN_OUT , _logoutLobbyPkt );
-			trace("登出大廳...");
+			console.log("登出大廳...");
 			Utils.DumpBinary( "", byte, 0, 11);
 			m_socket.send( byte, 0,  byte.length);
 		}
@@ -2744,15 +2744,15 @@ module manager {
 			var _logLoader : URLLoader = new URLLoader();
 			_logLoader.addEventListener(IOErrorEvent.IO_ERROR,function(evt:IOErrorEvent):void{});
 			_logLoader.addEventListener(SecurityErrorEvent.SECURITY_ERROR,function(evt:SecurityErrorEvent):void{});
-			_logLoader.addEventListener(Event.COMPLETE, function onComplete(evt:Event):void{
-				trace("发送消息给logServer成功 ***");
-			});
+			_logLoader.addEventListener(Event.COMPLETE, onComplete(evt:egret.Event):void{
+				console.log("发送消息给logServer成功 ***");
+			}, this);
 			_logLoader.load( _logReq );
 		}
 		
 		
 		public warnConnect():void {
-			trace("游戏超时  已存在重要信息:"+LobbyManager.getInstance().bImportant)
+			console.log("游戏超时  已存在重要信息:"+LobbyManager.getInstance().bImportant)
 			if (bImportant==false){
 				var _sMsg:string;
 				var _panelDialog:PanelWindow;
@@ -2791,7 +2791,7 @@ module manager {
 				//				m_nLiveVolume = _nValue==0?0.6:_nValue;
 				//遊戲視訊  音量
 				if(m_videoMaxBytePerSecond){
-					if( m_videoMaxBytePerSecond is LiveVideo ){
+					if( m_videoMaxBytePerSecond instanceof LiveVideo ){
 						m_videoMaxBytePerSecond.setVolume( 0 );
 					}else{
 						m_videoMaxBytePerSecond.setVolume( m_nLiveVolume );
@@ -2815,7 +2815,7 @@ module manager {
 			return m_nLiveVolume;
 		}
 		
-		set bLiveStatus(_bValue:boolean):void{
+		set bLiveStatus(_bValue: boolean){
 			m_bLiveStatus = _bValue;
 			//禁音开关
 			
@@ -2825,7 +2825,7 @@ module manager {
 			else {
 				//遊戲視訊  音量
 				if( m_videoMaxBytePerSecond ){
-					if( m_videoMaxBytePerSecond is LiveVideo ){
+					if( m_videoMaxBytePerSecond instanceof LiveVideo ){
 						m_videoMaxBytePerSecond.setVolume( 0 );
 					}else{
 						m_videoMaxBytePerSecond.setVolume( m_nLiveVolume );
@@ -2863,7 +2863,7 @@ module manager {
 		 * 連結電投大廳
 		 */
 		public enterTelLobby():void {
-			trace("進入電投 登入頁");
+			console.log("進入電投 登入頁");
 			//			if(ExternalInterface.available){
 			//				ExternalInterface.call("TelephoneLobby");
 			//			}
@@ -2887,7 +2887,7 @@ module manager {
 		 * 
 		 */		
 		public refreshWeb():void{
-			trace("refreshWeb");
+			console.log("refreshWeb");
 			//			if(ExternalInterface.available){
 			//				ExternalInterface.call("RefreshFlash");
 			//			}
@@ -2908,7 +2908,7 @@ module manager {
 		/**
 		 *	另一種 提示对话框 
 		 */		
-		public showDialog_2( _sValue:string , bShowMask:boolean = false , bSingleMode:boolean = false ,_fOk:Function = null ,_fRetry:Function = null):PanelDialog_2{
+		public showDialog_2( _sValue:string , bShowMask: boolean = false , bSingleMode: boolean = false ,_fOk:Function = null ,_fRetry:Function = null):PanelDialog_2{
 			uDialogCount++;
 			var _dialog : PanelDialog_2 = new PanelDialog_2(false, bShowMask , bSingleMode ,_fOk , _fRetry );
 			
@@ -2935,9 +2935,9 @@ module manager {
 		
 		
 		set gamePoint(_point:Point){
-			m_gamePoint = _point;
+			m_gamePoint = _ponumber;
 			
-			//			trace("************************************************************ 全局坐标：",m_gamePoint);
+			//			console.log("************************************************************ 全局坐标：",m_gamePoint);
 			//			lobbyView.spGame.x =<number>(m_gamePoint.x);
 			//			lobbyView.spGame.y =<number>(m_gamePoint.y);
 			
@@ -2947,13 +2947,13 @@ module manager {
 			
 		}
 		get gamePoint():Point{
-			return m_gamePoint;
+			return m_gamePonumber;
 		}
 		
 		/**
 		 *	重连视讯 
 		 */		
-		public liveReplay(tableList:Array = null):void{
+		public liveReplay(tableList:any[] = null):void{
 			if(m_nowScene && tableList){
 				for(var i:number=0; i<tableList.length; i++){
 					if(tableList[i] == m_nowScene.tableStruct.TableID){
@@ -2991,7 +2991,7 @@ module manager {
 				}
 			}
 		}
-		public isLobbySocketConnected():boolean
+		public isLobbySocketConnected(): boolean
 		{
 			if(m_socket)return m_socket.isConnected();
 			return false;
@@ -3007,7 +3007,7 @@ module manager {
 		}
 		
 		//快速转桌
-		public changeGame(bToBac:boolean=false):void{
+		public changeGame(bToBac: boolean=false):void{
 			if(lobbyView.quickThemeList.currentTheme){
 				lobbyView.quickThemeList.currentTheme.setSelect(false, false);
 			}
@@ -3053,10 +3053,10 @@ module manager {
 				}
 				aCloseWindowList[i].destroy();
 			}
-			aCloseWindowList = new Vector.<PanelWindow>();
+			aCloseWindowList = new Array<PanelWindow>();
 		}
 		
-		public reconnect():boolean {
+		public reconnect(): boolean {
 			Log.getInstance().log(this, "大廳重連..." );
 			if( iReTryConnect < 2 ){	//1.5秒重連一次
 				lobbySocketClose();
@@ -3099,7 +3099,7 @@ module manager {
 //			}
 //		}
 		
-		public IsCanChangeTable():boolean{
+		public IsCanChangeTable(): boolean{
 			if(m_nowScene){
 				return m_nowScene.bCanExit;
 			}
@@ -3130,7 +3130,7 @@ module manager {
 			}
 			return 0;
 		}
-		public IsInTable():boolean{
+		public IsInTable(): boolean{
 			return m_nowScene!=null;
 		}
 		
@@ -3146,7 +3146,7 @@ module manager {
 			}
 		}
 		
-		public IsLiveConnected():boolean{
+		public IsLiveConnected(): boolean{
 			if(m_nowScene){
 				return m_nowScene.bVideoConnected;
 			}
@@ -3301,7 +3301,7 @@ module manager {
 		 * 心跳包傳遞異常
 		 */
 		public pktMultiException():void {
-			trace("!!!!!!!!!!!!!!!!多桌心跳异常!!!!!!!!!!!!!!!!!!!!!!")
+			console.log("!!!!!!!!!!!!!!!!多桌心跳异常!!!!!!!!!!!!!!!!!!!!!!")
 			
 			if( socket_multi  &&socket_multi.m_socket.connected){
 				try {
@@ -3336,7 +3336,7 @@ module manager {
 		/****************************多桌心跳包處裡END**************************************/
 		
 		/****************************多桌重连**************************************/
-		public reConnectMulti():boolean {
+		public reConnectMulti(): boolean {
 			if( loginNM < 2 ){
 				Log.getInstance().log(this,"重新登入多桌..");
 				if( socket_multi ){
@@ -3393,7 +3393,7 @@ module manager {
 		public hideAllPanel():void{
 			hideChannel();
 			hidePanelDetail();
-			hidePersonalInfomation();
+			hidePersonalinformation();
 			lobbyView.toolView.toolContact.hide();
 		}
 		

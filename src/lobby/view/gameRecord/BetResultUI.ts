@@ -1,31 +1,31 @@
 module lobby.view.gameRecord {
 	export class BetResultUI extends PanelWindow{
-		private var m_mcAsset:MovieClip;
+		private m_mcAsset:MovieClip;
 		
-		private var m_pBacPoint:Point;
-		private var m_pRouPoint:Point;
-		private var m_pSicPoint:Point;
-		private var m_pDtfPoint:Point;
+		private m_pBacPoint:Point;
+		private m_pRouPoint:Point;
+		private m_pSicPoint:Point;
+		private m_pDtfPoint:Point;
 		
-		private var m_btnShowVideo:Btn;
-		private var m_txtGameRecordNo:Text;
-		private var m_txtGameType:Text;
+		private m_btnShowVideo:Btn;
+		private m_txtGameRecordNo:Text;
+		private m_txtGameType:Text;
 		
-		private var m_bacPoker:*;
-		private var m_sicPoker:*;
-		private var m_rouPoker:*;
-		private var m_dtfPoker:*;
+		private m_bacPoker:*;
+		private m_sicPoker:*;
+		private m_rouPoker:*;
+		private m_dtfPoker:*;
 		
-		private var m_rouResult:RouletteDeal_2;
-		private var m_scroll	:Scroll_3;
-		private var m_vecSubList:Vector.<MovieClip>;
-		private var m_complexGameRecordStruct:ComplexGameRecordStruct;
-		private var m_roultetteLang:RouletteFindName;
-		private var m_sicBoLang:SicBoFindName;
-		private var m_sicTotalPoints:int;
-		protected var m_iDice1:int;
-		protected var m_iDice2:int;
-		protected var m_iDice3:int;		
+		private m_rouResult:RouletteDeal_2;
+		private m_scroll	:Scroll_3;
+		private m_vecSubList:<MovieClip>;
+		private m_complexGameRecordStruct:ComplexGameRecordStruct;
+		private m_roultetteLang:RouletteFindName;
+		private m_sicBoLang:SicBoFindName;
+		private m_sicTotalPoints:number;
+		protected m_iDice1:number;
+		protected m_iDice2:number;
+		protected m_iDice3:number;		
 		
 		public constructor( _mcAsset:MovieClip ) {
 			m_mcAsset = _mcAsset;
@@ -57,13 +57,13 @@ module lobby.view.gameRecord {
 			m_scroll.resize( 325, 298 );
 			m_mcAsset.mc_pos.addChild( m_scroll );
 			
-			m_vecSubList = new Vector.<MovieClip>();
+			m_vecSubList = new <MovieClip>();
 			m_roultetteLang = new RouletteFindName();
 			m_sicBoLang = new SicBoFindName();
 			
 			onChangeLanguage();
 		}
-		public function updateUI( _complexGameRecordStruct: ComplexGameRecordStruct ):void {
+		public updateUI( _complexGameRecordStruct: ComplexGameRecordStruct ):void {
 			reset();
 			m_txtGameRecordNo.text = String(_complexGameRecordStruct.BaseRecord.RecordGameNumber);
 			m_complexGameRecordStruct = _complexGameRecordStruct;
@@ -134,7 +134,7 @@ module lobby.view.gameRecord {
 //				m_txtGameType.text = LobbyManager.getInstance().getLanguageString( Language.sGame_Name_DTF);
 			}
 			
-			var isResult:Boolean = m_complexGameRecordStruct.BaseRecord.IsResult;
+			var isResult: boolean = m_complexGameRecordStruct.BaseRecord.IsResult;
 			if(m_bacPoker){
 				m_bacPoker.visible = isResult;
 			}
@@ -153,10 +153,10 @@ module lobby.view.gameRecord {
 			
 		}
 		
-		private function updateGameType():void {
+		private updateGameType():void {
 			if( m_complexGameRecordStruct ){
-				var _iTableID:int = m_complexGameRecordStruct.BaseRecord.TableID;
-				var _iGameID:int = m_complexGameRecordStruct.BaseRecord.GameID;
+				var _iTableID:number= m_complexGameRecordStruct.BaseRecord.TableID;
+				var _iGameID:number= m_complexGameRecordStruct.BaseRecord.GameID;
 				
 //				m_txtGameType.txtAsset.autoSize = TextFieldAutoSize.CENTER;
 				if( _iGameID == GameDefine.BAC ) {
@@ -177,7 +177,7 @@ module lobby.view.gameRecord {
 			
 		}
 		
-		private function reset():void
+		private reset():void
 		{
 			if( m_bacPoker ){
 				if( this.contains(m_bacPoker )){
@@ -205,8 +205,8 @@ module lobby.view.gameRecord {
 			m_sicTotalPoints = 0;	
 		}
 		
-		private function checkBacPoker( _sPoker:String ):Boolean {
-			var _bCheckOK:Boolean = false;
+		private checkBacPoker( _sPoker:String ): boolean {
+			var _bCheckOK: boolean = false;
 			if( _sPoker.indexOf( "s" ) != -1 ){
 				_bCheckOK = true;
 			}
@@ -223,9 +223,9 @@ module lobby.view.gameRecord {
 			return _bCheckOK;
 		}
 		
-		private function updateBacPoker(_baccaratGameRecordStruct:BaccaratGameRecordStruct):void {
+		private updateBacPoker(_baccaratGameRecordStruct:BaccaratGameRecordStruct):void {
 		
-			for( var i:int = 1 ; i <= 3 ; i++ ){
+			for( var i:number= 1 ; i <= 3 ; i++ ){
 			
 				if( checkBacPoker(_baccaratGameRecordStruct["BankerCard"+i]) ){
 					if(m_bacPoker["bankPoker"+i].card==null){
@@ -272,7 +272,7 @@ module lobby.view.gameRecord {
 				}
 			}
 			
-			var _isVisible:Boolean = false;
+			var _isVisible: boolean = false;
 			if( !m_complexGameRecordStruct.BaseRecord.IsResult ){
 				m_bacPoker.tf_1.visible = false;
 				m_bacPoker.tf_2.visible = false;
@@ -284,10 +284,10 @@ module lobby.view.gameRecord {
 				_isVisible = true;
 			}
 			
-			var _ar:Array = [Language.sBanker ,Language.sPlayer , Language.sTie , Language.sBig , Language.sSmall , 
+			var _ar:any[] = [Language.sBanker ,Language.sPlayer , Language.sTie , Language.sBig , Language.sSmall , 
 				Language.sBankerPair , Language.sPlayerPair];
 			
-			var _ar2:Array = [_baccaratGameRecordStruct.BankerBet , _baccaratGameRecordStruct.PlayerBet , _baccaratGameRecordStruct.TieBet , 
+			var _ar2:any[] = [_baccaratGameRecordStruct.BankerBet , _baccaratGameRecordStruct.PlayerBet , _baccaratGameRecordStruct.TieBet , 
 				_baccaratGameRecordStruct.BigBet , _baccaratGameRecordStruct.SmallBet , _baccaratGameRecordStruct.BankerPairBet , 
 				_baccaratGameRecordStruct.PlayerPairBet];
 			
@@ -315,17 +315,17 @@ module lobby.view.gameRecord {
 			
 		}
 		
-		private function createSubList(_ar:Array, _ar2:Array ):void {
-			for( var i:int = 0 ; i < m_vecSubList.length ; i++){
+		private createSubList(_ar:any[], _ar2:any[] ):void {
+			for( var i:number= 0 ; i < m_vecSubList.length ; i++){
 				if( m_vecSubList[i].parent ){
 					m_vecSubList[i].parent.removeChild( m_vecSubList[i] );
 				}
 				m_vecSubList[i] = null;
 			}
 			
-			m_vecSubList = new Vector.<MovieClip>();
+			m_vecSubList = new <MovieClip>();
 			var _subList:*;
-			var j:int = 0;
+			var j:number= 0;
 			for( i = 0 ; j < _ar2.length ; i++ ,j++ ){
 				if(_ar2[j] == 0){
 					i -- ;
@@ -363,15 +363,15 @@ module lobby.view.gameRecord {
 		}
 		
 		
-		private function createSubList_2( _data:Object , transObj:BaseFindName ):void {
-			for( var i:int = 0 ; i < m_vecSubList.length ; i++){
+		private createSubList_2( _data:Object , transObj:BaseFindName ):void {
+			for( var i:number= 0 ; i < m_vecSubList.length ; i++){
 				if( m_vecSubList[i].parent ){
 					m_vecSubList[i].parent.removeChild( m_vecSubList[i] );
 				}
 				m_vecSubList[i] = null;
 			}
 			
-			m_vecSubList = new Vector.<MovieClip>();
+			m_vecSubList = new <MovieClip>();
 			var _subList:*;
 			i = 0;
 			for( var key:String in _data ){
@@ -410,7 +410,7 @@ module lobby.view.gameRecord {
 		}
 				
 		
-		private function updateRouPoker(_rouGameRecordStruct:RouletteGameRecordStruct):void {
+		private updateRouPoker(_rouGameRecordStruct:RouletteGameRecordStruct):void {
 			
 			m_rouResult.Reset();
 			m_rouResult.num = _rouGameRecordStruct.RouletteNumber;
@@ -438,15 +438,15 @@ module lobby.view.gameRecord {
 			m_rouPoker.mc_4.visible = true;
 			///***************************************//
 			
-			var _dozen:int = m_rouResult.dozen;
-			var _small:Boolean = m_rouResult.isSmall;
-			var _big:Boolean = m_rouResult.isBig;
-			var _lang:int = LobbyManager.getInstance().lobbyAuth.Lang;
-			var _odd:Boolean = m_rouResult.isOdd;
-			var _even:Boolean = m_rouResult.isEven;
-			var _row:int = m_rouResult.column;
-			var _red:Boolean = m_rouResult.isRed;
-			var _black:Boolean = m_rouResult.isBlack;
+			var _dozen:number= m_rouResult.dozen;
+			var _small: boolean = m_rouResult.isSmall;
+			var _big: boolean = m_rouResult.isBig;
+			var _lang:number= LobbyManager.getInstance().lobbyAuth.Lang;
+			var _odd: boolean = m_rouResult.isOdd;
+			var _even: boolean = m_rouResult.isEven;
+			var _row:number= m_rouResult.column;
+			var _red: boolean = m_rouResult.isRed;
+			var _black: boolean = m_rouResult.isBlack;
 			
 			if( _dozen == 1) {
 				m_rouPoker.mc_3.gotoAndStop(1+_lang);
@@ -498,10 +498,10 @@ module lobby.view.gameRecord {
 			
 			
 			
-			/*var _ar:Array = [ Language.sBig ,Language.sSmall , Language.sRed , Language.sBlack , Language.sOdd , 
+			/*var _ar:any[] = [ Language.sBig ,Language.sSmall , Language.sRed , Language.sBlack , Language.sOdd , 
 							 Language.sEven  ];
 			
-			var _ar2:Array = [_rouGameRecordStruct.Bet_Big, _rouGameRecordStruct.Bet_Small , _rouGameRecordStruct.Bet_Red , _rouGameRecordStruct.Bet_Black ,
+			var _ar2:any[] = [_rouGameRecordStruct.Bet_Big, _rouGameRecordStruct.Bet_Small , _rouGameRecordStruct.Bet_Red , _rouGameRecordStruct.Bet_Black ,
 							  _rouGameRecordStruct.Bet_Odd, _rouGameRecordStruct.Bet_Even ];*/
 			
 			/*RouletteObjectBet	
@@ -517,24 +517,24 @@ module lobby.view.gameRecord {
 			createSubList_2( _rouGameRecordStruct.RouletteObjectBet , m_roultetteLang );		
 		}
 		
-		private function checkSicPoker(dic:int):Boolean {
+		private checkSicPoker(dic:number): boolean {
 			if( dic > 0 && dic <= 6 ){
 				return true;
 			}
 			return false;
 		}
 		
-		private function updateSicPoker(_sicGameRecordStruct:SicboGameRecordStruct):void {
+		private updateSicPoker(_sicGameRecordStruct:SicboGameRecordStruct):void {
 			//由小到大 排列
-			var _ar:Array = [_sicGameRecordStruct.Dice_1 , _sicGameRecordStruct.Dice_2 , _sicGameRecordStruct.Dice_3 ];
-			_ar.sort( Array.NUMERIC );		
+			var _ar:any[] = [_sicGameRecordStruct.Dice_1 , _sicGameRecordStruct.Dice_2 , _sicGameRecordStruct.Dice_3 ];
+			_ar.sort( any[].NUMERIC );		
 			
 			m_iDice1 = _ar[0];
 			m_iDice2 = _ar[1];
 			m_iDice3 = _ar[2];
 						
 			
-			var _iTotalPoints:int = _sicGameRecordStruct.Dice_1 + _sicGameRecordStruct.Dice_2 + _sicGameRecordStruct.Dice_3;
+			var _iTotalPoints:number= _sicGameRecordStruct.Dice_1 + _sicGameRecordStruct.Dice_2 + _sicGameRecordStruct.Dice_3;
 			m_sicPoker.tf_0.text = String( _iTotalPoints );
 			
 			
@@ -569,7 +569,7 @@ module lobby.view.gameRecord {
 			createSubList_2( _sicGameRecordStruct.SicboObjectBet , m_sicBoLang );
 		}
 		
-		private function updateDtfPoker( _dtfGameRecordStruct:DragonTigerGameRecordStruct):void {
+		private updateDtfPoker( _dtfGameRecordStruct:DragonTigerGameRecordStruct):void {
 			
 			var itme:CardItem;
 			//更新牌
@@ -602,14 +602,14 @@ module lobby.view.gameRecord {
 			}
 			
 			//建立子項
-			var _ar:Array = [Language.sDragon ,Language.sTiger , Language.sTie ];
+			var _ar:any[] = [Language.sDragon ,Language.sTiger , Language.sTie ];
 			
-			var _ar2:Array = [_dtfGameRecordStruct.Bet_Dragon, _dtfGameRecordStruct.Bet_Tiger ,
+			var _ar2:any[] = [_dtfGameRecordStruct.Bet_Dragon, _dtfGameRecordStruct.Bet_Tiger ,
 				_dtfGameRecordStruct.Bet_Tie  ];			
 			createSubList( _ar , _ar2 );	
 		}
 		
-		private function transDtfPoints(_iPoint:int):String {
+		private transDtfPoints(_iPoint:number):String {
 			var _str:String = "";
 			
 			if( _iPoint == 1 ){
@@ -632,7 +632,7 @@ module lobby.view.gameRecord {
 			return _str;
 		}
 		
-		private function showVideoPannel(event:MouseEvent):void{
+		private showVideoPannel(event:MouseEvent):void{
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			if( m_complexGameRecordStruct ) {
 				GameRecordManager.getInstance().showVideoPlayPannel( m_complexGameRecordStruct );
@@ -640,11 +640,11 @@ module lobby.view.gameRecord {
 			
 		}
 		
-		override public function onChangeLanguage():void {
+		 public onChangeLanguage():void {
 			m_mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			
 			if(m_complexGameRecordStruct){
-				var isResult:Boolean = m_complexGameRecordStruct.BaseRecord.IsResult;
+				var isResult: boolean = m_complexGameRecordStruct.BaseRecord.IsResult;
 				
 				if( m_btnShowVideo ){
 					m_btnShowVideo.onChangeLanguage();
@@ -661,13 +661,13 @@ module lobby.view.gameRecord {
 			}
 			
 			if( m_rouPoker && m_rouPoker.num != -1 ){
-				var _dozen:int = m_rouResult.dozen;
-				var _small:Boolean = m_rouResult.isSmall;
-				var _big:Boolean = m_rouResult.isBig;
-				var _lang:int = LobbyManager.getInstance().lobbyAuth.Lang;
-				var _odd:Boolean = m_rouResult.isOdd;
-				var _even:Boolean = m_rouResult.isEven;
-				var _row:int = m_rouResult.column;
+				var _dozen:number= m_rouResult.dozen;
+				var _small: boolean = m_rouResult.isSmall;
+				var _big: boolean = m_rouResult.isBig;
+				var _lang:number= LobbyManager.getInstance().lobbyAuth.Lang;
+				var _odd: boolean = m_rouResult.isOdd;
+				var _even: boolean = m_rouResult.isEven;
+				var _row:number= m_rouResult.column;
 				
 				if( _dozen == 1) {
 					m_rouPoker.mc_3.gotoAndStop(1+_lang);
@@ -724,12 +724,12 @@ module lobby.view.gameRecord {
 			
 		}//end onChangeLanguage();
 		
-		override public function destroy():void {
+		 public destroy():void {
 //			super.destroy()
 			
 		}
 		
-		private function updateBig_Small( _iTotalPoints:int ):void {
+		private updateBig_Small( _iTotalPoints:number):void {
 			if( _iTotalPoints >= 11 && _iTotalPoints <= 18 ){
 				m_sicPoker.mc_2.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			}
@@ -737,14 +737,14 @@ module lobby.view.gameRecord {
 				m_sicPoker.mc_2.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+4);
 			}
 			else {
-				trace("updateBig_Small Error::" +_iTotalPoints)
+				console.log("updateBig_Small Error::" +_iTotalPoints)
 			}
 			
 			
 			
 		}
 		
-		private function updateOdd_Even( _iTotalPoints:int ):void {
+		private updateOdd_Even( _iTotalPoints:number):void {
 			if( _iTotalPoints % 2 != 0 ){
 				m_sicPoker.mc_1.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			}
@@ -752,7 +752,7 @@ module lobby.view.gameRecord {
 				m_sicPoker.mc_1.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+4);
 			}
 			else {
-				trace("updateOdd_Even Error::" +_iTotalPoints)
+				console.log("updateOdd_Even Error::" +_iTotalPoints)
 			}
 			
 			
@@ -773,21 +773,21 @@ import manager.LobbyManager;
 import views.BSprite;
 
 class SingleList extends BSprite{
-	private var m_singleListAsset:MovieClip;
-	public function SingleList(_mcAsset:MovieClip):void {
+	private m_singleListAsset:MovieClip;
+	public SingleList(_mcAsset:MovieClip):void {
 		m_singleListAsset = _mcAsset;
 		addChild(m_singleListAsset);
 	}
-	override public function destroy():void {
+	 public destroy():void {
 		if( m_singleListAsset ){
 			removeChild( m_singleListAsset );
 		}
 	}
 	
-	public function setPlay( _str:String ):void {
+	public setPlay( _str:String ):void {
 		m_singleListAsset.tf_0.text = _str;
 	}
-	public function setGold( _str:String ):void {
+	public setGold( _str:String ):void {
 		m_singleListAsset.tf_1.text = _str;
 	}
 }
@@ -797,32 +797,32 @@ class SingleList extends BSprite{
 
 
 class Btn extends SingleButtonMC{
-	private var txtLabel:MovieClip;
-	public var sLangKey:String;
-	public function Btn(mcButton:MovieClip, $fOnClick:Function):void {
+	private txtLabel:MovieClip;
+	public sLangKey:String;
+	public Btn(mcButton:MovieClip, $fOnClick:Function):void {
 		super( mcButton , $fOnClick );
 		txtLabel = mcButton.txtLabel;
 	}
 	
-	public function onChangeLanguage():void {
+	public onChangeLanguage():void {
 		txtLabel.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);	
 	}
 	
 }
 class Scroll_3 extends Scroll_2 {
 	
-	public function Scroll_3(_bDrag:Boolean=true, _btnHandle:Scroll_Bar=null, _bmpdLine:BitmapData=null , _bHideBackGround:Boolean = false):void {
+	public Scroll_3(_bDrag: boolean=true, _btnHandle:Scroll_Bar=null, _bmpdLine:BitmapData=null , _bHideBackGround: boolean = false):void {
 		super( _bDrag , _btnHandle , _bmpdLine , _bHideBackGround );
 	}
 	
-	override protected function onMouseWheelHandler(evt:MouseEvent):void
+	 protected onMouseWheelHandler(evt:MouseEvent):void
 	{
 		super.onMouseWheelHandler(evt);
 		evt.stopPropagation();
 		//			evt.stopPropagation();
 	}
 	
-	override public function resize(_uWidth:uint, _uHeight:uint):void
+	 public resize(_uWidth:number, _uHeight:number):void
 	{
 		super.resize(_uWidth, _uHeight);
 		m_recPath.x-=15;

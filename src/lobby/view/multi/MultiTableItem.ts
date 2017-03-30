@@ -1,13 +1,13 @@
 module lobby.view.multi {
 	export class MultiTableItem extends BSprite{
-		protected var m_mcAsset			:	MovieClip;
+		protected m_mcAsset			:	MovieClip;
 		
-		public var bTableClearing		:	Boolean;					//清桌标记
-		public var goodRoadStruct		:	GoodRoadStruct;				//好路数据
-		public var gameApp				:	Game;
-		public var uPage				:	uint;
-		public var index				:   int;
-		public constructor(_iMode:int, multitableList:MultiTableList, _uPage:uint) {
+		public bTableClearing		:	 boolean;					//清桌标记
+		public goodRoadStruct		:	GoodRoadStruct;				//好路数据
+		public gameApp				:	Game;
+		public uPage				:	number;
+		public index				:   number;
+		public constructor(_iMode:number, multitableList:MultiTableList, _uPage:number) {
 			
 			super();
 			uPage = _uPage;
@@ -21,7 +21,7 @@ module lobby.view.multi {
 			this.addEventListener(MouseEvent.MOUSE_OUT, bgOut);
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			
 			this.removeEventListener(MouseEvent.MOUSE_OVER, bgOver);
 			this.removeEventListener(MouseEvent.MOUSE_OUT, bgOut);
@@ -36,7 +36,7 @@ module lobby.view.multi {
 			
 		}
 		
-		public function setDataOnAddGoodRoad(_goodRoadStruct:GoodRoadStruct):void{
+		public setDataOnAddGoodRoad(_goodRoadStruct:GoodRoadStruct):void{
 			goodRoadStruct = _goodRoadStruct;
 			
 			if(goodRoadStruct==null){
@@ -50,7 +50,7 @@ module lobby.view.multi {
 			gameApp.receiveGoodRoadStruct(goodRoadStruct);
 		}
 		
-		public function setData(_goodRoadStruct:GoodRoadStruct):void{
+		public setData(_goodRoadStruct:GoodRoadStruct):void{
 			goodRoadStruct = _goodRoadStruct;
 		
 			gameApp.receiveGoodRoadStruct(goodRoadStruct);
@@ -60,7 +60,7 @@ module lobby.view.multi {
 		
 		
 		/** 是否空桌 **/
-		public function isEmptyTable():Boolean{
+		public isEmptyTable(): boolean{
 			if(goodRoadStruct || bTableClearing){
 				return false;
 			}
@@ -69,34 +69,34 @@ module lobby.view.multi {
 		}
 		
 		/**清空数据、标识  */
-		public function clear():void{
+		public clear():void{
 			goodRoadStruct = null;
 			bTableClearing = false;
 		}
 		
 		/**清空移除  */
-		public function clearTable():void{
+		public clearTable():void{
 			clear();
 		    gameApp.clearGoodRoad();
 		}
 		
 		//等待好路
-		public function waitGoodRoad():void{
+		public waitGoodRoad():void{
 			//暂定放到游戏中控制
 		}
 		
-		public function setVisible():void{
+		public setVisible():void{
 			//关闭视讯
 			//屏蔽动画
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			gameApp.onChangeLanguage();
 		}
 		
 		//临时处理
-		protected function bgOver(event:MouseEvent):void{}
-		protected function bgOut(event:MouseEvent):void{}
+		protected bgOver(event:MouseEvent):void{}
+		protected bgOut(event:MouseEvent):void{}
 		
 	}
 }

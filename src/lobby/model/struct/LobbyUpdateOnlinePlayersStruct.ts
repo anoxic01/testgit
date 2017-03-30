@@ -1,14 +1,14 @@
 module lobby.model.struct {
 	export class LobbyUpdateOnlinePlayersStruct {
-		public var OnlinePlayers	:	int;
+		public OnlinePlayers	:	number;
 		
-		public constructor(oData:Object) {
-			OnlinePlayers = oData.OnlinePlayers;
+		public constructor(oData) {
+			this.OnlinePlayers = oData.OnlinePlayers;
 			
-			LobbyData.getInstance().lobbyInfo.OnlinePlayers = OnlinePlayers;
-			if( LobbyManager.getInstance().lobbyAuth.loginMode == Define.INTERNET_BET_LOBBY ){
-				LobbyManager.getInstance().lobbyView.infomation.updateOnline();
-				LobbyManager.getInstance().lobbyView.quickThemeList.updateOnline();
+			lobby.model.LobbyData.getInstance().lobbyInfo.OnlinePlayers = this.OnlinePlayers;
+			if( manager.LobbyManager.getInstance().lobbyAuth.LoginMode == define.Define.INTERNET_BET_LOBBY ){
+				manager.LobbyManager.getInstance().lobbyView.information.updateOnline();
+				manager.LobbyManager.getInstance().lobbyView.quickThemeList.updateOnline();
 			}else {
 			
 			}				

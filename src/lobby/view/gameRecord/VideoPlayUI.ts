@@ -1,22 +1,22 @@
 module lobby.view.gameRecord {
 	export class VideoPlayUI extends PanelWindow{
-		private var m_txtGameRecordNo:Text;					//訂單號
-		private var m_scaleBig:Btn;
-		private var m_scaleSmall:Btn;
-		private var m_scaleReplay:Btn;
-		private var m_video :GameReCordLiveVideo;
-		private var m_bg	:BitmapScale9Grid;
+		private m_txtGameRecordNo:Text;					//訂單號
+		private m_scaleBig:Btn;
+		private m_scaleSmall:Btn;
+		private m_scaleReplay:Btn;
+		private m_video :GameReCordLiveVideo;
+		private m_bg	:BitmapScale9Grid;
 		
-		private var m_bacPoker:*;
-		private var m_sicPoker:*;
-		private var m_rouPoker:*;
-		private var m_dtfPoker:*;
-		private var m_rouResult:RouletteDeal_2;
-		private var m_complexGameRecordStruct:ComplexGameRecordStruct;
-		private var m_sicTotalPoints:int;
-		protected var m_iDice1:int;
-		protected var m_iDice2:int;
-		protected var m_iDice3:int;		
+		private m_bacPoker:*;
+		private m_sicPoker:*;
+		private m_rouPoker:*;
+		private m_dtfPoker:*;
+		private m_rouResult:RouletteDeal_2;
+		private m_complexGameRecordStruct:ComplexGameRecordStruct;
+		private m_sicTotalPoints:number;
+		protected m_iDice1:number;
+		protected m_iDice2:number;
+		protected m_iDice3:number;		
 		
 		public constructor( _mcAsset:MovieClip) {
 			m_mcAsset = _mcAsset;
@@ -94,13 +94,13 @@ module lobby.view.gameRecord {
 			
 			onChangeLanguage();
 		}
-		public function updateUI(_complexGameRecordStruct: ComplexGameRecordStruct):void {
+		public updateUI(_complexGameRecordStruct: ComplexGameRecordStruct):void {
 			m_txtGameRecordNo.text = String( _complexGameRecordStruct.BaseRecord.RecordGameNumber );
 			//rtmp://125.227.81.211/vodCache/flv:originCache/Tb016/2016/03/08/TB16_S7_N10_676.flv
-			trace( "videoAddress:" + _complexGameRecordStruct.BaseRecord.PlayVideoAddress );
-			trace( "playVideoAppName:" + _complexGameRecordStruct.BaseRecord.PlayVideoAppName );
-			trace( "playVideoName:" + _complexGameRecordStruct.BaseRecord.PlayVideoName );
-			var _ar:Array = transVideoData( _complexGameRecordStruct );
+			console.log( "videoAddress:" + _complexGameRecordStruct.BaseRecord.PlayVideoAddress );
+			console.log( "playVideoAppName:" + _complexGameRecordStruct.BaseRecord.PlayVideoAppName );
+			console.log( "playVideoName:" + _complexGameRecordStruct.BaseRecord.PlayVideoName );
+			var _ar:any[] = transVideoData( _complexGameRecordStruct );
 			
 			m_complexGameRecordStruct = _complexGameRecordStruct;
 			
@@ -114,7 +114,7 @@ module lobby.view.gameRecord {
 
 		}
 		
-		public function reset():void {
+		public reset():void {
 			
 			//預設為縮小紐
 			m_video.normal();
@@ -122,7 +122,7 @@ module lobby.view.gameRecord {
 			m_scaleSmall.enabled = false;				
 		}
 		
-		private function clear():void
+		private clear():void
 		{
 			if( m_bacPoker ){
 				if(m_mcAsset.contains(m_bacPoker )){
@@ -151,7 +151,7 @@ module lobby.view.gameRecord {
 			m_sicTotalPoints = 0;
 		}
 		
-		private function updatePoker(_complexGameRecordStruct: ComplexGameRecordStruct):void {
+		private updatePoker(_complexGameRecordStruct: ComplexGameRecordStruct):void {
 			if( _complexGameRecordStruct.BaseRecord.GameID == GameDefine.BAC ){
 				if( !m_bacPoker ){
 					m_bacPoker = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_BET_CORD,"Link_Bac_Group") ;
@@ -208,7 +208,7 @@ module lobby.view.gameRecord {
 			
 		}
 		
-		private function updateDtfPoker( _dtfGameRecordStruct:DragonTigerGameRecordStruct):void {
+		private updateDtfPoker( _dtfGameRecordStruct:DragonTigerGameRecordStruct):void {
 			
 			var itme:CardItem;
 			//更新牌
@@ -245,7 +245,7 @@ module lobby.view.gameRecord {
 
 		}
 		
-		private function transDtfPoints(_iPoint:int):String {
+		private transDtfPoints(_iPoint:number):String {
 			var _str:String = "";
 			
 			if( _iPoint == 1 ){
@@ -268,9 +268,9 @@ module lobby.view.gameRecord {
 			return _str;
 		}		
 		
-		private function updateBacPoker(_baccaratGameRecordStruct:BaccaratGameRecordStruct):void {
+		private updateBacPoker(_baccaratGameRecordStruct:BaccaratGameRecordStruct):void {
 			
-			for( var i:int = 1 ; i <= 3 ; i++ ){
+			for( var i:number= 1 ; i <= 3 ; i++ ){
 				
 				if( checkBacPoker(_baccaratGameRecordStruct["BankerCard"+i]) ){
 					if(m_bacPoker["bankPoker"+i].card==null){
@@ -315,7 +315,7 @@ module lobby.view.gameRecord {
 				}
 			}
 			
-			var _isVisible:Boolean = false;
+			var _isVisible: boolean = false;
 			if( !m_complexGameRecordStruct.BaseRecord.IsResult ){
 				m_bacPoker.tf_1.visible = false;
 				m_bacPoker.tf_2.visible = false;
@@ -346,8 +346,8 @@ module lobby.view.gameRecord {
 			
 		}	
 		
-		private function checkBacPoker( _sPoker:String ):Boolean {
-			var _bCheckOK:Boolean = false;
+		private checkBacPoker( _sPoker:String ): boolean {
+			var _bCheckOK: boolean = false;
 			if( _sPoker.indexOf( "s" ) != -1 ){
 				_bCheckOK = true;
 			}
@@ -365,7 +365,7 @@ module lobby.view.gameRecord {
 		}		
 		
 		
-		private function updateRouPoker(_rouGameRecordStruct:RouletteGameRecordStruct):void {
+		private updateRouPoker(_rouGameRecordStruct:RouletteGameRecordStruct):void {
 			
 			m_rouResult.Reset();
 			m_rouResult.num = _rouGameRecordStruct.RouletteNumber;
@@ -390,15 +390,15 @@ module lobby.view.gameRecord {
 			m_rouPoker.mc_4.visible = true;
 			///***************************************//			
 			
-			var _dozen:int = m_rouResult.dozen;
-			var _small:Boolean = m_rouResult.isSmall;
-			var _big:Boolean = m_rouResult.isBig;
-			var _lang:int = LobbyManager.getInstance().lobbyAuth.Lang;
-			var _odd:Boolean = m_rouResult.isOdd;
-			var _even:Boolean = m_rouResult.isEven;
-			var _row:int = m_rouResult.column;
-			var _red:Boolean = m_rouResult.isRed;				//新增
-			var _black:Boolean = m_rouResult.isBlack;			//新增
+			var _dozen:number= m_rouResult.dozen;
+			var _small: boolean = m_rouResult.isSmall;
+			var _big: boolean = m_rouResult.isBig;
+			var _lang:number= LobbyManager.getInstance().lobbyAuth.Lang;
+			var _odd: boolean = m_rouResult.isOdd;
+			var _even: boolean = m_rouResult.isEven;
+			var _row:number= m_rouResult.column;
+			var _red: boolean = m_rouResult.isRed;				//新增
+			var _black: boolean = m_rouResult.isBlack;			//新增
 			
 			if( _dozen == 1) {
 				m_rouPoker.mc_3.gotoAndStop(1+_lang);
@@ -449,24 +449,24 @@ module lobby.view.gameRecord {
 				
 		}		
 		
-		private function checkSicPoker(dic:int):Boolean {
+		private checkSicPoker(dic:number): boolean {
 			if( dic > 0 && dic <= 6 ){
 				return true;
 			}
 			return false;
 		}
 		
-		private function updateSicPoker(_sicGameRecordStruct:SicboGameRecordStruct):void {
+		private updateSicPoker(_sicGameRecordStruct:SicboGameRecordStruct):void {
 			//由小到大 排列
-			var _ar:Array = [_sicGameRecordStruct.Dice_1 , _sicGameRecordStruct.Dice_2 , _sicGameRecordStruct.Dice_3 ];
-				_ar.sort( Array.NUMERIC );	
+			var _ar:any[] = [_sicGameRecordStruct.Dice_1 , _sicGameRecordStruct.Dice_2 , _sicGameRecordStruct.Dice_3 ];
+				_ar.sort( any[].NUMERIC );	
 				
 				
 				m_iDice1 = _ar[0];
 				m_iDice2 = _ar[1];
 				m_iDice3 = _ar[2];
 				
-			var _iTotalPoints:int = _sicGameRecordStruct.Dice_1 + _sicGameRecordStruct.Dice_2 + _sicGameRecordStruct.Dice_3;
+			var _iTotalPoints:number= _sicGameRecordStruct.Dice_1 + _sicGameRecordStruct.Dice_2 + _sicGameRecordStruct.Dice_3;
 			m_sicPoker.tf_0.text = String( _iTotalPoints );
 			
 			
@@ -499,7 +499,7 @@ module lobby.view.gameRecord {
 			}	
 		}	
 		
-		private function updateBig_Small( _iTotalPoints:int ):void {
+		private updateBig_Small( _iTotalPoints:number):void {
 			if( _iTotalPoints >= 11 && _iTotalPoints <= 18 ){
 				m_sicPoker.mc_2.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			}
@@ -507,14 +507,14 @@ module lobby.view.gameRecord {
 				m_sicPoker.mc_2.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+4);
 			}
 			else {
-				trace("updateBig_Small Error::" +_iTotalPoints)
+				console.log("updateBig_Small Error::" +_iTotalPoints)
 			}
 			
 			
 			
 		}
 		
-		private function updateOdd_Even( _iTotalPoints:int ):void {
+		private updateOdd_Even( _iTotalPoints:number):void {
 			if( _iTotalPoints % 2 != 0 ){
 				m_sicPoker.mc_1.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			}
@@ -522,7 +522,7 @@ module lobby.view.gameRecord {
 				m_sicPoker.mc_1.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+4);
 			}
 			else {
-				trace("updateOdd_Even Error::" +_iTotalPoints)
+				console.log("updateOdd_Even Error::" +_iTotalPoints)
 			}
 			
 			
@@ -531,24 +531,24 @@ module lobby.view.gameRecord {
 		/**
 		 * 解析視訊資料
 		 */
-		private function transVideoData( _complexGameRecordStruct: ComplexGameRecordStruct ):Array {
+		private transVideoData( _complexGameRecordStruct: ComplexGameRecordStruct ):any[] {
 			//"rtmp://125.227.81.211/vodCache/flv:originCache/Tb002/2016/03/11/TB2_S130_N16_17497.flv"
 //			_stream::flv:originCache/Tb015/2016/03/07/TB15_S9_N35_671.flv
 //			_server:rtmp://125.227.81.211/vodCache			
 			var _url:String = _complexGameRecordStruct.BaseRecord.VideoUrl;	
-			var _ar:Array = _url.split("/");
+			var _ar:any[] = _url.split("/");
 			var _server:String = _ar[0]+"//" + _ar[2] + "/" + _ar[3];
 			var _stream:String = "";
-			for( var i:int = 4 ; i < _ar.length-1; i++ ){
+			for( var i:number= 4 ; i < _ar.length-1; i++ ){
 				_stream += _ar[i] + "/";
 			}
 			_stream += _ar[_ar.length-1];
-			trace("_stream::" + _stream );
-			trace("_server:" + _server );		
+			console.log("_stream::" + _stream );
+			console.log("_server:" + _server );		
 			return [_server , _stream ];
 		}
 		
-		override public function destroy():void {
+		 public destroy():void {
 //			if(m_txtGameRecordNo){
 //				m_txtGameRecordNo = null;
 //			}
@@ -582,7 +582,7 @@ module lobby.view.gameRecord {
 //			super.destroy();
 		}
 		
-		override public function onChangeLanguage():void {
+		 public onChangeLanguage():void {
 			m_mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			
 			if( m_scaleReplay){
@@ -602,13 +602,13 @@ module lobby.view.gameRecord {
 			}
 			
 			if( m_rouPoker && m_rouPoker.num != -1 ){
-				var _dozen:int = m_rouResult.dozen;
-				var _small:Boolean = m_rouResult.isSmall;
-				var _big:Boolean = m_rouResult.isBig;
-				var _lang:int = LobbyManager.getInstance().lobbyAuth.Lang;
-				var _odd:Boolean = m_rouResult.isOdd;
-				var _even:Boolean = m_rouResult.isEven;
-				var _row:int = m_rouResult.column;
+				var _dozen:number= m_rouResult.dozen;
+				var _small: boolean = m_rouResult.isSmall;
+				var _big: boolean = m_rouResult.isBig;
+				var _lang:number= LobbyManager.getInstance().lobbyAuth.Lang;
+				var _odd: boolean = m_rouResult.isOdd;
+				var _even: boolean = m_rouResult.isEven;
+				var _row:number= m_rouResult.column;
 				
 				if( _dozen == 1) {
 					m_rouPoker.mc_3.gotoAndStop(1+_lang);
@@ -660,7 +660,7 @@ module lobby.view.gameRecord {
 			
 		}
 		
-		override public function resize(_w:int=0, _h:int=0):void {
+		 public resize(_w:number=0, _h:number=0):void {
 			super.resize(_w, _h );
 			//
 		}
@@ -676,13 +676,13 @@ import manager.LobbyManager;
 
 
 class Btn extends SingleButtonMC{
-	private var txtLabel:MovieClip;
-	public function Btn(mcButton:MovieClip, $fOnClick:Function):void {
+	private txtLabel:MovieClip;
+	public Btn(mcButton:MovieClip, $fOnClick:Function):void {
 		super( mcButton , $fOnClick );
 		txtLabel = mcButton.txtLabel;
 	}
 	
-	public function onChangeLanguage():void {
+	public onChangeLanguage():void {
 		txtLabel.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);	
 	}
 	

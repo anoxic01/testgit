@@ -1,16 +1,16 @@
 module lobby.model.struct {
 	export class GoodRoadStruct {
-		public var GameID		:	int;
-		public var TableID		:	int;
-		public var MatchList	:	Array;
+		public GameID		:	number;
+		public TableID		:	number;
+		public MatchList	:	any[];
 		
-		public constructor( oData:Object=null ) {
+		public constructor( oData=null ) {
 			if(oData==null){
 				return;
 			}
-			GameID 		= 	oData.GameID;
-			TableID 	= 	oData.TableID;
-			MatchList 	= 	oData.MatchList;
+			this.GameID 		= 	oData.GameID;
+			this.TableID 	= 	oData.TableID;
+			this.MatchList 	= 	oData.MatchList;
 		}
 	}
 }

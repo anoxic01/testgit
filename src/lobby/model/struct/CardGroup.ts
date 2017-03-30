@@ -1,15 +1,15 @@
 module lobby.model.struct {
 	export class CardGroup {
-		public var aCardData:Array;
+		public aCardData:any[];
 		public constructor() {
-			aCardData = [];
+			this.aCardData = [];
 		}
 		
-		public function push( _iCardNo:int , _iCSuit:int):void {
+		public push( _iCardNo:number, _iCSuit:number):void {
 			var _cardStruct:CardStruct 		= new CardStruct();
 				_cardStruct.CardNumber 		= _iCardNo;
 				_cardStruct.CSuit 			= _iCSuit;
-				aCardData.push(_cardStruct);
+				this.aCardData.push(_cardStruct);
 		}
 		
 		

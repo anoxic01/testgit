@@ -10,8 +10,8 @@ module lobby.view.table {
 		protected m_point 					: 	egret.Point = new egret.Point();
 		protected m_limitStruct 			: 	BetLimitStruct;					//限红数据
 		public playerTableOwnStatusStruct 	: 	PlayerTableOwnStatusStruct;
-		protected m_bShow					:	boolean;
-		protected m_aShow					:	Array;							//显示按钮
+		protected m_bShow					:	 boolean;
+		protected m_aShow					:	any[];							//显示按钮
 
 		public constructor() {
 			super();
@@ -51,7 +51,7 @@ module lobby.view.table {
 			this.m_point.x =<number>(this.parent.x+300);
 			this.m_point.y =<number>(this.parent.y+50);
 			
-//			trace("********************************************************** 局部坐标：",m_point);
+//			console.log("********************************************************** 局部坐标：",m_point);
 			return this.m_mcAsset.localToGlobal(this.m_point);
 		}
 		
@@ -82,8 +82,8 @@ module lobby.view.table {
 		}
 		
 		
-		protected IsAllowToLogin(_bAlone:boolean=false):boolean{
-			var bAllow : boolean;
+		protected IsAllowToLogin(_bAlone: boolean=false): boolean{
+			var bAllow :  boolean;
 			var _str : String;
 			
 			if(this.m_limitStruct){
@@ -105,15 +105,15 @@ module lobby.view.table {
 			return  bAllow;
 		}
 		
-		public IsTableOwner():boolean{
+		public IsTableOwner(): boolean{
 			return false;
 		}
 		
-		public IsTableOwnerLeave():boolean{
+		public IsTableOwnerLeave(): boolean{
 			return false;
 		}
 		
-		set setBetLimitVisible(_bValue:boolean) {
+		set setBetLimitVisible(_bValue: boolean) {
 
 		}	
 	}

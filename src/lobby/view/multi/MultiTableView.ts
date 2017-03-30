@@ -1,37 +1,37 @@
 module lobby.view.multi {
 	export class MultiTableView extends BSprite{
-		private var m_mcAsset		:	MovieClip;
-		private var m_bmpBg			:	Bitmap;
-		private var m_modeList		:	MultiTableModeList;
-		public var record			:	MultiTableRecord;
+		private m_mcAsset		:	MovieClip;
+		private m_bmpBg			:	Bitmap;
+		private m_modeList		:	MultiTableModeList;
+		public record			:	MultiTableRecord;
 		
-		private var m_list_4		:	MultiTableList;
-		private var m_list_8		:	MultiTableList;
-		private var m_list_16		:	MultiTableList;
+		private m_list_4		:	MultiTableList;
+		private m_list_8		:	MultiTableList;
+		private m_list_16		:	MultiTableList;
 		
-		private var m_transition_4	:	MovieClip;
-		private var m_transition_8	:	MovieClip;
-		private var m_transition_16	:	MovieClip;
-		private var m_aTransition	:	Array;
-		private var m_aCount		:	Array;
+		private m_transition_4	:	MovieClip;
+		private m_transition_8	:	MovieClip;
+		private m_transition_16	:	MovieClip;
+		private m_aTransition	:	any[];
+		private m_aCount		:	any[];
 		
-		private var m_currentList	:	MultiTableList;					//当前列表
-		private var m_uCurrentMode	:	uint;							//当前模式
-		private var m_spContent		:	Sprite;
-		public var  spChips			:	Sprite;
+		private m_currentList	:	MultiTableList;					//当前列表
+		private m_uCurrentMode	:	number;							//当前模式
+		private m_spContent		:	Sprite;
+		public  spChips			:	Sprite;
 		
-		private var m_video_Enter	: 	MMovieClip;
-		private var m_video_Normal	: 	MMovieClip;
-		private var m_video_Out		:	MMovieClip;
-		private var m_vecBg			:	Vector.<BitmapData>;
-		public var dictVideoPos		:	Dictionary;
+		private m_video_Enter	: 	MMovieClip;
+		private m_video_Normal	: 	MMovieClip;
+		private m_video_Out		:	MMovieClip;
+		private m_vecBg			:	<BitmapData>;
+		public dictVideoPos		:	Dictionary;
 		
 		public constructor() {
 			super();
 		//	LobbyManager.getInstance().uRenderMode=1
 			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_MULTITABLE, "Multi_View_Asset");
 			this.addChild(m_mcAsset);
-			m_vecBg = new Vector.<BitmapData>(4);
+			m_vecBg = new <BitmapData>(4);
 			m_vecBg[0] = BitmapUtil.snapshot(ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_MULTITABLE, "Multitable_Bg_Asset"));
 			m_bmpBg = new Bitmap();
 //暂时隐藏多桌底图			
@@ -107,7 +107,7 @@ module lobby.view.multi {
 			
 		}
 		
-		private function initTransition():void{
+		private initTransition():void{
 			m_transition_4 = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_MULTITABLE, "multitable_lit_transition_4");
 			m_transition_4.gotoAndStop(1);
 			m_mcAsset.addChild(m_transition_4);
@@ -142,21 +142,21 @@ module lobby.view.multi {
 		
 	
 		
-		public function get currentList():MultiTableList
+		get currentList():MultiTableList
 		{
 			return m_currentList;
 		}
 
-		public function set currentList(value:MultiTableList):void
+		set  currentList(value:MultiTableList)
 		{
 			m_currentList = value;
 			m_spContent.visible = true;
 //			m_currentList.show();
 		}
 		
-		private function clearDictVideoPos(mode:uint):void{
-			var arr:Array = dictVideoPos[mode];
-			for (var j:int = 0; j < arr.length; j++) 
+		private clearDictVideoPos(mode:number):void{
+			var arr:any[] = dictVideoPos[mode];
+			for (var j:number= 0; j < arr.length; j++) 
 			{
 				arr[j]=null;
 			}
@@ -164,7 +164,7 @@ module lobby.view.multi {
 			arr=null;
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			RequestManager.instance.removeRequestCallBack(this);
 			RequestManager.instance.stop();
 			LobbyManager.getInstance().stopDetection();
@@ -201,7 +201,7 @@ module lobby.view.multi {
 				m_bmpBg = null;
 			}
 			
-			for (var i:int = 0; i < m_vecBg.length; i++) 
+			for (var i:number= 0; i < m_vecBg.length; i++) 
 			{
 				m_vecBg[i].dispose();
 				m_vecBg[i]=null;
@@ -293,7 +293,7 @@ module lobby.view.multi {
 				m_mcAsset = null;
 			}
 		}
-		private function destroyList_4():void{
+		private destroyList_4():void{
 			if(m_list_4){
 				if(m_list_4.parent){
 					m_list_4.parent.removeChild(m_list_4);
@@ -302,7 +302,7 @@ module lobby.view.multi {
 				m_list_4 = null;
 			}
 		}
-		private function destroyList_8():void{
+		private destroyList_8():void{
 			if(m_list_8){
 				if(m_list_8.parent){
 					m_list_8.parent.removeChild(m_list_8);
@@ -311,7 +311,7 @@ module lobby.view.multi {
 				m_list_8 = null;
 			}
 		}
-		private function destroyList_16():void{
+		private destroyList_16():void{
 			if(m_list_16){
 				if(m_list_16.parent){
 					m_list_16.parent.removeChild(m_list_16);
@@ -323,7 +323,7 @@ module lobby.view.multi {
 		
 		
 		
-		public function onInit():void{
+		public onInit():void{
 			m_modeList.init();
 			
 			RequestManager.instance.init(this.root.loaderInfo.url,3000);
@@ -331,7 +331,7 @@ module lobby.view.multi {
 			//RequestManager.instance.start();
 		}
 		
-		private function initList():void{
+		private initList():void{
 //			m_vedio_1.gotoAndPlay(1);
 			
 			if(m_modeList==null){
@@ -403,7 +403,7 @@ module lobby.view.multi {
 		}
 		
 		
-		public function setBg(_mode:int=0):void
+		public setBg(_mode:number=0):void
 		{
 			switch(_mode)
 			{
@@ -426,7 +426,7 @@ module lobby.view.multi {
 			
 		}
 		
-		public function playTransition():void{
+		public playTransition():void{
 			LobbyData.getInstance().clearSubscribed();
 			
 			LobbyManager.getInstance().clearMultiTableLive();
@@ -457,7 +457,7 @@ module lobby.view.multi {
 			}
 		}
 		
-		public function setMultiTableMode(uMode:uint):void{
+		public setMultiTableMode(uMode:number):void{
 			setBg(0);
 			m_uCurrentMode = uMode;
 			//播放过渡动画，当前模式的桌子缩小
@@ -479,9 +479,9 @@ module lobby.view.multi {
 			
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			
-			for (var i:int = 0; i < m_aTransition.length; i++) 
+			for (var i:number= 0; i < m_aTransition.length; i++) 
 			{
 				changeLanguageTransitionTable(m_aTransition[i],m_aCount[i]);
 			}
@@ -493,10 +493,10 @@ module lobby.view.multi {
 				currentList.onChangeLanguage();
 			}
 		}
-		private function changeLanguageTransitionTable(_mcTransition:MovieClip, _mode:int):void{
+		private changeLanguageTransitionTable(_mcTransition:MovieClip, _mode:number):void{
 			var bmp : Bitmap;
 			var _mc : MovieClip;
-			for (var j:int = 0; j < _mode; j++) 
+			for (var j:number= 0; j < _mode; j++) 
 			{
 				_mc = _mcTransition.getChildByName("mc_"+String(j)) as MovieClip;
 				if(_mc.numChildren==1){
@@ -510,7 +510,7 @@ module lobby.view.multi {
 					bmp.bitmapData = BitmapManager.getInstance().getMultiTransitionTable(_mode);
 					bmp.smoothing = true;
 				}else{
-					trace("多桌过渡图片获取异常...");
+					console.log("多桌过渡图片获取异常...");
 				}
 			}
 			if(_mc){
@@ -521,9 +521,9 @@ module lobby.view.multi {
 			}
 		}
 		
-		private function stopLoading(_mcTransition:MovieClip, _mode:int):void{
+		private stopLoading(_mcTransition:MovieClip, _mode:number):void{
 			var _mc : MovieClip;
-			for (var j:int = 0; j < _mode; j++) 
+			for (var j:number= 0; j < _mode; j++) 
 			{
 				_mc = _mcTransition.getChildByName("mc_"+String(j)) as MovieClip;
 				_mc.mc_loading.gotoAndStop(1);
@@ -533,9 +533,9 @@ module lobby.view.multi {
 				_mc = null;
 			}
 		}
-		private function playLoading(_mcTransition:MovieClip, _mode:int):void{
+		private playLoading(_mcTransition:MovieClip, _mode:number):void{
 			var _mc : MovieClip;
-			for (var j:int = 0; j < _mode; j++) 
+			for (var j:number= 0; j < _mode; j++) 
 			{
 				_mc = _mcTransition.getChildByName("mc_"+String(j)) as MovieClip;
 				_mc.mc_loading.visible = true;
@@ -547,12 +547,12 @@ module lobby.view.multi {
 		}
 		
 		//寻找空桌
-		public function addGoodRoadStruct(_goodRoadMapStruct:GoodRoadStruct):void{
+		public addGoodRoadStruct(_goodRoadMapStruct:GoodRoadStruct):void{
 			if(currentList){
 				currentList.addGoodRoadStruct(_goodRoadMapStruct);
 			}
 		}
-		public function removeGoodRoadStruct(_tableID:int):void{
+		public removeGoodRoadStruct(_tableID:number):void{
 			if(currentList){
 				currentList.removeGoodRoadStruct(_tableID);
 			}
@@ -560,7 +560,7 @@ module lobby.view.multi {
 		
 		
 		
-		public function setGoodRoads():void
+		public setGoodRoads():void
 		{
 			if(currentList){
 				currentList.setData();
@@ -571,7 +571,7 @@ module lobby.view.multi {
 		 *服务器异常断线通知 
 		 * 
 		 */
-		public function offline(tableId:int):void{
+		public offline(tableId:number):void{
 			if (tableId>0){
 				var tableItem:MultiTableItem = currentList.getTableItemByTableID(tableId);	
 				if (tableItem){
@@ -581,7 +581,7 @@ module lobby.view.multi {
 			
 		}
 		
-		public function exit():void{
+		public exit():void{
 			this.mouseChildren=false;
 			setBg(0);
 			if(m_currentList){
@@ -610,11 +610,11 @@ module lobby.view.multi {
 			}
 			
 			
-	//		trace(">>>>>>>>-----------退出多桌动画------------")
+	//		console.log(">>>>>>>>-----------退出多桌动画------------")
 			
 		}
 		
-		private function onNetWorkCheckStatus(code:int):void
+		private onNetWorkCheckStatus(code:number):void
 		{
 			if(code!=RequestManager.REQUEST_SUCC)
 			{
@@ -626,8 +626,8 @@ module lobby.view.multi {
 		}
 		
 		
-		public function getVideoPort(mode:int,index:int):Rectangle{
-			trace(dictVideoPos[mode][index])
+		public getVideoPort(mode:number,index:number):Rectangle{
+			console.log(dictVideoPos[mode][index])
 			return dictVideoPos[mode][index];
 		}
 		
@@ -635,15 +635,15 @@ module lobby.view.multi {
 		 *生成三个镂空bg，用于显示底层的stagevideo 
 		 * 
 		 */
-		private function setupBg():void{
+		private setupBg():void{
 			dictVideoPos = new Dictionary();
 			var bmd:BitmapData = m_vecBg[0].clone();
 			var rect : Rectangle;
-			var i:int=0;
+			var i:number=0;
 			var clipX:Number;
 			var clipY:Number;
-			var _index:int;
-			dictVideoPos[Define.MULTI_TABLE_MODE_4]=new Array(4);
+			var _index:number;
+			dictVideoPos[Define.MULTI_TABLE_MODE_4]=new any[](4);
 			var fillSp:Sprite = new Sprite();
 			fillSp.graphics.beginFill(0x999999);
 			fillSp.graphics.drawRect(0, 0, 100, 100);
@@ -662,7 +662,7 @@ module lobby.view.multi {
 			m_vecBg[1]=bmd;
 			
 			bmd =  m_vecBg[0].clone();
-			dictVideoPos[Define.MULTI_TABLE_MODE_8]=new Array(8);
+			dictVideoPos[Define.MULTI_TABLE_MODE_8]=new any[](8);
 			for (i= 0; i < 8; i++) 
 			{
 				clipX =  i%2==0 ? 14:817;
@@ -679,7 +679,7 @@ module lobby.view.multi {
 			m_vecBg[2]=bmd;
 			
 			bmd =  m_vecBg[0].clone();
-			dictVideoPos[Define.MULTI_TABLE_MODE_16]=new Array(16);
+			dictVideoPos[Define.MULTI_TABLE_MODE_16]=new any[](16);
 			for (i= 0; i < 16; i++) 
 			{
 				_index = (i%4);
@@ -696,7 +696,7 @@ module lobby.view.multi {
 				fillSp.height=242;
 				bmd.draw(fillSp,fillSp.transform.matrix,null,BlendMode.ERASE);
 				rect = new Rectangle(clipX,clipY,389,242);
-			//	trace("16桌："+rect);
+			//	console.log("16桌："+rect);
 			//	bmd.fillRect(rect,0x00000000);
 				dictVideoPos[Define.MULTI_TABLE_MODE_16][i]=rect;
 			}
@@ -704,13 +704,13 @@ module lobby.view.multi {
 			
 		}
 		
-		public function stopAllVideo():void{
+		public stopAllVideo():void{
 			if(currentList){
 				currentList.clearLive();
 			}
 		}
 		
-		public function changeModeToLow():void{
+		public changeModeToLow():void{
 			if(m_video_Normal){
 				m_video_Normal.gotoAndStop(1);
 			}

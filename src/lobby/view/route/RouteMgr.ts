@@ -1,30 +1,30 @@
 module lobby.view.route {
 	export class RouteMgr extends EventDispatcher {
-		private var _view:MovieClip;
-		private var _routeView:MovieClip;
+		private _view:MovieClip;
+		private _routeView:MovieClip;
 		
-		private var _isBtnOpen:Boolean = false;
+		private _isBtnOpen: boolean = false;
 		
-		private var _islock:Boolean = true;
-		private var _isUp:Boolean = false;
+		private _islock: boolean = true;
+		private _isUp: boolean = false;
 		
 		/**當前顯示路*/
-		private var _nowRoad:String = "";
+		private _nowRoad:String = "";
 		
-		private var _askBankerRoad:AskRoadBtn;
-		private var _askPlayerRoad:AskRoadBtn;
+		private _askBankerRoad:AskRoadBtn;
+		private _askPlayerRoad:AskRoadBtn;
 		
-		private var _beadPlate:BeadPlate;
+		private _beadPlate:BeadPlate;
 		
-		private var _roadString:RoadStringObject = new RoadStringObject;
-		private var _bigSprite:RoadCanvas = new BacRoadCanvas;
-		private var _bigEyeSprite:RoadCanvas = new BacRoadCanvas;
-		private var _smallSprite:RoadCanvas = new BacRoadCanvas;
-		private var _roachSprite:RoadCanvas = new BacRoadCanvas;
+		private _roadString:RoadStringObject = new RoadStringObject;
+		private _bigSprite:RoadCanvas = new BacRoadCanvas;
+		private _bigEyeSprite:RoadCanvas = new BacRoadCanvas;
+		private _smallSprite:RoadCanvas = new BacRoadCanvas;
+		private _roachSprite:RoadCanvas = new BacRoadCanvas;
 		
-		protected var _roadUpdateTimer:JTimer;
-		protected var _roadBufferTime:uint = 100;
-		private var _beadInfo:BeadInfo;
+		protected _roadUpdateTimer:JTimer;
+		protected _roadBufferTime:number = 100;
+		private _beadInfo:BeadInfo;
 		
 		public constructor(view:MovieClip) {
 		
@@ -103,7 +103,7 @@ module lobby.view.route {
 		 * 變更語系
 		 * @param	lang
 		 */
-		public function  onChangeLanguage( lang:String ):void{
+		public  onChangeLanguage( lang:String ):void{
 			
 			
 			
@@ -114,7 +114,7 @@ module lobby.view.route {
 		/**
 		 * 清空資源
 		 */
-		public function destory():void {
+		public destory():void {
 			if(_bigSprite)
 			{
 				_bigSprite.parent.removeChild(_bigSprite);
@@ -154,7 +154,7 @@ module lobby.view.route {
 		/**
 		 * 清掉路單
 		 */
-		public function clearRoad():void {
+		public clearRoad():void {
 //			this.cacheToBmp(false);
 			this._bigSprite.resetPool();
 			this._bigEyeSprite.resetPool();
@@ -165,12 +165,12 @@ module lobby.view.route {
 		/**
 		 * 重置路紙
 		 */
-		public function resetNowRoad():void {
+		public resetNowRoad():void {
 			this._nowRoad = "";
 		}
 		
-		private function updateRoadHandler():void {
-		//	trace("_nowRoad::" + _nowRoad);
+		private updateRoadHandler():void {
+		//	console.log("_nowRoad::" + _nowRoad);
 			if ( this._nowRoad.indexOf( "#" ) != -1 ) {
 				return;
 			}
@@ -184,8 +184,8 @@ module lobby.view.route {
 		}		
 		
 		/** 更新路單 */
-		public function addRoad(road:String):void {
-			//trace("更新路單 : " + road);
+		public addRoad(road:String):void {
+			//console.log("更新路單 : " + road);
 			//road = "iiaaaeeeaeaaeeaeaaaaeaaeiaiia";
 			//road = "aaaaabcaeeeifeaaiabaaeaibaeeeafaeeaaeafeeeaeaaehlgahaeeeefieeieeeeeegeeefaeikagaeeaagaaejiiaaaaaakabceaaaeeeeeeeeaaaaaeeeeaeaeaaaaaabbbbbbbbbbbbbeeeeeeeeeeee";
 			//road = "aaaaabcaee" + "eifeaaiaba" + "aeaibaeeea" + "faeeaaeafe" + "eeaeaaehlg" + "ahaeceaeak" + "akaaeieeeg" + "cefefeeeieeaaceeaacaeeaabefcheafdafbcaaedaabbfeeejaeeeaabaafebeeeeeeeeeeeeebfeeeeaaceeeeceeeeeeeeeafeeeefieeieeeeeegeeefaeikagaeeaagaaejiiaaaaaakabce";
@@ -225,12 +225,12 @@ module lobby.view.route {
 			//this.cacheToBmp(true);
 		}
 		
-		private function showRoad(road:String, isAsk:Boolean = false):void {
+		private showRoad(road:String, isAsk: boolean = false):void {
 			//this.showRoadViewInit();
 			this._roadString = BeadRoad.createRoadReanderString(road);
 			this._beadPlate.addRoad(road, isAsk);
 			
-			var grids:Array = BeadRoad.createBigRoadRenderGrid( this._roadString.bigRoad, null );
+			var grids:any[] = BeadRoad.createBigRoadRenderGrid( this._roadString.bigRoad, null );
 
 			this._bigSprite.drawBigRoadDataGrid( grids , RoadBallPool.BIG_ROAD , isAsk );
 			this._bigEyeSprite.drawReaderDataGrid( BeadRoad.createRoadRenderGrid(this._roadString.bigEyeRoad, null , 6) , isAsk , RoadBallPool.BIG_EYE_ROAD );
@@ -240,7 +240,7 @@ module lobby.view.route {
 		}
 		
 		/** 路單初始 */
-		private function showRoadViewInit():void {
+		private showRoadViewInit():void {
 			this._beadPlate.init();
 			this._bigEyeSprite.init();
 			this._bigSprite.init();
@@ -249,7 +249,7 @@ module lobby.view.route {
 		}
 		
 		/** 莊問路 */
-		private function askBankerRoad():void {
+		private askBankerRoad():void {
 			if (this._roadString.bigEyeRoad.length > 0) {
 				this._routeView["askBankRoad_0"].visible = true;
 				this._routeView["askBankRoad_0"].gotoAndStop(this._roadString.bigEyeRoad.slice(-1));
@@ -273,7 +273,7 @@ module lobby.view.route {
 		}
 		
 		/** 閒問路 */
-		private function askPlayerRoad():void {
+		private askPlayerRoad():void {
 			if (this._roadString.bigEyeRoad.length > 0) {
 				this._routeView["askPlayRoad_0"].visible = true;
 				this._routeView["askPlayRoad_0"].gotoAndStop(this._roadString.bigEyeRoad.slice(-1));
@@ -296,14 +296,14 @@ module lobby.view.route {
 			}
 		}
 		
-		private function onAskRoad(e:RouteEvent):void {
+		private onAskRoad(e:RouteEvent):void {
 			if ( this._nowRoad.indexOf( "#" ) != -1 ) {
 				return;
 			}	
 			
 //			this.cacheToBmp(false);
 			this._beadPlate.addEventListener(RouteEvent.ASK_Road_END, onAskRoadEnd);
-			trace("onAskRoad::::" + String(e.data) );
+			console.log("onAskRoad::::" + String(e.data) );
 		
 			switch (String(e.data)) {
 				case "btn_AskBankerRoad": 
@@ -317,15 +317,15 @@ module lobby.view.route {
 		
 		}
 		
-		private function onAskRoadEnd(e:RouteEvent):void {
-			trace("onAskRoadEnd::" + ",nowRoad::" + this._nowRoad );
+		private onAskRoadEnd(e:RouteEvent):void {
+			console.log("onAskRoadEnd::" + ",nowRoad::" + this._nowRoad );
 			this.showRoadViewInit();
 			this._beadPlate.removeEventListener(RouteEvent.ASK_Road_END, onAskRoadEnd);
 			this.showRoad(this._nowRoad);
 //			this.cacheToBmp(true);
 		}
 		
-		private function cacheToBmp(isCache:Boolean):void {
+		private cacheToBmp(isCache: boolean):void {
 			this._beadPlate.cacheAsBitmap = isCache;
 			this._bigSprite.cacheAsBitmap = isCache;
 			this._bigEyeSprite.cacheAsBitmap = isCache;
@@ -333,20 +333,20 @@ module lobby.view.route {
 			this._roachSprite.cacheAsBitmap = isCache;
 		}
 		
-		public function disable():void {
+		public disable():void {
 			this._isBtnOpen = false;
 			this._isUp = false;
 
 		}
 		
-		public function enable():void {
+		public enable():void {
 			this._isBtnOpen = true;
 			this._isUp = true;
 
 		}
 		
 		
-		public function onMainClick(e:MouseEvent):void {
+		public onMainClick(e:MouseEvent):void {
 			this._isUp = this._isUp ? false : true;
 			this._islock = true;
 		}

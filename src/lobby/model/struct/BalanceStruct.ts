@@ -1,22 +1,22 @@
 module lobby.model.struct {
 	export class BalanceStruct {
-		public var GCoin			:	Number	=	0;					//游戏货币
-		public var BCoin			:	Number	=	0;					//游戏货币
-		public var TotalCredit		:	Number	=	0;					//信用额度
-		public var RemainingCredit	:	Number	=	0;					//剩余额度
-		public var AvailableCredit	:	Number	=	0;					//有效额度
-		public var GCoinNoChips		:	Number	= 	0;					//可換金額(電投大廳用)
-		public var Chips			:	Number	=	0;					//籌碼(電投大廳用)
+		public GCoin			:	number	=	0;					//游戏货币
+		public BCoin			:	number	=	0;					//游戏货币
+		public TotalCredit		:	number	=	0;					//信用额度
+		public RemainingCredit	:	number	=	0;					//剩余额度
+		public AvailableCredit	:	number	=	0;					//有效额度
+		public GCoinNoChips		:	number	= 	0;					//可換金額(電投大廳用)
+		public Chips			:	number	=	0;					//籌碼(電投大廳用)
 		
-		public constructor( oBalance:Object =null ) {
+		public constructor( oBalance =null ) {
 			if (oBalance){
-				GCoin 				= 	oBalance.GCoin;
-				BCoin 				= 	oBalance.BCoin;
-				TotalCredit 		= 	oBalance.TotalCredit;
-				RemainingCredit	= 	oBalance.RemainingCredit;
-				AvailableCredit	= 	oBalance.AvailableCredit;
-				GCoinNoChips		=	oBalance.GCoinNoChips;
-				Chips				=	oBalance.Chips;
+				this.GCoin 				= 	oBalance.GCoin;
+				this.BCoin 				= 	oBalance.BCoin;
+				this.TotalCredit 		= 	oBalance.TotalCredit;
+				this.RemainingCredit	= 	oBalance.RemainingCredit;
+				this.AvailableCredit	= 	oBalance.AvailableCredit;
+				this.GCoinNoChips		=	oBalance.GCoinNoChips;
+				this.Chips				=	oBalance.Chips;
 			}
 			
 		}

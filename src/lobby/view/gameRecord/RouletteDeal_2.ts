@@ -1,20 +1,20 @@
 module lobby.view.gameRecord {
 	export class RouletteDeal_2 {
 	
-		public var num:int=-1;
+		public num:number=-1;
 		
 		public constructor() {
 			this.Reset();
 		}
 		
-		public function Reset():void {
+		public Reset():void {
 			num=-1;
 		}	
 		
 		
 		/**
 		 *单 	 *  */
-		public function get isOdd() : Boolean
+		get isOdd() :  boolean
 		{
 			if( num%2!=0){
 				return true;
@@ -23,7 +23,7 @@ module lobby.view.gameRecord {
 		}
 		
 		/** *双 */
-		public function get isEven() : Boolean
+		get isEven() :  boolean
 		{
 			if(num !=0  && num%2==0){
 				return true;
@@ -31,17 +31,17 @@ module lobby.view.gameRecord {
 			return false;
 		}
 		
-		public function get isBig() : Boolean
+		get isBig() :  boolean
 		{
 			return num>=19? true:false;
 		}
 		
-		public function get isSmall() : Boolean
+		get isSmall() :  boolean
 		{
 			return num<=18? true:false;
 		}// end function
 		
-		public function get isRed() : Boolean
+		get isRed() :  boolean
 		{
 			if ([ 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36 ].indexOf(num)>-1){
 				return true;
@@ -49,7 +49,7 @@ module lobby.view.gameRecord {
 			return false;
 		}// end function
 		
-		public function get isBlack() : Boolean
+		get isBlack() :  boolean
 		{
 			if ([ 2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35 ].indexOf(num)>-1){
 				return true;
@@ -63,7 +63,7 @@ module lobby.view.gameRecord {
 		 * @return 
 		 * 
 		 */
-		public function get dozen() : int
+		get dozen() : int
 		{
 			
 			return Math.ceil(num/12);
@@ -74,9 +74,9 @@ module lobby.view.gameRecord {
 		 * @return 
 		 * 
 		 */
-		public function get column() : int
+		get column() : int
 		{
-			var n:int =num%3 ;
+			var n:number=num%3 ;
 			if(n == 0){
 				n=3
 			}

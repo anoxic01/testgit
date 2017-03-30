@@ -1,19 +1,25 @@
 module lobby.model {
 	export class ClientPacketSN {
-		private static var _packetSNInstance:ClientPacketSN;
-		public  var Login_Lobby_Check_SN:uint = 0;		//大廳登入確認封包
-		public  var Login_Game_Check_SN:uint;			//確認登入確認封包
-		public  var Lobby_Heart_SN		:uint;
+		private static _packetSNInstance:ClientPacketSN;
+		public  Login_Lobby_Check_SN:number = 0;		//大廳登入確認封包
+		public  Login_Game_Check_SN:number;			//確認登入確認封包
+		public  Lobby_Heart_SN		:number;
 		
-		public constructor() {
+		public constructor(pkt:PKT) {
 		}
 		
-		public static function instance():ClientPacketSN {
-			if ( _packetSNInstance == null ) {
-				_packetSNInstance = new ClientPacketSN(new PKT());
+		public static instance():ClientPacketSN {
+			if ( this._packetSNInstance == null ) {
+				this._packetSNInstance = new ClientPacketSN(new PKT());
 			}
-			return _packetSNInstance;
+			return this._packetSNInstance;
 		}
+		
+	}
+}
+class PKT {
+	public PKT():void 
+	{
 		
 	}
 }

@@ -1,11 +1,11 @@
 module lobby.view.tool {
 	export class Tool_Contact implements ISprite{
-		private var m_mcAsset		:	MovieClip;				//资源容器
-		private var m_btnContact	:	ButtonA;				//联系客服
-//		private var m_btnRecord		:	ButtonA;				//账户记录
-		private var m_btnRule		:	ButtonA;				//游戏规则
-		private var m_bStatus		:	Boolean	=	true;
-//		private var m_bg			:	BitmapScale9Grid;		//背景
+		private m_mcAsset		:	MovieClip;				//资源容器
+		private m_btnContact	:	ButtonA;				//联系客服
+//		private m_btnRecord		:	ButtonA;				//账户记录
+		private m_btnRule		:	ButtonA;				//游戏规则
+		private m_bStatus		:	 boolean	=	true;
+//		private m_bg			:	BitmapScale9Grid;		//背景
 		
 		public constructor( _mcAsset:MovieClip ) {
 		
@@ -33,7 +33,7 @@ module lobby.view.tool {
 			onChangeLanguage();
 		}
 		
-		public function destroy():void
+		public destroy():void
 		{
 			if(m_btnContact){
 				m_btnContact.destroy();
@@ -52,7 +52,7 @@ module lobby.view.tool {
 			}
 		}
 		
-		public function showOrHide():void{
+		public showOrHide():void{
 			if(m_bStatus){
 				hide();
 			}else{
@@ -60,21 +60,21 @@ module lobby.view.tool {
 			}
 		}
 		
-		public function show():void{
+		public show():void{
 			if(!m_bStatus){
 				m_mcAsset.gotoAndPlay("SHOW");
 				m_bStatus = true;
 			}
 			
 		}
-		public function hide():void{
+		public hide():void{
 			if(m_bStatus){
 				m_mcAsset.gotoAndPlay("HIDE");
 				m_bStatus = false;
 			}
 		}
 		
-		public function onChangeLanguage():void{
+		public onChangeLanguage():void{
 			m_mcAsset.mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			m_btnContact.mcAsset.tf_label.text = LobbyManager.getInstance().getLanguageString(Language.sTool_ContactService);
 //			m_btnRecord.mcAsset.tf_label.text = LobbyManager.getInstance().getLanguageString(Language.sTool_AccountRecord);
@@ -92,11 +92,11 @@ import flash.text.TextField;
 import IInterface.ISprite;
 
 class ButtonA implements ISprite{
-	public var mcAsset			:	MovieClip;
-	public var fOnClick			:	Function;
-	private var m_bSelectStatus	:	Boolean;
+	public mcAsset			:	MovieClip;
+	public fOnClick			:	Function;
+	private m_bSelectStatus	:	 boolean;
 	
-	public function ButtonA(mcButton:MovieClip, $fOnClick:Function){
+	public ButtonA(mcButton:MovieClip, $fOnClick:Function){
 		fOnClick = $fOnClick;
 		mcAsset = mcButton;
 		mcAsset.gotoAndStop("DEFAULT");
@@ -104,7 +104,7 @@ class ButtonA implements ISprite{
 		addEvent();
 	}
 	
-	public function destroy() : void
+	public destroy() : void
 	{
 		removeEvent();
 		if (mcAsset)
@@ -118,7 +118,7 @@ class ButtonA implements ISprite{
 		
 	}
 	
-	private function addEvent() : void
+	private addEvent() : void
 	{
 		if (mcAsset)
 		{
@@ -128,7 +128,7 @@ class ButtonA implements ISprite{
 		}
 	}
 	
-	private function removeEvent() : void
+	private removeEvent() : void
 	{
 		if (mcAsset)
 		{
@@ -138,7 +138,7 @@ class ButtonA implements ISprite{
 		}
 	}
 	
-	private function onClick(event:MouseEvent) : void
+	private onClick(event:MouseEvent) : void
 	{
 		if (fOnClick != null && !m_bSelectStatus)
 		{
@@ -146,7 +146,7 @@ class ButtonA implements ISprite{
 		}
 	}
 	
-	protected function out(event:MouseEvent) : void
+	protected out(event:MouseEvent) : void
 	{
 		if(m_bSelectStatus){
 			return;
@@ -155,7 +155,7 @@ class ButtonA implements ISprite{
 		(mcAsset.tf_label as TextField).textColor = 0xcccccc;
 	}
 	
-	protected function over(event:MouseEvent) : void
+	protected over(event:MouseEvent) : void
 	{
 		if(m_bSelectStatus){
 			return;

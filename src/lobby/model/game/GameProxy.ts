@@ -1,24 +1,24 @@
 module lobby.model.game {
 	export class GameProxy {
-		public var socket				:	TCPSocket;
-		public var gameSocketSink		:	ITCPSocketSink;
-		public var socketParser			:	SocketParser;
-		protected var m_auth				:	LobbyAuth;
-		public  var m_dataPacket 		: 	DataPacket;
-		public var bLock				:	Boolean;
-		public constructor(sink:ITCPSocketSink=null) {
+		public socket				:	socket.TCPSocket;
+		public gameSocketSink		:	socket.ITCPSocketSink;
+		public socketParser			:	packet.SocketParser;
+		protected m_auth			:	LobbyAuth;
+		public  m_dataPacket 		: 	packet.DataPacket;
+		public bLock				:	 boolean;
+		public constructor(sink:socket.ITCPSocketSink=null) {
 			if (sink){
-				if(!socketParser){
-					socketParser = new SocketParser();
-					socketParser.setCData(PacketDefine.GAME);
-					m_dataPacket = new DataPacket(socketParser);
+				if(!this.socketParser){
+					this.socketParser = new packet.SocketParser();
+					this.socketParser.setCData(define.PacketDefine.GAME);
+					this.m_dataPacket = new packet.DataPacket(this.socketParser);
 				}
 				if(!socket){
-					if(!gameSocketSink){
-						gameSocketSink = sink;
+					if(!this.gameSocketSink){
+						this.gameSocketSink = sink;
 					}
 					
-					socket = new TCPSocket(sink, 0, 0);
+					this.socket = new socket.TCPSocket(sink, 0, 0);
 					
 				}
 			}
@@ -26,11 +26,11 @@ module lobby.model.game {
 		}
 		
 		
-		public function setSocket(socket:TCPSocket):void{
-			if(!socketParser){
-				socketParser = new SocketParser();
-				socketParser.setCData(PacketDefine.GAME);
-				m_dataPacket = new DataPacket(socketParser);
+		public setSocket(socket:socket.TCPSocket):void{
+			if(!this.socketParser){
+				this.socketParser = new packet.SocketParser();
+				this.socketParser.setCData(define.PacketDefine.GAME);
+				this.m_dataPacket = new packet.DataPacket(this.socketParser);
 			}
 			if(!socket){
 				socket =socket;
@@ -39,34 +39,34 @@ module lobby.model.game {
 			}
 		}
 		
-		public function setSocketParser(parser:SocketParser=null,dataPacket:DataPacket=null):void{
+		public setSocketParser(parser:packet.SocketParser=null,dataPacket:packet.DataPacket=null):void{
 			if (parser){
-				socketParser = parser;
+				this.socketParser = parser;
 			}
 			if (dataPacket){
 				this.m_dataPacket = dataPacket;
 			}
 		}
 		
-		public function connect(_sServerIP:String, _iServerPort:int):void{
+		public connect(_sServerIP:String, _iServerPort:number):void{
 			
-			trace("连接游戏...","m_socket:", socket.getUid(), "_sServerIP:", _sServerIP, "_iServerPort:",_iServerPort,"###");
+			console.log("连接游戏...","m_socket:", socket.getUid(), "_sServerIP:", _sServerIP, "_iServerPort:",_iServerPort,"###");
 			socket.connect( _sServerIP, _iServerPort );
 		}
 		
-		protected function send(id:uint,obj:Object):void{
-			var byte:ByteArray = m_dataPacket.pack( id , obj );
+		protected send(id:number,obj:Object):void{
+			var byte:egret.ByteArray = this.m_dataPacket.pack( id , obj );
 			socket.send( byte, 0,  byte.length);
 			byte.clear();
 		}
 		
-		public function loginGame(tableInfo:TableStruct):void  {
-			trace("Login GAME");
+		public loginGame(tableInfo:struct.TableStruct):void  {
+			console.log("Login GAME");
 			if( tableInfo == null ){
-				trace("桌台數據為NULL");
+				console.log("桌台數據為NULL");
 				return;
 			}
-			if ( LobbyManager.getInstance().lobbyAuth != null ) {
+			if ( manager.LobbyManager.getInstance().lobbyAuth != null ) {
 				
 //				var _gameLoginPkt : C_Game_Login_Pkt = new C_Game_Login_Pkt();
 //				_gameLoginPkt.AuthInfo.AuthToken = LobbyManager.getInstance().lobbyAuth.AuthToken; 			//認證碼
@@ -86,25 +86,25 @@ module lobby.model.game {
 //				_gameLoginPkt.AuthInfo.CharterSettingInfo = tableInfo.CharterSettingInfo; 					//包桌設定
 //				_gameLoginPkt.AuthInfo.ProtocolVer = 1;
 //				
-//				//trace("this._auth.betlimitId::" + this._auth.betlimitId );  送0
+//				//console.log("this._auth.betlimitId::" + this._auth.betlimitId );  送0
 //				TimeManager.getInstance().start(PacketDefine.ENTER_TABLE.toString(16) ,LobbyManager.getInstance().warnConnect);
 //				
-//				var byte:ByteArray = m_dataPacket.pack( PacketDefine.ENTER_TABLE , _gameLoginPkt );
-//				trace("登陆游戏."+tableInfo.GameID +".台号"+tableInfo.TableID+"  进桌类型："+tableInfo.joinTableType);
+//				var byte:egret.ByteArray = m_dataPacket.pack( PacketDefine.ENTER_TABLE , _gameLoginPkt );
+//				console.log("登陆游戏."+tableInfo.GameID +".台号"+tableInfo.TableID+"  进桌类型："+tableInfo.joinTableType);
 //				socket.send( byte, 0,  byte.length);
-				var _class : Class = getDefinitionByName("KeyTest") as Class;
+				var _class = getDefinitionByName("KeyTest");
 				if(_class){
-					var data : * = new _class();
+					var data = new _class();
 					
-					var byte:ByteArray = data.enterTable(LobbyManager.getInstance().lobbyAuth, socketParser, tableInfo, LobbyManager.getInstance().warnConnect, Player.getInstance().sLobbyServer);
+					var byte:egret.ByteArray = data.enterTable(manager.LobbyManager.getInstance().lobbyAuth, this.socketParser, tableInfo, manager.LobbyManager.getInstance().warnConnect, Player.getInstance().sLobbyServer);
 					
-					Utils.DumpBinary( "", byte, 0, 11);
+					util.Utils.DumpBinary( "", byte, 0, 11);
 					socket.send( byte, 0,  byte.length);
 					
-					Log.getInstance().log(this, "登陆游戏桌..." );
+					console.log(this, "登陆游戏桌..." );
 				}
 			} else {
-				trace("打开页面时，没有获取到web数据.");
+				console.log("打开页面时，没有获取到web数据.");
 			}
 		
 		}
@@ -114,50 +114,50 @@ module lobby.model.game {
 		 * @param o
 		 * 
 		 */
-		public function enterOK():void {
-			var pkt : C_Game_Login_OK_Pkt = new C_Game_Login_OK_Pkt();
+		public enterOK():void {
+			var pkt : packet.game.C_Game_Login_OK_Pkt = new packet.game.C_Game_Login_OK_Pkt();
 			pkt.AuthToken = String(Player.getInstance().iPlayerID); 			//認證碼
-			pkt.Identity = LobbyManager.getInstance().lobbyAuth.Identity;		//身分
-			send(PacketDefine.C_ENTER_TABLE_OK , pkt);
+			pkt.Identity = manager.LobbyManager.getInstance().lobbyAuth.Identity;		//身分
+			this.send(define.PacketDefine.C_ENTER_TABLE_OK , pkt);
 		}
 		
-		public function bet( o:Object ):void {
-			if (bLock==false){
-				trace("--------------》投注：..."+ o.BetList)
-				bLock=true;
-				TimeManager.getInstance().start(PacketDefine.C_BET_INFO.toString(16) ,LobbyManager.getInstance().warnConnect);
-				send(PacketDefine.C_BET_INFO , o);
+		public bet( o ):void {
+			if (this.bLock==false){
+				console.log("--------------》投注：..."+ o.BetList)
+				this.bLock=true;
+				manager.TimeManager.getInstance().start(define.PacketDefine.C_BET_INFO.toString(16) ,manager.LobbyManager.getInstance().warnConnect);
+				this.send(define.PacketDefine.C_BET_INFO , o);
 			}else{
-				trace("--------------等待投注回复返回，暂无法发送投注消息"+ o)
+				console.log("--------------等待投注回复返回，暂无法发送投注消息"+ o)
 			}
 			
 		}
 		
-		public function cancelBet( o:Object ):void {
-			send(PacketDefine.CANCEL_BET , o);
+		public cancelBet( o:Object ):void {
+			this.send(define.PacketDefine.CANCEL_BET , o);
 		}
 		
-		public function exit( o:Object ):void {
-			TimeManager.getInstance().stopAll();
-			var byte:ByteArray = m_dataPacket.pack( PacketDefine.C_EXIT_TABLE , o );
+		public exit( o:Object ):void {
+			manager.TimeManager.getInstance().stopAll();
+			var byte:egret.ByteArray = this.m_dataPacket.pack( define.PacketDefine.C_EXIT_TABLE , o );
 			socket.send( byte, 0,  byte.length);
 		}
 		
-		public function complementedRoadMap(data:*):void
+		public complementedRoadMap(data):void
 		{
-			send(PacketDefine.C_Game_Update_Table_Data,data);
+			this.send(define.PacketDefine.C_Game_Update_Table_Data,data);
 		}
 		
 		/**
 		 * 送心跳包
 		 */
-		public function sendHeart():void {
-			var _pkt:C_Game_Heart_Pkt = new C_Game_Heart_Pkt();
+		public sendHeart():void {
+			var _pkt:packet.game.C_Game_Heart_Pkt = new packet.game.C_Game_Heart_Pkt();
 			_pkt.PlayerID = Player.getInstance().iPlayerID;
-			_pkt.Identity = LobbyManager.getInstance().lobbyAuth.Identity;
+			_pkt.Identity = manager.LobbyManager.getInstance().lobbyAuth.Identity;
 			
-			var byte:ByteArray = m_dataPacket.pack( PacketDefine.C_Heart , _pkt );
-			//			Log.getInstance().log( this , "玩家ID."+_pkt.PlayerID +".身分:"+_pkt.Identity );			
+			var byte:egret.ByteArray = this.m_dataPacket.pack( define.PacketDefine.C_Heart , _pkt );
+			//			console.log( this , "玩家ID."+_pkt.PlayerID +".身分:"+_pkt.Identity );			
 			if( socket.m_socket ){
 				socket.send( byte, 0,  byte.length);
 			}
@@ -167,13 +167,13 @@ module lobby.model.game {
 		/**
 		 * 回送服務器傳來心跳包消息
 		 */
-		public function responseHeartPkt():void {
-			var _pkt:C_Game_Heart_Pkt = new C_Game_Heart_Pkt();
+		public responseHeartPkt():void {
+			var _pkt:packet.game.C_Game_Heart_Pkt = new packet.game.C_Game_Heart_Pkt();
 			_pkt.PlayerID = Player.getInstance().iPlayerID;
-			_pkt.Identity = LobbyManager.getInstance().lobbyAuth.Identity;
+			_pkt.Identity = manager.LobbyManager.getInstance().lobbyAuth.Identity;
 			
-			var byte:ByteArray = m_dataPacket.pack( PacketDefine.S_Heart , _pkt );
-			//			Log.getInstance().log( this , "玩家ID."+_pkt.PlayerID +".身分:"+_pkt.Identity );			
+			var byte:egret.ByteArray = this.m_dataPacket.pack( define.PacketDefine.S_Heart , _pkt );
+			//			console.log( this , "玩家ID."+_pkt.PlayerID +".身分:"+_pkt.Identity );			
 			if( socket.m_socket ){
 				socket.send( byte, 0,  byte.length);
 				
@@ -181,33 +181,33 @@ module lobby.model.game {
 		}	
 		
 		
-		public function close():void{
+		public close():void{
 			if( socket && socket.m_socket.connected ){
 				socket.m_socket.close();
 			}
 		}
 		
-		public function destroy():void {
+		public destroy():void {
 			if( socket ){
 				socket.destroy();
-				socket = null;	
+				this.socket = null;	
 			}
 			
-			if( gameSocketSink ){
-				gameSocketSink.destroy();
-				gameSocketSink = null;
+			if( this.gameSocketSink ){
+				this.gameSocketSink.destroy();
+				this.gameSocketSink = null;
 			}
 
-			if( socketParser ){
-				socketParser = null;
+			if( this.socketParser ){
+				this.socketParser = null;
 			}
 			
-			if( m_dataPacket ){
-				m_dataPacket.destroy();
-				m_dataPacket = null;
+			if( this.m_dataPacket ){
+				this.m_dataPacket.destroy();
+				this.m_dataPacket = null;
 			}
-			if( m_auth ){
-				m_auth = null;
+			if( this.m_auth ){
+				this.m_auth = null;
 			}
 		}
 		

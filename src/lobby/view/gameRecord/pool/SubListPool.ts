@@ -1,15 +1,15 @@
 module lobby.view.gameRecord.pool {
 	export class SubListPool {
-		public var _vecSubBetList:Vector.<SubBetList>;
+		public var _vecSubBetList:<SubBetList>;
 		public constructor() {
-			_vecSubBetList = new Vector.<SubBetList>();
+			_vecSubBetList = new <SubBetList>();
 		}
 		
 		public function getSubList():SubBetList {
 			
 			var _subList:SubBetList;
 			
-			for( var i:int = 0 ; i < _vecSubBetList.length ; i++ ){
+			for( var i:number= 0 ; i < _vecSubBetList.length ; i++ ){
 				if( !_vecSubBetList[i].bIsUsed ) {
 					_subList = _vecSubBetList[i];
 					_subList.bIsUsed = true;
@@ -27,7 +27,7 @@ module lobby.view.gameRecord.pool {
 		
 		public function reset():void {
 			
-			for( var i:int = 0 ; i < _vecSubBetList.length ; i++ ){
+			for( var i:number= 0 ; i < _vecSubBetList.length ; i++ ){
 				_vecSubBetList[i].bIsUsed = false;
 				_vecSubBetList[i].reset();
 				if( _vecSubBetList[i].parent ){
@@ -41,8 +41,8 @@ module lobby.view.gameRecord.pool {
 		/**
 		 * @param _gameNo : 訂單號 
 		 */
-		public function find( _sGameNo:String ):Boolean {
-			for( var i:int = 0 ; i < _vecSubBetList.length ; i++ ){
+		public function find( _sGameNo:string ): boolean {
+			for( var i:number= 0 ; i < _vecSubBetList.length ; i++ ){
 				if( _sGameNo == _vecSubBetList[i].complexGameRecordStruct.BaseRecord.RecordGameNumber ){
 					return true;
 				}

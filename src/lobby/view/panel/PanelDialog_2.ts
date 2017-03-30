@@ -1,17 +1,17 @@
 module lobby.view.panel {
 	export class PanelDialog_2 extends PanelWindow{
-//		private var m_bg		:	BitmapScale9Grid;
+//		private m_bg		:	BitmapScale9Grid;
 		
-		private var m_btnOk		:	SingleButtonMC;
-		private var m_btnNo		:	SingleButtonMC;
-		private var m_fOk		:	Function;
-		private var m_btnRetry	:	SingleButtonMC;
+		private m_btnOk		:	SingleButtonMC;
+		private m_btnNo		:	SingleButtonMC;
+		private m_fOk		:	Function;
+		private m_btnRetry	:	SingleButtonMC;
 		
-		private var m_bShowMask	:	Boolean;
+		private m_bShowMask	:	 boolean;
 		
-		public var fDestroyRun	:	Function;
+		public fDestroyRun	:	Function;
 		
-		public constructor($bShake:Boolean=false , bShowMask	:Boolean = false , bSingleMode:Boolean = false, _fOk:Function=null , _fRetry:Function = null ) {
+		public constructor($bShake: boolean=false , bShowMask	: boolean = false , bSingleMode: boolean = false, _fOk:Function=null , _fRetry:Function = null ) {
 		
 			super($bShake);
 			m_bShowMask = bShowMask;
@@ -91,7 +91,7 @@ module lobby.view.panel {
 			onChangeLanguage();
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			
 			if(m_fOk != null){
 				m_fOk = null;
@@ -129,7 +129,7 @@ module lobby.view.panel {
 			
 		}
 		
-		private function close():void{
+		private close():void{
 			
 			var dialog : PanelDialog_2 = this;
 			TweenLite.to(dialog, Define.SPEED, {scaleX:Define.SCALE_MIN, scaleY:Define.SCALE_MIN, onComplete:function():void{
@@ -151,13 +151,13 @@ module lobby.view.panel {
 			}});
 		}
 		
-		public function text( _sValue:String ):void{
+		public text( _sValue:String ):void{
 			m_mcAsset.tf_0.text = _sValue;
 			m_mcAsset.tf_0.y = (m_mcAsset.height - (m_mcAsset.tf_0 as TextField).textHeight)/2 -105 ;
 			m_mcAsset.tf_0.x = (m_mcAsset.width - (m_mcAsset.tf_0 as TextField).textWidth)/2 - m_mcAsset.width/2
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			m_btnOk.mcAsset.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			m_btnRetry.mcAsset.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			m_mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);//LobbyManager.getInstance().getLanguageString(Language.sHint);

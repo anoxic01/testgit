@@ -1,7 +1,7 @@
 module lobby.model.struct {
 	export class LogoutStruct {
-		public var PlayerID	:	int;		//玩家 ID
-		public var Identity	:	int;		//身分識別
+		public PlayerID	:	number;		//玩家 ID
+		public Identity	:	number;		//身分識別
 		
 		/**
 		 0: 重複登入
@@ -14,12 +14,12 @@ module lobby.model.struct {
 		 7: 逾時
 		 8: 伺服器維護中 
 		 */		
-		public var Reason	:	int;		//登出原因
+		public Reason	:	number;		//登出原因
 		
-		public constructor(_oData:Object) {
-			PlayerID	=	_oData.PlayerID;
-			Identity 	= 	_oData.Identity;
-			Reason 		= 	_oData.Reason;
+		public constructor(_oData) {
+			this.PlayerID	=	_oData.PlayerID;
+			this.Identity 	= 	_oData.Identity;
+			this.Reason 		= 	_oData.Reason;
 		}
 	}
 }

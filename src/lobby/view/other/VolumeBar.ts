@@ -1,14 +1,14 @@
 module lobby.view.other {
 	export class VolumeBar extends BSprite{
-		private var m_mcAsset			:	*;
-		private var m_bar				:	MovieClip;
-		private var m_rec				:	Rectangle;
-		private var m_bDown				:	Boolean;
-		private var m_nVolume			:	Number;
-		private var m_iType				:	int;
-		private var m_on_off			:	OnOff;
+		private m_mcAsset			:	*;
+		private m_bar				:	MovieClip;
+		private m_rec				:	Rectangle;
+		private m_bDown				:	 boolean;
+		private m_nVolume			:	Number;
+		private m_iType				:	number;
+		private m_on_off			:	OnOff;
 		
-		public constructor(_iType:int) {
+		public constructor(_iType:number) {
 			super();
 			m_iType = _iType;
 			
@@ -42,17 +42,17 @@ module lobby.view.other {
 			m_bar.addEventListener(MouseEvent.MOUSE_DOWN, down);
 			LobbyManager.getInstance().stage.addEventListener(MouseEvent.MOUSE_UP, up);
 		}
-		public function get nVolume():Number
+		get nVolume():Number
 		{
 			return m_nVolume;
 		}
 
-		public function set nVolume(value:Number):void
+		set  nVolume(value:Number)
 		{
 			m_nVolume = value;
 		}
 
-		override public function destroy():void{
+		 public destroy():void{
 			m_bar.removeEventListener(MouseEvent.MOUSE_OVER, over);
 			m_bar.removeEventListener(MouseEvent.MOUSE_OUT, out);
 			m_bar.removeEventListener(MouseEvent.MOUSE_DOWN, down);
@@ -64,7 +64,7 @@ module lobby.view.other {
 			}
 		}
 		
-		public function setvolume(_nValue:Number ):void{
+		public setvolume(_nValue:Number ):void{
 			nVolume = _nValue;	
 			var _nX:Number = (_nValue*105);
 			
@@ -91,12 +91,12 @@ module lobby.view.other {
 		}		
 		
 		
-		protected function over(event:MouseEvent):void
+		protected over(event:MouseEvent):void
 		{
 			m_bar.gotoAndStop(2);
 		}
 		
-		protected function out(event:MouseEvent):void
+		protected out(event:MouseEvent):void
 		{
 			if(m_bDown){
 				return;
@@ -104,14 +104,14 @@ module lobby.view.other {
 			m_bar.gotoAndStop(1);
 		}
 		
-		protected function down(event:MouseEvent):void
+		protected down(event:MouseEvent):void
 		{
 			m_bDown = true;
 			m_bar.gotoAndStop(3);
 			m_bar.startDrag(false, m_rec);
 		}
 		
-		protected function up(event:MouseEvent):void
+		protected up(event:MouseEvent):void
 		{
 			if(m_bDown){
 				m_bDown = false;
@@ -132,7 +132,7 @@ module lobby.view.other {
 			}
 		}
 		
-		public function set on_off( _on_off:OnOff ):void {
+		set  on_off( _on_off:OnOff ) {
 			m_on_off = _on_off;
 			
 			switch(m_iType){
@@ -151,7 +151,7 @@ module lobby.view.other {
 			}	
 		}
 		
-		public function set enable(_bValue:Boolean):void{
+		set  enable(_bValue: boolean){
 			m_bar.mouseEnabled = _bValue;
 			m_bar.mouseChildren = _bValue;
 		}

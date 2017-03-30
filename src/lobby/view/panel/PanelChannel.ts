@@ -1,14 +1,14 @@
 module lobby.view.panel {
 	export class PanelChannel extends PanelWindow{
 		
-//		private var m_bg				:	BitmapScale9Grid;
-		private var m_btnClose			:	SingleButtonMC;						//关闭按钮
-		private var m_btnOk				:	SingleButtonMC;						//确认切换
+//		private m_bg				:	BitmapScale9Grid;
+		private m_btnClose			:	SingleButtonMC;						//关闭按钮
+		private m_btnOk				:	SingleButtonMC;						//确认切换
 		
-		private var m_aItems			:	Array;
-		private var m_currentChannel	:	Item;
+		private m_aItems			:	any[];
+		private m_currentChannel	:	Item;
 		
-		public constructor($bShake:Boolean=false) {
+		public constructor($bShake: boolean=false) {
 		
 			super($bShake);
 			
@@ -55,9 +55,9 @@ module lobby.view.panel {
 			this.addEventListener(MouseEvent.CLICK,onclick);
 		}
 		
-		private function checkChannel(_channel:int):VideoCDNStruct{
-			var vecCDNList : Vector.<VideoCDNStruct> = LobbyData.getInstance().lobbyInfo.vecCDNList;
-			for (var i:int = 0; i < vecCDNList.length; i++) 
+		private checkChannel(_channel:number):VideoCDNStruct{
+			var vecCDNList : <VideoCDNStruct> = LobbyData.getInstance().lobbyInfo.vecCDNList;
+			for (var i:number= 0; i < vecCDNList.length; i++) 
 			{
 				if(_channel==vecCDNList[i].ChannelNo){
 					return vecCDNList[i];
@@ -66,17 +66,17 @@ module lobby.view.panel {
 			return null;
 		}
 		
-		protected function onclick(event:MouseEvent):void
+		protected onclick(event:MouseEvent):void
 		{
 			event.stopImmediatePropagation();
 		}
 		
-		public function get currentChannel():Item
+		get currentChannel():Item
 		{
 			return m_currentChannel;
 		}
 
-		public function set currentChannel(value:Item):void
+		set  currentChannel(value:Item)
 		{
 			if(m_currentChannel){
 				m_currentChannel.select = false;
@@ -89,18 +89,18 @@ module lobby.view.panel {
 			}
 		}
 //		
-//		public function get currentResolution():int
+//		get currentResolution():number
 //		{
 //			return m_currentResolution;
 //		}
 //
-//		public function set currentResolution(value:int):void
+//		set  currentResolution(value:number)
 //		{
 //			m_currentResolution = value;
 //			LobbyData.getInstance().lobbyInfo.currentResolution = LobbyData.getInstance().lobbyInfo.getResolutionByIndex(m_currentResolution);
 //		}
 
-		protected function click(event:MouseEvent):void
+		protected click(event:MouseEvent):void
 		{
 			if(m_currentChannel != event.target){
 				
@@ -125,9 +125,9 @@ module lobby.view.panel {
 			
 		}		
 		
-		public function initStatus():void{
+		public initStatus():void{
 			
-			var _index : int;
+			var _index : number;
 			if(SharedObjectManager.getCDNList()!=null){
 				_index = SharedObjectManager.getCDNList().ChannelNo;
 			}else{
@@ -155,19 +155,19 @@ module lobby.view.panel {
 		
 		
 		
-		public function upDate():void{
+		public upDate():void{
 			clearItem();
 			addItem();
 			initStatus();
 		}
 		
-		public function addItem():void{
-			var vecCDNList : Vector.<VideoCDNStruct> = LobbyData.getInstance().lobbyInfo.vecCDNList;
+		public addItem():void{
+			var vecCDNList : <VideoCDNStruct> = LobbyData.getInstance().lobbyInfo.vecCDNList;
 			var _len : int = vecCDNList.length>4?4:vecCDNList.length;
-			var _channel : int;
+			var _channel : number;
 			var _struct : VideoCDNStruct;
 			m_aItems = [];
-			for (var i:int = 0; i < 4; i++) 
+			for (var i:number= 0; i < 4; i++) 
 			{
 				_channel = i+1;
 				_struct = checkChannel(_channel); 
@@ -182,8 +182,8 @@ module lobby.view.panel {
 			}
 		}
 		
-		public function clearItem():void{
-			for(var i:int = 0; i<m_aItems.length; i++){
+		public clearItem():void{
+			for(var i:number= 0; i<m_aItems.length; i++){
 				if(m_aItems[i]){
 					m_aItems[i].destroy();
 					m_aItems[i] = null;
@@ -198,7 +198,7 @@ module lobby.view.panel {
 			(m_mcAsset.mc_3 as MovieClip).removeEventListener(MouseEvent.CLICK, click);
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 //			if(m_bg){
 //				if(m_bg.parent){
 //					m_bg.parent.removeChild(m_bg);
@@ -231,7 +231,7 @@ module lobby.view.panel {
 			
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			m_mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);// LobbyManager.getInstance().getLanguageString(Language.sPanelChannel_Label);
 			
 			m_mcAsset.mc_ok.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
@@ -245,11 +245,11 @@ import flash.events.MouseEvent;
 
 class Item{
 	
-	public var uID 			:	uint;
-	public var mcAsset 		: 	MovieClip;
-	private var m_bSelect	:	Boolean;
+	public uID 			:	number;
+	public mcAsset 		: 	MovieClip;
+	private m_bSelect	:	 boolean;
 	
-	public function Item(_mcAsset:MovieClip, _id:int){
+	public Item(_mcAsset:MovieClip, _id:number){
 		mcAsset = _mcAsset;
 		uID = _id;
 		
@@ -262,7 +262,7 @@ class Item{
 		mcAsset.addEventListener(MouseEvent.MOUSE_OUT, out);
 	}
 	
-	public function destroy():void{
+	public destroy():void{
 		if(mcAsset){
 			mcAsset.buttonMode = false;
 			mcAsset.removeEventListener(MouseEvent.MOUSE_OVER, over);
@@ -271,7 +271,7 @@ class Item{
 		}
 	}
 	
-	public function set select(_bValue:Boolean):void{
+	set  select(_bValue: boolean){
 		if(_bValue != m_bSelect){
 			m_bSelect = _bValue;
 			
@@ -283,12 +283,12 @@ class Item{
 		}
 	}
 	
-	public function get select():Boolean{
+	get select(): boolean{
 		return m_bSelect;
 	}
 	
 	
-	protected function over(event:MouseEvent):void
+	protected over(event:MouseEvent):void
 	{
 		if(m_bSelect){
 			return;
@@ -296,7 +296,7 @@ class Item{
 		mcAsset.gotoAndStop("HOVER");
 	}
 	
-	protected function out(event:MouseEvent):void
+	protected out(event:MouseEvent):void
 	{
 		if(m_bSelect){
 			return;

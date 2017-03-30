@@ -1,17 +1,17 @@
 module packet.game {
 	export class S_Game_Heart_Pkt  implements IProtocolStruct{
 
-		private var m_controler:GameControler;
+		private m_controler:GameControler;
 
 		public constructor() {
 		}
 		
-		public function initControler(controler:GameControler):void
+		public initControler(controler:GameControler):void
 		{
 			m_controler = controler as GameControler;
 		}
 		
-		public function execute(oData:Object):void
+		public execute(oData:Object):void
 		{
 			
 //			Log.getInstance().log(this, "收到遊戲心跳::" );
@@ -38,7 +38,7 @@ module packet.game {
 				m_controler.nRevServerTime = getTimer();
 				//服務端主動送心跳包
 				if( oData.Type == PacketDefine.C_Heart ){
-//					trace("回復服務端心跳包...")
+//					console.log("回復服務端心跳包...")
 					m_controler.proxy.responseHeartPkt();
 				}					
 			}
@@ -47,7 +47,7 @@ module packet.game {
 
 		}
 		
-		public function illegalOperation():void {
+		public illegalOperation():void {
 			var _sMsg:String;
 			var _panelDialog:PanelWindow;
 			var _fExitLobby:Function = LobbyManager.getInstance().leaveLobby;		

@@ -13,7 +13,7 @@ module lobby.view.theme {
 		public constructor() {
 			
 			super();
-			m_vecTheme = new Vector.<ThemeItem>();
+			m_vecTheme = new <ThemeItem>();
 			
 //			var time:JTimer = JTimer.getTimer(1500,int.MAX_VALUE);
 //			time.addTimerCallback(autoClick);
@@ -21,10 +21,10 @@ module lobby.view.theme {
 //			time.start();
 		}
 		
-		private function autoClick():void
+		private autoClick():void
 		{
-			var len:int = m_vecTheme.length-1;
-			var index:int;
+			var len:number= m_vecTheme.length-1;
+			var index:number;
 			do
 			{
 				index = len*Math.random();
@@ -33,24 +33,24 @@ module lobby.view.theme {
 			
 			_index = index;
 			_count++;
-			var now:int = getTimer();
+			var now:number= getTimer();
 			Log.getInstance().log(this,"index: "+index+" time: "+(now-_time)+" count: "+_count);
 			_time = now;
 			var i:ThemeItem = m_vecTheme[index];
 			i.autoClick();
 		}
 		
-		public function get currentTheme():ThemeItem
+		get currentTheme():ThemeItem
 		{
 			return m_currentTheme;
 		}
 
-		public function set currentTheme(value:ThemeItem):void
+		set  currentTheme(value:ThemeItem)
 		{
 			m_currentTheme = value;
 		}
 
-		override public function destroy():void{
+		 public destroy():void{
 			if(m_vecTheme){
 				var themeItem : ThemeItem;
 				while(m_vecTheme.length>0){
@@ -64,13 +64,13 @@ module lobby.view.theme {
 			
 		}
 		
-		public function setData():void{
+		public setData():void{
 			m_vectorThemeList = LobbyData.getInstance().lobbyInfo.themeVec;
 			var themeItem : ThemeItem;
-			var _aTheme	:	Array =  TemConfig.getInstance().ThemeList.slice();
+			var _aTheme	:	any[] =  TemConfig.getInstance().ThemeList.slice();
 			
 			var _iLen  : int = m_vectorThemeList.length;
-			var _index : int;
+			var _index : number;
 			
 			//临时模拟多桌
 			var _multiThemeStruct : ThemeStruct = new ThemeStruct({"ThemeID":Define.THEME_MULTI_TABLE,"TableList":[]});
@@ -80,7 +80,7 @@ module lobby.view.theme {
 			m_vecTheme.push(themeItem);
 			_index++;
 			
-			for (var i:int = 0; i < _iLen; i++) 
+			for (var i:number= 0; i < _iLen; i++) 
 			{
 				themeItem = new ThemeItem(m_vectorThemeList[i], this, m_vectorThemeList[i].ThemeID);
 				_aTheme.splice(_aTheme.indexOf(m_vectorThemeList[i].ThemeID),1);
@@ -94,7 +94,7 @@ module lobby.view.theme {
 				}
 				
 			}
-			for (var j:int = 0; j < _aTheme.length; j++) 
+			for (var j:number= 0; j < _aTheme.length; j++) 
 			{
 				themeItem = new ThemeItem(null, this, _aTheme[j]);
 				this.addChild(themeItem);
@@ -108,11 +108,11 @@ module lobby.view.theme {
 			if(currentTheme){
 				currentTheme.setSelect(true);
 			}else{
-				trace("没有设置默认厅馆...");
+				console.log("没有设置默认厅馆...");
 			}
 		}
 		
-		public function setCurrent(_themeItem:ThemeItem):void{
+		public setCurrent(_themeItem:ThemeItem):void{
 			if(_themeItem.struct.IsTelBet){
 				LobbyManager.getInstance().enterTelLobby();
 				return;
@@ -143,7 +143,7 @@ module lobby.view.theme {
 			
 		}
 		
-		public function setDefaultThemeButtonSelect():void{
+		public setDefaultThemeButtonSelect():void{
 			if(m_vectorThemeList.length>0){
 				setCurrentThemeButtonSelect(m_vectorThemeList[0].ThemeID);
 			}else{
@@ -151,7 +151,7 @@ module lobby.view.theme {
 			}
 		}
 		
-		public function setCurrentThemeButtonSelect( _iThemeId:int ):void {
+		public setCurrentThemeButtonSelect( _iThemeId:number):void {
 			if( m_vecTheme[_iThemeId] ){
 				if(currentTheme){
 					currentTheme.setSelect(false);
@@ -161,11 +161,11 @@ module lobby.view.theme {
 			}
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			if(m_vecTheme){
 				var _len : int = m_vecTheme.length;
 				var themeItem : ThemeItem;
-				for (var i:int = 0; i < _len; i++) 
+				for (var i:number= 0; i < _len; i++) 
 				{
 					themeItem = m_vecTheme[i];
 					themeItem.onChangeLanguage();
@@ -180,9 +180,9 @@ module lobby.view.theme {
 			}
 		}
 		
-		public function enable(_bValue:Boolean):void{
+		public enable(_bValue: boolean):void{
 			var _len : int = m_vecTheme.length;
-			for (var i:int = 0; i < _len; i++) 
+			for (var i:number= 0; i < _len; i++) 
 			{
 				m_vecTheme[i].mouseEnabled = _bValue;
 				m_vecTheme[i].mouseChildren = _bValue;
@@ -190,9 +190,9 @@ module lobby.view.theme {
 			}
 		}
 		
-		public function setMaintain(_themeID:int, bMaintain:Boolean):void{
+		public setMaintain(_themeID:number, bMaintain: boolean):void{
 			var _len : int = m_vecTheme.length;
-			for (var i:int = 0; i < _len; i++) 
+			for (var i:number= 0; i < _len; i++) 
 			{
 				if(m_vecTheme[i].struct.ThemeID == _themeID){
 					m_vecTheme[i].struct.IsMaintaining = bMaintain;

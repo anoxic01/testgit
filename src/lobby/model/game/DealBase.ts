@@ -1,18 +1,18 @@
 module lobby.model.game {
 	export class DealBase {
 		// 是否發牌結誤
-        private var isDealEnd :Boolean;
+        private isDealEnd : boolean;
 		public constructor() {
 		}
 		
-		public function get IsDealEnd():Boolean 
+		get IsDealEnd(): boolean 
 		{
-			return isDealEnd;
+			return this.isDealEnd;
 		}
 		
-		public function set IsDealEnd(value:Boolean):void 
+		set  IsDealEnd(value: boolean) 
 		{
-			isDealEnd = value;
+			this.isDealEnd = value;
 		}
 		
 		

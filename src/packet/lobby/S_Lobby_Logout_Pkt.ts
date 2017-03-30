@@ -1,17 +1,17 @@
 module packet.lobby {
 	export class S_Lobby_Logout_Pkt implements IProtocolStruct{
-		public var Type			:	int;
-		public var SN			:	int;
-		public var LogoutInfo	:	LogoutStruct;
+		public Type			:	number;
+		public SN			:	number;
+		public LogoutInfo	:	LogoutStruct;
 		
 		public constructor() {
 		}
 		
-		public function initControler(controler:GameControler):void{
+		public initControler(controler:GameControler):void{
 			
 		}
 		
-		public function execute( oData:Object ):void
+		public execute( oData:Object ):void
 		{
 			Type	=	oData.Type;
 			SN		=	oData.SN;
@@ -21,7 +21,7 @@ module packet.lobby {
 			SharedObjectManager.setResolution(null);
 			SharedObjectManager.flush();
 			
-			trace("登出系统！");
+			console.log("登出系统！");
 			//关闭视讯
 			LobbyManager.getInstance().hideLiveVideo();
 			LobbyManager.getInstance().lobbyView.liveVideo.stop();

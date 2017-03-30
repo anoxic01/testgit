@@ -1,17 +1,17 @@
 module lobby.view.other {
 	export class PageNumberListChip extends BSprite{
-		private var m_aPageNumbers			:	Array;						//所有页码
-		private var m_uCurrentPageNumber	:	PageNumberChip;				//当前页码
-		private var m_pagePanel				:	PanelPage;					//
-		private var m_uMode					:	uint;
+		private m_aPageNumbers			:	any[];						//所有页码
+		private m_uCurrentPageNumber	:	PageNumberChip;				//当前页码
+		private m_pagePanel				:	PanelPage;					//
+		private m_uMode					:	number;
 		
-		public constructor( _uMode:uint, _pagePanel:PanelPage, _uPage:uint ) {
+		public constructor( _uMode:number, _pagePanel:PanelPage, _uPage:number ) {
 			super();
 			m_uMode = _uMode;
 			m_pagePanel = _pagePanel;
 			
 			m_aPageNumbers = [];
-			for (var i:int = 0; i < _uPage; i++) 
+			for (var i:number= 0; i < _uPage; i++) 
 			{
 				addPageNumber(i);
 			}
@@ -22,7 +22,7 @@ module lobby.view.other {
 				this.visible = false;
 			}
 		}
-		override public function destroy():void{
+		 public destroy():void{
 			
 			if(m_pagePanel){
 				m_pagePanel = null;
@@ -47,7 +47,7 @@ module lobby.view.other {
 			}
 		}
 		
-		public function addPageNumber(_uPage:uint):void{
+		public addPageNumber(_uPage:number):void{
 			var pageNumber : PageNumberChip = new PageNumberChip(m_uMode, m_pagePanel, _uPage);
 			this.addChild(pageNumber);
 			pageNumber.x = m_aPageNumbers.length * (pageNumber.width+12);
@@ -56,13 +56,13 @@ module lobby.view.other {
 			pageNumber = null;
 		}
 		
-		public function setCurrentPageNumber(_pageNumber:PageNumberChip):void{
+		public setCurrentPageNumber(_pageNumber:PageNumberChip):void{
 			m_uCurrentPageNumber.select = false;
 			m_uCurrentPageNumber = _pageNumber;
 			m_uCurrentPageNumber.select = true;
 		}
 		
-		public function setCurrentPageNumberByIndex(_uIndex:uint):void{
+		public setCurrentPageNumberByIndex(_uIndex:number):void{
 			if(m_uCurrentPageNumber.pageID!=_uIndex){
 				m_uCurrentPageNumber.select = false;
 				m_uCurrentPageNumber = m_aPageNumbers[_uIndex];

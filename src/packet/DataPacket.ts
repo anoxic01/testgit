@@ -1,14 +1,14 @@
 module packet {
 	export class DataPacket  implements IPacket{
 		/**送出資料列表*/ 
-		protected var m_zip				:	GZIPBytesEncoder;
-		protected var m_socketParser	:	SocketParser;
+		protected m_zip				:	GZIPBytesEncoder;
+		protected m_socketParser	:	SocketParser;
 		
 		public constructor(_socketParser:SocketParser) {
 			init();
 			m_socketParser = _socketParser;
 		}
-		public function destroy():void{
+		public destroy():void{
 			if(m_socketParser){
 				m_socketParser = null;
 			}
@@ -17,7 +17,7 @@ module packet {
 			}
 		}
 				
-		protected function init():void  {
+		protected init():void  {
 			m_zip  = new GZIPBytesEncoder();
 			
 		}
@@ -28,12 +28,12 @@ module packet {
 		 * @param	sendData
 		 * @return
 		 */
-		public function pack( type:uint , sendData:Object ):ByteArray {
+		public pack( type:number , sendData:Object ):ByteArray {
 			
 			//init();
 			
 			var data:Object = sendData;
-			var key:String = "";
+			var key:string = "";
 			
 			
 			var byteData:ByteArray = new ByteArray();
@@ -47,9 +47,9 @@ module packet {
 				
 				
 				
-				var jsonData:String = JSON.stringify( data ); //json 資料字串
+				var jsonData:string = JSON.stringify( data ); //json 資料字串
 				
-				var twoWay:String = null;
+				var twoWay:string = null;
 				if ( type == PacketDefine.PEEK_PROGRESS ) {
 					twoWay = PacketDefine.SEND;
 				}else if( type == PacketDefine.C_LOGIN_LOBBY_OK ) {		
@@ -73,9 +73,9 @@ module packet {
 				jsonByte = m_socketParser.judgeCData( type , jsonByte , twoWay );
 				
 				
-				var compress:Boolean = m_socketParser.judgeUncompress( type );
+				var compress: boolean = m_socketParser.judgeUncompress( type );
 				
-				//trace("compress:::::::::" + compress );
+				//console.log("compress:::::::::" + compress );
 				//判斷是否壓縮
 				if ( compress ) {
 					
@@ -103,12 +103,12 @@ module packet {
 			}	
 			
 			
-			var len:int = getDataLength( byteData  ); //獲得資料長度
-			var checkCode:uint = getChekCode( byteData );	//檢查碼
+			var len:number= getDataLength( byteData  ); //獲得資料長度
+			var checkCode:number = getChekCode( byteData );	//檢查碼
 			
 			
-			//trace("checkCode:::" + checkCode );
-			//trace("len:::" + len );
+			//console.log("checkCode:::" + checkCode );
+			//console.log("len:::" + len );
 			
 			/*var packData:ByteArray = packCheckID();  //寫入識別字
 			packData.writeInt( checkCode ); //寫入檢查碼
@@ -119,13 +119,13 @@ module packet {
 			
 			
 			
-			//trace("送出資料長度:" +packData.length );
+			//console.log("送出資料長度:" +packData.length );
 			/*var byte:ByteArray = new ByteArray();
 			byte.writeUTFBytes( jsonData );
 			var crcObj:CRC16 = new CRC16();
 			crcObj.update( byte );
 			
-			trace("crcObj::" +crcObj.valueOf() );*/
+			console.log("crcObj::" +crcObj.valueOf() );*/
 			
 			var outData:ByteArray = new ByteArray();
 			outData.writeBytes(packData, 0, packData.length);
@@ -136,16 +136,16 @@ module packet {
 			
 		}
 		
-		protected function trans8bit(value:int , packData:ByteArray ):void {
-			var str:String = value.toString(16);
-			//trace("str:" + str );
-			////trace("value:" + value );
-			var lgth:int = 16 - str.length;
-			for( var i:int = 0; i < lgth; i++) {
+		protected trans8bit(value:number, packData:ByteArray ):void {
+			var str:string = value.toString(16);
+			//console.log("str:" + str );
+			////console.log("value:" + value );
+			var lgth:number= 16 - str.length;
+			for( var i:number= 0; i < lgth; i++) {
 				str = "0" + str;
 			}
 			
-			var subStr:String = str.substr( 0, 8);            
+			var subStr:string = str.substr( 0, 8);            
 			packData.writeUnsignedInt( parseInt( "0x" + subStr)); //write 4 bytes
 			subStr = str.substr( 8, 8);
 			packData.writeUnsignedInt( parseInt( "0x" + subStr));	//write 4 bytes	
@@ -157,13 +157,13 @@ module packet {
 		/**
 		 * 取得檢查碼
 		 */
-		protected function getChekCode( byte:ByteArray ):uint {
+		protected getChekCode( byte:ByteArray ):number {
 			
 			var crcObj:CRC16 = new CRC16();	
 			crcObj.reset();
 			crcObj.update(byte);
 			
-			var crc:uint = crcObj.valueOf();
+			var crc:number = crcObj.valueOf();
 			return crc;
 			
 		}
@@ -173,7 +173,7 @@ module packet {
 		 * @param	jsonStr
 		 * @return
 		 */
-		protected function jsonToByteArray( jsonStr:String ):ByteArray  {
+		protected jsonToByteArray( jsonStr:string ):ByteArray  {
 			var byte:ByteArray = new ByteArray();	
 			byte.writeUTFBytes( jsonStr);
 			return byte;
@@ -184,9 +184,9 @@ module packet {
 		 * @param	byte
 		 * @return
 		 */
-		protected function getDataLength( byte:ByteArray ):int {
+		protected getDataLength( byte:ByteArray ):number{
 			
-			var len:int = byte.length ;		
+			var len:number= byte.length ;		
 			return len;
 		}
 		

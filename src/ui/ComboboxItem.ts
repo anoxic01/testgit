@@ -1,14 +1,14 @@
 module ui {
 	export class ComboboxItem extends BSprite{
-		private var m_mcAsset		:	MovieClip;
-		private var m_btnAsset		:	SingleButtonMC;
-		private var m_sValue		:	String;
+		private m_mcAsset		:	MovieClip;
+		private m_btnAsset		:	SingleButtonMC;
+		private m_sValue		:	string;
 		
-		protected var m_combobox	:	Combobox;
+		protected m_combobox	:	Combobox;
 		
-		public var uIndex			:	uint;
-		public var sKey				:	String;
-		public constructor( _combobox:Combobox, _assetClass:Class, _sValue:String , _sKey:String ) {
+		public uIndex			:	number;
+		public sKey				:	string;
+		public constructor( _combobox:Combobox, _assetClass:Class, _sValue:string , _sKey:string ) {
 			super();
 			m_combobox = _combobox;
 			sKey	   = _sKey;
@@ -28,7 +28,7 @@ module ui {
 			onChangeLanauge();
 		}
 		
-		public function destroy():void
+		public destroy():void
 		{
 			if(m_btnAsset){
 				m_btnAsset.destroy();
@@ -45,19 +45,19 @@ module ui {
 			}
 		}
 		
-		public function onChangeLanauge():void{
+		public onChangeLanauge():void{
 			m_mcAsset.tf_label.text = LobbyManager.getInstance().getLanguageString(m_sValue);
 		}
 		
-		public function select(_bValue:Boolean):void{
+		public select(_bValue: boolean):void{
 			m_btnAsset.setSelectedStatus(_bValue);
 		}
 		
-		public function get text():String{
+		get text():string{
 			return m_mcAsset.tf_label.text;
 		}
 		
-		public function get sValue():String {
+		get sValue():string {
 			return m_sValue;
 		}
 		

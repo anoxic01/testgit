@@ -1,14 +1,14 @@
 module lobby.view.theme {
 	export class QuickThemeItem extends BSprite{
-		private var m_bSelect			:	Boolean;					//选中状态
-		public var struct				:	ThemeStruct;				//数据结构
-		private var m_quickThemeList	:	QuickThemeList;				//厅别列表
-		private var m_bmpLabel			:	Bitmap;						//标签位图
-		public var sKey					:	String;						//标签键值
+		private m_bSelect			:	 boolean;					//选中状态
+		public struct				:	ThemeStruct;				//数据结构
+		private m_quickThemeList	:	QuickThemeList;				//厅别列表
+		private m_bmpLabel			:	Bitmap;						//标签位图
+		public sKey					:	String;						//标签键值
 		
-		private var m_mcAsset			:	MovieClip;					//美术资源
+		private m_mcAsset			:	MovieClip;					//美术资源
 		
-		public constructor(_themeStruct:ThemeStruct, _quickThemeList:QuickThemeList, _themeID:int) {
+		public constructor(_themeStruct:ThemeStruct, _quickThemeList:QuickThemeList, _themeID:number) {
 		
 			super();
 			
@@ -64,17 +64,17 @@ module lobby.view.theme {
 			this.addEventListener(MouseEvent.CLICK, onClick);
 		}
 		
-		public function get bSelect():Boolean
+		get bSelect(): boolean
 		{
 			return m_bSelect;
 		}
 
-		public function set bSelect(value:Boolean):void
+		set  bSelect(value: boolean)
 		{
 			m_bSelect = value;
 		}
 
-		override public function destroy():void{
+		 public destroy():void{
 			this.removeEventListener(MouseEvent.MOUSE_OVER, onOver);
 			this.removeEventListener(MouseEvent.MOUSE_OUT, onOut);
 			this.removeEventListener(MouseEvent.CLICK, onClick);
@@ -92,7 +92,7 @@ module lobby.view.theme {
 			
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			if(m_bmpLabel){
 				if(m_bSelect){
 					m_bmpLabel.bitmapData = BitmapManager.getInstance().getBmpdLanguage(LobbyManager.getInstance().lobbyAuth.Lang, sKey+"_"+Language.sMouseOver);
@@ -106,7 +106,7 @@ module lobby.view.theme {
 			}
 		}
 		
-		public function setSelect(_bSelect:Boolean, _bTween:Boolean=true):void{
+		public setSelect(_bSelect: boolean, _bTween: boolean=true):void{
 			if(!_bSelect){
 				onDefault();
 			}
@@ -170,7 +170,7 @@ module lobby.view.theme {
 			}
 		}
 		
-		protected function onOver(event:MouseEvent):void
+		protected onOver(event:MouseEvent):void
 		{
 			if(m_bSelect){
 				return;
@@ -178,7 +178,7 @@ module lobby.view.theme {
 			onMouseOver();
 		}
 		
-		protected function onOut(event:MouseEvent):void
+		protected onOut(event:MouseEvent):void
 		{
 			if(m_bSelect){
 				return;
@@ -187,7 +187,7 @@ module lobby.view.theme {
 		}
 		
 		
-		//		protected function onDown(event:MouseEvent):void
+		//		protected onDown(event:MouseEvent):void
 		//		{
 		//			if(m_bSelect){
 		//				return;
@@ -196,7 +196,7 @@ module lobby.view.theme {
 		//		}
 		
 		
-		protected function onClick(event:MouseEvent):void
+		protected onClick(event:MouseEvent):void
 		{
 			if(struct==null){
 				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
@@ -211,7 +211,7 @@ module lobby.view.theme {
 			
 		}
 		
-		public function onDefault():void{
+		public onDefault():void{
 //			m_bmpAsset.gotoAndStop("DEFAULT");
 			if(m_bmpLabel){
 				m_bmpLabel.bitmapData = BitmapManager.getInstance().getBmpdLanguage(LobbyManager.getInstance().lobbyAuth.Lang, sKey+"_"+Language.sDefault);
@@ -222,7 +222,7 @@ module lobby.view.theme {
 				m_mcAsset.gotoAndStop("DEFAULT");
 			}
 		}
-		private function onMouseOver():void{
+		private onMouseOver():void{
 //			m_bmpAsset.gotoAndStop("HOVER");
 			if(m_bmpLabel){
 				m_bmpLabel.bitmapData = BitmapManager.getInstance().getBmpdLanguage(LobbyManager.getInstance().lobbyAuth.Lang, sKey+"_"+Language.sMouseOver);
@@ -234,7 +234,7 @@ module lobby.view.theme {
 			}
 //			SoundManager.getInstance().play(SoundPackage.sLobbyMouseOver);
 		}
-		private function onMouseDown():void{
+		private onMouseDown():void{
 //			m_bmpAsset.gotoAndStop("HDOWN");
 			if(m_bmpLabel){
 				m_bmpLabel.bitmapData = BitmapManager.getInstance().getBmpdLanguage(LobbyManager.getInstance().lobbyAuth.Lang, sKey+"_"+Language.sMouseOver);

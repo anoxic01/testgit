@@ -1,16 +1,16 @@
 module lobby.view.panel {
 	export class PanelGoodRoadSetting extends PanelWindow{
-//		private var m_bg				:	BitmapScale9Grid;
-		private var m_btnOk				:	SingleButtonMC;
-		private var m_btnNo				:	SingleButtonMC;
-		private var m_btnClose			:	SingleButtonMC;
-		private var m_btnExplain		:	SingleButtonMC;
-		public var 	select				:	Select;
+//		private m_bg				:	BitmapScale9Grid;
+		private m_btnOk				:	SingleButtonMC;
+		private m_btnNo				:	SingleButtonMC;
+		private m_btnClose			:	SingleButtonMC;
+		private m_btnExplain		:	SingleButtonMC;
+		public 	select				:	Select;
 		
-		private var m_vecItems			:	Vector.<Item>;
-		private var m_bOk				:	Boolean;
+		private m_vecItems			:	<Item>;
+		private m_bOk				:	 boolean;
 		
-		public constructor($bShake:Boolean=false) {
+		public constructor($bShake: boolean=false) {
 		
 			super($bShake);
 			
@@ -30,8 +30,8 @@ module lobby.view.panel {
 			
 			m_btnOk = new SingleButtonMC(m_mcAsset.mc_ok, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				var _bOk : Boolean;
-				for (var j:int = 0; j < 10; j++) 
+				var _bOk :  boolean;
+				for (var j:number= 0; j < 10; j++) 
 				{
 					if(m_vecItems[j].bSelect){
 						_bOk = true;
@@ -40,7 +40,7 @@ module lobby.view.panel {
 				}
 				
 				if(_bOk){
-					for (var k:int = 0; k < 10; k++) 
+					for (var k:number= 0; k < 10; k++) 
 					{
 						SharedObjectManager.setGoodRoadSetting(k,m_vecItems[k].bSelect);
 						
@@ -70,11 +70,11 @@ module lobby.view.panel {
 				LobbyManager.getInstance().hideGoodRoadSetting();
 			});
 			
-			var aStatus : Array = SharedObjectManager.getGoodRoadSetting();
-			m_vecItems = new Vector.<Item>();
+			var aStatus : any[] = SharedObjectManager.getGoodRoadSetting();
+			m_vecItems = new <Item>();
 			var _item	:	Item;
-			var _bStatus : Boolean = true;
-			for (var i:int = 0; i < 10; i++) 
+			var _bStatus :  boolean = true;
+			for (var i:number= 0; i < 10; i++) 
 			{
 				_item = new Item(m_mcAsset.getChildByName("mc_" + String(i)) as MovieClip, i);
 				m_vecItems.push(_item);
@@ -90,18 +90,18 @@ module lobby.view.panel {
 			onChangeLanguage();
 		}
 		
-		public function selectAll():void
+		public selectAll():void
 		{
 			select.setStatus(!select.bSelect);
 			var _item	:	Item;
-			for (var i:int = 0; i < 10; i++) {
+			for (var i:number= 0; i < 10; i++) {
 				_item = m_vecItems[i];
 				_item.setStatus(select.bSelect);
 			}
 			
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 //			if(m_bg){
 //				if(m_bg.parent){
 //					m_bg.parent.removeChild(m_bg);
@@ -133,7 +133,7 @@ module lobby.view.panel {
 			super.destroy();
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			m_mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);// LobbyManager.getInstance().getLanguageString(Language.sGoodRoadSetting);
 			
 			(m_mcAsset.mc_ok.mc_label as MovieClip).gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
@@ -160,9 +160,9 @@ module lobby.view.panel {
 			})
 		}
 		
-		public function judgeSelectAll():Boolean{
+		public judgeSelectAll(): boolean{
 			var _len : int = m_vecItems.length;
-			for (var i:int = 0; i < _len; i++) 
+			for (var i:number= 0; i < _len; i++) 
 			{
 				if(m_vecItems[i].bSelect == false){
 					return false;
@@ -192,12 +192,12 @@ import manager.SoundManager;
 import sounds.SoundPackage;
 
 class Item implements ISprite{
-	public var ID			:	int;
-	public var bSelect		:	Boolean;
-	private var m_mcAsset 	: 	MovieClip;
-	private var m_glow		:	BitmapScale9Grid;
+	public ID			:	number;
+	public bSelect		:	 boolean;
+	private m_mcAsset 	: 	MovieClip;
+	private m_glow		:	BitmapScale9Grid;
 	
-	public function Item(_mcAsset:MovieClip, _id:int){
+	public Item(_mcAsset:MovieClip, _id:number){
 		m_mcAsset = _mcAsset;
 		ID = _id;
 		
@@ -211,7 +211,7 @@ class Item implements ISprite{
 		m_mcAsset.addEventListener(MouseEvent.MOUSE_OUT, itemOut);
 		m_mcAsset.addEventListener(MouseEvent.CLICK, itemClick);
 	}
-	public function destroy():void{
+	public destroy():void{
 		
 		if(m_glow){
 			if(m_glow.parent){
@@ -231,7 +231,7 @@ class Item implements ISprite{
 		}
 	}
 	
-	public function setStatus(_bValue:Boolean):void{
+	public setStatus(_bValue: boolean):void{
 		if(bSelect != _bValue){
 			bSelect = _bValue;
 			if(bSelect){
@@ -242,7 +242,7 @@ class Item implements ISprite{
 		}
 	}
 	
-	protected function itemOver(event:MouseEvent):void
+	protected itemOver(event:MouseEvent):void
 	{
 		if(bSelect){
 			return;
@@ -250,7 +250,7 @@ class Item implements ISprite{
 		m_glow.alpha = 1;
 	}
 	
-	protected function itemOut(event:MouseEvent):void
+	protected itemOut(event:MouseEvent):void
 	{
 		if(bSelect){
 			return;
@@ -258,7 +258,7 @@ class Item implements ISprite{
 		m_glow.alpha = 0;
 	}
 	
-	protected function itemClick(event:MouseEvent):void
+	protected itemClick(event:MouseEvent):void
 	{
 		SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 		
@@ -283,11 +283,11 @@ class Item implements ISprite{
 }
 
 class Select implements ISprite{
-	private var m_mcAsset	:	MovieClip;
-//	private var m_glow		:	Bitmap;
-	public var bSelect		:	Boolean;
+	private m_mcAsset	:	MovieClip;
+//	private m_glow		:	Bitmap;
+	public bSelect		:	 boolean;
 	
-	public function Select(_mcAsset:MovieClip){
+	public Select(_mcAsset:MovieClip){
 		m_mcAsset = _mcAsset;
 		
 //		m_glow = new Bitmap(new General_Rollover_Select_Asset(),"auto", true);
@@ -302,7 +302,7 @@ class Select implements ISprite{
 		m_mcAsset.addEventListener(MouseEvent.MOUSE_OUT, selectOut);
 		m_mcAsset.addEventListener(MouseEvent.CLICK,selectClick);
 	}
-	public function destroy():void{
+	public destroy():void{
 		if(m_mcAsset){
 			m_mcAsset.removeEventListener(MouseEvent.MOUSE_OVER, selectOver);
 			m_mcAsset.removeEventListener(MouseEvent.MOUSE_OUT, selectOut);
@@ -312,25 +312,25 @@ class Select implements ISprite{
 		}
 	}
 	
-	protected function selectClick(event:MouseEvent):void
+	protected selectClick(event:MouseEvent):void
 	{
 		SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 		LobbyManager.getInstance().panelGoodRoadType.selectAll();
 	}
 	
-	public function setStatus(_bValue:Boolean):void{
+	public setStatus(_bValue: boolean):void{
 		bSelect = _bValue;
 		
 		m_mcAsset.mc_label.visible = bSelect;
 	}
 	
-	protected function selectOver(event:MouseEvent):void
+	protected selectOver(event:MouseEvent):void
 	{
 //		m_glow.visible = true;
 		m_mcAsset.gotoAndStop(2);
 	}
 	
-	protected function selectOut(event:MouseEvent):void
+	protected selectOut(event:MouseEvent):void
 	{
 //		m_glow.visible = false;
 		m_mcAsset.gotoAndStop(1);

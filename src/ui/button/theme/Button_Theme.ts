@@ -12,7 +12,7 @@ module ui.button.theme {
 		private m_label_default;
 		private m_label_over;
 
-		public bSelect : boolean = false;
+		public bSelect :  boolean = false;
 		
 		public constructor($arr:string[], $fClick:Function) {
 			
@@ -112,7 +112,7 @@ module ui.button.theme {
 			// this.btn.currentState = "disabled";
 		}
 
-		public setSelect(value:boolean):void{
+		public setSelect(value: boolean):void{
 			if(this.bSelect != value){
 				this.bSelect = value;
 

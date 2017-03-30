@@ -6,16 +6,16 @@ module manager {
 		public static const LEFT		:	int	=	2;
 		public static const RIGHT		:	int	=	3;
 		
-		private static var m_instance	:	TipManager;
+		private static m_instance	:	TipManager;
 		
-		private var m_aTip				:	Array;
-		private var m_iCurrent			:	int;
+		private m_aTip				:	any[];
+		private m_iCurrent			:	number;
 		
-		private var m_aTip2				:	Array;
-		private var m_iCurrent2			:	int;
+		private m_aTip2				:	any[];
+		private m_iCurrent2			:	number;
 		
 		
-		public static function getInstance():TipManager{
+		public static getInstance():TipManager{
 			
 			if(m_instance == null){
 				
@@ -29,14 +29,14 @@ module manager {
 		public constructor() {
 		}
 		
-		public function initialize():void{
+		public initialize():void{
 			init_style_lobby();
 			init_style_bac();
 		}
 		
-		private function init_style_lobby():void{
+		private init_style_lobby():void{
 			m_aTip = [ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_LOBBY,"Tip_Up_Asset"), ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_LOBBY,"Tip_Down_Asset") , ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_LOBBY,"Tip_Left_Asset"), ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_LOBBY,"Tip_Right_Asset")];
-			for (var i:int = 0; i < 4; i++) 
+			for (var i:number= 0; i < 4; i++) 
 			{
 				this.m_aTip[i].mouseChildren = false;
 				this.m_aTip[i].mouseEnabled = false;
@@ -46,9 +46,9 @@ module manager {
 			m_iCurrent = -1;
 		}
 		
-		private function init_style_bac():void{
+		private init_style_bac():void{
 			m_aTip2 = [ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_LOBBY,"Tip_Down_Asset2"), ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_LOBBY,"Tip_Down_Asset2")];
-			for (var i:int = 0; i < 2; i++) 
+			for (var i:number= 0; i < 2; i++) 
 			{
 				this.m_aTip2[i].mouseChildren = false;
 				this.m_aTip2[i].mouseEnabled = false;
@@ -67,7 +67,7 @@ module manager {
 		 * 3 left
 		 * 4 right
 		 */		
-		public function show(_sValue:String, _iMode:int, _point:Point, _mode:int=0):void{
+		public show(_sValue:string, _iMode:number, _point:Point, _mode:number=0):void{
 //			SoundManager.getInstance().play(SoundPackage.sLobbyMouseOver);
 			if(m_iCurrent!=-1){
 				(m_aTip[m_iCurrent] as MovieClip).visible = false;
@@ -105,7 +105,7 @@ module manager {
 			(m_aTip[m_iCurrent] as MovieClip).visible = true;
 		}
 		
-		public function show2(_sValue:String, _iMode:int, _point:Point):void{
+		public show2(_sValue:string, _iMode:number, _point:Point):void{
 			if(m_iCurrent2!=-1){
 				(m_aTip2[m_iCurrent2] as MovieClip).visible = false;
 			}
@@ -117,7 +117,7 @@ module manager {
 			(m_aTip2[m_iCurrent2] as MovieClip).visible = true;
 		}
 		
-		public function hide():void{
+		public hide():void{
 			if(m_aTip==null)return;
 			if (m_aTip[m_iCurrent]){
 				(m_aTip[m_iCurrent] as MovieClip).visible = false;

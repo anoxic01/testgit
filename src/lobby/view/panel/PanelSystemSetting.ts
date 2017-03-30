@@ -1,31 +1,31 @@
 module lobby.view.panel {
 	export class PanelSystemSetting extends PanelWindow{
-//		private var m_bg							:	BitmapScale9Grid;
-//		private var m_bg							:	Sprite;
+//		private m_bg							:	BitmapScale9Grid;
+//		private m_bg							:	Sprite;
 		
-		private var m_btnOk							:	SingleButtonMC;
-		private var m_btnNo							:	SingleButtonMC;
-		private var m_btnClose						:	SingleButtonMC;
+		private m_btnOk							:	SingleButtonMC;
+		private m_btnNo							:	SingleButtonMC;
+		private m_btnClose						:	SingleButtonMC;
 		
-		public var volumeMusicGame					:	VolumeBar;					//音乐音量
-		public var volumeEffect						:	VolumeBar;					//音效音量
-		public var volumeSoundLive					:	VolumeBar;					//现场音量
+		public volumeMusicGame					:	VolumeBar;					//音乐音量
+		public volumeEffect						:	VolumeBar;					//音效音量
+		public volumeSoundLive					:	VolumeBar;					//现场音量
 		
-		public var comboboxLanguage					:	Combobox;					//语言选择
-		public var comboboxMusic					:	Combobox;					//背景音乐
-//		public var comboboxSound					:	Combobox;					//声音选择
+		public comboboxLanguage					:	Combobox;					//语言选择
+		public comboboxMusic					:	Combobox;					//背景音乐
+//		public comboboxSound					:	Combobox;					//声音选择
 		
-//		public var onoffMusicLobby					:	OnOff;						//大厅音乐
-		public var onoffMusicGame					:	OnOff;						//游戏音乐
-		public var onoffEffect						:	OnOff;						//游戏音效
-		public var onoffSoundLive					:	OnOff;						//现场声音
+//		public onoffMusicLobby					:	OnOff;						//大厅音乐
+		public onoffMusicGame					:	OnOff;						//游戏音乐
+		public onoffEffect						:	OnOff;						//游戏音效
+		public onoffSoundLive					:	OnOff;						//现场声音
 		
-		private var m_fOk							:	Function;
+		private m_fOk							:	Function;
 		
-		private var m_aMusicKey:Array;
-		private var musicSelectIndex:int = 0;
+		private m_aMusicKey:any[];
+		private musicSelectIndex:number= 0;
 		
-		public constructor($bShake:Boolean=false, _fOk:Function=null) {
+		public constructor($bShake: boolean=false, _fOk:Function=null) {
 		
 			super($bShake);
 			
@@ -131,7 +131,7 @@ module lobby.view.panel {
 			
 		
 			//背景音樂 名稱
-			var _aMusicName:Array = [Language.sBackground_Music_1,
+			var _aMusicName:any[] = [Language.sBackground_Music_1,
 									 Language.sBackground_Music_2,
 									 Language.sBackground_Music_3];
 			//背景音樂 key
@@ -216,13 +216,13 @@ module lobby.view.panel {
 			this.addEventListener(MouseEvent.CLICK,onclick);
 		}
 		
-		protected function onclick(event:MouseEvent):void
+		protected onclick(event:MouseEvent):void
 		{
 			// TODO Auto-generated method stub
 			event.stopImmediatePropagation();
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			
 //			if(m_bg){
 //				if(m_bg.parent){
@@ -337,7 +337,7 @@ module lobby.view.panel {
 		}
 		
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 //			(m_mcAsset.tf_label as TextField).text = LobbyManager.getInstance().getLanguageString(Language.sSystem_Setting);
 			
 			(m_mcAsset.mc_ok.mc_label as MovieClip).gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
@@ -359,7 +359,7 @@ module lobby.view.panel {
 			comboboxMusic.onChangeLanguage();
 		}
 		
-		public function defaultState():void{
+		public defaultState():void{
 			if(MusicManager.singleton.enabled != SharedObjectManager.getMusicOnOff()){
 				MusicManager.singleton.enabled = SharedObjectManager.getMusicOnOff();
 			}
@@ -371,7 +371,7 @@ module lobby.view.panel {
 			SoundManager.getInstance().nVolume = SharedObjectManager.getEffectVolume();
 			LobbyManager.getInstance().nLiveVolume = SharedObjectManager.getLiveVolume();
 			
-			var defaultMusicSelectIndex:int = SharedObjectManager.getMusicSelectIndex();
+			var defaultMusicSelectIndex:number= SharedObjectManager.getMusicSelectIndex();
 			if(defaultMusicSelectIndex!=musicSelectIndex)
 			{
 				SoundManager.getInstance().soundPkg.getBackgroundMusic( m_aMusicKey[defaultMusicSelectIndex] , function( _snd:LiveSound ):void 

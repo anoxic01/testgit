@@ -3,33 +3,33 @@ module lobby.model.game {
 		 /// <summary>
         /// 押注位置
         /// </summary>
-        private var betPos:String;
+        private betPos:String;
 
         /// <summary>
         /// 押注金額
         /// </summary>
-        private var amt:Number = 0;
+        private amt:Number = 0;
 		public constructor() {
 		}
 		
-		public function get BetPos():String 
+		get BetPos():String 
 		{
-			return betPos;
+			return this.betPos;
 		}
 		
-		public function set BetPos(value:String):void 
+		set  BetPos(value:String) 
 		{
-			betPos = value;
+			this.betPos = value;
 		}
 		
-		public function get Amt():Number 
+		get Amt():Number 
 		{
-			return amt;
+			return this.amt;
 		}
 		
-		public function set Amt(value:Number):void 
+		set  Amt(value:Number) 
 		{
-			amt = value;
+			this.amt = value;
 		}
 		
 	}

@@ -3,27 +3,27 @@ module lobby.model.status {
 		/**
 		 *不显示信息 	
 		 */		
-		public static const NONE:int = 0;
+		public static NONE:number= 0;
 		/**
 		 *显示洗牌 
 		 */		
-		public static const CHANGE_SHOE:int = 30;
+		public static CHANGE_SHOE:number= 30;
 		/**
 		 *显示此局作废 
 		 */		
-		public static const FAIL_GAME:int = 40;
+		public static FAIL_GAME:number= 40;
 		/**
 		 *显示暂停 
 		 */		
-		public static const PAUSE:int = 60;
+		public static PAUSE:number= 60;
 		/**
 		 *显示维护并且洗牌中 
 		 */		
-		public static const MAINTENANCE_AND_CHANGE_SHOE:int = 70;
+		public static MAINTENANCE_AND_CHANGE_SHOE:number= 70;
 		/**
 		 *显示维护 
 		 */		
-		public static const MAINTENANCE:int = 80;
+		public static MAINTENANCE:number= 80;
 		
 		
 		
@@ -35,10 +35,10 @@ module lobby.model.status {
 		 * @return 
 		 * 
 		 */		
-		public static function getGameInfoStatus(model:GameModel):int
+		public static getGameInfoStatus(model:game.GameModel):number
 		{
-			var state:int = getTableInfoStatus(model.tableStruct);
-			if(state==MAINTENANCE)
+			var state:number= this.getTableInfoStatus(model.tableStruct);
+			if(state==this.MAINTENANCE)
 			{
 				if(model.tableStruct.IsMaintaining)
 				{
@@ -46,10 +46,10 @@ module lobby.model.status {
 					if(model.tableStruct.GameStatus==GameStatus.WAIT_NEXT_NEWGAME||model.tableStruct.IsChangingShoe||model.tableStruct.IsCurrFailGame)
 					{
 						// 桌子正在维护中
-						state = MAINTENANCE;
+						state = this.MAINTENANCE;
 					}else
 					{
-						state = NONE;
+						state = this.NONE;
 					}
 				}
 			}
@@ -62,15 +62,15 @@ module lobby.model.status {
 		 * @return 
 		 * 
 		 */		
-		public static function getTableInfoStatus(table:TableStruct,isMaintChangeShoe:Boolean=false):int
+		public static getTableInfoStatus(table:struct.TableStruct,isMaintChangeShoe: boolean=false):number
 		{
-			var state:int = NONE;
+			var state:number= this.NONE;
 			if(table&&table.TableID>-1)
 			{
 				if(table.GameStatus==GameStatus.NOT_FINISHED)
 				{
 					//荷官系統 與 GS 尚未準備完成  显示维护状态
-					state = MAINTENANCE;
+					state = this.MAINTENANCE;
 				}else if(table.DealerLoginID==null||table.DealerLoginID=="")
 				{
 						//沒有荷官
@@ -78,31 +78,31 @@ module lobby.model.status {
 				}else if(table.IsOffline)
 				{
 					// 桌子异常关闭
-					state = MAINTENANCE;
+					state = this.MAINTENANCE;
 				}else if(table.getRoadMaps().indexOf("#")!=-1&&table.IsCurrFailGame==false)
 				{
 						// 路纸错误
-						state = MAINTENANCE;
+						state = this.MAINTENANCE;
 				}else if(table.IsMaintaining)
 				{
 					// 桌子正在维护中
-					state = MAINTENANCE;
+					state = this.MAINTENANCE;
 				}else if(table.IsPaused)
 				{
 					// 赌桌暂停中
-					state = PAUSE;
+					state = this.PAUSE;
 				}else if(table.GameStatus==GameStatus.FAIL_GAME)
 				{
 					// 废局中
-					state = FAIL_GAME;
+					state = this.FAIL_GAME;
 				}else if(table.GameStatus==GameStatus.FAILING_GAME)
 				{
 					// 废局中
-					state = FAIL_GAME;
+					state = this.FAIL_GAME;
 				}else if(table.IsChangingShoe&&table.GameStatus==GameStatus.CHANGING_SHOE)
 				{
 					// 赌桌洗牌中
-					state = CHANGE_SHOE;
+					state = this.CHANGE_SHOE;
 				}
 			}
 			return state;
@@ -111,14 +111,14 @@ module lobby.model.status {
 		/**
 		 * 是否需要重新更新路纸信息
 		 */
-		public static function isNeedUpdateRoadMap(table:TableStruct):Boolean
+		public static isNeedUpdateRoadMap(table:struct.TableStruct): boolean
 		{
 			var roadMap:String = table.getRoadMaps();
 			//// 路纸数据出错时不更新
 			if(roadMap.indexOf("#")!=-1)return false;
 			var gameStatus:String = table.GameStatus;
-			var gameNo:int = table.GameNo;
-			var roadMapLen:int = 0;
+			var gameNo:number= table.GameNo;
+			var roadMapLen:number= 0;
 			if(roadMap!="")roadMapLen = roadMap.split(".").length;
 			if(gameNo!=0)
 			{

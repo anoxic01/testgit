@@ -1,22 +1,22 @@
 module lobby.model.struct {
 	export class UpdateTableOnlinePlayersStruct {
-		public var ThemeID			:	int;
-		public var TableID			:	int;
-		public var OnlinePlayers	:	int;
+		public ThemeID			:	number;
+		public TableID			:	number;
+		public OnlinePlayers	:	number;
 		
-		public constructor(oData:Object) {
-			ThemeID = oData.ThemeID;
-			TableID = oData.TableID;
-			OnlinePlayers = oData.OnlinePlayers;
-			var table : Table;
+		public constructor(oData) {
+			this.ThemeID = oData.ThemeID;
+			this.TableID = oData.TableID;
+			this.OnlinePlayers = oData.OnlinePlayers;
+			var table : view.table.Table;
 			
-				table = LobbyManager.getInstance().lobbyView.findTableByTT(ThemeID, TableID);
+				table = manager.LobbyManager.getInstance().lobbyView.findTableByTT(this.ThemeID, this.TableID);
 			
 
 			if(table){
-				table.updateOnlinePlayers(OnlinePlayers);
+				table.updateOnlinePlayers(this.OnlinePlayers);
 			}else{
-//				trace("error:更新赌桌在线人数异常。。。ThemeID:",ThemeID,"TableID:",TableID);
+//				console.log("error:更新赌桌在线人数异常。。。ThemeID:",ThemeID,"TableID:",TableID);
 			}
 		}
 	}

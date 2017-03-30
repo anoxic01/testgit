@@ -1,17 +1,17 @@
 module lobby.view.route.quick {
 	export class QuickBeadItemSic extends BeadItem{
-		private var m_sLabel	:	String;		//标签
+		private var m_sLabel	:	string;		//标签
 		
-		public constructor(_uMode:uint=0) {
+		public constructor(_uMode:number=0) {
 		super();
 		}
 		
-		override public function destroy():void{
+		 public function destroy():void{
 			super.destroy();
 			
 		}
 		
-		override public function setLabel(sLabel:String):void{
+		 public function setLabel(sLabel:string):void{
 			m_sLabel = sLabel;
 			m_bmp.bitmapData = getSicBead(m_sLabel);
 			m_bmp.width = 20;
@@ -21,7 +21,7 @@ module lobby.view.route.quick {
 //			onChangeLanguage();
 		}
 		
-		override public function onChangeLanguage():void{
+		 public function onChangeLanguage():void{
 			if(m_bmp){
 //				m_bmp.bitmapData = getSicBead(m_sLabel);
 				switch(m_sLabel){
@@ -37,12 +37,12 @@ module lobby.view.route.quick {
 				m_bmp.height = 21;
 				m_bmp.smoothing = true;
 			}else{
-				trace("设置珠子位图异常...");
+				console.log("设置珠子位图异常...");
 			}
 			
 		}
 		
-		public function getSicBead( str:String ):BitmapData {
+		public function getSicBead( str:string ):BitmapData {
 			LobbyData.getInstance().beadRoad_sic.tf_0.text = str;
 			LobbyData.getInstance().beadRoad_sic.tf_0.autoSize = TextFieldAutoSize.LEFT;		
 			

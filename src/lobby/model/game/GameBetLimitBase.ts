@@ -1,73 +1,73 @@
 module lobby.model.game {
 	export class GameBetLimitBase {
 		
-        private var gameID :int;
+        private gameID :number;
 
-        private var betLimitID :int;
+        private betLimitID :number;
 
-        private var maxBetLimit :Number;
+        private maxBetLimit :Number;
 
 
-        private var minBetLimit:Number;
+        private minBetLimit:Number;
 
-		public var TotalLimit:Number;
-		public var EnterTbLimit:Number;
+		public TotalLimit:Number;
+		public EnterTbLimit:Number;
 		public constructor() {
 		}
 		
 		/**
 		 * 遊戲ID
 		 */
-		public function get GameID():int 
+		get GameID():number
 		{
-			return gameID;
+			return this.gameID;
 		}
 		/**
 		 * 遊戲ID
 		 */
-		public function set GameID(value:int):void 
+		set  GameID(value:number) 
 		{
-			gameID = value;
+			this.gameID = value;
 		}
 		/**
 		 * 限額ID
 		 */
-		public function get BetLimitID():int 
+		get BetLimitID():number
 		{
-			return betLimitID;
+			return this.betLimitID;
 		}
 		/**
 		 * 限額ID
 		 */
-		public function set BetLimitID(value:int):void 
+		set  BetLimitID(value:number) 
 		{
-			betLimitID = value;
+			this.betLimitID = value;
 		}
 		/**
 		 * 最大押注上限
 		 */
-		public function get MaxBetLimit():Number 
+		get MaxBetLimit():Number 
 		{
-			return maxBetLimit;
+			return this.maxBetLimit;
 		}
 		/**
 		 * 最大押注上限
 		 */
-		public function set MaxBetLimit(value:Number):void 
+		set  MaxBetLimit(value:Number) 
 		{
-			maxBetLimit = value;
+			this.maxBetLimit = value;
 		}
 		
-		public function get MinBetLimit():Number 
+		get MinBetLimit():Number 
 		{
-			return minBetLimit;
+			return this.minBetLimit;
 		}
 		/**
 		 * 最小押注下限
 		 */
-		public function set MinBetLimit(value:Number):void 
+		set  MinBetLimit(value:Number) 
 		{
-			minBetLimit = value;
+			this.minBetLimit = value;
 		}
 		
 	}

@@ -2,13 +2,13 @@ module lobby.view.route.game.sic {
 	export class SicRouteMgr extends BSprite{
 		protected var m_routeView		:	MovieClip;
 		
-		protected var m_isBtnOpen		:	Boolean 			= 	false;
+		protected var m_isBtnOpen		:	 boolean 			= 	false;
 		
-		protected var m_islock			:	Boolean 			= 	true;
-		protected var m_isUp			:	Boolean 			= 	false;
+		protected var m_islock			:	 boolean 			= 	true;
+		protected var m_isUp			:	 boolean 			= 	false;
 		
 		/**當前顯示路*/
-		protected var m_nowRoad			:	String 				= 	"";
+		protected var m_nowRoad			:	string 				= 	"";
 		
 		protected var m_askBankerRoad	:	AskRoadBtn;
 		protected var m_askPlayerRoad	:	AskRoadBtn;
@@ -25,7 +25,7 @@ module lobby.view.route.game.sic {
 		
 		public const LIMITDATA			:	int 				=	3000;
 		
-		public var bError				:	Boolean;														//错误状态
+		public var bError				:	 boolean;														//错误状态
 		
 		
 		public constructor(view:MovieClip) {
@@ -56,11 +56,11 @@ module lobby.view.route.game.sic {
 		 * @return 
 		 * 
 		 */
-		public function get roadNum():uint{
+		public function get roadNum():number{
 			if (this.m_nowRoad==null ||this.m_nowRoad==""){
 				return 0;
 			}else{
-				var len:int = m_nowRoad.split(".").length;
+				var len:number= m_nowRoad.split(".").length;
 				return len;
 			}
 			return 0;
@@ -76,7 +76,7 @@ module lobby.view.route.game.sic {
 		}
 		
 		protected function updateRoadHandler():void {
-			trace("updateRoadHandler::" + m_nowRoad);
+			console.log("updateRoadHandler::" + m_nowRoad);
 			if ( ( this.m_nowRoad != "null" ) && (this.m_nowRoad != null) && ( m_nowRoad != "") )  {
 //				this.cacheToBmp(false);
 				this.showRoadViewInit();
@@ -88,8 +88,8 @@ module lobby.view.route.game.sic {
 		}		
 		
 		/** 更新路單 */
-		public function addRoad(road:String):void {
-			//trace("更新路單 : " + road);
+		public function addRoad(road:string):void {
+			//console.log("更新路單 : " + road);
 //			if ( this.m_nowRoad.length > LIMITDATA ) {
 //				this.m_nowRoad = this.m_nowRoad.substr( LIMITDATA - 1 , this.m_nowRoad.length );
 //			}
@@ -117,7 +117,7 @@ module lobby.view.route.game.sic {
 				this.m_nowRoad = '';
 			}
 			
-			trace("addRoad::" + this.m_nowRoad );
+			console.log("addRoad::" + this.m_nowRoad );
 			
 			updateRoadHandler();
 			
@@ -126,20 +126,20 @@ module lobby.view.route.game.sic {
 		/**
 		 * 路紙排列
 		 */
-		protected function sortRoad(road:String):String {
-			var _ar:Array = road.split('.');
-			var _len:int = _ar.length;
-			var _ar2:Array;
-			for( var i:int = 0 ; i < _len; i++ ){
+		protected function sortRoad(road:string):string {
+			var _ar:any[] = road.split('.');
+			var _len:number= _ar.length;
+			var _ar2:any[];
+			for( var i:number= 0 ; i < _len; i++ ){
 				_ar2 = _ar[i].split('');
-				_ar2.sort( Array.NUMERIC );
+				_ar2.sort( any[].NUMERIC );
 				_ar[i] = _ar2.join('');
 			}
 			road = _ar.join('.');
 			return road;
 		}
 		
-		private function showRoad(road:String, isAsk:Boolean = false):void {
+		private function showRoad(road:string, isAsk: boolean = false):void {
 			//road="555.666.356.123.456.333.231.345.532.246.111.123.123.123.123.123.123.123.123.123.123.123.123.123.123"
 			//臨時處理 ,避免服務端傳送 "000"錯誤,造成程式運行暫停
 			if( road == "000" ){
@@ -148,11 +148,11 @@ module lobby.view.route.game.sic {
 			//
 			
 			
-			var roadString:String   
-			var bigSmallAr:Array 
-			var oddEvenAr:Array;
-			var tieAr:Array;
-			var beadAr:Array;
+			var roadstring:string   
+			var bigSmallAr:any[] 
+			var oddEvenAr:any[];
+			var tieAr:any[];
+			var beadAr:any[];
 			
 			//大小
 			roadString = SicData.getInstance().findBigSmall( road );//資料格式: 2.3.3.2.3.2.2.2.i.2.i.i.i
@@ -185,7 +185,7 @@ module lobby.view.route.game.sic {
 		}
 		
 		
-		protected function cacheToBmp(isCache:Boolean):void {
+		protected function cacheToBmp(isCache: boolean):void {
 			this.m_bigSmallSp.cacheAsBitmap = isCache;
 			this.m_oddEvenSp.cacheAsBitmap = isCache;
 			this.m_beadSp.cacheAsBitmap = isCache;

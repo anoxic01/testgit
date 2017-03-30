@@ -1,19 +1,19 @@
 module ui {
 	export class Combobox extends BSprite{
-		private var m_mcAsset		:	MovieClip;
-		public var tfLabel			:	TextField;
-//		protected var m_btnPullDown	:	SingleButtonMC;
+		private m_mcAsset		:	MovieClip;
+		public tfLabel			:	TextField;
+//		protected m_btnPullDown	:	SingleButtonMC;
 		
-		protected var m_mcList		:	MovieClip;
-		protected var m_currentItem	:	ComboboxItem;
+		protected m_mcList		:	MovieClip;
+		protected m_currentItem	:	ComboboxItem;
 		
-		public var bShowList		:	Boolean;
+		public bShowList		:	 boolean;
 		
-		protected var m_vecList		:	Vector.<ComboboxItem>;
-		private var m_scroll		:	Scroll_2;
-		private var m_itemClass		:	Class;
+		protected m_vecList		:	<ComboboxItem>;
+		private m_scroll		:	Scroll_2;
+		private m_itemClass		:	Class;
 		
-		public var fSelectItem		:	Function;
+		public fSelectItem		:	Function;
 		
 		public constructor( _comboboxClass:Class, _scrollHandClass:Class, _scrollLineClass:Class, _itemClass:Class ) {
 			super();
@@ -31,7 +31,7 @@ module ui {
 //			});
 			m_mcAsset.mc_0.gotoAndStop(1);
 			
-			m_vecList = new Vector.<ComboboxItem>;
+			m_vecList = new <ComboboxItem>;
 			
 			m_mcList = m_mcAsset.mc_1;
 			
@@ -46,7 +46,7 @@ module ui {
 			m_mcAsset.addEventListener(MouseEvent.MOUSE_OUT, out);
 		}
 		
-		protected function over(event:MouseEvent):void
+		protected over(event:MouseEvent):void
 		{
 			if(bShowList){
 				return;
@@ -54,7 +54,7 @@ module ui {
 			m_mcAsset.mc_0.gotoAndStop(2);
 		}
 		
-		protected function out(event:MouseEvent):void
+		protected out(event:MouseEvent):void
 		{
 			if(bShowList){
 				return;
@@ -62,7 +62,7 @@ module ui {
 			m_mcAsset.mc_0.gotoAndStop(1);
 		}
 		
-		protected function click(event:MouseEvent):void
+		protected click(event:MouseEvent):void
 		{
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			
@@ -75,7 +75,7 @@ module ui {
 			event.stopImmediatePropagation();
 		}
 		
-		public function destroy():void
+		public destroy():void
 		{
 			
 			if(m_vecList){
@@ -112,16 +112,16 @@ module ui {
 		}
 		
 		
-		public function setData(_aData:Array ,_aKey:Array = null ):void{			
+		public setData(_aData:any[] ,_aKey:any[] = null ):void{			
 			var _len : int = _aData.length;
 			
 			if( _aKey == null ){
-				for (var i:int = 0; i < _len; i++) {
+				for (var i:number= 0; i < _len; i++) {
 					addComboboxItem(_aData[i]);
 				}
 			}
 			else {
-				for (var j:int = 0; j < _len; j++) {
+				for (var j:number= 0; j < _len; j++) {
 					addComboboxItem(_aData[j], _aKey[j]);
 				}				
 				
@@ -134,7 +134,7 @@ module ui {
 			m_mcList.y = -m_mcList.height;
 		}
 		
-		public function addComboboxItem( _sValue:String , _sKey:String = null ):void{
+		public addComboboxItem( _sValue:string , _sKey:string = null ):void{
 			var _item:ComboboxItem = new ComboboxItem(this, m_itemClass, _sValue , _sKey );
 			m_scroll.add(_item);
 			_item.uIndex = m_vecList.length;
@@ -143,19 +143,19 @@ module ui {
 			
 		}
 		
-		public function removeComboboxItem(_item:ComboboxItem):void{
+		public removeComboboxItem(_item:ComboboxItem):void{
 			
 		}
 		
 		
-		public function showList():void{
+		public showList():void{
 			if(!bShowList){
 				m_mcList.y = 25;
 				bShowList = true;
 			}
 		}
 		
-		public function hideList():void{
+		public hideList():void{
 			if(bShowList){
 				m_mcList.y = -m_mcList.height;
 				bShowList = false;
@@ -163,7 +163,7 @@ module ui {
 		}
 		
 		
-		public function setCurrentItem( _item:ComboboxItem, _bSelect:Boolean=false):void{
+		public setCurrentItem( _item:ComboboxItem, _bSelect: boolean=false):void{
 			if(m_currentItem){
 				m_currentItem.select(false);
 			}
@@ -176,18 +176,18 @@ module ui {
 				fSelectItem(m_currentItem.sKey);
 			}
 		}
-		public function get currentItem():ComboboxItem{
+		get currentItem():ComboboxItem{
 			return m_currentItem;
 		}
 		
-		public function get vecList():Vector.<ComboboxItem>{
+		get vecList():<ComboboxItem>{
 			return m_vecList;
 		}
 		
-		public function onChangeLanguage():void{
+		public onChangeLanguage():void{
 			if(m_vecList){
 				var _len : int = m_vecList.length;
-				for (var i:int = 0; i < _len; i++) 
+				for (var i:number= 0; i < _len; i++) 
 				{
 					m_vecList[i].onChangeLanauge();
 				}

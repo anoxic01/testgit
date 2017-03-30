@@ -1,13 +1,13 @@
 module lobby.view.status {
 	export class GameStatusPanel extends BSprite{
-		protected var view:MovieClip;
-		protected var countDownView:GameCountDownView;
-		protected var currentStatus:String;
-		protected var countDownContainer:MovieClip;
-		protected var watcher:CountDownWatcher;
-		protected var isUnfold:Boolean = true;
-		protected var mParent:Sprite;
-		protected var frameDict:Dictionary;
+		protected view:MovieClip;
+		protected countDownView:GameCountDownView;
+		protected currentStatus:String;
+		protected countDownContainer:MovieClip;
+		protected watcher:CountDownWatcher;
+		protected isUnfold: boolean = true;
+		protected mParent:Sprite;
+		protected frameDict:Dictionary;
 		public constructor(p:Sprite) {
 		
 			this.mParent = p;
@@ -16,7 +16,7 @@ module lobby.view.status {
 			setGameStatus(GameStatus.WAIT_NEXT_NEWGAME);
 		}
 		
-		protected function initViews():void
+		protected initViews():void
 		{
 			this.view = createPanel();
 			this.view.cacheAsBitmap=true;
@@ -32,19 +32,19 @@ module lobby.view.status {
 		}
 		
 		//存储状态帧标签 
-		protected function setFrameLabels(statusMc:MovieClip):void{
+		protected setFrameLabels(statusMc:MovieClip):void{
 			
 			frameDict = new Dictionary;
-			var len:uint = statusMc.currentLabels.length;
+			var len:number = statusMc.currentLabels.length;
 			var fr:FrameLabel;
-			for (var i:int = 0; i < len; i++) 
+			for (var i:number= 0; i < len; i++) 
 			{
 				fr = statusMc.currentLabels[i];
 				frameDict[fr.name]=fr.frame;
 			}
 		}
 		
-		protected function createPanel():MovieClip
+		protected createPanel():MovieClip
 		{
 			var v:MovieClip = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_PANEL,"Game_Status_Asset");
 			v.x = 128;
@@ -54,11 +54,11 @@ module lobby.view.status {
 			
 			return v;
 		}
-		public function getView():DisplayObject
+		public getView():DisplayObject
 		{
 			return view;
 		}
-		override public function onChangeLanguage():void
+		 public onChangeLanguage():void
 		{
 			super.onChangeLanguage();
 			setGameStatus(currentStatus);
@@ -66,22 +66,22 @@ module lobby.view.status {
 		/**
 		 * 增加直接通过gameModel显示倒计时和更新状态
 		 */		
-		public function updateGameModel(model:GameModel):void
+		public updateGameModel(model:GameModel):void
 		{
 			setGameStatus(model.tableStruct.GameStatus);
 			if(model.tableStruct && model.tableStruct.GameStatus==GameStatus.BETTING){
 				setCountDown(model.tableStruct.CountDownTime);
 			}
 		}
-		public function setCountDown(value:int):void
+		public setCountDown(value:number):void
 		{
 			countDownView.setCountDown(value,currentStatus);
 		}
-		public function setGameStatus(value:String):void
+		public setGameStatus(value:String):void
 		{
 			currentStatus = value;
 			var statusMc:MovieClip=view.mc_1;
-			var frame:uint=0;	
+			var frame:number=0;	
 			if(currentStatus==GameStatus.WAIT_NEXT_NEWGAME)// 等待新局
 			{
 				frame = frameDict[Language.sGameStaus_WaitNextNewgame];
@@ -122,16 +122,16 @@ module lobby.view.status {
 			frame = frame+ LobbyManager.getInstance().lobbyAuth.Lang;
 			statusMc.gotoAndStop(frame);
 		}
-		protected function getStatusString(s:String):String
+		protected getStatusString(s:String):String
 		{
 			return LobbyManager.getInstance().getLanguageString(s);
 		}
 		/**
 		 * 展开倒计时面板
 		 */		
-		public function unfoldCountDown(isTween:Boolean = true):void
+		public unfoldCountDown(isTween: boolean = true):void
 		{
-			var frame:int = countDownContainer.totalFrames;
+			var frame:number= countDownContainer.totalFrames;
 			if(isUnfold)return;
 			isUnfold = true;
 			if(isTween)watcher.startWatch(int(frame/2)+1,frame);
@@ -140,15 +140,15 @@ module lobby.view.status {
 		/**
 		 * 收起倒计时面板
 		 */		
-		public function rollUpCountDown(isTween:Boolean = true):void
+		public rollUpCountDown(isTween: boolean = true):void
 		{
-			var frame:int = countDownContainer.totalFrames;
+			var frame:number= countDownContainer.totalFrames;
 			if(isUnfold==false)return;
 			isUnfold = false;
 			if(isTween)watcher.startWatch(1,int(frame/2));
 			else countDownContainer.gotoAndStop(int(frame/2));
 		}
-		override public function destroy():void
+		 public destroy():void
 		{
 			super.destroy();
 			watcher&&watcher.dispose();
@@ -162,20 +162,20 @@ import flash.events.Event;
 import views.status.GameCountDownView;
 class CountDownWatcher
 {
-	private var view:GameCountDownView;
-	private var mc:MovieClip;
-	private var currentFrame:int=-1;
-	private var totalFrames:int = 0;
-	private var playStartFrame:int = 0;
-	private var playEndFrame:int = 0;
+	private view:GameCountDownView;
+	private mc:MovieClip;
+	private currentFrame:number=-1;
+	private totalFrames:number= 0;
+	private playStartFrame:number= 0;
+	private playEndFrame:number= 0;
 	
-	public function CountDownWatcher(mc:MovieClip,panel:GameCountDownView)
+	public CountDownWatcher(mc:MovieClip,panel:GameCountDownView)
 	{
 		this.mc = mc;
 		this.view = panel;
 		totalFrames = mc.totalFrames;
 	}
-	private function onWatchFrame(e:Event):void
+	private onWatchFrame(e:Event):void
 	{
 		mc.gotoAndStop(playStartFrame);
 		playStartFrame++;
@@ -183,18 +183,18 @@ class CountDownWatcher
 		if(mc.content&&view.parent!=mc.content)mc.content.addChild(view);
 		currentFrame = mc.currentFrame;
 	}
-	public function startWatch(startFrame:int,endFrame:int):void
+	public startWatch(startFrame:number,endFrame:number):void
 	{
 		stopWatch();
 		this.playStartFrame = startFrame;
 		this.playEndFrame = endFrame;
 		mc&&mc.addEventListener(Event.ENTER_FRAME,onWatchFrame);
 	}
-	public function stopWatch():void
+	public stopWatch():void
 	{
 		mc&&mc.removeEventListener(Event.ENTER_FRAME,onWatchFrame);
 	}
-	public function dispose():void
+	public dispose():void
 	{
 		stopWatch();
 	}

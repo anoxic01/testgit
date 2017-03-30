@@ -13,9 +13,9 @@ module lobby.view.quick {
 		protected m_iGameNo					:	number;								//本地局号
 		protected m_iShoeNo					:	number;								//本地靴号
 		protected m_limitStruct 			: 	struct.Struct_BetLimit;						//限红数据
-		protected m_bNotFinished			:	Boolean;							//路纸异常
-		protected m_bSettled				:	Boolean;
-		protected m_bMaintance				:	Boolean;				
+		protected m_bNotFinished			:	 boolean;							//路纸异常
+		protected m_bSettled				:	 boolean;
+		protected m_bMaintance				:	 boolean;				
 		protected m_sTableName				:	String;								//桌子名称
 
 		public constructor() {
@@ -84,7 +84,7 @@ module lobby.view.quick {
 			switch(_struct.TableType){
 				case define.Define.TABLE_TYPE_PEEK:
 				case define.Define.TABLE_TYPE_CHARTER:
-					this.m_limitStruct = data.LobbyData.getInstance().getBetLimitByGL(this.m_struct.GameID, _struct.BetLimitID);
+					this.m_limitStruct = model.LobbyData.getInstance().getBetLimitByGL(this.m_struct.GameID, _struct.BetLimitID);
 					break;
 				
 				default:
@@ -121,7 +121,7 @@ module lobby.view.quick {
 		{
 			this.update();
 		}
-		public update(_bInit:Boolean=false):void{
+		public update(_bInit: boolean=false):void{
 			
 		}
 		
@@ -144,7 +144,7 @@ module lobby.view.quick {
 		}
 		
 		//更新路纸
-		public updateRoad(_bInit:Boolean):void{
+		public updateRoad(_bInit: boolean):void{
 			
 		}
 		
@@ -164,7 +164,7 @@ module lobby.view.quick {
 		}
 		
 		/** 维护状态 **/
-		public showMaintain(_bMc:Boolean=true):void{
+		public showMaintain(_bMc: boolean=true):void{
 			
 		}
 		public hideMaintain():void{
@@ -196,7 +196,7 @@ module lobby.view.quick {
 		}
 		
 		//游戏进行中
-		public isGameStart():Boolean{
+		public isGameStart(): boolean{
 			// 如果游戏处于下注或者发牌阶段，说明游戏已经开始
 			switch(this.m_struct.GameStatus){
 				case define.GameStatus.BETTING:
@@ -207,15 +207,15 @@ module lobby.view.quick {
 			return false;
 		}
 		
-		protected isHaveDealer():Boolean{
+		protected isHaveDealer(): boolean{
 			if(this.m_struct.DealerLoginID==null || this.m_struct.DealerLoginID==""){
 				return false;
 			}
 			return true;
 		}
 		
-		protected isNotFinish():Boolean{
-			return Boolean(this.m_struct.GameStatus==define.GameStatus.NOT_FINISHED);
+		protected isNotFinish(): boolean{
+			return  boolean(this.m_struct.GameStatus==define.GameStatus.NOT_FINISHED);
 		}
 		
 				
@@ -230,7 +230,7 @@ module lobby.view.quick {
 			this.m_glow.visible = false;
 		}
 		
-		protected isSelf():Boolean{
+		protected isSelf(): boolean{
 			if(manager.LobbyManager.getInstance().currentTableStruct){
 				return manager.LobbyManager.getInstance().currentTableStruct.TableID==this.m_struct.TableID;
 			}
@@ -238,7 +238,7 @@ module lobby.view.quick {
 		}
 		
 		
-		protected isSupportTrial():Boolean{
+		protected isSupportTrial(): boolean{
 			
 			switch(this.m_struct.TableType){
 				case define.Define.TABLE_TYPE_NORMAL:
@@ -256,8 +256,8 @@ module lobby.view.quick {
 		
 		
 		
-		protected IsAllowToLogin(_bAlone:Boolean=false):Boolean{
-			var bAllow : Boolean;
+		protected IsAllowToLogin(_bAlone: boolean=false): boolean{
+			var bAllow :  boolean;
 			var _str : String;
 			if(this.m_limitStruct){
 				var nCoin : Number = Player.getInstance().nCoin;

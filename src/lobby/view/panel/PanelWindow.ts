@@ -6,13 +6,13 @@ module lobby.view.panel {
         protected m_rectangle	:	egret.Rectangle;
         // protected m_btnClose	:	SingleButtonMC;
 		
-        private m_bMove			:	boolean;
-        private m_bShake		:	boolean;
+        private m_bMove			:	 boolean;
+        private m_bShake		:	 boolean;
         public iTopSpace		:	number;
         public iBottomSpace		:	number;
         public iLeftSpace		:	number;	
 
-		public constructor($bShake:boolean = false) {
+		public constructor($bShake: boolean = false) {
 			super();
 			this.m_bShake = $bShake;
 		}
@@ -128,7 +128,7 @@ module lobby.view.panel {
             
         }
 
-        set bShake(bValue:boolean){
+        set bShake(bValue: boolean){
             if (this.m_bShake != bValue)
             {
                 this.m_bShake = bValue;
@@ -179,7 +179,7 @@ module lobby.view.panel {
             
         }
 
-//        protected function onClick(e:MouseEvent) : void
+//        protected onClick(e:MouseEvent) : void
 //        {
 ////            if (this.sName != "Dialog")
 ////            {
@@ -201,7 +201,7 @@ module lobby.view.panel {
 //			
 //        }
 //
-//        protected function onTimer() : void
+//        protected onTimer() : void
 //        {
 //            if (m_bMove)
 //            {
@@ -217,7 +217,7 @@ module lobby.view.panel {
 //            
 //        }
 //
-//        protected function onComplete() : void
+//        protected onComplete() : void
 //        {
 //            m_timer.stop();
 //            this.scaleX = 1;

@@ -40,8 +40,8 @@ module define {
 		public static EXIT_MULTI_TABLE			:	number=	3;				//退出多桌
 		
 		/** 帳戶種類 **/
-		public static CASH						:	String 	= 	"C";			//现金货币
-		public static CREDIT						:	String 	= 	"M";			//信用货币
+		public static CASH						:	string 	= 	"C";			//现金货币
+		public static CREDIT						:	string 	= 	"M";			//信用货币
 		
 		/** 珠盘路子 **/
 		public static BEAD_NUM					:	number	=	60;				//珠子数量

@@ -1,10 +1,10 @@
 module lobby.view.multi {
 	export class MultiTableModeList implements ISprite{
-		private var m_mode_4			:	MultiTableModeItem;
-		private var m_mode_8			:	MultiTableModeItem;
-		private var m_mode_16			:	MultiTableModeItem;
+		private m_mode_4			:	MultiTableModeItem;
+		private m_mode_8			:	MultiTableModeItem;
+		private m_mode_16			:	MultiTableModeItem;
 		
-		private var m_currentModeItem	:	MultiTableModeItem;
+		private m_currentModeItem	:	MultiTableModeItem;
 		
 		public constructor(_mcAsset:MovieClip) {
 			m_mode_4 = new MultiTableModeItem(_mcAsset.mc_0, 	this, 	Define.MULTI_TABLE_MODE_4);
@@ -13,7 +13,7 @@ module lobby.view.multi {
 			
 		}
 		
-		public function destroy():void{
+		public destroy():void{
 			
 			if(m_mode_4){
 				m_mode_4.destroy();
@@ -28,11 +28,11 @@ module lobby.view.multi {
 				m_mode_16 = null;
 			}
 		}
-		public function init():void{
+		public init():void{
 			currentModeItem = m_mode_4;
 		}
 		
-		public function set currentModeItem(_item:MultiTableModeItem):void{
+		set  currentModeItem(_item:MultiTableModeItem){
 			
 //			if(LobbyManager.getInstance().multiTableView.currentList && !LobbyManager.getInstance().multiTableView.currentList.bTurn()){
 //				return;
@@ -51,7 +51,7 @@ module lobby.view.multi {
 			m_currentModeItem = _item;
 		}
 		
-		public function set enable(bValue:Boolean):void{
+		set  enable(bValue: boolean){
 			m_mode_4.enable = bValue;
 			m_mode_8.enable = bValue;
 			m_mode_16.enable = bValue;

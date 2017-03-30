@@ -1,40 +1,40 @@
 module lobby.view.route {
 	export class StatisticsUI extends BSprite {
-		public static const HORIZONTAL:int = 0;
-		public static const VERTICAL:int = 1;
+		public static const HORIZONTAL:number= 0;
+		public static const VERTICAL:number= 1;
 		//CA0000  013FCB  3BB101
-		public static const RED:uint = 0xCA0000;
-		public static const BLUE:uint = 0x013FCB;
-		public static const GREEN:uint = 0x3BB101;
-		public static const BLACK:uint = 0x0;
+		public static const RED:number = 0xCA0000;
+		public static const BLUE:number = 0x013FCB;
+		public static const GREEN:number = 0x3BB101;
+		public static const BLACK:number = 0x0;
 		
-		private var _circleHGap:int = 3;
-		private var _circleVGap:int = 10;
-		private var _circleHeight:int = 30;
+		private _circleHGap:number= 3;
+		private _circleVGap:number= 10;
+		private _circleHeight:number= 30;
 		
-		private var _data:Array;
-		private var _precents:Array;
-		private var _colors:Array;
-		private var _types:Array;
-		private var _direction:int;
-		private var _margin:Rectangle;
-		private var _quadHeight:int;
+		private _data:any[];
+		private _precents:any[];
+		private _colors:any[];
+		private _types:any[];
+		private _direction:number;
+		private _margin:Rectangle;
+		private _quadHeight:number;
 		
-		private var _bg:Shape;
-		private var _box:Sprite;
-		private var _mWidth:int;
-		private var _mHeight:int;
-		private var _contentWidth:int;
-		private var _contentHeight:int;
-		private var _iconOffsetX:int;
-		private var _iconOffsetY:int;
-		private var _isInited:Boolean;
-		private var _isChange:Boolean;
-		private var _isAll0:Boolean;//所有值总和为0
-		private var _isShowBg:Boolean;
+		private _bg:Shape;
+		private _box:Sprite;
+		private _mWidth:number;
+		private _mHeight:number;
+		private _contentWidth:number;
+		private _contentHeight:number;
+		private _iconOffsetX:number;
+		private _iconOffsetY:number;
+		private _isInited: boolean;
+		private _isChange: boolean;
+		private _isAll0: boolean;//所有值总和为0
+		private _isShowBg: boolean;
 		
-		private var _circles:Array;
-		private var _quads:Array;
+		private _circles:any[];
+		private _quads:any[];
 		/**
 		 * @param w 背景宽
 		 * @param h 背景高（如果==0，自动计算宽高）
@@ -51,7 +51,7 @@ module lobby.view.route {
 		 * updateValue();
 		 * </pre>
 		 */		
-		public constructor(w:int,h:int,direction:int,margin:Rectangle=null,showBg:Boolean=true,quadHeight:int=40) {
+		public constructor(w:number,h:number,direction:number,margin:Rectangle=null,showBg: boolean=true,quadHeight:number=40) {
 			super();
 		_mWidth = w;
 			_mHeight = h;
@@ -72,42 +72,42 @@ module lobby.view.route {
 			_data = [];
 			_precents=[];
 		}
-		public function get margin():Rectangle
+		get margin():Rectangle
 		{
 			return _margin;
 		}
-		public function set margin(value:Rectangle):void
+		set  margin(value:Rectangle)
 		{
 			_margin = value;
 			_contentWidth = _mWidth - _margin.x - _margin.width;
 		}
-		public function set mWidth(value:int):void
+		set  mWidth(value:number)
 		{
 			_mWidth = value;
 			_contentWidth = _mWidth - _margin.x - _margin.width;
 		}
-		public function setIconOffset(offsetx:int,offsety:int):void
+		public setIconOffset(offsetx:number,offsety:number):void
 		{
 			_iconOffsetX = offsetx;
 			_iconOffsetY = offsety;
 		}
-		public function setIconHGap(gap:int):void
+		public setIconHGap(gap:number):void
 		{
 			_circleHGap = gap;
 		}
-		public function setIconVGap(gap:int):void
+		public setIconVGap(gap:number):void
 		{
 			_circleVGap = gap;
 		}
-		public function set mHeight(value:int):void
+		set  mHeight(value:number)
 		{
 			_mHeight = value;
 		}
-		public function get mHeight():int
+		get mHeight():number
 		{
 			return _mHeight;
 		}
-		public function get mWidth():int
+		get mWidth():number
 		{
 			return _mWidth;
 		}
@@ -115,7 +115,7 @@ module lobby.view.route {
 		 * 设置类型（大小，龙虎和等） 
 		 * @param types
 		 */		
-		public function setTypes(types:Array):void
+		public setTypes(types:any[]):void
 		{
 			_isChange = true;
 			_types = types;
@@ -124,7 +124,7 @@ module lobby.view.route {
 		 * 设置颜色
 		 * @param colors
 		 */		
-		public function setColor(colors:Array):void
+		public setColor(colors:any[]):void
 		{
 			_isChange = true;
 			_colors = colors;
@@ -133,11 +133,11 @@ module lobby.view.route {
 		 * 更新数据
 		 * @param args
 		 */		
-		public function updateValues(...args):void
+		public updateValues(...args):void
 		{
 			if(args==null)
 				return;
-			var data:Array;
+			var data:any[];
 			if(args[0] is Array)
 			{
 				data = args[0];
@@ -148,7 +148,7 @@ module lobby.view.route {
 			}
 			_data.length = 0;
 			_precents.length=0;
-			for (var i:int = 0; i < data.length; i++) 
+			for (var i:number= 0; i < data.length; i++) 
 			{
 				_data[i] = int(data[i]);
 			}
@@ -169,7 +169,7 @@ module lobby.view.route {
 					_precents.push(1.0/_types.length);
 				}
 			}
-			var index:int=-1;
+			var index:number=-1;
 			if(_isAll0==false)
 			{
 				//最后一个不是0的数字的index
@@ -188,7 +188,7 @@ module lobby.view.route {
 			}
 			//除了index之外，所有的和
 			var exceptIndex:Number=0;
-			var temp:int;
+			var temp:number;
 			var pre:Number;
 			for (i = 0; i < _precents.length; i++) 
 			{
@@ -213,7 +213,7 @@ module lobby.view.route {
 		 * @param index
 		 * @param value
 		 */		
-		public function updateValue(index:int,value:Number):void
+		public updateValue(index:number,value:Number):void
 		{
 			if(index>0 && index<_types.length-1)
 			{
@@ -221,7 +221,7 @@ module lobby.view.route {
 				updateValues(_data);
 			}
 		}
-		public function draw():void
+		public draw():void
 		{
 			if(_isChange==false)
 				return;
@@ -235,7 +235,7 @@ module lobby.view.route {
 			var quad:Quad;
 			var pre:Number;
 			var lastqx:Number=0;
-			for (var i:int = 0; i < _types.length; i++) 
+			for (var i:number= 0; i < _types.length; i++) 
 			{
 				//圆
 				if(i<_circles.length)
@@ -305,16 +305,16 @@ module lobby.view.route {
 				_bg.graphics.endFill();
 			}
 		}
-		private function changeValues():void
+		private changeValues():void
 		{
 			if(_isInited==false)
 				return;
 			var circle:Circle;
 			var quad:Quad;
 			var pre:Number;
-			var value:int;
+			var value:number;
 			var lastqx:Number=0;
-			for (var i:int = 0; i < _types.length; i++) 
+			for (var i:number= 0; i < _types.length; i++) 
 			{
 				circle = _circles[i];
 				quad = _quads[i];
@@ -345,16 +345,16 @@ module lobby.view.route {
 				}
 			}
 		}
-		override public function onChangeLanguage():void
+		 public onChangeLanguage():void
 		{
 			var circle:Circle;
-			for (var i:int = 0; i < _circles.length; i++) 
+			for (var i:number= 0; i < _circles.length; i++) 
 			{
 				circle = _circles[i];
 				circle.onChangeLanguage();
 			}
 		}
-		override public function destroy():void
+		 public destroy():void
 		{
 			_data = null;
 			_colors = null;
@@ -364,7 +364,7 @@ module lobby.view.route {
 			if(_circles)
 			{
 				var circle:Circle;
-				for (var i:int = 0; i < _circles.length; i++) 
+				for (var i:number= 0; i < _circles.length; i++) 
 				{
 					circle = _circles[i];
 					_box.removeChild(circle);
@@ -401,20 +401,20 @@ import views.BSprite;
 
 class Circle extends BSprite
 {
-	private static const RADIUS:int = 15;
+	private static const RADIUS:number= 15;
 	
-//	private var _bg:Shape;
-//	private var _icon:TextField;
-	private var _bm:Bitmap;
-	private var _num:TextField;
+//	private _bg:Shape;
+//	private _icon:TextField;
+	private _bm:Bitmap;
+	private _num:TextField;
 	
-//	private var _color:uint;
-	private var _langType:String;
-//	private var _format:TextFormat;
-	private var _format2:TextFormat;
+//	private _color:number;
+	private _langType:String;
+//	private _format:TextFormat;
+	private _format2:TextFormat;
 	
 	
-	public function Circle()
+	public Circle()
 	{
 		super();
 //		_bg = new Shape();
@@ -450,7 +450,7 @@ class Circle extends BSprite
 		_bm = new Bitmap();
 		this.addChild(_bm);
 	}
-	override public function destroy():void
+	 public destroy():void
 	{
 		_format2 = null;
 		this.removeChild(_bm);
@@ -459,11 +459,11 @@ class Circle extends BSprite
 		_num = null;
 		super.destroy();
 	}
-//	public function get color():uint
+//	get color():number
 //	{
 //		return _color;
 //	}
-//	public function set color(value:uint):void
+//	set  color(value:number)
 //	{
 //		_color = value;
 //		_bg.graphics.clear();
@@ -471,16 +471,16 @@ class Circle extends BSprite
 //		_bg.graphics.drawCircle(0,0,RADIUS);
 //		_bg.graphics.endFill();
 //	}
-	public function setType(type:String):void
+	public setType(type:String):void
 	{
 		_langType = type;
 		onChangeLanguage();
 	}
-	public function setValue(num:int):void
+	public setValue(num:number):void
 	{
 		_num.text = num.toString();
 	} 
-	override public function onChangeLanguage():void
+	 public onChangeLanguage():void
 	{
 		_bm.bitmapData = BitmapManager.getInstance().getBmpdBead(_langType);
 		_bm.smoothing = true;
@@ -490,15 +490,15 @@ class Circle extends BSprite
 
 class Quad extends BSprite
 {
-	private var _bg:Shape;
-	private var _percentTxt:TextField;
-	private var _format:TextFormat;
+	private _bg:Shape;
+	private _percentTxt:TextField;
+	private _format:TextFormat;
 	
-	private var _color:uint;
-	private var _mWidth:Number;
-	private var _mHeight:Number;
-	private var _percent:Number;
-	public function Quad(height:int=40)
+	private _color:number;
+	private _mWidth:Number;
+	private _mHeight:Number;
+	private _percent:Number;
+	public Quad(height:number=40)
 	{
 		super();
 		_mWidth = 0;
@@ -519,7 +519,7 @@ class Quad extends BSprite
 		this.addChild(_percentTxt);
 //		_percentTxt.border = true;
 	}
-	override public function destroy():void
+	 public destroy():void
 	{
 		_format = null;
 		this.removeChild(_bg);
@@ -529,37 +529,37 @@ class Quad extends BSprite
 		super.destroy();
 	}
 
-	public function get color():uint
+	get color():number
 	{
 		return _color;
 	}
-	public function set color(value:uint):void
+	set  color(value:number)
 	{
 		_color = value;
 		draw();
 	}
-	public function set mWidth(value:Number):void
+	set  mWidth(value:Number)
 	{
 		_mWidth = value;
 		draw();
 		showPercent();
 	}
-	private function draw():void
+	private draw():void
 	{
 		_bg.graphics.clear();
 		_bg.graphics.beginFill(_color);
 		_bg.graphics.drawRect(0,0,_mWidth,_mHeight);
 		_bg.graphics.endFill();
 	}
-	public function get mWidth():Number
+	get mWidth():Number
 	{
 		return _mWidth;
 	}
-	public function get mHeight():Number
+	get mHeight():Number
 	{
 		return _mHeight;
 	}
-	public function setValue(percent:Number):void
+	public setValue(percent:Number):void
 	{
 		_percent = percent;
 		_percentTxt.text = Math.round(percent*100)+"%";
@@ -568,7 +568,7 @@ class Quad extends BSprite
 	/**
 	 * 数值>5% && 宽度够
 	 */		
-	private function showPercent():void
+	private showPercent():void
 	{
 //		_percentTxt.visible = _percent>0.05 && _percentTxt.x+_percentTxt.width <= _mWidth;
 		_percentTxt.visible = _percent>=0.1;

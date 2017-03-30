@@ -4,16 +4,16 @@ module manager {
 	export class ActionManager {
 
 		/** 快速转桌 **/
-		public var fInitQuickTable			:	Function;			//初始列表
-		public var fQuickTable				:	Function;			//快速转桌回调（含多桌、电投）
-		private var m_aAction				:	Array;
-		public var multiTalbes				:	Array =[];			//待订阅多桌
+		public fInitQuickTable			:	Function;			//初始列表
+		public fQuickTable				:	Function;			//快速转桌回调（含多桌、电投）
+		private m_aAction				:	any[];
+		public multiTalbes				:	any[] =[];			//待订阅多桌
 		
-		public var fExitGame				:	Function;	
+		public fExitGame				:	Function;	
 
-		private static var m_instance		:	ActionManager;
+		private static m_instance		:	ActionManager;
 
-		public static function getInstance():ActionManager{
+		public static getInstance():ActionManager{
 			
 			if(m_instance == null){
 				
@@ -27,19 +27,19 @@ module manager {
 		}
 
 		
-		public function addActionFun(_fFun:Function):void{
+		public addActionFun(_fFun:Function):void{
 			if(m_aAction==null){
 				m_aAction = [];
 			}
 			m_aAction.push(_fFun);
 		}
-		public function getActionFun():Function{
+		public getActionFun():Function{
 			if(m_aAction.length>0){
 				return m_aAction.shift();
 			}
 			return null;
 		}
-		public function removeActionFun():void{
+		public removeActionFun():void{
 			if(m_aAction.length>0){
 				m_aAction.shift();
 			}

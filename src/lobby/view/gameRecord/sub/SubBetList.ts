@@ -11,7 +11,7 @@ module lobby.view.gameRecord.sub {
 		public var txtState			:	TextField;		//狀態
 		public var mcAsset			:	MovieClip;
 		
-		public var bIsUsed			:	Boolean;
+		public var bIsUsed			:	 boolean;
 		public var btnPlayVideo		:	SingleButtonMC; //
 		public var complexGameRecordStruct: ComplexGameRecordStruct;	//單筆 下注紀錄資料
 		public var fMouseOver		:	Function;
@@ -70,9 +70,9 @@ module lobby.view.gameRecord.sub {
 			event.stopImmediatePropagation();
 		}
 		
-		public function updateUI(_sListNumber:String , _sBetTime:String , _sGameType:String ,
-								 _sTableID:String , _sResult:String , _sTotalBet:String , _sPayOut:String ,
-								 _sAvailableBet:String, _sState:String, _isResult:Boolean  ):void {
+		public function updateUI(_sListNumber:string , _sBetTime:string , _sGameType:string ,
+								 _sTableID:string , _sResult:string , _sTotalBet:string , _sPayOut:string ,
+								 _sAvailableBet:string, _sState:string, _isResult: boolean  ):void {
 			if( !txtListNumber ){
 				return;
 			}
@@ -90,7 +90,7 @@ module lobby.view.gameRecord.sub {
 			btnPlayVideo.visible = _isResult;
 		}
 		
-		override public function destroy():void {
+		 public function destroy():void {
 			if( txtListNumber ){
 				txtListNumber = null;
 			}

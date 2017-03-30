@@ -1,13 +1,13 @@
 module lobby.view.card {
 	export class CardItem extends BSprite{
-		protected var m_bmpBg		:	Bitmap;
-		protected var m_bmpAsset	:	Bitmap;
-		public var bCenter			:	Boolean;
-		public var cardId			:	String;
-		public var cardType			:	uint;			//扑克类型	1-默认扑克	2-小扑克		3-大扑克
-//		private var m_aCard			:	Array	=	["Kc","Kd","Kh","Ks","Qc","Qd","Qh","Qs","Jc","Jd","Jh","Js"];
+		protected m_bmpBg		:	Bitmap;
+		protected m_bmpAsset	:	Bitmap;
+		public bCenter			:	 boolean;
+		public cardId			:	String;
+		public cardType			:	number;			//扑克类型	1-默认扑克	2-小扑克		3-大扑克
+//		private m_aCard			:	any[]	=	["Kc","Kd","Kh","Ks","Qc","Qd","Qh","Qs","Jc","Jd","Jh","Js"];
 		
-		public constructor(_cardId:String,_cardType:uint=1,_bCenter:Boolean=false) {
+		public constructor(_cardId:String,_cardType:number=1,_bCenter: boolean=false) {
 			
 			super();
 			
@@ -29,7 +29,7 @@ module lobby.view.card {
 			setData(_cardId);
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			if(m_bmpAsset){
 				if(m_bmpAsset.bitmapData){
 					m_bmpAsset.bitmapData = null;
@@ -47,7 +47,7 @@ module lobby.view.card {
 			}
 		}
 		
-		public function setData(_cardId:String):void{
+		public setData(_cardId:String):void{
 			if(m_bmpAsset==null) return;
 			this.cardId = _cardId;
 			m_bmpAsset.bitmapData = BitmapManager.getInstance().getCard(_cardId,cardType);

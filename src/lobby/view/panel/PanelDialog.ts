@@ -1,16 +1,16 @@
 module lobby.view.panel {
 	export class PanelDialog extends PanelWindow{
-//		private var m_bg		:	BitmapScale9Grid;
+//		private m_bg		:	BitmapScale9Grid;
 		
-		private var m_btnOk		:	SingleButtonMC;
-		private var m_btnNo		:	SingleButtonMC;
-		private var m_btnClose	:	SingleButtonMC;
-		private var m_fOk		:	Function;
-		private var m_fNo		:	Function;
-		private var m_timer		:	JTimer;
-		private var m_autoClose	:	int;
+		private m_btnOk		:	SingleButtonMC;
+		private m_btnNo		:	SingleButtonMC;
+		private m_btnClose	:	SingleButtonMC;
+		private m_fOk		:	Function;
+		private m_fNo		:	Function;
+		private m_timer		:	JTimer;
+		private m_autoClose	:	number;
 		
-		public constructor($bShake:Boolean=false, _fOk:Function=null, _fNo:Function=null, _bSingleMode:Boolean=false, _autoClose:int=0) {
+		public constructor($bShake: boolean=false, _fOk:Function=null, _fNo:Function=null, _bSingleMode: boolean=false, _autoClose:number=0) {
 		
 			super($bShake);
 			
@@ -97,7 +97,7 @@ module lobby.view.panel {
 			}
 		}
 		
-		protected function countDown():void
+		protected countDown():void
 		{
 			if(m_mcAsset){
 				m_autoClose--;
@@ -116,7 +116,7 @@ module lobby.view.panel {
 			}
 		}
 		
-		protected function autoClose():void
+		protected autoClose():void
 		{
 			
 			if(m_timer){
@@ -134,7 +134,7 @@ module lobby.view.panel {
 			}
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			
 //			if(m_bg){
 //				if(m_bg.parent){
@@ -172,7 +172,7 @@ module lobby.view.panel {
 			super.destroy();
 		}
 		
-		private function close():void{
+		private close():void{
 			var target : PanelDialog = this;
 			TweenLite.to(target, Define.SPEED, {scaleX:Define.SCALE_MIN, scaleY:Define.SCALE_MIN, onComplete:function():void{
 				LobbyManager.getInstance().uWindowIndex--;
@@ -194,13 +194,13 @@ module lobby.view.panel {
 			}});
 		}
 		
-		public function text( _sValue:String ):void{
+		public text( _sValue:String ):void{
 			m_mcAsset.tf_0.text = _sValue;
 			m_mcAsset.tf_0.y = (m_mcAsset.height - (m_mcAsset.tf_0 as TextField).textHeight)/2 -105 ;
 			m_mcAsset.tf_0.x = (m_mcAsset.width - (m_mcAsset.tf_0 as TextField).textWidth)/2 - m_mcAsset.width/2
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			m_btnOk.mcAsset.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			m_btnNo.mcAsset.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			m_mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);//LobbyManager.getInstance().getLanguageString(Language.sHint);

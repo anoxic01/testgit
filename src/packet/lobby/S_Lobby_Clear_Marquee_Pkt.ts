@@ -1,23 +1,23 @@
 module packet.lobby {
 	export class S_Lobby_Clear_Marquee_Pkt implements IProtocolStruct{
-		public var Type			:	int;
-		public var SN			:	int;
+		public Type			:	number;
+		public SN			:	number;
 		
 		public constructor() {
 		}
 
 		
-		public function initControler(controler:GameControler):void
+		public initControler(controler:GameControler):void
 		{
 		}
 		
-		public function execute(oData:Object):void
+		public execute(oData:Object):void
 		{
 			Type	=	oData.Type;
 			SN		=	oData.SN;
 			
-//				LobbyManager.getInstance().lobbyView.infomation.stopMarquee();
-//				LobbyManager.getInstance().lobbyView.infomation.marquee.clearMarquee();
+//				LobbyManager.getInstance().lobbyView.information.stopMarquee();
+//				LobbyManager.getInstance().lobbyView.information.marquee.clearMarquee();
 
 
 		}

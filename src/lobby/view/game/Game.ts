@@ -1,44 +1,44 @@
 module lobby.view.game {
 	export class Game extends BSprite {
 
-		public var GameID				:	int;					//游戏序号
-		protected var m_bActive			:	Boolean;				//是否激活
-		public var bIsInited			:	Boolean;				//是否初始化
-		public var tableStruct			:	TableStruct;
-		public var transitionDict		:	Dictionary;				//用来做动画的dict
-		public var model				:	GameModel;
+		public GameID				:	number;					//游戏序号
+		protected m_bActive			:	 boolean;				//是否激活
+		public bIsInited			:	 boolean;				//是否初始化
+		public tableStruct			:	TableStruct;
+		public transitionDict		:	Dictionary;				//用来做动画的dict
+		public model				:	GameModel;
 		
-		public var Version				:	String	= "";
+		public Version				:	String	= "";
 		
 		public constructor() {
 		}
 
-		override public function destroy() : void
+		 public destroy() : void
         {
             
         }
 
-        public function registProtocol() : void
+        public registProtocol() : void
         {
             
         }
 
-        public function insertRoom(socket:TCPSocket) : void
+        public insertRoom(socket:TCPSocket) : void
         {
             
         }
 
-        public function setUserData() : void
+        public setUserData() : void
         {
            
         }
 		
 		
-		public function addPacket():void{
+		public addPacket():void{
 			
 		}
 		
-		public function removePacket():void{
+		public removePacket():void{
 			PacketManager.getInstance().removeProtocol(PacketDefine.GAME,PacketDefine.S_Heart );					//客戶端主動發起心跳回復
 			PacketManager.getInstance().removeProtocol(PacketDefine.GAME,PacketDefine.C_Heart );					//服務端主動發起心跳回復	
 			PacketManager.getInstance().removeProtocol(PacketDefine.GAME,PacketDefine.ACK );						//ACK
@@ -48,41 +48,41 @@ module lobby.view.game {
 		}
 		
 		/** 游戏数据 **/
-		public function receiveTableStruct(_tableStruct:TableStruct) : void
+		public receiveTableStruct(_tableStruct:TableStruct) : void
 		{
 			
 		}
 		/** 多桌好路 **/
-		public function receiveGoodRoadStruct(_goodRoadMapStruct:GoodRoadStruct):void{
+		public receiveGoodRoadStruct(_goodRoadMapStruct:GoodRoadStruct):void{
 			
 		}
 		
 		/** 清空好路,不会搜寻新的好路 **/
-		public function clearGoodRoad():void{
+		public clearGoodRoad():void{
 			
 		}
 		
 		/**好路通知**/
-		public function addGoodRoadNotification(_goodRoadMapStruct:GoodRoadStruct):void{
+		public addGoodRoadNotification(_goodRoadMapStruct:GoodRoadStruct):void{
 			
 		}
-		public function removeGoodRoadNotification(_tableID:int):void
+		public removeGoodRoadNotification(_tableID:number):void
 		{
 			
 		}
 		
 		/**好路通知设置**/
-		public function setGoodRoads():void
+		public setGoodRoads():void
 		{
 			
 		}
 		
-		public function get bActive():Boolean
+		get bActive(): boolean
 		{
 			return m_bActive;
 		}
 		
-		public function set bActive(value:Boolean):void
+		set  bActive(value: boolean)
 		{
 			m_bActive = value;
 		}
@@ -92,7 +92,7 @@ module lobby.view.game {
 		 * @return 
 		 * 
 		 */
-		public function get bGaming():Boolean
+		get bGaming(): boolean
 		{
 			return false;
 		}
@@ -102,125 +102,125 @@ module lobby.view.game {
 		 * @return 
 		 * 
 		 */
-		public function get bCanExit():Boolean
+		get bCanExit(): boolean
 		{
 			return true;
 		}
 		
 		
-		public function get bTableClearing():Boolean{
+		get bTableClearing(): boolean{
 			return false;
 		}
 		
-		public function get chipSetSprite():Sprite{
+		get chipSetSprite():Sprite{
 			return null;
 		}
 		
-		public function reset():void{
+		public reset():void{
 			
 		}
 		
-		public function showMessage( msg:String ):void{
+		public showMessage( msg:String ):void{
 			
 		}
 		
-		public function setDefCDN(arr:Array):void{
+		public setDefCDN(arr:any[]):void{
 			
 			
 		}
 		
-		public function get bVideoConnected():Boolean{
+		get bVideoConnected(): boolean{
 			return false;
 		}
 		
-		public function playVideo():void{
+		public playVideo():void{
 			
 		}
 		
-		public function stopVideo():void{
-			
-		}
-		
-		
-		public function refreshVideo():void{
+		public stopVideo():void{
 			
 		}
 		
 		
-		
-		public function submitBet():void{
+		public refreshVideo():void{
 			
 		}
 		
-		public function cancelBet():void{
+		
+		
+		public submitBet():void{
+			
+		}
+		
+		public cancelBet():void{
 			
 		}
 		
 		
 		/**视讯切换**/
-		public function changeVideoChannel():void{
+		public changeVideoChannel():void{
 			
 		}
 		
 		
 		/**断开游戏连接, 停留在游戏画面  */
-		public function closeGame() : void
+		public closeGame() : void
 		{
 			
 		}
 		
 		/** 快速转桌 **/
-		public function changeTable():void{
+		public changeTable():void{
 			
 		}
 		
 		/**强制退出 , 不会检查退出条件  */
-		public function forceExit() : void
+		public forceExit() : void
 		{
 			
 		}
 		
-		public function exit() : void
+		public exit() : void
 		{
 			
 		}
 		
-		public function init():void{
+		public init():void{
 			
 		}
 		
-		public function setChipPanel():void{
+		public setChipPanel():void{
 			
 		}
 		
-		public function setTool():void{
+		public setTool():void{
 			
 		}
 		
 		/** 荷官数据 **/
-		public function updateDealerInfo(_struct : DealerStruct):void{
+		public updateDealerInfo(_struct : DealerStruct):void{
 			
 		}
 		
-		public function updateCurrency():void
+		public updateCurrency():void
 		{
 			// TODO Auto Generated method stub
 			
 		}
 		
-		public function hidePanelDetail():void{
+		public hidePanelDetail():void{
 			
 		}
 		
-		public function showStatistic():void{
+		public showStatistic():void{
 			
 		}
-		public function hideStatistic():void{
+		public hideStatistic():void{
 			
 		}
 		
 		/**设置“已下注”面板RightX值*/
-		public function setBetSelectPannelRightX(x:int):void{
+		public setBetSelectPannelRightX(x:number):void{
 		
 		}
 		
@@ -228,11 +228,11 @@ module lobby.view.game {
 		 *服务器异常断线通知 
 		 * 
 		 */
-		public function offline(tableId:int):void{
+		public offline(tableId:number):void{
 			
 		}
 		
-		public function setCacheBitmap(bCache:Boolean):void{
+		public setCacheBitmap(bCache: boolean):void{
 			
 		}
 		

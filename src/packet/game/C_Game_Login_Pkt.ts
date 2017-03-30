@@ -3,19 +3,19 @@ module packet.game {
         /// <summary>
         /// 認證資訊
         /// </summary>
-        private var authInfo:TableAuthStruct;
+        private authInfo:TableAuthStruct;
 		
 		public constructor() {
 			authInfo = new TableAuthStruct();
 		}
 
 		
-		public function get AuthInfo():TableAuthStruct 
+		get AuthInfo():TableAuthStruct 
 		{
 			return authInfo;
 		}
 		
-		public function set AuthInfo(value:TableAuthStruct):void 
+		set  AuthInfo(value:TableAuthStruct) 
 		{
 			authInfo = value;
 		}

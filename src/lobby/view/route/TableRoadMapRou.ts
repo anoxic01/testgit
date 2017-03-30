@@ -1,12 +1,12 @@
 module lobby.view.route {
 	export class TableRoadMapRou extends RouRouteMgr{
-		private var m_mcAsset	:	MovieClip;
-		private var roadBtn_0	:	SingleButtonMC;			//红黑
-		private var roadBtn_1	:	SingleButtonMC;			//打列
-		private var roadBtn_2	:	SingleButtonMC;			//大小
-		private var roadBtn_3	:	SingleButtonMC;			//单双
+		private m_mcAsset	:	MovieClip;
+		private roadBtn_0	:	SingleButtonMC;			//红黑
+		private roadBtn_1	:	SingleButtonMC;			//打列
+		private roadBtn_2	:	SingleButtonMC;			//大小
+		private roadBtn_3	:	SingleButtonMC;			//单双
 		
-		private var m_current	:	SingleButtonMC;			//当前选中
+		private m_current	:	SingleButtonMC;			//当前选中
 		
 		public constructor(_mcAsset:MovieClip) {
 		
@@ -27,7 +27,7 @@ module lobby.view.route {
 		}
 		
 		
-		override protected function setRoadInf():void{
+		 protected setRoadInf():void{
 			this.m_beadInfo.gridWidth = 15;
 			this.m_beadInfo.gridHeight = 6;
 			
@@ -68,7 +68,7 @@ module lobby.view.route {
 			this.m_beadInfo.zoenRowW =  24;
 			this.m_beadInfo.zoenRowH =  23;
 			
-//			var _colNum:int=17;
+//			var _colNum:number=17;
 			this._bigSmallSp.setBeadSize(this.m_beadInfo);
 //			this._bigSmallSp.drawBg(_colNum,6,26);
 			this._oddEvenSp.setBeadSize(this.m_beadInfo);
@@ -98,7 +98,7 @@ module lobby.view.route {
 			
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 //			this._dozenRowSp.setTxtName([
 //				LobbyManager.getInstance().lang.getString(Language.sBetType_Dozen_1),
 //				LobbyManager.getInstance().lang.getString(Language.sBetType_Dozen_2),
@@ -125,13 +125,13 @@ module lobby.view.route {
 			super.onChangeLanguage();
 		}
 		
-		protected function onChangeRoad(e:MouseEvent):void {
+		protected onChangeRoad(e:MouseEvent):void {
 			LobbyManager.getInstance().hideAllPanel();
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			
 			var mcbtn:MovieClip = e.currentTarget as MovieClip;
 			//this._beadPlate.addEventListener(RouteEvent.ASK_Road_END, onAskRoadEnd);
-			//trace("onRoad::" +mcbtn );
+			//console.log("onRoad::" +mcbtn );
 			switch (mcbtn.name) {
 				case roadBtn_0.mcAsset.name: 
 					setDozen(false);
@@ -168,13 +168,13 @@ module lobby.view.route {
 			
 		}
 		
-		private function set current(_btn:SingleButtonMC):void{
+		private set current(_btn:SingleButtonMC):void{
 			m_current.setSelectedStatus(false);
 			m_current = _btn;
 			m_current.setSelectedStatus(true);
 		}
 		
-		private function setDozen(_bValue:Boolean):void{
+		private setDozen(_bValue: boolean):void{
 			m_mcAsset.mc_dalie.visible = _bValue;
 			m_mcAsset.mc_dalie_0.visible = _bValue;
 			m_mcAsset.mc_dalie_1.visible = _bValue;

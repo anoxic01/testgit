@@ -1,22 +1,22 @@
 module lobby.model.struct {
 	export class GameSettingStruct {
-		public var BetLimitId		:	int;		//押注模式
-        public var UpperBetLimitId	:	int;		//押注上限
-        private var m_sCustChips	:	String;		//自订筹码
-		public var aCustChips		:	Array;		//自订筹码
+		public BetLimitId		:	number;		//押注模式
+        public UpperBetLimitId	:	number;		//押注上限
+        private m_sCustChips	:	String;		//自订筹码
+		public aCustChips		:	any[];		//自订筹码
 		
-		public constructor( oPlayerGameSetting:Object=null ) {
-			BetLimitId			=	oPlayerGameSetting.BetLimitId;
-			UpperBetLimitId		=	oPlayerGameSetting.UpperBetLimitId;
-			CustChips			=	oPlayerGameSetting.CustChips;
+		public constructor( oPlayerGameSetting=null ) {
+			this.BetLimitId			=	oPlayerGameSetting.BetLimitId;
+			this.UpperBetLimitId		=	oPlayerGameSetting.UpperBetLimitId;
+			this.CustChips			=	oPlayerGameSetting.CustChips;
 			
 		}
-		public function set CustChips(_sValue:String):void{
-			m_sCustChips		=	_sValue;
-			aCustChips			=	_sValue.split(",");
+		set  CustChips(_sValue:String){
+			this.m_sCustChips		=	_sValue;
+			this.aCustChips			=	_sValue.split(",");
 		}
-		public function get CustChips():String{
-			return m_sCustChips;
+		get CustChips():String{
+			return this.m_sCustChips;
 		}
 	}
 }

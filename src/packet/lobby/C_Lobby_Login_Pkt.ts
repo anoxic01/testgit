@@ -4,19 +4,19 @@ module packet.lobby {
         /// <summary>
         /// 登入認證資訊
         /// </summary>
-        private var authInfo:AuthInfoStruct;
+        private authInfo:AuthInfoStruct;
 		
 		
 		public constructor() {
 			authInfo = new AuthInfoStruct();
 		}
 		
-		public function get AuthInfo():AuthInfoStruct 
+		get AuthInfo():AuthInfoStruct 
 		{
 			return authInfo;
 		}
 		
-		public function set AuthInfo(value:AuthInfoStruct):void 
+		set  AuthInfo(value:AuthInfoStruct) 
 		{
 			authInfo = value;
 		}

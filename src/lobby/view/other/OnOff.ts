@@ -1,13 +1,13 @@
 module lobby.view.other {
 	export class OnOff extends BSprite{
-		private var m_mcAsset	:	*;
+		private m_mcAsset	:	*;
 
-		public function get volumeBar():VolumeBar
+		get volumeBar():VolumeBar
 		{
 			return m_volumeBar;
 		}
 
-		public function set volumeBar(value:VolumeBar):void
+		set  volumeBar(value:VolumeBar)
 		{
 			m_volumeBar = value;
 			if(m_volumeBar){
@@ -19,14 +19,14 @@ module lobby.view.other {
 			}
 		}
 
-		private var m_fOn		:	Function;
-		private var m_fOff		:	Function;
-		private var m_iType		:	int;
-		public var bStatus		:	Boolean;
-		private var m_volumeBar	:	VolumeBar;
-		private var m_nVolume	:	Number;
+		private m_fOn		:	Function;
+		private m_fOff		:	Function;
+		private m_iType		:	number;
+		public bStatus		:	 boolean;
+		private m_volumeBar	:	VolumeBar;
+		private m_nVolume	:	Number;
 		
-		public constructor(_iType:int) {
+		public constructor(_iType:number) {
 			super();
 			m_iType = _iType;
 			
@@ -64,7 +64,7 @@ module lobby.view.other {
 			this.addEventListener(MouseEvent.MOUSE_OVER, over);
 			this.addEventListener(MouseEvent.CLICK, change);
 		}
-		override public function destroy():void{
+		 public destroy():void{
 			this.removeEventListener(MouseEvent.MOUSE_OUT, out);
 			this.removeEventListener(MouseEvent.MOUSE_OVER, over);
 			this.removeEventListener(MouseEvent.CLICK, change);
@@ -89,7 +89,7 @@ module lobby.view.other {
 		
 
 		
-		public function on():void{
+		public on():void{
 			if(bStatus){
 				return;
 			}
@@ -100,7 +100,7 @@ module lobby.view.other {
 			volumeBar.enable = true;
 		}
 		
-		public function off():void{
+		public off():void{
 			if(bStatus){
 				m_mcAsset.mc_0.x = 0;
 				m_mcAsset.mc_1.gotoAndStop(1);
@@ -112,7 +112,7 @@ module lobby.view.other {
 			
 		}
 		
-		public function on_off():void{
+		public on_off():void{
 			if(bStatus){
 				off();
 			}else{
@@ -121,7 +121,7 @@ module lobby.view.other {
 			
 		}
 		
-		protected function change(event:MouseEvent):void
+		protected change(event:MouseEvent):void
 		{
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			
@@ -140,24 +140,24 @@ module lobby.view.other {
 			onChangeLanguage();
 		}
 		
-		protected function out(event:MouseEvent):void
+		protected out(event:MouseEvent):void
 		{
 			m_mcAsset.mc_0.gotoAndStop(1);
 		}
 		
-		protected function over(event:MouseEvent):void
+		protected over(event:MouseEvent):void
 		{
 			m_mcAsset.mc_0.gotoAndStop(2);
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			m_mcAsset.mc_1.tf_label.text = LobbyManager.getInstance().getLanguageString(bStatus?Language.sOn:Language.sOff);
 		}
 		
-		public function get volume():Number {
+		get volume():Number {
 			return m_nVolume;
 		}
-		public function set volume(_nValue:Number):void {
+		set  volume(_nValue:Number) {
 			m_nVolume = _nValue;
 		}
 	}

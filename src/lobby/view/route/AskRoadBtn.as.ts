@@ -1,6 +1,6 @@
 module lobby.view.route {
 	export class AskRoadBtn extends BSprite {
-		private var _btn:MovieClip;
+		private _btn:MovieClip;
 
 		public constructor(btn:MovieClip) {
 		this._btn = btn;
@@ -8,7 +8,7 @@ module lobby.view.route {
 			this._btn.addEventListener(MouseEvent.MOUSE_OVER, btnHandler);
 		}
 		
-		public function destroy():void {
+		public destroy():void {
 			if( this._btn ) {
 				this._btn.removeEventListener(MouseEvent.MOUSE_OVER, btnHandler);
 				this._btn.removeEventListener(MouseEvent.MOUSE_DOWN, btnHandler);
@@ -18,7 +18,7 @@ module lobby.view.route {
 
 		}
 		
-		private function btnHandler(e:MouseEvent):void {
+		private btnHandler(e:MouseEvent):void {
 			var tmp:MovieClip = e.currentTarget as MovieClip;
 			
 			switch (e.type) {

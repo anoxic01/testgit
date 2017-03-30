@@ -1,101 +1,166 @@
 module lobby.view {
-	export class LobbyInformation extends egret.DisplayObjectContainer {
+	export class LobbyInformation extends BSprite {
 		
-		private txt_name 	: 	egret.TextField;
-		private txt_money	:	egret.TextField;
-		private txt_online	:	egret.TextField;
-
-		private txt_y		:	number	=	21;
+		private  SPACE			:	number			=	2;		//间隔距离
 		
-		public constructor() {
+		private m_mcAsset		;						//个人资讯
+		private m_bmpFace		:	egret.Bitmap;					//玩家头像
+//		private m_bmpGold		:	egret.Bitmap;					//玩家金币
+		private m_btnRecharge	:	SingleButtonMC;			//充值按钮
+		private m_btnRegist		:	SingleButtonMC;			//注册按钮
+//		private m_mcMarquee		:	egret.MovieClip;				//滚动消息
+//		public marquee			:	MarqueeList;			//滚动消息
+		
+		public constructor( _mcParent:egret.MovieClip ) {
+			
 			super();
-
-			let information  = new egret.DisplayObjectContainer();
-			this.addChild(information);
-
-			let logo = manager.ResourceManager.getInstance().createBitmapByName("logo_png");
-			this.addChild(logo);
-
-			let line_top = manager.ResourceManager.getInstance().createBitmapByName("line_top_png");
-			this.addChild(line_top);
-			line_top.x = 256;
-			line_top.y = 49;
-
-			let iocn_me = manager.ResourceManager.getInstance().createBitmapByName("icon_me_png");
-			this.addChild(iocn_me);
-			iocn_me.x = 235;
-			iocn_me.y = 15;
-
-			this.txt_name = new egret.TextField();
-			this.addChild(this.txt_name);
-			this.txt_name.textColor = 0x5EB0C1;
-			this.txt_name.size = 22;
-			this.txt_name.text = "eason maaaaaaaa";
-			this.txt_name.x = 276;
-			this.txt_name.y = this.txt_y;
-
-			let cut_off_line_0 = manager.ResourceManager.getInstance().createBitmapByName("cut_off_line_png");
-			this.addChild(cut_off_line_0);
-			cut_off_line_0.x = 465;
-			cut_off_line_0.y = 16;
-
-			let icon_money = manager.ResourceManager.getInstance().createBitmapByName("icon_money_png");
-			this.addChild(icon_money);
-			icon_money.x = 477;
-			icon_money.y = 10;
-
-			this.txt_money = new egret.TextField();
-			this.addChild(this.txt_money);
-			this.txt_money.textColor = 0xFFCC00;
-			this.txt_money.size = 22;
-			this.txt_money.text = "1,123,456.00";
-			this.txt_money.x = 514;
-			this.txt_money.y = this.txt_y;
-
-			let btn_recharge = new ui.button.Button_Recharge();
-			this.addChild(btn_recharge);
-			btn_recharge.x = 655;
-			btn_recharge.y = 14;
-
-			let cut_off_line_1 = manager.ResourceManager.getInstance().createBitmapByName("cut_off_line_png");
-			this.addChild(cut_off_line_1);
-			cut_off_line_1.x = 696;
-			cut_off_line_1.y = 16;
-
-			let icon_online = manager.ResourceManager.getInstance().createBitmapByName("icon_online_png");
-			this.addChild(icon_online);
-			icon_online.x = 719;
-			icon_online.y = 21;
+			this.m_mcAsset		=	 manager.ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_LOBBY,"InfomationAsset");
+			_mcParent.addChild(this.m_mcAsset);
+			this.m_mcAsset.x = 0;
+			this.m_mcAsset.y = 5;
 			
-			this.txt_online = new egret.TextField();
-			this.addChild(this.txt_online);
-			this.txt_online.textColor = 0xffffff;
-			this.txt_online.size = 22;
-			this.txt_online.text = "1,234";
-			this.txt_online.x = 761;
-			this.txt_online.y = this.txt_y;
+			// TextUtils.setEmbedFont(this.m_mcAsset.tf_1,"微软雅黑 Bold");
+			// TextUtils.setEmbedFont(this.m_mcAsset.tf_2,"微软雅黑 Bold");
+//			m_mcMarquee 	=	m_mcAsset.getChildByName("mc_marquee") as MovieClip;
+			
+			this.m_bmpFace		=	new egret.Bitmap();
+			this.m_mcAsset.mc_0.addChild(this.m_bmpFace);
+			
+//			m_bmpGold		=	new Bitmap();
+//			m_mcAsset.mc_2.addChild(m_bmpGold);
+			
+			this.m_btnRecharge	=	new SingleButtonMC(this.m_mcAsset.mc_3, function(event:MouseEvent):void{
+				 manager.SoundManager.getInstance().play(SoundPackage.sClick_Tools);
+				 manager.TipManager.getInstance().hide();
+				 manager.LobbyManager.getInstance().hideAllPanel();
+//				 manager.LobbyManager.getInstance().showDialog( manager.LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
+				 manager.LobbyManager.getInstance().recharge();
+			});
+			this.m_btnRecharge.fOnOver = function():void{
+				 manager.TipManager.getInstance().show( manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_recharge), manager.TipManager.UP,this.m_mcAsset.localToGlobal(new Point(this.m_mcAsset.mc_3.x+18,this.m_mcAsset.mc_3.y+34)),1);
+			};
+			this.m_btnRecharge.fOnOut = function():void{
+				 manager.TipManager.getInstance().hide();
+			};
+			
+			this.m_btnRegist = new SingleButtonMC(this.m_mcAsset.mc_regist, function(event:MouseEvent):void{
+				 manager.SoundManager.getInstance().play(SoundPackage.sClick_Tools);
+				 manager.TipManager.getInstance().hide();
+				 manager.LobbyManager.getInstance().hideAllPanel();
+				
+				 manager.LobbyManager.getInstance().showDialog( manager.LobbyManager.getInstance().getLanguageString(language.Language.sHit_Leave_To_Regist),function():void{
+					 manager.LobbyManager.getInstance().bRegist = true;
+					 manager.LobbyManager.getInstance().sendLobbyLogout();
+				},function():void{
+					 manager.LobbyManager.getInstance().bRegist = false;
+				},true);
+			});
+			this.m_btnRegist.fOnOver = function():void{
+				 manager.TipManager.getInstance().show( manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Regist), manager.TipManager.UP,this.m_mcAsset.localToGlobal(new Point(this.m_mcAsset.mc_regist.x+43,this.m_mcAsset.mc_regist.y+34)),1);
+			};
+			this.m_btnRegist.fOnOut = function():void{
+				 manager.TipManager.getInstance().hide();
+			};
+			
+			if( manager.LobbyManager.getInstance().lobbyAuth.Identity==2){
+				this.m_btnRegist.visible = true;
+			}else{
+				this.m_btnRegist.visible = false;
+			}
+			
+//			marquee = new MarqueeList( 500,22 );
+//			m_mcMarquee.addChild( marquee );
+			
+//			setData();
+			this.onChangeLanguage();
+		}
 
+		public destroy():void
+		{
+//			if(m_bmpGold){
+//				if(m_bmpGold.parent){
+//					m_bmpGold.parent.removeChild(m_bmpGold);
+//				}
+//				m_bmpGold = null;
+//			}
+//			if(marquee){
+//				if(marquee.parent){
+//					marquee.parent.removeChild(marquee);
+//				}
+//				marquee.destroy();
+//				marquee = null;
+//			}
+			
+			if(this.m_bmpFace){
+				if(this.m_bmpFace.parent){
+					this.m_bmpFace.parent.removeChild(this.m_bmpFace);
+				}
+				this.m_bmpFace = null;
+			}
+			
+//			if(m_mcMarquee){
+//				m_mcMarquee = null;
+//			}
 			
 		}
-
-		public setName(str:string):void{
-			if(this.txt_name!=null){
-				this.txt_name.text = str;
+		
+		public setData():void{
+//			setFace(model.Player.getInstance().iFaceID);
+			this.m_mcAsset.tf_0.text = manager.TextManager.getInstance().filter(model.Player.getInstance().sNickName,this.m_mcAsset.tf_0);
+			
+			this.m_mcAsset.mc_1.gotoAndStop(model.Player.getInstance().uCurrency);
+//			m_mcAsset.mc_1.x = m_mcAsset.tf_0.x + int(m_mcAsset.tf_0.width) + SPACE;
+//			m_bmpGold.bitmapData = BitmapManager.getInstance().numberChip.conversion(model.Player.getInstance().balance.nGCoin);
+			this.m_mcAsset.tf_1.text = String(model.Player.getInstance().nCoin);
+//			m_mcAsset.mc_2.x = m_mcAsset.mc_1.x + int(m_mcAsset.mc_1.width) + SPACE;
+//			m_mcAsset.mc_3.x = m_mcAsset.mc_2.x + int(m_mcAsset.mc_2.width);
+//			m_mcAsset.tf_1.text =  manager.LobbyManager.getInstance().getLanguageString(Language.sOnlinemodel.Players) + " |";
+			this.m_mcAsset.tf_1.autoSize = TextFieldAutoSize.LEFT;
+			(this.m_mcAsset.tf_1 as TextField).mouseEnabled = false;
+			(this.m_mcAsset.tf_1 as TextField).selectable = false;
+			this.updateOnline();
+//			m_mcAsset.tf_2.x = m_mcAsset.tf_1.x + m_mcAsset.tf_1.textWidth + 10;
+			
+//			marquee.setData();
+		}
+		
+		public updateBalance():void{
+			if(this.m_mcAsset){
+				this.m_mcAsset.tf_1.text = String(model.Player.getInstance().nCoin);
 			}
 		}
-
-		public setMoney(str:string):void{
-			if(this.txt_money!=null){
-				this.txt_money.text = str;
+		public updateOnline():void{
+			this.m_mcAsset.tf_2.text = model.LobbyData.getInstance().lobbyInfo.Onlinemodel.Players.toString();
+		}
+				
+		public setFace( _uFaceID:number ):void{
+			this.m_bmpFace.bitmapData =  FaceManager.getInstance().getFaceByID(_uFaceID);
+		}
+		
+		onChangeLanguage():void{
+//			marquee.onChangeLanguage();
+			if(this.m_btnRegist){
+				(this.m_btnRegist.mcAsset.mc_label as MovieClip).gotoAndStop( manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			}
 		}
-
-		public setOnline(str:string):void{
-			if(this.txt_online!=null){
-				this.txt_online.text = str;
-			}
+		
+		public playMarquee():void{
+//			if(marquee){
+//				marquee.start();
+//			}
 		}
-
-
+		public stopMarquee():void{
+//			if(marquee){
+//				marquee.stop();
+//			}
+		}
+		
+		set visible(bValue:boolean) {
+			this.m_mcAsset.visible = bValue;
+		}
+		get visible():boolean {
+			return this.m_mcAsset.visible;
+		}		
+		
 	}
 }

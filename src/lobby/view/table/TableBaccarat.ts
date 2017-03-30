@@ -1,18 +1,18 @@
 module lobby.view.table {
 	export class TableBaccarat extends Table{
 		
-		private var m_mcLabel			:	MovieClip;					//桌子名称
+		private m_mcLabel			:	MovieClip;					//桌子名称
 		
-//		private var m_bmpChip			:	Bitmap;						//总筹码数
-//		private var m_bmpOnline			:	Bitmap;						//在线人数
-//		private var m_bmpBanker			:	Bitmap;						//下注数据
-//		private var m_bmpPlayer			:	Bitmap;						//下注数据
-//		private var m_bmpTie			:	Bitmap;						//下注数据
+//		private m_bmpChip			:	Bitmap;						//总筹码数
+//		private m_bmpOnline			:	Bitmap;						//在线人数
+//		private m_bmpBanker			:	Bitmap;						//下注数据
+//		private m_bmpPlayer			:	Bitmap;						//下注数据
+//		private m_bmpTie			:	Bitmap;						//下注数据
 		
-		private var m_btnBanker			:	SingleButtonMC;				//庄问路
-		private var m_btnPlayer			:	SingleButtonMC;				//闲问路
+		private m_btnBanker			:	SingleButtonMC;				//庄问路
+		private m_btnPlayer			:	SingleButtonMC;				//闲问路
 		
-		private var m_road				:	TableRoadMapBaccarat;
+		private m_road				:	TableRoadMapBaccarat;
 		
 		public constructor() {
 			
@@ -122,7 +122,7 @@ module lobby.view.table {
 			m_Statistic_bottom_offsetY = 19;
 		}
 		
-		override public function destroy():void{
+		 public destroy():void{
 			super.destroy();
 			
 			if(m_mcLabel){
@@ -157,7 +157,7 @@ module lobby.view.table {
 			}
 		}
 		
-		override public function setData(_struct:TableStruct):void{
+		 public setData(_struct:TableStruct):void{
 			if(_struct==null){
 				if(m_mcLabel ){
 					if(m_mcLabel.parent){
@@ -267,7 +267,7 @@ module lobby.view.table {
 			
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			
 			m_mcLabel.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			m_mcContent.mc_2.x = int(m_mcContent.mc_1.x + m_mcContent.mc_1.width);
@@ -307,12 +307,12 @@ module lobby.view.table {
 			super.onChangeLanguage();
 		}
 		
-		override public function update(_bInit:Boolean=false):void{
+		 public update(_bInit: boolean=false):void{
 			
 			//测试代码
 //			m_road.addRoad("a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a");
 			if(m_struct.TableID==17){
-				trace("刷新1桌倒计时：",m_iCountDown);
+				console.log("刷新1桌倒计时：",m_iCountDown);
 			}
 			
 			updateRoad(_bInit);
@@ -357,7 +357,7 @@ module lobby.view.table {
 			m_mcContent.tf_8.text = m_struct.OnlinePlayers.toString();
 		}
 		
-		override public function updateRoad(_bInit:Boolean):void{
+		 public updateRoad(_bInit: boolean):void{
 			
 			if(m_struct.IsCurrFailGame){
 				if(m_struct.RoadMaps.length==1){
@@ -373,40 +373,40 @@ module lobby.view.table {
 				m_road.bError = false;
 				
 				if(_bInit){
-					var _len : int;
+					var _len : number;
 					if(m_struct.RoadMaps!="" && m_struct.RoadMaps!=null){
 						_len = m_struct.RoadMaps.split(".").length;
 					}
 					if(m_struct.GameNo == _len){
 						initRoad(m_struct.RoadMaps);
 //						if(m_struct.TableID==37){
-//							trace("1 初始化大厅路纸，游戏局号：>>", m_struct.GameNo, "  RoadMaps:>>",m_struct.RoadMaps, "  LastRoadMap：>> ",m_struct.LastRoadMap);
+//							console.log("1 初始化大厅路纸，游戏局号：>>", m_struct.GameNo, "  RoadMaps:>>",m_struct.RoadMaps, "  LastRoadMap：>> ",m_struct.LastRoadMap);
 //						}
 					}else{
 						if(m_struct.GameNo == (_len+1)){
 							if(m_struct.GameStatus!=GameStatus.SETTLED){
 								initRoad(m_struct.RoadMaps);
 //								if(m_struct.TableID==37){
-//									trace("2 初始化大厅路纸，","游戏靴号：",m_struct.ShoeNo, "游戏状态",m_struct.GameStatus ,"游戏局号：>>", m_struct.GameNo, "  RoadMaps:>>",m_struct.RoadMaps, " length:>>",m_struct.RoadMaps.length ,"  LastRoadMap：>> ",m_struct.LastRoadMap);
+//									console.log("2 初始化大厅路纸，","游戏靴号：",m_struct.ShoeNo, "游戏状态",m_struct.GameStatus ,"游戏局号：>>", m_struct.GameNo, "  RoadMaps:>>",m_struct.RoadMaps, " length:>>",m_struct.RoadMaps.length ,"  LastRoadMap：>> ",m_struct.LastRoadMap);
 //								}
 							}else{
 								if(m_struct.LastRoadMap.length>0){
 									if(m_struct.RoadMaps=="" || m_struct.RoadMaps==null){
 										initRoad(m_struct.LastRoadMap);
 //										if(m_struct.TableID==37){
-//											trace("3 初始化大厅路纸，游戏局号：>>", m_struct.GameNo, "  RoadMaps:>>",m_struct.RoadMaps, "  LastRoadMap：>> ",m_struct.LastRoadMap);
+//											console.log("3 初始化大厅路纸，游戏局号：>>", m_struct.GameNo, "  RoadMaps:>>",m_struct.RoadMaps, "  LastRoadMap：>> ",m_struct.LastRoadMap);
 //										}
 									}else{
 										initRoad(m_struct.RoadMaps+"."+m_struct.LastRoadMap);
 										m_iGameNo = m_struct.GameNo;
 //										if(m_struct.TableID==37){
-//											trace("4 初始化大厅路纸，游戏局号：>>", m_struct.GameNo, "  RoadMaps:>>",m_struct.RoadMaps, "  LastRoadMap：>> ",m_struct.LastRoadMap);
+//											console.log("4 初始化大厅路纸，游戏局号：>>", m_struct.GameNo, "  RoadMaps:>>",m_struct.RoadMaps, "  LastRoadMap：>> ",m_struct.LastRoadMap);
 //										}
 									}
 								}else{
 									LobbyManager.getInstance().getRoadmapReqInfo([m_struct.TableID]);
 //									if(m_struct.TableID==37){
-//										trace("5 初始化大厅路纸，游戏局号：>>", m_struct.GameNo, "  RoadMaps:>>",m_struct.RoadMaps, "  length:>> ",m_struct.RoadMaps.length);
+//										console.log("5 初始化大厅路纸，游戏局号：>>", m_struct.GameNo, "  RoadMaps:>>",m_struct.RoadMaps, "  length:>> ",m_struct.RoadMaps.length);
 //										
 //									}
 								}
@@ -414,7 +414,7 @@ module lobby.view.table {
 						}else{
 							LobbyManager.getInstance().getRoadmapReqInfo([m_struct.TableID]);
 //							if(m_struct.TableID==37){
-//								trace("6 初始化大厅路纸","游戏靴号：",m_struct.ShoeNo, "游戏状态",m_struct.GameStatus,"游戏局号：>>", m_struct.GameNo, "  RoadMaps:>>",m_struct.RoadMaps, "  length:>> ",m_struct.RoadMaps.length);
+//								console.log("6 初始化大厅路纸","游戏靴号：",m_struct.ShoeNo, "游戏状态",m_struct.GameStatus,"游戏局号：>>", m_struct.GameNo, "  RoadMaps:>>",m_struct.RoadMaps, "  length:>> ",m_struct.RoadMaps.length);
 //							}
 						}
 					}
@@ -424,7 +424,7 @@ module lobby.view.table {
 							m_iGameNo = m_struct.GameNo;
 							m_road.addRoad(m_struct.LastRoadMap);
 //							if(m_struct.TableID==37){
-//								trace("游戏局号：>>", m_struct.GameNo, "  更新路纸：>> ",m_struct.LastRoadMap);
+//								console.log("游戏局号：>>", m_struct.GameNo, "  更新路纸：>> ",m_struct.LastRoadMap);
 //							}
 						}
 					}
@@ -432,7 +432,7 @@ module lobby.view.table {
 			}
 		}
 		
-		override public function updateStaticsInfo():void{
+		 public updateStaticsInfo():void{
 			
 			//			m_bmpChip.bitmapData = BitmapManager.getInstance().numberChip.conversion(m_struct.staticsInfo.TotalBet);
 			//			m_bmpChip.smoothing = true;
@@ -451,7 +451,7 @@ module lobby.view.table {
 			
 			//测试代码
 			if(m_struct.TableID==10){
-				var a:int = m_struct.TableID;
+				var a:number= m_struct.TableID;
 			}
 			m_mcContent.tf_0.text = (m_struct.StaticsInfo as StaticsInfoBaccarat).BankerWinCnt.toString();
 			m_mcContent.tf_1.text = (m_struct.StaticsInfo as StaticsInfoBaccarat).PlayerWinCnt.toString();
@@ -466,10 +466,10 @@ module lobby.view.table {
 		}
 		
 		//更新维护状态
-		override public function updateMaintenanceStatus():void{
+		 public updateMaintenanceStatus():void{
 			//测试代码
 			if(struct.TableID==31){
-			//	trace("测试代码");
+			//	console.log("测试代码");
 			}
 			if(struct.IsMaintaining){
 				updateHint( Language.sMaintenance);
@@ -485,7 +485,7 @@ module lobby.view.table {
 			}
 			//身份判断
 			if(Player.getInstance().iIdentity==2){
-				var _bTrial : Boolean = isSupportTrial();
+				var _bTrial :  boolean = isSupportTrial();
 				if(_bTrial){
 					otherCheck();
 				}else{
@@ -498,9 +498,9 @@ module lobby.view.table {
 			}
 		}
 		
-		protected function otherCheck():void{
+		protected otherCheck():void{
 			if(struct.TableID==12){
-//				trace("struct.TableID>> ",struct.TableID, struct.GameNo, struct.IsChangingShoe, struct.GameStatus, struct.RoadMaps, struct.LastRoadMap);
+//				console.log("struct.TableID>> ",struct.TableID, struct.GameNo, struct.IsChangingShoe, struct.GameStatus, struct.RoadMaps, struct.LastRoadMap);
 			}
 			if(isNotFinish()){
 				//游戏未完成
@@ -545,7 +545,7 @@ module lobby.view.table {
 				hideMaintain();
 			}
 			
-			m_bSettled = Boolean(m_struct.GameStatus==GameStatus.SETTLED);
+			m_bSettled =  boolean(m_struct.GameStatus==GameStatus.SETTLED);
 			
 			if(m_struct.IsChangingShoe){
 				//洗牌中
@@ -561,7 +561,7 @@ module lobby.view.table {
 						}
 						break;
 					default:
-						trace("");
+						console.log("");
 						break;
 				}
 			}else{
@@ -569,18 +569,18 @@ module lobby.view.table {
 			}
 		}
 		
-		override public function initRoad(_sRoad:String):void{
+		 public initRoad(_sRoad:String):void{
 			m_iGameNo = isGameStart()?m_struct.GameNo-1:m_struct.GameNo;
 			
 			m_road.clearRoad();
 			m_road.addRoad(_sRoad);
 		}
 		
-		override public function get road():Object{
+		 get road():Object{
 			return m_road;
 		}
 		
-		private function getLimit(_struct:TableStruct):String{
+		private getLimit(_struct:TableStruct):String{
 			var _limitStruct : BetLimitStruct = LobbyData.getInstance().getBetLimitByGL(_struct.GameID, _struct.BetLimitID);
 			var _sLimit	: String;
 			if(_limitStruct){
@@ -591,12 +591,12 @@ module lobby.view.table {
 			return _sLimit;
 		}
 		
-		override public function set setBetLimitVisible(_bValue:Boolean):void {
+		 set  setBetLimitVisible(_bValue: boolean) {
 			tableLoginType.setBetLimitVisible = _bValue;
 		}		
 		
 		//游戏进行中
-		override public function isGameStart():Boolean{
+		 public isGameStart(): boolean{
 			// 如果游戏处于下注或者发牌阶段，说明游戏已经开始
 			switch(m_struct.GameStatus){
 				case GameStatus.BETTING:

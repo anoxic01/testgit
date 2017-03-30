@@ -1,11 +1,11 @@
 module lobby.model.struct {
 	export class CardStruct {
-		public var CSuit 		:int;
-		public var CardNumber 	:int;
+		public CSuit 		:number;
+		public CardNumber 	:number;
 		
 		public constructor() {
-			CSuit 		= -1;
-			CardNumber 	= -1;
+			this.CSuit 		= -1;
+			this.CardNumber 	= -1;
 		}
 	}
 }

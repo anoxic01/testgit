@@ -1,37 +1,37 @@
 module lobby.model.game {
 	export class BaccaratBetLimit extends GameBetLimitBase {
 		
-        private var singleBetUpperLimit:Number;
+        private singleBetUpperLimit:Number;
 
 
-        private var singleBetUnderLimit:Number;
+        private singleBetUnderLimit:Number;
 
 
-        private var tieBetUpperLimit:Number
+        private tieBetUpperLimit:Number
 
 
-        private var tieBetUnderLimit:Number
+        private tieBetUnderLimit:Number
 
 
-        private var pairBetUpperLimit:Number
+        private pairBetUpperLimit:Number
 
 
-        private var pairBetUnderLimit:Number
-
-
-
-        private var bigBetUpperLimit:Number;
+        private pairBetUnderLimit:Number
 
 
 
-        private var bigBetUnderLimit :Number
+        private bigBetUpperLimit:Number;
 
 
 
-        private var smallBetUpperLimit :Number
+        private bigBetUnderLimit :Number
 
 
-        private var smallBetUnderLimit :Number
+
+        private smallBetUpperLimit :Number
+
+
+        private smallBetUnderLimit :Number
 		/**
 		 * @private
 		 */
@@ -42,144 +42,144 @@ module lobby.model.game {
 		/**
 		 * 庄/閒 押注上限
 		 */
-		public function get SingleBetUpperLimit():Number 
+		get SingleBetUpperLimit():Number 
 		{
-			return singleBetUpperLimit;
+			return this.singleBetUpperLimit;
 		}
 		/**
 		 * 庄/閒 押注上限
 		 */
-		public function set SingleBetUpperLimit(value:Number):void 
+		set  SingleBetUpperLimit(value:Number) 
 		{
-			singleBetUpperLimit = value;
+			this.singleBetUpperLimit = value;
 		}
         /**
          * 庄/閒 押注下限
          */
-		public function get SingleBetUnderLimit():Number 
+		get SingleBetUnderLimit():Number 
 		{
-			return singleBetUnderLimit;
+			return this.singleBetUnderLimit;
 		}
         /**
          * 庄/閒 押注下限
          */
-		public function set SingleBetUnderLimit(value:Number):void 
+		set  SingleBetUnderLimit(value:Number) 
 		{
-			singleBetUnderLimit = value;
+			this.singleBetUnderLimit = value;
 		}
        /**
          * 和 押注上限
          */
-		public function get TieBetUpperLimit():Number 
+		get TieBetUpperLimit():Number 
 		{
-			return tieBetUpperLimit;
+			return this.tieBetUpperLimit;
 		}
 		/**
          * 和 押注上限
          */
-		public function set TieBetUpperLimit(value:Number):void 
+		set  TieBetUpperLimit(value:Number) 
 		{
-			tieBetUpperLimit = value;
+			this.tieBetUpperLimit = value;
 		}
         /**
          * 和 押注下限
          */
-		public function get TieBetUnderLimit():Number 
+		get TieBetUnderLimit():Number 
 		{
-			return tieBetUnderLimit;
+			return this.tieBetUnderLimit;
 		}
         /**
          * 和 押注下限
          */
-		public function set TieBetUnderLimit(value:Number):void 
+		set  TieBetUnderLimit(value:Number) 
 		{
-			tieBetUnderLimit = value;
+			this.tieBetUnderLimit = value;
 		}
         /**
          * 庄/閒對 押注上限
          */
-		public function get PairBetUpperLimit():Number 
+		get PairBetUpperLimit():Number 
 		{
-			return pairBetUpperLimit;
+			return this.pairBetUpperLimit;
 		}
         /**
          * 庄/閒對 押注上限
          */
-		public function set PairBetUpperLimit(value:Number):void 
+		set  PairBetUpperLimit(value:Number) 
 		{
-			pairBetUpperLimit = value;
+			this.pairBetUpperLimit = value;
 		}
         /**
          * 庄/閒對 押注下限
          */
-		public function get PairBetUnderLimit():Number 
+		get PairBetUnderLimit():Number 
 		{
-			return pairBetUnderLimit;
+			return this.pairBetUnderLimit;
 		}
         /**
          * 庄/閒對 押注下限
          */
-		public function set PairBetUnderLimit(value:Number):void 
+		set  PairBetUnderLimit(value:Number) 
 		{
-			pairBetUnderLimit = value;
+			this.pairBetUnderLimit = value;
 		}
         /**
          * 大 押注上限
          */
-		public function get BigBetUpperLimit():Number 
+		get BigBetUpperLimit():Number 
 		{
-			return bigBetUpperLimit;
+			return this.bigBetUpperLimit;
 		}
         /**
          * 大 押注上限
          */
-		public function set BigBetUpperLimit(value:Number):void 
+		set  BigBetUpperLimit(value:Number) 
 		{
-			bigBetUpperLimit = value;
+			this.bigBetUpperLimit = value;
 		}
        /**
         * 大押注下限
         */
-		public function get BigBetUnderLimit():Number 
+		get BigBetUnderLimit():Number 
 		{
-			return bigBetUnderLimit;
+			return this.bigBetUnderLimit;
 		}
 	    /**
         * 大押注下限
         */
-		public function set BigBetUnderLimit(value:Number):void 
+		set  BigBetUnderLimit(value:Number) 
 		{
-			bigBetUnderLimit = value;
+			this.bigBetUnderLimit = value;
 		}
 		/**
 		 * 小 押注上限
 		 */
-		public function get SmallBetUpperLimit():Number 
+		get SmallBetUpperLimit():Number 
 		{
-			return smallBetUpperLimit;
+			return this.smallBetUpperLimit;
 		}
 		/**
 		 * 小 押注上限
 		 */
-		public function set SmallBetUpperLimit(value:Number):void 
+		set  SmallBetUpperLimit(value:Number) 
 		{
-			smallBetUpperLimit = value;
+			this.smallBetUpperLimit = value;
 		}
 
         /**
          *  小 押注下限
          */
-		public function get SmallBetUnderLimit():Number 
+		get SmallBetUnderLimit():Number 
 		{
-			return smallBetUnderLimit;
+			return this.smallBetUnderLimit;
 		}
 
         /**
          *  小 押注下限
          */
-		public function set SmallBetUnderLimit(value:Number):void 
+		set  SmallBetUnderLimit(value:Number) 
 		{
-			smallBetUnderLimit = value;
+			this.smallBetUnderLimit = value;
 		}
 		
 

@@ -1,79 +1,79 @@
 module lobby.model.struct {
 	export class MessageStruct {
-		public static const Minute_5				:int = 	5*60*1000;
+		public static Minute_5				:number= 	5*60*1000;
 		
-		private static var m_iUid					:int;
-		private var m_iId							:int;
+		public static m_iUid					:number;
+		private m_iId							:number;
 		
-		private var m_oData							:Object;
+		private m_oData							:Object;
 		
-		private var m_bIsMaintain					:Boolean;
+		private m_bIsMaintain					: boolean;
 		
-		public var maMaintain						:MaintainsAnnouncementStruct;
+		public maMaintain						:MaintainsAnnouncementStruct;
 		
-		public var iStartShowTime					:int;
-		public var iShowTime						:int;
+		public iStartShowTime					:number;
+		public iShowTime						:number;
 		
 		/**
 		 * 时间到了，跑完删除 
 		 */		
-		public var bReadyKill						:Boolean;
+		public bReadyKill						: boolean;
 		
 		public constructor() {
-			m_iUid++;
-			m_iId = m_iUid;
+			MessageStruct.m_iUid++;
+			this.m_iId = MessageStruct.m_iUid;
 		}
-		public function get iId():int
+		get iId():number
 		{
-			return m_iId;
+			return this.m_iId;
 		}
-		public function get oData():Object
+		get oData():Object
 		{
-			return m_oData;
+			return this.m_oData;
 		}
-		public function set oData(value:Object):void
+		set  oData(value)
 		{
-			m_oData = value;
-			m_bIsMaintain = m_oData is MaintainsAnnouncementStruct;
-			if(m_bIsMaintain)
+			this.m_oData = value;
+			this.m_bIsMaintain = this.m_oData instanceof MaintainsAnnouncementStruct;
+			if(this.m_bIsMaintain)
 			{
-				maMaintain = m_oData as MaintainsAnnouncementStruct;
-				iShowTime = Minute_5;
+				this.maMaintain = this.m_oData as MaintainsAnnouncementStruct;
+				this.iShowTime = MessageStruct.Minute_5;
 			}
 			else
 			{
-				iShowTime = Minute_5;
+				this.iShowTime = MessageStruct.Minute_5;
 			}
 		}
 		/**
 		 * true：
 		 * false：5分钟自动消失 
 		 */
-		public function get bIsMaintain():Boolean
+		get bIsMaintain(): boolean
 		{
-			return m_bIsMaintain;
+			return this.m_bIsMaintain;
 		}
-		public function toString():String
+		public toString():string
 		{
-			var str:String = "";
-			if(m_oData)
+			var str:string = "";
+			if(this.m_oData)
 			{
-				if(m_bIsMaintain)
+				if(this.m_bIsMaintain)
 				{
 					//维护
-					str = (m_oData as MaintainsAnnouncementStruct).toString();
+					str = (this.m_oData as MaintainsAnnouncementStruct).toString();
 				}
 				else
 				{
-					if(m_oData is String)
+					if(<string>this.m_oData)
 					{
 						//sun_question
-						str = String(m_oData);
+						str = String(this.m_oData);
 					}
 					else
 					{
 						//緊急公告的簡短訊息
-						str = m_oData[LobbyManager.getInstance().lobbyAuth.Lang].Msg;
+						str = this.m_oData[manager.LobbyManager.getInstance().lobbyAuth.Lang].Msg;
 					}
 				}
 			}

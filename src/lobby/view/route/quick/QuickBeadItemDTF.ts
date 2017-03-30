@@ -1,23 +1,23 @@
 module lobby.view.route.quick {
 	export class QuickBeadItemDTF extends BeadItem{
-		private var m_sLabel	:	String;
+		private var m_sLabel	:	string;
 		
 		public constructor() {
 		
 			super();
 		}
 		
-		override public function destroy():void{
+		 public function destroy():void{
 			super.destroy();
 			
 		}
 		
-		override public function setLabel(sLabel:String):void{
+		 public function setLabel(sLabel:string):void{
 			m_sLabel = sLabel;
 			onChangeLanguage();
 		}
 		
-		override public function onChangeLanguage():void{
+		 public function onChangeLanguage():void{
 			if(m_bmp){
 				switch(m_sLabel){
 					case A:
@@ -36,7 +36,7 @@ module lobby.view.route.quick {
 				m_bmp.height = 21;
 				m_bmp.smoothing = true;
 			}else{
-				trace("设置珠子位图异常...");
+				console.log("设置珠子位图异常...");
 			}
 		}
 		

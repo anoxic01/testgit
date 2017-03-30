@@ -1,13 +1,13 @@
 module lobby.view.quick {
 	export class QuickTableDrTi extends QuickTable{
 		
-//		private var m_mcAsset		:	*;								//房间资源
-//		private var m_bmpTable		:	Bitmap;							//桌子序号
+//		private m_mcAsset		:	*;								//房间资源
+//		private m_bmpTable		:	Bitmap;							//桌子序号
 		
-		private var m_road			:	QuickTableRoadMapDTF;			//路纸
+		private m_road			:	QuickTableRoadMapDTF;			//路纸
 		
-//		private var m_btnLimit		:	ButtonMcLanguage;				//限红选择
-		private var m_btnLogin		:	ButtonMcLanguage;				//进入游戏
+//		private m_btnLimit		:	ButtonMcLanguage;				//限红选择
+		private m_btnLogin		:	ButtonMcLanguage;				//进入游戏
 			
 		public constructor() {
 		
@@ -56,7 +56,7 @@ module lobby.view.quick {
 			
 		}
 		
-		override public function destroy():void {
+		 public destroy():void {
 			
 			
 			//			if(m_bmpTable){
@@ -84,7 +84,7 @@ module lobby.view.quick {
 			super.destroy();
 		}
 		
-		override public function setData(_tableStruct:TableStruct):void{
+		 public setData(_tableStruct:TableStruct):void{
 			super.setData(_tableStruct);
 			
 			//一般,急速,機械手臂
@@ -116,7 +116,7 @@ module lobby.view.quick {
 			
 		}
 		
-		override public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			super.onChangeLanguage();
 			
 			m_mcAsset.tf_label.text = "";//LobbyManager.getInstance().getLanguageString(Language.sGame_Name_DTF) + String(m_struct.TableID) + LobbyManager.getInstance().getLanguageString(Language.sTable);
@@ -139,7 +139,7 @@ module lobby.view.quick {
 			updateMaintenanceStatus();
 		}
 		
-		override public function update(_bInit:Boolean=false):void{
+		 public update(_bInit: boolean=false):void{
 			if(m_road==null){
 				return;
 			}
@@ -182,7 +182,7 @@ module lobby.view.quick {
 		}
 		
 		//更新路纸
-		override public function updateRoad(_bInit:Boolean):void{
+		 public updateRoad(_bInit: boolean):void{
 			if(m_struct.IsCurrFailGame){
 				if(m_struct.RoadMaps.length==1){
 					m_struct.RoadMaps = m_struct.RoadMaps.replace("#","");
@@ -198,7 +198,7 @@ module lobby.view.quick {
 				m_road.bError = false;
 				
 				if(_bInit){
-					var _len : int;
+					var _len : number;
 					if(m_struct.RoadMaps!="" && m_struct.RoadMaps!=null){
 						_len = m_struct.RoadMaps.split(".").length;
 					}
@@ -235,14 +235,14 @@ module lobby.view.quick {
 			}
 		}
 		
-		override public function initRoad(_sRoad:String):void{
+		 public initRoad(_sRoad:String):void{
 			m_iGameNo = isGameStart()?m_struct.GameNo-1:m_struct.GameNo;
 			
 			m_road.clearRoad();
 			m_road.addRoad(_sRoad);
 		}
 		
-		override public function updateMaintenanceStatus():void{
+		 public updateMaintenanceStatus():void{
 			if(struct.IsMaintaining){
 				updateHint(Language.sMaintenance);
 				showMaintain();
@@ -258,7 +258,7 @@ module lobby.view.quick {
 			
 			//身份判断
 			if(Player.getInstance().iIdentity==2){
-				var _bTrial : Boolean = isSupportTrial();
+				var _bTrial :  boolean = isSupportTrial();
 				if(_bTrial){
 					otherCheck();
 				}else{
@@ -271,7 +271,7 @@ module lobby.view.quick {
 			}
 		}
 		
-		private function otherCheck():void{
+		private otherCheck():void{
 			if(isNotFinish()){
 				//游戏未完成
 				m_bNotFinished = true;
@@ -302,7 +302,7 @@ module lobby.view.quick {
 				return;
 			}
 			
-			m_bSettled = Boolean(m_struct.GameStatus==GameStatus.SETTLED);
+			m_bSettled =  boolean(m_struct.GameStatus==GameStatus.SETTLED);
 			
 			if(m_struct.IsChangingShoe){
 				//洗牌中
@@ -324,14 +324,14 @@ module lobby.view.quick {
 		}
 		
 		
-		override public function showMaintain(_bMc:Boolean=true):void{
+		 public showMaintain(_bMc: boolean=true):void{
 			m_bMaintance = true;
 			m_mcAsset.mc_mask.visible = _bMc;
 			m_mcAsset.mc_hint.visible = true;
 			this.mouseChildren = false;
 			this.mouseEnabled = false;
 		}
-		override public function hideMaintain():void{
+		 public hideMaintain():void{
 			m_bMaintance = false;
 			m_mcAsset.mc_mask.visible = false;
 			m_mcAsset.mc_hint.visible = false;
@@ -339,21 +339,21 @@ module lobby.view.quick {
 			this.mouseEnabled = true;
 		}
 		
-		override protected function bgOver(event:MouseEvent):void{
+		 protected bgOver(event:MouseEvent):void{
 			super.bgOver(event);
 			if(m_mcAsset){
 				TweenLite.to(m_mcAsset.mc_bg, Define.SPEED,{y:122});
 //				TweenLite.to(m_mcAsset.mc_1, Define.SPEED,{y:6});
 			}
 		}
-		override protected function bgOut(event:MouseEvent):void{
+		 protected bgOut(event:MouseEvent):void{
 			super.bgOut(event);
 			if(m_mcAsset){
 				TweenLite.to(m_mcAsset.mc_bg, Define.SPEED,{y:165});
 //				TweenLite.to(m_mcAsset.mc_1, Define.SPEED,{y:-30});
 			}
 		}
-		private function initNormal():void{
+		private initNormal():void{
 			m_mcAsset.mc_bg.removeChild(m_mcAsset.mc_bg.mc_3);
 			m_mcAsset.mc_bg.removeChild(m_mcAsset.mc_bg.mc_4);
 			m_mcAsset.mc_bg.removeChild(m_mcAsset.mc_bg.mc_5);

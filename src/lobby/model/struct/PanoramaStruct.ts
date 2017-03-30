@@ -1,44 +1,44 @@
 module lobby.model.struct {
 	export class PanoramaStruct {
-		 public var PanoramaID		:	int;		//全景序号
+		 public PanoramaID		:	number;		//全景序号
 		
-        public var PanoramaName_TW	:	String;		//全景名称
-        public var PanoramaName_CN :	String;		//全景名称
-        public var PanoramaName_EN :	String;		//全景名称
+        public PanoramaName_TW	:	String;		//全景名称
+        public PanoramaName_CN :	String;		//全景名称
+        public PanoramaName_EN :	String;		//全景名称
 		
-        public var StreamUrl 		:	String;		//视讯地址
-        public var StreamName 		:	String;		//视讯名称
-        public var StreamAppName	:	String;		//串流名称
+        public StreamUrl 		:	String;		//视讯地址
+        public StreamName 		:	String;		//视讯名称
+        public StreamAppName	:	String;		//串流名称
 		
-        public var CreateDataTime 	:	String;		//创建时间
+        public CreateDataTime 	:	String;		//创建时间
 		
-		public var PriorityNo		:	int;		//优先顺序
-		public var IsDef			:	Boolean;	//是否预设
+		public PriorityNo		:	number;		//优先顺序
+		public IsDef			:	 boolean;	//是否预设
 
-		public constructor( oData:Object=null ) {
+		public constructor( oData=null ) {
 			if(oData==null)
 			{
 				return;
 			}
 			
-			update(oData);
+			this.update(oData);
 		}
 		
-		public function update(oData:Object):void{
-			PanoramaID = oData.PanoramaID;
+		public update(oData):void{
+			this.PanoramaID = oData.PanoramaID;
 			
-			PanoramaName_TW = oData.PanoramaName_TW;
-			PanoramaName_CN = oData.PanoramaName_CN;
-			PanoramaName_EN = oData.PanoramaName_EN;
+			this.PanoramaName_TW = oData.PanoramaName_TW;
+			this.PanoramaName_CN = oData.PanoramaName_CN;
+			this.PanoramaName_EN = oData.PanoramaName_EN;
 			
-			StreamUrl = oData.StreamUrl;
-			StreamName = oData.StreamName;
-			StreamAppName = oData.StreamAppName;
+			this.StreamUrl = oData.StreamUrl;
+			this.StreamName = oData.StreamName;
+			this.StreamAppName = oData.StreamAppName;
 			
-			CreateDataTime = oData.CreateDataTime;
+			this.CreateDataTime = oData.CreateDataTime;
 			
-			PriorityNo = oData.PriorityNo;
-			IsDef = oData.IsDef;
+			this.PriorityNo = oData.PriorityNo;
+			this.IsDef = oData.IsDef;
 		}
 		
 	}

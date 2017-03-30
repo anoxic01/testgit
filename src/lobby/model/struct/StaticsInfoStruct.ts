@@ -1,24 +1,24 @@
 module lobby.model.struct {
 	export class StaticsInfoStruct {
-		public var GameID			:	int;				//遊戲ID
-		public var GameNo			:	int;
-		public var GameStatus		:	String;
+		public GameID			:	number;				//遊戲ID
+		public GameNo			:	number;
+		public GameStatus		:	String;
 		
-		public var OnlinePlayers	:	int;				//在線玩家
+		public OnlinePlayers	:	number;				//在線玩家
 		
-		public var ShoeNo			:	int;
+		public ShoeNo			:	number;
 		
-		public var TableID			:	int;				//TableID
-		public var TBName_CN		:	String;
-		public var TBName_EN		:	String;
-		public var TBName_TW		:	String;
-		public var ThemeID			:	int;				//廳館ID
+		public TableID			:	number;				//TableID
+		public TBName_CN		:	String;
+		public TBName_EN		:	String;
+		public TBName_TW		:	String;
+		public ThemeID			:	number;				//廳館ID
 		
-		public var TotalBet			:	Number=0;			//總押注額
-		public var TotalBetCnt		:	Number=0;			//總押注數
-		public var TotalWinCnt		:	Number=0;			//
-		public var UpdateNow		:	Boolean = 	false;	//新增屬性
-		public var Ret				:	Boolean;			//
+		public TotalBet			:	Number=0;			//總押注額
+		public TotalBetCnt		:	Number=0;			//總押注數
+		public TotalWinCnt		:	Number=0;			//
+		public UpdateNow		:	 boolean = 	false;	//新增屬性
+		public Ret				:	 boolean;			//
 		
 		public constructor() {
 		}
@@ -27,7 +27,7 @@ module lobby.model.struct {
 		 * 更新彩池
 		 * @param	o
 		 */
-		public function updateStatic( oData:Object ):void {
+		public updateStatic( oData ):void {
 			
 			this.setData( "GameID" , oData );
 			this.setData( "GameNo" , oData );
@@ -55,11 +55,11 @@ module lobby.model.struct {
 		}
 		
 		/**更新统计数据  */
-		public function updateSum(oData:Object):void{
+		public updateSum(oData):void{
 			this.setData( "TotalWinCnt" , oData );
 		}
 		
-		protected function setData(sKey:String , oData:Object ):void {
+		protected setData(sKey:string , oData ):void {
 			try {
 				//檢查傳來的資料是否有這個屬性
 				if (oData[sKey] != undefined ) {
@@ -68,7 +68,7 @@ module lobby.model.struct {
 				else {
 					//loger.log 
 				}	
-			}catch (e:Error) {
+			}catch (e) {
 				//loger.log 
 			}
 
@@ -76,15 +76,15 @@ module lobby.model.struct {
 		
 		
 		
-		public function clear():void
+		public clear():void
 		{
 			
-			OnlinePlayers=0	;				
+			this.OnlinePlayers=0	;				
 			
-			TotalBet		=0;			
-			TotalBetCnt		=0;			
-			TotalWinCnt		=0;			
-			UpdateNow		= 	false;	
+			this.TotalBet		=0;			
+			this.TotalBetCnt		=0;			
+			this.TotalWinCnt		=0;			
+			this.UpdateNow		= 	false;	
 		}
 	}
 }

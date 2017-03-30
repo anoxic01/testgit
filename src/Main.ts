@@ -66,7 +66,7 @@ class Main extends eui.UILayer {
         RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
         RES.loadGroup("preload");
     }
-    private isThemeLoadEnd: boolean = false;
+    private isThemeLoadEnd:  boolean = false;
     /**
      * 主题文件加载完成,开始预加载
      * Loading of theme configuration file is complete, start to pre-load the 
@@ -75,7 +75,7 @@ class Main extends eui.UILayer {
         this.isThemeLoadEnd = true;
         this.createScene();
     }
-    private isResourceLoadEnd: boolean = false;
+    private isResourceLoadEnd:  boolean = false;
     /**
      * preload资源组加载完成
      * preload resource group is loaded
