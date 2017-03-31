@@ -17,14 +17,14 @@ module lobby.view.multi {
 			this.addChild(gameApp);
 			onChangeLanguage();
 			
-			this.addEventListener(MouseEvent.MOUSE_OVER, bgOver);
-			this.addEventListener(MouseEvent.MOUSE_OUT, bgOut);
+			this.addEventListener(mouse.MouseEvent.MOUSE_OVER, bgOver);
+			this.addEventListener(mouse.MouseEvent.MOUSE_OUT, bgOut);
 		}
 		
 		 public destroy():void{
 			
-			this.removeEventListener(MouseEvent.MOUSE_OVER, bgOver);
-			this.removeEventListener(MouseEvent.MOUSE_OUT, bgOut);
+			this.removeEventListener(mouse.MouseEvent.MOUSE_OVER, bgOver);
+			this.removeEventListener(mouse.MouseEvent.MOUSE_OUT, bgOut);
 			
 			if(gameApp){
 				if(gameApp.parent){

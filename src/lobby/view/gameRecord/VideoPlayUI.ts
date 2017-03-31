@@ -21,7 +21,7 @@ module lobby.view.gameRecord {
 		public constructor( _mcAsset:MovieClip) {
 			m_mcAsset = _mcAsset;
 			addChild( m_mcAsset );
-			m_btnClose = new SingleButtonMC( m_mcAsset.mc_close , function(event:MouseEvent):void {
+			m_btnClose = new ui.button.SingleButtonMC( m_mcAsset.mc_close , function(event:MouseEvent):void {
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				GameRecordManager.getInstance().hideVideoPlayPannel();
 			});
@@ -669,13 +669,13 @@ module lobby.view.gameRecord {
 }
 import flash.display.MovieClip;
 
-import component.button.SingleButtonMC;
+import component.button.ui.button.SingleButtonMC;
 
 import manager.LobbyManager;
 
 
 
-class Btn extends SingleButtonMC{
+class Btn extends ui.button.SingleButtonMC{
 	private txtLabel:MovieClip;
 	public Btn(mcButton:MovieClip, $fOnClick:Function):void {
 		super( mcButton , $fOnClick );

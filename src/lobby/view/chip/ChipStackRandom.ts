@@ -1,7 +1,8 @@
 module lobby.view.chip {
 	export class ChipStackRandom extends ChipStack{
 		public constructor() {
-			
+			super();
+
 			this.shadowFilter = new DropShadowFilter();
 			this.shadowFilter.angle = 125;
 			this.shadowFilter.blurX = 4;
@@ -12,29 +13,30 @@ module lobby.view.chip {
 			this.shadowFilter.color=0x000000;
 			
 			
-			this.mouseEnabled=this.mouseChildren=false;
-			_startPoint= new Point(0,-80);
-			chipBox = new Sprite;
-		//	chipBox.x=CHIP_X;
-			CHIP_Y=0;
-			chipBox.y= CHIP_Y;
-			addChild(chipBox);
-			chipBox2 = new Sprite;
-//			chipBox2.x = CHIP_X;
-//			chipBox2.y = CHIP_Y;
-//			addChild(chipBox2);
-			bSelf=true;
+			// this.mouseEnabled=this.mouseChildren=false;
+
+			this._startPoint= new egret.Point(0,-80);
+			this.chipBox = new egret.Sprite;
+		//	this.chipBox.x=CHIP_X;
+			this.CHIP_Y=0;
+			this.chipBox.y= this.CHIP_Y;
+			this.addChild(this.chipBox);
+			this.chipBox2 = new egret.Sprite;
+//			this.chipBox2.x = CHIP_X;
+//			this.chipBox2.y = this.CHIP_Y;
+//			addChild(this.chipBox2);
+			this.bSelf=true;
 			//	bTween = true;
 			//addChild(txtMc);
 			
-			chipBox.filters=[shadowFilter]
-			bRandom=true;
+			this.chipBox.filters=[this.shadowFilter]
+			this.bRandom=true;
 		//	txtMc.y=-60;
 		}
 		
 		 set  bSelf(value: boolean)
 		{
-			m_bSelf = value;
+			this.m_bSelf = value;
 //			if (value){
 //				txtMc.txt.textColor=color1;
 //				txtMc.back.gotoAndStop(1);
@@ -45,42 +47,42 @@ module lobby.view.chip {
 //			}
 		}
 		
-		 set  count(value:Number)
+		 set  count(value:number)
 		{
-			if (_count==value) return;
-			var oldCount:number= _count;
-			_count = value;
-			var clip:DisplayObject ;
+			if (this._count==value) return;
+			var oldCount:number= this._count;
+			this._count = value;
+			var clip ;
 			var list:any[] ;
 			var j:number=0;
 			var chipNum:number;
 			if (value==0){
-				removeChips();
+				this.removeChips();
 				return;
 			}
-			if (bTween){
-				var addNumber:Number=value-oldCount;
+			if (this.bTween){
+				var addNumber:number=value-oldCount;
 				if (value==0){
 					
 				}else if (value>0){
-					list= creatChipList(addNumber);
-					addChips(list);
+					list= this.creatChipList(addNumber);
+					this.addChips(list);
 				}else if (value<0){
-					removeChips();
+					this.removeChips();
 					 chipNum = list.length
 					for (j=0;j < chipNum;j++){
 						clip = this.getChipsClip(list[j]);
-						setChip(clip);
+						this.setChip(clip);
 						this.chipBox.addChild(clip);
 					}
 				}
 				
 			}else{
-				list= creatChipList(value);
+				list= this.creatChipList(value);
 				chipNum = list.length
 				for (j=0;j < chipNum;j++){
 					clip = this.getChipsClip(list[j]);
-					setChip(clip);
+					this.setChip(clip);
 					this.chipBox.addChild(clip);
 				}
 			}
@@ -89,8 +91,8 @@ module lobby.view.chip {
 
 		}
 		
-		 protected getChipsClip(value:number):DisplayObject{
-			var chip:Bitmap = new Bitmap(BitmapManager.getInstance().getBmpdGameChip(value),"auto",true);
+		 protected getChipsClip(value:number):any{
+			var chip = new egret.Bitmap(manager.BitmapManager.getInstance().getBmpdGameChip(value));
 			chip.name="chip"+value;
 			chip.scaleX=chip.scaleY=0.80;
 			chip.smoothing = true;
@@ -105,14 +107,14 @@ module lobby.view.chip {
 		 * 
 		 */
 		protected addChips(list:any[]):void{
-			var addClip:DisplayObject;
+			var addClip;
 			
 			var chipNum:number = list.length
 			for (var j:number=0;j < chipNum;j++){
 				addClip = this.getChipsClip(list[j]);
-				setChip(addClip);
+				this.setChip(addClip);
 				addClip.alpha = 0;
-				var Y:Number =addClip.y;
+				var Y:number =addClip.y;
 				addClip.y -=100;
 				TweenLite.to(addClip, 0.3, {
 					delay:0.1 + (j * 0.1),
@@ -128,9 +130,9 @@ module lobby.view.chip {
 		
 		public moveIn():void{
 		//		console.log("聚拢筹码")
-			for (var i:number= 0; i < chipBox.numChildren; i++) 
+			for (var i:number= 0; i < this.chipBox.numChildren; i++) 
 			{
-				var chip:DisplayObject = chipBox.getChildAt(i);
+				var chip = this.chipBox.getChildAt(i);
 				TweenLite.to(chip, 0.4, {
 					delay: (i * 0.02),x:0, y:0
 				});
@@ -142,14 +144,14 @@ module lobby.view.chip {
 			
 		}
 		
-		 public setChip(chip:DisplayObject):void{
-				chip.x = this.rangeRandom(range.left, range.right-chip.width);
-				chip.y = this.rangeRandom(range.y-CHIP_Y, range.y+range.height-CHIP_Y-chip.height);
+		 public setChip(chip):void{
+				chip.x = this.rangeRandom(this.range.left, this.range.right-chip.width);
+				chip.y = this.rangeRandom(this.range.y-this.CHIP_Y, this.range.y+this.range.height-this.CHIP_Y-chip.height);
 			
 		}
 		
-		 protected addComplete(clip:DisplayObject):void{
-				chipBox.addChild(clip);
+		 protected addComplete(clip):void{
+				this.chipBox.addChild(clip);
 		}
 		
 	}

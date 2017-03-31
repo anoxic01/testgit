@@ -3,9 +3,9 @@ module lobby.model {
 		
 //		private const TIME_OUT						:	int		=	2;								//返回超时
 		
-		private m_vecAccessTableList			:	PlayerTableOwnStatusStruct[];		//可进桌资料	
-		private m_vecAdvList					:	AdvertisementStruct[];				//广告列表
-		private m_vecGameBetLimitList			:	BetLimitListStruct[];				//限红列表
+		private m_vecAccessTableList			:	struct.PlayerTableOwnStatusStruct[];		//可进桌资料	
+		private m_vecAdvList					:	struct.AdvertisementStruct[];				//广告列表
+		private m_vecGameBetLimitList			:	struct.BetLimitListStruct[];				//限红列表
 		private m_aGoodRoadMapList				:	any[];										//好路讯息
 		private m_aGoodRoadTemp					:	any[];										//临时数据
 		private m_lobbyInfo						:	LobbyInfo;									//大厅信息
@@ -26,10 +26,10 @@ module lobby.model {
 //																	"Chip_Asset_x_50000","Chip_Asset_x_100000","Chip_Asset_x_300000","Chip_Asset_x_500000"];
 //		private aSound							:	any[]	=	[sound_number_0];
 		
-		private m_dicGameNo						:	Dictionary = new Dictionary();
+		private m_dicGameNo						 = {};
 		
 		/**	多桌游戏Mode **/
-		private m_dicGameMode					:	Dictionary = new Dictionary();
+		private m_dicGameMode					 = {};
 		
 		/** 好路提示类型 **/
 		private m_vecGoodRoadType				:	number[]	=	new Array<number>();
@@ -46,14 +46,14 @@ module lobby.model {
 		private static m_instance				:	LobbyData;
 		
 		/** rtmp **/
-		private static m_vecRtmpPlayers			:	util.RTMPPlayer[] = new Array<RTMPPlayer>();
+		private static m_vecRtmpPlayers			:	util.rtmp.RTMPPlayer[] = new Array<util.rtmp.RTMPPlayer>();
 		
-		public ThemeNameList					:	ThemeNameStruct[];
-		public TableNameList					:	TableNameStruct[];
-		private m_data							:	Object;
+		public ThemeNameList					:	struct.ThemeNameStruct[];
+		public TableNameList					:	struct.TableNameStruct[];
+		private m_data							;
 		private m_bInitMaintainAnnouncement		:	boolean;
 		
-		private m_MaintainTableStruct			:	TableStruct[] = new Array<TableStruct>();										//玩家所在的桌子关闭时，记录
+		private m_MaintainTableStruct			:	struct.TableStruct[] = new Array<struct.TableStruct>();										//玩家所在的桌子关闭时，记录
 		
 
 		private static instance	:	LobbyData;
@@ -76,7 +76,7 @@ module lobby.model {
 			}
 		}
 
-		public addMaintainTableStruct(_tableStruct:TableStruct):void{
+		public addMaintainTableStruct(_tableStruct:struct.TableStruct):void{
 			var len : number = this.m_MaintainTableStruct.length;
 			for (var i:number= 0; i < len; i++) 
 			{
@@ -87,7 +87,7 @@ module lobby.model {
 			
 			this.m_MaintainTableStruct.push(_tableStruct);
 		}
-		public removeMaintainTableStruct(_tableStruct:TableStruct):void{
+		public removeMaintainTableStruct(_tableStruct:struct.TableStruct):void{
 			var len : number = this.m_MaintainTableStruct.length;
 			for (var i:number= 0; i < len; i++) 
 			{
@@ -104,11 +104,11 @@ module lobby.model {
 				this.m_MaintainTableStruct.pop();
 			}
 		}
-		get MaintainTableStruct():TableStruct[]{
+		get MaintainTableStruct():struct.TableStruct[]{
 			return this.m_MaintainTableStruct;
 		}
-		public addRtmpPlayer(r:RTMPPlayer):void{
-			if(this.m_vecRtmpPlayers.indexOf(r)==-1){
+		public addRtmpPlayer(r:util.rtmp.RTMPPlayer):void{
+			if(LobbyData.m_vecRtmpPlayers.indexOf(r)==-1){
 //				for (var i:number= 0; i < m_vecRtmpPlayers.length; i++) 
 //				{
 //					if(m_vecRtmpPlayers[i].stageVideoIndex == r.stageVideoIndex){
@@ -117,26 +117,26 @@ module lobby.model {
 //					}
 //				}
 				
-				this.m_vecRtmpPlayers.push(r);
+				LobbyData.m_vecRtmpPlayers.push(r);
 			}
 		}
-		public removeRtmpPlayer(rtmp:RTMPPlayer):void{
-			var index:number= this.m_vecRtmpPlayers.indexOf(rtmp);
+		public removeRtmpPlayer(rtmp:util.rtmp.RTMPPlayer):void{
+			var index:number= LobbyData.m_vecRtmpPlayers.indexOf(rtmp);
 			if(index!=-1){
-				this.m_vecRtmpPlayers.splice(index,1);
+				LobbyData.m_vecRtmpPlayers.splice(index,1);
 				
 			}
 		}
-		get RtmpPlayers():RTMPPlayer[]{
-			return this.m_vecRtmpPlayers;
+		get RtmpPlayers():util.rtmp.RTMPPlayer[]{
+			return LobbyData.m_vecRtmpPlayers;
 		}
 		
-		get AdvList():AdvertisementStruct[]
+		get AdvList():struct.AdvertisementStruct[]
 		{
 			return this.m_vecAdvList;
 		}
 
-		set  AdvList(value:AdvertisementStruct[])
+		set  AdvList(value:struct.AdvertisementStruct[])
 		{
 			this.m_vecAdvList = value;
 		}
@@ -149,18 +149,18 @@ module lobby.model {
 		public onLoginLobby( oData ):void{
 			this.m_data = oData;
 			
-			this.LTK = this.m_data.LTK;
+			LobbyData.LTK = this.m_data.LTK;
 			
-			this.m_vecAccessTableList = new Array<PlayerTableOwnStatusStruct>();
-			var _accessStruct : PlayerTableOwnStatusStruct;
+			this.m_vecAccessTableList = new Array<struct.PlayerTableOwnStatusStruct>();
+			var _accessStruct : struct.PlayerTableOwnStatusStruct;
 			var _count : number;
 			for (var k:number= 0; k < oData.AccessTableList.length; k++) 
 			{
-				_accessStruct = new PlayerTableOwnStatusStruct(oData.AccessTableList[k]);
+				_accessStruct = new struct.PlayerTableOwnStatusStruct(oData.AccessTableList[k]);
 				this.m_vecAccessTableList.push(_accessStruct);
 				if(_accessStruct.IsTableOwner){
 					_count++;
-					model.Player.getInstance().bIsTableOwner = true;
+					Player.getInstance().bIsTableOwner = true;
 				}
 			}
 			if(_count>1){
@@ -177,32 +177,32 @@ module lobby.model {
 			this.m_lobbyInfo = new LobbyInfo(oData.LobbyInfo);
 			
 			/* GameBetLimitList	*/
-			m_vecGameBetLimitList = new Array<BetLimitListStruct>();
-			var _betLimitListStruct : BetLimitListStruct;
+			this.m_vecGameBetLimitList = new Array<struct.BetLimitListStruct>();
+			var _betLimitListStruct : struct.BetLimitListStruct;
 			var _arrGameBetLimitList : any[] = oData.GameBetLimitList;
 			if ( _arrGameBetLimitList != null ) {
 				
 				var uLen : number = _arrGameBetLimitList.length;
 				for (var i:number= 0; i < uLen; i++) {
-					_betLimitListStruct = new BetLimitListStruct(_arrGameBetLimitList[i]);
-					m_vecGameBetLimitList.push( _betLimitListStruct );
+					_betLimitListStruct = new struct.BetLimitListStruct(_arrGameBetLimitList[i]);
+					this.m_vecGameBetLimitList.push( _betLimitListStruct );
 				}
 			}
 			_betLimitListStruct = null;
 			_arrGameBetLimitList = null;
 			
 			//好路通知
-			m_aGoodRoadMapList = [];
+			this.m_aGoodRoadMapList = [];
 			if (oData.GoodRoadMapList){
 				for (var i2:number= 0; i2 < oData.GoodRoadMapList.length; i2++) 
 				{
-					var GoodRoadMapInfo:GoodRoadStruct = new GoodRoadStruct(oData.GoodRoadMapList[i2]);
+					var GoodRoadMapInfo:struct.GoodRoadStruct = new struct.GoodRoadStruct(oData.GoodRoadMapList[i2]);
 					if(GoodRoadMapInfo.MatchList && GoodRoadMapInfo.MatchList.length>0){
 					//if (GoodRoadMapInfo.TableID==25) test
-						m_aGoodRoadMapList.push(GoodRoadMapInfo);
+						this.m_aGoodRoadMapList.push(GoodRoadMapInfo);
 					}
 				}
-				resetGoodRoadTemp();
+				this.resetGoodRoadTemp();
 			}
 			
 			
@@ -221,102 +221,102 @@ module lobby.model {
 			
 
 			//设置密钥
-			LobbyManager.getInstance().socketParser.setPData(Player.getInstance().sPrivateKey_Lobby);
-			LobbyManager.getInstance().socketParser.setBData(Player.getInstance().sBroadcastKey_Lobby);
-			LobbyManager.getInstance().socketParser.setAData(Player.getInstance().sAgentKey_Lobby);
+			manager.LobbyManager.getInstance().socketParser.setPData(Player.getInstance().sPrivateKey_Lobby);
+			manager.LobbyManager.getInstance().socketParser.setBData(Player.getInstance().sBroadcastKey_Lobby);
+			manager.LobbyManager.getInstance().socketParser.setAData(Player.getInstance().sAgentKey_Lobby);
 			
 
 			//显示 大厅
-			LobbyManager.getInstance().lobbyView.setData();  
+			manager.LobbyManager.getInstance().lobbyView.setData();  
 			
 			//送登入確認封包
-			LobbyManager.getInstance().sendLoginLobbySuccess();
+			manager.LobbyManager.getInstance().sendLoginLobbySuccess();
 			
 			//订阅厅馆
-			LobbyManager.getInstance().sendSubscribeTheme(m_lobbyInfo.DefThemeID);
+			manager.LobbyManager.getInstance().sendSubscribeTheme(this.m_lobbyInfo.DefThemeID);
 			
 			//好路类型
-			var _type : any[] = SharedObjectManager.getGoodRoadSetting();
+			var _type : any[] = manager.SharedObjectManager.getGoodRoadSetting();
 			var _typeLen : number = _type.length;
 			for (var i3:number= 0; i3 < _typeLen; i3++) 
 			{
 				if(_type[i3]){
-					addGoodRoadType(i3+1);
+					this.addGoodRoadType(i3+1);
 				}
 			}
 			
-			LobbyManager.getInstance().getUserDataGameApi();
+			manager.LobbyManager.getInstance().getUserDataGameApi();
 			
 			//显示公告
 //			readAnnouncement(oData.AnnouncementList);
 			
-			NoticeManeger.getInstance().NotAllowTableIDList = oData.NotAllowTableIDList;
+			manager.NoticeManager.getInstance().NotAllowTableIDList = oData.NotAllowTableIDList;
 			
 		}
 		
 		public initMaintainAnnouncement():void{
-			if(m_bInitMaintainAnnouncement){
+			if(this.m_bInitMaintainAnnouncement){
 				return;
 			}else{
-				m_bInitMaintainAnnouncement = true;
-				if(m_data.MAList!=null){
+				this.m_bInitMaintainAnnouncement = true;
+				if(this.m_data.MAList!=null){
 //					for (var j:number= 0; j < m_data.MAList.length; j++) 
 //					{
 //						MAList.push(new MaintainAnnouncementStruct(m_data.MAList[j]));
 //					}
-					NoticeManeger.getInstance().setMaintains(m_data.MAList);
+					manager.NoticeManager.getInstance().setMaintains(this.m_data.MAList);
 				}
 			}
 		}
 		
-		public setAdvList(_aAdv : any[]):void{
-			m_vecAdvList = new Array<AdvertisementStruct>();
+		public setAdvList(_aAdv):void{
+			this.m_vecAdvList = new Array<struct.AdvertisementStruct>();
 			
 			if(_aAdv){
 				var _adLen : number = _aAdv.length;
 				if(_adLen>0){
-					_aAdv.sortOn("SN",any[].NUMERIC);
-					_adLen = _adLen>Define.Advertisement?Define.Advertisement:_adLen;
+					_aAdv.sortOn("SN", Array.NUMERIC);
+					_adLen = _adLen>define.Define.Advertisement?define.Define.Advertisement:_adLen;
 					for (var i4:number= 0; i4 < _adLen; i4++) 
 					{
 						//测试数据
-						var obj : AdvertisementStruct = new AdvertisementStruct();
+						var obj : struct.AdvertisementStruct = new struct.AdvertisementStruct();
 						obj.AdsUrl = _aAdv[i4].AdsUrl;
 						obj.LinkUrl = _aAdv[i4].LinkUrl;
 						obj.SN = _aAdv[i4].SN;
-						//					m_vecAdvList.push(new AdvertisementStruct(_aAdv[i4]));
-						m_vecAdvList.push(obj);
+						//					m_vecAdvList.push(new struct.AdvertisementStruct(_aAdv[i4]));
+						this.m_vecAdvList.push(obj);
 					}
 				}
 			}
 			
 		}
 		
-		get gameBetLimitList():BetLimitListStruct[]
+		get gameBetLimitList():struct.BetLimitListStruct[]
 		{
-			return m_vecGameBetLimitList;
+			return this.m_vecGameBetLimitList;
 		}
 		
-		set  gameBetLimitList(value:BetLimitListStruct[]) 
+		set  gameBetLimitList(value:struct.BetLimitListStruct[]) 
 		{
-			m_vecGameBetLimitList = value;
+			this.m_vecGameBetLimitList = value;
 		}
 		
-		public getBetLimitByGameID(_gameID:number):BetLimitListStruct{
-			var _betLimitListStruct : BetLimitListStruct;
-			var _len : number = m_vecGameBetLimitList.length;
+		public getBetLimitByGameID(_gameID:number):struct.BetLimitListStruct{
+			var _betLimitListStruct : struct.BetLimitListStruct;
+			var _len : number = this.m_vecGameBetLimitList.length;
 			for (var i:number= 0; i < _len; i++) 
 			{
-				if(m_vecGameBetLimitList[i].GameID == _gameID){
-					_betLimitListStruct = m_vecGameBetLimitList[i];
+				if(this.m_vecGameBetLimitList[i].GameID == _gameID){
+					_betLimitListStruct = this.m_vecGameBetLimitList[i];
 					return _betLimitListStruct;
 				}
 			}
 			console.log("找不到对应的限红数据...");
 			return _betLimitListStruct;
 		}
-		public getBetLimitByGL(_gameID:number, _limitID:number):BetLimitStruct{
-			var _betLimitListStruct : BetLimitListStruct = getBetLimitByGameID(_gameID);
+		public getBetLimitByGL(_gameID:number, _limitID:number):struct.BetLimitStruct{
+			var _betLimitListStruct : struct.BetLimitListStruct = this.getBetLimitByGameID(_gameID);
 			var _len : number = _betLimitListStruct.vecBetLimitList.length;
 			for (var i:number= 0; i < _len; i++) 
 			{
@@ -329,15 +329,15 @@ module lobby.model {
 		}
 		
 		//从好路列表中取出指定数量的好路
-		public getGoodRoadToGame(_iCount:number):GoodRoadStruct[]{
-			var _struct : TableStruct;
-			var _len : number = m_aGoodRoadMapList.length>_iCount?_iCount:m_aGoodRoadMapList.length;
-			var _vec : GoodRoadStruct[] = new Array<GoodRoadStruct>();
+		public getGoodRoadToGame(_iCount:number):struct.GoodRoadStruct[]{
+			var _struct : struct.TableStruct;
+			var _len : number = this.m_aGoodRoadMapList.length>_iCount?_iCount:this.m_aGoodRoadMapList.length;
+			var _vec : struct.GoodRoadStruct[] = new Array<struct.GoodRoadStruct>();
 			for (var i:number= 0; i < _len; i++) 
 			{
-				_struct = lobbyInfo.findTableStructGT(GameDefine.BAC, (m_aGoodRoadMapList[i] as GoodRoadStruct).TableID);
+				_struct = this.lobbyInfo.findTableStructGT(define.GameDefine.BAC, (this.m_aGoodRoadMapList[i] as struct.GoodRoadStruct).TableID);
 				if(_struct){
-					_vec.push(m_aGoodRoadMapList[i]);
+					_vec.push(this.m_aGoodRoadMapList[i]);
 				}
 			}
 			
@@ -346,48 +346,48 @@ module lobby.model {
 		
 		get aGoodRoadMapList():any[]
 		{
-			return m_aGoodRoadMapList;
+			return this.m_aGoodRoadMapList;
 		}
 		
 		set  aGoodRoadMapList(value:any[])
 		{
-			m_aGoodRoadMapList = value;
+			this.m_aGoodRoadMapList = value;
 		}
 		//新增好路
-		public addGoodRoadMap(_goodRoadMapStruct:GoodRoadStruct):void{
-			if(_goodRoadMapStruct.GameID==GameDefine.BAC){
-				if(judgeAdd(_goodRoadMapStruct)){
+		public addGoodRoadMap(_goodRoadMapStruct:struct.GoodRoadStruct):void{
+			if(_goodRoadMapStruct.GameID==define.GameDefine.BAC){
+				if(this.judgeAdd(_goodRoadMapStruct)){
 //					console.log("加入好路：",_goodRoadMapStruct.TableID);
-					m_aGoodRoadMapList.push(_goodRoadMapStruct);
+					this.m_aGoodRoadMapList.push(_goodRoadMapStruct);
 				}
 				
 				//是否通知好路
-				if( judgeToNotificationGoodRoad(_goodRoadMapStruct) ){
-					if(judgeAddTemp(_goodRoadMapStruct)){
+				if( this.judgeToNotificationGoodRoad(_goodRoadMapStruct) ){
+					if(this.judgeAddTemp(_goodRoadMapStruct)){
 //						console.log("加入好路临时列表：",_goodRoadMapStruct.TableID);
 						//添加至临时列表
-						addGoodRoadTemp(_goodRoadMapStruct);
+						this.addGoodRoadTemp(_goodRoadMapStruct);
 					}
 					
 					//好路多桌、好路通知
-					LobbyManager.getInstance().addGoodRoadNotification(_goodRoadMapStruct);
+					manager.LobbyManager.getInstance().addGoodRoadNotification(_goodRoadMapStruct);
 				}else{
 					//临时列表中移除
-					removeGoodRoadTemp(_goodRoadMapStruct.TableID);
+					this.removeGoodRoadTemp(_goodRoadMapStruct.TableID);
 					
 					//不符合好路设置 有可能之前已加入好路通知, 通知移除
-					LobbyManager.getInstance().removeGoodRoadNotification(_goodRoadMapStruct.TableID);
+					manager.LobbyManager.getInstance().removeGoodRoadNotification(_goodRoadMapStruct.TableID);
 				}
 			}
 		}
 		
 		//判断好路是否已添加过
-		private judgeAdd(_goodRoadMapStruct:GoodRoadStruct): boolean{
-			var _len : number = m_aGoodRoadMapList.length;
+		private judgeAdd(_goodRoadMapStruct:struct.GoodRoadStruct): boolean{
+			var _len : number = this.m_aGoodRoadMapList.length;
 			for (var i:number= 0; i < _len; i++) 
 			{
-				if(m_aGoodRoadMapList[i].TableID == _goodRoadMapStruct.TableID){
-					m_aGoodRoadMapList[i].MatchList = _goodRoadMapStruct.MatchList;
+				if(this.m_aGoodRoadMapList[i].TableID == _goodRoadMapStruct.TableID){
+					this.m_aGoodRoadMapList[i].MatchList = _goodRoadMapStruct.MatchList;
 					return false;
 				}
 			}
@@ -396,7 +396,7 @@ module lobby.model {
 		}
 		
 		//判断好路是否添加过
-		private judgeAddTemp(_goodRoadMapStruct:GoodRoadStruct): boolean{
+		private judgeAddTemp(_goodRoadMapStruct:struct.GoodRoadStruct): boolean{
 			var _len : number = this.m_aGoodRoadTemp.length;
 			for (var i:number= 0; i < _len; i++) 
 			{
@@ -428,14 +428,14 @@ module lobby.model {
 
 		
 		//多桌出现空桌时，取新好路填充
-		public getGoodRoad():GoodRoadStruct{
+		public getGoodRoad():struct.GoodRoadStruct{
 			if(this.m_aGoodRoadTemp.length>0){
-				return this.m_aGoodRoadTemp.shift() as GoodRoadStruct;
+				return this.m_aGoodRoadTemp.shift() as struct.GoodRoadStruct;
 			}
 			return null;
 		}
-		public getGoodRoadByIndex(_index:number):GoodRoadStruct{
-			var struct : GoodRoadStruct = this.m_aGoodRoadTemp[_index];
+		public getGoodRoadByIndex(_index:number):struct.GoodRoadStruct{
+			var struct : struct.GoodRoadStruct = this.m_aGoodRoadTemp[_index];
 			if(struct!=null){
 				this.m_aGoodRoadTemp.splice(_index,1);
 			}
@@ -446,11 +446,11 @@ module lobby.model {
 		public resetGoodRoadTemp():void{
 			this.m_aGoodRoadTemp = [];
 			var _len : number = this.m_aGoodRoadMapList.length;
-			var _goodRoadStruct : GoodRoadStruct;
+			var _goodRoadStruct : struct.GoodRoadStruct;
 			for (var i:number= 0; i < _len; i++) 
 			{
 				if(this.judgeToNotificationGoodRoad(this.m_aGoodRoadMapList[i])){
-					_goodRoadStruct = new GoodRoadStruct();
+					_goodRoadStruct = new struct.GoodRoadStruct();
 					_goodRoadStruct.GameID = this.m_aGoodRoadMapList[i].GameID;
 					_goodRoadStruct.TableID = this.m_aGoodRoadMapList[i].TableID;
 					_goodRoadStruct.MatchList = (this.m_aGoodRoadMapList[i].MatchList as any[]).slice();
@@ -461,9 +461,9 @@ module lobby.model {
 				_goodRoadStruct = null;
 			}
 		}
-		private addGoodRoadTemp(_goodRoadStruct:GoodRoadStruct):void{
-			var goodRoadStruct : GoodRoadStruct;
-			goodRoadStruct = new GoodRoadStruct();
+		private addGoodRoadTemp(_goodRoadStruct:struct.GoodRoadStruct):void{
+			var goodRoadStruct : struct.GoodRoadStruct;
+			goodRoadStruct = new struct.GoodRoadStruct();
 			goodRoadStruct.GameID = _goodRoadStruct.GameID;
 			goodRoadStruct.TableID = _goodRoadStruct.TableID;
 			goodRoadStruct.MatchList = (_goodRoadStruct.MatchList as any[]).slice();
@@ -481,22 +481,22 @@ module lobby.model {
 			}
 		}
 		
-		public addMarquee(struct:MarqueeStruct):void{
+		public addMarquee(struct:struct.MarqueeStruct):void{
 //			m_vecMarqueeList.unshift(struct);
 		}
-		get MarqueeList():MarqueeStruct[]
+		get MarqueeList():struct.MarqueeStruct[]
 		{
 //			return m_vecMarqueeList;
 			return null;
 		}
 		
-		set  MarqueeList(value:MarqueeStruct[]) 
+		set  MarqueeList(value:struct.MarqueeStruct[]) 
 		{
 //			if(value==null){
 //				value = new <MarqueeStruct>();
 //			}
 //			m_vecMarqueeList = value;
-//			LobbyManager.getInstance().lobbyView.information.marquee.setData();
+//			manager.LobbyManager.getInstance().lobbyView.information.marquee.setData();
 		}
 		
 		get lobbyInfo():LobbyInfo 
@@ -516,9 +516,9 @@ module lobby.model {
 		 * @return 
 		 * 
 		 */		
-		public getMultiTableStruct(uGameID:number):TableStruct{
+		public getMultiTableStruct(uGameID:number):struct.TableStruct{
 			var _len:number= this.m_lobbyInfo.themeVec.length;
-			var _struct:TableStruct;
+			var _struct:struct.TableStruct;
 			
 			if(this.m_lobbyInfo.themeVec[0] && this.m_lobbyInfo.themeVec[0].TableList[0]){
 				this.m_lobbyInfo.multiTabelStrct = this.m_lobbyInfo.themeVec[0].TableList[0];
@@ -541,7 +541,7 @@ module lobby.model {
 			
 			return this.m_lobbyInfo.multiTabelStrct;
 		}
-		public getTableStructByTableID( _tableID:number):TableStruct{
+		public getTableStructByTableID( _tableID:number):struct.TableStruct{
 			var _len:number= this.m_lobbyInfo.themeVec.length;
 			
 			for (var i:number= 0; i <_len ; i++) {
@@ -561,15 +561,15 @@ module lobby.model {
 		 *	回复序号 
 		 */		
 		public addSN(_sn:number, _error: boolean):void{
-			var struct : SNStruct = new SNStruct();
-			struct.SN = _sn;
-			struct.ERROR = _error;
+			var _struct : struct.SNStruct = new struct.SNStruct();
+			_struct.SN = _sn;
+			_struct.ERROR = _error;
 			
-			this.aSN.push(struct);
+			this.aSN.push(_struct);
 		}
-		public getSN():SNStruct{
+		public getSN():struct.SNStruct{
 			if(this.aSN.length>0){
-				var struct : SNStruct = this.aSN.shift();
+				var struct : struct.SNStruct = this.aSN.shift();
 				return struct;
 			}else{
 				console.log("回复收包序号异常...");
@@ -583,7 +583,7 @@ module lobby.model {
 		/**
 		 *	好路通知 
 		 */		
-		public judgeToNotificationGoodRoad(_struct:GoodRoadStruct): boolean{
+		public judgeToNotificationGoodRoad(_struct:struct.GoodRoadStruct): boolean{
 			var _len : number = _struct.MatchList.length;
 			for (var i:number= 0; i <_len; i++) 
 			{
@@ -605,7 +605,7 @@ module lobby.model {
 		}
 		
 		/** 多桌游戏model **/
-		public addGameModel(_TableID:number,gameModel:GameModel):void{
+		public addGameModel(_TableID:number,gameModel:game.GameModel):void{
 				this.m_dicGameMode[_TableID] =gameModel;
 		}
 		public removeGameMode(_TableID:number):void{
@@ -613,7 +613,7 @@ module lobby.model {
 				delete this.m_dicGameMode[_TableID];
 			}
 		}
-		public getGameModel(_TableID:number):GameModel{
+		public getGameModel(_TableID:number):game.GameModel{
 			if(this.m_dicGameMode[_TableID] != null){
 				return this.m_dicGameMode[_TableID];
 			}
@@ -638,7 +638,7 @@ module lobby.model {
 		public judgeGoodRoadType(_iType:number): boolean{
 			return this.m_vecGoodRoadType.indexOf(_iType) != -1;
 		}
-		public getGoodRoadTypeCount():Number{
+		public getGoodRoadTypeCount():number{
 			return this.m_vecGoodRoadType.length;
 		}
 		/**
@@ -655,34 +655,34 @@ module lobby.model {
 			
 			return false;
 		}
-		public getPlayerTableOwnStatusStruct(_tableID:number):PlayerTableOwnStatusStruct{
-			var _len : number = m_vecAccessTableList.length;
+		public getPlayerTableOwnStatusStruct(_tableID:number):struct.PlayerTableOwnStatusStruct{
+			var _len : number = this.m_vecAccessTableList.length;
 			for (var i:number= 0; i < _len; i++) 
 			{
-				if(m_vecAccessTableList[i].TableID==_tableID){
-					return m_vecAccessTableList[i];
+				if(this.m_vecAccessTableList[i].TableID==_tableID){
+					return this.m_vecAccessTableList[i];
 				}
 			}
 			
 			return null;
 		}
-		public addPlayerTableOwnStatusStruct(_struct:PlayerTableOwnStatusStruct):void{
-			var _len : number = m_vecAccessTableList.length;
+		public addPlayerTableOwnStatusStruct(_struct:struct.PlayerTableOwnStatusStruct):void{
+			var _len : number = this.m_vecAccessTableList.length;
 			for (var i:number= 0; i < _len; i++) 
 			{
-				if(m_vecAccessTableList[i].TableID == _struct.TableID){
+				if(this.m_vecAccessTableList[i].TableID == _struct.TableID){
 					return;
 				}
 			}
 			
-			m_vecAccessTableList.push(_struct);
+			this.m_vecAccessTableList.push(_struct);
 		}
 		public removePlayerTableOwnStatusStruct(_tableID:number):void{
-			var _len : number = m_vecAccessTableList.length;
+			var _len : number = this.m_vecAccessTableList.length;
 			for (var i:number= 0; i < _len; i++) 
 			{
-				if(m_vecAccessTableList[i].TableID==_tableID){
-					m_vecAccessTableList.splice(i,1);
+				if(this.m_vecAccessTableList[i].TableID==_tableID){
+					this.m_vecAccessTableList.splice(i,1);
 					return;
 				}
 			}
@@ -691,50 +691,50 @@ module lobby.model {
 		
 		//好路多桌
 		public addSubscribeTable(_TableID:number):void{
-			if (m_vecSubscribed.indexOf(_TableID)==-1){
-				m_vecSubscribed.push(_TableID);
+			if (LobbyData.m_vecSubscribed.indexOf(_TableID)==-1){
+				LobbyData.m_vecSubscribed.push(_TableID);
 			//	console.log("已订阅列表-----"+m_vecSubscribed);
 				
 			}
 		}
 		public removeSubscribeTable(_TableID:number):void{
-			var _len : number = m_vecSubscribed.length;
+			var _len : number = LobbyData.m_vecSubscribed.length;
 			for (var i:number= 0; i < _len; i++) 
 			{
-				if(m_vecSubscribed[i] == _TableID){
-					m_vecSubscribed.splice(i,1);
+				if(LobbyData.m_vecSubscribed[i] == _TableID){
+					LobbyData.m_vecSubscribed.splice(i,1);
 					break;
 				}
 			}
 		}
 		//false-可订阅 	true-已订阅
 		public isSubscribed(_TableID:number): boolean{
-			return m_vecSubscribed.indexOf(_TableID)!=-1;
+			return LobbyData.m_vecSubscribed.indexOf(_TableID)!=-1;
 		}
 		
 		
 		public clearSubscribed():void{
-			while(m_vecSubscribed.length>0){
-				m_vecSubscribed.pop();
+			while(LobbyData.m_vecSubscribed.length>0){
+				LobbyData.m_vecSubscribed.pop();
 			}
 		}
 		
 		/** 读取公告 **/
 		public readAnnouncement(aAnnouncementList:any[]):void{
 			if(aAnnouncementList && aAnnouncementList.length>0){
-//				var message : String;
+//				var message : string;
 //				var _len : number = aAnnouncementList.length;
-//				var _lang : number = LobbyManager.getInstance().lobbyAuth?LobbyManager.getInstance().lobbyAuth.Lang:0;
-//				var table : String;
+//				var _lang : number = manager.LobbyManager.getInstance().lobbyAuth?manager.LobbyManager.getInstance().lobbyAuth.Lang:0;
+//				var table : string;
 //				for(var i:number= 0 ; i <  _len; i++){
 //					table = aAnnouncementList[i][_lang].Title;
 //					if(table !=""){
 //						if(table == "紧急公告" || table == "緊急公告" || table == "Emerency"||
 //							table == "维护" || table == "維護" || table == "Maintain"){
 //							
-//							LobbyManager.getInstance().lobbyView.urgentNotice.setDataAnnouncement(aAnnouncementList);
-//							LobbyManager.getInstance().lobbyView.urgentNotice_game.setDataAnnouncement(aAnnouncementList);
-							NoticeManeger.getInstance().setUrgents(aAnnouncementList);
+//							manager.LobbyManager.getInstance().lobbyView.urgentNotice.setDataAnnouncement(aAnnouncementList);
+//							manager.LobbyManager.getInstance().lobbyView.urgentNotice_game.setDataAnnouncement(aAnnouncementList);
+							manager.NoticeManager.getInstance().setUrgents(aAnnouncementList);
 //							return;
 //						}
 //						
@@ -743,19 +743,19 @@ module lobby.model {
 //					else{
 //						message = aAnnouncementList[i][_lang].Msg;
 //					}
-//					LobbyManager.getInstance().aCloseWindowList.push(LobbyManager.getInstance().showDialog(message,null,null,true,Define.countDown));
+//					manager.LobbyManager.getInstance().aCloseWindowList.push(manager.LobbyManager.getInstance().showDialog(message,null,null,true,define.Define.countDown));
 //				}
 			}
 		}
 		
 		/** 用于维护公告 **/
-		public getThemeNameStructByID(_id:number):ThemeNameStruct{
-			if(ThemeNameList){
-				var _len : number = ThemeNameList.length;
+		public getThemeNameStructByID(_id:number):struct.ThemeNameStruct{
+			if(this.ThemeNameList){
+				var _len : number = this.ThemeNameList.length;
 				for (var i:number= 0; i < _len; i++) 
 				{
-					if(ThemeNameList[i].ThemeID==_id){
-						return ThemeNameList[i];
+					if(this.ThemeNameList[i].ThemeID==_id){
+						return this.ThemeNameList[i];
 					}
 				}
 			}
@@ -763,13 +763,13 @@ module lobby.model {
 			return null;
 		}
 		
-		public getTableNameStructByID(_id:number):TableNameStruct{
-			if(TableNameList){
-				var _len : number = TableNameList.length;
+		public getTableNameStructByID(_id:number):struct.TableNameStruct{
+			if(this.TableNameList){
+				var _len : number = this.TableNameList.length;
 				for (var i:number= 0; i < _len; i++) 
 				{
-					if(TableNameList[i].TableID==_id){
-						return TableNameList[i];
+					if(this.TableNameList[i].TableID==_id){
+						return this.TableNameList[i];
 					}
 				}
 			}
@@ -778,26 +778,26 @@ module lobby.model {
 		}
 		
 		/** utc时间转换 **/
-		public utcToLocal(nTime:Number):String{
+		public utcToLocal(nTime:number):string{
 			var utc : Date = new Date();
 			utc.setTime(nTime);
 			
-			var hour : String = utc.hours>9?utc.hours.toString():"0"+utc.hours.toString();
-			var minute : String = utc.minutes>9?utc.minutes.toString():"0"+utc.minutes.toString();
-			var seconds : String = utc.seconds>9?utc.seconds.toString():"0"+utc.seconds.toString();
+			var hour : string = utc.getHours()>9?utc.getHours().toString():"0"+utc.getHours().toString();
+			var minute : string = utc.getMinutes()>9?utc.getMinutes().toString():"0"+utc.getMinutes().toString();
+			var seconds : string = utc.getSeconds()>9?utc.getSeconds().toString():"0"+utc.getSeconds().toString();
 			seconds = seconds.slice(0,2);
 			
 			return hour+":"+minute+":"+seconds;
 		}
-		public utcToLocal_1(nTime:Number):String{
+		public utcToLocal_1(nTime:number):string{
 			var utc : Date = new Date();
 			utc.setTime(nTime);
 			
-			var month : String = (utc.month+1)>9?(utc.month+1).toString():"0"+(utc.month+1).toString();
-			var dat : String = utc.date>9?utc.date.toString():"0"+utc.date.toString();
-			var hour : String = utc.hours>9?utc.hours.toString():"0"+utc.hours.toString();
-			var minute : String = utc.minutes>9?utc.minutes.toString():"0"+utc.minutes.toString();
-			var seconds : String = utc.seconds>9?utc.seconds.toString():"0"+utc.seconds.toString();
+			var month : string = (utc.getMonth()+1)>9?(utc.getMonth()+1).toString():"0"+(utc.getMonth()+1).toString();
+			var dat : string = utc.getDay()>9?utc.getDay().toString():"0"+utc.getDay().toString();
+			var hour : string = utc.getHours()>9?utc.getHours().toString():"0"+utc.getHours().toString();
+			var minute : string = utc.getMinutes()>9?utc.getMinutes().toString():"0"+utc.getMinutes().toString();
+			var seconds : string = utc.getSeconds()>9?utc.getSeconds().toString():"0"+utc.getSeconds().toString();
 			seconds = seconds.slice(0,2);
 			
 			return month + "/" + dat + " " + hour+":"+minute+":"+seconds;

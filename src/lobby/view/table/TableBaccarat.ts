@@ -9,8 +9,8 @@ module lobby.view.table {
 //		private m_bmpPlayer			:	Bitmap;						//下注数据
 //		private m_bmpTie			:	Bitmap;						//下注数据
 		
-		private m_btnBanker			:	SingleButtonMC;				//庄问路
-		private m_btnPlayer			:	SingleButtonMC;				//闲问路
+		private m_btnBanker			:	ui.button.SingleButtonMC;				//庄问路
+		private m_btnPlayer			:	ui.button.SingleButtonMC;				//闲问路
 		
 		private m_road				:	TableRoadMapBaccarat;
 		
@@ -86,13 +86,13 @@ module lobby.view.table {
 //				}
 //			});
 			
-			m_btnBanker = new SingleButtonMC(m_mcContent.mc_12, function(evt:MouseEvent):void{
+			m_btnBanker = new ui.button.SingleButtonMC(m_mcContent.mc_12, function(evt:MouseEvent):void{
 				LobbyManager.getInstance().hideAllPanel();
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				m_road.onAskRoad(BacRouteMgr.ASK_MODE_BANKER);
 				evt.stopImmediatePropagation();
 			});
-			m_btnPlayer = new SingleButtonMC(m_mcContent.mc_13, function(evt:MouseEvent):void{
+			m_btnPlayer = new ui.button.SingleButtonMC(m_mcContent.mc_13, function(evt:MouseEvent):void{
 				LobbyManager.getInstance().hideAllPanel();
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				m_road.onAskRoad(BacRouteMgr.ASK_MODE_PLAYER);

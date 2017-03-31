@@ -2,31 +2,31 @@ module manager {
 	export class GameRecordManager {
 		private static m_instance		:	GameRecordManager;
 		
-		public betRecordPannel			:	BetRecordUI;
-		public betResultPannel			:	BetResultUI;
-		public videoPlayPannel			:	VideoPlayUI;	
+		public betRecordPannel			;
+		public betResultPannel			;
+		public videoPlayPannel			;	
 		
-		private nSendTime				:	Number;
-		private nReceiveTime			:	Number;
+		private nSendTime				:	number;
+		private nReceiveTime			:	number;
 		
-		public constructor() {
+		public constructor(sing:Singleton) {
 		}
 
 		public static getInstance() : GameRecordManager
 		{
-			if (!m_instance)
+			if (!this.m_instance)
 			{
-				m_instance = new GameRecordManager(new Singleton());
+				this.m_instance = new GameRecordManager(new Singleton());
 			}
-			return m_instance;
+			return this.m_instance;
 		}
 		
 		public initialize():void {
 //			Security.loadPolicyFile( UrlManager.getInstance().getRootDomain()+"/crossdomain.xml" );
 			
-			betRecordPannel = new BetRecordUI(ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_BET_CORD,"Link_BetRecord_Asset")  );
-			betResultPannel = new BetResultUI( ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_BET_CORD,"Link_Bet_Result_Asset")  );
-			videoPlayPannel = new VideoPlayUI(ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_BET_CORD,"Link_Record_Video_Asset") );
+			this.betRecordPannel = new lobby.view.gameRecord.BetRecordUI(ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_BET_CORD,"Link_BetRecord_Asset")  );
+			this.betResultPannel = new lobby.view.gameRecord.BetResultUI( ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_BET_CORD,"Link_Bet_Result_Asset")  );
+			this.videoPlayPannel = new lobby.view.gameRecord.VideoPlayUI(ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_BET_CORD,"Link_Record_Video_Asset") );
 		}
 		
 		/**
@@ -34,7 +34,7 @@ module manager {
 		 */
 		public sendGetGameRecord(  _iStartNo:number, _iRequestDataSize:number, _iGameID:number, _sStartDateTime:string, _sEndDateTime:string ):void {
 			//新方式
-			var _gameRecordApiStruct:GameRecordApiStruct = new GameRecordApiStruct();
+			var _gameRecordApiStruct = new lobby.model.struct.GameRecordApiStruct();
 			_gameRecordApiStruct.SearchCondition.GameID = _iGameID;
 			_gameRecordApiStruct.SearchCondition.StartDateTime = _sStartDateTime;
 			_gameRecordApiStruct.SearchCondition.EndDateTime = _sEndDateTime;
@@ -42,13 +42,13 @@ module manager {
 			_gameRecordApiStruct.SearchCondition.StartRowNo = _iStartNo;
 			_gameRecordApiStruct.SearchCondition.UserID = Player.getInstance().iPlayerID;
 			_gameRecordApiStruct.SearchCondition.Identity = LobbyManager.getInstance().lobbyAuth.Identity;
-			var _class : Class = getDefinitionByName("KeyTest") as Class;
+			var _class  = getDefinitionByName("KeyTest");
 			if(_class){
-				var data : * = new _class();
-				data.fGameRecordComplete = receiveWebAPIData;
-				data.fGameRecordError = betRecordPannel.checkBetCord;
+				var data  = new _class();
+				data.fGameRecordComplete = this.receiveWebAPIData;
+				data.fGameRecordError = this.betRecordPannel.checkBetCord;
 				if(LobbyManager.getInstance().lobbyAuth.Identity==2){
-					data.getGameRecord(_gameRecordApiStruct,TemConfig.getInstance().TryAccountApiUrl+"/Connect/GetGameRecord");
+					data.getGameRecord(_gameRecordApiStruct,config.TemConfig.getInstance().TryAccountApiUrl+"/Connect/GetGameRecord");
 				}else{
 					data.getGameRecord(_gameRecordApiStruct,UrlManager.getInstance().webApiUrl()+"/GameApi/GetGameRecord");
 				}
@@ -60,14 +60,14 @@ module manager {
 		/**
 		 * 接收資料
 		 */
-		public receiveWebAPIData(_oData:Object):void {
-			nReceiveTime = getTimer()/1000;
+		public receiveWebAPIData(_oData):void {
+			this.nReceiveTime = egret.getTimer()/1000;
 			//console.log("收到的時間(秒): " , nReceiveTime );			
 			//console.log("花費時間(秒): " , (nReceiveTime - nSendTime) );
 			
-			var _gameRecordApiStruct:GameRecordApiStruct = new GameRecordApiStruct();
+			var _gameRecordApiStruct = new lobby.model.struct.GameRecordApiStruct();
 				_gameRecordApiStruct.init( _oData );
-			betRecordPannel.updateUI(_gameRecordApiStruct);	
+			this.betRecordPannel.updateUI(_gameRecordApiStruct);	
 
 		}
 		
@@ -75,12 +75,12 @@ module manager {
 		 * 取得下注紀錄
 		 */
 		public getBetRecord( _iStartNo:number, _iRequestDataSize:number, _iGameID:number, _sStartDateTime:string, _sEndDateTime:string  ):void {
-			Log.getInstance().log(this,"getBetRecord::>>" + string(_iStartNo) + "_" + string(_iRequestDataSize) + "_" + string(_iGameID) + "+" + _sStartDateTime + "_" + _sEndDateTime + "_" + string(Player.getInstance().iPlayerID));
+			console.log(this,"getBetRecord::>>" + (_iStartNo).toString() + "_" + (_iRequestDataSize).toString() + "_" + (_iGameID).toString() + "+" + _sStartDateTime + "_" + _sEndDateTime + "_" + (Player.getInstance().iPlayerID).toString());
 			
-			sendGetGameRecord( _iStartNo, _iRequestDataSize, _iGameID, _sStartDateTime, _sEndDateTime );
+			this.sendGetGameRecord( _iStartNo, _iRequestDataSize, _iGameID, _sStartDateTime, _sEndDateTime );
 			
-			nSendTime = getTimer() /1000 ;
-			betRecordPannel.hideClickLight();				
+			this.nSendTime = egret.getTimer() /1000 ;
+			this.betRecordPannel.hideClickLight();				
 				//console.log("送出去的時間(秒): " , nSendTime );
 		}
 		
@@ -89,154 +89,154 @@ module manager {
 		 * 顯示下注紀錄 面板
 		 */
 		public showBetRecordPannel():void {
-			if(betRecordPannel==null){
-				betRecordPannel = new BetRecordUI(ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_BET_CORD,"Link_BetRecord_Asset")  );
+			if(this.betRecordPannel==null){
+				this.betRecordPannel = new lobby.view.gameRecord.BetRecordUI(ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_BET_CORD,"Link_BetRecord_Asset")  );
 			}
 			
-			betRecordPannel.enabled = true;
-			betRecordPannel.x = LobbyManager.getInstance().stage.stageWidth * 0.5 + LobbyManager.getInstance().uWindowIndex * 50;
-			betRecordPannel.y = LobbyManager.getInstance().stage.stageHeight * 0.5 + LobbyManager.getInstance().uWindowIndex * 50;
+			this.betRecordPannel.enabled = true;
+			this.betRecordPannel.x = LobbyManager.getInstance().stage.stageWidth * 0.5 + LobbyManager.getInstance().uWindowIndex * 50;
+			this.betRecordPannel.y = LobbyManager.getInstance().stage.stageHeight * 0.5 + LobbyManager.getInstance().uWindowIndex * 50;
 			
 			LobbyManager.getInstance().lobbyView.spShieldLayer.alpha = 1;
 			LobbyManager.getInstance().lobbyView.spShieldLayer.graphics.beginFill(0x000000,0.5);
 			LobbyManager.getInstance().lobbyView.spShieldLayer.graphics.drawRect(0,0,LobbyManager.getInstance().stage.stageWidth,LobbyManager.getInstance().stage.stageHeight+100);
 			LobbyManager.getInstance().lobbyView.spShieldLayer.graphics.endFill();
-			LobbyManager.getInstance().lobbyView.spWindowLayer.addChild( betRecordPannel );	
+			LobbyManager.getInstance().lobbyView.spWindowLayer.addChild( this.betRecordPannel );	
 //			PopupManager.getInstance().show( _betRecordView );
-			betRecordPannel.scaleX = Define.SCALE_MIN;
-			betRecordPannel.scaleY = Define.SCALE_MIN;
-			TweenLite.to(betRecordPannel,Define.SPEED,{scaleX:1, scaleY:1, onComplete:function():void{
-				if(betRecordPannel){
-					betRecordPannel.searchBetGameRecord();	//要下注紀錄
+			this.betRecordPannel.scaleX = define.Define.SCALE_MIN;
+			this.betRecordPannel.scaleY = define.Define.SCALE_MIN;
+			TweenLite.to(this.betRecordPannel,define.Define.SPEED,{scaleX:1, scaleY:1, onComplete:function():void{
+				if(this.betRecordPannel){
+					this.betRecordPannel.searchBetGameRecord();	//要下注紀錄
 				}
 			}});
-//			SoundManager.getInstance().play(SoundPackage.sPopupPanel);
+//			SoundManager.getInstance().play(sound.SoundPackage.sPopupPanel);
 			
-//			betRecordPannel.addKeyBoardListen(LobbyManager.getInstance().lobbyView.spWindowLayer.stage);
+//			this.betRecordPannel.addKeyBoardListen(LobbyManager.getInstance().lobbyView.spWindowLayer.stage);
 		}
 		
 		/**
 		 * 隱藏下注紀錄面板
 		 */
 		public hideBetRecordPannel(_bTween: boolean=true):void {
-			if(betRecordPannel==null){
+			if(this.betRecordPannel==null){
 				return;
 			}
 			
 			if(_bTween){
-				TweenLite.to(betRecordPannel,Define.SPEED,{scaleX:Define.SCALE_MIN, scaleY:Define.SCALE_MIN, onComplete:function():void{
-					TweenLite.to(LobbyManager.getInstance().lobbyView.spShieldLayer, Define.SPEED, {alpha:0, onComplete:function():void{
+				TweenLite.to(this.betRecordPannel,define.Define.SPEED,{scaleX:define.Define.SCALE_MIN, scaleY:define.Define.SCALE_MIN, onComplete:function():void{
+					TweenLite.to(LobbyManager.getInstance().lobbyView.spShieldLayer, define.Define.SPEED, {alpha:0, onComplete:function():void{
 						LobbyManager.getInstance().lobbyView.spShieldLayer.graphics.clear();
 					}});
-					if(betRecordPannel){
-						if(betRecordPannel.parent){
-							betRecordPannel.parent.removeChild(betRecordPannel);
+					if(this.betRecordPannel){
+						if(this.betRecordPannel.parent){
+							this.betRecordPannel.parent.removeChild(this.betRecordPannel);
 						}
-						betRecordPannel.destroy();
+						this.betRecordPannel.destroy();
 					}
 				}});
 			}else{
 				LobbyManager.getInstance().lobbyView.spShieldLayer.graphics.clear();
-				if(betRecordPannel){
-					if(betRecordPannel.parent){
-						betRecordPannel.parent.removeChild(betRecordPannel);
+				if(this.betRecordPannel){
+					if(this.betRecordPannel.parent){
+						this.betRecordPannel.parent.removeChild(this.betRecordPannel);
 					}
-					betRecordPannel.destroy();
+					this.betRecordPannel.destroy();
 				}
 			}
-			hideBetResultPannel(_bTween);
-			hideVideoPlayPannel(_bTween);
+			this.hideBetResultPannel(_bTween);
+			this.hideVideoPlayPannel(_bTween);
 		}
 		
 		/**
 		 * 顯示下注紀錄 子單
 		 */
-		public showBetResultPannel(_complexGameRecordStruct: ComplexGameRecordStruct):void {
+		public showBetResultPannel(_complexGameRecordStruct):void {
 			
-			if(betResultPannel==null){
-				betResultPannel = new BetResultUI( ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_BET_CORD,"Link_Bet_Result_Asset")  );
+			if(this.betResultPannel==null){
+				this.betResultPannel = new lobby.view.gameRecord.BetResultUI( ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_BET_CORD,"Link_Bet_Result_Asset")  );
 			}
 			
-			betResultPannel.x = LobbyManager.getInstance().stage.stageWidth * 0.5 + 3 * 50;
-			betResultPannel.y = LobbyManager.getInstance().stage.stageHeight * 0.5 + 3 * 50;
-			betResultPannel.updateUI(_complexGameRecordStruct);
+			this.betResultPannel.x = LobbyManager.getInstance().stage.stageWidth * 0.5 + 3 * 50;
+			this.betResultPannel.y = LobbyManager.getInstance().stage.stageHeight * 0.5 + 3 * 50;
+			this.betResultPannel.updateUI(_complexGameRecordStruct);
 			
-			LobbyManager.getInstance().lobbyView.spWindowLayer.addChild( betResultPannel );
+			LobbyManager.getInstance().lobbyView.spWindowLayer.addChild( this.betResultPannel );
 		
 //			PopupManager.getInstance().show( _betResultUI );
-			betResultPannel.scaleX = Define.SCALE_MIN;
-			betResultPannel.scaleY = Define.SCALE_MIN;
-			TweenLite.to(betResultPannel,Define.SPEED,{scaleX:1, scaleY:1, onComplete:function():void{
-//				GameRecordManager.getInstance().betRecordPannel.searchBetGameRecord();	//要下注紀錄
+			this.betResultPannel.scaleX = define.Define.SCALE_MIN;
+			this.betResultPannel.scaleY = define.Define.SCALE_MIN;
+			TweenLite.to(this.betResultPannel,define.Define.SPEED,{scaleX:1, scaleY:1, onComplete:function():void{
+//				GameRecordManager.getInstance().this.betRecordPannel.searchBetGameRecord();	//要下注紀錄
 			}});
-			SoundManager.getInstance().play(SoundPackage.sPopupPanel);
+			SoundManager.getInstance().play(sound.SoundPackage.sPopupPanel);
 		}
 		
 		/**
 		 * 隱藏下注紀錄 子單
 		 */
 		public hideBetResultPannel(_bTween: boolean=true):void {
-			if(betResultPannel==null){
+			if(this.betResultPannel==null){
 				return;
 			}
 			if(_bTween){
-				TweenLite.to(betResultPannel,Define.SPEED,{scaleX:Define.SCALE_MIN, scaleY:Define.SCALE_MIN, onComplete:function():void{
-					if(betResultPannel){
-						if(betResultPannel.parent){
-							betResultPannel.parent.removeChild(betResultPannel);
+				TweenLite.to(this.betResultPannel,define.Define.SPEED,{scaleX:define.Define.SCALE_MIN, scaleY:define.Define.SCALE_MIN, onComplete:function():void{
+					if(this.betResultPannel){
+						if(this.betResultPannel.parent){
+							this.betResultPannel.parent.removeChild(this.betResultPannel);
 						}
-						betResultPannel.destroy();
+						this.betResultPannel.destroy();
 					}
 				}});
 			}else{
-				if(betResultPannel){
-					if(betResultPannel.parent){
-						betResultPannel.parent.removeChild(betResultPannel);
-						betResultPannel.destroy();
+				if(this.betResultPannel){
+					if(this.betResultPannel.parent){
+						this.betResultPannel.parent.removeChild(this.betResultPannel);
+						this.betResultPannel.destroy();
 					}
-					betResultPannel = null;
+					this.betResultPannel = null;
 				}
 			}
 		}		
 		
-		public showVideoPlayPannel(_complexGameRecordStruct: ComplexGameRecordStruct):void {
-			if(videoPlayPannel==null){
-				videoPlayPannel = new VideoPlayUI(ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_BET_CORD,"Link_Record_Video_Asset") );
+		public showVideoPlayPannel(_complexGameRecordStruct):void {
+			if(this.videoPlayPannel==null){
+				this.videoPlayPannel = new lobby.view.gameRecord.VideoPlayUI(ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_BET_CORD,"Link_Record_Video_Asset") );
 			}
-			videoPlayPannel.x = LobbyManager.getInstance().stage.stageWidth * 0.5 //+ 4 * 50;
-			videoPlayPannel.y = LobbyManager.getInstance().stage.stageHeight * 0.5 // + 4 * 50;
-			videoPlayPannel.reset();
-			videoPlayPannel.updateUI(_complexGameRecordStruct);
+			this.videoPlayPannel.x = LobbyManager.getInstance().stage.stageWidth * 0.5 //+ 4 * 50;
+			this.videoPlayPannel.y = LobbyManager.getInstance().stage.stageHeight * 0.5 // + 4 * 50;
+			this.videoPlayPannel.reset();
+			this.videoPlayPannel.updateUI(_complexGameRecordStruct);
 			
-			LobbyManager.getInstance().lobbyView.spWindowLayer.addChild( videoPlayPannel );
+			LobbyManager.getInstance().lobbyView.spWindowLayer.addChild( this.videoPlayPannel );
 
 			
 //			PopupManager.getInstance().show( _videoPlayUI );
-			videoPlayPannel.scaleX = Define.SCALE_MIN;
-			videoPlayPannel.scaleY = Define.SCALE_MIN;
-			TweenLite.to(videoPlayPannel,Define.SPEED,{scaleX:1, scaleY:1});
-			SoundManager.getInstance().play(SoundPackage.sPopupPanel);
+			this.videoPlayPannel.scaleX = define.Define.SCALE_MIN;
+			this.videoPlayPannel.scaleY = define.Define.SCALE_MIN;
+			TweenLite.to(this.videoPlayPannel,define.Define.SPEED,{scaleX:1, scaleY:1});
+			SoundManager.getInstance().play(sound.SoundPackage.sPopupPanel);
 		}
 		public hideVideoPlayPannel(_bTween: boolean=true):void {
-			if(videoPlayPannel==null){
+			if(this.videoPlayPannel==null){
 				return;
 			}
 			if(_bTween){
 //				PopupManager.getInstance().close( _videoPlayUI );
-				TweenLite.to(videoPlayPannel,Define.SPEED,{scaleX:Define.SCALE_MIN, scaleY:Define.SCALE_MIN, onComplete:function():void{
-					if(videoPlayPannel){
-						if(videoPlayPannel.parent){
-							videoPlayPannel.parent.removeChild(videoPlayPannel);
+				TweenLite.to(this.videoPlayPannel,define.Define.SPEED,{scaleX:define.Define.SCALE_MIN, scaleY:define.Define.SCALE_MIN, onComplete:function():void{
+					if(this.videoPlayPannel){
+						if(this.videoPlayPannel.parent){
+							this.videoPlayPannel.parent.removeChild(this.videoPlayPannel);
 						}
-						videoPlayPannel.destroy();
+						this.videoPlayPannel.destroy();
 					}
 				}});
 			}else{
-				if(videoPlayPannel){
-					if(videoPlayPannel.parent){
-						videoPlayPannel.parent.removeChild(videoPlayPannel);
+				if(this.videoPlayPannel){
+					if(this.videoPlayPannel.parent){
+						this.videoPlayPannel.parent.removeChild(this.videoPlayPannel);
 					}
-					videoPlayPannel.destroy();
+					this.videoPlayPannel.destroy();
 				}
 				
 			}
@@ -244,7 +244,7 @@ module manager {
 		}	
 		
 		/*public scaleVideoPannel( _bBig: boolean ):void {
-			var _videoPlayUI:PanelWindow = GameRecordManager.getInstance().videoPlayPannel;
+			var _videoPlayUI:PanelWindow = GameRecordManager.getInstance().this.videoPlayPannel;
 			if(_bBig ){								//放大
 				LobbyManager.getInstance().stage.displayState = StageDisplayState.FULL_SCREEN; 
 			}else if( !_bBig  ){					//縮小
@@ -254,16 +254,17 @@ module manager {
 		
 		
 		public onChangeLanguage():void {
-			if( betRecordPannel ){
-				betRecordPannel.onChangeLanguage();
+			if( this.betRecordPannel ){
+				this.betRecordPannel.onChangeLanguage();
 			}
-			if( betResultPannel ){
-				betResultPannel.onChangeLanguage();
+			if( this.betResultPannel ){
+				this.betResultPannel.onChangeLanguage();
 			}
-			if( videoPlayPannel ){
-				videoPlayPannel.onChangeLanguage();
+			if( this.videoPlayPannel ){
+				this.videoPlayPannel.onChangeLanguage();
 			}
 			
 		}
 	}
 }
+export class Singleton{}

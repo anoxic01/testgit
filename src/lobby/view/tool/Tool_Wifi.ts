@@ -1,5 +1,5 @@
 module lobby.view.tool {
-	export class Tool_Wifi implements ISprite{
+	export class Tool_Wifi implements iface.ISprite{
 		public static const FULL	:	String	=	"FULL";			//信号满格
 		public static const WELL	:	String	=	"WELL";			//信号良好
 		public static const NORMAL	:	String	=	"NORMAL";		//信号一般

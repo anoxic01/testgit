@@ -1,179 +1,180 @@
 module lobby.view.chip {
 	export class ChipPanelLobby extends ChipPanel{
-//		private m_btnOk			:	SingleButtonMC;
-//		private m_btnCancel		:	SingleButtonMC;
+//		private m_btnOk			:	ui.button.SingleButtonMC;
+//		private m_btnCancel		:	ui.button.SingleButtonMC;
 //		private m_bRebet		:	 boolean;
-		private m_bmpBet		:	Bitmap;					//下注金额
-		private m_bmpHaveBet	:	Bitmap;					//已下注金额
+		private m_bmpBet		;					//下注金额
+		private m_bmpHaveBet	;					//已下注金额
 		
 		public constructor( _fReBet:Function=null) {
+			super();
 //			m_fReBet = _fReBet;
-			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_LOBBY,"ChipPanelLobbyAsset");
-			this.addChild(m_mcAsset);
+			this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY,"ChipPanelLobbyAsset");
+			this.addChild(this.m_mcAsset);
 			
-			super(m_mcAsset);
+			super(this.m_mcAsset);
 			
-//			m_btnReBet = new SingleButtonMC(m_mcAsset.mc_rebet, function(event:MouseEvent):void{
+//			m_btnReBet = new ui.button.SingleButtonMC(this.m_mcAsset.mc_rebet, function(event:MouseEvent):void{
 //				if(m_fReBet!=null){
 //					m_fReBet();
 //				}
 //			});
 //			
-//			m_btnCancel = new SingleButtonMC(m_mcAsset.mc_cancel, function(event:MouseEvent):void{
+//			m_btnCancel = new ui.button.SingleButtonMC(this.m_mcAsset.mc_cancel, function(event:MouseEvent):void{
 //				
 //			});
-//			m_btnOk = new SingleButtonMC(m_mcAsset.mc_ok, function(event:MouseEvent):void{
+//			m_btnOk = new ui.button.SingleButtonMC(this.m_mcAsset.mc_ok, function(event:MouseEvent):void{
 //				
 //			});
 						
 			
-			m_btnRecharge = new SingleButtonMC(m_mcAsset.mc_3, function(event:MouseEvent):void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				TipManager.getInstance().hide();
-				LobbyManager.getInstance().hideAllPanel();
-//				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
-				LobbyManager.getInstance().recharge();
+			this.m_btnRecharge = new ui.button.SingleButtonMC(this.m_mcAsset.mc_3, function(event:MouseEvent):void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+				manager.TipManager.getInstance().hide();
+				manager.LobbyManager.getInstance().hideAllPanel();
+//				manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
+				manager.LobbyManager.getInstance().recharge();
 			});
-			m_btnRecharge.fOnOver = function():void{
-				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_recharge),TipManager.DOWN,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_3.x+21,m_mcAsset.mc_3.y)));
+			this.m_btnRecharge.fOnOver = function():void{
+				manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_recharge),manager.TipManager.DOWN,this.m_mcAsset.localToGlobal(new egret.Point(this.m_mcAsset.mc_3.x+21,this.m_mcAsset.mc_3.y)));
 			};
-			m_btnRecharge.fOnOut = function():void{
-				TipManager.getInstance().hide();
+			this.m_btnRecharge.fOnOut = function():void{
+				manager.TipManager.getInstance().hide();
 			};
 			
-			goldNum = new JNumber();
-			goldNum.number = Player.getInstance().nCoin;
-			m_mcAsset.mc_pos_2.addChild(goldNum);
+			this.goldNum = new JNumber();
+			this.goldNum.number = Player.getInstance().nCoin;
+			this.m_mcAsset.mc_pos_2.addChild(this.goldNum);
 						
-			m_bmpBet = new Bitmap();
-			m_mcAsset.mc_pos_3.addChild(m_bmpBet);
-			m_bmpBet.bitmapData = BitmapManager.getInstance().numberBetGCoin.conversion(0);
-			m_bmpBet.smoothing = true;
+			this.m_bmpBet = new egret.Bitmap();
+			this.m_mcAsset.mc_pos_3.addChild(this.m_bmpBet);
+			this.m_bmpBet.bitmapData = manager.BitmapManager.getInstance().numberBetGCoin.conversion(0);
+			this.m_bmpBet.smoothing = true;
 			
-			m_bmpHaveBet = new Bitmap();
-			m_mcAsset.mc_pos_4.addChild(m_bmpHaveBet);
-			m_bmpHaveBet.bitmapData = BitmapManager.getInstance().numberBetedGCoin.conversion(0);
-			m_bmpHaveBet.smoothing = true;
+			this.m_bmpHaveBet = new egret.Bitmap();
+			this.m_mcAsset.mc_pos_4.addChild(this.m_bmpHaveBet);
+			this.m_bmpHaveBet.bitmapData = manager.BitmapManager.getInstance().numberBetedGCoin.conversion(0);
+			this.m_bmpHaveBet.smoothing = true;
 			
-			m_btnLeft = new SingleButtonMC(m_mcAsset.mc_left, function(event:MouseEvent):void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-//				iCurrentPage = m_iCurrentPage-1;
-				LobbyManager.getInstance().setChipPage(m_iCurrentPage-1);
+			this.m_btnLeft = new ui.button.SingleButtonMC(this.m_mcAsset.mc_left, function(event:MouseEvent):void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+//				iCurrentPage = this.m_iCurrentPage-1;
+				manager.LobbyManager.getInstance().setChipPage(this.m_iCurrentPage-1);
 			});
-			m_btnRight = new SingleButtonMC(m_mcAsset.mc_right, function(event:MouseEvent):void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-//				iCurrentPage = m_iCurrentPage+1;
-				LobbyManager.getInstance().setChipPage(m_iCurrentPage+1);
+			this.m_btnRight = new ui.button.SingleButtonMC(this.m_mcAsset.mc_right, function(event:MouseEvent):void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+//				iCurrentPage = this.m_iCurrentPage+1;
+				manager.LobbyManager.getInstance().setChipPage(this.m_iCurrentPage+1);
 			});
 			
-			btnSetting = new SingleButtonMC(m_mcAsset.mc_setting, function(event:MouseEvent):void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				TipManager.getInstance().hide();
-				goCustomPage();
-				LobbyManager.getInstance().showPanelChipCustom(2);
+			this.btnSetting = new ui.button.SingleButtonMC(this.m_mcAsset.mc_setting, function(event:MouseEvent):void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+				manager.TipManager.getInstance().hide();
+				this.goCustomPage();
+				manager.LobbyManager.getInstance().showPanelChipCustom(2);
 			});
-			btnSetting.fOnOver = btnSettingTip;
-			btnSetting.fOnOut = btnSettingTip;
-			btnSetting.fDown = btnSettingTip;
-			btnSetting.fDisable = btnSettingTip;
-			btnSetting.enabled = true;
+			this.btnSetting.fOnOver = this.btnSettingTip;
+			this.btnSetting.fOnOut = this.btnSettingTip;
+			this.btnSetting.fDown = this.btnSettingTip;
+			this.btnSetting.fDisable = this.btnSettingTip;
+			this.btnSetting.enabled = true;
 			
-			m_spChipList = new Sprite();
-			m_mcAsset.mc_pos_0.addChild(m_spChipList);
+			this.m_spChipList = new egret.Sprite();
+			this.m_mcAsset.mc_pos_0.addChild(this.m_spChipList);
 			
-			hideHint();
+			this.hideHint();
 			
 			var aCustom : any[] = Player.getInstance().gameSetting.aCustChips;
-			m_aChipValues = [[10,50,100,300,500],[1000,3000,5000,10000,30000],[30000,50000,100000,300000,500000],aCustom];
-			m_iTotalPage = m_aChipValues.length;
-			m_vectorChipList = new <ChipList>;
+			this.m_aChipValues = [[10,50,100,300,500],[1000,3000,5000,10000,30000],[30000,50000,100000,300000,500000],aCustom];
+			this.m_iTotalPage = this.m_aChipValues.length;
+			this.m_vectorChipList = new Array<ChipList>();
 			var _chipList	:	ChipList;
-			for (var i:number= 0; i < m_iTotalPage; i++) 
+			for (var i:number= 0; i < this.m_iTotalPage; i++) 
 			{
-				_chipList = new ChipList(0, m_aChipValues[i], this);
-				m_spChipList.addChild(_chipList);
+				_chipList = new ChipList(0, this.m_aChipValues[i], this);
+				this.m_spChipList.addChild(_chipList);
 				_chipList.x = i*(328);
-				m_vectorChipList.push(_chipList);
+				this.m_vectorChipList.push(_chipList);
 			}
-			currentChipItem = getDefault();
-			if(currentChipItem==null){
+			this.currentChipItem = this.getDefault();
+			if(this.currentChipItem==null){
 				console.log("当前筹码获取异常...");
 			}else{
-				currentChipItem.select = true;
+				this.currentChipItem.select = true;
 			}
 			
-			m_pageNumberList = new PageNumberListChip(0, this, m_aChipValues.length);
-			m_mcAsset.mc_pos_1.addChild(m_pageNumberList);
-			m_mcAsset.mc_pos_1.x = int((308-m_pageNumberList.width)*0.5);
+			this.m_pageNumberList = new other.PageNumberListChip(0, this, this.m_aChipValues.length);
+			this.m_mcAsset.mc_pos_1.addChild(this.m_pageNumberList);
+			this.m_mcAsset.mc_pos_1.x = <number>((308-this.m_pageNumberList.width)*0.5);
 			
-			judgeArrow();
-			onChangeLanguage();
+			this.judgeArrow();
+			this.onChangeLanguage();
 		}
 		
 		 public destroy():void{
-			if(m_bmpBet){
-				if(m_bmpBet.parent){
-					m_bmpBet.parent.removeChild(m_bmpBet);
+			if(this.m_bmpBet){
+				if(this.m_bmpBet.parent){
+					this.m_bmpBet.parent.removeChild(this.m_bmpBet);
 				}
-				m_bmpBet = null;
+				this.m_bmpBet = null;
 			}
-			if(m_bmpHaveBet){
-				if(m_bmpHaveBet.parent){
-					m_bmpHaveBet.parent.removeChild(m_bmpHaveBet);
+			if(this.m_bmpHaveBet){
+				if(this.m_bmpHaveBet.parent){
+					this.m_bmpHaveBet.parent.removeChild(this.m_bmpHaveBet);
 				}
-				m_bmpHaveBet = null;
+				this.m_bmpHaveBet = null;
 			}
 			
 			super.destroy();
 		}
 		
 		 public turning():void{
-			TweenLite.to(m_spChipList, Define.SPEED, {x:-m_vectorChipList[m_iCurrentPage].x});
-//			TweenUtil.moveToX(m_spChipList,50,50,10,-m_iCurrentPage*302,0.7);
+			TweenLite.to(this.m_spChipList, define.Define.SPEED, {x:-this.m_vectorChipList[this.m_iCurrentPage].x});
+//			TweenUtil.moveToX(this.m_spChipList,50,50,10,-this.m_iCurrentPage*302,0.7);
 		}
 		
 		 public onChangeLanguage():void{
-//			m_mcAsset.tf_0.text = LobbyManager.getInstance().getLanguageString(Language.sBetCount);
-//			m_mcAsset.tf_1.text = LobbyManager.getInstance().getLanguageString(Language.sBetedCount);
-//			(m_mcAsset.mc_total as MovieClip).gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-//			(m_mcAsset.mc_rebet.mc_label as MovieClip).gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-//			(m_mcAsset.mc_cancel.mc_label as MovieClip).gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-//			(m_mcAsset.mc_ok.mc_label as MovieClip).gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			if(m_mcAsset ){
-				btnSettingTip();
+//			this.m_mcAsset.tf_0.text = manager.LobbyManager.getInstance().getLanguageString(Language.sBetCount);
+//			this.m_mcAsset.tf_1.text = manager.LobbyManager.getInstance().getLanguageString(Language.sBetedCount);
+//			(this.m_mcAsset.mc_total as MovieClip).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+//			(this.m_mcAsset.mc_rebet.mc_label as MovieClip).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+//			(this.m_mcAsset.mc_cancel.mc_label as MovieClip).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+//			(this.m_mcAsset.mc_ok.mc_label as MovieClip).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			if(this.m_mcAsset ){
+				this.btnSettingTip();
 				
-				m_mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+				this.m_mcAsset.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 				
-				if(m_mcAsset.mc_hint){
-					(m_mcAsset.mc_hint as MovieClip).gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+				if(this.m_mcAsset.mc_hint){
+					(this.m_mcAsset.mc_hint).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 				}
 			}
 		}
 		
-		public updateBetTotal(_nValue:Number):void{
-			if(m_bmpBet){
-				m_bmpBet.bitmapData = BitmapManager.getInstance().numberChip.conversion(_nValue);
-				m_bmpBet.smoothing = true;
+		public updateBetTotal(_nValue:number):void{
+			if(this.m_bmpBet){
+				this.m_bmpBet.bitmapData = manager.BitmapManager.getInstance().numberChip.conversion(_nValue);
+				this.m_bmpBet.smoothing = true;
 			}
 		}
 		
-		public updateHaveBetTotal(_nValue:Number):void{
-			if(m_bmpHaveBet){
-				m_bmpHaveBet.bitmapData = BitmapManager.getInstance().numberBetedGCoin.conversion(_nValue);
-				m_bmpHaveBet.smoothing = true;
+		public updateHaveBetTotal(_nValue:number):void{
+			if(this.m_bmpHaveBet){
+				this.m_bmpHaveBet.bitmapData = manager.BitmapManager.getInstance().numberBetedGCoin.conversion(_nValue);
+				this.m_bmpHaveBet.smoothing = true;
 			}
 		}
 		
 		 public getDefault():ChipItem{
-			if(m_vectorChipList && m_vectorChipList.length>0){
-				return m_vectorChipList[0].getFirstChipItem();
+			if(this.m_vectorChipList && this.m_vectorChipList.length>0){
+				return this.m_vectorChipList[0].getFirstChipItem();
 			}
 			return null;
 		}
 		
 		private btnSettingTip():void{
-//			if(m_btnSetting){
-//				m_btnSetting.mcAsset.mc_tip.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+//			if(m_this.btnSetting){
+//				m_this.btnSetting.mcAsset.mc_tip.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 //			}
 		}
 		

@@ -2,18 +2,18 @@ module lobby.view {
 	export class LobbyToolList extends BSprite {
 		private m_mcAsset				;							//美术资源
 		
-		private m_btnRefresh			:	SingleButtonMC;				//重整视讯
+		private m_btnRefresh			:	ui.button.SingleButtonMC;				//重整视讯
 		
 		private m_btnResolution			:	Resolution;					//分辨率
-		private m_btnChannel			:	SingleButtonMC;				//频道选择
-		private m_btnPersonalInfomation	:	SingleButtonMC;				//个人资讯
-		private m_btnContact			:	SingleButtonMC;				//联系客服
-		private m_btnFull				:	SingleButtonMC;				//全屏按钮
-		private m_btnNormal				:	SingleButtonMC;				//退出全屏
-		private m_btnDetail				:	SingleButtonMC;				//桌子详情
-		private m_btnRecord				:	SingleButtonMC;				//账户记录
-		private m_btnSetting			:	SingleButtonMC;				//设置按钮
-		public btnExit					:	SingleButtonMC;				//退出按钮
+		private m_btnChannel			:	ui.button.SingleButtonMC;				//频道选择
+		private m_btnPersonalInfomation	:	ui.button.SingleButtonMC;				//个人资讯
+		private m_btnContact			:	ui.button.SingleButtonMC;				//联系客服
+		private m_btnFull				:	ui.button.SingleButtonMC;				//全屏按钮
+		private m_btnNormal				:	ui.button.SingleButtonMC;				//退出全屏
+		private m_btnDetail				:	ui.button.SingleButtonMC;				//桌子详情
+		private m_btnRecord				:	ui.button.SingleButtonMC;				//账户记录
+		private m_btnSetting			:	ui.button.SingleButtonMC;				//设置按钮
+		public btnExit					:	ui.button.SingleButtonMC;				//退出按钮
 		
 		public fRefresh					:	Function;					//重整视讯
 		public fDetail					:	Function;					//桌子详情
@@ -29,7 +29,7 @@ module lobby.view {
 		
 		private m_mcHint				:	egret.MovieClip;					//全屏提示
 		private m_mcHintFull			:	MMovieClip;
-		private m_btnHintClose			:	SingleButtonMC;				//关闭按钮
+		private m_btnHintClose			:	ui.button.SingleButtonMC;				//关闭按钮
 		private m_mcHintLabel			:	egret.MovieClip;					//提示标签
 		private m_bHint					:	number;					//提示状态
 		public iMode					:	number;						//当前模式
@@ -684,9 +684,9 @@ module lobby.view {
 			if(this.m_mcHintLabel){
 				this.m_mcHintLabel.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			}
-			this.m_btnHintClose = new SingleButtonMC(this.m_mcHint.mc_close,function():void{
-//				m_mcHint.removeEventListener(MouseEvent.MOUSE_OVER, hintOver);
-//				m_mcHint.removeEventListener(MouseEvent.MOUSE_OUT, hintOut);
+			this.m_btnHintClose = new ui.button.SingleButtonMC(this.m_mcHint.mc_close,function():void{
+//				m_mcHint.removeEventListener(mouse.MouseEvent.MOUSE_OVER, hintOver);
+//				m_mcHint.removeEventListener(mouse.MouseEvent.MOUSE_OUT, hintOut);
 //				m_mcHint.gotoAndStop(1);
 				if(this.m_mcHint.parent){
 					this.m_mcHint.parent.removeChild(this.m_mcHint);
@@ -703,8 +703,8 @@ module lobby.view {
 //				m_mcHint.gotoAndPlay(m_mcHint.currentFrame);
 //			};
 //			
-//			m_mcHint.addEventListener(MouseEvent.MOUSE_OVER, hintOver);
-//			m_mcHint.addEventListener(MouseEvent.MOUSE_OUT, hintOut);
+//			m_mcHint.addEventListener(mouse.MouseEvent.MOUSE_OVER, hintOver);
+//			m_mcHint.addEventListener(mouse.MouseEvent.MOUSE_OUT, hintOut);
 			
 		}
 		private showHint():void{
@@ -730,15 +730,15 @@ module lobby.view {
 }
 
 class Resolution{
-	private m_btnSD					:	SingleButtonMC;				//标清频道
-	private m_btnHD					:	SingleButtonMC;				//高清频道
-	private m_btnCurrent			:	SingleButtonMC;
+	private m_btnSD					:	ui.button.SingleButtonMC;				//标清频道
+	private m_btnHD					:	ui.button.SingleButtonMC;				//高清频道
+	private m_btnCurrent			:	ui.button.SingleButtonMC;
 	private m_mcAsset				;
 	
 	public Resolution(_mcAsset){
 		this.m_mcAsset = _mcAsset;
 		
-		this.m_btnSD = new SingleButtonMC(_mcAsset.mc_sd, function(evt:MouseEvent):void{
+		this.m_btnSD = new ui.button.SingleButtonMC(_mcAsset.mc_sd, function(evt:MouseEvent):void{
 			
 			if(manager.LobbyManager.getInstance().IsLiveConnected()){
 				manager.LobbyManager.getInstance().bClickResolution = true;
@@ -771,7 +771,7 @@ class Resolution{
 		};
 		this.m_btnSD.visible = false;
 		
-		this.m_btnHD = new SingleButtonMC(_mcAsset.mc_hd, function(evt:MouseEvent):void{
+		this.m_btnHD = new ui.button.SingleButtonMC(_mcAsset.mc_hd, function(evt:MouseEvent):void{
 			
 			if(manager.LobbyManager.getInstance().IsLiveConnected()){
 				manager.LobbyManager.getInstance().bClickResolution = true;

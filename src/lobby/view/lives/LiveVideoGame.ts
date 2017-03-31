@@ -39,7 +39,7 @@ module lobby.view.lives {
 			m_mcVideo.graphics.beginFill(0x000000,0.1);
 			m_mcVideo.graphics.drawRect(0,0,uWidth,uHeight);
 			m_mcVideo.graphics.endFill();
-			initializeRTMPPlayer()
+			initializeutil.rtmp.RTMPPlayer()
 		}
 		
 		 public destroy():void{
@@ -66,11 +66,11 @@ module lobby.view.lives {
 				m_tfWarn = null;
 			}
 			
-			if(m_rtmpPlayer){
-				LobbyData.getInstance().removeRtmpPlayer(m_rtmpPlayer);
+			if(m_util.rtmp.RTMPPlayer){
+				LobbyData.getInstance().removeutil.rtmp.RTMPPlayer(m_util.rtmp.RTMPPlayer);
 				
-				m_rtmpPlayer.destroy();
-				m_rtmpPlayer = null;
+				m_util.rtmp.RTMPPlayer.destroy();
+				m_util.rtmp.RTMPPlayer = null;
 			}
 			
 			if(m_mcVideo){
@@ -94,24 +94,24 @@ module lobby.view.lives {
 			this.m_sStream = _steamApp;
 		}
 		
-		public initializeRTMPPlayer():void{
-			m_rtmpPlayer = new RTMPPlayer(LobbyManager.getInstance().stage, 0, LobbyManager.getInstance().bStageVideoAvailable);
-			LobbyData.getInstance().addRtmpPlayer(m_rtmpPlayer);
-			m_rtmpPlayer.initialize( m_mcVideo, uWidth, uHeight);
+		public initializeutil.rtmp.RTMPPlayer():void{
+			m_util.rtmp.RTMPPlayer = new util.rtmp.RTMPPlayer(LobbyManager.getInstance().stage, 0, LobbyManager.getInstance().bStageVideoAvailable);
+			LobbyData.getInstance().addutil.rtmp.RTMPPlayer(m_util.rtmp.RTMPPlayer);
+			m_util.rtmp.RTMPPlayer.initialize( m_mcVideo, uWidth, uHeight);
 			
-			m_rtmpPlayer.fHideLoading = hideLoding; 
-			m_rtmpPlayer.fConnectFailed = connectFailed;
+			m_util.rtmp.RTMPPlayer.fHideLoading = hideLoding; 
+			m_util.rtmp.RTMPPlayer.fConnectFailed = connectFailed;
 			
 			
 			
-			m_rtmpPlayer.resize(uWidth,uHeight);
+			m_util.rtmp.RTMPPlayer.resize(uWidth,uHeight);
 			var _bStatus :  boolean = SharedObjectManager.getLiveOnOff();
-			m_rtmpPlayer.setVolume(_bStatus?SharedObjectManager.getLiveVolume():0);
+			m_util.rtmp.RTMPPlayer.setVolume(_bStatus?SharedObjectManager.getLiveVolume():0);
 			
 			m_loading = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_LOBBY,"LoadingLiveAsset");
 			
 			
-			m_rtmpPlayer.fConnectSuccess = function():void{
+			m_util.rtmp.RTMPPlayer.fConnectSuccess = function():void{
 				if(m_tfWarn){
 					m_tfWarn.visible = false;
 				}
@@ -119,12 +119,12 @@ module lobby.view.lives {
 				
 				uCount = 0;
 				if(bisMachine){
-					m_rtmpPlayer.setStageVideo(uX,uY,uWidth,uHeight);
+					m_util.rtmp.RTMPPlayer.setStageVideo(uX,uY,uWidth,uHeight);
 					setTimeout(function():void{
-						m_rtmpPlayer.resize(uWidth,uHeight);
+						m_util.rtmp.RTMPPlayer.resize(uWidth,uHeight);
 					},5);
 				}else{
-					m_rtmpPlayer.setStageVideo(uX,uY,uWidth,uHeight);
+					m_util.rtmp.RTMPPlayer.setStageVideo(uX,uY,uWidth,uHeight);
 				}
 			};
 		
@@ -150,18 +150,18 @@ module lobby.view.lives {
 				hash(sServer, m_sStream);
 			//	Log.getInstance().log(this,"播放游戏视讯:"+sServer+"/"+m_sStream);
 			//	console.log("游戏视频地址"+sServer+"/"+m_sStream)
-				m_rtmpPlayer.play(sServer, m_sHash, m_sSharedSecuret);
+				m_util.rtmp.RTMPPlayer.play(sServer, m_sHash, m_sSharedSecuret);
 			}
 			sFailedConnectType = null;
 			TimeManager.getInstance().addFun(loadVideoTimeOut,5000);
-			m_rtmpPlayer.iVideoConnectStatus = 0;
+			m_util.rtmp.RTMPPlayer.iVideoConnectStatus = 0;
 		}
 		
 
 		
 		public stop():void{
-			if(m_rtmpPlayer){
-				m_rtmpPlayer.stop();
+			if(m_util.rtmp.RTMPPlayer){
+				m_util.rtmp.RTMPPlayer.stop();
 				hideLoding();
 			}
 		
@@ -176,7 +176,7 @@ module lobby.view.lives {
 		 * 清除視頻畫面
 		 */
 		public clearVideoFull():void {
-			m_rtmpPlayer.clearVideoFull();
+			m_util.rtmp.RTMPPlayer.clearVideoFull();
 		}
 		
 		
@@ -259,17 +259,17 @@ module lobby.view.lives {
 			
 		//	Log.getInstance().log(this, "視訊連接狀態::" + _iType);
 			switch(_iType){
-				case RTMPPlayer.iStreamNotFound:
+				case util.rtmp.RTMPPlayer.iStreamNotFound:
 					m_tfWarn.text = LobbyManager.getInstance().getLanguageString(  Language.sLiveError );	
 					sFailedConnectType = Language.sLiveError;
 					break;
-				case RTMPPlayer.iRejected:
+				case util.rtmp.RTMPPlayer.iRejected:
 					m_tfWarn.text = LobbyManager.getInstance().getLanguageString(  Language.sLiveError );	
 					sFailedConnectType = Language.sLiveError;
 					break;
-				case RTMPPlayer.iVideoConnectFailed:
-				case RTMPPlayer.iVideoPlayFailed:
-				case RTMPPlayer.iConnectClose:
+				case util.rtmp.RTMPPlayer.iVideoConnectFailed:
+				case util.rtmp.RTMPPlayer.iVideoPlayFailed:
+				case util.rtmp.RTMPPlayer.iConnectClose:
 					m_tfWarn.text = LobbyManager.getInstance().getLanguageString( Language.sLiveError );	
 					sFailedConnectType = Language.sLiveError;
 					break;
@@ -307,9 +307,9 @@ module lobby.view.lives {
 //				mcAsset.graphics.endFill();	
 //			}
 			
-			m_rtmpPlayer.uVideoWidth = 0;
-			m_rtmpPlayer.uVideoHieght = 0;
-			m_rtmpPlayer.resize( uWidth , uHeight );
+			m_util.rtmp.RTMPPlayer.uVideoWidth = 0;
+			m_util.rtmp.RTMPPlayer.uVideoHieght = 0;
+			m_util.rtmp.RTMPPlayer.resize( uWidth , uHeight );
 			
 			setLoadingPosition();
 			

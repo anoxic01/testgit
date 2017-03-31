@@ -4,8 +4,8 @@ module lobby.view.gameRecord.dates {
 		public var _aDate					:	any[];					//12個月各月的天數, 2月會拉出來 額外計算是否為閏年
 		public var _iLimitMinYear			:	int = 2000;				//最小2000年
 		
-		public var btnPreious				:	SingleButtonMC;
-		public var btnNext					:	SingleButtonMC;
+		public var btnPreious				:	ui.button.SingleButtonMC;
+		public var btnNext					:	ui.button.SingleButtonMC;
 		
 		private var m_nSelectYear			:	Number;						//玩家選擇的年
 		private var m_nSelectMonth			:	Number;						//玩家選擇的月
@@ -66,7 +66,7 @@ module lobby.view.gameRecord.dates {
 			bgsprite.graphics.endFill();
 			this.addChild(bgsprite);
 			
-			bgsprite.addEventListener(MouseEvent.CLICK,clickhandler);
+			bgsprite.addEventListener(egret.TouchEvent.TOUCH_TAP,clickhandler);
 		}
 		
 		public function clickhandler(e:MouseEvent):void{
@@ -115,9 +115,9 @@ module lobby.view.gameRecord.dates {
 			mcAsset.tf_label.text = _sYear + "-" + _sMonth + "-"  + _sDay;
 			
 			//上一頁按鈕
-			btnPreious = new SingleButtonMC( mcAsset.mc_previous , onPrevious );
+			btnPreious = new ui.button.SingleButtonMC( mcAsset.mc_previous , onPrevious );
 			//下一頁按鈕
-			btnNext =  new SingleButtonMC( mcAsset.mc_next , onNext );
+			btnNext =  new ui.button.SingleButtonMC( mcAsset.mc_next , onNext );
 			btnNext.enabled = false;
 			
 			m_vecDate = new <McDate>();
@@ -347,7 +347,7 @@ module lobby.view.gameRecord.dates {
 			
 			if ( this.bgsprite ) {
 				if ( this.contains( this.bgsprite ) ) {
-					bgsprite.removeEventListener(MouseEvent.CLICK,clickhandler);
+					bgsprite.removeEventListener(egret.TouchEvent.TOUCH_TAP,clickhandler);
 					this.removeChild( this.bgsprite );
 				}
 				bgsprite  = null;
@@ -702,9 +702,9 @@ class McDate {
 		mcAsset.mc_0.visible = false;
 		mcAsset.buttonMode = true;
 		mcAsset.mouseChildren =false;
-		mcAsset.addEventListener(MouseEvent.MOUSE_OVER , mouseHandler );
-		mcAsset.addEventListener(MouseEvent.MOUSE_OUT , mouseHandler );
-		mcAsset.addEventListener(MouseEvent.CLICK , mouseHandler );
+		mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OVER , mouseHandler );
+		mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OUT , mouseHandler );
+		mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP , mouseHandler );
 //		mcAsset.mc_red.visible = false;
 		
 		tfSelect = _tfSelect;
@@ -730,7 +730,7 @@ class McDate {
 			}
 			TextField(mcAsset.tf_label).text = TextField(mcAsset.tf_label).text;	
 		}
-		else if( event.type == MouseEvent.CLICK ) {
+		else if( event.type == egret.TouchEvent.TOUCH_TAP ) {
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			if( fClick != null ) {
 				fClick( [iYear , iMonth , iDay ] );
@@ -741,9 +741,9 @@ class McDate {
 
 	public function destroy():void {
 		if( mcAsset ){
-			mcAsset.removeEventListener(MouseEvent.MOUSE_OVER , mouseHandler );
-			mcAsset.removeEventListener(MouseEvent.MOUSE_OUT , mouseHandler );
-			mcAsset.removeEventListener(MouseEvent.CLICK , mouseHandler );	
+			mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OVER , mouseHandler );
+			mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OUT , mouseHandler );
+			mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP , mouseHandler );	
 			mcAsset = null;
 		}
 		

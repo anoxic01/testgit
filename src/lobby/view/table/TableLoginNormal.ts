@@ -32,9 +32,9 @@ module lobby.view.table {
 			m_btnLogin.mcAsset.mouseChildren = false;
 			m_btnLogin.mcAsset.visible = false;
 			m_btnLogin.gotoAndStop(normal);
-			m_btnLogin.mcAsset.addEventListener(MouseEvent.ROLL_OVER,over);
-			m_btnLogin.mcAsset.addEventListener(MouseEvent.ROLL_OUT,out);
-			m_btnLogin.mcAsset.addEventListener(MouseEvent.CLICK,onClick);
+			m_btnLogin.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OVER,over);
+			m_btnLogin.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OUT,out);
+			m_btnLogin.mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP,onClick);
 			m_btnLogin.mcAsset.x = 430;
 			
 			m_btnLogin.addFrameScript(19,function():void{
@@ -80,9 +80,9 @@ module lobby.view.table {
 			}
 			
 			if(m_btnLogin){
-				m_btnLogin.mcAsset.removeEventListener(MouseEvent.ROLL_OVER,over);
-				m_btnLogin.mcAsset.removeEventListener(MouseEvent.ROLL_OUT,out);
-				m_btnLogin.mcAsset.removeEventListener(MouseEvent.CLICK,onClick);
+				m_btnLogin.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OVER,over);
+				m_btnLogin.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OUT,out);
+				m_btnLogin.mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP,onClick);
 				m_btnLogin.dispose();
 				m_btnLogin = null;
 			}

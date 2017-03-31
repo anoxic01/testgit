@@ -13,8 +13,8 @@ module lobby.model {
 		public sPrivateKey_Game		:	string;					//私人密钥
 		public sBroadcastKey_Game	:	string;					//公开密钥
 		
-		public balance				:	BalanceStruct;			//玩家余额
-		public gameSetting			:	GameSettingStruct;		//游戏设置
+		public balance				:	struct.BalanceStruct;			//玩家余额
+		public gameSetting			:	struct.GameSettingStruct;		//游戏设置
 		
 		public iPlayerID			:	number;					//玩家序号
 		public iIdentity			:	number;					//玩家身份	- 0: 玩家, 1: 槍手
@@ -48,16 +48,16 @@ module lobby.model {
 		
 		private m_nCoin				:	Number;					//当前货币
 		
-		private m_vecReceiver		:	<IPlayerReceiver>;	//偵聽玩家資料更新
+		private m_vecReceiver		:	iface.IPlayerReceiver[];	//偵聽玩家資料更新
 		
-		get Country():String
+		get Country():string
 		{
-			return m_Country;
+			return this.m_Country;
 		}
 
-		set  Country(value:String)
+		set  Country(value:string)
 		{
-			m_Country = value;
+			this.m_Country = value;
 			
 		}
 
@@ -72,104 +72,104 @@ module lobby.model {
 //					break;
 //			}
 //			return m_nCoin;
-			return balance.GCoin;
+			return this.balance.GCoin;
 		}
 		
 
 		get iSeatNo():number
 		{
-			return m_iSeatNo;
+			return this.m_iSeatNo;
 		}
 
 		set  iSeatNo(value:number)
 		{
-				m_iSeatNo = value;
+				this.m_iSeatNo = value;
 			
 		}
 
-		set  PlayerInfo( oPlayerInfo:Object ){
-			AccountType		=	oPlayerInfo.AccountType;
-			iAgentID			=	oPlayerInfo.AgentID;
-			sAgentKey_Lobby		=	oPlayerInfo.AgentKey;
-			sPrivateKey_Lobby	=	oPlayerInfo.PrivateKey;
-			sBroadcastKey_Lobby	=	oPlayerInfo.BroadcastKey;
-			balance				=	new BalanceStruct( oPlayerInfo.Balance );
-			gameSetting			=	new GameSettingStruct( oPlayerInfo.GameSetting );
-			iPlayerID			=	oPlayerInfo.PlayerID;
-			iIdentity			=	oPlayerInfo.Identity;
-			bIsFirstTb			=	oPlayerInfo.IsFirstTb;
-			bIsLogin			=	oPlayerInfo.IsLogin;
+		set  PlayerInfo( oPlayerInfo ){
+			this.AccountType		=	oPlayerInfo.AccountType;
+			this.iAgentID			=	oPlayerInfo.AgentID;
+			this.sAgentKey_Lobby		=	oPlayerInfo.AgentKey;
+			this.sPrivateKey_Lobby	=	oPlayerInfo.PrivateKey;
+			this.sBroadcastKey_Lobby	=	oPlayerInfo.BroadcastKey;
+			this.balance				=	new struct.BalanceStruct( oPlayerInfo.Balance );
+			this.gameSetting			=	new struct.GameSettingStruct( oPlayerInfo.GameSetting );
+			this.iPlayerID			=	oPlayerInfo.PlayerID;
+			this.iIdentity			=	oPlayerInfo.Identity;
+			this.bIsFirstTb			=	oPlayerInfo.IsFirstTb;
+			this.bIsLogin			=	oPlayerInfo.IsLogin;
 //			bIsTableOwner		=	oPlayerInfo.IsTableOwner;
-			sNickName			=	oPlayerInfo.NickName;
-			sHiddenNickName		=	oPlayerInfo.HiddenNickName;
-			iPairTableID		=	oPlayerInfo.PairTableID;
-			iSeatNo				=	oPlayerInfo.SeatNo;
-			sLobbyServer		=	oPlayerInfo.LobbyServer;
-			sLoginTime			=	oPlayerInfo.LoginTime;
-			iPPSN				=	oPlayerInfo.PPSN;
-			iBPSN				=	oPlayerInfo.BPSN;
-			DeputyAuthToken		=	oPlayerInfo.DeputyAuthToken;
+			this.sNickName			=	oPlayerInfo.NickName;
+			this.sHiddenNickName		=	oPlayerInfo.HiddenNickName;
+			this.iPairTableID		=	oPlayerInfo.PairTableID;
+			this.iSeatNo				=	oPlayerInfo.SeatNo;
+			this.sLobbyServer		=	oPlayerInfo.LobbyServer;
+			this.sLoginTime			=	oPlayerInfo.LoginTime;
+			this.iPPSN				=	oPlayerInfo.PPSN;
+			this.iBPSN				=	oPlayerInfo.BPSN;
+			this.DeputyAuthToken		=	oPlayerInfo.DeputyAuthToken;
 			
 			/*if( sNickName.length >= 10 ){
 				sNickName = sNickName.substr( 0 , 3 ) + "..."+ sNickName.substr( sNickName.length-3 , sNickName.length );
 			}*/
 			
 		}
-		set  gameData( oPlayerInfo:Object ){
-			sAgentKey_Game		=	oPlayerInfo.AgentKey;
-			sPrivateKey_Game	=	oPlayerInfo.PrivateKey;
-			sBroadcastKey_Game	=	oPlayerInfo.BroadcastKey;
-			bIsFirstTb			=	oPlayerInfo.IsFirstTb;
-			bIsLogin			=	oPlayerInfo.IsLogin;
+		set  gameData( oPlayerInfo ){
+			this.sAgentKey_Game		=	oPlayerInfo.AgentKey;
+			this.sPrivateKey_Game	=	oPlayerInfo.PrivateKey;
+			this.sBroadcastKey_Game	=	oPlayerInfo.BroadcastKey;
+			this.bIsFirstTb			=	oPlayerInfo.IsFirstTb;
+			this.bIsLogin			=	oPlayerInfo.IsLogin;
 //			bIsTableOwner		=	oPlayerInfo.IsTableOwner;
-			iSeatNo				=	oPlayerInfo.SeatNo;
-			iPPSN				=	oPlayerInfo.PPSN;
-			iBPSN				=	oPlayerInfo.BPSN;
+			this.iSeatNo				=	oPlayerInfo.SeatNo;
+			this.iPPSN				=	oPlayerInfo.PPSN;
+			this.iBPSN				=	oPlayerInfo.BPSN;
 		}
 		
 		/**
 		 * 更新 額度
 		 * @param	o
 		 */
-		public updateBalance( oData:Object ):void {
+		public updateBalance( oData ):void {
 			if ( oData == null ) {
 				return; 
 			}
 			
-			balance.AvailableCredit	=	oData.AvailableCredit;
-			balance.BCoin			=	oData.BCoin;
-			balance.GCoin			=	oData.GCoin;
-			balance.RemainingCredit	=	oData.RemainingCredit;
-			balance.TotalCredit		=	oData.TotalCredit;
+			this.balance.AvailableCredit	=	oData.AvailableCredit;
+			this.balance.BCoin			=	oData.BCoin;
+			this.balance.GCoin			=	oData.GCoin;
+			this.balance.RemainingCredit	=	oData.RemainingCredit;
+			this.balance.TotalCredit		=	oData.TotalCredit;
 			
 			
 			
-			LobbyManager.getInstance().lobbyView.information.updateBalance();
-			if(LobbyManager.getInstance().personalinformation){
-				LobbyManager.getInstance().personalinformation.refresh();
+			manager.LobbyManager.getInstance().lobbyView.information.updateBalance();
+			if(manager.LobbyManager.getInstance().personalinformation){
+				manager.LobbyManager.getInstance().personalinformation.refresh();
 			}
 			
-			if(LobbyManager.getInstance().chipPanelLobby){
-				if(LobbyManager.getInstance().chipPanelLobby.currentChipItem.uValue > balance.GCoin){
-					LobbyManager.getInstance().chipPanelLobby.showHint();
+			if(manager.LobbyManager.getInstance().chipPanelLobby){
+				if(manager.LobbyManager.getInstance().chipPanelLobby.currentChipItem.uValue > this.balance.GCoin){
+					manager.LobbyManager.getInstance().chipPanelLobby.showHint();
 				}else{
-					LobbyManager.getInstance().chipPanelLobby.hideHint();
+					manager.LobbyManager.getInstance().chipPanelLobby.hideHint();
 				}
 			}
 			
-			if(LobbyManager.getInstance().chipPanelGame_1){
-				if(LobbyManager.getInstance().chipPanelGame_1.currentChipItem.uValue > balance.GCoin){
-					LobbyManager.getInstance().chipPanelGame_1.showHint();
+			if(manager.LobbyManager.getInstance().chipPanelGame_1){
+				if(manager.LobbyManager.getInstance().chipPanelGame_1.currentChipItem.uValue > this.balance.GCoin){
+					manager.LobbyManager.getInstance().chipPanelGame_1.showHint();
 				}else{
-					LobbyManager.getInstance().chipPanelGame_1.hideHint();
+					manager.LobbyManager.getInstance().chipPanelGame_1.hideHint();
 				}
 			}
 			
-			if(LobbyManager.getInstance().chipPanelGame_2){
-				if(LobbyManager.getInstance().chipPanelGame_2.currentChipItem.uValue > balance.GCoin){
-					LobbyManager.getInstance().chipPanelGame_2.showHint();
+			if(manager.LobbyManager.getInstance().chipPanelGame_2){
+				if(manager.LobbyManager.getInstance().chipPanelGame_2.currentChipItem.uValue > this.balance.GCoin){
+					manager.LobbyManager.getInstance().chipPanelGame_2.showHint();
 				}else{
-					LobbyManager.getInstance().chipPanelGame_2.hideHint();
+					manager.LobbyManager.getInstance().chipPanelGame_2.hideHint();
 				}
 			}
 			
@@ -178,56 +178,56 @@ module lobby.model {
 		 * 更新遊戲設定
 		 * @param	o
 		 */
-		public updateGameSetting( oData:Object ):void {
+		public updateGameSetting( oData ):void {
 			if ( oData == null ) {
 				return; 
 			}
 			
-			gameSetting.BetLimitId = oData.BetLimitId;
-			gameSetting.CustChips = oData.CustChips;
-			gameSetting.UpperBetLimitId = oData.UpperBetLimitId;
+			this.gameSetting.BetLimitId = oData.BetLimitId;
+			this.gameSetting.CustChips = oData.CustChips;
+			this.gameSetting.UpperBetLimitId = oData.UpperBetLimitId;
 		}
 		
-		set  DeputyAuthToken( _sValue:String ) {
-			sDeputyAuthToken = _sValue;
-			var _iLen:number= m_vecReceiver.length;
+		set  DeputyAuthToken( _sValue:string ) {
+			this.sDeputyAuthToken = _sValue;
+			var _iLen:number= this.m_vecReceiver.length;
 			for( var i:number= 0; i < _iLen; i++ ){
-				m_vecReceiver[i].update(sDeputyAuthToken);
+				this.m_vecReceiver[i].update(this.sDeputyAuthToken);
 			}
 		}
 		
-		get DeputyAuthToken( ):String {
-			return sDeputyAuthToken;
+		get DeputyAuthToken( ):string {
+			return this.sDeputyAuthToken;
 		}
 		
-		public addListener(_vecReceiver:IPlayerReceiver):void {
-			if( m_vecReceiver.indexOf(_vecReceiver) == -1){
-				m_vecReceiver.push(_vecReceiver);
+		public addListener(_vecReceiver:iface.IPlayerReceiver):void {
+			if( this.m_vecReceiver.indexOf(_vecReceiver) == -1){
+				this.m_vecReceiver.push(_vecReceiver);
 			}
 		}
 		
-		public removeListener( _vecReceiver:IPlayerReceiver):void {
-			var _idx:number=  m_vecReceiver.indexOf(_vecReceiver);
+		public removeListener( _vecReceiver:iface.IPlayerReceiver):void {
+			var _idx:number=  this.m_vecReceiver.indexOf(_vecReceiver);
 			if(_idx != -1){
-				m_vecReceiver.splice(_idx,1);
+				this.m_vecReceiver.splice(_idx,1);
 			}
 		}
 		
 		public removeAllListenr( ):void {
-			m_vecReceiver = null;
-			m_vecReceiver = new <IPlayerReceiver>();
+			this.m_vecReceiver = null;
+			this.m_vecReceiver = new Array<iface.IPlayerReceiver>();
 		}		
 		
 		private static m_instance	:	Player;
 		
 		public static getInstance():Player{
 			
-			if(m_instance == null){
+			if(this.m_instance == null){
 				
-				m_instance = new Player(new Singleton());
+				this.m_instance = new Player(new Singleton());
 				
 			}
-			return m_instance;
+			return this.m_instance;
 		}
 		
 		public constructor(single:Singleton) {
@@ -235,11 +235,11 @@ module lobby.model {
 			if(single==null){
 				console.log("models.Player初始化异常...");
 			}
-			if( m_vecReceiver==null ){
-				m_vecReceiver = new <IPlayerReceiver>();
+			if( this.m_vecReceiver==null ){
+				this.m_vecReceiver = new Array<iface.IPlayerReceiver>();
 			}
 			
 		}
 	}
 }
-class Singleton{}
+export class Singleton{}

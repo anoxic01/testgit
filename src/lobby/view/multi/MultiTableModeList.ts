@@ -1,5 +1,5 @@
 module lobby.view.multi {
-	export class MultiTableModeList implements ISprite{
+	export class MultiTableModeList implements iface.ISprite{
 		private m_mode_4			:	MultiTableModeItem;
 		private m_mode_8			:	MultiTableModeItem;
 		private m_mode_16			:	MultiTableModeItem;

@@ -1,5 +1,5 @@
 module lobby.view.route {
-	export class RoadBallPool implements ISprite {
+	export class RoadBallPool implements iface.ISprite {
 		protected _bigRoadPool		:	Pool;  //大陸
 		protected _bigEyeRoadPool	:	Pool; //大眼路
 		protected _smallEyeRoadPool	:	Pool; //小眼露

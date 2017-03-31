@@ -1,5 +1,5 @@
 module lobby.view.route.game.dtf {
-	export class DtfRouteMgr implements ISprite {
+	export class DtfRouteMgr implements iface.ISprite {
 		public static const ASK_MODE_DRAGON	:	int					=	0;
 		public static const ASK_MODE_TIGER	:	int					=	1;
 		

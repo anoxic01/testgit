@@ -23,9 +23,9 @@ module lobby.view.table {
 			m_btnSideBet.mcAsset.mouseChildren = false;
 			m_btnSideBet.mcAsset.visible = false;
 			m_btnSideBet.gotoAndStop(normal);
-			m_btnSideBet.mcAsset.addEventListener(MouseEvent.ROLL_OVER,btnSideBetover);
-			m_btnSideBet.mcAsset.addEventListener(MouseEvent.ROLL_OUT,btnSideBetout);
-			m_btnSideBet.mcAsset.addEventListener(MouseEvent.CLICK,btnSideBetonClick);
+			m_btnSideBet.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OVER,btnSideBetover);
+			m_btnSideBet.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OUT,btnSideBetout);
+			m_btnSideBet.mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP,btnSideBetonClick);
 			m_btnSideBet.addFrameScript(19,function():void{
 				if(m_btnSideBet){
 					m_btnSideBet.currentFrame = 2;
@@ -48,9 +48,9 @@ module lobby.view.table {
 			m_btnLogin.mcAsset.mouseChildren = false;
 			m_btnLogin.mcAsset.visible = false;
 			m_btnLogin.gotoAndStop(normal);
-			m_btnLogin.mcAsset.addEventListener(MouseEvent.ROLL_OVER,Loginover);
-			m_btnLogin.mcAsset.addEventListener(MouseEvent.ROLL_OUT,Loginout);
-			m_btnLogin.mcAsset.addEventListener(MouseEvent.CLICK,LoginonClick);
+			m_btnLogin.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OVER,Loginover);
+			m_btnLogin.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OUT,Loginout);
+			m_btnLogin.mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP,LoginonClick);
 			m_btnLogin.addFrameScript(19,function():void{
 				if(m_btnLogin){
 					m_btnLogin.currentFrame = 2;
@@ -153,16 +153,16 @@ module lobby.view.table {
 		 public destroy():void{
 			
 			if(m_btnSideBet){
-				m_btnSideBet.mcAsset.removeEventListener(MouseEvent.ROLL_OVER,btnSideBetover);
-				m_btnSideBet.mcAsset.removeEventListener(MouseEvent.ROLL_OUT,btnSideBetout);
-				m_btnSideBet.mcAsset.removeEventListener(MouseEvent.CLICK,btnSideBetonClick);
+				m_btnSideBet.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OVER,btnSideBetover);
+				m_btnSideBet.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OUT,btnSideBetout);
+				m_btnSideBet.mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP,btnSideBetonClick);
 				m_btnSideBet.dispose();
 				m_btnSideBet = null;
 			}
 			if(m_btnLogin){
-				m_btnLogin.mcAsset.removeEventListener(MouseEvent.ROLL_OVER,Loginover);
-				m_btnLogin.mcAsset.removeEventListener(MouseEvent.ROLL_OUT,Loginout);
-				m_btnLogin.mcAsset.removeEventListener(MouseEvent.CLICK,LoginonClick);
+				m_btnLogin.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OVER,Loginover);
+				m_btnLogin.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OUT,Loginout);
+				m_btnLogin.mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP,LoginonClick);
 				m_btnLogin.dispose();
 				m_btnLogin = null;
 			}

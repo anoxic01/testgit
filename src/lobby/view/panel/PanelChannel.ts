@@ -2,8 +2,8 @@ module lobby.view.panel {
 	export class PanelChannel extends PanelWindow{
 		
 //		private m_bg				:	BitmapScale9Grid;
-		private m_btnClose			:	SingleButtonMC;						//关闭按钮
-		private m_btnOk				:	SingleButtonMC;						//确认切换
+		private m_btnClose			:	ui.button.SingleButtonMC;						//关闭按钮
+		private m_btnOk				:	ui.button.SingleButtonMC;						//确认切换
 		
 		private m_aItems			:	any[];
 		private m_currentChannel	:	Item;
@@ -28,14 +28,14 @@ module lobby.view.panel {
 			
 			addItem();
 			
-			m_btnClose = new SingleButtonMC(m_mcAsset.mc_close,function(event:MouseEvent):void{
+			m_btnClose = new ui.button.SingleButtonMC(m_mcAsset.mc_close,function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				initStatus();
 				LobbyManager.getInstance().hideChannel();
 			});
 			m_btnClose.enabled = false;
 			
-			m_btnOk = new SingleButtonMC(m_mcAsset.mc_ok,function(event:MouseEvent):void{
+			m_btnOk = new ui.button.SingleButtonMC(m_mcAsset.mc_ok,function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				LobbyData.getInstance().lobbyInfo.currentCDN = LobbyData.getInstance().lobbyInfo.getChannelByChannelNo(m_currentChannel.uID);
 				SharedObjectManager.setCDNList(LobbyData.getInstance().lobbyInfo.currentCDN);
@@ -52,7 +52,7 @@ module lobby.view.panel {
 			
 			initStatus();
 			
-			this.addEventListener(MouseEvent.CLICK,onclick);
+			this.addEventListener(egret.TouchEvent.TOUCH_TAP,onclick);
 		}
 		
 		private checkChannel(_channel:number):VideoCDNStruct{
@@ -173,7 +173,7 @@ module lobby.view.panel {
 				_struct = checkChannel(_channel); 
 				if(_struct){
 					m_aItems[i] = new Item(m_mcAsset.getChildByName("mc_"+String(i)) as MovieClip, _channel);
-					(m_mcAsset.getChildByName("mc_"+String(i)) as MovieClip).addEventListener(MouseEvent.CLICK, click);
+					(m_mcAsset.getChildByName("mc_"+String(i)) as MovieClip).addEventListener(egret.TouchEvent.TOUCH_TAP, click);
 					
 				}else{
 					(m_mcAsset.getChildByName("mc_"+String(i)) as MovieClip).gotoAndStop("DEFAULT");
@@ -192,10 +192,10 @@ module lobby.view.panel {
 			m_aItems = null;
 			m_currentChannel = null;
 			
-			(m_mcAsset.mc_0 as MovieClip).removeEventListener(MouseEvent.CLICK, click);
-			(m_mcAsset.mc_1 as MovieClip).removeEventListener(MouseEvent.CLICK, click);
-			(m_mcAsset.mc_2 as MovieClip).removeEventListener(MouseEvent.CLICK, click);
-			(m_mcAsset.mc_3 as MovieClip).removeEventListener(MouseEvent.CLICK, click);
+			(m_mcAsset.mc_0 as MovieClip).removeEventListener(egret.TouchEvent.TOUCH_TAP, click);
+			(m_mcAsset.mc_1 as MovieClip).removeEventListener(egret.TouchEvent.TOUCH_TAP, click);
+			(m_mcAsset.mc_2 as MovieClip).removeEventListener(egret.TouchEvent.TOUCH_TAP, click);
+			(m_mcAsset.mc_3 as MovieClip).removeEventListener(egret.TouchEvent.TOUCH_TAP, click);
 		}
 		
 		 public destroy():void{
@@ -207,7 +207,7 @@ module lobby.view.panel {
 //				m_bg = null;
 //			}
 			
-			this.removeEventListener(MouseEvent.CLICK,onclick);
+			this.removeEventListener(egret.TouchEvent.TOUCH_TAP,onclick);
 			
 			if(m_btnClose){
 				m_btnClose.destroy();
@@ -220,10 +220,10 @@ module lobby.view.panel {
 			}
 			
 			if(m_mcAsset){
-				(m_mcAsset.mc_0 as MovieClip).removeEventListener(MouseEvent.CLICK, click);
-				(m_mcAsset.mc_1 as MovieClip).removeEventListener(MouseEvent.CLICK, click);
-				(m_mcAsset.mc_2 as MovieClip).removeEventListener(MouseEvent.CLICK, click);
-				(m_mcAsset.mc_3 as MovieClip).removeEventListener(MouseEvent.CLICK, click);
+				(m_mcAsset.mc_0 as MovieClip).removeEventListener(egret.TouchEvent.TOUCH_TAP, click);
+				(m_mcAsset.mc_1 as MovieClip).removeEventListener(egret.TouchEvent.TOUCH_TAP, click);
+				(m_mcAsset.mc_2 as MovieClip).removeEventListener(egret.TouchEvent.TOUCH_TAP, click);
+				(m_mcAsset.mc_3 as MovieClip).removeEventListener(egret.TouchEvent.TOUCH_TAP, click);
 				
 				this.removeChild(m_mcAsset);
 				m_mcAsset = null;
@@ -258,15 +258,15 @@ class Item{
 		mcAsset.buttonMode = true;
 		mcAsset.mouseChildren = false;
 //		m_mcAsset.tf_label.text = String(uID);
-		mcAsset.addEventListener(MouseEvent.MOUSE_OVER, over);
-		mcAsset.addEventListener(MouseEvent.MOUSE_OUT, out);
+		mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OVER, over);
+		mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OUT, out);
 	}
 	
 	public destroy():void{
 		if(mcAsset){
 			mcAsset.buttonMode = false;
-			mcAsset.removeEventListener(MouseEvent.MOUSE_OVER, over);
-			mcAsset.removeEventListener(MouseEvent.MOUSE_OUT, out);
+			mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OVER, over);
+			mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OUT, out);
 			mcAsset = null;
 		}
 	}

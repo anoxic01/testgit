@@ -2,9 +2,9 @@ module lobby.view.panel {
 	export class PanelDialog extends PanelWindow{
 //		private m_bg		:	BitmapScale9Grid;
 		
-		private m_btnOk		:	SingleButtonMC;
-		private m_btnNo		:	SingleButtonMC;
-		private m_btnClose	:	SingleButtonMC;
+		private m_btnOk		:	ui.button.SingleButtonMC;
+		private m_btnNo		:	ui.button.SingleButtonMC;
+		private m_btnClose	:	ui.button.SingleButtonMC;
 		private m_fOk		:	Function;
 		private m_fNo		:	Function;
 		private m_timer		:	JTimer;
@@ -38,7 +38,7 @@ module lobby.view.panel {
 //			mcClose.y = m_mcAsset.mc_close.y;
 //			m_mcAsset.mc_close.visible = false;
 			
-			m_btnOk = new SingleButtonMC(m_mcAsset.mc_ok, function(event:MouseEvent):void{
+			m_btnOk = new ui.button.SingleButtonMC(m_mcAsset.mc_ok, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				if(m_fOk!=null){
 					m_fOk();
@@ -51,7 +51,7 @@ module lobby.view.panel {
 //				SoundManager.getInstance().play(SoundPackage.sLobbyMouseOver);
 //			};
 			
-			m_btnNo = new SingleButtonMC(m_mcAsset.mc_no, function(event:MouseEvent):void{
+			m_btnNo = new ui.button.SingleButtonMC(m_mcAsset.mc_no, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 //				PopupManager.getInstance().close(dialog);
 				close();
@@ -70,7 +70,7 @@ module lobby.view.panel {
 			}
 			
 			
-			m_btnClose = new SingleButtonMC(m_mcAsset.mc_close, function(event:MouseEvent):void{
+			m_btnClose = new ui.button.SingleButtonMC(m_mcAsset.mc_close, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 //				PopupManager.getInstance().close(dialog);
 				close();

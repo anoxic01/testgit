@@ -59,9 +59,9 @@ module lobby.view.theme {
 			onChangeLanguage();
 			
 			this.buttonMode = true;
-			this.addEventListener(MouseEvent.MOUSE_OVER, onOver);
-			this.addEventListener(MouseEvent.MOUSE_OUT, onOut);
-			this.addEventListener(MouseEvent.CLICK, onClick);
+			this.addEventListener(mouse.MouseEvent.MOUSE_OVER, onOver);
+			this.addEventListener(mouse.MouseEvent.MOUSE_OUT, onOut);
+			this.addEventListener(egret.TouchEvent.TOUCH_TAP, onClick);
 		}
 		
 		get bSelect(): boolean
@@ -75,9 +75,9 @@ module lobby.view.theme {
 		}
 
 		 public destroy():void{
-			this.removeEventListener(MouseEvent.MOUSE_OVER, onOver);
-			this.removeEventListener(MouseEvent.MOUSE_OUT, onOut);
-			this.removeEventListener(MouseEvent.CLICK, onClick);
+			this.removeEventListener(mouse.MouseEvent.MOUSE_OVER, onOver);
+			this.removeEventListener(mouse.MouseEvent.MOUSE_OUT, onOut);
+			this.removeEventListener(egret.TouchEvent.TOUCH_TAP, onClick);
 			
 			if(m_bmpLabel){
 				if(m_bmpLabel.parent){

@@ -508,7 +508,7 @@ module manager {
 							break;
 						
 						default:
-							card = ResourceManager.getInstance().createBitmapByName("Card_"+string(j+1)+arr[i]);
+							card = ResourceManager.getInstance().createBitmapByName("Card_"+(j+1).toString()+arr[i]);
 							// this.m_dicCard[string(j+1)+arr[i]] = BitmapUtil.snapshot(card);
 							// this.m_dicCardSmall[string(j+1)+arr[i]] = BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_"+string(j+1)+arr[i]));
 							card.width = 214;

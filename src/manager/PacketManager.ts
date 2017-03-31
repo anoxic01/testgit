@@ -17,9 +17,9 @@ module manager {
 		}
 		
 		public constructor() {
-			injects = new Dictionary();
-				m_packetMap = new Dictionary();
-				m_packetMap[PacketDefine.LOBBY] = new Dictionary();
+			injects = {};
+				m_packetMap = {};
+				m_packetMap[PacketDefine.LOBBY] = {};
 				
 				m_packetMap[PacketDefine.LOBBY][PacketDefine.S_ANNOUNCELIST] = S_Lobby_Announcement_Pkt;
 				m_packetMap[PacketDefine.LOBBY][PacketDefine.S_LOGIN_IN] = S_Lobby_Login_Pkt;
@@ -46,14 +46,14 @@ module manager {
 				m_packetMap[PacketDefine.LOBBY][PacketDefine.S_MultiTable_Entry] = S_MultiTable_Entry_Pkt;
 				
 				
-				m_packetMap[PacketDefine.GAME] = new Dictionary();
-				m_packetMap[PacketDefine.GAME_BAC] = new Dictionary();
-				m_packetMap[PacketDefine.GAME_DTF] = new Dictionary();
-				m_packetMap[PacketDefine.GAME_SIC] = new Dictionary();
-				m_packetMap[PacketDefine.GAME_ROU] = new Dictionary();
-				m_packetMap[Define.TABLE_TYPE_ROBOT] = new Dictionary();
-				m_packetMap[PacketDefine.GAME_BAC_GOOD] = new Dictionary();
-				m_packetMap[PacketDefine.MULTI] = new Dictionary();
+				m_packetMap[PacketDefine.GAME] = {};
+				m_packetMap[PacketDefine.GAME_BAC] = {};
+				m_packetMap[PacketDefine.GAME_DTF] = {};
+				m_packetMap[PacketDefine.GAME_SIC] = {};
+				m_packetMap[PacketDefine.GAME_ROU] = {};
+				m_packetMap[Define.TABLE_TYPE_ROBOT] = {};
+				m_packetMap[PacketDefine.GAME_BAC_GOOD] = {};
+				m_packetMap[PacketDefine.MULTI] = {};
 				
 //				this.m_packetMap[PacketDefine.GAME][PacketDefine.S_ENTER_TABLE ] = S_Game_Login_Pkt;
 //				//this.m_packetMap[DataStructure.GAME][PacketID.S_CHANGE_BET_MODE ] = changeBetMode;
@@ -105,7 +105,7 @@ module manager {
 				
 				this.m_packetMap[PacketDefine.LOBBY][PacketDefine.S_Maintenance] = S_Lobby_Maintenance_pkt;
 				
-				m_packetMap[PacketDefine.PRINTER] = new Dictionary();
+				m_packetMap[PacketDefine.PRINTER] = {};
 		}
 
 		
@@ -156,7 +156,7 @@ module manager {
 			if (_handler)
 			{
 				if(m_packetMap[_uModel]==null){
-					m_packetMap[_uModel] = new Dictionary();
+					m_packetMap[_uModel] = {};
 				}
 				m_packetMap[_uModel][_uType] = _handler;
 				

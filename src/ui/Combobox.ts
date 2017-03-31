@@ -2,7 +2,7 @@ module ui {
 	export class Combobox extends BSprite{
 		private m_mcAsset		:	MovieClip;
 		public tfLabel			:	TextField;
-//		protected m_btnPullDown	:	SingleButtonMC;
+//		protected m_btnPullDown	:	ui.button.SingleButtonMC;
 		
 		protected m_mcList		:	MovieClip;
 		protected m_currentItem	:	ComboboxItem;
@@ -26,7 +26,7 @@ module ui {
 			tfLabel = m_mcAsset.getChildByName("tf_label") as TextField;
 			
 			var this2 : Sprite = this;
-//			m_btnPullDown = new SingleButtonMC(m_mcAsset.getChildByName("mc_0") as MovieClip, function(evt:MouseEvent):void{
+//			m_btnPullDown = new ui.button.SingleButtonMC(m_mcAsset.getChildByName("mc_0") as MovieClip, function(evt:MouseEvent):void{
 //				
 //			});
 			m_mcAsset.mc_0.gotoAndStop(1);
@@ -41,9 +41,9 @@ module ui {
 			m_mcList.addChild(m_scroll);
 			
 			onChangeLanguage();
-			m_mcAsset.addEventListener(MouseEvent.CLICK, click);
-			m_mcAsset.addEventListener(MouseEvent.MOUSE_OVER, over);
-			m_mcAsset.addEventListener(MouseEvent.MOUSE_OUT, out);
+			m_mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP, click);
+			m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OVER, over);
+			m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OUT, out);
 		}
 		
 		protected over(event:MouseEvent):void

@@ -15,34 +15,35 @@ module manager {
 
 		public static getInstance():ActionManager{
 			
-			if(m_instance == null){
+			if(this.m_instance == null){
 				
-				m_instance = new ActionManager(new Singleton());
+				this.m_instance = new ActionManager(new Singleton());
 				
 			}
-			return m_instance;
+			return this.m_instance;
 		}
 		
-		public constructor() {
+		public constructor(sing:Singleton) {
 		}
 
 		
 		public addActionFun(_fFun:Function):void{
-			if(m_aAction==null){
-				m_aAction = [];
+			if(this.m_aAction==null){
+				this.m_aAction = [];
 			}
-			m_aAction.push(_fFun);
+			this.m_aAction.push(_fFun);
 		}
 		public getActionFun():Function{
-			if(m_aAction.length>0){
-				return m_aAction.shift();
+			if(this.m_aAction.length>0){
+				return this.m_aAction.shift();
 			}
 			return null;
 		}
 		public removeActionFun():void{
-			if(m_aAction.length>0){
-				m_aAction.shift();
+			if(this.m_aAction.length>0){
+				this.m_aAction.shift();
 			}
 		}
 	}
 }
+export class Singleton{}

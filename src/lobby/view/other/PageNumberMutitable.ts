@@ -18,9 +18,9 @@ module lobby.view.other {
 			m_mAsset.mouseChildren = false;
 			
 			this.buttonMode = true;
-			this.addEventListener(MouseEvent.MOUSE_OVER, over);
-			this.addEventListener(MouseEvent.MOUSE_OUT, out);
-			this.addEventListener(MouseEvent.CLICK, onClick);
+			this.addEventListener(mouse.MouseEvent.MOUSE_OVER, over);
+			this.addEventListener(mouse.MouseEvent.MOUSE_OUT, out);
+			this.addEventListener(egret.TouchEvent.TOUCH_TAP, onClick);
 		}
 		 public destroy():void{
 			
@@ -28,9 +28,9 @@ module lobby.view.other {
 				m_pagePanel = null;
 			}
 			
-			this.removeEventListener(MouseEvent.MOUSE_OVER, over);
-			this.removeEventListener(MouseEvent.MOUSE_OUT, out);
-			this.removeEventListener(MouseEvent.CLICK, onClick);
+			this.removeEventListener(mouse.MouseEvent.MOUSE_OVER, over);
+			this.removeEventListener(mouse.MouseEvent.MOUSE_OUT, out);
+			this.removeEventListener(egret.TouchEvent.TOUCH_TAP, onClick);
 			
 			if(m_mAsset){
 				this.removeChild(m_mAsset);

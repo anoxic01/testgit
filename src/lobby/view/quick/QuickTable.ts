@@ -35,7 +35,7 @@ module lobby.view.quick {
 			
 			this.removeEventListener(mouse.MouseEvent.ROLL_OVER, this.bgOver, this);
 			this.removeEventListener(mouse.MouseEvent.ROLL_OUT, this.bgOut, this);
-//			this.removeEventListener(MouseEvent.CLICK, click);
+//			this.removeEventListener(egret.TouchEvent.TOUCH_TAP, click);
 			
 			if(this.m_struct){
 				this.m_struct = null;

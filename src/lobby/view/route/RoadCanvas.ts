@@ -5,7 +5,7 @@ module lobby.view.route {
 		/**
 		 *用于存放所有的元素 
 		 */		
-		protected childDataDict:Dictionary = new Dictionary();	
+		protected childDataDict:Dictionary = {};	
 		protected childVector:<DisplayObject> = new <DisplayObject>();
 		
 		//private m_bg:Sprite;

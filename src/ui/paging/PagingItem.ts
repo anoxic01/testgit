@@ -33,7 +33,7 @@ module ui.paging {
 			// this.m_mcAsset.buttonMode = true;
 			this.m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OVER, over, this);
 			this.m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OUT, out, this);
-			this.m_mcAsset.addEventListener(mouse.MouseEvent.CLICK, click, this);
+			this.m_mcAsset.addEventListener(mouse.egret.TouchEvent.TOUCH_TAP, click, this);
 		}
 		
 		protected click(event:mouse.MouseEvent):void
@@ -46,7 +46,7 @@ module ui.paging {
 			if( this.m_mcAsset ){
 				this.m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OVER, over, this);
 				this.m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OUT, out, this);
-				this.m_mcAsset.removeEventListener(mouse.MouseEvent.CLICK, click, this);
+				this.m_mcAsset.removeEventListener(mouse.egret.TouchEvent.TOUCH_TAP, click, this);
 				this.m_mcAsset = null;
 			}
 			if( this.m_fSelect != null ){

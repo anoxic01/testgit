@@ -3,9 +3,9 @@ module lobby.view.panel {
 //		private m_bg			:	BitmapScale9Grid;
 		private m_mcAsset		:	*;										//资源容器
 		private m_mcText		:	MovieClip;								//文本
-		private m_btnOk			:	SingleButtonMC;							//确认按钮
-		private m_btnCancel		:	SingleButtonMC;							//取消按钮
-		private m_btnClose		:	SingleButtonMC;							//关闭按钮
+		private m_btnOk			:	ui.button.SingleButtonMC;							//确认按钮
+		private m_btnCancel		:	ui.button.SingleButtonMC;							//取消按钮
+		private m_btnClose		:	ui.button.SingleButtonMC;							//关闭按钮
 		
 		private m_aChipValues	:	any[];									//筹码面值
 		private m_vectorChip	:	<ChipItemCustom>;				//筹码数组
@@ -31,17 +31,17 @@ module lobby.view.panel {
 			
 			m_mcText = m_mcAsset.mc_0;
 			
-			m_btnOk = new SingleButtonMC(m_mcAsset.mc_ok, function(event:MouseEvent):void{
+			m_btnOk = new ui.button.SingleButtonMC(m_mcAsset.mc_ok, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				LobbyManager.getInstance().sendCustomChipData(getCustomChip());
 			});
 			
-			m_btnCancel = new SingleButtonMC(m_mcAsset.mc_no, function(event:MouseEvent):void{
+			m_btnCancel = new ui.button.SingleButtonMC(m_mcAsset.mc_no, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				LobbyManager.getInstance().hidePanelChipCustom();
 			});
 			
-			m_btnClose = new SingleButtonMC(m_mcAsset.mc_close,function(event:MouseEvent):void{
+			m_btnClose = new ui.button.SingleButtonMC(m_mcAsset.mc_close,function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				LobbyManager.getInstance().hidePanelChipCustom();
 			});

@@ -52,10 +52,10 @@ module lobby.view.theme {
 		
 		 public destroy():void{
 			
-			m_mcAsset.removeEventListener(MouseEvent.CLICK, onClick);
-			m_mcAsset.removeEventListener(MouseEvent.MOUSE_OVER, onOver);
-			m_mcAsset.removeEventListener(MouseEvent.MOUSE_OUT, onOut);
-//			m_mcAsset.removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
+			m_mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP, onClick);
+			m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OVER, onOver);
+			m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OUT, onOut);
+//			m_mcAsset.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, onDown);
 			
 			if(m_bmpLabel){
 				if(m_bmpLabel.parent){

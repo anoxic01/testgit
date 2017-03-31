@@ -29,8 +29,8 @@ module packet {
 			
 			//大廳封包
 			uncompressData =  { };
-			uncompressData[PacketDefine.LOBBY] =  new Dictionary();
-			uncompressData[PacketDefine.GAME] =  new Dictionary();			
+			uncompressData[PacketDefine.LOBBY] =  {};
+			uncompressData[PacketDefine.GAME] =  {};			
 			
 			uncompressData[PacketDefine.LOBBY][PacketDefine.S_UPDATE_MARQUEE] = true;
 			uncompressData[PacketDefine.LOBBY][PacketDefine.LOGIN_IN] = true;
@@ -52,8 +52,8 @@ module packet {
 			
 			dictionaryData = {};
 			
-			dictionaryData[PacketDefine.LOBBY] =  new Dictionary();
-			dictionaryData[PacketDefine.GAME] =  new Dictionary();
+			dictionaryData[PacketDefine.LOBBY] =  {};
+			dictionaryData[PacketDefine.GAME] =  {};
 		}
 		
 		public onPacketData(_tagTCPData:ITagTCPData):Object {

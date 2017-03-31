@@ -1,19 +1,19 @@
 module lobby.view.tool {
-	export class Tool implements ISprite{
-		private m_mcAsset				:	*;							//美术资源
+	export class Tool implements iface.ISprite{
+		private m_mcAsset				;							//美术资源
 		
-		private m_btnRefresh			:	SingleButtonMC;				//重整视讯
+		private m_btnRefresh			:	ui.button.SingleButtonMC;				//重整视讯
 		
 		private m_btnResolution			:	Resolution;					//分辨率
-		private m_btnChannel			:	SingleButtonMC;				//频道选择
-		private m_btnPersonalinformation	:	SingleButtonMC;				//个人资讯
-		private m_btnContact			:	SingleButtonMC;				//联系客服
-		private m_btnFull				:	SingleButtonMC;				//全屏按钮
-		private m_btnNormal				:	SingleButtonMC;				//退出全屏
-		private m_btnDetail				:	SingleButtonMC;				//桌子详情
-		private m_btnRecord				:	SingleButtonMC;				//账户记录
-		private m_btnSetting			:	SingleButtonMC;				//设置按钮
-		public btnExit					:	SingleButtonMC;				//退出按钮
+		private m_btnChannel			:	ui.button.SingleButtonMC;				//频道选择
+		private m_btnPersonalinformation	:	ui.button.SingleButtonMC;				//个人资讯
+		private m_btnContact			:	ui.button.SingleButtonMC;				//联系客服
+		private m_btnFull				:	ui.button.SingleButtonMC;				//全屏按钮
+		private m_btnNormal				:	ui.button.SingleButtonMC;				//退出全屏
+		private m_btnDetail				:	ui.button.SingleButtonMC;				//桌子详情
+		private m_btnRecord				:	ui.button.SingleButtonMC;				//账户记录
+		private m_btnSetting			:	ui.button.SingleButtonMC;				//设置按钮
+		public btnExit					:	ui.button.SingleButtonMC;				//退出按钮
 		
 		public fRefresh					:	Function;					//重整视讯
 		public fDetail					:	Function;					//桌子详情
@@ -29,7 +29,7 @@ module lobby.view.tool {
 		
 		private m_mcHint				:	MovieClip;					//全屏提示
 		private m_mcHintFull			:	MMovieClip;
-		private m_btnHintClose			:	SingleButtonMC;				//关闭按钮
+		private m_btnHintClose			:	ui.button.SingleButtonMC;				//关闭按钮
 		private m_mcHintLabel			:	MovieClip;					//提示标签
 		private m_bHint					:	 boolean;					//提示状态
 		public iMode					:	number;						//当前模式
@@ -46,7 +46,7 @@ module lobby.view.tool {
 			m_spParent = _spParent;
 //			m_mcAsset.y = 30;
 			
-			m_btnRefresh = new SingleButtonMC(m_mcAsset.mc_refresh, function(evt:MouseEvent):void{
+			m_btnRefresh = new ui.button.SingleButtonMC(m_mcAsset.mc_refresh, function(evt:MouseEvent):void{
 				if(LobbyManager.getInstance().IsLiveConnected()){
 					LobbyManager.getInstance().bClickResolution = true;
 				}
@@ -69,7 +69,7 @@ module lobby.view.tool {
 			
 			m_btnResolution = new Resolution(m_mcAsset);
 			
-			m_btnChannel = new SingleButtonMC(m_mcAsset.mc_channel, function(event:MouseEvent):void{
+			m_btnChannel = new ui.button.SingleButtonMC(m_mcAsset.mc_channel, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sPopupPanel);
 				TipManager.getInstance().hide();
 				if(toolContact){
@@ -89,7 +89,7 @@ module lobby.view.tool {
 			(m_mcAsset.mc_channel.mc_label as MovieClip).gotoAndStop(5);
 			
 //			var _bPersonal	:	 boolean;
-			m_btnPersonalinformation = new SingleButtonMC(m_mcAsset.mc_personal, function(evt:MouseEvent):void{
+			m_btnPersonalinformation = new ui.button.SingleButtonMC(m_mcAsset.mc_personal, function(evt:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sPopupPanel);
 				
 				TipManager.getInstance().hide();
@@ -132,7 +132,7 @@ module lobby.view.tool {
 			toolContact = new Tool_Contact(m_mcAsset.mc_contact_view);
 			
 			m_mcHintFull = new MMovieClip(m_mcAsset.mc_full.mc);
-			m_btnFull = new SingleButtonMC(m_mcAsset.mc_full, function(evt:MouseEvent):void{
+			m_btnFull = new ui.button.SingleButtonMC(m_mcAsset.mc_full, function(evt:MouseEvent):void{
 				SharedObjectManager.setClickFullScreenCount();
 				SharedObjectManager.flush();
 				m_bHint = false;
@@ -157,7 +157,7 @@ module lobby.view.tool {
 				}
 				
 			};
-			m_btnNormal = new SingleButtonMC(m_mcAsset.mc_normal, function(evt:MouseEvent):void{
+			m_btnNormal = new ui.button.SingleButtonMC(m_mcAsset.mc_normal, function(evt:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				TipManager.getInstance().hide();
 				screenFull(false);
@@ -170,7 +170,7 @@ module lobby.view.tool {
 				TipManager.getInstance().hide();
 			};
 			
-			m_btnDetail = new SingleButtonMC(m_mcAsset.mc_detail, function():void{
+			m_btnDetail = new ui.button.SingleButtonMC(m_mcAsset.mc_detail, function():void{
 				SoundManager.getInstance().play(SoundPackage.sPopupPanel);
 				TipManager.getInstance().hide();
 				if(toolContact){
@@ -193,7 +193,7 @@ module lobby.view.tool {
 				TipManager.getInstance().hide();
 			};
 			
-			m_btnRecord = new SingleButtonMC(m_mcAsset.mc_record, function(event:MouseEvent):void{
+			m_btnRecord = new ui.button.SingleButtonMC(m_mcAsset.mc_record, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sPopupPanel);
 				TipManager.getInstance().hide();
 				if(toolContact){
@@ -213,7 +213,7 @@ module lobby.view.tool {
 				TipManager.getInstance().hide();
 			};
 			
-			m_btnSetting = new SingleButtonMC(m_mcAsset.mc_setting, function(evt:MouseEvent):void{
+			m_btnSetting = new ui.button.SingleButtonMC(m_mcAsset.mc_setting, function(evt:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sPopupPanel);
 				TipManager.getInstance().hide();
 				if(toolContact){
@@ -234,7 +234,7 @@ module lobby.view.tool {
 				TipManager.getInstance().hide();
 			};
 			
-			m_btnContact = new SingleButtonMC(m_mcAsset.mc_contact, function(evt:MouseEvent):void{
+			m_btnContact = new ui.button.SingleButtonMC(m_mcAsset.mc_contact, function(evt:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sPopupPanel);
 				TipManager.getInstance().hide();
 				LobbyManager.getInstance().hideChannel();
@@ -251,7 +251,7 @@ module lobby.view.tool {
 				TipManager.getInstance().hide();
 			};
 			
-			btnExit = new SingleButtonMC(m_mcAsset.mc_exit, function(evt:MouseEvent):void{
+			btnExit = new ui.button.SingleButtonMC(m_mcAsset.mc_exit, function(evt:MouseEvent):void{
 				
 //				Log.getInstance().log(this,"->点击退出");
 				TipManager.getInstance().hide();
@@ -833,9 +833,9 @@ module lobby.view.tool {
 			if(m_mcHintLabel){
 				m_mcHintLabel.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			}
-			m_btnHintClose = new SingleButtonMC(m_mcHint.mc_close,function():void{
-//				m_mcHint.removeEventListener(MouseEvent.MOUSE_OVER, hintOver);
-//				m_mcHint.removeEventListener(MouseEvent.MOUSE_OUT, hintOut);
+			m_btnHintClose = new ui.button.SingleButtonMC(m_mcHint.mc_close,function():void{
+//				m_mcHint.removeEventListener(mouse.MouseEvent.MOUSE_OVER, hintOver);
+//				m_mcHint.removeEventListener(mouse.MouseEvent.MOUSE_OUT, hintOut);
 //				m_mcHint.gotoAndStop(1);
 				if(m_mcHint.parent){
 					m_mcHint.parent.removeChild(m_mcHint);
@@ -852,8 +852,8 @@ module lobby.view.tool {
 //				m_mcHint.gotoAndPlay(m_mcHint.currentFrame);
 //			};
 //			
-//			m_mcHint.addEventListener(MouseEvent.MOUSE_OVER, hintOver);
-//			m_mcHint.addEventListener(MouseEvent.MOUSE_OUT, hintOut);
+//			m_mcHint.addEventListener(mouse.MouseEvent.MOUSE_OVER, hintOver);
+//			m_mcHint.addEventListener(mouse.MouseEvent.MOUSE_OUT, hintOut);
 			
 		}
 		private showHint():void{
@@ -879,9 +879,9 @@ module lobby.view.tool {
 }
 import flash.display.MovieClip;
 import flash.events.MouseEvent;
-import flash.geom.Ponumber;
+import flash.geom.Point;
 
-import component.button.SingleButtonMC;
+import component.button.ui.button.SingleButtonMC;
 
 import define.Define;
 
@@ -898,15 +898,15 @@ import models.struct.ResolutionStruct;
 import sounds.SoundPackage;
 
 class Resolution{
-	private m_btnSD					:	SingleButtonMC;				//标清频道
-	private m_btnHD					:	SingleButtonMC;				//高清频道
-	private m_btnCurrent			:	SingleButtonMC;
+	private m_btnSD					:	ui.button.SingleButtonMC;				//标清频道
+	private m_btnHD					:	ui.button.SingleButtonMC;				//高清频道
+	private m_btnCurrent			:	ui.button.SingleButtonMC;
 	private m_mcAsset				:	MovieClip;
 	
 	public Resolution(_mcAsset:MovieClip){
 		m_mcAsset = _mcAsset;
 		
-		m_btnSD = new SingleButtonMC(_mcAsset.mc_sd, function(evt:MouseEvent):void{
+		m_btnSD = new ui.button.SingleButtonMC(_mcAsset.mc_sd, function(evt:MouseEvent):void{
 			
 			if(LobbyManager.getInstance().IsLiveConnected()){
 				LobbyManager.getInstance().bClickResolution = true;
@@ -939,7 +939,7 @@ class Resolution{
 		};
 		m_btnSD.visible = false;
 		
-		m_btnHD = new SingleButtonMC(_mcAsset.mc_hd, function(evt:MouseEvent):void{
+		m_btnHD = new ui.button.SingleButtonMC(_mcAsset.mc_hd, function(evt:MouseEvent):void{
 			
 			if(LobbyManager.getInstance().IsLiveConnected()){
 				LobbyManager.getInstance().bClickResolution = true;

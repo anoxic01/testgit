@@ -2,10 +2,10 @@ module lobby.view.panel {
 	export class PanelDialog_2 extends PanelWindow{
 //		private m_bg		:	BitmapScale9Grid;
 		
-		private m_btnOk		:	SingleButtonMC;
-		private m_btnNo		:	SingleButtonMC;
+		private m_btnOk		:	ui.button.SingleButtonMC;
+		private m_btnNo		:	ui.button.SingleButtonMC;
 		private m_fOk		:	Function;
-		private m_btnRetry	:	SingleButtonMC;
+		private m_btnRetry	:	ui.button.SingleButtonMC;
 		
 		private m_bShowMask	:	 boolean;
 		
@@ -31,7 +31,7 @@ module lobby.view.panel {
 			
 			m_mcHot = m_mcAsset.mc_hot;
 						
-			m_btnOk = new SingleButtonMC(m_mcAsset.mc_ok, function(event:MouseEvent):void{
+			m_btnOk = new ui.button.SingleButtonMC(m_mcAsset.mc_ok, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				if(m_fOk!=null){
 					m_fOk();
@@ -44,7 +44,7 @@ module lobby.view.panel {
 //				SoundManager.getInstance().play(SoundPackage.sLobbyMouseOver);
 //			};
 			
-			m_btnNo = new SingleButtonMC(m_mcAsset.mc_close, function(event:MouseEvent):void{
+			m_btnNo = new ui.button.SingleButtonMC(m_mcAsset.mc_close, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 //				LobbyManager.getInstance().uWindowIndex--;
 //				PopupManager.getInstance().close(dialog);
@@ -57,7 +57,7 @@ module lobby.view.panel {
 //				SoundManager.getInstance().play(SoundPackage.sLobbyMouseOver);
 //			};
 			
-			m_btnRetry = new SingleButtonMC( m_mcAsset.mc_retry, function(event:MouseEvent):void{
+			m_btnRetry = new ui.button.SingleButtonMC( m_mcAsset.mc_retry, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				if(_fRetry!=null){
 					_fRetry();
@@ -71,7 +71,7 @@ module lobby.view.panel {
 //			};
 			
 			
-			m_btnClose = new SingleButtonMC(m_mcAsset.mc_close, function(event:MouseEvent):void{
+			m_btnClose = new ui.button.SingleButtonMC(m_mcAsset.mc_close, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				//				PopupManager.getInstance().close(dialog);
 				close();

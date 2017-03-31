@@ -1,7 +1,7 @@
 module lobby.view.bet {
 	export class BetSelectButton {
 		
-		private mc:MovieClip;
+		private mc;
 		
 
 		private onClick:Function;
@@ -10,158 +10,158 @@ module lobby.view.bet {
 		private hasHDOWN: boolean = false;
 		private hasCLICK: boolean = false;
 		public clickEffectComplete:Function;
-		private clickEffectMC:MovieClip;
+		private clickEffectMC;
 		
-		public constructor(mc:MovieClip,onClick:Function) {
+		public constructor(mc,onClick:Function) {
 			this.mc = mc;
 			this.onClick = onClick;
-			mc.addEventListener(MouseEvent.MOUSE_DOWN,onMouseHandler);
-			mc.addEventListener(MouseEvent.MOUSE_UP,onMouseHandler);
-			mc.addEventListener(MouseEvent.ROLL_OVER,onMouseHandler);
-			mc.addEventListener(MouseEvent.ROLL_OUT,onMouseHandler);
+			this.mc.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onMouseHandler);
+			this.mc.addEventListener(egret.TouchEvent.TOUCH_END,this.onMouseHandler);
+			this.mc.addEventListener(mouse.MouseEvent.ROLL_OVER,this.onMouseHandler);
+			this.mc.addEventListener(mouse.MouseEvent.ROLL_OUT,this.onMouseHandler);
 			this.mc.buttonMode = true;
 			this.mc.useHandCursor = true;
 			
-			for (var i:number= 0; i < mc.currentLabels.length; i++) 
+			for (var i:number= 0; i < this.mc.currentLabels.length; i++) 
 			{
-				if((mc.currentLabels[i] as FrameLabel).name=="HDOWN")
+				if((this.mc.currentLabels[i] as egret.FrameLabel).name=="HDOWN")
 				{
-					hasHDOWN = true;
-				}else if((mc.currentLabels[i] as FrameLabel).name=="CLICK")
+					this.hasHDOWN = true;
+				}else if((this.mc.currentLabels[i] as egret.FrameLabel).name=="CLICK")
 				{
-					hasCLICK = true;
+					this.hasCLICK = true;
 				}
 			}	
 		}
 		
 		private onMouseHandler(e:MouseEvent):void
 		{
-			if(!isEnable||!mc)return;
-			if(e.type==MouseEvent.MOUSE_DOWN)
+			if(!this.isEnable||!this.mc)return;
+			if(e.type==egret.TouchEvent.TOUCH_BEGIN)
 			{
-				if(hasHDOWN)
+				if(this.hasHDOWN)
 				{
-					mc.gotoAndStop("HDOWN");
-				}else if(hasCLICK)
+					this.mc.gotoAndStop("HDOWN");
+				}else if(this.hasCLICK)
 				{
-					mc.gotoAndStop("CLICK");
-					if(mc.effectContent)
+					this.mc.gotoAndStop("CLICK");
+					if(this.mc.effectContent)
 					{
-						clickEffectMC = mc.effectContent;
-						isPlayEffect = true;
+						this.clickEffectMC = this.mc.effectContent;
+						this.isPlayEffect = true;
 						//clickable = false;
-						if(LobbyManager.getInstance().uRenderMode==1)
+						if(manager.LobbyManager.getInstance().uRenderMode==1)
 						{
 							//////   低配版本取消动画特效
-							clickEffectMC.gotoAndStop(clickEffectMC.totalFrames-1);
-							onClickEffectPlayComplete();
+							this.clickEffectMC.gotoAndStop(this.clickEffectMC.totalFrames-1);
+							this.onClickEffectPlayComplete();
 						}else
 						{
-							clickEffectMC.addFrameScript(mc.effectContent.totalFrames-1,onClickEffectPlayComplete);
-							clickEffectMC.gotoAndPlay(1);
+							this.clickEffectMC.addFrameScript(this.mc.effectContent.totalFrames-1,this.onClickEffectPlayComplete);
+							this.clickEffectMC.gotoAndPlay(1);
 						}
 					}
-					if(onClick!=null)onClick(e);
+					if(this.onClick!=null)this.onClick(e);
 				}
-			}else if(e.type==MouseEvent.MOUSE_UP)
+			}else if(e.type==egret.TouchEvent.TOUCH_END)
 			{
-				if(hasHDOWN)
+				if(this.hasHDOWN)
 				{
-					if(isPlayEffect==false)
+					if(this.isPlayEffect==false)
 					{
-						mc.gotoAndStop("DEFAULT");
+						this.mc.gotoAndStop("DEFAULT");
 					}
-					if(onClick!=null)onClick(e);
+					if(this.onClick!=null)this.onClick(e);
 				}
-			}else if(e.type==MouseEvent.ROLL_OVER)
+			}else if(e.type==mouse.MouseEvent.ROLL_OVER)
 			{
-				if(!isPlayEffect)
+				if(!this.isPlayEffect)
 				{
-					mc.gotoAndStop("HOVER");
-					if(LobbyManager.getInstance().uRenderMode==1)
+					this.mc.gotoAndStop("HOVER");
+					if(manager.LobbyManager.getInstance().uRenderMode==1)
 					{
 						/////  低配版本，取消动画特效
-						stopMovieClip(mc);
+						this.stopMovieClip(this.mc);
 					}
 				}
-			}else if(e.type==MouseEvent.ROLL_OUT)
+			}else if(e.type==mouse.MouseEvent.ROLL_OUT)
 			{
-				if(!isPlayEffect)
+				if(!this.isPlayEffect)
 				{
-					mc.gotoAndStop("DEFAULT");
+					this.mc.gotoAndStop("DEFAULT");
 				}
 			}
 			e.stopImmediatePropagation();
 		}
-		private stopMovieClip(m:MovieClip):void
+		private stopMovieClip(m):void
 		{
 			if(m==null)return;
 			for (var j:number= 0; j < m.numChildren; j++) 
 			{
-				var mc:MovieClip = m.getChildAt(j) as MovieClip;
+				var mc:egret.MovieClip = m.getChildAt(j);
 				if(mc)
 				{
-					mc.gotoAndStop(mc.totalFrames-1);
-					stopMovieClip(mc);
+					this.mc.gotoAndStop(this.mc.totalFrames-1);
+					this.stopMovieClip(mc);
 				}
 			}
 		}
 		
 		private onClickEffectPlayComplete():void
 		{
-			isPlayEffect = false;
-			clickEffectMC&&clickEffectMC.stop();
-			clickEffectMC = null;
-			if(!mc)return;
-			if(isEnable)mc.gotoAndStop("DEFAULT");
-			else mc.gotoAndStop("DISABLE");
-			if(clickEffectComplete!=null)
-				clickEffectComplete();
+			this.isPlayEffect = false;
+			this.clickEffectMC&&this.clickEffectMC.stop();
+			this.clickEffectMC = null;
+			if(!this.mc)return;
+			if(this.isEnable)this.mc.gotoAndStop("DEFAULT");
+			else this.mc.gotoAndStop("DISABLE");
+			if(this.clickEffectComplete!=null)
+				this.clickEffectComplete();
 		}
 		
-		public enable(isEnable: boolean):void
+		public enable($isEnable: boolean):void
 		{
-			this.isEnable = isEnable;
-			if(!isPlayEffect)
+			this.isEnable = $isEnable;
+			if(!this.isPlayEffect)
 			{
-				clickable = isEnable;
-				if(isEnable)
+				this.clickable = this.isEnable;
+				if(this.isEnable)
 				{
-					mc.gotoAndStop("DEFAULT");
+					this.mc.gotoAndStop("DEFAULT");
 				}else
 				{
-					mc.gotoAndStop("DISABLE");
+					this.mc.gotoAndStop("DISABLE");
 				}
 			}
 		}
 		get clickable(): boolean
 		{
-			if(!mc)return false;
-			return mc.mouseEnabled&&mc.mouseChildren;
+			if(!this.mc)return false;
+			return this.mc.mouseEnabled&&this.mc.mouseChildren;
 		}
 		set  clickable(value: boolean)
 		{
-			if(!mc)return;
-			mc.mouseEnabled = value;
-			mc.mouseChildren = value;
+			if(!this.mc)return;
+			this.mc.mouseEnabled = value;
+			this.mc.mouseChildren = value;
 		}
 		public destroy():void
 		{
-			if(!mc)return;
-			mc.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseHandler);
-			mc.removeEventListener(MouseEvent.ROLL_OVER,onMouseHandler);
-			mc.removeEventListener(MouseEvent.ROLL_OUT,onMouseHandler);
-			mc.removeEventListener(MouseEvent.CLICK,onMouseHandler);
-			onClick=null;
-			clickEffectMC&&clickEffectMC.stop();
-			clickEffectComplete = null;
-			clickEffectMC = null;
-			mc = null;
+			if(!this.mc)return;
+			this.mc.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onMouseHandler);
+			this.mc.removeEventListener(mouse.MouseEvent.ROLL_OVER,this.onMouseHandler);
+			this.mc.removeEventListener(mouse.MouseEvent.ROLL_OUT,this.onMouseHandler);
+			this.mc.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onMouseHandler);
+			this.onClick=null;
+			this.clickEffectMC&&this.clickEffectMC.stop();
+			this.clickEffectComplete = null;
+			this.clickEffectMC = null;
+			this.mc = null;
 		}
 		public onChangeLanguage(index:number):void
 		{
-			if(mc==null)return;
-			mc.mc_label.gotoAndStop(index+1);
+			if(this.mc==null)return;
+			this.mc.mc_label.gotoAndStop(index+1);
 		}
 	}
 }

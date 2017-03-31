@@ -7,21 +7,21 @@ module manager {
 		/**
 		 *需要移动到的位置 
 		 */		
-		private endTransformerPositionDict:Dictionary = new Dictionary();
+		private endTransformerPositionDict:Dictionary = {};
 		/**
 		 *当前移动到的位置 
 		 */		
-		private currentTransformerPositionDict:Dictionary = new Dictionary();
+		private currentTransformerPositionDict:Dictionary = {};
 		/**
 		 *开始的位置 
 		 */		
-		private startTransformerPositionDict:Dictionary = new Dictionary();
+		private startTransformerPositionDict:Dictionary = {};
 		/**
 		 *所有需要移动的对象物体 
 		 */		
 		private needTransformViews:<DisplayObject> = new <DisplayObject>();
 		
-		private defaultTransformPositionDict:Dictionary = new Dictionary();
+		private defaultTransformPositionDict:Dictionary = {};
 		
 		/**  手动设置的移动距离  **/
 		private leftDistance:Object = null;
@@ -115,8 +115,8 @@ module manager {
 			if(isRunning())stop();
 			
 			isFlyIn=!isFlyIn;
-			var startPoint:Ponumber;
-			var endPoint:Ponumber;
+			var startPoint:Point;
+			var endPoint:Point;
 			var view:DisplayObject;
 			needTransformViews.length = 0;
 			addViewsToNeedTransforms(topArea);
@@ -151,8 +151,8 @@ module manager {
 			if(isRunning())
 			{
 				var view:DisplayObject;
-				var startPoint:Ponumber;
-				var endPoint:Ponumber;
+				var startPoint:Point;
+				var endPoint:Point;
 				for (var i:number= 0; i < needTransformViews.length; i++) 
 				{
 					view = needTransformViews[i];
@@ -200,9 +200,9 @@ module manager {
 		private startTransform():void
 		{
 			var view:DisplayObject;
-			var startPoint:Ponumber;
-			var currentPoint:Ponumber;
-			var endPoint:Ponumber;
+			var startPoint:Point;
+			var currentPoint:Point;
+			var endPoint:Point;
 			for (var i:number= 0; i < needTransformViews.length; i++) 
 			{
 				view = needTransformViews[i];
@@ -242,9 +242,9 @@ module manager {
 		/*private onFrame(e:Event):void
 		{
 			var view:DisplayObject;
-			var currentPoint:Ponumber;
-			var endPoint:Ponumber;
-			var startPoint:Ponumber;
+			var currentPoint:Point;
+			var endPoint:Point;
+			var startPoint:Point;
 			if(effectDuration<=0)effectDuration=1;
 			for each (view in needTransformViews) 
 			{

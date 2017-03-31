@@ -3,8 +3,8 @@ module manager {
 		
 		private static m_instance	:	TimeManager;
 		
-		private m_dicTimer			:	Dictionary 	=	new Dictionary();
-		private m_dicCallBack		:	Dictionary 	=	new Dictionary();
+		private m_dicTimer			:	Dictionary 	=	{};
+		private m_dicCallBack		:	Dictionary 	=	{};
 		private m_vecFunc			:	<FStruct> = new <FStruct>;
 		private m_timer				:	JTimer;
 		private m_interval			:	Number = 1000;

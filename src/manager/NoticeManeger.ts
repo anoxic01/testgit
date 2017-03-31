@@ -1,54 +1,55 @@
-module lobby.view.notice {
+module manager {
 	export class NoticeManeger {
-		private m_nmModel				:NoticeModel;
-		private m_nmView				:NoticeView;
+		private m_nmModel				:lobby.model.NoticeModel;
+		private m_nmView				:lobby.view.notice.NoticeView;
 		private m_bIsInit				: boolean;
-		private m_spContainer			:Sprite;
-		private m_jTimer				:JTimer;
+		private m_spContainer			:egret.Sprite;
+		// private m_jTimer				:JTimer;
 		private m_bIsShow				: boolean;
 		
 		private static _instance		:NoticeManeger;
 		
 		public constructor() {
-			if(_instance)
+			if(NoticeManeger._instance)
 			{
 				throw new Error("NoticeManeger is singleton class");
-				return;
+			}else{
+				this.m_nmModel = new lobby.model.NoticeModel();
+				this.m_nmView = new lobby.view.notice.NoticeView();
+				// this.m_jTimer = JTimer.getTimer(30);
+				// this.m_jTimer.addTimerCallback(this.going);
 			}
-			m_nmModel = new NoticeModel();
-			m_nmView = new NoticeView();
-			m_jTimer = JTimer.getTimer(30);
-			m_jTimer.addTimerCallback(going);
+			
 		}
 		public static getInstance():NoticeManeger
 		{
-			if(_instance==null)
+			if(NoticeManeger._instance==null)
 			{
-				_instance = new NoticeManeger();
+				NoticeManeger._instance = new NoticeManeger();
 			}
-			return _instance;
+			return NoticeManeger._instance;
 		}
-		public init(container:Sprite):void
+		public init(container:egret.Sprite):void
 		{
-			if(m_bIsInit)
+			if(this.m_bIsInit)
 				return;
-			m_bIsInit = true;
-			m_spContainer = container;
+			this.m_bIsInit = true;
+			this.m_spContainer = container;
 		}
 		set  NotAllowTableIDList(arr:any[])
 		{
-			m_nmModel.NotAllowTableIDList = arr;
+			this.m_nmModel.NotAllowTableIDList = arr;
 		}
 		public reciveMaintain(data:Object):void
 		{
-			var vo:MaintainsAnnouncementStruct = new MaintainsAnnouncementStruct(data);
+			var vo:lobby.model.struct.MaintainsAnnouncementStruct = new lobby.model.struct.MaintainsAnnouncementStruct(data);
 			switch(vo.MaintainStatus){
-				case SysMaintainStatus.Remind:
-				case SysMaintainStatus.Start:
-					addMaintain(vo);
+				case lobby.model.status.SysMaintainStatus.Remind:
+				case lobby.model.status.SysMaintainStatus.Start:
+					this.addMaintain(vo);
 					break;
-				case SysMaintainStatus.Stop:
-					removeMessage(vo);
+				case lobby.model.status.SysMaintainStatus.Stop:
+					this.removeMessage(vo);
 					break;
 			}
 		}
@@ -57,132 +58,132 @@ module lobby.view.notice {
 			if(datas==null || datas.length==0)
 				return;
 			var vos:any[] = [];
-			var vo:MessageStruct;
+			var vo:lobby.model.struct.MessageStruct;
 			for (var i:number= 0; i < datas.length; i++) 
 			{
-				vo = new MessageStruct();
-				vo.oData = new MaintainsAnnouncementStruct(datas[i]);
+				vo = new lobby.model.struct.MessageStruct();
+				vo.oData = new lobby.model.struct.MaintainsAnnouncementStruct(datas[i]);
 				vos.push(vo);
 			}
-			m_nmModel.setData(vos);
-			refresh();
+			this.m_nmModel.setData(vos);
+			this.refresh();
 		}
 		public refresh():void
 		{
 			//进入電投大厅，不显示
-			if(LobbyManager.getInstance().exitLevel==Define.EXIT_TEL_LOBBY)
+			if(LobbyManager.getInstance().exitLevel==define.Define.EXIT_TEL_LOBBY)
 			{
-				hide();
+				this.hide();
 				return;
 			}
-			var filtered:<MessageStruct> = m_nmModel.filter();
-			m_nmView.setData(filtered);
+			var filtered:lobby.model.struct.MessageStruct[] = this.m_nmModel.filter();
+			this.m_nmView.setData(filtered);
 			if(filtered && filtered.length>0)
 			{
-				show();
+				this.show();
 			}
 			else
 			{
-				hide();
+				this.hide();
 			}
 		}
 		public setUrgents(datas:any[]):void
 		{
 			if(datas==null || datas.length==0)
 				return;
-			var vo:MessageStruct;
+			var vo:lobby.model.struct.MessageStruct;
 			for (var i:number= 0; i < datas.length; i++) 
 			{
-				vo = new MessageStruct();
+				vo = new lobby.model.struct.MessageStruct();
 				vo.oData = datas[i];
-				m_nmModel.addMessage(vo);
-				m_nmView.addMessage(vo);
+				this.m_nmModel.addMessage(vo);
+				this.m_nmView.addMessage(vo);
 			}
-			show();
+			this.show();
 		}
 		
-		private addMaintain(vo:MaintainsAnnouncementStruct):void
+		private addMaintain(vo:lobby.model.struct.MaintainsAnnouncementStruct):void
 		{
-			var message:MessageStruct = new MessageStruct();
+			var message:lobby.model.struct.MessageStruct = new lobby.model.struct.MessageStruct();
 			message.oData = vo;
-			var index:number= m_nmModel.getMessageIndex(vo);
+			var index:number= this.m_nmModel.getMessageIndex(vo);
 			if(index != -1)
 			{
-				var removed:MessageStruct = m_nmModel.removeMeassgeByIndex(index);
-				m_nmView.wantToRemove(removed);
+				var removed:lobby.model.struct.MessageStruct = this.m_nmModel.removeMeassgeByIndex(index);
+				this.m_nmView.wantToRemove(removed);
 				//
 			}
-			m_nmModel.addMessage(message);
-			var pass:MessageStruct = m_nmModel.filterMessage(message);
+			this.m_nmModel.addMessage(message);
+			var pass:lobby.model.struct.MessageStruct = this.m_nmModel.filterMessage(message);
 			if(pass)
 			{
-				m_nmView.addMessage(pass);
+				this.m_nmView.addMessage(pass);
 				
-				show();
+				this.show();
 			}
 			//正式维护才更改标志(防止继续订阅好路)
-			if(vo.MaintainStatus == SysMaintainStatus.Start){
-				if (message.maMaintain.MaintainType == SysMaintainType.Maintenance_FullSite || (message.maMaintain.MaintainType == SysMaintainType.Maintenance_TopAgent && Player.getInstance().iAgentID == message.maMaintain.MaintainData))
+			if(vo.MaintainStatus == lobby.model.status.SysMaintainStatus.Start){
+				if (message.maMaintain.MaintainType == lobby.model.type.SysMaintainType.Maintenance_FullSite || (message.maMaintain.MaintainType == lobby.model.type.SysMaintainType.Maintenance_TopAgent && lobby.model.Player.getInstance().iAgentID == message.maMaintain.MaintainData))
 				{
 					LobbyManager.getInstance().maintainLevel = message.maMaintain.MaintainType;
 				}
 			}
 			
 		}
-		private removeMessage(vo:Object):void
+		private removeMessage(vo):void
 		{
-			var removed:MessageStruct = m_nmModel.removeMessage(vo);
+			var removed:lobby.model.struct.MessageStruct = this.m_nmModel.removeMessage(vo);
 			if(removed)
 			{
-				m_nmView.wantToRemove(removed);
+				this.m_nmView.wantToRemove(removed);
 			}
 		}
 		private going() : void
 		{
-			var now:number= getTimer();
-			m_nmModel.changeTime(now);
-			if(m_nmView.showCount>0)
+			var now:number= egret.getTimer();
+			this.m_nmModel.changeTime(now);
+			if(this.m_nmView.showCount>0)
 			{
-				var removed:MessageStruct = m_nmView.going();
+				var removed:lobby.model.struct.MessageStruct = this.m_nmView.going();
 				if(removed && removed.bReadyKill)
 				{
-					m_nmModel.removeMessage(removed);
-					m_nmView.removeMessage(removed);
+					this.m_nmModel.removeMessage(removed);
+					this.m_nmView.removeMessage(removed);
 				}
 			}
 			else
 			{
-				hide();
+				this.hide();
 			}
 		}
 		private show():void{
-			if(m_bIsShow)
+			if(this.m_bIsShow)
 				return;
-			if(LobbyManager.getInstance().exitLevel==Define.EXIT_TEL_LOBBY)
+			if(LobbyManager.getInstance().exitLevel==define.Define.EXIT_TEL_LOBBY)
 				return;
-			m_bIsShow = true;
-			m_jTimer.start();
-			m_spContainer.addChild(m_nmView);
+			this.m_bIsShow = true;
+			// this.m_jTimer.start();
+			this.m_spContainer.addChild(this.m_nmView);
 		}
 		public hide():void{
-			if(m_bIsShow==false)
+			if(this.m_bIsShow==false)
 				return;
-			m_bIsShow = false;
-			m_jTimer.stop();
-			m_nmView.clear();
-			m_spContainer.removeChild(m_nmView);
+			this.m_bIsShow = false;
+			// this.m_jTimer.stop();
+			this.m_nmView.clear();
+			this.m_spContainer.removeChild(this.m_nmView);
 		}
 		public toGamgeUrgentNotice():void{
-			m_nmView.toGamgeUrgentNotice();
+			this.m_nmView.toGamgeUrgentNotice();
 		}
 		public toLobbyUrgentNotice():void{
-			m_nmView.toLobbyUrgentNotice();
+			this.m_nmView.toLobbyUrgentNotice();
 		}
 		public toMultiUrgentNotice():void{
-			m_nmView.toMultiUrgentNotice();
+			this.m_nmView.toMultiUrgentNotice();
 		}
 		public onChangeLanguage():void{
-			m_nmView.onChangeLanguage();
+			this.m_nmView.onChangeLanguage();
 		}
 	}
 }

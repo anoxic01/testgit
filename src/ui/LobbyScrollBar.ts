@@ -32,14 +32,14 @@ module ui {
 		private onAddToStage(e:Event=null):void
 		{
 			this.removeEventListener(Event.ADDED_TO_STAGE,onAddToStage);
-			this.stage.addEventListener(MouseEvent.MOUSE_UP,up);
+			this.stage.addEventListener(egret.TouchEvent.TOUCH_END,up);
 		}
 		 protected removeEvent():void
 		{
 			super.removeEvent();
 			///////////////////
 			this.removeEventListener(Event.ADDED_TO_STAGE,onAddToStage);
-			if(this.stage)this.stage.removeEventListener(MouseEvent.MOUSE_UP,up);
+			if(this.stage)this.stage.removeEventListener(egret.TouchEvent.TOUCH_END,up);
 		}
 		public  setWidth(uValue:number) : void
 		{

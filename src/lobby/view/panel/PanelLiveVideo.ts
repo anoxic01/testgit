@@ -1,10 +1,10 @@
 module lobby.view.panel {
 	export class PanelLiveVideo extends PanelWindow{
 		private m_bg				:	BitmapScale9Grid;
-		private m_rtmpPlayer		:	RTMPPlayer;							//播放视讯
+		private m_util.rtmp.RTMPPlayer		:	util.rtmp.RTMPPlayer;							//播放视讯
 //		private m_mcVideo			:	MovieClip;							//视讯容器
-		private m_btnClose			:	SingleButtonMC;						//关闭按钮
-		private m_btnRefresh		:	SingleButtonMC;						//刷新按钮
+		private m_btnClose			:	ui.button.SingleButtonMC;						//关闭按钮
+		private m_btnRefresh		:	ui.button.SingleButtonMC;						//刷新按钮
 		private m_loading			:	*;									//加载图标
 		private m_sSharedSecuret	:	String;								//共享密钥
 		private m_sStream			:	String;								//媒体名称
@@ -47,14 +47,14 @@ module lobby.view.panel {
 //			m_mcHot.graphics.drawRect(2,2,_uWidth,20);
 //			m_mcHot.graphics.endFill();
 			
-			m_btnClose = new SingleButtonMC(m_mcAsset.mc_close,function(event:MouseEvent):void{
+			m_btnClose = new ui.button.SingleButtonMC(m_mcAsset.mc_close,function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				LobbyManager.getInstance().hideLiveVideo();
 			});
 			
-			m_btnRefresh = new SingleButtonMC( m_mcAsset.mc_refresh, function(event:MouseEvent):void{
+			m_btnRefresh = new ui.button.SingleButtonMC( m_mcAsset.mc_refresh, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				m_rtmpPlayer.stop();
+				m_util.rtmp.RTMPPlayer.stop();
 				play();
 			});
 			m_btnRefresh.fOnOver = function():void{
@@ -108,9 +108,9 @@ module lobby.view.panel {
 				m_tfWorn = null;
 			}
 			
-			if(m_rtmpPlayer){
-				m_rtmpPlayer.destroy();
-				m_rtmpPlayer = null;
+			if(m_util.rtmp.RTMPPlayer){
+				m_util.rtmp.RTMPPlayer.destroy();
+				m_util.rtmp.RTMPPlayer = null;
 			}
 			
 //			if(m_mcVideo){
@@ -121,17 +121,17 @@ module lobby.view.panel {
 			super.destroy();
 		}
 		
-		public initializeRTMPPlayer(_sServer:String="rtmp://192.168.201.211:1935/live_v2_origin", _sStream:String="tb025@1280x720"):void{
-			m_rtmpPlayer = new RTMPPlayer();
-			m_rtmpPlayer.initialize( m_mcAsset.mc_0, 1280, 720);
-			m_rtmpPlayer.resize(1280,720);
-			m_rtmpPlayer.resizeAlignCenter(1280, 720);
-			m_rtmpPlayer.fHideLoading = hideLoding; 
-			m_rtmpPlayer.fConnectFailed = connectFailed;
+		public initializeutil.rtmp.RTMPPlayer(_sServer:String="rtmp://192.168.201.211:1935/live_v2_origin", _sStream:String="tb025@1280x720"):void{
+			m_util.rtmp.RTMPPlayer = new util.rtmp.RTMPPlayer();
+			m_util.rtmp.RTMPPlayer.initialize( m_mcAsset.mc_0, 1280, 720);
+			m_util.rtmp.RTMPPlayer.resize(1280,720);
+			m_util.rtmp.RTMPPlayer.resizeAlignCenter(1280, 720);
+			m_util.rtmp.RTMPPlayer.fHideLoading = hideLoding; 
+			m_util.rtmp.RTMPPlayer.fConnectFailed = connectFailed;
 			var _bStatus :  boolean = SharedObjectManager.getLiveOnOff();
-			m_rtmpPlayer.setVolume(_bStatus?SharedObjectManager.getLiveVolume():0);
+			m_util.rtmp.RTMPPlayer.setVolume(_bStatus?SharedObjectManager.getLiveVolume():0);
 			
-			m_rtmpPlayer.fConnectSuccess = function():void{
+			m_util.rtmp.RTMPPlayer.fConnectSuccess = function():void{
 				uCount = 0;
 			}
 			m_sServer = _sServer;
@@ -140,7 +140,7 @@ module lobby.view.panel {
 		}
 		
 		get iMaxBytePerSecond():number{
-			return m_rtmpPlayer.iMaxBytePerSecond;
+			return m_util.rtmp.RTMPPlayer.iMaxBytePerSecond;
 		}
 		public setData():void{
 			//			LobbyData.getInstance().lobbyInfo.panoramaVec = new <PanoramaStruct>(); 測試代碼
@@ -195,11 +195,11 @@ module lobby.view.panel {
 			
 			hash(m_sServer, m_sStreamName);
 			
-			m_rtmpPlayer.play(m_sServer, m_sStream, m_sSharedSecuret);
-//			RTMPPlayer.getInstance().play(_txtServer.label.text, _txtStream.label.text, m_sSharedSecuret);
+			m_util.rtmp.RTMPPlayer.play(m_sServer, m_sStream, m_sSharedSecuret);
+//			util.rtmp.RTMPPlayer.getInstance().play(_txtServer.label.text, _txtStream.label.text, m_sSharedSecuret);
 			sFailedConnectType = null;
 			TimeManager.getInstance().addFun(loadVideoTimeOut,5000);	
-			m_rtmpPlayer.iVideoConnectStatus = 0;					
+			m_util.rtmp.RTMPPlayer.iVideoConnectStatus = 0;					
 		}
 		
 		protected loadVideoTimeOut():void {
@@ -244,7 +244,7 @@ module lobby.view.panel {
 		private showLoading():void{
 			
 			if(m_loading){
-				m_rtmpPlayer.clearVideoFull();
+				m_util.rtmp.RTMPPlayer.clearVideoFull();
 				m_loading.gotoAndPlay(1);
 				m_loading.visible = true;
 			}
@@ -286,16 +286,16 @@ module lobby.view.panel {
 				m_tfWorn.visible = true;
 				
 				switch(_iType){
-					case RTMPPlayer.iStreamNotFound:
+					case util.rtmp.RTMPPlayer.iStreamNotFound:
 						m_tfWorn.text = LobbyManager.getInstance().getLanguageString(  Language.sVideoConnectFailed );	
 						sFailedConnectType = Language.sVideoConnectFailed;
 						break;
-					case RTMPPlayer.iRejected:
+					case util.rtmp.RTMPPlayer.iRejected:
 						m_tfWorn.text = LobbyManager.getInstance().getLanguageString(  Language.sVideoConnectFailed );	
 						sFailedConnectType = Language.sVideoConnectFailed;
 						break;
-					case RTMPPlayer.iVideoConnectFailed:
-					case RTMPPlayer.iVideoPlayFailed:
+					case util.rtmp.RTMPPlayer.iVideoConnectFailed:
+					case util.rtmp.RTMPPlayer.iVideoPlayFailed:
 						m_tfWorn.text = LobbyManager.getInstance().getLanguageString( Language.sVideoConnectFailed );	
 						sFailedConnectType = Language.sVideoConnectFailed;
 						break;
@@ -312,8 +312,8 @@ module lobby.view.panel {
 		 * 設置音量
 		 */
 		public setVolume( _nVol:Number , _nPannging:Number = 0 ):void {
-			if( m_rtmpPlayer ){
-				m_rtmpPlayer.setVolume( _nVol  , _nPannging );
+			if( m_util.rtmp.RTMPPlayer ){
+				m_util.rtmp.RTMPPlayer.setVolume( _nVol  , _nPannging );
 			}
 		}
 		
@@ -338,8 +338,8 @@ module lobby.view.panel {
 			
 		}	
 		public stop():void{
-			if(m_rtmpPlayer){
-				m_rtmpPlayer.stop();
+			if(m_util.rtmp.RTMPPlayer){
+				m_util.rtmp.RTMPPlayer.stop();
 			}
 		}		
 		

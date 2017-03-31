@@ -1,11 +1,11 @@
 module ctrl {
 	export class GameControler {
 		//		public tryN							:		int				//连接次数		暫時不用
-		protected viewFunList				:		Dictionary		//view回调函数表
-		public root							:		Game;
-		public model						:		GameModel;
-		public view							:		GameView;
-		public proxy						:		GameProxy;
+		protected viewFunList				;		//view回调函数表
+		public root							:		lobby.view.game.Game;
+		public model						:		lobby.model.game.GameModel;
+		public view							:		lobby.view.game.GameView;
+		public proxy						:		lobby.model.game.GameProxy;
 		public uMultiIndex					:		number;			//多桌序号
 		public bActive						:		 boolean      	//是否激活
 		public bMulti						:		 boolean;
@@ -14,95 +14,95 @@ module ctrl {
 		public loginN						:		number;			//登入次數
 		public bRetry						:		 boolean;		//
 		public iHeartCount					:		number;			//遊戲心跳包失敗次數
-		public nRevServerTime				:		Number=0;		//接收心跳包消息的時間
+		public nRevServerTime				:		number=0;		//接收心跳包消息的時間
 		public gameType						:		number;
 		public bcloseGame					:		 boolean;		//关闭赌桌
 
-		public constructor(m:GameModel, v:GameView=null,game:Game=null) {
+		public constructor(m, v=null,game=null) {
 			this.root = game;
 			
-			setModel(m);
+			this.setModel(m);
 			
-			this.viewFunList = new Dictionary();
-			view= v;
-			addServerListener();
-			addViewListener();
-			GameView(view).sendFun=viewHandler;
-			nRevServerTime   = getTimer();
+			this.viewFunList = {};
+			this.view= v;
+			this.addServerListener();
+			this.addViewListener();
+			(<lobby.view.game.GameView>(this.view)).sendFun=this.viewHandler;
+			this.nRevServerTime   = egret.getTimer();
 		}
 
 		
-		public setSocket(socket:TCPSocket):void{
+		public setSocket(socket:socket.TCPSocket):void{
 			
 		}
 		
 		
 		public onConnect():void{
-			var table:TableStruct = model.tableStruct;
+			var table:lobby.model.struct.TableStruct = this.model.tableStruct;
 			console.log(table.TableID+"连接成功"+table.BetLimitID);
-			proxy.loginGame(table);
+			this.proxy.loginGame(table);
 			/*if (view){
 				view.onConnect();
 			}*/
-			addServerListener();
-			addViewListener();			
+			this.addServerListener();
+			this.addViewListener();			
 		}
 		
 		public onLoginSuccess():void {
-			if (view){
-				view.onConnect();
+			if (this.view){
+				this.view.onConnect();
 			}	
-			bRetry = false;
-			loginN = 0;
+			this.bRetry = false;
+			this.loginN = 0;
 		}
 		
 		
 		public reConnect(): boolean {
 			//大廳斷線狀況
-			if( NetWorkManager.getInstance().iLobbyNetWorkStatus != Define.LobbyConnected ){
-				LobbyManager.getInstance().lobbyView.hideLoading();
-				bRetry = false;
-				proxy.close();
+			if( manager.NetWorkManager.getInstance().iLobbyNetWorkStatus != define.Define.LobbyConnected ){
+				manager.LobbyManager.getInstance().lobbyView.hideLoading();
+				this.bRetry = false;
+				this.proxy.close();
 				return false;
 			}
 			
-			if( loginN < 2 ){
-				Log.getInstance().log(this,"重新登入遊戲..");
-				if( proxy ){
-					loginN = loginN + 1;			
+			if( this.loginN < 2 ){
+				console.log(this,"重新登入遊戲..");
+				if( this.proxy ){
+					this.loginN = this.loginN + 1;			
 					var timer:JTimer = JTimer.getTimer(1500,1);
-					timer.addTimerCallback(null,onRetryLogin);
+					timer.addTimerCallback(null,this.onRetryLogin);
 					timer.start();
-					bRetry = true;
-					LobbyManager.getInstance().lobbyView.showLoading();
-					proxy.close();			//先斷線
+					this.bRetry = true;
+					manager.LobbyManager.getInstance().lobbyView.showLoading();
+					this.proxy.close();			//先斷線
 				}
-				return bRetry;	
+				return this.bRetry;	
 			}
-			Log.getInstance().log(this,"重新登入遊戲失敗..");
-			LobbyManager.getInstance().lobbyView.hideLoading();
-			bRetry = false;
-			if( proxy ){
-				proxy.close();
+			console.log(this,"重新登入遊戲失敗..");
+			manager.LobbyManager.getInstance().lobbyView.hideLoading();
+			this.bRetry = false;
+			if( this.proxy ){
+				this.proxy.close();
 			}
 			
-			return bRetry;
+			return this.bRetry;
 		}	
 		
 		protected onRetryLogin(timer:JTimer):void{
 			timer.dispose();
-			var table:TableStruct = model.tableStruct;
-				proxy.connect(table.ServerIP , table.ServerPort);
+			var table:lobby.model.struct.TableStruct = this.model.tableStruct;
+				this.proxy.connect(table.ServerIP , table.ServerPort);
 			
 		}		
 		
 		public onConnectClosed():void{
-			if (model && view){
+			if (this.model && this.view){
 				//在退出 刚登入时 会收到，
 				/*tryN++;
 				if (tryN<3){
 					model.reset();
-					var table:TableStruct = model.tableInfo;
+					var table:lobby.model.struct.TableStruct = model.tableInfo;
 					if(table==null){
 						return;
 					}
@@ -112,7 +112,7 @@ module ctrl {
 					view.onConnectClosed();
 				}*/
 				
-				view.onConnectClosed();
+				this.view.onConnectClosed();
 			}
 			
 		}
@@ -124,8 +124,8 @@ module ctrl {
 				return;
 			}*/
 			
-			if (model && view){
-				view.onConnectFailed();
+			if (this.model && this.view){
+				this.view.onConnectFailed();
 			}
 			
 			/*tryN++;
@@ -133,7 +133,7 @@ module ctrl {
 			if (tryN<3 ){
 				if (true||ret ==SocketDefine.GATEWAY_DISCONNECT || ret == SocketDefine.CONNECT_FAIL){
 					model.reset();
-					var table:TableStruct = model.tableInfo;
+					var table:lobby.model.struct.TableStruct = model.tableInfo;
 					if(table==null){
 						if (view){
 							view.onConnectFailed();
@@ -158,7 +158,7 @@ module ctrl {
 		
 		
 		
-		 public setModel( m:GameModel ):void {
+		 public setModel( m:lobby.model.game.GameModel ):void {
 			this.model = m;
 //			m_gameModel.addObserver(this);
 			
@@ -166,9 +166,9 @@ module ctrl {
 		
 		
 		protected addServerListener():void{
-			console.log("gameType::"  + gameType);
-			PacketManager.getInstance().addProtocol(gameType,PacketDefine.ACK ,			S_Game_Ack_Pkt);					//ACK
-			PacketManager.getInstance().addProtocol(gameType,PacketDefine.N_ACK ,		S_Game_NAck_Pkt);					//NACK
+			console.log("gameType::"  + this.gameType);
+			manager.PacketManager.getInstance().addProtocol(this.gameType,define.PacketDefine.ACK ,			packet.game.S_Game_Ack_Pkt);					//ACK
+			manager.PacketManager.getInstance().addProtocol(this.gameType,define.PacketDefine.N_ACK ,		packet.game.S_Game_NAck_Pkt);					//NACK
 			
 		}
 		
@@ -180,13 +180,13 @@ module ctrl {
 		}
 		
 		protected removeViewListener():void{
-			for(var key:string in viewFunList){
-				viewFunList[key]=null
-				delete viewFunList[key];
+			for(var key in this.viewFunList){
+				this.viewFunList[key]=null
+				delete this.viewFunList[key];
 			}
 		}
 		
-		protected viewHandler(type:number, data:* = null):void
+		protected viewHandler(type:number, data = null):void
 		{
 			if ( this.viewFunList[type] != undefined )  {
 				this.viewFunList[type]( data ); 
@@ -198,39 +198,39 @@ module ctrl {
 
 		
 		public destroy():void {
-			removeServerListener();
-			removeViewListener();
-			if( proxy ){
-				proxy.destroy();
-				proxy = null;
+			this.removeServerListener();
+			this.removeViewListener();
+			if( this.proxy ){
+				this.proxy.destroy();
+				this.proxy = null;
 			}
-			if( model ){
-				model = null;
+			if( this.model ){
+				this.model = null;
 			}
-			if( view ){
-				view =null;
+			if( this.view ){
+				this.view =null;
 			}
-			if(root){
-				root=null;
+			if(this.root){
+				this.root=null;
 			}
 			
-			TimeManager.getInstance().removeFun(onHeart);
-			PacketManager.getInstance().removeProtocol(gameType,PacketDefine.ACK );					//ACK
-			PacketManager.getInstance().removeProtocol(gameType,PacketDefine.N_ACK);				//NACK	
-			PacketManager.getInstance().removeProtocol(gameType,PacketDefine.S_Heart );				//客戶端主動發起心跳回復	
-			PacketManager.getInstance().removeProtocol(gameType,PacketDefine.C_Heart );				//服務端主動發起心跳回復			
+			manager.TimeManager.getInstance().removeFun(this.onHeart);
+			manager.PacketManager.getInstance().removeProtocol(this.gameType,define.PacketDefine.ACK );					//ACK
+			manager.PacketManager.getInstance().removeProtocol(this.gameType,define.PacketDefine.N_ACK);				//NACK	
+			manager.PacketManager.getInstance().removeProtocol(this.gameType,define.PacketDefine.S_Heart );				//客戶端主動發起心跳回復	
+			manager.PacketManager.getInstance().removeProtocol(this.gameType,define.PacketDefine.C_Heart );				//服務端主動發起心跳回復			
 		}
 		
 		public exitGame():void{
-			bGameLogout = true;
-			TimeManager.getInstance().removeFun(onHeart);
+			this.bGameLogout = true;
+			manager.TimeManager.getInstance().removeFun(this.onHeart);
 		}
 		
 		public removeSocketListen():void {
-			removeServerListener();
-			if( proxy  && proxy.socket.m_socket){
-				if( proxy.socket.m_socket.connected ){
-					proxy.socket.m_socket.close();
+			this.removeServerListener();
+			if( this.proxy  && this.proxy.socket.m_socket){
+				if( this.proxy.socket.m_socket.connected ){
+					this.proxy.socket.m_socket.close();
 				}
 			}
 		}
@@ -248,20 +248,20 @@ module ctrl {
 		 *  收到登入確認封包才 啟動遊戲心跳包
 		 */
 		public runGameHeart():void {
-			PacketManager.getInstance().addProtocol(gameType,PacketDefine.S_Heart , S_Game_Heart_Pkt);				//客戶端主動發起心跳回復	
-			PacketManager.getInstance().addProtocol(gameType,PacketDefine.C_Heart , S_Game_Heart_Pkt);				//服務端主動發起心跳回復
-		//	TimeManager.getInstance().addFun(onHeart,LobbyManager.getInstance().nHeartRate);
+			manager.PacketManager.getInstance().addProtocol(this.gameType,define.PacketDefine.S_Heart , packet.game.S_Game_Heart_Pkt);				//客戶端主動發起心跳回復	
+			manager.PacketManager.getInstance().addProtocol(this.gameType,define.PacketDefine.C_Heart , packet.game.S_Game_Heart_Pkt);				//服務端主動發起心跳回復
+		//	manager.TimeManager.getInstance().addFun(onHeart,manager.LobbyManager.getInstance().nHeartRate);
 		}
 		
 		protected onHeart():void
 		{
-//			Log.getInstance().log(this, "檢測遊戲心跳..." );
-			var _nTime:Number = getTimer();
-			var _time:Number = (_nTime - nRevServerTime)/1000;
-			var _nDelay:Number = (LobbyManager.getInstance().nHeartRate*2)/1000;			//延遲時間
+//			console.log(this, "檢測遊戲心跳..." );
+			var _nTime:number = egret.getTimer();
+			var _time:number = (_nTime - this.nRevServerTime)/1000;
+			var _nDelay:number = (manager.LobbyManager.getInstance().nHeartRate*2)/1000;			//延遲時間
 			
 			if( _time < _nDelay ){
-				proxy.sendHeart();
+				this.proxy.sendHeart();
 			}else {
 			//	pktException();
 			}			
@@ -271,23 +271,23 @@ module ctrl {
 		 * 包傳遞異常
 		 */
 		public pktException():void {
-			if( proxy  && proxy.socket.m_socket){
+			if( this.proxy  && this.proxy.socket.m_socket){
 				try {
-					proxy.socket.m_socket.close();
-				}catch(e:Error){
+					this.proxy.socket.m_socket.close();
+				}catch(e){
 					
 				}
 
-				reConnect();
+				this.reConnect();
 			}
 			else {
-				Log.getInstance().log(this, "包傳遞異常 proxy::" + proxy + ", connect status::" + proxy.socket.m_socket.connected );
+				console.log(this, "包傳遞異常 proxy::" + this.proxy + ", connect status::" + this.proxy.socket.m_socket.connected );
 			}
-			TimeManager.getInstance().removeFun(onHeart);
+			manager.TimeManager.getInstance().removeFun(this.onHeart);
 		}		
 		
 		public removeGameHeart():void {
-			TimeManager.getInstance().removeFun(onHeart);
+			manager.TimeManager.getInstance().removeFun(this.onHeart);
 		}
 			
 		

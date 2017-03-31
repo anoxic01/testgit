@@ -2,8 +2,8 @@ module lobby.view.panel {
 	export class PanelTableSetting extends PanelWindow{
 //		private m_bg			:	BitmapScale9Grid;
 		private m_mcAsset		:	*;
-		private m_btnOk			:	SingleButtonMC;
-		private m_btnNo			:	SingleButtonMC;
+		private m_btnOk			:	ui.button.SingleButtonMC;
+		private m_btnNo			:	ui.button.SingleButtonMC;
 		private m_select_0		:	SelectItem;
 		private m_select_1		:	SelectItem;
 		private m_select_2		:	SelectItem;
@@ -45,9 +45,9 @@ module lobby.view.panel {
 			m_select_0 = new SelectItem(m_mcAsset.mc_0, GameDefine.SINGLE);
 			m_select_1 = new SelectItem(m_mcAsset.mc_1, GameDefine.PUBLIC);
 			m_select_2 = new SelectItem(m_mcAsset.mc_2, GameDefine.PRIVATE);
-			m_mcAsset.mc_0.addEventListener(MouseEvent.CLICK, click);
-			m_mcAsset.mc_1.addEventListener(MouseEvent.CLICK, click);
-			m_mcAsset.mc_2.addEventListener(MouseEvent.CLICK, click);
+			m_mcAsset.mc_0.addEventListener(egret.TouchEvent.TOUCH_TAP, click);
+			m_mcAsset.mc_1.addEventListener(egret.TouchEvent.TOUCH_TAP, click);
+			m_mcAsset.mc_2.addEventListener(egret.TouchEvent.TOUCH_TAP, click);
 			
 			
 			m_current = m_select_0;
@@ -62,9 +62,9 @@ module lobby.view.panel {
 			m_mcAsset.mc_imput.gotoAndStop(1);
 			mc_label = m_mcAsset.mc_imput.mc_label;
 			
-			m_btnOk = new SingleButtonMC(m_mcAsset.mc_ok, btnOkEnter);
+			m_btnOk = new ui.button.SingleButtonMC(m_mcAsset.mc_ok, btnOkEnter);
 			
-			m_btnNo = new SingleButtonMC(m_mcAsset.mc_no, function(event:MouseEvent):void{
+			m_btnNo = new ui.button.SingleButtonMC(m_mcAsset.mc_no, function(event:MouseEvent):void{
 				LobbyManager.getInstance().hideTableSetting();
 			});
 			
@@ -113,9 +113,9 @@ module lobby.view.panel {
 			}
 			
 			if(m_mcAsset){
-				m_mcAsset.mc_0.removeEventListener(MouseEvent.CLICK, click);
-				m_mcAsset.mc_1.removeEventListener(MouseEvent.CLICK, click);
-				m_mcAsset.mc_2.removeEventListener(MouseEvent.CLICK, click);
+				m_mcAsset.mc_0.removeEventListener(egret.TouchEvent.TOUCH_TAP, click);
+				m_mcAsset.mc_1.removeEventListener(egret.TouchEvent.TOUCH_TAP, click);
+				m_mcAsset.mc_2.removeEventListener(egret.TouchEvent.TOUCH_TAP, click);
 				this.removeChild(m_mcAsset);
 				m_mcAsset = null;
 			}
@@ -222,14 +222,14 @@ class SelectItem extends BSprite{
 		uType = _uType;
 		
 		m_mcAsset.buttonMode = true;
-		m_mcAsset.addEventListener(MouseEvent.MOUSE_OVER,over);
-		m_mcAsset.addEventListener(MouseEvent.MOUSE_OUT,out);
+		m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OVER,over);
+		m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OUT,out);
 		m_mcAsset.mouseChildren = false;
 		m_mcAsset.gotoAndStop(1);
 	}
 	 public destroy():void{
-		m_mcAsset.removeEventListener(MouseEvent.MOUSE_OVER,over);
-		m_mcAsset.removeEventListener(MouseEvent.MOUSE_OUT,out);
+		m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OVER,over);
+		m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OUT,out);
 		
 		if(m_mcAsset){
 			m_mcAsset = null;

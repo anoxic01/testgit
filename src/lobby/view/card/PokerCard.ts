@@ -1,12 +1,12 @@
 module lobby.view.card {
 	export class PokerCard extends CardItem{
 		public flyed		:	 boolean;
-		public value		:	String = "";
+		public value		:	string = "";
 		public ox			:	number;
 		public oy			:	number;
 		public rot			:	number;
 
-		public constructor(_cardId:String,_cardType:number=0) {
+		public constructor(_cardId:string,_cardType:number=0) {
 			super(_cardId,_cardType,true);
 		}
 	}

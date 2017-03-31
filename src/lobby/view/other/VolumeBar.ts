@@ -37,10 +37,10 @@ module lobby.view.other {
 					break;
 			}
 			
-			m_bar.addEventListener(MouseEvent.MOUSE_OVER, over);
-			m_bar.addEventListener(MouseEvent.MOUSE_OUT, out);
-			m_bar.addEventListener(MouseEvent.MOUSE_DOWN, down);
-			LobbyManager.getInstance().stage.addEventListener(MouseEvent.MOUSE_UP, up);
+			m_bar.addEventListener(mouse.MouseEvent.MOUSE_OVER, over);
+			m_bar.addEventListener(mouse.MouseEvent.MOUSE_OUT, out);
+			m_bar.addEventListener(egret.TouchEvent.TOUCH_BEGIN, down);
+			LobbyManager.getInstance().stage.addEventListener(egret.TouchEvent.TOUCH_END, up);
 		}
 		get nVolume():Number
 		{
@@ -53,10 +53,10 @@ module lobby.view.other {
 		}
 
 		 public destroy():void{
-			m_bar.removeEventListener(MouseEvent.MOUSE_OVER, over);
-			m_bar.removeEventListener(MouseEvent.MOUSE_OUT, out);
-			m_bar.removeEventListener(MouseEvent.MOUSE_DOWN, down);
-			LobbyManager.getInstance().stage.removeEventListener(MouseEvent.MOUSE_UP, up);
+			m_bar.removeEventListener(mouse.MouseEvent.MOUSE_OVER, over);
+			m_bar.removeEventListener(mouse.MouseEvent.MOUSE_OUT, out);
+			m_bar.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, down);
+			LobbyManager.getInstance().stage.removeEventListener(egret.TouchEvent.TOUCH_END, up);
 			
 			if(m_mcAsset){
 				this.removeChild(m_mcAsset);

@@ -6,8 +6,8 @@ module lobby.view {
 		private m_mcAsset		;						//个人资讯
 		private m_bmpFace		:	egret.Bitmap;					//玩家头像
 //		private m_bmpGold		:	egret.Bitmap;					//玩家金币
-		private m_btnRecharge	:	SingleButtonMC;			//充值按钮
-		private m_btnRegist		:	SingleButtonMC;			//注册按钮
+		private m_btnRecharge	:	ui.button.SingleButtonMC;			//充值按钮
+		private m_btnRegist		:	ui.button.SingleButtonMC;			//注册按钮
 //		private m_mcMarquee		:	egret.MovieClip;				//滚动消息
 //		public marquee			:	MarqueeList;			//滚动消息
 		
@@ -29,7 +29,7 @@ module lobby.view {
 //			m_bmpGold		=	new Bitmap();
 //			m_mcAsset.mc_2.addChild(m_bmpGold);
 			
-			this.m_btnRecharge	=	new SingleButtonMC(this.m_mcAsset.mc_3, function(event:MouseEvent):void{
+			this.m_btnRecharge	=	new ui.button.SingleButtonMC(this.m_mcAsset.mc_3, function(event:MouseEvent):void{
 				 manager.SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				 manager.TipManager.getInstance().hide();
 				 manager.LobbyManager.getInstance().hideAllPanel();
@@ -43,7 +43,7 @@ module lobby.view {
 				 manager.TipManager.getInstance().hide();
 			};
 			
-			this.m_btnRegist = new SingleButtonMC(this.m_mcAsset.mc_regist, function(event:MouseEvent):void{
+			this.m_btnRegist = new ui.button.SingleButtonMC(this.m_mcAsset.mc_regist, function(event:MouseEvent):void{
 				 manager.SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				 manager.TipManager.getInstance().hide();
 				 manager.LobbyManager.getInstance().hideAllPanel();

@@ -1,5 +1,5 @@
 module lobby.view.tool {
-	export class Tool_Contact implements ISprite{
+	export class Tool_Contact implements iface.ISprite{
 		private m_mcAsset		:	MovieClip;				//资源容器
 		private m_btnContact	:	ButtonA;				//联系客服
 //		private m_btnRecord		:	ButtonA;				//账户记录
@@ -91,7 +91,7 @@ import flash.text.TextField;
 
 import IInterface.ISprite;
 
-class ButtonA implements ISprite{
+class ButtonA implements iface.ISprite{
 	public mcAsset			:	MovieClip;
 	public fOnClick			:	Function;
 	private m_bSelectStatus	:	 boolean;

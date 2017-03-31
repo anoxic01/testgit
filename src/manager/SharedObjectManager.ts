@@ -1,13 +1,13 @@
 module manager {
 	export class SharedObjectManager {
-		public static const	FILE_NAME			:	string	=	"game_2015_11_30";
+		public static FILE_NAME			:	string	=	"game_2015_11_30";
 		
-        private static m_soSharedObject			:	SharedObject;
+        private static m_soSharedObject;
 
 		public constructor() {
 		}
 		
-        public static get data() : Object
+        static get data() : Object
         {
             try
             {
@@ -118,13 +118,13 @@ module manager {
 		public static setEffectOnOff(_bValue: boolean):void{
 			this.data["SystemSetting"]["effect on_off"] = _bValue;
 		}
-		public static getEffectOnOff():Number{
+		public static getEffectOnOff():number{
 			return this.data["SystemSetting"]["effect on_off"];
 		}
 		public static setLiveOnOff(_bValue: boolean):void{
 			this.data["SystemSetting"]["live on_off"] = _bValue;
 		}
-		public static getLiveOnOff():Number{
+		public static getLiveOnOff():number{
 			return this.data["SystemSetting"]["live on_off"];
 		}
 		
@@ -143,24 +143,24 @@ module manager {
 			return this.data["SystemSetting"]["music selectIndex"];
 		}
 		
-		public static setMusicVolume(_nValue:Number):void{
+		public static setMusicVolume(_nValue:number):void{
 			this.data["SystemSetting"]["music value"] = _nValue.toFixed(2);
 		}
-		public static getMusicVolume():Number{
+		public static getMusicVolume():number{
 			return this.data["SystemSetting"]["music value"];
 		}
 		
-		public static setEffectVolume(_nValue:Number):void{
+		public static setEffectVolume(_nValue:number):void{
 			this.data["SystemSetting"]["effect value"] = _nValue.toFixed(2);
 		}
-		public static getEffectVolume():Number{
+		public static getEffectVolume():number{
 			return this.data["SystemSetting"]["effect value"];
 		}
 		
-		public static setLiveVolume(_nValue:Number):void{
+		public static setLiveVolume(_nValue:number):void{
 			this.data["SystemSetting"]["live value"] = _nValue.toFixed(2);
 		}
-		public static getLiveVolume():Number{
+		public static getLiveVolume():number{
 			return this.data["SystemSetting"]["live value"];
 		}
 		
@@ -254,7 +254,7 @@ module manager {
 //            return data["SystemSettingPlaza"]["music value"];
 //        }// end function
 //
-//        public static set plazaMusicVolume(nVolume:Number) : void
+//        public static set plazaMusicVolume(nVolume:number) : void
 //        {
 //            data["SystemSettingPlaza"]["music value"] = nVolume.toFixed(2);
 //            return;
@@ -265,7 +265,7 @@ module manager {
 //            return data["SystemSettingPlaza"]["sound value"];
 //        }// end function
 //
-//        public static set plazaSoundVolume(nVolume:Number) : void
+//        public static set plazaSoundVolume(nVolume:number) : void
 //        {
 //            data["SystemSettingPlaza"]["sound value"] = nVolume.toFixed(2);
 //            return;
@@ -276,7 +276,7 @@ module manager {
 //            return data["bright"];
 //        }// end function
 //
-//        public static set bright(nValue:Number) : void
+//        public static set bright(nValue:number) : void
 //        {
 //            data["bright"] = nValue;
 //            return;

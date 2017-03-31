@@ -42,7 +42,7 @@ module lobby.view.gameRecord {
 			
 			m_txtGameRecordNo = new Text( _mcAsset.tf_1 );
 			m_txtGameType =new Text( _mcAsset.tf_2 );
-			m_btnClose = new SingleButtonMC( m_mcAsset.mc_close , function(event:MouseEvent):void {
+			m_btnClose = new ui.button.SingleButtonMC( m_mcAsset.mc_close , function(event:MouseEvent):void {
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				GameRecordManager.getInstance().hideBetResultPannel();
 			});
@@ -765,7 +765,7 @@ import flash.display.MovieClip;
 import flash.events.MouseEvent;
 
 import component.button.Scroll_Bar;
-import component.button.SingleButtonMC;
+import component.button.ui.button.SingleButtonMC;
 import component.scroll.Scroll_2;
 
 import manager.LobbyManager;
@@ -796,7 +796,7 @@ class SingleList extends BSprite{
 
 
 
-class Btn extends SingleButtonMC{
+class Btn extends ui.button.SingleButtonMC{
 	private txtLabel:MovieClip;
 	public sLangKey:String;
 	public Btn(mcButton:MovieClip, $fOnClick:Function):void {

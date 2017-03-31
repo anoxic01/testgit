@@ -1,15 +1,15 @@
 module lobby.view.panel {
 	export class PanelLimitBet  extends PanelWindow{
 //		private m_bg				:	BitmapScale9Grid;
-		private m_btnOk				:	SingleButtonMC;
-		private m_btnNo				:	SingleButtonMC;
-		private m_btnClose			:	SingleButtonMC;
+		private m_btnOk				:	ui.button.SingleButtonMC;
+		private m_btnNo				:	ui.button.SingleButtonMC;
+		private m_btnClose			:	ui.button.SingleButtonMC;
 		
-		private m_current			:	SingleButtonMC;
+		private m_current			:	ui.button.SingleButtonMC;
 		private m_currentID			:	number;
 		private m_struct			:	TableStruct;
 		private m_sName				:	String;
-		private m_items 			: 	<SingleButtonMC>;
+		private m_items 			: 	<ui.button.SingleButtonMC>;
 		
 		private m_sTableName		:	String;
 		
@@ -32,7 +32,7 @@ module lobby.view.panel {
 //			m_mcAsset.x = -int(1162*0.5);
 //			m_mcAsset.y = -int(588*0.5);
 			
-			m_items = new <SingleButtonMC>();
+			m_items = new <ui.button.SingleButtonMC>();
 			m_listStruct = LobbyData.getInstance().getBetLimitByGameID(m_struct.GameID);
 			
 			var bmp : Bitmap;
@@ -42,11 +42,11 @@ module lobby.view.panel {
 			m_mcHot = m_mcAsset.mc.mc_hot;
 			nAssetWidth = m_mcAsset.width;
 			nAssetHeight = m_mcAsset.height;
-			var _item : SingleButtonMC;
+			var _item : ui.button.SingleButtonMC;
 			for (var i:number= 0; i < _len; i++) 
 			{
 				bmp = new Bitmap();
-				_item =  new SingleButtonMC(m_mcAsset.mc.getChildByName("mc_"+String(i)) as MovieClip, function(event:MouseEvent):void{
+				_item =  new ui.button.SingleButtonMC(m_mcAsset.mc.getChildByName("mc_"+String(i)) as MovieClip, function(event:MouseEvent):void{
 					select(m_items[event.currentTarget.ID]);
 				});
 				m_items.push(_item);
@@ -80,7 +80,7 @@ module lobby.view.panel {
 			}
 			
 			
-			m_btnOk = new SingleButtonMC(m_mcAsset.mc.mc_ok, function(event:MouseEvent):void{
+			m_btnOk = new ui.button.SingleButtonMC(m_mcAsset.mc.mc_ok, function(event:MouseEvent):void{
 //				LobbyManager.getInstance().lobbyView.hideQuickTableList();
 				_struct.BetLimitID = m_current.ID;
 				_struct.BetLimitID_Panel = m_current.ID;
@@ -108,11 +108,11 @@ module lobby.view.panel {
 //				}
 			});
 			
-			m_btnNo = new SingleButtonMC(m_mcAsset.mc.mc_no, function(event:MouseEvent):void{
+			m_btnNo = new ui.button.SingleButtonMC(m_mcAsset.mc.mc_no, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				LobbyManager.getInstance().hideLimitBet();
 			});
-			m_btnClose = new SingleButtonMC(m_mcAsset.mc.mc_close, function(event:MouseEvent):void{
+			m_btnClose = new ui.button.SingleButtonMC(m_mcAsset.mc.mc_close, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				LobbyManager.getInstance().hideLimitBet();
 			});
@@ -164,10 +164,10 @@ module lobby.view.panel {
 			}
 			
 			var _len : int = m_items.length;
-			var _item : SingleButtonMC;
+			var _item : ui.button.SingleButtonMC;
 			for (var i:number= 0; i < _len; i++) 
 			{
-				_item = m_items.pop() as SingleButtonMC;
+				_item = m_items.pop() as ui.button.SingleButtonMC;
 				_item.destroy();
 				
 			}
@@ -188,7 +188,7 @@ module lobby.view.panel {
 
 		}
 		
-		private select(_item:SingleButtonMC):void{
+		private select(_item:ui.button.SingleButtonMC):void{
 			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 			if(m_current != _item){
 				m_current.setSelectedStatus(false);

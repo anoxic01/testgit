@@ -12,7 +12,7 @@ module lobby.view.gameRecord.sub {
 		public var mcAsset			:	MovieClip;
 		
 		public var bIsUsed			:	 boolean;
-		public var btnPlayVideo		:	SingleButtonMC; //
+		public var btnPlayVideo		:	ui.button.SingleButtonMC; //
 		public var complexGameRecordStruct: ComplexGameRecordStruct;	//單筆 下注紀錄資料
 		public var fMouseOver		:	Function;
 		public var fMouseOut		:	Function;
@@ -33,11 +33,11 @@ module lobby.view.gameRecord.sub {
 			txtPayOut = mcAsset.tf_6;
 			txtAvailableBet = mcAsset.tf_7;
 			txtState = mcAsset.tf_8;	
-			btnPlayVideo = new SingleButtonMC( mcAsset.mc_playVideo , showVideoPlayPannel );
+			btnPlayVideo = new ui.button.SingleButtonMC( mcAsset.mc_playVideo , showVideoPlayPannel );
 			this.buttonMode = true;
-			this.addEventListener(MouseEvent.CLICK , showResultPlayPannel );
-			this.addEventListener(MouseEvent.MOUSE_OVER , mouseHandler );
-			this.addEventListener(MouseEvent.MOUSE_OUT , mouseHandler  );
+			this.addEventListener(egret.TouchEvent.TOUCH_TAP , showResultPlayPannel );
+			this.addEventListener(mouse.MouseEvent.MOUSE_OVER , mouseHandler );
+			this.addEventListener(mouse.MouseEvent.MOUSE_OUT , mouseHandler  );
 		}
 		
 		protected function showResultPlayPannel(event:MouseEvent):void{

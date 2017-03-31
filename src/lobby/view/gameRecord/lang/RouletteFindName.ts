@@ -135,7 +135,7 @@ module lobby.view.gameRecord.lang {
 		
 		public constructor() {
 
-			dic = new Dictionary();
+			dic = {};
 			for( var i:number= 0 ; i < 60; i++ ){
 				dic["D"+ i] = D[i].join(',');  
 			}

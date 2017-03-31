@@ -2,22 +2,22 @@ module lobby.view.chip {
 	export class ChipItemCustom extends BSprite{
 		private m_uValue	:	number;					//筹码面值
 //		private m_bmpAsset	:	Bitmap;					//筹码皮肤
-		private m_btnChip	:	ButtonChip;				//筹码按钮
+		private m_btnChip	:	ui.button.ButtonChip;				//筹码按钮
 		private m_bSelect	:	 boolean;				//选中状态
-		private m_chipPanel	:	PanelChipCustom;		//
+		private m_chipPanel	:	panel.PanelChipCustom;		//
 		
 		private m_bStatus	:	 boolean;				//操作状态
 		
-		public constructor(_uValue:number, _chipPanel:PanelChipCustom) {
+		public constructor(_uValue:number, _chipPanel:panel.PanelChipCustom) {
 			super();
-			m_uValue = _uValue;
-			m_chipPanel = _chipPanel;
+			this.m_uValue = _uValue;
+			this.m_chipPanel = _chipPanel;
 			
-//			m_btnChip = new ButtonChip(ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_CHIP,"Chip_Asset_x_"+String(_uValue)));
-			m_btnChip = new ButtonChip(ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_CHIP,"Chip_Asset_"+String(_uValue)));
-			this.addChild(m_btnChip);
-			m_btnChip.width = 91;
-			m_btnChip.height = 93;
+//			this.m_btnChip = new ui.button.ButtonChip(manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_CHIP,"Chip_Asset_x_"+String(_uValue)));
+			this.m_btnChip = new ui.button.ButtonChip(manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_CHIP,"Chip_Asset_"+String(_uValue)));
+			this.addChild(this.m_btnChip);
+			this.m_btnChip.width = 91;
+			this.m_btnChip.height = 93;
 			
 //			m_bmpAsset = new Bitmap();
 //			this.addChild(m_bmpAsset);
@@ -25,20 +25,20 @@ module lobby.view.chip {
 //			m_bmpAsset.smoothing = true;
 //			
 //			this.buttonMode = true;
-			this.addEventListener(MouseEvent.MOUSE_OVER, onOver);
-//			this.addEventListener(MouseEvent.MOUSE_OUT, onOut);
-			this.addEventListener(MouseEvent.CLICK, onClick);
+			this.addEventListener(mouse.MouseEvent.MOUSE_OVER, this.onOver, this);
+//			this.addEventListener(mouse.MouseEvent.MOUSE_OUT, onOut);
+			this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClick, this);
 		}
 		 public destroy():void
 		{
-			this.removeEventListener(MouseEvent.CLICK, onClick);
-			if(m_chipPanel){
-				m_chipPanel = null;
+			this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onClick, this);
+			if(this.m_chipPanel){
+				this.m_chipPanel = null;
 			}
 			
-			if(m_btnChip){
-				this.removeChild(m_btnChip);
-				m_btnChip = null;
+			if(this.m_btnChip){
+				this.removeChild(this.m_btnChip);
+				this.m_btnChip = null;
 			}
 			
 //			if(m_bmpAsset){
@@ -50,34 +50,34 @@ module lobby.view.chip {
 		
 		set  select(_bValue: boolean){
 			
-//			m_mcSelect.visible = m_bSelect;
-			if(!m_bSelect){
-				m_bStatus = m_chipPanel.addSelect(m_uValue);
+//			m_mcSelect.visible = this.m_bSelect;
+			if(!this.m_bSelect){
+				this.m_bStatus = this.m_chipPanel.addSelect(this.m_uValue);
 //				m_mcSelect.gotoAndPlay(1);
 			}else{
-				m_bStatus = m_chipPanel.removeSelect(m_uValue);
+				this.m_bStatus = this.m_chipPanel.removeSelect(this.m_uValue);
 //				m_mcSelect.gotoAndStop(1);
 			}
-			if(m_bStatus){
+			if(this.m_bStatus){
 //				this.filters = [new GlowFilter(0xadf256,1,20,20)];
-//				if(m_bSelect){
+//				if(this.m_bSelect){
 //					this.filters = [];
 //				}
-				m_bSelect = _bValue;
-				SoundManager.getInstance().play(SoundPackage.sChipSelect);
+				this.m_bSelect = _bValue;
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sChipSelect);
 			}
 			
-			m_btnChip.select = m_bSelect;
+			this.m_btnChip.select = this.m_bSelect;
 		}
 		
 		set  value(_uValue:number){
-			if(m_btnChip!=null){
-				this.removeChild(m_btnChip);
-				m_btnChip.destroy();
+			if(this.m_btnChip!=null){
+				this.removeChild(this.m_btnChip);
+				this.m_btnChip.destroy();
 			}
 			
-			m_btnChip = new ButtonChip(ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_CHIP,"Chip_Asset_"+String(_uValue)));
-			this.addChild(m_btnChip);
+			this.m_btnChip = new ui.button.ButtonChip(manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_CHIP,"Chip_Asset_"+String(_uValue)));
+			this.addChild(this.m_btnChip);
 			
 //			m_bmpAsset.bitmapData = BitmapManager.getInstance().getBmpdChip(_uValue);
 //			m_bmpAsset.smoothing = true;
@@ -85,27 +85,27 @@ module lobby.view.chip {
 		
 		get _uValue():number
 		{
-			return m_uValue;
+			return this.m_uValue;
 		}
 		
 		set  _uValue(value:number)
 		{
-			m_uValue = value;
+			this.m_uValue = value;
 		}
 		
 		
 		protected onOver(event:MouseEvent):void
 		{
-			if(m_bSelect){
+			if(this.m_bSelect){
 				return;
 			}
 			
-			SoundManager.getInstance().play(SoundPackage.sChipOver);
+			manager.SoundManager.getInstance().play(sound.SoundPackage.sChipOver);
 		}
 		
 //		protected onOut(event:MouseEvent):void
 //		{
-//			if(m_bSelect){
+//			if(this.m_bSelect){
 //				return;
 //			}
 //			
@@ -114,7 +114,7 @@ module lobby.view.chip {
 		
 		protected onClick(event:MouseEvent):void
 		{
-			select = !m_bSelect;
+			this.select = !this.m_bSelect;
 		}
 		
 	}

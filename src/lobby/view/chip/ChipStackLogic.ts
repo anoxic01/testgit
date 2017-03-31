@@ -1,5 +1,5 @@
 module lobby.view.chip {
-	export class ChipStackLogic implements IChipStackLogic{
+	export class ChipStackLogic implements iface.IChipStackLogic{
 		/**籌碼面額 須按照大小  由大而小  順序*/
 		protected chipAr:any[]; 
 		//ex: 500000, 300000, 100000, 50000, 30000 ,10000 ,5000, 3000, 1000, 500 , 300, 100 , 50 ,10

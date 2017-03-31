@@ -25,7 +25,7 @@ module lobby.view.route.game.sic {
 		
 			
 			//圍骰  只有單雙 跟 大小 才有 圍骰
-			_surroundData = new Dictionary();
+			_surroundData = {};
 			_surroundData["111"] = SURROUND_DICE;
 			_surroundData["222"] = SURROUND_DICE;
 			_surroundData["333"] = SURROUND_DICE;
@@ -34,7 +34,7 @@ module lobby.view.route.game.sic {
 			_surroundData["666"] = SURROUND_DICE;
 			
 			//大小
-			_bigSmallStructure = new Dictionary();
+			_bigSmallStructure = {};
 
 			for (var l:number= 4; l <= 10; l++) 
 			{
@@ -47,7 +47,7 @@ module lobby.view.route.game.sic {
 			
 			
 			//單雙
-			_oddEvenData = new Dictionary();
+			_oddEvenData = {};
 			
 			for (var k:number= 5; k <= 17; k+=2) 
 			{

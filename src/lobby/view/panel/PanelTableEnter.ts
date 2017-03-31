@@ -1,8 +1,8 @@
 module lobby.view.panel {
 	export class PanelTableEnter extends PanelWindow{
 //		private m_bg			:	BitmapScale9Grid;
-		private m_btnOk			:	SingleButtonMC;
-		private m_btnNo			:	SingleButtonMC;
+		private m_btnOk			:	ui.button.SingleButtonMC;
+		private m_btnNo			:	ui.button.SingleButtonMC;
 		private m_fQuickTable	:	Function;
 		private m_struct		:	TableStruct;
 		
@@ -36,9 +36,9 @@ module lobby.view.panel {
 			m_mcAsset.tf_1.restrict = "0-9a-zA-Z`~!@#$%\\^&*()-=_+,./;'[]{}|:\"<>?";
 			LobbyManager.getInstance().stage.focus = m_mcAsset.tf_1;
 			
-			m_btnOk = new SingleButtonMC(m_mcAsset.mc_ok, btnOkEnter);
+			m_btnOk = new ui.button.SingleButtonMC(m_mcAsset.mc_ok, btnOkEnter);
 			
-			m_btnNo = new SingleButtonMC(m_mcAsset.mc_no, function(event:MouseEvent):void{
+			m_btnNo = new ui.button.SingleButtonMC(m_mcAsset.mc_no, function(event:MouseEvent):void{
 				LobbyManager.getInstance().hideTableEnterPwd();
 			});
 			

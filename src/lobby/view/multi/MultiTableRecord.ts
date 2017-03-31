@@ -4,11 +4,11 @@ module lobby.view.multi {
 		
 		private m_recordList	:	MultiTableRecordList;
 		
-		private m_btnFirst		:	SingleButtonMC;
-		private m_btnLeft		:	SingleButtonMC;
-		private m_btnNext		:	SingleButtonMC;
-		private m_btnLast		:	SingleButtonMC;
-		private m_btnSetting	:	SingleButtonMC;
+		private m_btnFirst		:	ui.button.SingleButtonMC;
+		private m_btnLeft		:	ui.button.SingleButtonMC;
+		private m_btnNext		:	ui.button.SingleButtonMC;
+		private m_btnLast		:	ui.button.SingleButtonMC;
+		private m_btnSetting	:	ui.button.SingleButtonMC;
 		
 		private m_uTotalPage	:	number	=	10;					//最多10页
 		private m_uTotalCount	:	number	=	100;				//最高100条记录，超过覆盖旧记录
@@ -19,7 +19,7 @@ module lobby.view.multi {
 			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_MULTITABLE, "Multi_Record_Asset");
 			m_mcAsset.cacheAsBitmap=true;
 			this.addChild(m_mcAsset);
-			m_btnSetting = new SingleButtonMC(m_mcAsset.mc_setting, function(evt:MouseEvent):void{
+			m_btnSetting = new ui.button.SingleButtonMC(m_mcAsset.mc_setting, function(evt:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 //				LobbyManager.getInstance().showDialog("暂未开放！");
 				LobbyManager.getInstance().showGoodRoadSetting();
@@ -30,11 +30,11 @@ module lobby.view.multi {
 			m_btnSetting.fOnOut = function():void{
 				TipManager.getInstance().hide();
 			};
-			m_btnFirst = new SingleButtonMC(m_mcAsset.mc_0, function(evt:MouseEvent):void{
+			m_btnFirst = new ui.button.SingleButtonMC(m_mcAsset.mc_0, function(evt:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				uCurrent = 1;
 			});
-			m_btnLeft = new SingleButtonMC(m_mcAsset.mc_1, function(evt:MouseEvent):void{
+			m_btnLeft = new ui.button.SingleButtonMC(m_mcAsset.mc_1, function(evt:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				m_uCurrent--;
 				if(m_uCurrent<1){
@@ -43,7 +43,7 @@ module lobby.view.multi {
 					uCurrent = m_uCurrent;
 				}
 			});
-			m_btnNext = new SingleButtonMC(m_mcAsset.mc_2, function(evt:MouseEvent):void{
+			m_btnNext = new ui.button.SingleButtonMC(m_mcAsset.mc_2, function(evt:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				m_uCurrent++;
 				if(m_uCurrent>m_uTotalPage){
@@ -53,7 +53,7 @@ module lobby.view.multi {
 				}
 				
 			});
-			m_btnLast = new SingleButtonMC(m_mcAsset.mc_3, function(evt:MouseEvent):void{
+			m_btnLast = new ui.button.SingleButtonMC(m_mcAsset.mc_3, function(evt:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				uCurrent = m_uTotalPage;
 			});
@@ -121,8 +121,8 @@ module lobby.view.multi {
 			}
 		}
 		
-		public addRecord(_vecStruct:<RecordBetStruct>):void{
-			var _len : int = _vecStruct.length
+		public addRecord(_vecStruct:model.struct.RecordBetStruct[]):void{
+			var _len : number = _vecStruct.length
 			for (var i:number= 0; i < _len; i++) 
 			{
 				m_vecRecordData.unshift(_vecStruct[i]);

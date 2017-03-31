@@ -4,7 +4,7 @@ module lobby.view.panel {
 		protected m_mcAsset		:	egret.MovieClip;
         protected m_mcHot		:	egret.MovieClip;
         protected m_rectangle	:	egret.Rectangle;
-        // protected m_btnClose	:	SingleButtonMC;
+        // protected m_btnClose	:	ui.button.SingleButtonMC;
 		
         private m_bMove			:	 boolean;
         private m_bShake		:	 boolean;

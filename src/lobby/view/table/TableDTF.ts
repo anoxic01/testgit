@@ -6,8 +6,8 @@ module lobby.view.table {
 //		private m_bmpPlayer		:	Bitmap;						//下注数据
 //		private m_bmpTie		:	Bitmap;						//下注数据
 				
-		private m_btnDragon		:	SingleButtonMC;				//龙问路
-		private m_btnTiger		:	SingleButtonMC;				//虎问路
+		private m_btnDragon		:	ui.button.SingleButtonMC;				//龙问路
+		private m_btnTiger		:	ui.button.SingleButtonMC;				//虎问路
 		private m_road			:	TableRoadMapDTF;			//路子
 		
 		public constructor() {
@@ -77,13 +77,13 @@ module lobby.view.table {
 //				}
 //			});
 			
-			m_btnDragon = new SingleButtonMC(m_mcContent.mc_12, function(evt:MouseEvent):void{
+			m_btnDragon = new ui.button.SingleButtonMC(m_mcContent.mc_12, function(evt:MouseEvent):void{
 				LobbyManager.getInstance().hideAllPanel();
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				m_road.onAskRoad(DtfRouteMgr.ASK_MODE_DRAGON);
 				evt.stopImmediatePropagation();
 			});
-			m_btnTiger = new SingleButtonMC(m_mcContent.mc_13, function(evt:MouseEvent):void{
+			m_btnTiger = new ui.button.SingleButtonMC(m_mcContent.mc_13, function(evt:MouseEvent):void{
 				LobbyManager.getInstance().hideAllPanel();
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				m_road.onAskRoad(DtfRouteMgr.ASK_MODE_TIGER);

@@ -32,7 +32,7 @@ module lobby.model.struct {
 		 * 	赌桌维护	List<MaintainTable>
 		 * 	代理维护	int 最高代理ID
 		 */		
-		public MaintainData		:	any;
+		public MaintainData		;
 		
 		/**
 		 *	结束维护，回复资料 
@@ -175,21 +175,21 @@ module lobby.model.struct {
 				case lobby.model.status.SysMaintainStatus.Start:
 					var _tableStruct : TableStruct;
 					switch(manager.LobbyManager.getInstance().exitLevel){
-						case Define.EXIT_MULTI_TABLE:
-							if(MaintainData_game && MaintainData_game.length>0){
-								for(var i:number= 0;i<MaintainData_game.length;i++){
-									_tableStruct = LobbyData.getInstance().getTableStructByTableID(MaintainData_game[i].TableID);
+						case define.Define.EXIT_MULTI_TABLE:
+							if(this.MaintainData_game && this.MaintainData_game.length>0){
+								for(var i:number= 0;i<this.MaintainData_game.length;i++){
+									_tableStruct = LobbyData.getInstance().getTableStructByTableID(this.MaintainData_game[i].TableID);
 									if(_tableStruct){
 										manager.LobbyManager.getInstance().lobbyView.removeTable(_tableStruct);
 									}
 								}
 							}
 							break;
-						case Define.EXIT_GAME:
+						case define.Define.EXIT_GAME:
 							var tableid : int = manager.LobbyManager.getInstance().getGameTableID();
-							if(MaintainData_game && MaintainData_game.length>0){
-								for(var j:number= 0;j<MaintainData_game.length;j++){
-									_tableStruct = LobbyData.getInstance().getTableStructByTableID(MaintainData_game[j].TableID);
+							if(this.MaintainData_game && this.MaintainData_game.length>0){
+								for(var j:number= 0;j<this.MaintainData_game.length;j++){
+									_tableStruct = LobbyData.getInstance().getTableStructByTableID(this.MaintainData_game[j].TableID);
 									if(_tableStruct){
 										if(_tableStruct.TableID==tableid){
 											break;
@@ -198,18 +198,18 @@ module lobby.model.struct {
 									}
 								}
 								
-								manager.LobbyManager.getInstance().lobbyView.tableMaintenance(MaintainData);
+								manager.LobbyManager.getInstance().lobbyView.tableMaintenance(this.MaintainData);
 							}
 							break;
-						case Define.EXIT_LOBBY:
-							for (var k:number= 0; k < MaintainData_game.length; k++) 
+						case define.Define.EXIT_LOBBY:
+							for (var k:number= 0; k < this.MaintainData_game.length; k++) 
 							{
-								_tableStruct = LobbyData.getInstance().getTableStructByTableID(MaintainData_game[k].TableID);
+								_tableStruct = LobbyData.getInstance().getTableStructByTableID(this.MaintainData_game[k].TableID);
 								if(_tableStruct){
 									LobbyData.getInstance().addMaintainTableStruct(_tableStruct);
 								}
 							}
-							manager.LobbyManager.getInstance().lobbyView.tableMaintenance(MaintainData);
+							manager.LobbyManager.getInstance().lobbyView.tableMaintenance(this.MaintainData);
 							break;
 					}
 					break;
@@ -230,82 +230,82 @@ module lobby.model.struct {
 		
 		public cloneMaintainData():void
 		{
-			if(MaintainData is any[])
+			if(this.MaintainData instanceof Array)
 			{
-				var datas:any[] = MaintainData as any[];
+				var datas:any[] = this.MaintainData as any[];
 				for (var i:number= 0; i < datas.length; i++) 
 				{
-					MaintainData_game[i] = datas[i];
+					this.MaintainData_game[i] = datas[i];
 				}
 			}
 			else
 			{
-				MaintainData_game.length=0;
+				this.MaintainData_game.length=0;
 			}
 		}
 
 		public isEqual(vo:MaintainsAnnouncementStruct): boolean
 		{
-			if(MaintainType==vo.MaintainType && MaintainModel==vo.MaintainModel)//&& MaintainStatus==vo.MaintainStatus
+			if(this.MaintainType==vo.MaintainType && this.MaintainModel==vo.MaintainModel)//&& MaintainStatus==vo.MaintainStatus
 			{
-				if(compareObj(MaintainData,vo.MaintainData))
+				if(this.compareObj(this.MaintainData,vo.MaintainData))
 				{
 					return true;
 				}
 			}
 			return false;
 		}
-		public toString():String
+		public tostring():string
 		{
-			var sValue : String="";
-			switch(MaintainType){
+			var sValue : string="";
+			switch(this.MaintainType){
 				case lobby.model.type.SysMaintainType.Maintenance_FullSite:
-					if(MaintainStatus==1){
-						sValue = combinationTime("{0}",manager.LobbyManager.getInstance().getLanguageString(Language.sMaintain_Notice_Whole_1));
-					}else if(MaintainStatus==3){
-						sValue = combination(manager.LobbyManager.getInstance().getLanguageString(Language.sMaintain_Notice_Whole));;
+					if(this.MaintainStatus==1){
+						sValue = this.combinationTime("{0}",manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Whole_1));
+					}else if(this.MaintainStatus==3){
+						sValue = this.combination(manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Whole));;
 					}
 					break;
 				
 				case lobby.model.type.SysMaintainType.Maintenance_TopAgent:
-					if(MaintainStatus==1){
-						sValue = combinationTime("{0}",manager.LobbyManager.getInstance().getLanguageString(Language.sMaintain_Notice_Agent_1));
-					}else if(MaintainStatus==3){
-						sValue = combination(manager.LobbyManager.getInstance().getLanguageString(Language.sMaintain_Notice_Agent));
+					if(this.MaintainStatus==1){
+						sValue = this.combinationTime("{0}",manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Agent_1));
+					}else if(this.MaintainStatus==3){
+						sValue = this.combination(manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Agent));
 					}
 					break;
 				
 				case lobby.model.type.SysMaintainType.Maintenance_Theme:
-					if(MaintainStatus==1){
-						sValue = manager.LobbyManager.getInstance().getLanguageString(Language.sMaintain_Notice_Theme_1);
-						sValue = combinationName("{0}",sValue);
-						sValue = combinationTime("{1}",sValue);
+					if(this.MaintainStatus==1){
+						sValue = manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Theme_1);
+						sValue = this.combinationName("{0}",sValue);
+						sValue = this.combinationTime("{1}",sValue);
 					}else if(MaintainStatus==3){
-						sValue = combination(manager.LobbyManager.getInstance().getLanguageString(Language.sMaintain_Notice_Theme));
+						sValue = this.combination(manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Theme));
 					}
 					break;
 				
 				case lobby.model.type.SysMaintainType.Maintenance_Table:
-					if(MaintainStatus==1){
-						sValue = manager.LobbyManager.getInstance().getLanguageString(Language.sMaintain_Notice_Table_1);
-						sValue = combinationName("{0}",sValue);
-						sValue = combinationTime("{1}",sValue);
-					}else if(MaintainStatus==3){
-						sValue = combination(manager.LobbyManager.getInstance().getLanguageString(Language.sMaintain_Notice_Table));
+					if(this.MaintainStatus==1){
+						sValue = manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Table_1);
+						sValue = this.combinationName("{0}",sValue);
+						sValue = this.combinationTime("{1}",sValue);
+					}else if(this.MaintainStatus==3){
+						sValue = this.combination(manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Table));
 					}
 					break;
 			}
 			return sValue;
 		}
-		private compareObj(aObj:Object,bObj:Object): boolean{
+		private compareObj(aObj,bObj): boolean{
 			//全站维护	Object=null
 			if(aObj == null && bObj == null){
 				return true;
 			}
 			
-			if(aObj is any[] && aObj.length == bObj.length){
-				for(var i:* in aObj){
-					if(aObj[i] is int){//厅馆维护	List<int>
+			if(aObj instanceof Array && aObj.length == bObj.length){
+				for(var i in aObj){
+					if(aObj[i] instanceof number){//厅馆维护	List<int>
 						if(aObj[i] != bObj[i]){
 							return false;
 						}
@@ -327,24 +327,24 @@ module lobby.model.struct {
 		}
 		
 		
-		private combination(sValue:String):String{
+		private combination(sValue:string):string{
 			if(sValue.indexOf("{0}")!=-1){
-				sValue = sValue.replace("{0}",LobbyData.getInstance().utcToLocal(StartTime));
+				sValue = sValue.replace("{0}",LobbyData.getInstance().utcToLocal(this.StartTime));
 			}
-			sValue = combinationName("{1}",sValue);
+			sValue = this.combinationName("{1}",sValue);
 			
 			return sValue;
 		}
-		private combinationName(skey:String,sValue:String):String{
+		private combinationName(skey:string,sValue:string):string{
 			if(sValue.indexOf(skey)!=-1){
-				var arr : any[] = MaintainData_game;
-				var _len : int = arr.length;
-				var _name : String = "";
+				var arr : any[] = this.MaintainData_game;
+				var _len : number = arr.length;
+				var _name : string = "";
 				var theme:ThemeNameStruct;
 				var table:TableNameStruct;
 				for (var i:number= 0; i < _len; i++) 
 				{
-					if(MaintainType==lobby.model.type.SysMaintainType.Maintenance_Theme){
+					if(this.MaintainType==lobby.model.type.SysMaintainType.Maintenance_Theme){
 						theme = LobbyData.getInstance().getThemeNameStructByID(arr[i]);
 						if(theme==null)
 						{
@@ -352,18 +352,18 @@ module lobby.model.struct {
 							continue;
 						}
 						switch(manager.LobbyManager.getInstance().lobbyAuth.Lang){
-							case Define.LANGUAGE_CN:
-								_name += "("+String(i+1)+")"+theme.CN + ";";
+							case define.Define.LANGUAGE_CN:
+								_name += "("+<string>(i+1)+")"+theme.CN + ";";
 								break;
-							case Define.LANGUAGE_TW:
-								_name += "("+String(i+1)+")"+theme.TW + ";";
+							case define.Define.LANGUAGE_TW:
+								_name += "("+<string>(i+1)+")"+theme.TW + ";";
 								break;
-							case Define.LANGUAGE_EN:
-								_name += "("+String(i+1)+")"+theme.EN + ";";
+							case define.Define.LANGUAGE_EN:
+								_name += "("+<string>(i+1)+")"+theme.EN + ";";
 								break;
 						}
 						
-					}else if(MaintainType==lobby.model.type.SysMaintainType.Maintenance_Table){
+					}else if(this.MaintainType==lobby.model.type.SysMaintainType.Maintenance_Table){
 						table = LobbyData.getInstance().getTableNameStructByID(arr[i].TableID);
 						if(table==null)
 						{
@@ -371,14 +371,14 @@ module lobby.model.struct {
 							continue;
 						}
 						switch(manager.LobbyManager.getInstance().lobbyAuth.Lang){
-							case Define.LANGUAGE_CN:
-								_name += "("+String(i+1)+")"+table.CN + ";";
+							case define.Define.LANGUAGE_CN:
+								_name += "("+<string>(i+1)+")"+table.CN + ";";
 								break;
-							case Define.LANGUAGE_TW:
-								_name += "("+String(i+1)+")"+table.TW + ";";
+							case define.Define.LANGUAGE_TW:
+								_name += "("+<string>(i+1)+")"+table.TW + ";";
 								break;
-							case Define.LANGUAGE_EN:
-								_name += "("+String(i+1)+")"+table.EN + ";";
+							case define.Define.LANGUAGE_EN:
+								_name += "("+<string>(i+1)+")"+table.EN + ";";
 								break;
 						}
 					}
@@ -390,7 +390,7 @@ module lobby.model.struct {
 		}
 		private combinationTime(skey:string,sValue:string):string{
 			if(sValue.indexOf(skey)!=-1){
-				var _str : String = LobbyData.getInstance().utcToLocal_1(StartTime) + "-" + LobbyData.getInstance().utcToLocal_1(EndTime);
+				var _str : string = LobbyData.getInstance().utcToLocal_1(this.StartTime) + "-" + LobbyData.getInstance().utcToLocal_1(this.EndTime);
 				sValue = sValue.replace(skey,_str);
 			}
 			return sValue;

@@ -6,7 +6,7 @@ module lobby.view.quick {
 		private m_spTableListMask	:	Sprite;							//维护遮罩
 		private m_bg				:	BitmapScale9Grid;
 		private m_mcClose			:	*;
-		private m_btnClose			:	SingleButtonMC;
+		private m_btnClose			:	ui.button.SingleButtonMC;
 		private m_loading			:	*;								//加载图标
 		private m_themeMaintain		:	GameMsgWnd;						//厅馆维护
 		private mmc:MMovieClip;
@@ -33,7 +33,7 @@ module lobby.view.quick {
 			m_bg.x = 130;
 			m_bg.y = 120;
 			
-			m_btnClose = new SingleButtonMC(m_mcClose, function(event:MouseEvent):void{
+			m_btnClose = new ui.button.SingleButtonMC(m_mcClose, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				//取消订阅
 				LobbyManager.getInstance().sendSubscribeTheme(-1, LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme.struct.ThemeID);

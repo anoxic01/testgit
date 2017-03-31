@@ -4,13 +4,14 @@ module lobby.view.game {
 		public GameID				:	number;					//游戏序号
 		protected m_bActive			:	 boolean;				//是否激活
 		public bIsInited			:	 boolean;				//是否初始化
-		public tableStruct			:	TableStruct;
-		public transitionDict		:	Dictionary;				//用来做动画的dict
-		public model				:	GameModel;
+		public tableStruct			:	model.struct.TableStruct;
+		public transitionDict		;				//用来做动画的dict
+		public model				:	model.game.GameModel;
 		
 		public Version				:	String	= "";
 		
 		public constructor() {
+			super();
 		}
 
 		 public destroy() : void
@@ -23,7 +24,7 @@ module lobby.view.game {
             
         }
 
-        public insertRoom(socket:TCPSocket) : void
+        public insertRoom(socket:socket.TCPSocket) : void
         {
             
         }
@@ -39,21 +40,21 @@ module lobby.view.game {
 		}
 		
 		public removePacket():void{
-			PacketManager.getInstance().removeProtocol(PacketDefine.GAME,PacketDefine.S_Heart );					//客戶端主動發起心跳回復
-			PacketManager.getInstance().removeProtocol(PacketDefine.GAME,PacketDefine.C_Heart );					//服務端主動發起心跳回復	
-			PacketManager.getInstance().removeProtocol(PacketDefine.GAME,PacketDefine.ACK );						//ACK
-			PacketManager.getInstance().removeProtocol(PacketDefine.GAME,PacketDefine.N_ACK);						//NACK	
+			manager.PacketManager.getInstance().removeProtocol(define.PacketDefine.GAME,define.PacketDefine.S_Heart );					//客戶端主動發起心跳回復
+			manager.PacketManager.getInstance().removeProtocol(define.PacketDefine.GAME,define.PacketDefine.C_Heart );					//服務端主動發起心跳回復	
+			manager.PacketManager.getInstance().removeProtocol(define.PacketDefine.GAME,define.PacketDefine.ACK );						//ACK
+			manager.PacketManager.getInstance().removeProtocol(define.PacketDefine.GAME,define.PacketDefine.N_ACK);						//NACK	
 			
 			
 		}
 		
 		/** 游戏数据 **/
-		public receiveTableStruct(_tableStruct:TableStruct) : void
+		public receiveTableStruct(_tableStruct:model.struct.TableStruct) : void
 		{
 			
 		}
 		/** 多桌好路 **/
-		public receiveGoodRoadStruct(_goodRoadMapStruct:GoodRoadStruct):void{
+		public receiveGoodRoadStruct(_goodRoadMapStruct:model.struct.GoodRoadStruct):void{
 			
 		}
 		
@@ -63,7 +64,7 @@ module lobby.view.game {
 		}
 		
 		/**好路通知**/
-		public addGoodRoadNotification(_goodRoadMapStruct:GoodRoadStruct):void{
+		public addGoodRoadNotification(_goodRoadMapStruct:model.struct.GoodRoadStruct):void{
 			
 		}
 		public removeGoodRoadNotification(_tableID:number):void
@@ -79,12 +80,12 @@ module lobby.view.game {
 		
 		get bActive(): boolean
 		{
-			return m_bActive;
+			return this.m_bActive;
 		}
 		
 		set  bActive(value: boolean)
 		{
-			m_bActive = value;
+			this.m_bActive = value;
 		}
 		
 		/**
@@ -112,7 +113,7 @@ module lobby.view.game {
 			return false;
 		}
 		
-		get chipSetSprite():Sprite{
+		get chipSetSprite():egret.Sprite{
 			return null;
 		}
 		
@@ -198,7 +199,7 @@ module lobby.view.game {
 		}
 		
 		/** 荷官数据 **/
-		public updateDealerInfo(_struct : DealerStruct):void{
+		public updateDealerInfo(_struct : model.struct.DealerStruct):void{
 			
 		}
 		

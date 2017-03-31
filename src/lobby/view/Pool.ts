@@ -1,21 +1,21 @@
 module lobby.view {
-	export class Pool implements ISprite{
-		protected _pool:<MovieClip>;
+	export class Pool implements iface.ISprite{
+		protected _pool:egret.MovieClip[];
 		/**已取出幾個*/
 		protected _getLen:number;
 		
 		public constructor() {
-			this._pool = new <MovieClip>();
+			this._pool = new Array<egret.MovieClip>();
 			this._getLen = 0;
 		}
 
 		
 		public destroy():void{
-			if( _pool != null ) {
-				var mc : MovieClip;
-				while(_pool.length>0)
+			if( this._pool != null ) {
+				var mc : egret.MovieClip;
+				while(this._pool.length>0)
 				{
-					mc = _pool.shift();
+					mc = this._pool.shift();
 					if(mc && mc.parent){
 						mc.parent.removeChild(mc);
 					}
@@ -23,19 +23,19 @@ module lobby.view {
 				if(mc){
 					mc = null;
 				}
-				_pool = null;
+				this._pool = null;
 			}
-			_getLen = 0;
+			this._getLen = 0;
 		}
 		
 		/**
 		 * 要道物件池中的物件
 		 */
-		public getObject( Cls:Class ):MovieClip {
+		public getObject( Cls ):egret.MovieClip {
 			
 			
 			var lackLen:number= this._pool.length - this._getLen;
-			var mc:MovieClip;
+			var mc:egret.MovieClip;
 			//在物件池中有剩下的原件]
 			if ( lackLen > 0 ) {
 				mc = this._pool[this._getLen];
@@ -43,14 +43,14 @@ module lobby.view {
 			}
 			else {
 				
-				//console.log("this._pool  LEN::::::::" + this._pool.length );
+				//console.log("this.this._pool  LEN::::::::" + this.this._pool.length );
 				var classObj:Object = new Cls();
 				
-				if ( classObj is MovieClip ) {
+				if ( classObj instanceof egret.MovieClip ) {
 					//不自动存入对象池
-					//this._pool.push( classObj );
+					//this.this._pool.push( classObj );
 					//this._getLen++;
-					mc = classObj as MovieClip;
+					mc = classObj as egret.MovieClip;
 					
 				}
 				else {
@@ -65,14 +65,14 @@ module lobby.view {
 		}
 		
 		public getPoolLength():number{
-			return _pool.length;
+			return this._pool.length;
 		}
 		
 		/**
 		 * 用完放回物件池
 		 * @param	mc
 		 */
-		public putObject( mc:MovieClip ):void {
+		public putObject( mc:egret.MovieClip ):void {
 			if ( this._getLen > 0 )  {
 				this._getLen -= 1;
 			}
@@ -83,7 +83,7 @@ module lobby.view {
 		 */
 		public allPutPool():void {
 			this._getLen = 0;
-			allPutOut();
+			this.allPutOut();
 		}
 		
 		/**
@@ -91,9 +91,9 @@ module lobby.view {
 		 */
 		public allPutOut():void {
 			this._getLen = 0;
-			while(_pool.length>0)
+			while(this._pool.length>0)
 			{
-				 _pool.shift();
+				 this._pool.shift();
 			}
 		}
 		

@@ -1,10 +1,10 @@
 module lobby.view.lives {
 	export class MLiveVideo extends LiveVideoGame{
-		private m_btnRefresh		:	SingleButtonMC;				//刷新视讯
-		private m_btnZoomIn			:	SingleButtonMC;				//放大视讯
-		private m_btnZoomOut		:	SingleButtonMC;				//缩小视讯
-		public btnBack				:	SingleButtonMC;				//关闭视讯
-		private m_btnOnOff			:	SingleButtonMC;				//显示隐藏
+		private m_btnRefresh		:	ui.button.SingleButtonMC;				//刷新视讯
+		private m_btnZoomIn			:	ui.button.SingleButtonMC;				//放大视讯
+		private m_btnZoomOut		:	ui.button.SingleButtonMC;				//缩小视讯
+		public btnBack				:	ui.button.SingleButtonMC;				//关闭视讯
+		private m_btnOnOff			:	ui.button.SingleButtonMC;				//显示隐藏
 		private m_mask				:	Sprite;
 		
 		public zoomPt				:	Point;						//放大到的点
@@ -28,9 +28,9 @@ module lobby.view.lives {
 			zoomPt.y = 120;
 			
 			var mc1:MovieClip=_mcParent.getChildByName("mc_1")as MovieClip;
-			m_btnRefresh = new SingleButtonMC(mc1, function(event:MouseEvent):void{
+			m_btnRefresh = new ui.button.SingleButtonMC(mc1, function(event:MouseEvent):void{
 				TipManager.getInstance().hide();
-				m_rtmpPlayer.stop();
+				m_util.rtmp.RTMPPlayer.stop();
 				play();
 			});
 			m_btnRefresh.fOnOver = function():void{
@@ -44,11 +44,11 @@ module lobby.view.lives {
 			去掉放大功能
 			var mc2:MovieClip=_mcParent.getChildByName("mc_2")as MovieClip;
 			mc2.visible=false;
-			m_btnZoomIn = new SingleButtonMC(mc2, function(event:MouseEvent):void{
+			m_btnZoomIn = new ui.button.SingleButtonMC(mc2, function(event:MouseEvent):void{
 				TipManager.getInstance().hide();
 				
 				//放大
-				//m_rtmpPlayer.zoomIn();
+				//m_util.rtmp.RTMPPlayer.zoomIn();
 				zoomIn();
 			});
 			m_btnZoomIn.fOnOver = function():void{
@@ -62,7 +62,7 @@ module lobby.view.lives {
 			if (mc3){
 				mc3.visible=false;
 				//缩小
-				m_btnZoomOut = new SingleButtonMC(mc3, function(event:MouseEvent):void{
+				m_btnZoomOut = new ui.button.SingleButtonMC(mc3, function(event:MouseEvent):void{
 					TipManager.getInstance().hide();
 					zoomOut();
 				});
@@ -76,7 +76,7 @@ module lobby.view.lives {
 				
 			var mc4:MovieClip=_mcParent.getChildByName("mc_4")as MovieClip;
 			if (mc4){
-				btnBack = new SingleButtonMC(mc4, function(event:MouseEvent):void{
+				btnBack = new ui.button.SingleButtonMC(mc4, function(event:MouseEvent):void{
 					
 				});
 				btnBack.fOnOver = function():void{
@@ -95,40 +95,40 @@ module lobby.view.lives {
 			setVolume(0);
 		}
 		
-		 public initializeRTMPPlayer():void{
-			m_rtmpPlayer = new RTMPPlayer();
-			m_rtmpPlayer.initialize( m_mcVideo, uWidth, uHeight);
+		 public initializeutil.rtmp.RTMPPlayer():void{
+			m_util.rtmp.RTMPPlayer = new util.rtmp.RTMPPlayer();
+			m_util.rtmp.RTMPPlayer.initialize( m_mcVideo, uWidth, uHeight);
 			
-			m_rtmpPlayer.fHideLoading = hideLoding; 
-			m_rtmpPlayer.fConnectFailed = connectFailed;
+			m_util.rtmp.RTMPPlayer.fHideLoading = hideLoding; 
+			m_util.rtmp.RTMPPlayer.fConnectFailed = connectFailed;
 			
-			m_rtmpPlayer.resize(uWidth,uHeight);
+			m_util.rtmp.RTMPPlayer.resize(uWidth,uHeight);
 			var _bStatus :  boolean = SharedObjectManager.getLiveOnOff();
-			m_rtmpPlayer.setVolume(_bStatus?SharedObjectManager.getLiveVolume():0);
+			m_util.rtmp.RTMPPlayer.setVolume(_bStatus?SharedObjectManager.getLiveVolume():0);
 			
 			m_loading = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_LOBBY,"LoadingLiveAsset");
 //			m_mcVideo.addChild(m_loading);
 //			m_loading.x = int( mcAsset.width * 0.5 - 100);
 //			m_loading.y = int(mcAsset.height * 0.5 - 20);
 //			
-			m_rtmpPlayer.fConnectSuccess = function():void{
+			m_util.rtmp.RTMPPlayer.fConnectSuccess = function():void{
 				if(m_tfWarn){
 					m_tfWarn.visible = false;
 				}
 				uCount = 0;
-				m_rtmpPlayer.setStageVideo(0,0,1920,1080);
+				m_util.rtmp.RTMPPlayer.setStageVideo(0,0,1920,1080);
 			};
 		}
 		
 		 protected init():void{
 			m_mcVideo = new MovieClip();
 			mcAsset.addChildAt(m_mcVideo,1);
-			initializeRTMPPlayer();
-			m_rtmpPlayer.bClear = true;
+			initializeutil.rtmp.RTMPPlayer();
+			m_util.rtmp.RTMPPlayer.bClear = true;
 			m_mcVideo.graphics.beginFill(0x550000,0);
 			m_mcVideo.graphics.drawRect(0, 0, uWidth, uHeight);
 			m_mcVideo.graphics.endFill();
-			m_rtmpPlayer.resizeAlignCenter(uWidth,uHeight);
+			m_util.rtmp.RTMPPlayer.resizeAlignCenter(uWidth,uHeight);
 		}
 		
 		
@@ -156,16 +156,16 @@ module lobby.view.lives {
 			initWorn();
 			
 			switch(_iType){
-				case RTMPPlayer.iStreamNotFound:
+				case util.rtmp.RTMPPlayer.iStreamNotFound:
 					m_tfWarn.text = LobbyManager.getInstance().getLanguageString(  Language.sLiveError );	
 					sFailedConnectType = Language.sLiveError;
 					break;
-				case RTMPPlayer.iRejected:
+				case util.rtmp.RTMPPlayer.iRejected:
 					m_tfWarn.text = LobbyManager.getInstance().getLanguageString(  Language.sLiveError );	
 					sFailedConnectType = Language.sLiveError;
 					break;
-				case RTMPPlayer.iVideoConnectFailed:
-				case RTMPPlayer.iVideoPlayFailed:
+				case util.rtmp.RTMPPlayer.iVideoConnectFailed:
+				case util.rtmp.RTMPPlayer.iVideoPlayFailed:
 					m_tfWarn.text = LobbyManager.getInstance().getLanguageString( Language.sLiveError );	
 					sFailedConnectType = Language.sLiveError;
 					break;

@@ -3,60 +3,60 @@ module manager {
 		private m_bEnabled				:	 boolean	=	true;			//音乐开关
 		private m_sTrack				:	string;						//音乐名称
 		private m_resources				:	Object;						//播放记录
-		private m_playingSoundChannel	:	SoundChannel;				//当前声道
-		private m_oldSound				:	SoundChannel;				//旧声道
-		private m_duckingCount			:	Number;						//缓动系数
-		private  m_playSound			:	Sound;
-		private m_tweenLite				:	TweenLite;
-		private m_nVolume				:	Number	=	0.6;			//音乐音量
-		private m_transform 			: 	SoundTransform;
-		private m_nPausePosition		:	Number = 0;					//當前播放位置
+		private m_playingSoundChannel	;				//当前声道
+		private m_oldSound				;				//旧声道
+		private m_duckingCount			:	number;						//缓动系数
+		private m_playSound			;
+		private m_tweenLite				;
+		private m_nVolume				:	number	=	0.6;			//音乐音量
+		private m_transform 			;
+		private m_nPausePosition		:	number = 0;					//當前播放位置
 		
 		private static _instance		:	MusicManager;
 		public constructor() {
-			m_resources = {};
-			m_duckingCount = 0;
-			m_transform = new SoundTransform(m_nVolume);
+			this.m_resources = {};
+			this.m_duckingCount = 0;
+			this.m_transform = new SoundTransform(this.m_nVolume);
 			return;
 		}
 
 		
-		public easingVolume( dur:Number, to:Number ) : void
+		public easingVolume( dur:number, to:number ) : void
 		{
-			if (m_playSound&&m_bEnabled){
-				fadeVolume( dur, to);
+			if (this.m_playSound&&this.m_bEnabled){
+				this.fadeVolume( dur, to);
 			}
 		}
 		
-		set  nVolume(nV:Number) 
+		set  nVolume(nV:number) 
 		{
-			m_nVolume = nV;
+			this.m_nVolume = nV;
 			
-			if (m_playingSoundChannel)
+			if (this.m_playingSoundChannel)
 			{
-				if(m_transform) {
-					m_transform = null;
+				if(this.m_transform) {
+					this.m_transform = null;
 				}
-				m_transform = new SoundTransform(nV);
-				m_playingSoundChannel.soundTransform = m_transform;
+				this.m_transform = new SoundTransform(nV);
+				this.m_playingSoundChannel.soundTransform = this.m_transform;
 			}
 			
 		}
 		
-		get nVolume() : Number
+		get nVolume() : number
 		{
-			return m_nVolume;
+			return this.m_nVolume;
 		}
 		
-		private fadeVolume(  dur:Number, to:Number) : void{
-			if (m_transform){
-				TweenLite.to(m_transform, dur, { volume: to, onUpdate: updateChannel } );  
+		private fadeVolume(  dur:number, to:number) : void{
+			if (this.m_transform){
+				TweenLite.to(this.m_transform, dur, { volume: to, onUpdate: this.updateChannel } );  
 			}
 		}
 		
 		private updateChannel():void {  
-			if( m_playingSoundChannel ){
-				m_playingSoundChannel.soundTransform = m_transform; 
+			if( this.m_playingSoundChannel ){
+				this.m_playingSoundChannel.soundTransform = this.m_transform; 
 			}	 
 		} 		
 		
@@ -74,39 +74,39 @@ module manager {
 				return;
 			}
 			
-			if (m_sTrack && (m_sTrack == songName))
+			if (this.m_sTrack && (this.m_sTrack == songName))
 			{
 				return;
 			}
 			
-			if (crossfade && m_playingSoundChannel)
+			if (crossfade && this.m_playingSoundChannel)
 			{
-				m_oldSound = m_playingSoundChannel;
-				var timer:Timer = new Timer(10);
+				this.m_oldSound = this.m_playingSoundChannel;
+				var timer = new egret.Timer(10);
 				timer.start();
-				timer.addEventListener(TimerEvent.TIMER, function fade():void{
+				timer.addEventListener(egret.TimerEvent.TIMER, function fade():void{
 					var _newTransform : SoundTransform = null;
 					var _oldTrandform : SoundTransform = null;
-					if (m_oldSound.soundTransform.volume <= 0)
+					if (this.m_oldSound.soundTransform.volume <= 0)
 					{
-						m_oldSound.stop();
-						m_oldSound = null;
-						_newTransform = new SoundTransform(nVolume);
-						m_playingSoundChannel.soundTransform = _newTransform;
-						timer.removeEventListener(TimerEvent.TIMER, fade);
+						this.m_oldSound.stop();
+						this.m_oldSound = null;
+						_newTransform = new SoundTransform(this.nVolume);
+						this.m_playingSoundChannel.soundTransform = _newTransform;
+						timer.removeEventListener(egret.TimerEvent.TIMER, fade, this);
 						timer.stop();
 						timer = null;
 						return;
 					}else{
-						_oldTrandform = new SoundTransform(m_oldSound.soundTransform.volume - 0.02);
-						m_oldSound.soundTransform = _oldTrandform;
-						_newTransform = new SoundTransform(m_playingSoundChannel.soundTransform.volume + 0.02);
-						m_playingSoundChannel.soundTransform = _newTransform;
+						_oldTrandform = new SoundTransform(this.m_oldSound.soundTransform.volume - 0.02);
+						this.m_oldSound.soundTransform = _oldTrandform;
+						_newTransform = new SoundTransform(this.m_playingSoundChannel.soundTransform.volume + 0.02);
+						this.m_playingSoundChannel.soundTransform = _newTransform;
 					}
-				});
-			} else if (m_playingSoundChannel)
+				}, this);
+			} else if (this.m_playingSoundChannel)
 			{
-				m_playingSoundChannel.stop();
+				this.m_playingSoundChannel.stop();
 			}
 			
 			if (loops == -1)
@@ -114,35 +114,35 @@ module manager {
 				loops = int.MAX_VALUE;
 			}
 			
-			if (!m_resources[songName])
+			if (!this.m_resources[songName])
 			{
-				var songClass:Class = ResourceManager.getInstance().getClassByNameFromDomain("sound.swf",songName) as Class;
+				var songClass = ResourceManager.getInstance().getClassByNameFromDomain("sound.swf",songName);
 				if (songClass == null)
 				{
 					console.log("背景音乐找不到:",songName);
 					return;
 				}
-				var sd:Sound = new songClass() as Sound;
+				var sd = new songClass();
 				sd.addEventListener("ioError", function () : void
 				{
 					console.log("IOERROR IN PLAY");
 				});
-				m_resources[songName] = sd;
+				this.m_resources[songName] = sd;
 			}
 			
-			m_sTrack = songName;
-			m_playingSoundChannel = (m_resources[songName] as Sound).play(0, loops, new SoundTransform(SharedObjectManager.getMusicVolume()));
+			this.m_sTrack = songName;
+			this.m_playingSoundChannel = (this.m_resources[songName]).play(0, loops, new SoundTransform(SharedObjectManager.getMusicVolume()));
 			
 		}
 		
 		public stop() : void
 		{
-			if( m_tweenLite ){
-				m_tweenLite.kill( null, m_playSound);
+			if( this.m_tweenLite ){
+				this.m_tweenLite.kill( null, this.m_playSound);
 			}
-			if (m_playingSoundChannel){
-				m_nPausePosition = m_playingSoundChannel.position;
-				m_playingSoundChannel.stop();
+			if (this.m_playingSoundChannel){
+				this.m_nPausePosition = this.m_playingSoundChannel.position;
+				this.m_playingSoundChannel.stop();
 			}
 			
 			return;
@@ -150,90 +150,90 @@ module manager {
 		
 		get enabled() :  boolean
 		{
-			return m_bEnabled;
+			return this.m_bEnabled;
 		}
 		
 		set  enabled(value: boolean) 
 		{
-			m_bEnabled = value;
+			this.m_bEnabled = value;
 			if (value)
 			{
-				if( m_playSound && m_playingSoundChannel ){
-					clear();
-					m_playingSoundChannel = m_playSound.play( m_nPausePosition );	
-					m_playingSoundChannel.addEventListener(Event.SOUND_COMPLETE , soundPlayComplete);
-					m_playingSoundChannel.soundTransform = new SoundTransform( nVolume==0?0.6:nVolume );
+				if( this.m_playSound && this.m_playingSoundChannel ){
+					this.clear();
+					this.m_playingSoundChannel = this.m_playSound.play( this.m_nPausePosition );	
+					this.m_playingSoundChannel.addEventListener(egret.Event.SOUND_COMPLETE , this.soundPlayComplete);
+					this.m_playingSoundChannel.soundTransform = new SoundTransform( this.nVolume==0?0.6:this.nVolume );
 				}
 				
 			}
 			else
 			{
-				stop();
+				this.stop();
 			}
 			return;
 		}
 		
 		public toggleEnabled() : void
 		{
-			enabled = !enabled;
+			this.enabled = !this.enabled;
 			return;
 		}
 		
 		set  track(songName:string) 
 		{
-			if (m_sTrack != songName)
+			if (this.m_sTrack != songName)
 			{
-				play(songName);
+				this.play(songName);
 			}
 			return;
 		}
 		
 		get track() : string
 		{
-			return m_sTrack;
+			return this.m_sTrack;
 		}
 		
 		public static get singleton() : MusicManager
 		{
-			if (!_instance)
+			if (!this._instance)
 			{
-				_instance = new MusicManager;
+				this._instance = new MusicManager;
 			}
-			return _instance;
+			return this._instance;
 		}
 		
-		public setSoundData( _sound:Sound , _soundChannel:SoundChannel ):void {
-			clear();
-			m_playSound =  _sound;
-			nVolume = m_nVolume;
-			m_playingSoundChannel = _soundChannel;
+		public setSoundData( _sound , _soundChannel ):void {
+			this.clear();
+			this.m_playSound =  _sound;
+			this.nVolume = this.m_nVolume;
+			this.m_playingSoundChannel = _soundChannel;
 			
-			if( m_playingSoundChannel ){
-				m_playingSoundChannel.addEventListener(Event.SOUND_COMPLETE , soundPlayComplete);			
-				m_playingSoundChannel.soundTransform = new SoundTransform( nVolume );	
-				if(m_bEnabled==false)m_playingSoundChannel.stop();
+			if( this.m_playingSoundChannel ){
+				this.m_playingSoundChannel.addEventListener(egret.Event.SOUND_COMPLETE , this.soundPlayComplete);			
+				this.m_playingSoundChannel.soundTransform = new SoundTransform( this.nVolume );	
+				if(this.m_bEnabled==false)this.m_playingSoundChannel.stop();
 			}
 
 		}
 		
 		protected soundPlayComplete(event:Event):void{
-			m_nPausePosition = 0;
-			if( m_bEnabled ){
-				if( m_playSound && m_playingSoundChannel ){
-					clear();
-					m_playingSoundChannel = m_playSound.play( m_nPausePosition );	
-					m_playingSoundChannel.addEventListener(Event.SOUND_COMPLETE , soundPlayComplete);
-					m_playingSoundChannel.soundTransform = new SoundTransform( nVolume );
+			this.m_nPausePosition = 0;
+			if( this.m_bEnabled ){
+				if( this.m_playSound && this.m_playingSoundChannel ){
+					this.clear();
+					this.m_playingSoundChannel = this.m_playSound.play( this.m_nPausePosition );	
+					this.m_playingSoundChannel.addEventListener(egret.Event.SOUND_COMPLETE , this.soundPlayComplete);
+					this.m_playingSoundChannel.soundTransform = new SoundTransform( this.nVolume );
 				}	
 			}
 		}	
 		
 		private clear():void {
 			//清除之前的實體
-			if( m_playingSoundChannel ){
-				m_playingSoundChannel.removeEventListener(Event.SOUND_COMPLETE , soundPlayComplete);
-				m_playingSoundChannel.stop();
-				m_playingSoundChannel = null;
+			if( this.m_playingSoundChannel ){
+				this.m_playingSoundChannel.removeEventListener(egret.Event.SOUND_COMPLETE , this.soundPlayComplete);
+				this.m_playingSoundChannel.stop();
+				this.m_playingSoundChannel = null;
 			}	
 		}
 		

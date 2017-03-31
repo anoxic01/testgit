@@ -19,7 +19,7 @@ module lobby.view.other {
 			this.addChild(m_mAsset);
 			
 			this.buttonMode = true;
-			this.addEventListener(MouseEvent.CLICK, onClick);
+			this.addEventListener(egret.TouchEvent.TOUCH_TAP, onClick);
 		}
 		 public destroy():void{
 			
@@ -27,7 +27,7 @@ module lobby.view.other {
 				m_pagePanel = null;
 			}
 			
-			this.removeEventListener(MouseEvent.CLICK, onClick);
+			this.removeEventListener(egret.TouchEvent.TOUCH_TAP, onClick);
 			if(m_mAsset){
 				this.removeChild(m_mAsset);
 				m_mAsset = null;

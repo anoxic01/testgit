@@ -1,5 +1,5 @@
 module lobby.view.multi {
-	export class MultiTableModeItem implements ISprite{
+	export class MultiTableModeItem implements iface.ISprite{
 		private m_mcAsset	:	MovieClip;
 		private m_list		:	MultiTableModeList;
 		
@@ -14,9 +14,9 @@ module lobby.view.multi {
 			m_mcAsset.gotoAndStop("DEFAULT");
 			m_mcAsset.buttonMode = true;
 			m_mcAsset.mouseChildren = false;
-			m_mcAsset.addEventListener(MouseEvent.MOUSE_OVER, over);
-			m_mcAsset.addEventListener(MouseEvent.MOUSE_OUT, out);
-			m_mcAsset.addEventListener(MouseEvent.CLICK, click);
+			m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OVER, over);
+			m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OUT, out);
+			m_mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP, click);
 			
 			m_mcAsset.addFrameScript(13,function():void{
 				m_mcAsset.gotoAndStop(14);
@@ -30,9 +30,9 @@ module lobby.view.multi {
 		
 		public destroy():void
 		{
-			m_mcAsset.removeEventListener(MouseEvent.MOUSE_OVER, over);
-			m_mcAsset.removeEventListener(MouseEvent.MOUSE_OUT, out);
-			m_mcAsset.removeEventListener(MouseEvent.CLICK, click);
+			m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OVER, over);
+			m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OUT, out);
+			m_mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP, click);
 			m_mcAsset.stop();
 			if(m_list){
 				m_list = null;

@@ -36,7 +36,7 @@ module lobby.view {
 		
 //		public urgentNotice				:	UrgentNoticeList;				//紧急公告
 //		public urgentNotice_game		:	UrgentNoticeList;				//游戏中使用
-		public noticeMgr				:	notice.NoticeManeger;
+		public noticeMgr				:	manager.NoticeManeger;
 		
 		public vecTablesFront			:	table.Table[];					//前页列表
 		public vecTablesCurrent			:	table.Table[];					//当前列表
@@ -86,7 +86,7 @@ module lobby.view {
 		private m_bResizeForDown		:	 boolean;						//重绘状态,滚轮往下
 		private m_iWheelY				:	number	=	286;					//当前坐标
 		
-		protected m_lobbyAuth			:	lobby.data.LobbyAuth;
+		protected m_lobbyAuth			:	lobby.model.LobbyAuth;
 		
 		
 		private m_spLoading				:	egret.Sprite;
@@ -101,7 +101,7 @@ module lobby.view {
 			super();
 
 			let lobbyAuth;
-			lobbyAuth = new lobby.data.LobbyAuth();
+			lobbyAuth = new lobby.model.LobbyAuth();
 
 			manager.LobbyManager.getInstance().initialize(lobbyAuth, this);
 

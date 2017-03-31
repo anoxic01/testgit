@@ -1,215 +1,216 @@
 module lobby.view.notice {
 	export class NoticeView extends BSprite{
-		private const SPACE			:	number 	= 	10;					//间隔距离
-		private const SPEED			:	Number 	=	1;					//滚动速度
+		private  SPACE			:	number 	= 	10;					//间隔距离
+		private  SPEED			:	number 	=	1;					//滚动速度
 		
-		private m_spMask		:	Sprite;							//遮罩容器
-		private m_txtSp			:	Sprite;							//文字容器
+		private m_spMask		:	egret.Sprite;							//遮罩容器
+		private m_txtSp			:	egret.Sprite;							//文字容器
 		
-		private m_mcAsset		:	MovieClip;
+		private m_mcAsset		;
 		
-		private m_vecTextfields	:	<NoticeItemView>;		//所有内容
+		private m_vecTextfields	:	NoticeItemView[];		//所有内容
 
-		private m_vecPool		:	<NoticeItemView>;		//对象池
-		private m_vecShowList	:	<MessageStruct>;			//当前显示的数据列表
+		private m_vecPool		:	NoticeItemView[];		//对象池
+		private m_vecShowList	:	model.struct.MessageStruct[];			//当前显示的数据列表
 		private m_iCurIndex		:	number;							//最左边的显示的index
 		
 		public constructor() {
 			super();
-			this.mouseChildren = false;
-			this.mouseEnabled = false;
-			
-			m_vecShowList = new <MessageStruct>();
-			m_vecTextfields = new <NoticeItemView>();
-			m_vecPool = new <NoticeItemView>();
+			// this.mouseChildren = false;
+			// this.mouseEnabled = false;
+			this.touchEnabled = false;
+
+			this.m_vecShowList = new Array<model.struct.MessageStruct>();
+			this.m_vecTextfields = new Array<NoticeItemView>();
+			this.m_vecPool = new Array<NoticeItemView>();
 			for (var i:number= 0; i < 3; i++) 
 			{
-				m_vecPool.push(new NoticeItemView());
+				this.m_vecPool.push(new NoticeItemView());
 			}
 			
-			toLobbyUrgentNotice();
-			onChangeLanguage();
+			this.toLobbyUrgentNotice();
+			this.onChangeLanguage();
 		}
 		 public initilize():void{
-			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_PANEL,"Dialog_Asset_3");
-			this.addChild(m_mcAsset);
+			this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_PANEL,"Dialog_Asset_3");
+			this.addChild(this.m_mcAsset);
 			
-			m_mcAsset.tf_0.width = 0;
-			m_mcAsset.tf_0.autoSize = "left";
-			m_mcAsset.tf_0.wordWrap = false;
-			m_mcAsset.tf_0.multiline = false;
+			this.m_mcAsset.tf_0.width = 0;
+			this.m_mcAsset.tf_0.autoSize = "left";
+			this.m_mcAsset.tf_0.wordWrap = false;
+			this.m_mcAsset.tf_0.multiline = false;
 			
-			m_mcAsset.tf_0.selectable = false;
-			m_mcAsset.tf_0.mouseEnabled = false;
+			this.m_mcAsset.tf_0.selectable = false;
+			this.m_mcAsset.tf_0.mouseEnabled = false;
 			
-			m_spMask = new Sprite();
-			m_spMask.graphics.beginFill(0xFFFFFF, 0.5);
-			m_spMask.graphics.drawRect(0, 0, 588, 24);
-			m_spMask.graphics.endFill();
-			m_mcAsset.addChild(m_spMask);
-			m_spMask.x = m_mcAsset.tf_0.x;
-			m_spMask.y = m_mcAsset.tf_0.y;
+			this.m_spMask = new egret.Sprite();
+			this.m_spMask.graphics.beginFill(0xFFFFFF, 0.5);
+			this.m_spMask.graphics.drawRect(0, 0, 588, 24);
+			this.m_spMask.graphics.endFill();
+			this.m_mcAsset.addChild(this.m_spMask);
+			this.m_spMask.x = this.m_mcAsset.tf_0.x;
+			this.m_spMask.y = this.m_mcAsset.tf_0.y;
 			
-			m_txtSp = new Sprite();
-			m_txtSp.x = m_mcAsset.tf_0.x;
-			m_txtSp.y = m_mcAsset.tf_0.y;
-			m_txtSp.mouseChildren = false;
-			m_txtSp.mask = m_spMask
-			m_mcAsset.addChild(m_txtSp);
-			m_txtSp.cacheAsBitmap = true;
+			this.m_txtSp = new egret.Sprite();
+			this.m_txtSp.x = this.m_mcAsset.tf_0.x;
+			this.m_txtSp.y = this.m_mcAsset.tf_0.y;
+			this.m_txtSp.touchChildren = false;
+			this.m_txtSp.mask = this.m_spMask
+			this.m_mcAsset.addChild(this.m_txtSp);
+			this.m_txtSp.cacheAsBitmap = true;
 			
-			m_mcAsset.mc_title.gotoAndStop(1);
-			m_mcAsset.tf_0.text = "";
+			this.m_mcAsset.mc_title.gotoAndStop(1);
+			this.m_mcAsset.tf_0.text = "";
 		}
 		 public destroy() : void
 		{
-			if (nPosition)
+			if (this.nPosition)
 			{
-				nPosition = null;
+				this.nPosition = null;
 			}
-			if (m_spMask)
+			if (this.m_spMask)
 			{
-				m_spMask.parent.removeChild(m_spMask);
-				m_spMask = null;
+				this.m_spMask.parent.removeChild(this.m_spMask);
+				this.m_spMask = null;
 			}
-			if(m_txtSp){
-				m_txtSp.parent.removeChild(m_txtSp);
-				m_txtSp = null;
+			if(this.m_txtSp){
+				this.m_txtSp.parent.removeChild(this.m_txtSp);
+				this.m_txtSp = null;
 			}
 		}
 		public clear():void
 		{
-			m_iCurIndex = 0;
-			m_vecShowList.length = 0;
-			while(m_vecTextfields.length>0)
+			this.m_iCurIndex = 0;
+			this.m_vecShowList.length = 0;
+			while(this.m_vecTextfields.length>0)
 			{
-				shiftTf();
+				this.shiftTf();
 			}
 		}
-		public setData(vec:<MessageStruct>):void
+		public setData(vec:model.struct.MessageStruct[]):void
 		{
-			while(m_vecTextfields.length>0)
+			while(this.m_vecTextfields.length>0)
 			{
-				shiftTf();
+				this.shiftTf();
 			}
 			if(vec==null || vec.length==0)
 			{
-				m_vecShowList.length = 0;
+				this.m_vecShowList.length = 0;
 				return;
 			}
-			m_vecShowList = vec;
-			if(m_iCurIndex>m_vecShowList.length-1)
+			this.m_vecShowList = vec;
+			if(this.m_iCurIndex>this.m_vecShowList.length-1)
 			{
-				m_iCurIndex = 0;
+				this.m_iCurIndex = 0;
 			}
-			pushTf();
+			this.pushTf();
 		}
-		public addMessage(vo:MessageStruct):void
+		public addMessage(vo:model.struct.MessageStruct):void
 		{
 			if(vo==null)
 				return;
-			var index:number= m_vecShowList.indexOf(vo);
+			var index:number= this.m_vecShowList.indexOf(vo);
 			if(index == -1)
 			{
-				m_vecShowList.push(vo);
-				pushTf();
+				this.m_vecShowList.push(vo);
+				this.pushTf();
 			}
 		}
-		public wantToRemove(vo:MessageStruct):void
+		public wantToRemove(vo:model.struct.MessageStruct):void
 		{
 			if(vo==null)
 				return;
-			removeShowTf(vo);
+			this.removeShowTf(vo);
 		}
-		public removeMessage(vo:MessageStruct):void
+		public removeMessage(vo:model.struct.MessageStruct):void
 		{
 			if(vo==null)
 				return;
-			var index:number= m_vecShowList.indexOf(vo);
+			var index:number= this.m_vecShowList.indexOf(vo);
 			if(index != -1)
 			{
-				m_vecShowList.splice(index,1);
-				if(index < m_iCurIndex)
+				this.m_vecShowList.splice(index,1);
+				if(index < this.m_iCurIndex)
 				{
-					m_iCurIndex--;
+					this.m_iCurIndex--;
 				}
 			}
 		}
 		private pushTf():void
 		{
-			if(m_vecTextfields.length >= m_vecShowList.length)
+			if(this.m_vecTextfields.length >= this.m_vecShowList.length)
 			{
 				return;
 			}
 			var can: boolean;
 			var offsetx:number;
-			if(m_vecTextfields.length > 0)
+			if(this.m_vecTextfields.length > 0)
 			{
-				var last:NoticeItemView = m_vecTextfields[m_vecTextfields.length-1];
-				offsetx = last.x + last.width + SPACE;
-				if(offsetx < m_spMask.width)
+				var last:NoticeItemView = this.m_vecTextfields[this.m_vecTextfields.length-1];
+				offsetx = last.x + last.width + this.SPACE;
+				if(offsetx < this.m_spMask.width)
 				{
 					can = true;
-					offsetx = m_spMask.width;
+					offsetx = this.m_spMask.width;
 				}
 			}
 			else
 			{
 				can = true;
-				offsetx = m_spMask.width;
+				offsetx = this.m_spMask.width;
 			}
 			if(can)
 			{
 				var view:NoticeItemView;
-				if(m_vecPool.length>0)
+				if(this.m_vecPool.length>0)
 				{
-					view = m_vecPool.pop();
+					view = this.m_vecPool.pop();
 				}
 				else
 				{
 					view = new NoticeItemView();
 				}
-				if(m_iCurIndex>m_vecShowList.length-1)
+				if(this.m_iCurIndex>this.m_vecShowList.length-1)
 				{
-					m_iCurIndex = 0;
+					this.m_iCurIndex = 0;
 				}
-				view.maData = m_vecShowList[m_iCurIndex];
+				view.maData = this.m_vecShowList[this.m_iCurIndex];
 				view.x = offsetx;
-				m_txtSp.addChild(view);
-				m_vecTextfields.push(view);
+				this.m_txtSp.addChild(view);
+				this.m_vecTextfields.push(view);
 				view.onChangeLanguage();
 				
-				m_iCurIndex++;
+				this.m_iCurIndex++;
 			}
 		}
-		private shiftTf():MessageStruct
+		private shiftTf():model.struct.MessageStruct
 		{
-			if(m_vecTextfields.length>0)
+			if(this.m_vecTextfields.length>0)
 			{
-				var view:NoticeItemView = m_vecTextfields.shift();
-				var data:MessageStruct = view.maData;
+				var view:NoticeItemView = this.m_vecTextfields.shift();
+				var data:model.struct.MessageStruct = view.maData;
 				view.clear();
-				m_vecPool.push(view);
-				m_txtSp.removeChild(view);
+				this.m_vecPool.push(view);
+				this.m_txtSp.removeChild(view);
 				return data;
 			}
 			return null;
 		}
-		private removeShowTf(vo:MessageStruct):void
+		private removeShowTf(vo:model.struct.MessageStruct):void
 		{
-			var len:number= m_vecTextfields.length;
+			var len:number= this.m_vecTextfields.length;
 			if(len > 0)
 			{
 				var view:NoticeItemView;
-				for (var i:number= 0; i < m_vecTextfields.length; i++) 
+				for (var i:number= 0; i < this.m_vecTextfields.length; i++) 
 				{
-					view = m_vecTextfields[i];
+					view = this.m_vecTextfields[i];
 					if(view.maData == vo)
 					{
-//						m_vecTextfields.splice(i,1);
+//						this.m_vecTextfields.splice(i,1);
 //						view.clear();
 //						_pool.push(view);
-//						m_txtSp.removeChild(view);
+//						this.m_txtSp.removeChild(view);
 						vo.bReadyKill = true;
 						break;
 					}
@@ -218,79 +219,79 @@ module lobby.view.notice {
 		}
 		get showCount():number
 		{
-			return m_vecShowList.length;
+			return this.m_vecShowList.length;
 		}
-		public going() : MessageStruct
+		public going() : model.struct.MessageStruct
 		{
-			if(m_vecShowList.length == 0)
+			if(this.m_vecShowList.length == 0)
 			{
 				return null;
 			}
-			var data:MessageStruct;
-			if(m_vecTextfields.length>0)
+			var data:model.struct.MessageStruct;
+			if(this.m_vecTextfields.length>0)
 			{
 				var lastEndx:number;
-				for (var i:number= 0; i < m_vecTextfields.length; i++) 
+				for (var i:number= 0; i < this.m_vecTextfields.length; i++) 
 				{
 					if(i > 1)
 					{
 						//测试跑马灯可能会出现部分重叠，但无法重现，所以加入矫正
-						lastEndx = m_vecTextfields[i-1].x + m_vecTextfields[i-1].width+SPACE;
-						if(m_vecTextfields[i].x < lastEndx)
+						lastEndx = this.m_vecTextfields[i-1].x + this.m_vecTextfields[i-1].width+this.SPACE;
+						if(this.m_vecTextfields[i].x < lastEndx)
 						{
-							m_vecTextfields[i].x = lastEndx;
+							this.m_vecTextfields[i].x = lastEndx;
 						}
 					}
 					
-					m_vecTextfields[i].x -= SPEED;
+					this.m_vecTextfields[i].x -= this.SPEED;
 				}
-				var view:NoticeItemView = m_vecTextfields[0];
+				var view:NoticeItemView = this.m_vecTextfields[0];
 				if(view.x + view.width < 0)
 				{
-					data = shiftTf();
+					data = this.shiftTf();
 				}
 			}
-			pushTf();
+			this.pushTf();
 			
 			return data;
 		}
 		//游戏中的定位
 		public toGamgeUrgentNotice():void{
-			this.x = LobbyManager.getInstance().stage.stageWidth * 0.5 - 1077*0.5;
-			this.y = LobbyManager.getInstance().stage.stageHeight * 0.5 - 120;
+			this.x = manager.LobbyManager.getInstance().stage.stageWidth * 0.5 - 1077*0.5;
+			this.y = manager.LobbyManager.getInstance().stage.stageHeight * 0.5 - 120;
 		}
 		//厅馆
 		public toLobbyUrgentNotice():void{
-			this.x = LobbyManager.getInstance().stage.stageWidth * 0.5 - 1077*0.5;
-			this.y = LobbyManager.getInstance().stage.stageHeight * 0.5 - 100;
+			this.x = manager.LobbyManager.getInstance().stage.stageWidth * 0.5 - 1077*0.5;
+			this.y = manager.LobbyManager.getInstance().stage.stageHeight * 0.5 - 100;
 		}
 		//多桌
 		public toMultiUrgentNotice():void{
-			this.x = LobbyManager.getInstance().stage.stageWidth * 0.5 - 1077*0.5 - 150;
+			this.x = manager.LobbyManager.getInstance().stage.stageWidth * 0.5 - 1077*0.5 - 150;
 			this.y = 0;
 		}
 		 public onChangeLanguage():void{
-			for (var i:number= 0; i < m_vecTextfields.length; i++) 
+			for (var i:number= 0; i < this.m_vecTextfields.length; i++) 
 			{
-				m_vecTextfields[i].onChangeLanguage();
+				this.m_vecTextfields[i].onChangeLanguage();
 			}
-			if(m_vecTextfields.length>0)
+			if(this.m_vecTextfields.length>0)
 			{
 				var lastx:number;
-				for (i = 0; i < m_vecTextfields.length; i++) 
+				for (i = 0; i < this.m_vecTextfields.length; i++) 
 				{
 					if(i==0)
 					{
-						lastx = m_vecTextfields[i].x + m_vecTextfields[i].width + SPACE;
+						lastx = this.m_vecTextfields[i].x + this.m_vecTextfields[i].width + this.SPACE;
 					}
 					else
 					{
-						m_vecTextfields[i].x = lastx;
-						lastx += m_vecTextfields[i].x + m_vecTextfields[i].width + SPACE;
+						this.m_vecTextfields[i].x = lastx;
+						lastx += this.m_vecTextfields[i].x + this.m_vecTextfields[i].width + this.SPACE;
 					}
 				}
 			}
-			m_mcAsset.mc_title.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_title.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 		}
 	}
 }

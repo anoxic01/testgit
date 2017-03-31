@@ -60,14 +60,14 @@ module lobby.view.other {
 			}
 			
 			this.buttonMode = true;
-			this.addEventListener(MouseEvent.MOUSE_OUT, out);
-			this.addEventListener(MouseEvent.MOUSE_OVER, over);
-			this.addEventListener(MouseEvent.CLICK, change);
+			this.addEventListener(mouse.MouseEvent.MOUSE_OUT, out);
+			this.addEventListener(mouse.MouseEvent.MOUSE_OVER, over);
+			this.addEventListener(egret.TouchEvent.TOUCH_TAP, change);
 		}
 		 public destroy():void{
-			this.removeEventListener(MouseEvent.MOUSE_OUT, out);
-			this.removeEventListener(MouseEvent.MOUSE_OVER, over);
-			this.removeEventListener(MouseEvent.CLICK, change);
+			this.removeEventListener(mouse.MouseEvent.MOUSE_OUT, out);
+			this.removeEventListener(mouse.MouseEvent.MOUSE_OVER, over);
+			this.removeEventListener(egret.TouchEvent.TOUCH_TAP, change);
 			
 			if(m_fOn != null){
 				m_fOn = null;

@@ -1,5 +1,5 @@
 module lobby.view.multi {
-	export class MultiTableRecordItem implements ISprite{
+	export class MultiTableRecordItem implements iface.ISprite{
 		private m_mcAsset	:	MovieClip;
 		private m_spRed		:	Sprite;			//对子标识
 		private m_spBlue	:	Sprite;			//对子标识

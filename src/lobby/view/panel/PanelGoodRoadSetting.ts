@@ -1,10 +1,10 @@
 module lobby.view.panel {
 	export class PanelGoodRoadSetting extends PanelWindow{
 //		private m_bg				:	BitmapScale9Grid;
-		private m_btnOk				:	SingleButtonMC;
-		private m_btnNo				:	SingleButtonMC;
-		private m_btnClose			:	SingleButtonMC;
-		private m_btnExplain		:	SingleButtonMC;
+		private m_btnOk				:	ui.button.SingleButtonMC;
+		private m_btnNo				:	ui.button.SingleButtonMC;
+		private m_btnClose			:	ui.button.SingleButtonMC;
+		private m_btnExplain		:	ui.button.SingleButtonMC;
 		public 	select				:	Select;
 		
 		private m_vecItems			:	<Item>;
@@ -28,7 +28,7 @@ module lobby.view.panel {
 			nAssetWidth = 816;
 			nAssetHeight = 368;
 			
-			m_btnOk = new SingleButtonMC(m_mcAsset.mc_ok, function(event:MouseEvent):void{
+			m_btnOk = new ui.button.SingleButtonMC(m_mcAsset.mc_ok, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				var _bOk :  boolean;
 				for (var j:number= 0; j < 10; j++) 
@@ -61,11 +61,11 @@ module lobby.view.panel {
 				}
 			});
 			
-			m_btnNo = new SingleButtonMC(m_mcAsset.mc_no, function(event:MouseEvent):void{
+			m_btnNo = new ui.button.SingleButtonMC(m_mcAsset.mc_no, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				LobbyManager.getInstance().hideGoodRoadSetting();
 			});
-			m_btnClose = new SingleButtonMC(m_mcAsset.mc_close, function(event:MouseEvent):void{
+			m_btnClose = new ui.button.SingleButtonMC(m_mcAsset.mc_close, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				LobbyManager.getInstance().hideGoodRoadSetting();
 			});
@@ -125,7 +125,7 @@ module lobby.view.panel {
 			}
 			
 			if(m_mcAsset){
-				(m_mcAsset.mc_10 as MovieClip).removeEventListener(MouseEvent.CLICK,selectAll);
+				(m_mcAsset.mc_10 as MovieClip).removeEventListener(egret.TouchEvent.TOUCH_TAP,selectAll);
 				this.removeChild(m_mcAsset);
 				m_mcAsset = null;
 			}
@@ -155,7 +155,7 @@ module lobby.view.panel {
 				m_btnExplain.destroy();
 				m_btnExplain = null;
 			}
-			m_btnExplain = new SingleButtonMC(m_mcAsset.mc_11,function(event:MouseEvent):void{
+			m_btnExplain = new ui.button.SingleButtonMC(m_mcAsset.mc_11,function(event:MouseEvent):void{
 				navigateToURL(new URLRequest("http://www.help.com"),"_blank");
 			})
 		}
@@ -191,7 +191,7 @@ import manager.SoundManager;
 
 import sounds.SoundPackage;
 
-class Item implements ISprite{
+class Item implements iface.ISprite{
 	public ID			:	number;
 	public bSelect		:	 boolean;
 	private m_mcAsset 	: 	MovieClip;
@@ -207,9 +207,9 @@ class Item implements ISprite{
 		m_glow.alpha = 0;
 		
 		m_mcAsset.buttonMode = true;
-		m_mcAsset.addEventListener(MouseEvent.MOUSE_OVER, itemOver);
-		m_mcAsset.addEventListener(MouseEvent.MOUSE_OUT, itemOut);
-		m_mcAsset.addEventListener(MouseEvent.CLICK, itemClick);
+		m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OVER, itemOver);
+		m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OUT, itemOut);
+		m_mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP, itemClick);
 	}
 	public destroy():void{
 		
@@ -223,9 +223,9 @@ class Item implements ISprite{
 		
 		if(m_mcAsset){
 			
-			m_mcAsset.removeEventListener(MouseEvent.MOUSE_OVER, itemOver);
-			m_mcAsset.removeEventListener(MouseEvent.MOUSE_OUT, itemOut);
-			m_mcAsset.removeEventListener(MouseEvent.CLICK, itemClick);
+			m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OVER, itemOver);
+			m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OUT, itemOut);
+			m_mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP, itemClick);
 			
 			m_mcAsset = null;
 		}
@@ -282,7 +282,7 @@ class Item implements ISprite{
 	}
 }
 
-class Select implements ISprite{
+class Select implements iface.ISprite{
 	private m_mcAsset	:	MovieClip;
 //	private m_glow		:	Bitmap;
 	public bSelect		:	 boolean;
@@ -298,15 +298,15 @@ class Select implements ISprite{
 		m_mcAsset.gotoAndStop(1);
 		m_mcAsset.buttonMode = true;
 		m_mcAsset.mouseChildren = false;
-		m_mcAsset.addEventListener(MouseEvent.MOUSE_OVER, selectOver);
-		m_mcAsset.addEventListener(MouseEvent.MOUSE_OUT, selectOut);
-		m_mcAsset.addEventListener(MouseEvent.CLICK,selectClick);
+		m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OVER, selectOver);
+		m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OUT, selectOut);
+		m_mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP,selectClick);
 	}
 	public destroy():void{
 		if(m_mcAsset){
-			m_mcAsset.removeEventListener(MouseEvent.MOUSE_OVER, selectOver);
-			m_mcAsset.removeEventListener(MouseEvent.MOUSE_OUT, selectOut);
-			m_mcAsset.removeEventListener(MouseEvent.CLICK,selectClick);
+			m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OVER, selectOver);
+			m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OUT, selectOut);
+			m_mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP,selectClick);
 			
 			m_mcAsset = null;
 		}

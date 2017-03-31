@@ -1,4 +1,4 @@
-module lobby.sink {
+module packet.sink {
 	export class LobbyTCPSocketSink implements socket.ITCPSocketSink{
 		private  m_TimeStamp					:	string;
 		protected  m_iTryN						:	number=0;				//连接次数

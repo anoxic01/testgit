@@ -36,7 +36,7 @@ module lobby.view.route.game.rou {
 		
 		public constructor(s:Singleton) {
 			//紅黑
-			_redBlackStructure = new Dictionary();
+			_redBlackStructure = {};
 			_redBlackStructure[0] = ZERO;  //通殺
 			
 			_redBlackStructure[1] = RED;
@@ -78,7 +78,7 @@ module lobby.view.route.game.rou {
 			_redBlackStructure[35] = BLACK;
 			
 			//大小
-			_bigSmallStructure = new Dictionary();
+			_bigSmallStructure = {};
 			_bigSmallStructure[0] = ZERO; //通殺
 			
 			for (var a:number= 1; a <= 18; a++) 
@@ -92,7 +92,7 @@ module lobby.view.route.game.rou {
 			
 			
 			//單雙
-			_oddEvenData = new Dictionary();
+			_oddEvenData = {};
 			_oddEvenData[0] = ZERO;  //通殺
 			
 			for (var c:number= 2; c <= 36; c+=2) 
@@ -106,7 +106,7 @@ module lobby.view.route.game.rou {
 
 			
 			//打列
-			_zoenData = new Dictionary();
+			_zoenData = {};
 		
 			for (var e:number= 1; e <= 12; e++) {
 				_zoenData[e] = ZOEN_1;
@@ -118,7 +118,7 @@ module lobby.view.route.game.rou {
 				_zoenData[g] = ZOEN_3;
 			}
 			
-			_rowData = new Dictionary();
+			_rowData = {};
 			
 			for (var h:number= 1; h <= 34; h+=3) {
 				_rowData[h] = ROW_1;
@@ -131,7 +131,7 @@ module lobby.view.route.game.rou {
 			}
 			
 			//打列的零  零為通殺
-			_zeroData = new Dictionary();
+			_zeroData = {};
 			_zeroData[0] = ZERO;
 			
 			

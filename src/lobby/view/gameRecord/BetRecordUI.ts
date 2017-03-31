@@ -3,8 +3,8 @@ module lobby.view.gameRecord {
 		public txtStartTime					:	Text;								//開始時間
 		public txtEndTime					:	Text;								//結束時間
 		
-		public selectStartTime				:	SingleButtonMC;						//選擇開始時間
-		public selectEndTime				:	SingleButtonMC; 					//選擇結束時間
+		public selectStartTime				:	ui.button.SingleButtonMC;						//選擇開始時間
+		public selectEndTime				:	ui.button.SingleButtonMC; 					//選擇結束時間
 		
 		public search						:	Btn; 								//查詢按鈕
 		
@@ -15,18 +15,18 @@ module lobby.view.gameRecord {
 		public singleShowCount				:	number;								//單頁顯示幾筆
 		public totalShowCount				:	number;								//共計幾筆
 		
-		public btnGo						:	SingleButtonMC; 					//查詢按鈕
+		public btnGo						:	ui.button.SingleButtonMC; 					//查詢按鈕
 		
 		public subListDistanceY				:	int 	=	30;						//下注細單 Y間距
 		public mcMoveLight					:	MovieClip;							//滑鼠移動亮條
 		public mcClickLight					:	MovieClip;							//滑鼠選擇亮條
 		public mcPos						:	MovieClip;							//下注細單 對位元件
 		
-		public btnClose						:	SingleButtonMC;
-		public btnFirstPage					:	SingleButtonMC;						//第1頁
-		public btnLastPage					:	SingleButtonMC;						//最後1頁
-		public btnPreviousPage				:	SingleButtonMC;						//上1頁
-		public btnNextPage					:	SingleButtonMC;						//下1頁	
+		public btnClose						:	ui.button.SingleButtonMC;
+		public btnFirstPage					:	ui.button.SingleButtonMC;						//第1頁
+		public btnLastPage					:	ui.button.SingleButtonMC;						//最後1頁
+		public btnPreviousPage				:	ui.button.SingleButtonMC;						//上1頁
+		public btnNextPage					:	ui.button.SingleButtonMC;						//下1頁	
 		
 		public txt_inputPage				:	Text;								//輸入頁數框
 		
@@ -88,30 +88,30 @@ module lobby.view.gameRecord {
 			txtStartTime	= new Text( _mcAsset.betStartTime);
 			txtEndTime		= new Text( _mcAsset.betEndTime);
 			
-			selectStartTime = new SingleButtonMC(  _mcAsset.selectStartTime , selectStartTimeHandler );
-			selectEndTime 	= new SingleButtonMC(  _mcAsset.selectEndTime , selectEndTimeHandler );
+			selectStartTime = new ui.button.SingleButtonMC(  _mcAsset.selectStartTime , selectStartTimeHandler );
+			selectEndTime 	= new ui.button.SingleButtonMC(  _mcAsset.selectEndTime , selectEndTimeHandler );
 			search			= new Btn( _mcAsset.mc_search , searchBetGameRecord , Language.sSearch );
 			
 			txt_SingleShowPage =  new Text( _mcAsset.tf_9 );
 			txt_TotalPage = new Text( _mcAsset.tf_10 );
 			txt_Page 	  =	new Text(  _mcAsset.tf_page );
 			
-			btnGo	= new SingleButtonMC(_mcAsset.mc_go , goPage );
+			btnGo	= new ui.button.SingleButtonMC(_mcAsset.mc_go , goPage );
 			mcMoveLight  = _mcAsset.mc_moveLight;
 			mcMoveLight.visible = false;
 			mcClickLight = _mcAsset.mc_ClickLight;
 			mcClickLight.visible = false;
 			
 			mcPos	= _mcAsset.mc_pos;
-			btnClose = new SingleButtonMC( _mcAsset.mc_close , closeWindowHandler );
+			btnClose = new ui.button.SingleButtonMC( _mcAsset.mc_close , closeWindowHandler );
 			
 			nAssetWidth = m_mcAsset.width + 50;
 			nAssetHeight = m_mcAsset.height + 50;
 			
-			btnFirstPage = new SingleButtonMC(_mcAsset.mc_0 , firstPageHandler );
-			btnLastPage = new SingleButtonMC(_mcAsset.mc_3 , lastPageHandler );
-			btnPreviousPage = new SingleButtonMC( _mcAsset.mc_1 , previousPageHandler );
-			btnNextPage = new  SingleButtonMC( _mcAsset.mc_2 , nextPageHandler );
+			btnFirstPage = new ui.button.SingleButtonMC(_mcAsset.mc_0 , firstPageHandler );
+			btnLastPage = new ui.button.SingleButtonMC(_mcAsset.mc_3 , lastPageHandler );
+			btnPreviousPage = new ui.button.SingleButtonMC( _mcAsset.mc_1 , previousPageHandler );
+			btnNextPage = new  ui.button.SingleButtonMC( _mcAsset.mc_2 , nextPageHandler );
 			
 //			mc_input = new Btn2( _mcAsset.mc_input );
 			_mcAsset.mc_input.gotoAndStop(1);
@@ -141,7 +141,7 @@ module lobby.view.gameRecord {
 			m_txtInput.addEventListener( TextEvent.TEXT_INPUT , playerInput );
 			m_txtInput.restrict = "0-9";
 			m_txtInput.addEventListener(MouseEvent.MOUSE_MOVE , mouseHandler );
-			m_txtInput.addEventListener(MouseEvent.MOUSE_OUT , mouseHandler );
+			m_txtInput.addEventListener(mouse.MouseEvent.MOUSE_OUT , mouseHandler );
 			m_txtInput.maxChars = 5;
 		
 			var _nowDate :Date = new Date( _dateChooser.iCurrentYear , _dateChooser.iCurrentMonth , _dateChooser.iCurrentDay );
@@ -957,12 +957,12 @@ import flash.display.MovieClip;
 import flash.events.MouseEvent;
 import flash.text.TextField;
 
-import component.button.SingleButtonMC;
+import component.button.ui.button.SingleButtonMC;
 
 import manager.LobbyManager;
 
 
-class Btn extends SingleButtonMC {
+class Btn extends ui.button.SingleButtonMC {
 	public txtLabel:MovieClip;
 	public Btn(mcButton:MovieClip, $fOnClick:Function , sLangLey:String ):void {
 		super(mcButton , $fOnClick );

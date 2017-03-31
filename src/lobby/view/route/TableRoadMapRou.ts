@@ -1,22 +1,22 @@
 module lobby.view.route {
 	export class TableRoadMapRou extends RouRouteMgr{
 		private m_mcAsset	:	MovieClip;
-		private roadBtn_0	:	SingleButtonMC;			//红黑
-		private roadBtn_1	:	SingleButtonMC;			//打列
-		private roadBtn_2	:	SingleButtonMC;			//大小
-		private roadBtn_3	:	SingleButtonMC;			//单双
+		private roadBtn_0	:	ui.button.SingleButtonMC;			//红黑
+		private roadBtn_1	:	ui.button.SingleButtonMC;			//打列
+		private roadBtn_2	:	ui.button.SingleButtonMC;			//大小
+		private roadBtn_3	:	ui.button.SingleButtonMC;			//单双
 		
-		private m_current	:	SingleButtonMC;			//当前选中
+		private m_current	:	ui.button.SingleButtonMC;			//当前选中
 		
 		public constructor(_mcAsset:MovieClip) {
 		
 			m_mcAsset = _mcAsset;
 			super(_mcAsset);
 			
-			this.roadBtn_0 = new SingleButtonMC(_mcAsset.mc_7,onChangeRoad);
-			this.roadBtn_1 = new SingleButtonMC(_mcAsset.mc_8,onChangeRoad);
-			this.roadBtn_2 = new SingleButtonMC(_mcAsset.mc_9,onChangeRoad);
-			this.roadBtn_3 = new SingleButtonMC(_mcAsset.mc_10,onChangeRoad);
+			this.roadBtn_0 = new ui.button.SingleButtonMC(_mcAsset.mc_7,onChangeRoad);
+			this.roadBtn_1 = new ui.button.SingleButtonMC(_mcAsset.mc_8,onChangeRoad);
+			this.roadBtn_2 = new ui.button.SingleButtonMC(_mcAsset.mc_9,onChangeRoad);
+			this.roadBtn_3 = new ui.button.SingleButtonMC(_mcAsset.mc_10,onChangeRoad);
 			
 			m_current = roadBtn_2;
 			m_current.setSelectedStatus(true);
@@ -168,7 +168,7 @@ module lobby.view.route {
 			
 		}
 		
-		private set current(_btn:SingleButtonMC):void{
+		private set current(_btn:ui.button.SingleButtonMC):void{
 			m_current.setSelectedStatus(false);
 			m_current = _btn;
 			m_current.setSelectedStatus(true);

@@ -1,6 +1,6 @@
 module lobby.view.panel {
 	export class PanelPersonalinformation extends PanelWindow{
-		private m_btnClose		:	SingleButtonMC;			//关闭按钮
+		private m_btnClose		:	ui.button.SingleButtonMC;			//关闭按钮
 //		private m_bg			:	BitmapScale9Grid;		//背景
 				
 		public constructor() {
@@ -20,7 +20,7 @@ module lobby.view.panel {
 			
 			m_mcHot = m_mcAsset.mc_hot;
 			
-			m_btnClose = new SingleButtonMC(m_mcAsset.mc_close,function(event:MouseEvent):void{
+			m_btnClose = new ui.button.SingleButtonMC(m_mcAsset.mc_close,function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				LobbyManager.getInstance().hidePersonalinformation();
 			});
@@ -32,7 +32,7 @@ module lobby.view.panel {
 			refresh();
 			onChangeLanguage();			
 			
-			this.addEventListener(MouseEvent.CLICK,onclick);
+			this.addEventListener(egret.TouchEvent.TOUCH_TAP,onclick);
 		}
 		
 		protected onclick(event:MouseEvent):void
@@ -50,7 +50,7 @@ module lobby.view.panel {
 //				m_bg.dispose();
 //				m_bg = null;
 //			}
-			this.removeEventListener(MouseEvent.CLICK,onclick);
+			this.removeEventListener(egret.TouchEvent.TOUCH_TAP,onclick);
 			
 			if(m_btnClose){
 				m_btnClose.destroy();

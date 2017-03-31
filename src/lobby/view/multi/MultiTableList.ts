@@ -1,5 +1,5 @@
 module lobby.view.multi {
-	export class MultiTableList extends PanelPage{
+	export class MultiTableList extends panel.PanelPage{
 		public static const COUNT		:	number	=	16;							//桌子数量
 		
 		private m_vecList			:	<MultiTableItem>;				//桌子数组

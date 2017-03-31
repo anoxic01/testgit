@@ -52,21 +52,21 @@ module lobby.model {
 			}
 			return vec;
 		}
-		public filterMessage(vo:MessageStruct):MessageStruct
+		public filterMessage(vo:struct.MessageStruct):struct.MessageStruct
 		{
 			if(vo.bIsMaintain)
 			{
 				switch(vo.maMaintain.MaintainType)
 				{
-					case SysMaintainType.Maintenance_FullSite:		//全站维护,更新跑马灯通知维护时间
+					case type.SysMaintainType.Maintenance_FullSite:		//全站维护,更新跑马灯通知维护时间
 						break;
-					case SysMaintainType.Maintenance_Theme:		//厅馆维护,更新跑马灯通知维护时间，关闭厅馆
+					case type.SysMaintainType.Maintenance_Theme:		//厅馆维护,更新跑马灯通知维护时间，关闭厅馆
 						vo.maMaintain.cloneMaintainData();
-						var _gameThemeID : int = LobbyManager.getInstance().getGameThemeID();
+						var _gameThemeID : number = manager.LobbyManager.getInstance().getGameThemeID();
 						if(_gameThemeID>0){
 							
 							//当前在赌桌内
-							var _gameTableID : int = LobbyManager.getInstance().getGameTableID();
+							var _gameTableID : number = manager.LobbyManager.getInstance().getGameTableID();
 							if(_gameTableID>0)
 							{
 								if(vo.maMaintain.MaintainData_game.indexOf(_gameThemeID)==-1){
@@ -79,12 +79,12 @@ module lobby.model {
 							return null;
 						}
 						break;
-					case SysMaintainType.Maintenance_Table:		//赌桌维护,更新跑马灯通知维护时间，关闭厅馆
+					case type.SysMaintainType.Maintenance_Table:		//赌桌维护,更新跑马灯通知维护时间，关闭厅馆
 						vo.maMaintain.cloneMaintainData();
-						_gameThemeID = LobbyManager.getInstance().lobbyView.uCurrentThemeID;
+						_gameThemeID = manager.LobbyManager.getInstance().lobbyView.uCurrentThemeID;
 						if(_gameThemeID>0){
 							
-							_gameTableID = LobbyManager.getInstance().getGameTableID();
+							_gameTableID = manager.LobbyManager.getInstance().getGameTableID();
 							if(_gameTableID>0){
 								//当前在赌桌内,不是当前赌桌，删除
 								var table:Object;
@@ -105,10 +105,10 @@ module lobby.model {
 							else
 							{
 								//在大厅，在_NotAllowTableIDList中的删除
-								if(_NotAllowTableIDList&&_NotAllowTableIDList.length>0)
+								if(this._NotAllowTableIDList&&this._NotAllowTableIDList.length>0)
 								{
 									for(i = 0;i<vo.maMaintain.MaintainData_game.length;i++){
-										if(_NotAllowTableIDList.indexOf(vo.maMaintain.MaintainData_game[i].TableID) != -1){
+										if(this._NotAllowTableIDList.indexOf(vo.maMaintain.MaintainData_game[i].TableID) != -1){
 											vo.maMaintain.MaintainData_game.splice(i,1);
 											i--;
 										}
@@ -121,7 +121,7 @@ module lobby.model {
 							return null;
 						}
 						break;
-					case SysMaintainType.Maintenance_TopAgent:		//代理维护
+					case type.SysMaintainType.Maintenance_TopAgent:		//代理维护
 						if(Player.getInstance().iAgentID != vo.maMaintain.MaintainData)
 						{
 							return null;
@@ -137,13 +137,13 @@ module lobby.model {
 		}
 		public changeTime(now:number):void
 		{
-			var len:number= m_msList.length;
+			var len:number= this.m_msList.length;
 			if(len > 0)
 			{
-				var each:MessageStruct;
+				var each:struct.MessageStruct;
 				for (var i:number= 0; i < len; i++) 
 				{
-					each = m_msList[i];
+					each = this.m_msList[i];
 					if(each.iStartShowTime + each.iShowTime < now)
 					{
 						each.bReadyKill = true;
@@ -151,52 +151,52 @@ module lobby.model {
 				}
 			}
 		}
-		public addMessage(vo:MessageStruct):void
+		public addMessage(vo:struct.MessageStruct):void
 		{
-			vo.iStartShowTime = getTimer();
-			m_msList.push(vo);
+			vo.iStartShowTime = egret.getTimer();
+			this.m_msList.push(vo);
 		}
-		public removeMessage(vo:Object):MessageStruct
+		public removeMessage(vo:Object):struct.MessageStruct
 		{
-			var index:number= getMessageIndex(vo);
+			var index:number= this.getMessageIndex(vo);
 			if(index != -1)
 			{
-				var results:<MessageStruct> = m_msList.splice(index,1);
+				var results = this.m_msList.splice(index,1);
 				return results[0];
 			}
 			return null;
 		}
-		public removeMeassgeByIndex(index:number):MessageStruct
+		public removeMeassgeByIndex(index:number):struct.MessageStruct
 		{
-			if(index>=0 && index<m_msList.length)
+			if(index>=0 && index<this.m_msList.length)
 			{
-				var results:<MessageStruct> = m_msList.splice(index,1);
+				var results = this.m_msList.splice(index,1);
 				return results[0];
 			}
 			return null;
 		}
-		public getMessageByIndex(index:number):MessageStruct
+		public getMessageByIndex(index:number):struct.MessageStruct
 		{
-			if(index>=0 && index < m_msList.length)
+			if(index>=0 && index < this.m_msList.length)
 			{
-				return m_msList[index];
+				return this.m_msList[index];
 			}
 			return null;
 		}
 		public getMessageIndex(vo:Object):number
 		{
-			for (var i:number= 0; i < m_msList.length; i++) 
+			for (var i:number= 0; i < this.m_msList.length; i++) 
 			{
-				if((vo is MaintainsAnnouncementStruct) && m_msList[i].bIsMaintain)
+				if((vo instanceof struct.MaintainsAnnouncementStruct) && this.m_msList[i].bIsMaintain)
 				{
-					if(m_msList[i].maMaintain.isEqual(vo as MaintainsAnnouncementStruct)==true)
+					if(this.m_msList[i].maMaintain.isEqual(vo as struct.MaintainsAnnouncementStruct)==true)
 					{
 						return i;
 					}
 				}
 				else
 				{
-					if(m_msList[i].oData == vo)
+					if(this.m_msList[i].oData == vo)
 					{
 						return i;
 					}

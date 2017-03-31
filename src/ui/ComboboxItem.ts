@@ -1,7 +1,7 @@
 module ui {
 	export class ComboboxItem extends BSprite{
 		private m_mcAsset		:	MovieClip;
-		private m_btnAsset		:	SingleButtonMC;
+		private m_btnAsset		:	ui.button.SingleButtonMC;
 		private m_sValue		:	string;
 		
 		protected m_combobox	:	Combobox;
@@ -18,7 +18,7 @@ module ui {
 			m_sValue = _sValue;
 			
 			var item : ComboboxItem = this;
-			m_btnAsset = new SingleButtonMC(m_mcAsset, function(event:MouseEvent):void{
+			m_btnAsset = new ui.button.SingleButtonMC(m_mcAsset, function(event:MouseEvent):void{
 				m_combobox.setCurrentItem(item,true);
 				m_combobox.hideList();
 			});

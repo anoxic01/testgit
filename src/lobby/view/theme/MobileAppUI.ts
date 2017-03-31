@@ -1,8 +1,8 @@
 module lobby.view.theme {
 	export class MobileAppUI extends lobby.view.panel.PanelWindow {
 
-		// private m_btnIos				:SingleButtonMC;				
-		// private m_btnAndriod			:SingleButtonMC;
+		// private m_btnIos				:ui.button.SingleButtonMC;				
+		// private m_btnAndriod			:ui.button.SingleButtonMC;
 		// private m_mcBtnIos_label		:MovieClip;
 		// private m_mcBtnAndriod_label	:MovieClip;
 		// private m_allSysBtn				:any[];
@@ -27,10 +27,10 @@ module lobby.view.theme {
 			// nAssetWidth = 1236;
 			// nAssetHeight = 899;
 			// m_mcHot = _mcAsset.mc_hot;
-			// m_btnClose = new SingleButtonMC(_mcAsset.mc_close,close);
+			// m_btnClose = new ui.button.SingleButtonMC(_mcAsset.mc_close,close);
 			
-			// m_btnIos = new SingleButtonMC(_mcAsset.btnIos,onIosClick);
-			// m_btnAndriod = new SingleButtonMC(_mcAsset.btnAndriod,onAndoidClick);
+			// m_btnIos = new ui.button.SingleButtonMC(_mcAsset.btnIos,onIosClick);
+			// m_btnAndriod = new ui.button.SingleButtonMC(_mcAsset.btnAndriod,onAndoidClick);
 			// m_mcBtnIos_label = _mcAsset.btnIos.btnIos_label;
 			// m_mcBtnAndriod_label = _mcAsset.btnAndriod.btnAndriod_label;
 			// m_allSysBtn = [m_btnIos,m_btnAndriod];
@@ -91,7 +91,7 @@ module lobby.view.theme {
 		{
 			if(this.m_iCurSys != sys)
 			{
-				// btnSys:SingleButtonMC;
+				// btnSys:ui.button.SingleButtonMC;
 				// btnSys = m_allSysBtn[m_iCurSys];
 				// if(btnSys)
 				// {

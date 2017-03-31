@@ -1,33 +1,33 @@
 module lobby.view.chip {
-	export class ChipStack extends MovieClip{
+	export class ChipStack extends BSprite{
 		
-		public txtMc				:	MovieClip;
+		public txtMc				;
 		public chips				:	any[];
-		protected _count			:	Number;
-		protected CHIP_THICK		:	Number = 8;						//籌碼跟籌碼之間的間距
-		protected CHIP_X			:	Number = -31;
-		protected CHIP_Y			:	Number = -22;
+		protected _count			:	number;
+		protected CHIP_THICK		:	number = 8;						//籌碼跟籌碼之間的間距
+		protected CHIP_X			:	number = -31;
+		protected CHIP_Y			:	number = -22;
 		//private CHIP_LIST			:any[] = [1, 2, 5, 10, 50, 100, 300, 500];
 		public seat					:	number;	//所属座位
-		public m_chipNo				:	int = -1;
-		public betId				:	int = -1;
-		public bFlash				:	 boolean ;
-		protected m_mcFlash			:	MovieClip;
-		public chipBox				:	Sprite;					//筹码容器
-		protected chipBox2			:   Sprite;					//待播动画筹码
-		public bAddText				:	 boolean = true;			//是否加入籌碼面額文字框
-		public _startPoint			:	Point;					//待加入筹码初始位置
-		public bTween				:	 boolean;				//是否播放投注动画
-		protected m_bSelf			:	 boolean;				//是否是自己的筹码(影响文本颜色)
+		public m_chipNo				:	number = -1;
+		public betId				:	number = -1;
+		public bFlash				:	boolean ;
+		protected m_mcFlash			;
+		public chipBox				;					//筹码容器
+		protected chipBox2			;					//待播动画筹码
+		public bAddText				:	boolean = true;			//是否加入籌碼面額文字框
+		public _startPoint			;					//待加入筹码初始位置
+		public bTween				:	boolean;				//是否播放投注动画
+		protected m_bSelf			:	boolean;				//是否是自己的筹码(影响文本颜色)
 		public color1				:	number = 0xFFD66F;		//自己筹码颜色
 		public color2				:	number = 0xFFFF99;		//他人筹码颜色
 		public color3				:	number = 0x2A1B11;		//他人筹码文本阴影色
-		public bRandom				:	 boolean;				//是否随机散落
-		public range				:	Rectangle;				//随机散落范围
-		protected shadowFilter		:	DropShadowFilter;		//筹码阴影
-		protected static shadowFilter2		:	DropShadowFilter;		//文本阴影
-		protected m_bmpGold			:	Bitmap;					//金額
-		protected shadow			:	Bitmap;
+		public bRandom				:	boolean;				//是否随机散落
+		public range				;				//随机散落范围
+		protected shadowFilter		;		//筹码阴影
+		protected static shadowFilter2;		//文本阴影
+		protected m_bmpGold			;					//金額
+		protected shadow			;
 		/**
 		 *没有阴影 文本  纯动画使用  
 		 * 1  有文本，阴影，闪烁 在座位上显示用
@@ -39,7 +39,7 @@ module lobby.view.chip {
 		private endCallArg			:any[] = null;
 		
 		public constructor(type:number=1) {
-			
+			super();
 			this.type=type;
 			/*
 			 改用图片阴影
@@ -51,216 +51,216 @@ module lobby.view.chip {
 			this.shadowFilter.strength = 0.8;
 			this.shadowFilter.distance = 5;
 			this.shadowFilter.color=0x000000;*/
-			if(shadowFilter2==null){
-				shadowFilter2 = new DropShadowFilter();
-				shadowFilter2.angle = 45;
-				shadowFilter2.blurX = 0;
-				shadowFilter2.blurY = 0;
+			if(ChipStack.shadowFilter2==null){
+				ChipStack.shadowFilter2 = new DropShadowFilter();
+				ChipStack.shadowFilter2.angle = 45;
+				ChipStack.shadowFilter2.blurX = 0;
+				ChipStack.shadowFilter2.blurY = 0;
 				//this.shadowFilter.alpha = 0.85;
-				shadowFilter2.strength = 1;
-				shadowFilter2.distance = 2;
-				shadowFilter2.color=0x2A1B11;
+				ChipStack.shadowFilter2.strength = 1;
+				ChipStack.shadowFilter2.distance = 2;
+				ChipStack.shadowFilter2.color=0x2A1B11;
 			}
 			
 			
-			this.mouseEnabled=this.mouseChildren=false;
+			// this.mouseEnabled=this.mouseChildren=false;
 			
 			
 			
 			//txtMc.x= -txtMc.width/2;
 			
-			shadow = new Bitmap(BitmapManager.getInstance().bmpChipShadow,"auto",true);
-			shadow.x=CHIP_X-5;
-			shadow.y=CHIP_Y+2;
-			shadow.visible=false;
-			addChild(shadow);
+			this.shadow = new egret.Bitmap(manager.BitmapManager.getInstance().bmpChipShadow.bitmapData);
+			this.shadow.x=this.CHIP_X-5;
+			this.shadow.y=this.CHIP_Y+2;
+			this.shadow.visible=false;
+			this.addChild(this.shadow);
 			
-			m_mcFlash = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_CHIP,"Chip_Flash") ;	
-			m_mcFlash.y=0;
-			stopFlash();
-			addChild(m_mcFlash);
+			this.m_mcFlash = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_CHIP,"Chip_Flash") ;	
+			this.m_mcFlash.y=0;
+			this.stopFlash();
+			this.addChild(this.m_mcFlash);
 			
 			
 			
-			_startPoint= new Point(0,-80);
-			chipBox = new Sprite;
-			chipBox.x=CHIP_X;
-			chipBox.y= CHIP_Y;
-			addChild(chipBox);
-			chipBox2 = new Sprite;
-			chipBox2.x = CHIP_X;
-			chipBox2.y = CHIP_Y;
-			addChild(chipBox2);
+			this._startPoint= new egret.Point(0,-80);
+			this.chipBox = new egret.Sprite;
+			this.chipBox.x=this.CHIP_X;
+			this.chipBox.y= this.CHIP_Y;
+			this.addChild(this.chipBox);
+			this.chipBox2 = new egret.Sprite;
+			this.chipBox2.x = this.CHIP_X;
+			this.chipBox2.y = this.CHIP_Y;
+			this.addChild(this.chipBox2);
 			
 		//	bTween = true;
 			//addChild(txtMc);
 			
 		//	chipBox.filters=[shadowFilter]
-			txtMc = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_CHIP,"LinkPlayerTxt");
-			txtMc.txt.text="0";
-			txtMc.visible=false;
-			addChild(txtMc);
+			this.txtMc = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_CHIP,"LinkPlayerTxt");
+			this.txtMc.txt.text="0";
+			this.txtMc.visible=false;
+			this.addChild(this.txtMc);
 			
-			m_bmpGold			= new Bitmap();
-			m_bmpGold.scaleX = m_bmpGold.scaleY= 0.75;
-			m_bmpGold.smoothing = true;
-			m_bmpGold.y=-30;
-			txtMc.addChild(m_bmpGold);	
-			bSelf=true;
+			this.m_bmpGold			= new egret.Bitmap();
+			this.m_bmpGold.scaleX = this.m_bmpGold.scaleY= 0.75;
+			this.m_bmpGold.smoothing = true;
+			this.m_bmpGold.y=-30;
+			this.txtMc.addChild(this.m_bmpGold);	
+			this.bSelf=true;
 			
-			txtMc.txt.textColor=color2;
-			txtMc.txt.filters=[shadowFilter2];
+			this.txtMc.txt.textColor=this.color2;
+			this.txtMc.txt.filters=[ChipStack.shadowFilter2];
 			
 		}
 		
 		public destroy():void {
-			this.beginCall=null;
-			this.beginCallArg=null;
+			this.this.beginCall=null;
+			this.this.beginCallArg=null;
 			this.endCall=null;
 			this.endCallArg=null;
-			TweenLite.killDelayedCallsTo(stopFlash);
-			removeChips();
-			if( m_mcFlash ){
-				if( this.contains( m_mcFlash )){
-					m_mcFlash.stop();
-					removeChild(m_mcFlash);
+			TweenLite.killDelayedCallsTo(this.stopFlash);
+			this.removeChips();
+			if( this.m_mcFlash ){
+				if( this.contains( this.m_mcFlash )){
+					this.m_mcFlash.stop();
+					this.removeChild(this.m_mcFlash);
 				}	
-				m_mcFlash = null;
+				this.m_mcFlash = null;
 			}
 			
-			if( txtMc ){
-				if( this.contains( txtMc )){
-					removeChild(txtMc);
+			if( this.txtMc ){
+				if( this.contains( this.txtMc )){
+					this.removeChild(this.txtMc);
 				}	
-				txtMc = null;
+				this.txtMc = null;
 			}
 			
-			if(m_bmpGold){
-				m_bmpGold.parent.removeChild(m_bmpGold);
-				m_bmpGold=null;
+			if(this.m_bmpGold){
+				this.m_bmpGold.parent.removeChild(this.m_bmpGold);
+				this.m_bmpGold=null;
 			}
 			
 			
-			if( chips ){
-				chips = null;
+			if( this.chips ){
+				this.chips = null;
 			}
-			if(shadow){
-				removeChild(shadow);
-				shadow.bitmapData=null;
-				shadow=null;
+			if(this.shadow){
+				this.removeChild(this.shadow);
+				this.shadow.bitmapData=null;
+				this.shadow=null;
 			}
 			
 		}
 		
 		public drawRect():void{
-			if (range){
+			if (this.range){
 				this.graphics.beginFill(0x990000,0.1);
-				this.graphics.drawRect(range.x,range.y,range.width,range.height)
+				this.graphics.drawRect(this.range.x,this.range.y,this.range.width,this.range.height)
 				this.graphics.endFill();
 			}
 		}
 		
 		
 
-		get count():Number
+		get count():number
 		{
-			return _count;
+			return this._count;
 		}
 		
-		set  count(value:Number)
+		set  count(value:number)
 		{
-			if (_count==value) return;
-			var oldCount:number= _count;
-			_count = value;
+			if (this._count==value) return;
+			var oldCount:number= this._count;
+			this._count = value;
 			
 			
-			if (bTween){
+			if (this.bTween){
 				var userChips:any[] = this.creatChipList(oldCount);
 				var addChips:any[] = this.creatChipList(value);
 				this.moveAddChips(userChips, addChips);
 			}else{
-				removeChips();
-				var arr:any[] = creatChipList(value);
+				this.removeChips();
+				var arr:any[] = this.creatChipList(value);
 				var chipNum:number = arr.length
 					chipNum = Math.min(5,chipNum);
 				for (var j:number=0;j < chipNum;j++){
-					var clip:DisplayObject = this.getChipsClip(arr[j]);
+					var clip = this.getChipsClip(arr[j]);
 					clip.x = 0;
-					clip.y = (-(this.CHIP_THICK) *( this.chipBox.numChildren ));
+					clip.y = (-(this.this.CHIP_THICK) *( this.chipBox.numChildren ));
 					this.chipBox.addChild(clip);
 				}
-				if (value>0  && shadow.visible==false){
-					shadow.visible = true;
+				if (value>0  && this.shadow.visible==false){
+					this.shadow.visible = true;
 				}
 			}
 //			
 			
-			if(value>0 && bAddText){
+			if(value>0 && this.bAddText){
 				
-				txtMc.txt.text = String(value);
-				if (bSelf){
-					txtMc.y=-this.chipBox.numChildren*CHIP_THICK-9;
-					m_bmpGold.bitmapData	= BitmapManager.getInstance().numberBetGCoin.conversion( int(value) );
-					m_bmpGold.x= -m_bmpGold.width/2;
-					m_bmpGold.smoothing = true;
+				this.txtMc.txt.text = String(value);
+				if (this.bSelf){
+					this.txtMc.y=-this.chipBox.numChildren*this.CHIP_THICK-9;
+					this.m_bmpGold.bitmapData	= manager.BitmapManager.getInstance().numberBetGCoin.conversion( <number>(value) );
+					this.m_bmpGold.x= -this.m_bmpGold.width/2;
+					this.m_bmpGold.smoothing = true;
 					
 				}else{
-					txtMc.y=-this.chipBox.numChildren*CHIP_THICK-6;
+					this.txtMc.y=-this.chipBox.numChildren*this.CHIP_THICK-6;
 					
-					m_bmpGold.bitmapData=null;
+					this.m_bmpGold.bitmapData=null;
 				}
-				txtMc.visible=true;
+				this.txtMc.visible=true;
 				
 			}else{
-				if( bAddText ) {
-					txtMc.txt.text="0";
-					m_bmpGold.bitmapData=null;
+				if( this.bAddText ) {
+					this.txtMc.txt.text="0";
+					this.m_bmpGold.bitmapData=null;
 				}
-				stopFlash();
+				this.stopFlash();
 			}
 			
-			if(_count>0){
+			if(this._count>0){
 				
 			}else{
-				shadow.visible = false;
+				this.shadow.visible = false;
 			}
 			
-			adjustWidth();
+			this.adjustWidth();
 		}
 		
 		get iStackChipHeight():number{
-			var stackChipHeight:number=  ((this.CHIP_THICK) *( this.chipBox.numChildren ));
+			var stackChipHeight:number=  ((this.this.CHIP_THICK) *( this.chipBox.numChildren ));
 			return stackChipHeight;
 		}
 		
 		public adjustWidth():void{
 			//this.txtMc.back.width = Math.max(60,textField.textWidth+20);
 			
-			this.txtMc.back.width = Math.max(60,m_bmpGold.width+20);
+			this.txtMc.back.width = Math.max(60,this.m_bmpGold.width+20);
 		}
 		
 		get bSelf(): boolean
 		{
-			return m_bSelf;
+			return this.m_bSelf;
 		}
 		
 		set  bSelf(value: boolean)
 		{
-			m_bSelf = value;
+			this.m_bSelf = value;
 			if (value){
 				//txtMc.txt.textColor=color1;
-				txtMc.txt.visible = false;
-				txtMc.back.gotoAndStop(1);
-				txtMc.mc_0.gotoAndStop(1);
-				m_bmpGold.visible=true;
+				this.txtMc.txt.visible = false;
+				this.txtMc.back.gotoAndStop(1);
+				this.txtMc.mc_0.gotoAndStop(1);
+				this.m_bmpGold.visible=true;
 				//txtMc.txt.filters=[];
 			}else{
-				m_bmpGold.visible=false;
-				txtMc.txt.visible = true;
-				//txtMc.txt.textColor=color2;
-				txtMc.back.gotoAndStop(2);
-				txtMc.mc_0.gotoAndStop(2);
-				//txtMc.txt.filters=[shadowFilter2];
+				this.m_bmpGold.visible=false;
+				this.txtMc.txt.visible = true;
+				//txtMc.txt.textColor=this.color2;
+				this.txtMc.back.gotoAndStop(2);
+				this.txtMc.mc_0.gotoAndStop(2);
+				//txtMc.txt.filters=[ChipStack.shadowFilter2];
 			}
 		}
 		
@@ -269,27 +269,27 @@ module lobby.view.chip {
 			return ((Math.floor((Math.random() * ((max - min) + 1))) + min));
 		}
 		
-		public setChip(chip:DisplayObject):void{
+		public setChip(chip):void{
 				chip.x = 0;
-				chip.y = (-(this.CHIP_THICK) * chipBox.numChildren);
+				chip.y = (-(this.this.CHIP_THICK) * this.chipBox.numChildren);
 			
 		}
 		
 		
-		protected creatChipList(value:Number):any[]{
+		protected creatChipList(value:number):any[]{
 			var num:number;
 			var len:number;
-			var list:any[] = new any[]();
-			var chipsnum:Number = value;
-			for (var i:number= GameDefine.CHIP_LIST.length - 1; i >= 0; i--) 
+			var list = [];
+			var chipsnum:number = value;
+			for (var i:number= define.GameDefine.CHIP_LIST.length - 1; i >= 0; i--) 
 			{
-				num = int((chipsnum / GameDefine.CHIP_LIST[i]));
+				num = <number>((chipsnum / define.GameDefine.CHIP_LIST[i]));
 				for (var j:number= 0; j < num; j++) 
 				{
-					list.push(GameDefine.CHIP_LIST[i]);
+					list.push(define.GameDefine.CHIP_LIST[i]);
 				}
 				
-				chipsnum = (chipsnum % GameDefine.CHIP_LIST[i]);
+				chipsnum = (chipsnum % define.GameDefine.CHIP_LIST[i]);
 			}
 			if (chipsnum>0 && chipsnum<10){
 				list.push(0);
@@ -334,14 +334,14 @@ module lobby.view.chip {
 			var showList:any[];
 			var addList:any[];
 			var j:number;
-			var clip:DisplayObject;
-			var addClip:DisplayObject;
+			var clip;
+			var addClip;
 			
 			
 //			for (var j:number=0;j < chipNum;j++){
 //				//				var clip:DisplayObject = this.getChipsClip(arr[j]);
 //				//				clip.x = -clip.width/2;
-//				//				clip.y = (-(this.CHIP_THICK) * this.numChildren)-clip.height/2;
+//				//				clip.y = (-(this.this.CHIP_THICK) * this.numChildren)-clip.height/2;
 //				//				iStackChipHeight = clip.y+clip.height/2;
 //				//				this.addChild(clip);
 //							}
@@ -351,21 +351,21 @@ module lobby.view.chip {
 				list = this.checkTwoArray(list1, list2);
 				showList = list[0];
 				addList = list[1];
-			var baseY:Number = 0;
+			var baseY:number = 0;
 			//var stayNum:number = showList.length;
-			endTweenChips();
+			this.endTweenChips();
 				if(showList.length==0 && list1.length>0 && addList.length==1){
 					addClip = this.getChipsClip(addList[0]);
 					this.chipBox.addChild(addClip);
-					if (shadow && shadow.visible==false){
-						shadow.visible = true;
+					if (this.shadow && this.shadow.visible==false){
+						this.shadow.visible = true;
 					}
 					//保留一个筹码替换
 				//	bReplace=true;
 				//	this.removeChips(1);
 					return;
 				}else{
-					bReplace=false;
+					this.bReplace=false;
 				//	this.removeChips(stayNum);
 					
 				}
@@ -373,24 +373,24 @@ module lobby.view.chip {
 				for (j=0;j < showList.length;j++){
 					
 					clip = this.getChipsClip(showList[j]);
-					setChip(clip);
-					chipBox.addChild(clip);
+					this.setChip(clip);
+					this.chipBox.addChild(clip);
 				}
-				var _ease:*;
+				var _ease;
 				for (j=0;j < addList.length;j++){
-					if(chipBox.numChildren+chipBox2.numChildren>=5){
+					if(this.chipBox.numChildren+this.chipBox2.numChildren>=5){
 						break;
 					}
 					addClip = this.getChipsClip(addList[j]);
-					if (this._startPoint){
-						addClip.x = this._startPoint.x;
-						addClip.y = this._startPoint.y;
+					if (this.this._startPoint){
+						addClip.x = this.this._startPoint.x;
+						addClip.y = this.this._startPoint.y;
 						addClip.alpha = 0;
-						var Y:Number =-(this.CHIP_THICK)*(chipBox.numChildren+j)
-						if(bReplace){
+						var Y:number =-(this.this.CHIP_THICK)*(this.chipBox.numChildren+j)
+						if(this.bReplace){
 							Y=0
 						}else{
-							Y=-(this.CHIP_THICK)*(chipBox.numChildren+j)
+							Y=-(this.this.CHIP_THICK)*(this.chipBox.numChildren+j)
 						}
 						addClip.y +=Y;
 //						if(Y==0){
@@ -402,13 +402,13 @@ module lobby.view.chip {
 						TweenLite.to(addClip, 0.3, {
 							delay:0.1 + (j * 0.1),
 							alpha:1, y:Y,ease:_ease,
-							onComplete:addComplete,	onCompleteParams:[addClip]
+							onComplete:this.addComplete,	onCompleteParams:[addClip]
 						});
-						chipBox2.addChild(addClip);
+						this.chipBox2.addChild(addClip);
 						
 					} else {
-						setChip(clip);
-						chipBox.addChild(addClip);
+						this.setChip(clip);
+						this.chipBox.addChild(addClip);
 					};
 					
 				}
@@ -416,53 +416,53 @@ module lobby.view.chip {
 		}
 		
 		
-		protected addComplete(clip:DisplayObject):void{
+		protected addComplete(clip):void{
 //			if (bReplace){
 //				clip.y=0;
 //				chipBox.removeChildAt(0);
 //				bReplace=false;
 //			}else{
-				setChip(clip);
+				this.setChip(clip);
 //			}
 			if(clip){
 				if(clip.name=="clear" && clip.parent){
 					clip.parent.removeChild(clip);
 				}else{
-					chipBox.addChild(clip);
-					if(shadow){
-						if (shadow.visible==false){
-							shadow.visible = true;
+					this.chipBox.addChild(clip);
+					if(this.shadow){
+						if (this.shadow.visible==false){
+							this.shadow.visible = true;
 						}
 					}
 				}
 			}
 			
-			if (bSelf){
-				txtMc.y=-this.chipBox.numChildren*CHIP_THICK-9;
+			if (this.bSelf){
+				this.txtMc.y=-this.chipBox.numChildren*this.CHIP_THICK-9;
 				
 			}else{
-				txtMc.y=-this.chipBox.numChildren*CHIP_THICK-6;
+				this.txtMc.y=-this.chipBox.numChildren*this.CHIP_THICK-6;
 			}
 			
 		}
 		
 		protected endTweenChips(stayNum:number=0):void{
-//			while (chipBox2.numChildren > 0) {
-//				var readChip:DisplayObject = chipBox2.getChildAt(0);
+//			while (this.chipBox2.numChildren > 0) {
+//				var readChip:DisplayObject = this.chipBox2.getChildAt(0);
 //				//TweenLite.killTweensOf(readChip, false,{complete:true});
 //				TweenLite.killTweensOf(readChip);
-//			//	chipBox2.removeChildAt(0);
+//			//	this.chipBox2.removeChildAt(0);
 //			};
 			
-			while (chipBox.numChildren > stayNum) {
-				chipBox.removeChildAt(stayNum);
+			while (this.chipBox.numChildren > stayNum) {
+				this.chipBox.removeChildAt(stayNum);
 			};
 			
-			var stayNum2:number = stayNum-chipBox.numChildren;
+			var stayNum2:number = stayNum-this.chipBox.numChildren;
 			
-			for (var i:number= 0; i < chipBox2.numChildren; i++) 
+			for (var i:number= 0; i < this.chipBox2.numChildren; i++) 
 			{
-				var readChip:DisplayObject = chipBox2.getChildAt(i);
+				var readChip = this.chipBox2.getChildAt(i);
 				if (i>=stayNum2){
 					readChip.name="clear"
 										
@@ -473,43 +473,43 @@ module lobby.view.chip {
 			
 			
 			
-			setTextVisible(false);
+			this.setTextVisible(false);
 			
 			
 		}
 		
 		
 		protected removeChips(deep:number=0):void{
-			if(chipBox){
-				while (chipBox.numChildren > deep) {
-					chipBox.removeChildAt(deep);
+			if(this.chipBox){
+				while (this.chipBox.numChildren > deep) {
+					this.chipBox.removeChildAt(deep);
 				};
 			}
-			if(chipBox2){
-				while (chipBox2.numChildren > 0) {
-					var readChip:DisplayObject = chipBox2.getChildAt(0);
+			if(this.chipBox2){
+				while (this.chipBox2.numChildren > 0) {
+					var readChip = this.chipBox2.getChildAt(0);
 					TweenLite.killTweensOf(readChip);
-					chipBox2.removeChild(readChip);
+					this.chipBox2.removeChild(readChip);
 				};
 			}
 			
-			setTextVisible(false);
-			if(shadow){
-				shadow.visible=false;
+			this.setTextVisible(false);
+			if(this.shadow){
+				this.shadow.visible=false;
 			}
 			
 		}
 		
 		public setTextVisible(value: boolean):void{
-			if (txtMc){
-				txtMc.visible = value;
+			if (this.txtMc){
+				this.txtMc.visible = value;
 			}
 			
 		}
 		
 
-		protected getChipsClip(value:number):DisplayObject{
-			var chip:Bitmap = new Bitmap(BitmapManager.getInstance().getBmpdGameChip(value),"auto",true);
+		protected getChipsClip(value:number):any{
+			var chip = new egret.Bitmap(manager.BitmapManager.getInstance().getBmpdGameChip(value));
 			chip.name="chip"+value;
 			chip.smoothing = true;
 			return chip;
@@ -517,22 +517,22 @@ module lobby.view.chip {
 		
 		
 		public flash():void{
-			TweenLite.killDelayedCallsTo(stopFlash);
-			bFlash = true;
-			m_mcFlash.visible=true;
-			m_mcFlash.play();
-			TweenLite.delayedCall(2,stopFlash);
+			TweenLite.killDelayedCallsTo(this.stopFlash);
+			this.bFlash = true;
+			this.m_mcFlash.visible=true;
+			this.m_mcFlash.play();
+			TweenLite.delayedCall(2,this.stopFlash);
 		}
 		
 		
 		public stopFlash():void{
-			bFlash=false;
-			if(m_mcFlash){
-				m_mcFlash.gotoAndStop(1);
-				m_mcFlash.visible=false;
+			this.bFlash=false;
+			if(this.m_mcFlash){
+				this.m_mcFlash.gotoAndStop(1);
+				this.m_mcFlash.visible=false;
 			}
 			
-			TweenLite.killDelayedCallsTo(stopFlash);
+			TweenLite.killDelayedCallsTo(this.stopFlash);
 		}
 		
 		/**
@@ -541,29 +541,29 @@ module lobby.view.chip {
 		 * @param time
 		 * 
 		 */
-		public moveTo(gpoint:Point,time:Number=1,delay:Number=0,beginCall:Function=null,beginCallArg:any[]=null,endCall:Function=null,endCallArg:any[]=null):Number{
+		public moveTo(gpoint,time:number=1,delay:number=0,beginCall:Function=null,beginCallArg:any[]=null,endCall:Function=null,endCallArg:any[]=null):number{
 			var k:number
-			this.beginCall=beginCall;
-			this.beginCallArg=beginCallArg;
+			this.this.beginCall=this.beginCall;
+			this.this.beginCallArg=this.beginCallArg;
 			this.endCall=endCall;
 			this.endCallArg=endCallArg
-			setTextVisible(false);
-			if (shadow){
-				shadow.visible = false;
+			this.setTextVisible(false);
+			if (this.shadow){
+				this.shadow.visible = false;
 			}
-			var during:Number = 0;
-			var chip:DisplayObject;
-			var localPoint:Point;
+			var during:number = 0;
+			var chip;
+			var localPoint;
 				localPoint = this.chipBox.globalToLocal(gpoint);
 				
-				localPoint.x+=CHIP_X;
-				localPoint.y+=CHIP_Y;
+				localPoint.x+=this.CHIP_X;
+				localPoint.y+=this.CHIP_Y;
 				
 				
 				k = (this.chipBox.numChildren - 1);
 				while (k >= 0) {
 					delay = (delay + 0.1);
-					chip = chipBox.getChildAt(k) as DisplayObject;
+					chip = this.chipBox.getChildAt(k);
 					if (chip){
 						
 						TweenLite.to(chip, time, {
@@ -572,7 +572,7 @@ module lobby.view.chip {
 							x:localPoint.x,
 							y:localPoint.y,
 							ease:Quad.easeOut,
-							onComplete:moveCompleteHandler,
+							onComplete:this.moveCompleteHandler,
 							onCompleteParams:[chip]
 						});
 					}
@@ -583,13 +583,13 @@ module lobby.view.chip {
 			return during;
 		}
 		
-		private moveCompleteHandler(obj:DisplayObject):void{
+		private moveCompleteHandler(obj):void{
 			
-			if(beginCall != null){
+			if(this.beginCall != null){
 				//第一个筹码移动到位置 触发一次
-				this.beginCall.apply(null,this.beginCallArg);
-				beginCall=null;
-				this.beginCallArg=null;
+				this.this.beginCall.apply(null,this.this.beginCallArg);
+				this.beginCall=null;
+				this.this.beginCallArg=null;
 			}
 			
 			if(obj){
@@ -600,13 +600,13 @@ module lobby.view.chip {
 			
 			
 			if (this.chipBox.numChildren == 0){
-				if(type==0){
+				if(this.type==0){
 					if (this.parent){
 						this.parent.removeChild(this);
 					}
 					destroy();
 				}else{
-					removeChips();
+					this.removeChips();
 					if (this.endCall != null){
 						this.endCall.apply(null,this.endCallArg);
 						this.endCall =null;

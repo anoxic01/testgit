@@ -8,8 +8,8 @@ module lobby.view.theme {
 		public iCurrentTheme		:	int	=	-1;						//当前主题
 		public bInit				:	 boolean;						//初始状态
 		
-		public m_btnDownApp			:	SingleButtonMC;					//下载APP
-		public mc_btnStatistics		:	SingleButtonMC;					//统计
+		public m_btnDownApp			:	ui.button.SingleButtonMC;					//下载APP
+		public mc_btnStatistics		:	ui.button.SingleButtonMC;					//统计
 
 		private mcStatistics:MovieClip;
 		private bgApp:MovieClip;
@@ -22,7 +22,7 @@ module lobby.view.theme {
 			m_mcAsset.cacheAsBitmap=true;
 			this.addChild(m_mcAsset);
 			
-			m_btnDownApp = new SingleButtonMC(m_mcAsset.mc_1,function(event:MouseEvent):void{
+			m_btnDownApp = new ui.button.SingleButtonMC(m_mcAsset.mc_1,function(event:MouseEvent):void{
 				LobbyManager.getInstance().hideAllPanel();
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 //				MobileAppManager.getInstance().togglePanel();
@@ -37,7 +37,7 @@ module lobby.view.theme {
 			mcStatistics.y = m_mcAsset.mc_1.y+m_mcAsset.mc_1.height+15;
 			mcStatistics.label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 			
-			mc_btnStatistics = new SingleButtonMC(mcStatistics,function(event:MouseEvent):void{
+			mc_btnStatistics = new ui.button.SingleButtonMC(mcStatistics,function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				if(_gameID == GameDefine.SIC)
 				{

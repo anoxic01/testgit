@@ -636,7 +636,7 @@ module lobby.view.multi {
 		 * 
 		 */
 		private setupBg():void{
-			dictVideoPos = new Dictionary();
+			dictVideoPos = {};
 			var bmd:BitmapData = m_vecBg[0].clone();
 			var rect : Rectangle;
 			var i:number=0;

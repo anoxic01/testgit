@@ -1,35 +1,35 @@
 module lobby.view.chip {
 	export class ChipMover {
 		public chips				:	any[];
-		protected _count			:	Number;
-		protected CHIP_THICK		:	Number = 8;						//籌碼跟籌碼之間的間距
-		protected CHIP_X			:	Number = -31;
-		protected CHIP_Y			:	Number = -22;
-		public offset				:Ponumber;
-		public container			:	Sprite;					//筹码容器
-		public _startPoint			:	Ponumber;					//待加入筹码初始位置
+		protected _count			:	number;
+		protected CHIP_THICK		:	number = 8;						//籌碼跟籌碼之間的間距
+		protected CHIP_X			:	number = -31;
+		protected CHIP_Y			:	number = -22;
+		public offset				;
+		public container			;					//筹码容器
+		public _startPoint			;					//待加入筹码初始位置
 		private beginCall			:Function = null;
 		private beginCallArg		:any[] = null;
 		private endCall				:Function = null;
 		private endCallArg			:any[] = null;
-		public scale				:Number=1;
-		public constructor(container:Sprite,stack:Sprite=null,scale:Number=1,offset:Point=null) {
-			chips=[];
+		public scale				:number=1;
+		public constructor(container:egret.Sprite,stack:egret.Sprite=null,scale:number=1,offset:egret.Point=null) {
+			this.chips=[];
 			this.container=container;
 			this.scale=scale;
 			this.offset=offset;
-			addChips(stack);
+			this.addChips(stack);
 		}
 		
-		get count():Number
+		get count():number
 		{
-			return _count;
+			return this._count;
 		}
 		
-		set  count(value:Number)
+		set  count(value:number)
 		{
-			if (_count==value) return;
-			_count = value;
+			if (this._count==value) return;
+			this._count = value;
 		}
 		
 		public destroy():void {
@@ -37,33 +37,33 @@ module lobby.view.chip {
 			this.beginCallArg=null;
 			this.endCall=null;
 			this.endCallArg=null;
-			container=null;
-			if( chips ){
-				while(chips.length>0){
-					var chip:DisplayObject=chips.shift();
+			this.container=null;
+			if( this.chips ){
+				while(this.chips.length>0){
+					var chip=this.chips.shift();
 					if(chip.parent){
 						chip.parent.removeChild(chip);
 					}
 				}
-				chips = null;
+				this.chips = null;
 			}
 		}
 		
-		public addChips(sp:Sprite):void{
+		public addChips(sp:egret.Sprite):void{
 			while(sp.numChildren>0){
-				var chip:DisplayObject=sp.getChildAt(0)
-				var point:Ponumber;
-				if(offset){
-					chip.x=offset.x+chip.x;
-					chip.y=offset.y+chip.y;
+				var chip=sp.getChildAt(0)
+				var point:egret.Point;
+				if(this.offset){
+					chip.x=this.offset.x+chip.x;
+					chip.y=this.offset.y+chip.y;
 				}else{
-					point=sp.localToGlobal(new Point(chip.x,chip.y));
+					point=sp.localToGlobal(chip.x,chip.y);
 					chip.x=point.x;
 					chip.y=point.y;
 				}
 				
-				chip.scaleX=chip.scaleY=scale;
-				chips.push(chip);
+				chip.scaleX=chip.scaleY=this.scale;
+				this.chips.push(chip);
 				this.container.addChild(chip);
 			}
 		}
@@ -74,25 +74,25 @@ module lobby.view.chip {
 		 * @param time
 		 * 
 		 */
-		public moveTo(gpoint:Point,time:Number=1,delay:Number=0,beginCall:Function=null,beginCallArg:any[]=null,endCall:Function=null,endCallArg:any[]=null):Number{
+		public moveTo(gpoint:egret.Point,time:number=1,delay:number=0,beginCall:Function=null,beginCallArg:any[]=null,endCall:Function=null,endCallArg:any[]=null):number{
 			var k:number
 			this.beginCall=beginCall;
 			this.beginCallArg=beginCallArg;
 			this.endCall=endCall;
 			this.endCallArg=endCallArg
-			var during:Number = 0;
-			var chip:DisplayObject;
-			var localPoint:Ponumber;
+			var during:number = 0;
+			var chip;
+			var localPoint:egret.Point;
 			localPoint = this.container.globalToLocal(gpoint);
 			
-			localPoint.x+=CHIP_X;
-			localPoint.y+=CHIP_Y;
+			localPoint.x+=this.CHIP_X;
+			localPoint.y+=this.CHIP_Y;
 			
 			
-			k = chips.length;
+			k = this.chips.length;
 			while (k > 0) {
 				delay = (delay + 0.1);
-				chip = chips[k-1];
+				chip = this.chips[k-1];
 				if (chip){
 					
 					TweenLite.to(chip, time, {
@@ -101,7 +101,7 @@ module lobby.view.chip {
 						x:localPoint.x,
 						y:localPoint.y,
 						ease:Quad.easeOut,
-						onComplete:moveCompleteHandler,
+						onComplete:this.moveCompleteHandler,
 						onCompleteParams:[chip]
 					});
 				}
@@ -112,26 +112,26 @@ module lobby.view.chip {
 			return during;
 		}
 		
-		private moveCompleteHandler(obj:DisplayObject):void{
+		private moveCompleteHandler(obj):void{
 			
-			if(beginCall != null){
+			if(this.beginCall != null){
 				//第一个筹码移动到位置 触发一次
 				this.beginCall.apply(null,this.beginCallArg);
-				beginCall=null;
+				this.beginCall=null;
 				this.beginCallArg=null;
 			}
 			
 			if(obj){
 				if (obj.parent){
 					obj.parent.removeChild(obj)
-					var index:number=chips.indexOf(obj)
+					var index:number=this.chips.indexOf(obj)
 					if(index>-1){
-						chips.splice(index,1);
+						this.chips.splice(index,1);
 					}
 				}
 			}
 			
-			if (chips && chips.length==0){
+			if (this.chips && this.chips.length==0){
 					destroy();
 				
 			};

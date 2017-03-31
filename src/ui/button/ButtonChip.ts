@@ -1,102 +1,102 @@
 module ui.button {
-	export class ButtonChip extends BSprite{
+	export class ButtonChip extends lobby.view.BSprite{
 		
-		private m_mcAsset 	:	MovieClip;
-		private m_mcContent	:	MMovieClip;
+		private m_mcAsset 	;
+		private m_mcContent	;
 		
-		private m_mcSelect	:	MovieClip;
+		private m_mcSelect	;
 		
 		public bSelect		:	 boolean;
 		
-		public constructor(_mcAsset:MovieClip) {
+		public constructor(_mcAsset) {
 			super();
-			m_mcAsset = _mcAsset;
+			this.m_mcAsset = _mcAsset;
 			
-			m_mcContent = new MMovieClip(_mcAsset.mc_content);
-			initContent();
+			this.m_mcContent = new egret.MovieClip(_mcAsset.mc_content);
+			this.initContent();
 			
-			this.addChild(m_mcAsset);
-			m_mcAsset.mc_hot.buttonMode = true;
-			m_mcAsset.mc_content.mouseChildren = false;
-			m_mcAsset.mc_content.mouseEnabled = false;
+			this.addChild(this.m_mcAsset);
+			this.m_mcAsset.mc_hot.buttonMode = true;
+			this.m_mcAsset.mc_content.mouseChildren = false;
+			this.m_mcAsset.mc_content.mouseEnabled = false;
 			
-			m_mcAsset.mc_hot.addEventListener(MouseEvent.MOUSE_OVER,over);
-			m_mcAsset.mc_hot.addEventListener(MouseEvent.MOUSE_OUT,out);
-			m_mcAsset.mc_hot.addEventListener(MouseEvent.MOUSE_DOWN,down);
+			this.m_mcAsset.mc_hot.addEventListener(mouse.MouseEvent.MOUSE_OVER,this.over);
+			this.m_mcAsset.mc_hot.addEventListener(mouse.MouseEvent.MOUSE_OUT,this.out);
+			this.m_mcAsset.mc_hot.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.down);
 			
 		}
 		
 		public destroy():void{
-			m_mcAsset.mc_hot.removeEventListener(MouseEvent.MOUSE_OVER,over);
-			m_mcAsset.mc_hot.removeEventListener(MouseEvent.MOUSE_OUT,out);
-			m_mcAsset.mc_hot.removeEventListener(MouseEvent.MOUSE_DOWN,down);
+			this.m_mcAsset.mc_hot.removeEventListener(mouse.MouseEvent.MOUSE_OVER,this.over);
+			this.m_mcAsset.mc_hot.removeEventListener(mouse.MouseEvent.MOUSE_OUT,this.out);
+			this.m_mcAsset.mc_hot.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.down);
 			
-			if(m_mcAsset){
-				this.removeChild(m_mcAsset);
-				m_mcAsset = null;
+			if(this.m_mcAsset){
+				this.removeChild(this.m_mcAsset);
+				this.m_mcAsset = null;
 			}
 		}
 		set  select(_bValue: boolean){
-			bSelect = _bValue;
-			if(bSelect){
-				m_mcContent.gotoAndPlay("SELECT");
+			this.bSelect = _bValue;
+			if(this.bSelect){
+				this.m_mcContent.gotoAndPlay("SELECT");
 			}else{
-				m_mcContent.gotoAndPlay("UNSELECT");
+				this.m_mcContent.gotoAndPlay("UNSELECT");
 			}
 			
 		}
 		
 		protected over(event:MouseEvent):void
 		{
-			if(bSelect){
+			if(this.bSelect){
 				return;
 			}
-			m_mcContent.gotoAndPlay("HOVER");
+			this.m_mcContent.gotoAndPlay("HOVER");
 		}
 		
 		protected out(event:MouseEvent):void
 		{
-			if(bSelect){
+			if(this.bSelect){
 				return;
 			}
-			m_mcContent.gotoAndPlay("HOUT");
+			this.m_mcContent.gotoAndPlay("HOUT");
 		}
 		
 		protected down(event:MouseEvent):void
 		{
-			if(bSelect){
+			if(this.bSelect){
 				return;
 			}
-			m_mcContent.gotoAndPlay("HDOWN");
+			this.m_mcContent.gotoAndPlay("HDOWN");
 		}
 		
 		
 		private initContent():void{
-			m_mcContent.gotoAndStop("DEFAULT");
+			this.m_mcContent.gotoAndStop("DEFAULT");
 			
-			m_mcContent.addFrameScript(3,function():void{
-				if(m_mcContent){
-					m_mcContent.gotoAndStop(4);
+			this.m_mcContent.addFrameScript(3,function():void{
+				if(this.m_mcContent){
+					this.m_mcContent.gotoAndStop(4);
 				}
 			});
-			m_mcContent.addFrameScript(5,function():void{
-				if(m_mcContent){
-					m_mcContent.gotoAndStop(6);
+			this.m_mcContent.addFrameScript(5,function():void{
+				if(this.m_mcContent){
+					this.m_mcContent.gotoAndStop(6);
 				}
 			});
-			m_mcContent.addFrameScript(43,function():void{
-				if(m_mcContent){
-					m_mcContent.gotoAndStop(44);
+			this.m_mcContent.addFrameScript(43,function():void{
+				if(this.m_mcContent){
+					this.m_mcContent.gotoAndStop(44);
 				}
 			});
-			m_mcContent.addFrameScript(46,function():void{
-				if(m_mcContent){
-					m_mcContent.gotoAndStop(47);
+			this.m_mcContent.addFrameScript(46,function():void{
+				if(this.m_mcContent){
+					this.m_mcContent.gotoAndStop(47);
 				}
 			});
-			m_mcContent.addFrameScript(36,function():void{
-				if(m_mcContent){
-					m_mcContent.currentFrame = 16;
+			this.m_mcContent.addFrameScript(36,function():void{
+				if(this.m_mcContent){
+					this.m_mcContent.currentFrame = 16;
 				}
 			});
 		}

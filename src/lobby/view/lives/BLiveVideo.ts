@@ -1,11 +1,11 @@
 module lobby.view.lives {
 	export class BLiveVideo implements iface.ISprite{
-		protected m_rtmpPlayer		:	util.rtmp.RTMPPlayer;				//播放视讯
+		protected m_RTMPPlayer		:	util.rtmp.RTMPPlayer;				//播放视讯
 		
-		protected m_sServer			:	String;					//服务地址
-		protected m_sStream			:	String;					//媒体名称
-		protected m_sHash			:	String;					//
-		protected m_sSharedSecuret	:	String;					//共享密钥
+		protected m_sServer			:	string;					//服务地址
+		protected m_sStream			:	string;					//媒体名称
+		protected m_sHash			:	string;					//
+		protected m_sSharedSecuret	:	string;					//共享密钥
 		
 		protected uCount			:	number;					//重连次数
 		
@@ -13,22 +13,22 @@ module lobby.view.lives {
 		}
 		
 		public destroy():void{
-			if(this.m_rtmpPlayer){
-				this.m_rtmpPlayer.destroy();
-				this.m_rtmpPlayer = null;
+			if(this.m_RTMPPlayer){
+				this.m_RTMPPlayer.destroy();
+				this.m_RTMPPlayer = null;
 			}
 		}
 		
 		get connected(): boolean{
-			if(this.m_rtmpPlayer){
-				return this.m_rtmpPlayer.connected;
+			if(this.m_RTMPPlayer){
+				return this.m_RTMPPlayer.connected;
 			}
 			return false;
 		}
 		
 		get iMaxBytePerSecond():number{
-			if( this.m_rtmpPlayer ){
-				return this.m_rtmpPlayer.iMaxBytePerSecond;
+			if( this.m_RTMPPlayer ){
+				return this.m_RTMPPlayer.iMaxBytePerSecond;
 			}
 			else {
 				return 0;
@@ -65,13 +65,13 @@ module lobby.view.lives {
 		}
 		
 		public setVolume( vol:Number , panning:Number = 0):void {
-			if( this.m_rtmpPlayer ){
-				this.m_rtmpPlayer.setVolume( vol , panning );
+			if( this.m_RTMPPlayer ){
+				this.m_RTMPPlayer.setVolume( vol , panning );
 			}
 		}
 		
 		public clearView():void{
-			this.m_rtmpPlayer.clearVideoFull();
+			this.m_RTMPPlayer.clearVideoFull();
 		}
 	}
 }

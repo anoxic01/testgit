@@ -3,9 +3,9 @@ module lobby.view.panel {
 //		private m_bg							:	BitmapScale9Grid;
 //		private m_bg							:	Sprite;
 		
-		private m_btnOk							:	SingleButtonMC;
-		private m_btnNo							:	SingleButtonMC;
-		private m_btnClose						:	SingleButtonMC;
+		private m_btnOk							:	ui.button.SingleButtonMC;
+		private m_btnNo							:	ui.button.SingleButtonMC;
+		private m_btnClose						:	ui.button.SingleButtonMC;
 		
 		public volumeMusicGame					:	VolumeBar;					//音乐音量
 		public volumeEffect						:	VolumeBar;					//音效音量
@@ -168,7 +168,7 @@ module lobby.view.panel {
 			comboboxLanguage.setCurrentItem(comboboxLanguage.vecList[LobbyManager.getInstance().lobbyAuth.Lang]);
 			
 			
-			m_btnOk = new SingleButtonMC(m_mcAsset.mc_ok, function(event:MouseEvent):void{
+			m_btnOk = new ui.button.SingleButtonMC(m_mcAsset.mc_ok, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				
 				if(m_fOk!=null){
@@ -201,11 +201,11 @@ module lobby.view.panel {
 				LobbyManager.getInstance().hideSystemSetting();
 			});
 			
-			m_btnNo = new SingleButtonMC(m_mcAsset.mc_no, function(event:MouseEvent):void{
+			m_btnNo = new ui.button.SingleButtonMC(m_mcAsset.mc_no, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				LobbyManager.getInstance().hideSystemSetting();
 			});
-			m_btnClose = new SingleButtonMC(m_mcAsset.mc_close, function(event:MouseEvent):void{
+			m_btnClose = new ui.button.SingleButtonMC(m_mcAsset.mc_close, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				LobbyManager.getInstance().hideSystemSetting();
 			});
@@ -213,7 +213,7 @@ module lobby.view.panel {
 			
 			onChangeLanguage();
 			
-			this.addEventListener(MouseEvent.CLICK,onclick);
+			this.addEventListener(egret.TouchEvent.TOUCH_TAP,onclick);
 		}
 		
 		protected onclick(event:MouseEvent):void
@@ -232,7 +232,7 @@ module lobby.view.panel {
 //				m_bg = null;
 //			}
 			
-			this.removeEventListener(MouseEvent.CLICK,onclick);
+			this.removeEventListener(egret.TouchEvent.TOUCH_TAP,onclick);
 			
 			if(m_fOk != null){
 				m_fOk = null;

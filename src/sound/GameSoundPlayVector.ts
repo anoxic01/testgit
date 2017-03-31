@@ -15,7 +15,7 @@ module sound {
 		 */		
 		private isSetPlaySound: boolean = false;
 		private timeOutId:number= 0;
-		private soundDatas:Dictionary = new Dictionary();
+		private soundDatas:Dictionary = {};
 		private currentGameModel:Object = null;
 		
 		public constructor(welcomeSound:String) {
