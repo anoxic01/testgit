@@ -9,14 +9,14 @@ module manager {
 		private nSendTime				:	number;
 		private nReceiveTime			:	number;
 		
-		public constructor(sing:Singleton) {
+		public constructor() {
 		}
 
 		public static getInstance() : GameRecordManager
 		{
 			if (!this.m_instance)
 			{
-				this.m_instance = new GameRecordManager(new Singleton());
+				this.m_instance = new GameRecordManager();
 			}
 			return this.m_instance;
 		}
@@ -40,7 +40,7 @@ module manager {
 			_gameRecordApiStruct.SearchCondition.EndDateTime = _sEndDateTime;
 			_gameRecordApiStruct.SearchCondition.RequestDataSize = _iRequestDataSize;
 			_gameRecordApiStruct.SearchCondition.StartRowNo = _iStartNo;
-			_gameRecordApiStruct.SearchCondition.UserID = Player.getInstance().iPlayerID;
+			_gameRecordApiStruct.SearchCondition.UserID = lobby.model.Player.getInstance().iPlayerID;
 			_gameRecordApiStruct.SearchCondition.Identity = LobbyManager.getInstance().lobbyAuth.Identity;
 			var _class  = getDefinitionByName("KeyTest");
 			if(_class){
@@ -50,7 +50,7 @@ module manager {
 				if(LobbyManager.getInstance().lobbyAuth.Identity==2){
 					data.getGameRecord(_gameRecordApiStruct,config.TemConfig.getInstance().TryAccountApiUrl+"/Connect/GetGameRecord");
 				}else{
-					data.getGameRecord(_gameRecordApiStruct,UrlManager.getInstance().webApiUrl()+"/GameApi/GetGameRecord");
+					data.getGameRecord(_gameRecordApiStruct, manager.UrlManager.getInstance().webApiUrl()+"/GameApi/GetGameRecord");
 				}
 				
 			}
@@ -267,4 +267,3 @@ module manager {
 		}
 	}
 }
-export class Singleton{}

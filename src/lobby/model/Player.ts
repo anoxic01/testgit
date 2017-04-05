@@ -61,7 +61,7 @@ module lobby.model {
 			
 		}
 
-		get nCoin():Number
+		get nCoin():number
 		{
 //			switch(AccountType){
 //				case Define.CASH:
@@ -224,17 +224,13 @@ module lobby.model {
 			
 			if(this.m_instance == null){
 				
-				this.m_instance = new Player(new Singleton());
+				this.m_instance = new Player();
 				
 			}
 			return this.m_instance;
 		}
 		
-		public constructor(single:Singleton) {
-			
-			if(single==null){
-				console.log("models.Player初始化异常...");
-			}
+		public constructor() {
 			if( this.m_vecReceiver==null ){
 				this.m_vecReceiver = new Array<iface.IPlayerReceiver>();
 			}
@@ -242,4 +238,3 @@ module lobby.model {
 		}
 	}
 }
-export class Singleton{}

@@ -114,8 +114,8 @@ module lobby.view.chip {
 		}
 		
 		public destroy():void {
-			this.this.beginCall=null;
-			this.this.beginCallArg=null;
+			this.beginCall=null;
+			this.beginCallArg=null;
 			this.endCall=null;
 			this.endCallArg=null;
 			TweenLite.killDelayedCallsTo(this.stopFlash);
@@ -186,7 +186,7 @@ module lobby.view.chip {
 				for (var j:number=0;j < chipNum;j++){
 					var clip = this.getChipsClip(arr[j]);
 					clip.x = 0;
-					clip.y = (-(this.this.CHIP_THICK) *( this.chipBox.numChildren ));
+					clip.y = (-(this.CHIP_THICK) *( this.chipBox.numChildren ));
 					this.chipBox.addChild(clip);
 				}
 				if (value>0  && this.shadow.visible==false){
@@ -229,7 +229,7 @@ module lobby.view.chip {
 		}
 		
 		get iStackChipHeight():number{
-			var stackChipHeight:number=  ((this.this.CHIP_THICK) *( this.chipBox.numChildren ));
+			var stackChipHeight:number=  ((this.CHIP_THICK) *( this.chipBox.numChildren ));
 			return stackChipHeight;
 		}
 		
@@ -271,7 +271,7 @@ module lobby.view.chip {
 		
 		public setChip(chip):void{
 				chip.x = 0;
-				chip.y = (-(this.this.CHIP_THICK) * this.chipBox.numChildren);
+				chip.y = (-(this.CHIP_THICK) * this.chipBox.numChildren);
 			
 		}
 		
@@ -376,21 +376,20 @@ module lobby.view.chip {
 					this.setChip(clip);
 					this.chipBox.addChild(clip);
 				}
-				var _ease;
 				for (j=0;j < addList.length;j++){
 					if(this.chipBox.numChildren+this.chipBox2.numChildren>=5){
 						break;
 					}
 					addClip = this.getChipsClip(addList[j]);
-					if (this.this._startPoint){
-						addClip.x = this.this._startPoint.x;
-						addClip.y = this.this._startPoint.y;
+					if (this._startPoint){
+						addClip.x = this._startPoint.x;
+						addClip.y = this._startPoint.y;
 						addClip.alpha = 0;
-						var Y:number =-(this.this.CHIP_THICK)*(this.chipBox.numChildren+j)
+						var Y:number =-(this.CHIP_THICK)*(this.chipBox.numChildren+j)
 						if(this.bReplace){
 							Y=0
 						}else{
-							Y=-(this.this.CHIP_THICK)*(this.chipBox.numChildren+j)
+							Y=-(this.CHIP_THICK)*(this.chipBox.numChildren+j)
 						}
 						addClip.y +=Y;
 //						if(Y==0){
@@ -398,12 +397,9 @@ module lobby.view.chip {
 //						}else{
 //							_ease = Qnumber.easeOut;
 //						}
-						_ease=Bounce.easeOut;
-						TweenLite.to(addClip, 0.3, {
-							delay:0.1 + (j * 0.1),
-							alpha:1, y:Y,ease:_ease,
-							onComplete:this.addComplete,	onCompleteParams:[addClip]
-						});
+						
+						egret.Tween.get(addClip).to({y:Y, alpha:1, delay:0.1+(j*0.1)}, define.Define.SPEED, egret.Ease.bounceOut)..call(this.addComplete,addClip);
+
 						this.chipBox2.addChild(addClip);
 						
 					} else {
@@ -543,8 +539,8 @@ module lobby.view.chip {
 		 */
 		public moveTo(gpoint,time:number=1,delay:number=0,beginCall:Function=null,beginCallArg:any[]=null,endCall:Function=null,endCallArg:any[]=null):number{
 			var k:number
-			this.this.beginCall=this.beginCall;
-			this.this.beginCallArg=this.beginCallArg;
+			this.beginCall=this.beginCall;
+			this.beginCallArg=this.beginCallArg;
 			this.endCall=endCall;
 			this.endCallArg=endCallArg
 			this.setTextVisible(false);
@@ -565,16 +561,7 @@ module lobby.view.chip {
 					delay = (delay + 0.1);
 					chip = this.chipBox.getChildAt(k);
 					if (chip){
-						
-						TweenLite.to(chip, time, {
-							delay:delay ,
-							alpha:((k+1)*0.2),
-							x:localPoint.x,
-							y:localPoint.y,
-							ease:Quad.easeOut,
-							onComplete:this.moveCompleteHandler,
-							onCompleteParams:[chip]
-						});
+						egret.Tween.get(chip).to({x:localPoint.x, y:localPoint.y, alpha:((k+1)*0.2), delay:delay}, time, egret.Ease.quadOut).call(this.moveCompleteHandler, chip);
 					}
 					
 					k--;
@@ -587,9 +574,9 @@ module lobby.view.chip {
 			
 			if(this.beginCall != null){
 				//第一个筹码移动到位置 触发一次
-				this.this.beginCall.apply(null,this.this.beginCallArg);
+				this.beginCall.apply(null,this.beginCallArg);
 				this.beginCall=null;
-				this.this.beginCallArg=null;
+				this.beginCallArg=null;
 			}
 			
 			if(obj){
@@ -604,7 +591,7 @@ module lobby.view.chip {
 					if (this.parent){
 						this.parent.removeChild(this);
 					}
-					destroy();
+					this.destroy();
 				}else{
 					this.removeChips();
 					if (this.endCall != null){

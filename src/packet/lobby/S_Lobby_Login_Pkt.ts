@@ -22,7 +22,7 @@ module packet.lobby {
 					LobbyManager.getInstance().maintainLevel = 0;
 					LobbyData.getInstance().onLoginLobby(_oData);
 //					LobbyManager.getInstance().getRoadmapReqInfo([1]);//測試代碼
-					Log.getInstance().log(this, "登陆大厅成功..." );
+					console.log(this, "登陆大厅成功..." );
 					break;
 				case Define.RET_1:			//登入大廳失敗
 					_pannelDialog = LobbyManager.getInstance().showDialog( LobbyManager.getInstance().getLanguageString( Language.sWarn_Login_Lobby_Fail ) , _fExitLobby );
@@ -46,7 +46,7 @@ module packet.lobby {
 					_pannelDialog = LobbyManager.getInstance().showDialog( LobbyManager.getInstance().getLanguageString( Language.sWarn_System_Maintain ) , _fExitLobby );
 					break;
 				case Define.RET_10:			//大廳服務器忙碌中,需做重複登入
-					Log.getInstance().log(this, "Retry  Lobby Login:::");
+					console.log(this, "Retry  Lobby Login:::");
 					
 					var _bRes: boolean = LobbyManager.getInstance().reconnect();
 					if( _bRes == false ){
@@ -75,7 +75,7 @@ module packet.lobby {
 			}
 			
 			if( _oData.Ret != Define.RET_0 ){
-				Log.getInstance().log(this, "登陆大厅失敗: "+ Define.RET_6);
+				console.log(this, "登陆大厅失敗: "+ Define.RET_6);
 			}
 			
 			if( _pannelDialog != null ) {

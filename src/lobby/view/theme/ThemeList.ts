@@ -34,7 +34,7 @@ module lobby.view.theme {
 			_index = index;
 			_count++;
 			var now:number= getTimer();
-			Log.getInstance().log(this,"index: "+index+" time: "+(now-_time)+" count: "+_count);
+			console.log(this,"index: "+index+" time: "+(now-_time)+" count: "+_count);
 			_time = now;
 			var i:ThemeItem = m_vecTheme[index];
 			i.autoClick();

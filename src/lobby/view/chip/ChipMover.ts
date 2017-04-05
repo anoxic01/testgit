@@ -94,16 +94,7 @@ module lobby.view.chip {
 				delay = (delay + 0.1);
 				chip = this.chips[k-1];
 				if (chip){
-					
-					TweenLite.to(chip, time, {
-						delay:delay ,
-						alpha:((k+1)*0.2),
-						x:localPoint.x,
-						y:localPoint.y,
-						ease:Quad.easeOut,
-						onComplete:this.moveCompleteHandler,
-						onCompleteParams:[chip]
-					});
+					egret.Tween.get(chip).to( {x:localPoint.x, y:localPoint.y, alpha:((k+1)*0.2), delay:delay}, time, egret.Ease.quadOut).call(this.moveCompleteHandler,chip);
 				}
 				
 				k--;
@@ -132,7 +123,7 @@ module lobby.view.chip {
 			}
 			
 			if (this.chips && this.chips.length==0){
-					destroy();
+					this.destroy();
 				
 			};
 			

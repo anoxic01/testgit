@@ -364,7 +364,7 @@ module manager {
 			
 			//沒有重連 && m_controler.reConnect() == false
 			if( m_controler){
-				Log.getInstance().log(this, "遊戲連接失敗");
+				console.log(this, "遊戲連接失敗");
 				m_controler.onConnectFailed(SocketDefine.CONNECT_FAIL);
 				
 				var _sMsg:string = LobbyManager.getInstance().getLanguageString( Language.sException_Connect_GameServer_Failed );
@@ -398,7 +398,7 @@ module manager {
 		
 		//多桌斷線
 		public connectMulitGameClosed():void {
-			Log.getInstance().log(this, "多桌連接關閉");
+			console.log(this, "多桌連接關閉");
 			var _panelDialog:PanelDialog;
 			var _sMsg:string ;
 			var _func:Function 

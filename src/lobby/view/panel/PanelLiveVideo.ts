@@ -1,7 +1,7 @@
 module lobby.view.panel {
 	export class PanelLiveVideo extends PanelWindow{
 		private m_bg				:	BitmapScale9Grid;
-		private m_util.rtmp.RTMPPlayer		:	util.rtmp.RTMPPlayer;							//播放视讯
+		private m_RTMPPlayer		:	util.rtmp.RTMPPlayer;							//播放视讯
 //		private m_mcVideo			:	MovieClip;							//视讯容器
 		private m_btnClose			:	ui.button.SingleButtonMC;						//关闭按钮
 		private m_btnRefresh		:	ui.button.SingleButtonMC;						//刷新按钮
@@ -54,7 +54,7 @@ module lobby.view.panel {
 			
 			m_btnRefresh = new ui.button.SingleButtonMC( m_mcAsset.mc_refresh, function(event:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				m_util.rtmp.RTMPPlayer.stop();
+				m_RTMPPlayer.stop();
 				play();
 			});
 			m_btnRefresh.fOnOver = function():void{
@@ -108,9 +108,9 @@ module lobby.view.panel {
 				m_tfWorn = null;
 			}
 			
-			if(m_util.rtmp.RTMPPlayer){
-				m_util.rtmp.RTMPPlayer.destroy();
-				m_util.rtmp.RTMPPlayer = null;
+			if(m_RTMPPlayer){
+				m_RTMPPlayer.destroy();
+				m_RTMPPlayer = null;
 			}
 			
 //			if(m_mcVideo){
@@ -122,16 +122,16 @@ module lobby.view.panel {
 		}
 		
 		public initializeutil.rtmp.RTMPPlayer(_sServer:String="rtmp://192.168.201.211:1935/live_v2_origin", _sStream:String="tb025@1280x720"):void{
-			m_util.rtmp.RTMPPlayer = new util.rtmp.RTMPPlayer();
-			m_util.rtmp.RTMPPlayer.initialize( m_mcAsset.mc_0, 1280, 720);
-			m_util.rtmp.RTMPPlayer.resize(1280,720);
-			m_util.rtmp.RTMPPlayer.resizeAlignCenter(1280, 720);
-			m_util.rtmp.RTMPPlayer.fHideLoading = hideLoding; 
-			m_util.rtmp.RTMPPlayer.fConnectFailed = connectFailed;
+			m_RTMPPlayer = new util.rtmp.RTMPPlayer();
+			m_RTMPPlayer.initialize( m_mcAsset.mc_0, 1280, 720);
+			m_RTMPPlayer.resize(1280,720);
+			m_RTMPPlayer.resizeAlignCenter(1280, 720);
+			m_RTMPPlayer.fHideLoading = hideLoding; 
+			m_RTMPPlayer.fConnectFailed = connectFailed;
 			var _bStatus :  boolean = SharedObjectManager.getLiveOnOff();
-			m_util.rtmp.RTMPPlayer.setVolume(_bStatus?SharedObjectManager.getLiveVolume():0);
+			m_RTMPPlayer.setVolume(_bStatus?SharedObjectManager.getLiveVolume():0);
 			
-			m_util.rtmp.RTMPPlayer.fConnectSuccess = function():void{
+			m_RTMPPlayer.fConnectSuccess = function():void{
 				uCount = 0;
 			}
 			m_sServer = _sServer;
@@ -140,7 +140,7 @@ module lobby.view.panel {
 		}
 		
 		get iMaxBytePerSecond():number{
-			return m_util.rtmp.RTMPPlayer.iMaxBytePerSecond;
+			return m_RTMPPlayer.iMaxBytePerSecond;
 		}
 		public setData():void{
 			//			LobbyData.getInstance().lobbyInfo.panoramaVec = new <PanoramaStruct>(); 測試代碼
@@ -195,15 +195,15 @@ module lobby.view.panel {
 			
 			hash(m_sServer, m_sStreamName);
 			
-			m_util.rtmp.RTMPPlayer.play(m_sServer, m_sStream, m_sSharedSecuret);
+			m_RTMPPlayer.play(m_sServer, m_sStream, m_sSharedSecuret);
 //			util.rtmp.RTMPPlayer.getInstance().play(_txtServer.label.text, _txtStream.label.text, m_sSharedSecuret);
 			sFailedConnectType = null;
 			TimeManager.getInstance().addFun(loadVideoTimeOut,5000);	
-			m_util.rtmp.RTMPPlayer.iVideoConnectStatus = 0;					
+			m_RTMPPlayer.iVideoConnectStatus = 0;					
 		}
 		
 		protected loadVideoTimeOut():void {
-			Log.getInstance().log(this, "視訊連接狀態::視訊連接逾時");
+			console.log(this, "視訊連接狀態::視訊連接逾時");
 			if( m_mcAsset ){
 				hideLoding();
 				stop();
@@ -244,7 +244,7 @@ module lobby.view.panel {
 		private showLoading():void{
 			
 			if(m_loading){
-				m_util.rtmp.RTMPPlayer.clearVideoFull();
+				m_RTMPPlayer.clearVideoFull();
 				m_loading.gotoAndPlay(1);
 				m_loading.visible = true;
 			}
@@ -278,7 +278,7 @@ module lobby.view.panel {
 		
 		private connectFailed(_iType:number=1):void
 		{
-			Log.getInstance().log(this, "視訊連接狀態::" + _iType);
+			console.log(this, "視訊連接狀態::" + _iType);
 			hideLoding();
 			initWorn();
 			if(m_mcAsset && m_mcAsset.mc_0){
@@ -312,8 +312,8 @@ module lobby.view.panel {
 		 * 設置音量
 		 */
 		public setVolume( _nVol:Number , _nPannging:Number = 0 ):void {
-			if( m_util.rtmp.RTMPPlayer ){
-				m_util.rtmp.RTMPPlayer.setVolume( _nVol  , _nPannging );
+			if( m_RTMPPlayer ){
+				m_RTMPPlayer.setVolume( _nVol  , _nPannging );
 			}
 		}
 		
@@ -338,8 +338,8 @@ module lobby.view.panel {
 			
 		}	
 		public stop():void{
-			if(m_util.rtmp.RTMPPlayer){
-				m_util.rtmp.RTMPPlayer.stop();
+			if(m_RTMPPlayer){
+				m_RTMPPlayer.stop();
 			}
 		}		
 		

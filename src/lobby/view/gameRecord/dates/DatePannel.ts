@@ -1,265 +1,267 @@
 module lobby.view.gameRecord.dates {
 	export class DatePannel extends BSprite{
-		public var mcAsset					:	MovieClip;
-		public var _aDate					:	any[];					//12個月各月的天數, 2月會拉出來 額外計算是否為閏年
-		public var _iLimitMinYear			:	int = 2000;				//最小2000年
+		public mcAsset					;
+		public _aDate					:	any[];					//12個月各月的天數, 2月會拉出來 額外計算是否為閏年
+		public _iLimitMinYear			:	number = 2000;				//最小2000年
 		
-		public var btnPreious				:	ui.button.SingleButtonMC;
-		public var btnNext					:	ui.button.SingleButtonMC;
+		public btnPreious				:	ui.button.SingleButtonMC;
+		public btnNext					:	ui.button.SingleButtonMC;
 		
-		private var m_nSelectYear			:	Number;						//玩家選擇的年
-		private var m_nSelectMonth			:	Number;						//玩家選擇的月
-		private var m_nSelectDay			:	Number;						//玩家選擇的日
+		private m_nSelectYear			:	number;						//玩家選擇的年
+		private m_nSelectMonth			:	number;						//玩家選擇的月
+		private m_nSelectDay			:	number;						//玩家選擇的日
 		
-		private var m_nSelectYear2			:	Number;						//玩家選擇的年
-		private var m_nSelectMonth2			:	Number;						//玩家選擇的月
-		private var m_nSelectDay2			:	Number;						//玩家選擇的日
+		private m_nSelectYear2			:	number;						//玩家選擇的年
+		private m_nSelectMonth2			:	number;						//玩家選擇的月
+		private m_nSelectDay2			:	number;						//玩家選擇的日
 		
-		private var m_vecDate				:	<McDate>;
+		private m_vecDate				:	McDate[];
 		
-		public var selectType				:	number;
+		public selectType				:	number;
 		
-		public const StartTimeType			:	int = 0;
-		public const EndTimeType			:	int = 1;
+		public StartTimeType			:	number = 0;
+		public EndTimeType				:	number = 1;
 		
-		public const noCurrentMonthTextColor:number = 0xCCCCCC;		//不是當月的 文字格式
-		public const selectTextColor		:number  = 0xFFFFFF;		//選取的文字格式
-		public const normalTextColor		:number  = 0x767676;		//當月的文字格式
+		public noCurrentMonthTextColor	:	number = 0xCCCCCC;		//不是當月的 文字格式
+		public selectTextColor			:	number  = 0xFFFFFF;		//選取的文字格式
+		public normalTextColor			:	number  = 0x767676;		//當月的文字格式
 		
-		private var m_tfSelect			:	TextFormat;
-		private var m_tfNormal			:	TextFormat;
-		private var m_tfNoCurrentMonth	:	TextFormat;
+		private m_tfSelect				;
+		private m_tfNormal				;
+		private m_tfNoCurrentMonth		;
 		
-		public  var iCurrentYear		:	number;					//當年
-		public  var iCurrentMonth		:	number;					//當月
-		public  var iCurrentDay			:	number;					//當天
+		public  iCurrentYear			:	number;					//當年
+		public  iCurrentMonth			:	number;					//當月
+		public  iCurrentDay				:	number;					//當天
 		
-		private var m_iMinYear			:	number;					//最小查詢年
-		private var m_iMinMonth			:	number;					//最小查詢月
-		private var m_iMinDay			:	number;					//最小查詢天
-		private var m_timer				:	JTimer;					//計時器
-		private var m_bInit				:	 boolean;				//
+		private m_iMinYear				:	number;					//最小查詢年
+		private m_iMinMonth				:	number;					//最小查詢月
+		private m_iMinDay				:	number;					//最小查詢天
+		private m_timer					:	egret.Timer;					//計時器
+		private m_bInit					:	boolean;				//
 
-		private var bgsprite			:	Sprite;					//背景
+		private bgsprite				:	egret.Sprite;					//背景
+
 		public constructor() {
 			
-			drawBG();
+			super();
+			this.drawBG();
 			
-			mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_BET_CORD,"Link_Date");
+			this.mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_BET_CORD,"Link_Date");
 			
-			addChild(mcAsset);
+			this.addChild(this.mcAsset);
 			
 			
-			_aDate = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];	//index 0無用到
+			this._aDate = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];	//index 0無用到
 
-			init();
+			this.init();
 		}
 
 		
-		public function drawBG():void{
-			var stageW:number= LobbyManager.getInstance().stage.width;
-			var stageH:number= LobbyManager.getInstance().stage.height;
+		public drawBG():void{
+			var stageW:number= manager.LobbyManager.getInstance().stage.width;
+			var stageH:number= manager.LobbyManager.getInstance().stage.height;
 			
-			bgsprite = new Sprite();
-			bgsprite.graphics.beginFill(0x000000, 0);
-			bgsprite.graphics.drawRect(-(stageW/2), -(stageH/2),stageW, stageH);
-			bgsprite.graphics.endFill();
-			this.addChild(bgsprite);
+			this.bgsprite = new egret.Sprite();
+			this.bgsprite.graphics.beginFill(0x000000, 0);
+			this.bgsprite.graphics.drawRect(-(stageW/2), -(stageH/2),stageW, stageH);
+			this.bgsprite.graphics.endFill();
+			this.addChild(this.bgsprite);
 			
-			bgsprite.addEventListener(egret.TouchEvent.TOUCH_TAP,clickhandler);
+			this.bgsprite.addEventListener(egret.TouchEvent.TOUCH_TAP,this.clickhandler, this);
 		}
 		
-		public function clickhandler(e:MouseEvent):void{
+		public clickhandler(e:MouseEvent):void{
 			this.visible = false;
 		}
 		
 		set enabled( _bValue: boolean ) {
 			if( _bValue ){
-				m_timer.start();
+				this.m_timer.start();
 			}else {
 				this.visible = false;
 			}
 		}
 		
-		private function init():void {
+		private init():void {
 			//設定當天的年月日
-			setCurrentDate();
-			var _nYear:Number = iCurrentYear;
-			var _nMonth:Number =  iCurrentMonth;
-			var _nDay:Number =  iCurrentDay;
+			this.setCurrentDate();
+			var _nYear:number = this.iCurrentYear;
+			var _nMonth:number =  this.iCurrentMonth;
+			var _nDay:number =  this.iCurrentDay;
 			
 			//預設玩家當天選擇的年月日
-			m_nSelectYear2 = m_nSelectYear = iCurrentYear;
-			m_nSelectMonth2 = m_nSelectMonth = iCurrentMonth;
-			m_nSelectDay2 = m_nSelectDay = iCurrentDay;
+			this.m_nSelectYear2 =this. m_nSelectYear = this.iCurrentYear;
+			this.m_nSelectMonth2 = this.m_nSelectMonth = this.iCurrentMonth;
+			this.m_nSelectDay2 = this.m_nSelectDay = this.iCurrentDay;
 			
-			var _sYear:string =  string( _nYear )+ LobbyManager.getInstance().getLanguageString(Language.sYear);
+			var _sYear:string =  ( _nYear ).toString + manager.LobbyManager.getInstance().getLanguageString(language.Language.sYear);
 			var _sMonth:string;
 			if( _nMonth < 10 ){
-				_sMonth =  string("0" + _nMonth )+ LobbyManager.getInstance().getLanguageString(Language.sMonth);
+				_sMonth =  "0" + (_nMonth ).toString + manager.LobbyManager.getInstance().getLanguageString(language.Language.sMonth);
 			}
 			else {
-				_sMonth =  string( _nMonth )+ LobbyManager.getInstance().getLanguageString(Language.sMonth);
+				_sMonth =  ( _nMonth ).toString + manager.LobbyManager.getInstance().getLanguageString(language.Language.sMonth);
 			}
 			
 			
 			var _sDay:string;
 			if( _nDay < 10 ){
-				_sDay =  string("0" + _nDay )+ LobbyManager.getInstance().getLanguageString(Language.sDay);
+				_sDay =  "0" + (_nDay).toString + manager.LobbyManager.getInstance().getLanguageString(language.Language.sDay);
 			}
 			else {
-				_sDay =  string( _nDay )+ LobbyManager.getInstance().getLanguageString(Language.sDay);
+				_sDay =  ( _nDay ).toString + manager.LobbyManager.getInstance().getLanguageString(language.Language.sDay);
 			}			
 			
 			//顯示面板中的 年月日
-			mcAsset.tf_label.text = _sYear + "-" + _sMonth + "-"  + _sDay;
+			this.mcAsset.tf_label.text = _sYear + "-" + _sMonth + "-"  + _sDay;
 			
 			//上一頁按鈕
-			btnPreious = new ui.button.SingleButtonMC( mcAsset.mc_previous , onPrevious );
+			this.btnPreious = new ui.button.SingleButtonMC( this.mcAsset.mc_previous , this.onPrevious );
 			//下一頁按鈕
-			btnNext =  new ui.button.SingleButtonMC( mcAsset.mc_next , onNext );
-			btnNext.enabled = false;
+			this.btnNext =  new ui.button.SingleButtonMC( this.mcAsset.mc_next , this.onNext );
+			this.btnNext.enabled = false;
 			
-			m_vecDate = new <McDate>();
+			this.m_vecDate = new Array<McDate>();
 			
 			//文字樣式  , 可選擇, 當月, 不是當月  
-			m_tfSelect 			= new TextFormat( null, null ,selectTextColor); 
-			m_tfNormal 			= new TextFormat( null, null ,normalTextColor);
-			m_tfNoCurrentMonth 	= new TextFormat( null, null ,noCurrentMonthTextColor);
+			// this.m_tfSelect 			= new TextFormat( null, null , this.selectTextColor); 
+			// this.m_tfNormal 			= new TextFormat( null, null , this.normalTextColor);
+			// this.m_tfNoCurrentMonth 	= new TextFormat( null, null , this.noCurrentMonthTextColor);
 			
 			//設定最小年月日
-			setMinDate();
+			this.setMinDate();
 			
-			var _iDate:number= countDate( m_nSelectYear2 , m_nSelectMonth2+1 );		//計算出這個月的第一天是 星期幾
-			updateDateUI( _iDate );
+			var _iDate:number = this.countDate( this.m_nSelectYear2 , this.m_nSelectMonth2+1 );		//計算出這個月的第一天是 星期幾
+			this.updateDateUI( _iDate );
 
-			onChangeLanguage();
-			m_timer = JTimer.getTimer(1000);
-			m_timer.addTimerCallback(onTimer);
-			/*m_timer = new Timer(1000);
-			m_timer.addEventListener(TimerEvent.TIMER , onTimer );*/
-//			m_timer.start();
+			this.onChangeLanguage();
+			// this.m_timer = JTimer.getTimer(1000);
+			// this.m_timer.addTimerCallback(this.onTimer);
+			this.m_timer = new egret.Timer(1000);
+			this.m_timer.addEventListener(egret.TimerEvent.TIMER , this.onTimer, this );
+			this.m_timer.start();
 		}	
 		
-		public function run():void {
-			if( m_timer ){
-				m_timer.start();
+		public run():void {
+			if( this.m_timer ){
+				this.m_timer.start();
 			}
 		}
 		
-		public function stop():void {
-			if( m_timer ){
-				m_timer.stop();
+		public stop():void {
+			if( this.m_timer ){
+				this.m_timer.stop();
 			}
 		}
 		
-		protected function onTimer():void{
+		protected onTimer():void{
 //			console.log("Timer::::::::::::::::::::::::::::::::::::::::::::::::");
 			
 			//設定最新日期
-			setCurrentDate();
+			this.setCurrentDate();
 			//設定最小日期
-			setMinDate();
+			this.setMinDate();
 			
 			var _date:Date = new Date();
 			
-			var _iDate:number= countDate( m_nSelectYear2 , m_nSelectMonth2+1 );		//計算出這個月的第一天是 星期幾
-			updateDateUI(_iDate);
+			var _iDate:number= this.countDate( this.m_nSelectYear2 , this.m_nSelectMonth2+1 );		//計算出這個月的第一天是 星期幾
+			this.updateDateUI(_iDate);
 			
 			
-			var _nMinTimeMs:Number = _date.setFullYear(m_iMinYear , m_iMinMonth , 0 );
-			var _nCurrentTimeMs:Number = _date.setFullYear(iCurrentYear , iCurrentMonth , 0 );
-			var _nSelectTimeMs:Number = _date.setFullYear( m_nSelectYear2, m_nSelectMonth2 , 0  );
+			var _nMinTimeMs:number = _date.setFullYear(this.m_iMinYear , this.m_iMinMonth , 0 );
+			var _nCurrentTimeMs:number = _date.setFullYear(this.iCurrentYear , this.iCurrentMonth , 0 );
+			var _nSelectTimeMs:number = _date.setFullYear( this.m_nSelectYear2, this.m_nSelectMonth2 , 0  );
 			
 			if( _nSelectTimeMs >= _nCurrentTimeMs ){
-				btnNext.enabled = false;
+				this.btnNext.enabled = false;
 			}else {
-				btnNext.enabled = true;
+				this.btnNext.enabled = true;
 			}
 			
 			if( _nSelectTimeMs <= _nMinTimeMs ){
-				btnPreious.enabled = false;
+				this.btnPreious.enabled = false;
 			}else {
-				btnPreious.enabled = true;
+				this.btnPreious.enabled = true;
 			}
 			
 			_date = null;
 		}
 		
-		private function setCurrentDate():void {
+		private setCurrentDate():void {
 			var _date:Date = new Date();
-			var _nYear:Number = _date.getFullYear();
-			var _nMonth:Number =  _date.getMonth();
-			var _nDay:Number =  _date.getDate();
+			var _nYear:number = _date.getFullYear();
+			var _nMonth:number =  _date.getMonth();
+			var _nDay:number =  _date.getDate();
 			
-			iCurrentYear  = _nYear;
-			iCurrentMonth = _nMonth;
-			iCurrentDay  = _nDay;			
+			this.iCurrentYear  = _nYear;
+			this.iCurrentMonth = _nMonth;
+			this.iCurrentDay  = _nDay;			
 			
 		}
 		
 		/**
 		 * 計算 最小所能蒐索的 下注紀錄 年月日
 		 */
-		private function setMinDate():void {
+		private setMinDate():void {
 			
-			var _date:Date = new Date(iCurrentYear , iCurrentMonth , iCurrentDay);
-			var _ms:Number = 14 * 24 * 60 * 60 * 1000;		//毫秒 
+			var _date:Date = new Date(this.iCurrentYear , this.iCurrentMonth , this.iCurrentDay);
+			var _ms:number = 14 * 24 * 60 * 60 * 1000;		//毫秒 
 			
 			_date.setTime( _date.getTime() - _ms );			//少14天
 			
-			/*if( iCurrentDay >= 14 ){
-				m_iMinYear = iCurrentYear;
-				m_iMinMonth = iCurrentMonth;
-				m_iMinDay = iCurrentDay - 14 + 1;
+			/*if( this.iCurrentDay >= 14 ){
+				this.m_iMinYear = this.iCurrentYear;
+				this.m_iMinMonth = this.iCurrentMonth;
+				this.m_iMinDay = this.iCurrentDay - 14 + 1;
 			}
 			else {
-				m_iMinYear = iCurrentYear;
-				m_iMinMonth = iCurrentMonth;				
-				m_iMinMonth -= 1;
+				this.m_iMinYear = this.iCurrentYear;
+				this.m_iMinMonth = this.iCurrentMonth;				
+				this.m_iMinMonth -= 1;
 				
-				if( m_iMinMonth <= 0 ){
-					m_iMinYear = iCurrentYear - 1;
-					m_iMinMonth = 12;
+				if( this.m_iMinMonth <= 0 ){
+					this.m_iMinYear = this.iCurrentYear - 1;
+					this.m_iMinMonth = 12;
 				}
 				
-				var _isubDay:number= 14 - iCurrentDay;
+				var _isubDay:number= 14 - this.iCurrentDay;
 				
-				m_iMinDay = countTotalDay( m_iMinYear , m_iMinMonth );
-				m_iMinDay = m_iMinDay - _isubDay + 1;
+				this.m_iMinDay = countTotalDay( this.m_iMinYear , this.m_iMinMonth );
+				this.m_iMinDay = this.m_iMinDay - _isubDay + 1;
 				
 			}*/
 			
-			m_iMinYear = _date.getFullYear();
-			m_iMinMonth = _date.getMonth();
-			m_iMinDay = _date.getDate();
+			this.m_iMinYear = _date.getFullYear();
+			this.m_iMinMonth = _date.getMonth();
+			this.m_iMinDay = _date.getDate();
 			
-/*			console.log("最小年:" + m_iMinYear );
-			console.log("最小月:" + (m_iMinMonth+1) );
-			console.log("最小日:" + m_iMinDay );*/
+/*			console.log("最小年:" + this.m_iMinYear );
+			console.log("最小月:" + (this.m_iMinMonth+1) );
+			console.log("最小日:" + this.m_iMinDay );*/
 			
 		}
 		
 		
 		
-		public function reset():void {
+		public reset():void {
 			var _mc:McDate;
 			var i:number;
-			if( m_vecDate.length == 0 ){
+			if( this.m_vecDate.length == 0 ){
 				for( i = 0 ; i < 42 ; i++ ){
-					_mc = new McDate(mcAsset["mc_" + i] , m_tfSelect , m_tfNormal );
-					_mc.fClick = selectDate;
+					_mc = new McDate(this.mcAsset["mc_" + i] , this.m_tfSelect , this.m_tfNormal );
+					_mc.fClick = this.selectDate;
 					_mc.enable 	= true;
-					m_vecDate.push( _mc ); 
+					this.m_vecDate.push( _mc ); 
 				}		
 			}
 			else {
 				for( i = 0 ; i < 42 ; i++ ){
-					m_vecDate[i].mcAsset.tf_label.text = "";
-					m_vecDate[i].mcAsset.mc_0.visible = false;
-					m_vecDate[i].enable 	= true;
-					m_vecDate[i].bSelect	= false;
-					TextField(m_vecDate[i].mcAsset.tf_label).defaultTextFormat = m_tfNormal;
+					this.m_vecDate[i].mcAsset.tf_label.text = "";
+					this.m_vecDate[i].mcAsset.mc_0.visible = false;
+					this.m_vecDate[i].enable 	= true;
+					this.m_vecDate[i].bSelect	= false;
+					// TextField(this.m_vecDate[i].mcAsset.tf_label).defaultTextFormat = this.m_tfNormal;
 				}	
 				
 			}
@@ -271,128 +273,127 @@ module lobby.view.gameRecord.dates {
 		/**
 		 * 選擇日期
 		 */
-		private function selectDate( _aDate:any[] ):void {
+		private selectDate( _aDate:any[] ):void {
 
-			m_nSelectYear	=  _aDate[0];
-			m_nSelectMonth  =  _aDate[1];
-			m_nSelectDay	= _aDate[2];
+			this.m_nSelectYear	=  _aDate[0];
+			this.m_nSelectMonth  =  _aDate[1];
+			this.m_nSelectDay	= _aDate[2];
 			
-			GameRecordManager.getInstance().betRecordPannel.setDate( m_nSelectYear,  m_nSelectMonth , m_nSelectDay );
-			updateTitle();
-			GameRecordManager.getInstance().betRecordPannel.updateDate( m_nSelectYear,  m_nSelectMonth , m_nSelectDay );
+			manager.GameRecordManager.getInstance().betRecordPannel.setDate( this.m_nSelectYear,  this.m_nSelectMonth , this.m_nSelectDay );
+			this.updateTitle();
+			manager.GameRecordManager.getInstance().betRecordPannel.updateDate( this.m_nSelectYear,  this.m_nSelectMonth , this.m_nSelectDay );
 			this.visible = false;
 			
 
 		}
 		
-		private function onPrevious(event:MouseEvent):void
+		private onPrevious(event:MouseEvent):void
 		{
-			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
+			manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
 			
 			var _iDate:number;
 			
-			if( m_nSelectMonth2 > 0 ){
-				m_nSelectMonth = m_nSelectMonth2 = iCurrentMonth -1;
-				m_nSelectDay2 = m_nSelectDay = 0;
+			if( this.m_nSelectMonth2 > 0 ){
+				this.m_nSelectMonth = this.m_nSelectMonth2 = this.iCurrentMonth -1;
+				this.m_nSelectDay2 = this.m_nSelectDay = 0;
 			}
 			else {
 				
-				m_nSelectYear2 = m_nSelectYear  = iCurrentYear-1;
-				if( m_nSelectYear2 > _iLimitMinYear ){
-					m_nSelectMonth2 = m_nSelectMonth = 11;
-					m_nSelectDay2 = m_nSelectDay = 0;
+				this.m_nSelectYear2 = this.m_nSelectYear  = this.iCurrentYear-1;
+				if( this.m_nSelectYear2 > this._iLimitMinYear ){
+					this.m_nSelectMonth2 = this.m_nSelectMonth = 11;
+					this.m_nSelectDay2 = this.m_nSelectDay = 0;
 				}
 				else {
-					m_nSelectYear2 = m_nSelectYear = _iLimitMinYear;
+					this.m_nSelectYear2 = this.m_nSelectYear = this._iLimitMinYear;
 				}
 			} 
 			
-			onTimer();
+			this.onTimer();
 
 		}	
 	
 		
-		private function onNext(event:MouseEvent):void
+		private onNext(event:MouseEvent):void
 		{
-			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
+			manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
 			
 			var _date:number;
-			if( m_nSelectMonth2 < 11 ){
-				m_nSelectMonth2 = m_nSelectMonth = m_nSelectMonth2+1;
-				m_nSelectDay2 = m_nSelectDay = 0;
+			if( this.m_nSelectMonth2 < 11 ){
+				this.m_nSelectMonth2 = this.m_nSelectMonth = this.m_nSelectMonth2+1;
+				this.m_nSelectDay2 = this.m_nSelectDay = 0;
 			}
 			else {
 				
-				m_nSelectYear2 = m_nSelectYear = m_nSelectYear2+1;
-				m_nSelectMonth2 = m_nSelectMonth = 0;
-				m_nSelectDay2 = m_nSelectDay = 0;
+				this.m_nSelectYear2 = this.m_nSelectYear = this.m_nSelectYear2+1;
+				this.m_nSelectMonth2 = this.m_nSelectMonth = 0;
+				this.m_nSelectDay2 = this.m_nSelectDay = 0;
 			}
 			
-			onTimer();
+			this.onTimer();
 			
 			
 			
 		}	
 		
-		 public function set visible( _bValue: boolean ):void {
-			super.visible = _bValue;
-			onTimer();
+		 set visible( _bValue: boolean ) {
+			this.onTimer();
 		}
 		
-		 public function destroy():void {
+		 public destroy():void {
 
-			if( m_timer ){
-				m_timer.dispose();
+			if( this.m_timer ){
+				this.m_timer.stop();
 			}
 			
 			if ( this.bgsprite ) {
 				if ( this.contains( this.bgsprite ) ) {
-					bgsprite.removeEventListener(egret.TouchEvent.TOUCH_TAP,clickhandler);
+					this.bgsprite.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.clickhandler, this);
 					this.removeChild( this.bgsprite );
 				}
-				bgsprite  = null;
+				this.bgsprite  = null;
 			}
 			
 		}
 		
 		
-		 public function onChangeLanguage():void {
-			mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			updateTitle();
+		 public onChangeLanguage():void {
+			this.mcAsset.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.updateTitle();
 			
 		}
 		
-		private function updateTitle():void {
-			var _nYear:Number = m_nSelectYear;
-			var _sYear:string =  string( _nYear )+ LobbyManager.getInstance().getLanguageString(Language.sYear);
-			var _nMonth:Number =  m_nSelectMonth+1;
+		private updateTitle():void {
+			var _nYear:number = this.m_nSelectYear;
+			var _sYear:string =  ( _nYear ).toString + manager.LobbyManager.getInstance().getLanguageString(language.Language.sYear);
+			var _nMonth:number =  this.m_nSelectMonth+1;
 			var _sMonth:string;
 			if( _nMonth < 10 ){
-				_sMonth =  string("0" + _nMonth )+ LobbyManager.getInstance().getLanguageString(Language.sMonth);
+				_sMonth =  "0" + (_nMonth ).toString + manager.LobbyManager.getInstance().getLanguageString(language.Language.sMonth);
 			}
 			else {
-				_sMonth =  string( _nMonth )+ LobbyManager.getInstance().getLanguageString(Language.sMonth);
+				_sMonth =  ( _nMonth ).toString + manager.LobbyManager.getInstance().getLanguageString(language.Language.sMonth);
 			}		
 //			sDay
 			var _sDay:string;
-			if( m_nSelectDay < 10 && m_nSelectDay > 0 ){
-				_sDay = string("0" + m_nSelectDay )+ LobbyManager.getInstance().getLanguageString(Language.sDay);
+			if( this.m_nSelectDay < 10 && this.m_nSelectDay > 0 ){
+				_sDay = "0" + (this.m_nSelectDay ).toString + manager.LobbyManager.getInstance().getLanguageString(language.Language.sDay);
 			}
 			else {
-				_sDay =  string( m_nSelectDay )+ LobbyManager.getInstance().getLanguageString(Language.sDay);
+				_sDay =  ( this.m_nSelectDay ).toString + manager.LobbyManager.getInstance().getLanguageString(language.Language.sDay);
 			}
 			
-			if( m_nSelectDay == 0 ){
-				mcAsset.tf_label.text = _sYear + "-" + _sMonth ;  
+			if( this.m_nSelectDay == 0 ){
+				this.mcAsset.tf_label.text = _sYear + "-" + _sMonth ;  
 			}
 			else {
-				mcAsset.tf_label.text = _sYear + "-" + _sMonth + "-"  + _sDay  ;  
+				this.mcAsset.tf_label.text = _sYear + "-" + _sMonth + "-"  + _sDay  ;  
 			}
 				
 			
 		}
 		
-		private function isLeapYear( _iYear:number):number{
+		private isLeapYear( _iYear:number):number{
 			if( ( _iYear % 4 == 0 ) && ( _iYear % 100 != 0 ) ||  _iYear % 400 == 0 ){
 				return 29;		//閏年
 			}
@@ -405,20 +406,20 @@ module lobby.view.gameRecord.dates {
 		 * 計算星期幾
 		 * 年月日
 		 */
-		private function countDate( iYear:number, iMonth:number, iDay:number= 1 ):number{
+		private countDate( iYear:number, iMonth:number, iDay:number= 1 ):number{
 			
 			//如果是閏年，2月就多加1天變成29天 
-			_aDate[1] = isLeapYear(iYear);
+			this._aDate[1] = this.isLeapYear(iYear);
 			//計算這一天是一年中的第幾天 
 			var d:number;
 			var i:number;
 			d = iDay;
 			for (i=0; i<iMonth-1; i++) {
-				d += _aDate[i];
+				d += this._aDate[i];
 			}
 			//根據公式去計算這一天是星期幾 
 			iYear--;
-			d += iYear + int(iYear/4) - int(iYear/100) + int(iYear/400);			//公式
+			d += iYear + (iYear/4) - (iYear/100) + (iYear/400);			//公式
 			d += 7; //此處+7是避免d算出來是負值的情況
 			d %= 7; //算出星期幾 		
 			
@@ -430,81 +431,81 @@ module lobby.view.gameRecord.dates {
 		/**
 		 * @param _iDate 星期幾
 		 */
-		private function updateDateUI(_iDate:number):void {
-			reset();
+		private updateDateUI(_iDate:number):void {
+			this.reset();
 			
-			var _iCurrentDay:number= countTotalDay( m_nSelectYear2 , m_nSelectMonth2+1 );		//計算當月天數
+			var _iCurrentDay:number= this.countTotalDay( this.m_nSelectYear2 , this.m_nSelectMonth2+1 );		//計算當月天數
 			var _idx:number= _iDate;
 			var _date3:Date = new Date();
-			var _nCurrentTimeMs:Number;
-			var _nSelectTimeMs:Number;
-			var _nMinTimeMs:Number;
+			var _nCurrentTimeMs:number;
+			var _nSelectTimeMs:number;
+			var _nMinTimeMs:number;
 			//禮拜日 統一 往後 推一星期
 			if( _iDate == 0 ){
 				_idx += 7;
 			}			
 			for( var i:number= 0 ; i < _iCurrentDay ; i++ ){
-				m_vecDate[_idx].mcAsset.tf_label.text = string(i+1);
-				m_vecDate[_idx].iYear = m_nSelectYear2;
-				m_vecDate[_idx].iMonth = m_nSelectMonth2;
-				m_vecDate[_idx].iDay = i+1;
-				m_vecDate[_idx].tfNormal = m_tfNormal;
-				m_vecDate[_idx].tfSelect = m_tfSelect;
+				this.m_vecDate[_idx].mcAsset.tf_label.text = (i+1).toString;
+				this.m_vecDate[_idx].iYear = this.m_nSelectYear2;
+				this.m_vecDate[_idx].iMonth = this.m_nSelectMonth2;
+				this.m_vecDate[_idx].iDay = i+1;
+				this.m_vecDate[_idx].tfNormal = this.m_tfNormal;
+				this.m_vecDate[_idx].tfSelect = this.m_tfSelect;
 				
-				m_vecDate[_idx].canSelectState = true;
+				this.m_vecDate[_idx].canSelectState = true;
 				
-				_nCurrentTimeMs = _date3.setFullYear(iCurrentYear , iCurrentMonth , iCurrentDay );
-				_nSelectTimeMs = _date3.setFullYear(m_nSelectYear2 , m_nSelectMonth2 , (i+1) );
-				_nMinTimeMs = _date3.setFullYear(m_iMinYear , m_iMinMonth , m_iMinDay );
+				_nCurrentTimeMs = _date3.setFullYear(this.iCurrentYear , this.iCurrentMonth , this.iCurrentDay );
+				_nSelectTimeMs = _date3.setFullYear(this.m_nSelectYear2 , this.m_nSelectMonth2 , (i+1) );
+				_nMinTimeMs = _date3.setFullYear(this.m_iMinYear , this.m_iMinMonth , this.m_iMinDay );
 				if( _nSelectTimeMs > _nCurrentTimeMs ){		//超過當天日期
-					m_vecDate[_idx].defaultState();
-					m_vecDate[_idx].enable = false;
-					m_vecDate[_idx].tfNormal = m_tfNoCurrentMonth;
-					m_vecDate[_idx].tfSelect = m_tfSelect;
-					m_vecDate[_idx].canSelectState = false;
+					this.m_vecDate[_idx].defaultState();
+					this.m_vecDate[_idx].enable = false;
+					this.m_vecDate[_idx].tfNormal = this.m_tfNoCurrentMonth;
+					this.m_vecDate[_idx].tfSelect = this.m_tfSelect;
+					this.m_vecDate[_idx].canSelectState = false;
 				}
 				else if( _nSelectTimeMs <= _nMinTimeMs ) {	//限制最小可選擇的日期
-					m_vecDate[_idx].defaultState();
-					m_vecDate[_idx].enable = false;
-					m_vecDate[_idx].tfNormal = m_tfNoCurrentMonth;
-					m_vecDate[_idx].tfSelect = m_tfSelect;	
-					m_vecDate[_idx].canSelectState = false;
+					this.m_vecDate[_idx].defaultState();
+					this.m_vecDate[_idx].enable = false;
+					this.m_vecDate[_idx].tfNormal = this.m_tfNoCurrentMonth;
+					this.m_vecDate[_idx].tfSelect = this.m_tfSelect;	
+					this.m_vecDate[_idx].canSelectState = false;
 				}
 				
 				_idx+=1;
 			}
 			_date3 = null;
 			
-			var _nPreviousYear:number= m_nSelectYear2;					//上個月     年
-			var _nPreviousMonth:number= m_nSelectMonth2;				//上個月    月
+			var _nPreviousYear:number= this.m_nSelectYear2;					//上個月     年
+			var _nPreviousMonth:number= this.m_nSelectMonth2;				//上個月    月
 			var _iDayCount:number;										//上個月   天數
 			var j:number;
-			var _minDate:Date = new Date( m_iMinYear , m_iMinMonth , m_iMinDay );
+			var _minDate:Date = new Date( this.m_iMinYear , this.m_iMinMonth , this.m_iMinDay );
 			var _cmpDate:Date;
 				
 			if( _nPreviousMonth > 0 ){
 				_nPreviousMonth-=1;
 				
 				//更新 上個月的日期
-				_iDayCount = countTotalDay(_nPreviousYear , _nPreviousMonth+1);	//算出上個月總天數	
+				_iDayCount = this.countTotalDay(_nPreviousYear , _nPreviousMonth+1);	//算出上個月總天數	
 				
 				if( _iDate > 0 ){
 					while( _iDate > 0 ){
 						_iDate-=1;
 						
-						TextField(m_vecDate[_iDate].mcAsset.tf_label).defaultTextFormat = m_tfNoCurrentMonth;
-						m_vecDate[_iDate].mcAsset.tf_label.text = string(_iDayCount);
-						m_vecDate[_iDate].iYear = _nPreviousYear;
-						m_vecDate[_iDate].iMonth = _nPreviousMonth;
-						m_vecDate[_iDate].iDay = _iDayCount;	
-						m_vecDate[_iDate].tfSelect = m_tfSelect;
-						m_vecDate[_iDate].tfNormal = m_tfNoCurrentMonth;
-						m_vecDate[_iDate].canSelectState = true;
+						// TextField(this.m_vecDate[_iDate].mcAsset.tf_label).defaultTextFormat = this.m_tfNoCurrentMonth;
+						this.m_vecDate[_iDate].mcAsset.tf_label.text = (_iDayCount).toString;
+						this.m_vecDate[_iDate].iYear = _nPreviousYear;
+						this.m_vecDate[_iDate].iMonth = _nPreviousMonth;
+						this.m_vecDate[_iDate].iDay = _iDayCount;	
+						this.m_vecDate[_iDate].tfSelect = this.m_tfSelect;
+						this.m_vecDate[_iDate].tfNormal = this.m_tfNoCurrentMonth;
+						this.m_vecDate[_iDate].canSelectState = true;
 						
 						_cmpDate = new Date( _nPreviousYear , _nPreviousMonth , _iDayCount );
 						if( _cmpDate.getTime() <= _minDate.getTime()  ) {
-							m_vecDate[_iDate].enable = false;
-							m_vecDate[_iDate].canSelectState = false;
+							this.m_vecDate[_iDate].enable = false;
+							this.m_vecDate[_iDate].canSelectState = false;
 						}						
 						_iDayCount -= 1;	
 					}	
@@ -512,19 +513,19 @@ module lobby.view.gameRecord.dates {
 				}
 				else if( _iDate == 0 ){
 					for( j = 6 ; j >= 0 ; j-- ) {
-						TextField(m_vecDate[j].mcAsset.tf_label).defaultTextFormat = m_tfNoCurrentMonth;
-						m_vecDate[j].mcAsset.tf_label.text = string(_iDayCount);
-						m_vecDate[j].iYear = _nPreviousYear;
-						m_vecDate[j].iMonth = _nPreviousMonth;
-						m_vecDate[j].iDay 	= _iDayCount;	
-						m_vecDate[j].tfSelect = m_tfSelect;
-						m_vecDate[j].tfNormal = m_tfNoCurrentMonth;		
-						m_vecDate[j].canSelectState = true;
+						// TextField(this.m_vecDate[j].mcAsset.tf_label).defaultTextFormat = this.m_tfNoCurrentMonth;
+						this.m_vecDate[j].mcAsset.tf_label.text = (_iDayCount).toString;
+						this.m_vecDate[j].iYear = _nPreviousYear;
+						this.m_vecDate[j].iMonth = _nPreviousMonth;
+						this.m_vecDate[j].iDay 	= _iDayCount;	
+						this.m_vecDate[j].tfSelect = this.m_tfSelect;
+						this.m_vecDate[j].tfNormal = this.m_tfNoCurrentMonth;		
+						this.m_vecDate[j].canSelectState = true;
 						
 						_cmpDate = new Date( _nPreviousYear , _nPreviousMonth , _iDayCount );
 						if( _cmpDate.getTime() <= _minDate.getTime()  ) {
-							m_vecDate[j].enable = false;
-							m_vecDate[j].canSelectState = false;
+							this.m_vecDate[j].enable = false;
+							this.m_vecDate[j].canSelectState = false;
 						}	
 						
 						_iDayCount -= 1;
@@ -540,24 +541,24 @@ module lobby.view.gameRecord.dates {
 				_nPreviousYear -=1;     //去年
 				_nPreviousMonth = 11;   //去年從12月
 				//更新 上個月的日期
-				_iDayCount = countTotalDay(_nPreviousYear , _nPreviousMonth+1);	//算出上個月總天數	
+				_iDayCount = this.countTotalDay(_nPreviousYear , _nPreviousMonth+1);	//算出上個月總天數	
 				
 				if( _iDate > 0 ){
 					while( _iDate > 0 ){
 						_iDate-=1;
-						TextField(m_vecDate[_iDate].mcAsset.tf_label).defaultTextFormat = m_tfNoCurrentMonth;
-						m_vecDate[_iDate].mcAsset.tf_label.text = string(_iDayCount);
-						m_vecDate[_iDate].iYear = _nPreviousYear;
-						m_vecDate[_iDate].iMonth = _nPreviousMonth;
-						m_vecDate[_iDate].iDay = _iDayCount;	
-						m_vecDate[_iDate].tfSelect = m_tfSelect;
-						m_vecDate[_iDate].tfNormal = m_tfNoCurrentMonth;	
-						m_vecDate[_iDate].canSelectState = true;
+						// TextField(this.m_vecDate[_iDate].mcAsset.tf_label).defaultTextFormat = this.m_tfNoCurrentMonth;
+						this.m_vecDate[_iDate].mcAsset.tf_label.text = (_iDayCount).toString;
+						this.m_vecDate[_iDate].iYear = _nPreviousYear;
+						this.m_vecDate[_iDate].iMonth = _nPreviousMonth;
+						this.m_vecDate[_iDate].iDay = _iDayCount;	
+						this.m_vecDate[_iDate].tfSelect = this.m_tfSelect;
+						this.m_vecDate[_iDate].tfNormal = this.m_tfNoCurrentMonth;	
+						this.m_vecDate[_iDate].canSelectState = true;
 						
 						_cmpDate = new Date( _nPreviousYear , _nPreviousMonth , _iDayCount );
 						if( _cmpDate.getTime() <= _minDate.getTime()  ) {
-							m_vecDate[_iDate].enable = false;
-							m_vecDate[_iDate].canSelectState = false;
+							this.m_vecDate[_iDate].enable = false;
+							this.m_vecDate[_iDate].canSelectState = false;
 						}								
 						_iDayCount -= 1;	
 					}	
@@ -565,19 +566,19 @@ module lobby.view.gameRecord.dates {
 				}
 				else if( _iDate == 0 ){
 					for( j = 6 ; j >= 0 ; j--  ) {
-						TextField(m_vecDate[j].mcAsset.tf_label).defaultTextFormat = m_tfNoCurrentMonth;
-						m_vecDate[j].mcAsset.tf_label.text = string(_iDayCount);
-						m_vecDate[j].iYear = _nPreviousYear;
-						m_vecDate[j].iMonth = _nPreviousMonth;
-						m_vecDate[j].iDay 	= _iDayCount;	
-						m_vecDate[j].tfSelect = m_tfSelect;
-						m_vecDate[j].tfNormal = m_tfNoCurrentMonth;	
-						m_vecDate[j].canSelectState = true;
+						// TextField(this.m_vecDate[j].mcAsset.tf_label).defaultTextFormat = this.m_tfNoCurrentMonth;
+						this.m_vecDate[j].mcAsset.tf_label.text = (_iDayCount).toString;
+						this.m_vecDate[j].iYear = _nPreviousYear;
+						this.m_vecDate[j].iMonth = _nPreviousMonth;
+						this.m_vecDate[j].iDay 	= _iDayCount;	
+						this.m_vecDate[j].tfSelect = this.m_tfSelect;
+						this.m_vecDate[j].tfNormal = this.m_tfNoCurrentMonth;	
+						this.m_vecDate[j].canSelectState = true;
 						
 						_cmpDate = new Date( _nPreviousYear , _nPreviousMonth , _iDayCount );
 						if( _cmpDate.getTime() <= _minDate.getTime()  ) {
-							m_vecDate[j].enable = false;
-							m_vecDate[j].canSelectState = false;
+							this.m_vecDate[j].enable = false;
+							this.m_vecDate[j].canSelectState = false;
 						}								
 						_iDayCount -= 1;
 					}
@@ -590,8 +591,8 @@ module lobby.view.gameRecord.dates {
 
 	
 			
-			var _nNextMonth:number= m_nSelectMonth2;
-			var _nNextYear:number= m_nSelectYear2;	
+			var _nNextMonth:number= this.m_nSelectMonth2;
+			var _nNextYear:number= this.m_nSelectYear2;	
 			var _iCmpMonth:number= _nNextMonth +1 ;
 			if( _iCmpMonth < 11 ){
 				_nNextMonth+=1;
@@ -603,26 +604,26 @@ module lobby.view.gameRecord.dates {
 			
 			//更新下個月的日期
 			var _iday:number= 1;
-			var _d1:Date = new Date( iCurrentYear , iCurrentMonth , iCurrentDay );
+			var _d1:Date = new Date( this.iCurrentYear , this.iCurrentMonth , this.iCurrentDay );
 			
 			while( _idx < 42 ){
-				TextField(m_vecDate[_idx].mcAsset.tf_label).defaultTextFormat = m_tfNoCurrentMonth;
-				m_vecDate[_idx].mcAsset.tf_label.text = string(_iday);
-				m_vecDate[_idx].iYear	= _nNextYear;
-				m_vecDate[_idx].iMonth 	= _nNextMonth;
-				m_vecDate[_idx].iDay 	= _iday;	
-				m_vecDate[_idx].tfSelect = m_tfSelect;
-				m_vecDate[_idx].tfNormal = m_tfNoCurrentMonth;	
+				// TextField(this.m_vecDate[_idx].mcAsset.tf_label).defaultTextFormat = this.m_tfNoCurrentMonth;
+				this.m_vecDate[_idx].mcAsset.tf_label.text = (_iday).toString;
+				this.m_vecDate[_idx].iYear	= _nNextYear;
+				this.m_vecDate[_idx].iMonth 	= _nNextMonth;
+				this.m_vecDate[_idx].iDay 	= _iday;	
+				this.m_vecDate[_idx].tfSelect = this.m_tfSelect;
+				this.m_vecDate[_idx].tfNormal = this.m_tfNoCurrentMonth;	
 				
 				var _d2:Date = new Date( _nNextYear , _nNextMonth , _iday );
 //				console.log("_d2.getTime() ::" + _d2.getTime()  );
 //				console.log("_d1.getTime() ::" + _d1.getTime()  );
 				if( _d2.getTime() > _d1.getTime()  ){
-					m_vecDate[_idx].enable 	= false;
-					m_vecDate[_idx].canSelectState = false;
+					this.m_vecDate[_idx].enable 	= false;
+					this.m_vecDate[_idx].canSelectState = false;
 				}
 				else {
-					m_vecDate[_idx].canSelectState = true;
+					this.m_vecDate[_idx].canSelectState = true;
 				}
 				
 				_idx += 1;
@@ -638,14 +639,14 @@ module lobby.view.gameRecord.dates {
 			
 
 			
-			updateTitle();			
+			this.updateTitle();			
 			
 			
 		}
 		
 		
 		
-		public function countTotalDay( _iYear:number, _iMonth:number):number{
+		public countTotalDay( _iYear:number, _iMonth:number):number{
 			if( _iMonth == 2 ){			//2月 天數
 				if( ( _iYear % 4 == 0 ) && ( _iYear % 100 != 0 ) ||  _iYear % 400 == 0 ){
 					return 29;
@@ -665,7 +666,7 @@ module lobby.view.gameRecord.dates {
 			return 0;
 		}
 		
-		public function setDate( _iYear:number, _iYear:number, _iDay:number):void {
+		public setDate( _iYear:number, _iMonth:number, _iDay:number):void {
 			/*var _iDate:number = countDate( _iYear , _iYear );		//計算出這個月的第一天是 星期幾
 			updateDate( _iDate );*/
 		}
@@ -675,118 +676,5 @@ module lobby.view.gameRecord.dates {
 			
 		
 		
-	}
-}
-import flash.display.MovieClip;
-import flash.events.MouseEvent;
-import flash.text.TextField;
-import flash.text.TextFormat;
-
-import manager.SoundManager;
-
-import sounds.SoundPackage;
-
-class McDate {
-	public var mcAsset:MovieClip;
-	public var iYear:number;
-	public var iMonth:number;
-	public var iDay:number;
-	public var fClick:Function;
-	public var tfSelect:TextFormat;
-	public var tfNormal:TextFormat;
-	public var tfCanSelect:TextFormat;
-	public var bSelect: boolean;
-	public function McDate(_mcAsset:MovieClip , _tfSelect:TextFormat , _tfNormal:TextFormat ):void {
-		mcAsset = _mcAsset;
-		mcAsset.tf_label.text = "";
-		mcAsset.mc_0.visible = false;
-		mcAsset.buttonMode = true;
-		mcAsset.mouseChildren =false;
-		mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OVER , mouseHandler );
-		mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OUT , mouseHandler );
-		mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP , mouseHandler );
-//		mcAsset.mc_red.visible = false;
-		
-		tfSelect = _tfSelect;
-		tfNormal = _tfNormal;
-		tfCanSelect = new TextFormat();
-		tfCanSelect.color = 0xFF6600;
-		TextField(mcAsset.tf_label).defaultTextFormat = tfNormal;
-	}
-	
-	protected function mouseHandler(event:MouseEvent):void {
-		
-		if( event.type == MouseEvent.MOUSE_OVER ){
-			mcAsset.mc_0.visible = true;
-			TextField(mcAsset.tf_label).defaultTextFormat = tfSelect;
-			TextField(mcAsset.tf_label).text = TextField(mcAsset.tf_label).text;
-		}else if( event.type == MouseEvent.MOUSE_OUT ){
-			mcAsset.mc_0.visible = false;
-			
-			if( !bSelect ){
-				TextField(mcAsset.tf_label).defaultTextFormat = tfNormal;
-			}else {
-				TextField(mcAsset.tf_label).defaultTextFormat = tfCanSelect;
-			}
-			TextField(mcAsset.tf_label).text = TextField(mcAsset.tf_label).text;	
-		}
-		else if( event.type == egret.TouchEvent.TOUCH_TAP ) {
-			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-			if( fClick != null ) {
-				fClick( [iYear , iMonth , iDay ] );
-			}
-			
-		}
-	}
-
-	public function destroy():void {
-		if( mcAsset ){
-			mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OVER , mouseHandler );
-			mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OUT , mouseHandler );
-			mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP , mouseHandler );	
-			mcAsset = null;
-		}
-		
-		if( fClick != null ){
-			fClick = null;
-		}
-		
-	}
-	
-	set enable( _bValue: boolean ) {
-		mcAsset.mouseEnabled = _bValue;
-		mcAsset.enabled = _bValue;
-		mcAsset.buttonMode = _bValue;
-	}
-	
-	set canSelectState (_bValue: boolean) {
-//		mcAsset.mc_red.visible = _bValue;
-		if( _bValue ){
-			TextField(mcAsset.tf_label).defaultTextFormat = tfCanSelect;
-			TextField(mcAsset.tf_label).text = TextField(mcAsset.tf_label).text;
-		}
-		else {
-			TextField(mcAsset.tf_label).defaultTextFormat = tfNormal;
-			TextField(mcAsset.tf_label).text = TextField(mcAsset.tf_label).text;	
-		}
-		bSelect = _bValue;
-	}
-	
-	public function lightState():void {
-		mcAsset.mouseEnabled = false;
-		mcAsset.enabled = false;
-		mcAsset.buttonMode = false;
-		mcAsset.mc_0.visible = true;
-		TextField(mcAsset.tf_label).defaultTextFormat = tfSelect;
-		TextField(mcAsset.tf_label).text = TextField(mcAsset.tf_label).text;
-	}
-	
-	public function defaultState():void {
-		mcAsset.mouseEnabled = true;
-		mcAsset.enabled = true;
-		mcAsset.buttonMode = true;
-		mcAsset.mc_0.visible = false;
-		TextField(mcAsset.tf_label).defaultTextFormat = tfNormal;
-		TextField(mcAsset.tf_label).text = TextField(mcAsset.tf_label).text;
 	}
 }

@@ -104,22 +104,22 @@ module lobby.view.panel {
 			
 			var _class : Class = ResourceManager.getInstance().getClassByNameFromDomain(Define.SWF_LOBBY,"ScrollHandlerAsset");
 			if(_class==null){
-				Log.getInstance().log(this,"ScrollHandlerAsset初始化异常...");
+				console.log(this,"ScrollHandlerAsset初始化异常...");
 				return;
 			}
 			var _class2 : Class = ResourceManager.getInstance().getClassByNameFromDomain(Define.SWF_LOBBY,"Scroll_Line_Asset");
 			if(_class2==null){
-				Log.getInstance().log(this,"Scroll_Line_Asset初始化异常...");
+				console.log(this,"Scroll_Line_Asset初始化异常...");
 				return;
 			}
 			var _class3 : Class = ResourceManager.getInstance().getClassByNameFromDomain(Define.SWF_PANEL,"ComboboxItemAsset_SystemSetting");
 			if(_class3==null){
-				Log.getInstance().log(this,"Scroll_Line_Asset初始化异常...");
+				console.log(this,"Scroll_Line_Asset初始化异常...");
 				return;
 			} 
 			var _class4 : Class = ResourceManager.getInstance().getClassByNameFromDomain(Define.SWF_PANEL,"ComboboxAsset_SystemSetting");
 			if(_class4==null){
-				Log.getInstance().log(this,"Scroll_Line_Asset初始化异常...");
+				console.log(this,"Scroll_Line_Asset初始化异常...");
 				return;
 			} 
 //			comboboxSound = new Combobox(_class4, _class, _class2, _class3);

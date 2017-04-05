@@ -14,7 +14,7 @@ module packet.game {
 		public execute(oData:Object):void
 		{
 			
-//			Log.getInstance().log(this, "收到遊戲Ack::" + oData.SN);
+//			console.log(this, "收到遊戲Ack::" + oData.SN);
 			
 			if( m_controler ){
 				//收到登入確認封包回復 的  Ack
@@ -25,7 +25,7 @@ module packet.game {
 //					}
 				}
 			}else {
-				Log.getInstance().log(this , "Ack Controler is ::" + m_controler );
+				console.log(this , "Ack Controler is ::" + m_controler );
 			}
 			
 			m_controler=null;

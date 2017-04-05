@@ -1,41 +1,41 @@
 module manager {
 	export class GameSceneTransformer {
-		private topArea:<DisplayObject> = new <DisplayObject>;
-		private buttomArea:<DisplayObject> = new <DisplayObject>;
-		private leftArea:<DisplayObject> = new <DisplayObject>;
-		private rightArea:<DisplayObject> = new <DisplayObject>;
+		private topArea = new Array<egret.DisplayObject>();
+		private buttomArea = new Array<egret.DisplayObject>();
+		private leftArea = new Array<egret.DisplayObject>();
+		private rightArea = new Array<egret.DisplayObject>();
 		/**
 		 *需要移动到的位置 
 		 */		
-		private endTransformerPositionDict:Dictionary = {};
+		private endTransformerPositionDict = {};
 		/**
 		 *当前移动到的位置 
 		 */		
-		private currentTransformerPositionDict:Dictionary = {};
+		private currentTransformerPositionDict = {};
 		/**
 		 *开始的位置 
 		 */		
-		private startTransformerPositionDict:Dictionary = {};
+		private startTransformerPositionDict = {};
 		/**
 		 *所有需要移动的对象物体 
 		 */		
-		private needTransformViews:<DisplayObject> = new <DisplayObject>();
+		private needTransformViews = new Array<egret.DisplayObject>();
 		
-		private defaultTransformPositionDict:Dictionary = {};
+		private defaultTransformPositionDict = {};
 		
 		/**  手动设置的移动距离  **/
-		private leftDistance:Object = null;
-		private rightDistance:Object = null;
-		private topDistance:Object = null;
-		private buttomDistance:Object = null;
+		private leftDistance = null;
+		private rightDistance = null;
+		private topDistance = null;
+		private buttomDistance = null;
 		
 		private starting: boolean = false;
 		/**
 		 * 用于控制移动速度的向量，值越小移动速度越快
 		 */		
-		public effectDuration:Number = 0.75;
+		public effectDuration:number = 0.75;
 		/**使用TweenList时使用**/
-		public ease:* = Back.easeInOut;
+		public ease = egret.Ease.backInOut;
 		/**
 		 * 播放完成时调用
 		 */		
@@ -47,7 +47,7 @@ module manager {
 		
 		private width:number;
 		private height:number;
-		private enterFrameTarget:Sprite = new Sprite();
+		private enterFrameTarget = new egret.Sprite();
 		/**
 		 *需要重新计算位置数据 
 		 */		
@@ -75,22 +75,22 @@ module manager {
 			if(left)
 			{
 				this.leftDistance = left;
-				isNeedCalculateLeftPoints = true;
+				this.isNeedCalculateLeftPoints = true;
 			}
 			if(right)
 			{
 				this.rightDistance = right;
-				isNeedCalculateRightPoints = true;
+				this.isNeedCalculateRightPoints = true;
 			}
 			if(top)
 			{
 				this.topDistance = top;
-				isNeedCalculateTopPoints = true;
+				this.isNeedCalculateTopPoints = true;
 			}
 			if(buttom)
 			{
 				this.buttomDistance = buttom;
-				isNeedCalculateButtomPoints = true;
+				this.isNeedCalculateButtomPoints = true;
 			}
 			return this;
 		}
@@ -99,47 +99,47 @@ module manager {
 		 */		
 		public start():void
 		{
-			if(isRunning())return;
-			starting = true;
-			if(isNeedCalculateButtomPoints)calculateButtomPoints();
-			if(isNeedCalculateLeftPoints)calculateLeftPoints();
-			if(isNeedCalculateRightPoints)calculateRightPoints();
-			if(isNeedCalculateTopPoints)calculateTopPoints();
-			startTransform();
+			if(this.isRunning())return;
+			this.starting = true;
+			if(this.isNeedCalculateButtomPoints)this.calculateButtomPoints();
+			if(this.isNeedCalculateLeftPoints)this.calculateLeftPoints();
+			if(this.isNeedCalculateRightPoints)this.calculateRightPoints();
+			if(this.isNeedCalculateTopPoints)this.calculateTopPoints();
+			this.startTransform();
 		}
 		/**
 		 * 倒回播放
 		 */		
 		public reverse():void
 		{
-			if(isRunning())stop();
+			if(this.isRunning())this.stop();
 			
-			isFlyIn=!isFlyIn;
-			var startPoint:Point;
-			var endPoint:Point;
-			var view:DisplayObject;
-			needTransformViews.length = 0;
-			addViewsToNeedTransforms(topArea);
-			addViewsToNeedTransforms(buttomArea);
-			addViewsToNeedTransforms(leftArea);
-			addViewsToNeedTransforms(rightArea);
-			for (var i:number= 0; i < needTransformViews.length; i++) 
+			this.isFlyIn=!this.isFlyIn;
+			var startPoint;
+			var endPoint;
+			var view;
+			this.needTransformViews.length = 0;
+			this.addViewsToNeedTransforms(this.topArea);
+			this.addViewsToNeedTransforms(this.buttomArea);
+			this.addViewsToNeedTransforms(this.leftArea);
+			this.addViewsToNeedTransforms(this.rightArea);
+			for (var i:number= 0; i < this.needTransformViews.length; i++) 
 			{
-				view = needTransformViews[i];
-				startPoint = startTransformerPositionDict[view];
-				endPoint = endTransformerPositionDict[view];
-				startTransformerPositionDict[view] = endPoint;
-				endTransformerPositionDict[view] = startPoint;
+				view = this.needTransformViews[i];
+				startPoint = this.startTransformerPositionDict[view];
+				endPoint = this.endTransformerPositionDict[view];
+				this.startTransformerPositionDict[view] = endPoint;
+				this.endTransformerPositionDict[view] = startPoint;
 			}
-			start();
+			this.start();
 		}
-		private addViewsToNeedTransforms(views:<DisplayObject>):void
+		private addViewsToNeedTransforms(views):void
 		{
 			for (var i:number= 0; i < views.length; i++) 
 			{
-				if(needTransformViews.indexOf(views[i])<0)
+				if(this.needTransformViews.indexOf(views[i])<0)
 				{
-					needTransformViews.push(views[i]);
+					this.needTransformViews.push(views[i]);
 				}
 			}
 		}
@@ -148,22 +148,22 @@ module manager {
 		 */		
 		public stop():void
 		{
-			if(isRunning())
+			if(this.isRunning())
 			{
-				var view:DisplayObject;
-				var startPoint:Point;
-				var endPoint:Point;
-				for (var i:number= 0; i < needTransformViews.length; i++) 
+				var view;
+				var startPoint;
+				var endPoint;
+				for (var i:number= 0; i < this.needTransformViews.length; i++) 
 				{
-					view = needTransformViews[i];
-					startPoint = startTransformerPositionDict[view];
-					endPoint = endTransformerPositionDict[view];
+					view = this.needTransformViews[i];
+					startPoint = this.startTransformerPositionDict[view];
+					endPoint = this.endTransformerPositionDict[view];
 					view.x = endPoint.x;
 					view.y = endPoint.y;
 					/////// TweenLite
-					TweenLite.killTweensOf(view,true);
+					// TweenLite.killTweensOf(view,true);
 				}
-				needTransformViews.length = 0;
+				this.needTransformViews.length = 0;
 				/*enterFrameTarget.removeEventListener(Event.ENTER_FRAME,onFrame);*/
 			}
 		}
@@ -174,24 +174,24 @@ module manager {
 		public destroy():void
 		{
 			// 还原本身位置
-			for (var view:DisplayObject in defaultTransformPositionDict) 
+			for (var view in this.defaultTransformPositionDict) 
 			{
-				view.x = defaultTransformPositionDict[view].x;
-				view.y = defaultTransformPositionDict[view].y;
+				view.x = this.defaultTransformPositionDict[view].x;
+				view.y = this.defaultTransformPositionDict[view].y;
 			}
-			if(isRunning())stop();
-			needTransformViews.length = 0;
-			topArea.length = 0;
-			buttomArea.length = 0;
-			leftArea.length = 0;
-			rightArea.length = 0;
-			onPlayComplete = null;
-			startTransformerPositionDict = null;
-			endTransformerPositionDict = null;
-			currentTransformerPositionDict = null;
-			defaultTransformPositionDict = null;
-			needTransformViews = null;
-			enterFrameTarget = null;
+			if(this.isRunning())this.stop();
+			this.needTransformViews.length = 0;
+			this.topArea.length = 0;
+			this.buttomArea.length = 0;
+			this.leftArea.length = 0;
+			this.rightArea.length = 0;
+			this.onPlayComplete = null;
+			this.startTransformerPositionDict = null;
+			this.endTransformerPositionDict = null;
+			this.currentTransformerPositionDict = null;
+			this.defaultTransformPositionDict = null;
+			this.needTransformViews = null;
+			this.enterFrameTarget = null;
 		}
 		
 		/**
@@ -199,22 +199,21 @@ module manager {
 		 */		
 		private startTransform():void
 		{
-			var view:DisplayObject;
-			var startPoint:Point;
-			var currentPoint:Point;
-			var endPoint:Point;
-			for (var i:number= 0; i < needTransformViews.length; i++) 
+			var view;
+			var startPoint;
+			var currentPoint;
+			var endPoint;
+			for (var i:number= 0; i < this.needTransformViews.length; i++) 
 			{
-				view = needTransformViews[i];
-				startPoint = startTransformerPositionDict[view];
-				currentPoint = currentTransformerPositionDict[view];
+				view = this.needTransformViews[i];
+				startPoint = this.startTransformerPositionDict[view];
+				currentPoint = this.currentTransformerPositionDict[view];
 				currentPoint.setTo(startPoint.x,startPoint.y);
 				///////// TweenLite
-				endPoint = endTransformerPositionDict[view];
+				endPoint = this.endTransformerPositionDict[view];
 				view.x = currentPoint.x;
 				view.y = currentPoint.y;
-				TweenLite.killTweensOf(view,true);
-				TweenLite.to(view,effectDuration,{x:endPoint.x,y:endPoint.y,onComplete:onOneViewEffectComplete,onCompleteParams:[view],ease:ease});
+				egret.Tween.get(view).to({x:endPoint.x, y:endPoint.y}, this.effectDuration, this.ease).call(this.onOneViewEffectComplete,view);
 			}
 			/*enterFrameTarget.removeEventListener(Event.ENTER_FRAME,onFrame);
 			enterFrameTarget.addEventListener(Event.ENTER_FRAME,onFrame);*/
@@ -222,29 +221,29 @@ module manager {
 		/**
 		 * 单个特效完成
 		 */		
-		private onOneViewEffectComplete(view:DisplayObject):void
+		private onOneViewEffectComplete(view):void
 		{
-			if(needTransformViews!=null && endTransformerPositionDict!=null){
+			if(this.needTransformViews!=null && this.endTransformerPositionDict!=null){
 				
 			}
-			var index:number= needTransformViews.indexOf(view);
+			var index:number= this.needTransformViews.indexOf(view);
 			if(index>=0){
-				needTransformViews.splice(index,1);
+				this.needTransformViews.splice(index,1);
 			}
-			var endPoint:Point = endTransformerPositionDict[view];
+			var endPoint = this.endTransformerPositionDict[view];
 			view.x = endPoint.x;
 			view.y = endPoint.y;
-			if(needTransformViews.length<=0){
-				onEffectPlayComplete();
+			if(this.needTransformViews.length<=0){
+				this.onEffectPlayComplete();
 			}
 		}
 		////////////////使用enterFram时使用
 		/*private onFrame(e:Event):void
 		{
 			var view:DisplayObject;
-			var currentPoint:Point;
-			var endPoint:Point;
-			var startPoint:Point;
+			var currentPoint:egret.Point;
+			var endPoint:egret.Point;
+			var startPoint:egret.Point;
 			if(effectDuration<=0)effectDuration=1;
 			for each (view in needTransformViews) 
 			{
@@ -255,8 +254,8 @@ module manager {
 				{
 					var xx:number= currentPoint.x-endPoint.x;
 					var yy:number= currentPoint.y-endPoint.y;
-					var moveX:Number = xx/effectDuration;
-					var moveY:Number = yy/effectDuration;
+					var moveX:number = xx/effectDuration;
+					var moveY:number = yy/effectDuration;
 					if(moveX==0)currentPoint.x = endPoint.x;
 					else currentPoint.x-=moveX;
 					if(moveY==0)currentPoint.y =endPoint.y;
@@ -274,24 +273,24 @@ module manager {
 		 */		
 		private calculateLeftPoints():void
 		{
-			isNeedCalculateLeftPoints = false;
+			this.isNeedCalculateLeftPoints = false;
 			var leftWidth:number= 0;
-			if(leftDistance!=null)
+			if(this.leftDistance!=null)
 			{
-				leftWidth = int(leftDistance);
+				leftWidth = (this.leftDistance);
 			}else
 			{
 				var viewDis:number= 0;
-				for (var i:number= 0; i < leftArea.length; i++) 
+				for (var i:number= 0; i < this.leftArea.length; i++) 
 				{
-					viewDis = getViewGlobePosition(leftArea[i]).x+leftArea[i].width;
+					viewDis = this.getViewGlobePosition(this.leftArea[i]).x+this.leftArea[i].width;
 					if(viewDis>leftWidth)
 						leftWidth = viewDis;
 				}
 			}
-			for (var j:number= 0; j < leftArea.length; j++)
+			for (var j:number= 0; j < this.leftArea.length; j++)
 			{
-				setViewTransformData(leftArea[j],new Point(leftArea[j].x-leftWidth,leftArea[j].y),new Point(leftArea[j].x,leftArea[j].y));
+				this.setViewTransformData(this.leftArea[j],new egret.Point(this.leftArea[j].x-leftWidth,this.leftArea[j].y),new egret.Point(this.leftArea[j].x,this.leftArea[j].y));
 			}
 		}
 		/**
@@ -299,25 +298,25 @@ module manager {
 		 */		
 		private calculateRightPoints():void
 		{
-			isNeedCalculateRightPoints = false;
-			var rightWidth:number= int.MAX_VALUE;
-			if(rightDistance!=null)
+			this.isNeedCalculateRightPoints = false;
+			var rightWidth:number= number.MAX_VALUE;
+			if(this.rightDistance!=null)
 			{
-				rightWidth = int(rightDistance);
+				rightWidth = (this.rightDistance);
 			}else
 			{
 				var viewDis:number= 0;
-				for (var i:number= 0; i < rightArea.length; i++) 
+				for (var i:number= 0; i < this.rightArea.length; i++) 
 				{
-					viewDis = getViewGlobePosition(rightArea[i]).x;
+					viewDis = this.getViewGlobePosition(this.rightArea[i]).x;
 					if(viewDis<rightWidth)
 						rightWidth = viewDis;
 				}
-				if(rightArea.length>0)rightWidth = width-rightWidth;
+				if(this.rightArea.length>0)rightWidth = this.width-rightWidth;
 			}
-			for (var j:number= 0; j < rightArea.length; j++) 
+			for (var j:number= 0; j < this.rightArea.length; j++) 
 			{
-				setViewTransformData(rightArea[j],new Point(rightArea[j].x+rightWidth,rightArea[j].y),new Point(rightArea[j].x,rightArea[j].y));
+				this.setViewTransformData(this.rightArea[j],new egret.Point(this.rightArea[j].x+rightWidth,this.rightArea[j].y),new egret.Point(this.rightArea[j].x,this.rightArea[j].y));
 			}
 		}
 		/**
@@ -325,24 +324,24 @@ module manager {
 		 */		
 		private calculateTopPoints():void
 		{
-			isNeedCalculateTopPoints = false;
+			this.isNeedCalculateTopPoints = false;
 			var topHeight:number= 0;
-			if(topDistance!=null)
+			if(this.topDistance!=null)
 			{
-				topHeight = int(topDistance);
+				topHeight = (this.topDistance);
 			}else
 			{
 				var viewDis:number= 0;
-				for (var i:number= 0; i < topArea.length; i++) 
+				for (var i:number= 0; i < this.topArea.length; i++) 
 				{
-					viewDis = getViewGlobePosition(topArea[i]).y+topArea[i].height;
+					viewDis = this.getViewGlobePosition(this.topArea[i]).y+this.topArea[i].height;
 					if(viewDis>topHeight)
 						topHeight = viewDis;
 				}
 			}
-			for (var j:number= 0; j < topArea.length; j++) 
+			for (var j:number= 0; j < this.topArea.length; j++) 
 			{
-				setViewTransformData(topArea[j],new Point(topArea[j].x,topArea[j].y-topHeight),new Point(topArea[j].x,topArea[j].y));
+				this.setViewTransformData(this.topArea[j],new egret.Point(this.topArea[j].x,this.topArea[j].y-topHeight),new egret.Point(this.topArea[j].x,this.topArea[j].y));
 			}
 		}
 		/**
@@ -350,39 +349,39 @@ module manager {
 		 */		
 		private calculateButtomPoints():void
 		{
-			isNeedCalculateButtomPoints = false;
-			var buttomHeight:number= int.MAX_VALUE;
-			if(buttomDistance!=null)
+			this.isNeedCalculateButtomPoints = false;
+			var buttomHeight:number= number.MAX_VALUE;
+			if(this.buttomDistance!=null)
 			{
-				buttomHeight = int(buttomDistance);
+				buttomHeight = (this.buttomDistance);
 			}else
 			{
 				var viewDis:number= 0;
-				for (var i:number= 0; i < buttomArea.length; i++) 
+				for (var i:number= 0; i < this.buttomArea.length; i++) 
 				{
-					viewDis = getViewGlobePosition(buttomArea[i]).y;
+					viewDis = this.getViewGlobePosition(this.buttomArea[i]).y;
 					if(viewDis<buttomHeight)
 						buttomHeight = viewDis;
 				}
-				if(buttomArea.length>0)buttomHeight = height-buttomHeight;
+				if(this.buttomArea.length>0)buttomHeight = this.height-buttomHeight;
 			}
-			for (var j:number= 0; j < buttomArea.length; j++) 
+			for (var j:number= 0; j < this.buttomArea.length; j++) 
 			{
-				setViewTransformData(buttomArea[j],new Point(buttomArea[j].x,buttomArea[j].y+buttomHeight),new Point(buttomArea[j].x,buttomArea[j].y));
+				this.setViewTransformData(this.buttomArea[j],new egret.Point(this.buttomArea[j].x,this.buttomArea[j].y+buttomHeight),new egret.Point(this.buttomArea[j].x,this.buttomArea[j].y));
 			}
 		}
 		/**
 		 * 将指定视图的本地坐标转换成全局坐标，方便计算距离位置点
 		 */		
-		private getViewGlobePosition(view:DisplayObject):Point
+		private getViewGlobePosition(view):egret.Point
 		{
 			if(view.root!=null)
 			{
-				var rect:Rectangle = view.getBounds(view.root);
-				return new Point(rect.x,rect.y);
+				var rect = view.getBounds(view.root);
+				return new egret.Point(rect.x,rect.y);
 			}else
 			{
-				return view.localToGlobal(new Point());
+				return view.localToGlobal(new egret.Point());
 			}
 		}
 		/**
@@ -391,27 +390,27 @@ module manager {
 		 * @param p1
 		 * @param p2
 		 */		
-		private setViewTransformData(view:DisplayObject,p1:Point,p2:Point):void
+		private setViewTransformData(view,p1:egret.Point,p2:egret.Point):void
 		{
-			startTransformerPositionDict[view] = isFlyIn?p1:p2;
-			endTransformerPositionDict[view] = isFlyIn?p2:p1;
-			currentTransformerPositionDict[view] = new Point();
-			if(needTransformViews.indexOf(view)<0)
+			this.startTransformerPositionDict[view] = this.isFlyIn?p1:p2;
+			this.endTransformerPositionDict[view] = this.isFlyIn?p2:p1;
+			this.currentTransformerPositionDict[view] = new egret.Point();
+			if(this.needTransformViews.indexOf(view)<0)
 			{
-				needTransformViews.push(view);
+				this.needTransformViews.push(view);
 			}
 		}
-		private addAreaObjects(objects:any[],area:<DisplayObject>):GameSceneTransformer
+		private addAreaObjects(objects,area):GameSceneTransformer
 		{
 			area.length = 0;
 			for (var i:number= 0; i < objects.length; i++) 
 			{
-				if(objects[i] is DisplayObject)
+				if(objects[i] instanceof egret.DisplayObject)
 				{
 					area.push(objects[i]);
 					// 缓存displayObject
 //					(objects[i] as DisplayObject).cacheAsBitmap = true;
-					defaultTransformPositionDict[objects[i]] = new Point(objects[i].x,objects[i].y);
+					this.defaultTransformPositionDict[objects[i]] = new egret.Point(objects[i].x,objects[i].y);
 				}
 			}
 			return this;
@@ -421,51 +420,51 @@ module manager {
 		 */		
 		private onEffectPlayComplete():void
 		{
-			starting = false;
+			this.starting = false;
 			/*enterFrameTarget.removeEventListener(Event.ENTER_FRAME,onFrame);*/
-			if(onPlayComplete!=null)
+			if(this.onPlayComplete!=null)
 			{
-				onPlayComplete.apply();
+				this.onPlayComplete.apply();
 			}
 		}
 		/**
 		 * 是否正在运行
 		 */		
-		public isRunning(): boolean{return starting;}
+		public isRunning(): boolean{return this.starting;}
 		/**
 		 * 添加上部的移动视图
 		 */		
-		public addTopAreaObject(objects:any[]):GameSceneTransformer
+		public addTopAreaObject(objects):GameSceneTransformer
 		{
-			addAreaObjects(objects,topArea);
-			isNeedCalculateTopPoints = true;
+			this.addAreaObjects(objects,this.topArea);
+			this.isNeedCalculateTopPoints = true;
 			return this;
 		}
 		/**
 		 * 添加底部的移动视图
 		 */		
-		public addButtomAreaObject(objects:any[]):GameSceneTransformer
+		public addButtomAreaObject(objects):GameSceneTransformer
 		{
-			addAreaObjects(objects,buttomArea);
-			isNeedCalculateButtomPoints = true;
+			this.addAreaObjects(objects,this.buttomArea);
+			this.isNeedCalculateButtomPoints = true;
 			return this;
 		}
 		/**
 		 * 添加左边的移动视图
 		 */		
-		public addLeftAreaObject(objects:any[]):GameSceneTransformer
+		public addLeftAreaObject(objects):GameSceneTransformer
 		{
-			addAreaObjects(objects,leftArea);
-			isNeedCalculateLeftPoints = true;
+			this.addAreaObjects(objects,this.leftArea);
+			this.isNeedCalculateLeftPoints = true;
 			return this;
 		}
 		/**
 		 * 添加右边的移动视图
 		 */		
-		public addRightAreaObject(objects:any[]):GameSceneTransformer
+		public addRightAreaObject(objects):GameSceneTransformer
 		{
-			addAreaObjects(objects,rightArea);
-			isNeedCalculateRightPoints = true;
+			this.addAreaObjects(objects,this.rightArea);
+			this.isNeedCalculateRightPoints = true;
 			return this;
 		}
 	}

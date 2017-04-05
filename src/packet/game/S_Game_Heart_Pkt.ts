@@ -14,7 +14,7 @@ module packet.game {
 		public execute(oData:Object):void
 		{
 			
-//			Log.getInstance().log(this, "收到遊戲心跳::" );
+//			console.log(this, "收到遊戲心跳::" );
 			
 			var _heartStruct:HeartStruct = new HeartStruct();
 				_heartStruct.PlayerID = oData.PlayerID;

@@ -19,14 +19,14 @@ module manager {
 			
 			if(this.m_instance == null){
 				
-				this.m_instance = new TipManager(new Singleton());
+				this.m_instance = new TipManager();
 				
 			}
 			return this.m_instance;
 		}
 		
 
-		public constructor(sing:Singleton) {
+		public constructor() {
 		}
 		
 		public initialize():void{
@@ -80,7 +80,7 @@ module manager {
 			switch(_mode){
 				case 1:
 				case 2:
-					((this.m_aTip[this.m_iCurrent] ).tf_label).autoSize = TextFieldAutoSize.LEFT;
+					// ((this.m_aTip[this.m_iCurrent] ).tf_label).autoSize = TextFieldAutoSize.LEFT;
 					((this.m_aTip[this.m_iCurrent] ).tf_label).x = -<number>(((this.m_aTip[this.m_iCurrent] ).tf_label).width*0.5);
 					(this.m_aTip[this.m_iCurrent] ).x = _point.x;
 					(this.m_aTip[this.m_iCurrent] ).y = _point.y;
@@ -131,4 +131,3 @@ module manager {
 		
 	}
 }
-export class Singleton{}

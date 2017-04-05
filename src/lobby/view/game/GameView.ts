@@ -1,19 +1,20 @@
 module lobby.view.game {
-	export class GameView  extends BSprite implements IConnectState{
+	export class GameView  extends BSprite implements iface.IConnectState{
 		
-		public model				:	GameModel;
+		public model				:	model.game.GameModel;
 		public sendFun				:	Function;
 		public gameType				:	number;
-		public bInited				:	 boolean			//是否已登录成功,收到初始化数据
+		public bInited				:	boolean;			//是否已登录成功,收到初始化数据
 		
-		public constructor(gameType:number) {
-			this.gameType=gameType;
+		public constructor($gameType:number) {
+			super();
+			this.gameType = $gameType;
 		}
 		
 		 public destroy():void {
-			bInited = false;
-			model = null;
-			sendFun = null;
+			this.bInited = false;
+			this.model = null;
+			this.sendFun = null;
 		}
 		
 		/**
@@ -22,14 +23,14 @@ module lobby.view.game {
 		 * @param model
 		 * 
 		 */
-		public setup(model:GameModel):void{
+		public setup(model:model.game.GameModel):void{
 			
 		}
 		
 		
 		
 		
-		public updateView(model:GameModel):void{
+		public updateView(model:model.game.GameModel):void{
 			
 		}
 		

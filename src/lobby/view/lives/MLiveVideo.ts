@@ -5,145 +5,148 @@ module lobby.view.lives {
 		private m_btnZoomOut		:	ui.button.SingleButtonMC;				//缩小视讯
 		public btnBack				:	ui.button.SingleButtonMC;				//关闭视讯
 		private m_btnOnOff			:	ui.button.SingleButtonMC;				//显示隐藏
-		private m_mask				:	Sprite;
+		private m_mask				;
 		
-		public zoomPt				:	Point;						//放大到的点
+		public zoomPt				;						//放大到的点
 		public bTween				:	 boolean;					//放大缩小动画中
-		public constructor(_mcParent:MovieClip,_uWidth:number, _uHeight:number) {
-			mcAsset = _mcParent;
+		public constructor(_mcParent, _uWidth:number, _uHeight:number) {
+			
+			super(_uWidth,_uHeight);
+
+			this.mcAsset = _mcParent;
 			
 			super(_mcParent.width,_mcParent.height);
-			m_mask= new Sprite();
-			m_mask.graphics.beginFill(0x999999);
-		//	m_mask.graphics.drawRect(0, 0, uWidth, uHeight);
-			m_mask.graphics.drawRect(0, 0, uWidth, uHeight);
-			m_mask.graphics.endFill()
-			mcAsset.addChild(m_mask);
-			mcAsset.mask=m_mask;
+			this.m_mask= new egret.Sprite();
+			this.m_mask.graphics.beginFill(0x999999);
+		//	this.m_mask.graphics.drawRect(0, 0, uWidth, uHeight);
+			this.m_mask.graphics.drawRect(0, 0, this.uWidth, this.uHeight);
+			this.m_mask.graphics.endFill()
+			this.mcAsset.addChild(this.m_mask);
+			this.mcAsset.mask=this.m_mask;
 			
-			fontSize=14;
+			this.fontSize=14;
 			
-			zoomPt = new Point();
-			zoomPt.x = 210;
-			zoomPt.y = 120;
+			this.zoomPt = new egret.Point();
+			this.zoomPt.x = 210;
+			this.zoomPt.y = 120;
 			
-			var mc1:MovieClip=_mcParent.getChildByName("mc_1")as MovieClip;
-			m_btnRefresh = new ui.button.SingleButtonMC(mc1, function(event:MouseEvent):void{
-				TipManager.getInstance().hide();
-				m_util.rtmp.RTMPPlayer.stop();
-				play();
+			var mc1=_mcParent.getChildByName("mc_1");
+			this.m_btnRefresh = new ui.button.SingleButtonMC(mc1, function(event:MouseEvent):void{
+				manager.TipManager.getInstance().hide();
+				this.m_RTMPPlayer.stop();
+				this.play();
 			});
-			m_btnRefresh.fOnOver = function():void{
-				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Refresh),TipManager.DOWN,_mcParent.localToGlobal(new Point(_mcParent.mc_1.x+15,_mcParent.mc_1.y)));
+			this.m_btnRefresh.fOnOver = function():void{
+				manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Refresh),manager.TipManager.DOWN,_mcParent.localToGlobal(new egret.Point(_mcParent.mc_1.x+15,_mcParent.mc_1.y)));
 			};
-			m_btnRefresh.fOnOut = function():void{
-				TipManager.getInstance().hide();
+			this.m_btnRefresh.fOnOut = function():void{
+				manager.TipManager.getInstance().hide();
 			};
 			
 			/*
 			去掉放大功能
 			var mc2:MovieClip=_mcParent.getChildByName("mc_2")as MovieClip;
 			mc2.visible=false;
-			m_btnZoomIn = new ui.button.SingleButtonMC(mc2, function(event:MouseEvent):void{
-				TipManager.getInstance().hide();
+			this.m_btnZoomIn = new ui.button.SingleButtonMC(mc2, function(event:MouseEvent):void{
+				manager.TipManager.getInstance().hide();
 				
 				//放大
-				//m_util.rtmp.RTMPPlayer.zoomIn();
+				//m_RTMPPlayer.zoomIn();
 				zoomIn();
 			});
-			m_btnZoomIn.fOnOver = function():void{
-				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Video_ZoomIn),TipManager.DOWN,_mcParent.localToGlobal(new Point(_mcParent.mc_2.x+9,_mcParent.mc_2.y)));
+			this.m_btnZoomIn.fOnOver = function():void{
+				manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Video_ZoomIn),manager.TipManager.DOWN,_mcParent.localToGlobal(new Point(_mcParent.mc_2.x+9,_mcParent.mc_2.y)));
 			};
-			m_btnZoomIn.fOnOut = function():void{
-				TipManager.getInstance().hide();
+			this.m_btnZoomIn.fOnOut = function():void{
+				manager.TipManager.getInstance().hide();
 			};
 			
 			var mc3:MovieClip=_mcParent.getChildByName("mc_3")as MovieClip;
 			if (mc3){
 				mc3.visible=false;
 				//缩小
-				m_btnZoomOut = new ui.button.SingleButtonMC(mc3, function(event:MouseEvent):void{
-					TipManager.getInstance().hide();
+				this.m_btnZoomOut = new ui.button.SingleButtonMC(mc3, function(event:MouseEvent):void{
+					manager.TipManager.getInstance().hide();
 					zoomOut();
 				});
-				m_btnZoomOut.fOnOver = function():void{
-					TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Video_ZoomOut),TipManager.DOWN,_mcParent.localToGlobal(new Point(_mcParent.mc_3.x+9,_mcParent.mc_3.y)));
+				this.m_btnZoomOut.fOnOver = function():void{
+					manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Video_ZoomOut),manager.TipManager.DOWN,_mcParent.localToGlobal(new Point(_mcParent.mc_3.x+9,_mcParent.mc_3.y)));
 				};
-				m_btnZoomOut.fOnOut = function():void{
-					TipManager.getInstance().hide();
+				this.m_btnZoomOut.fOnOut = function():void{
+					manager.TipManager.getInstance().hide();
 				};
 			}*/
 				
-			var mc4:MovieClip=_mcParent.getChildByName("mc_4")as MovieClip;
+			var mc4=_mcParent.getChildByName("mc_4");
 			if (mc4){
-				btnBack = new ui.button.SingleButtonMC(mc4, function(event:MouseEvent):void{
+				this.btnBack = new ui.button.SingleButtonMC(mc4, function(event:MouseEvent):void{
 					
 				});
-				btnBack.fOnOver = function():void{
-					TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Video_Close),TipManager.DOWN,_mcParent.localToGlobal(new Point(_mcParent.mc_4.x+15,_mcParent.mc_4.y)));
+				this.btnBack.fOnOver = function():void{
+					manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Video_Close),manager.TipManager.DOWN,_mcParent.localToGlobal(new egret.Point(_mcParent.mc_4.x+15,_mcParent.mc_4.y)));
 				};
-				btnBack.fOnOut = function():void{
-					TipManager.getInstance().hide();
+				this.btnBack.fOnOut = function():void{
+					manager.TipManager.getInstance().hide();
 				};
 			}
 			
 			
 			//mc1.visible=mc2.visible=false;
-			//m_btnZoomOut.enabled = false;
+			//this.m_btnZoomOut.enabled = false;
 			
-			hideLoding();
-			setVolume(0);
+			this.hideLoding();
+			this.setVolume(0);
 		}
 		
-		 public initializeutil.rtmp.RTMPPlayer():void{
-			m_util.rtmp.RTMPPlayer = new util.rtmp.RTMPPlayer();
-			m_util.rtmp.RTMPPlayer.initialize( m_mcVideo, uWidth, uHeight);
+		 public initializeRTMPPlayer():void{
+			this.m_RTMPPlayer = new util.rtmp.RTMPPlayer();
+			this.m_RTMPPlayer.initialize( this.m_mcVideo, this.uWidth, this.uHeight);
 			
-			m_util.rtmp.RTMPPlayer.fHideLoading = hideLoding; 
-			m_util.rtmp.RTMPPlayer.fConnectFailed = connectFailed;
+			this.m_RTMPPlayer.fHideLoading = this.hideLoding; 
+			this.m_RTMPPlayer.fConnectFailed = this.connectFailed;
 			
-			m_util.rtmp.RTMPPlayer.resize(uWidth,uHeight);
-			var _bStatus :  boolean = SharedObjectManager.getLiveOnOff();
-			m_util.rtmp.RTMPPlayer.setVolume(_bStatus?SharedObjectManager.getLiveVolume():0);
+			this.m_RTMPPlayer.resize(this.uWidth,this.uHeight);
+			var _bStatus  = manager.SharedObjectManager.getLiveOnOff();
+			this.m_RTMPPlayer.setVolume(_bStatus?manager.SharedObjectManager.getLiveVolume():0);
 			
-			m_loading = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_LOBBY,"LoadingLiveAsset");
+			this.m_loading = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY,"LoadingLiveAsset");
 //			m_mcVideo.addChild(m_loading);
-//			m_loading.x = int( mcAsset.width * 0.5 - 100);
-//			m_loading.y = int(mcAsset.height * 0.5 - 20);
+//			m_loading.x = int( this.mcAsset.width * 0.5 - 100);
+//			m_loading.y = int(this.mcAsset.height * 0.5 - 20);
 //			
-			m_util.rtmp.RTMPPlayer.fConnectSuccess = function():void{
-				if(m_tfWarn){
-					m_tfWarn.visible = false;
+			this.m_RTMPPlayer.fConnectSuccess = function():void{
+				if(this.m_tfWarn){
+					this.m_tfWarn.visible = false;
 				}
-				uCount = 0;
-				m_util.rtmp.RTMPPlayer.setStageVideo(0,0,1920,1080);
+				this.uCount = 0;
+				this.m_RTMPPlayer.setStageVideo(0,0,1920,1080);
 			};
 		}
 		
 		 protected init():void{
-			m_mcVideo = new MovieClip();
-			mcAsset.addChildAt(m_mcVideo,1);
-			initializeutil.rtmp.RTMPPlayer();
-			m_util.rtmp.RTMPPlayer.bClear = true;
-			m_mcVideo.graphics.beginFill(0x550000,0);
-			m_mcVideo.graphics.drawRect(0, 0, uWidth, uHeight);
-			m_mcVideo.graphics.endFill();
-			m_util.rtmp.RTMPPlayer.resizeAlignCenter(uWidth,uHeight);
+			this.m_mcVideo = new egret.MovieClip();
+			this.mcAsset.addChildAt(this.m_mcVideo,1);
+			this.initializeRTMPPlayer();
+			this.m_RTMPPlayer.bClear = true;
+			this.m_mcVideo.graphics.beginFill(0x550000,0);
+			this.m_mcVideo.graphics.drawRect(0, 0, this.uWidth, this.uHeight);
+			this.m_mcVideo.graphics.endFill();
+			this.m_RTMPPlayer.resizeAlignCenter(this.uWidth, this.uHeight);
 		}
 		
 		
 		
 		 protected loadVideoTimeOut():void {
-			Log.getInstance().log(this, "視訊連接狀態::視訊連接逾時");
-			stop();
-			sFailedConnectType = Language.sLiveError;
-			initWorn();
-			m_tfWarn.text = LobbyManager.getInstance().getLanguageString(  Language.sLiveError );	
-			m_tfWarn.visible = true;
+			console.log(this, "視訊連接狀態::視訊連接逾時");
+			this.stop();
+			this.sFailedConnectType = language.Language.sLiveError;
+			this.initWorn();
+			this.m_tfWarn.text = manager.LobbyManager.getInstance().getLanguageString(  language.Language.sLiveError );	
+			this.m_tfWarn.visible = true;
 			
-			uCount++;
-			if(uCount<3){
-				play();
+			this.uCount++;
+			if(this.uCount<3){
+				this.play();
 			}
 		}
 		
@@ -152,27 +155,27 @@ module lobby.view.lives {
 		
 		 protected connectFailed(_iType:number=1):void
 		{
-			hideLoding();
-			initWorn();
+			this.hideLoding();
+			this.initWorn();
 			
 			switch(_iType){
 				case util.rtmp.RTMPPlayer.iStreamNotFound:
-					m_tfWarn.text = LobbyManager.getInstance().getLanguageString(  Language.sLiveError );	
-					sFailedConnectType = Language.sLiveError;
+					this.m_tfWarn.text = manager.LobbyManager.getInstance().getLanguageString(  language.Language.sLiveError );	
+					this.sFailedConnectType = language.Language.sLiveError;
 					break;
 				case util.rtmp.RTMPPlayer.iRejected:
-					m_tfWarn.text = LobbyManager.getInstance().getLanguageString(  Language.sLiveError );	
-					sFailedConnectType = Language.sLiveError;
+					this.m_tfWarn.text = manager.LobbyManager.getInstance().getLanguageString(  language.Language.sLiveError );	
+					this.sFailedConnectType = language.Language.sLiveError;
 					break;
 				case util.rtmp.RTMPPlayer.iVideoConnectFailed:
 				case util.rtmp.RTMPPlayer.iVideoPlayFailed:
-					m_tfWarn.text = LobbyManager.getInstance().getLanguageString( Language.sLiveError );	
-					sFailedConnectType = Language.sLiveError;
+					this.m_tfWarn.text = manager.LobbyManager.getInstance().getLanguageString( language.Language.sLiveError );	
+					this.sFailedConnectType = language.Language.sLiveError;
 					break;
 			}
 			
 			
-			m_tfWarn.visible = true;
+			this.m_tfWarn.visible = true;
 			
 		}
 	
@@ -180,39 +183,39 @@ module lobby.view.lives {
 		
 		public zoomIn() : void
 		{
-			if (bTween)return;
-			var xx:Number= -zoomPt.x;
-			var yy:Number= -zoomPt.y;
+			if (this.bTween)return;
+			var xx:Number= -this.zoomPt.x;
+			var yy:Number= -this.zoomPt.y;
 			var ww:Number
 			var hh:Number
-			m_btnZoomIn.enabled=false;
-			m_btnZoomOut.enabled = false;
-			TweenLite.to(m_mcVideo, GameDefine.TWEEN_SPEED, {x:xx, y:yy, scaleX:2, scaleY:2,onComplete:function():void{
-				bTween=false;
-				if(m_btnZoomOut){
-					m_btnZoomOut.enabled = true;
+			this.m_btnZoomIn.enabled=false;
+			this.m_btnZoomOut.enabled = false;
+			TweenLite.to(this.m_mcVideo, define.GameDefine.TWEEN_SPEED, {x:xx, y:yy, scaleX:2, scaleY:2,onComplete:function():void{
+				this.bTween=false;
+				if(this.m_btnZoomOut){
+					this.m_btnZoomOut.enabled = true;
 				}
 			}});
-			bTween = true;
+			this.bTween = true;
 			return;
 		}
 
 		public zoomOut() : void
 		{
-			if (bTween)return;
+			if (this.bTween)return;
 			var xx:Number= 0;
 			var yy:Number= 0;
 			var ww:Number
 			var hh:Number
-			m_btnZoomIn.enabled=false;
-			m_btnZoomOut.enabled = false;
-			TweenLite.to(m_mcVideo, GameDefine.TWEEN_SPEED, {x:xx, y:yy, scaleX:1, scaleY:1,onComplete:function():void{
-				bTween=false
-				if(m_btnZoomIn){
-					m_btnZoomIn.enabled=true;
+			this.m_btnZoomIn.enabled=false;
+			this.m_btnZoomOut.enabled = false;
+			TweenLite.to(this.m_mcVideo, define.GameDefine.TWEEN_SPEED, {x:xx, y:yy, scaleX:1, scaleY:1,onComplete:function():void{
+				this.bTween=false
+				if(this.m_btnZoomIn){
+					this.m_btnZoomIn.enabled=true;
 				}
 			}});
-			bTween = true;
+			this.bTween = true;
 			return;
 		}
 		

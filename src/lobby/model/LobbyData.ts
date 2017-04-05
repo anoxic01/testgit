@@ -112,7 +112,7 @@ module lobby.model {
 //				for (var i:number= 0; i < m_vecRtmpPlayers.length; i++) 
 //				{
 //					if(m_vecRtmpPlayers[i].stageVideoIndex == r.stageVideoIndex){
-//						Log.getInstance().log(this,"使用相同的stagevideo频道"+String(r.stageVideoIndex));
+//						console.log(this,"使用相同的stagevideo频道"+String(r.stageVideoIndex));
 //						return;
 //					}
 //				}
@@ -275,7 +275,7 @@ module lobby.model {
 			if(_aAdv){
 				var _adLen : number = _aAdv.length;
 				if(_adLen>0){
-					_aAdv.sortOn("SN", Array.NUMERIC);
+					_aAdv.sortOn("SN");
 					_adLen = _adLen>define.Define.Advertisement?define.Define.Advertisement:_adLen;
 					for (var i4:number= 0; i4 < _adLen; i4++) 
 					{

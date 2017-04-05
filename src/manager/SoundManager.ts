@@ -12,7 +12,12 @@ module manager {
 		private m_dicActiveChannels		;
         private static m_instance		:	SoundManager;
 
-		public constructor(sing:Singleton) {
+		public constructor() {
+
+			if(SoundManager.m_instance){
+				return;
+			}
+
 			this.nVolume = SharedObjectManager.getEffectVolume();
 			this.soundPkg = new sound.SoundPackage();
 			this.m_soundTimer = new egret.Timer(this.m_uDelayTime,1);
@@ -178,7 +183,7 @@ module manager {
         {
             if (!this.m_instance)
             {
-                this.m_instance = new SoundManager(new Singleton());
+                this.m_instance = new SoundManager();
             }
             return this.m_instance;
         }
@@ -186,4 +191,3 @@ module manager {
 
 	}
 }
-export class Singleton{}

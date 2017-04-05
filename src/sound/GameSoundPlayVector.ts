@@ -100,7 +100,7 @@ module sound {
 		{
 			if(playSoundURL!=null)
 			{
-				Log.getInstance().log(this,"加载声音失败--->"+playSoundURL);
+				console.log(this,"加载声音失败--->"+playSoundURL);
 				delete soundDatas[playSoundURL];
 				playSoundURL = null;
 			}

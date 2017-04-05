@@ -50,7 +50,7 @@ module manager {
 		
 		private fadeVolume(  dur:number, to:number) : void{
 			if (this.m_transform){
-				TweenLite.to(this.m_transform, dur, { volume: to, onUpdate: this.updateChannel } );  
+				egret.Tween.get(this.m_transform).to({volume:to, onUpdate:this.updateChannel});
 			}
 		}
 		

@@ -43,7 +43,7 @@ module lobby.view.chip {
 			};
 			
 			this.goldNum = new JNumber();
-			this.goldNum.number = Player.getInstance().nCoin;
+			this.goldNum.number = model.Player.getInstance().nCoin;
 			this.m_mcAsset.mc_pos_2.addChild(this.goldNum);
 						
 			this.m_bmpBet = new egret.Bitmap();
@@ -84,7 +84,7 @@ module lobby.view.chip {
 			
 			this.hideHint();
 			
-			var aCustom : any[] = Player.getInstance().gameSetting.aCustChips;
+			var aCustom : any[] = model.Player.getInstance().gameSetting.aCustChips;
 			this.m_aChipValues = [[10,50,100,300,500],[1000,3000,5000,10000,30000],[30000,50000,100000,300000,500000],aCustom];
 			this.m_iTotalPage = this.m_aChipValues.length;
 			this.m_vectorChipList = new Array<ChipList>();
@@ -129,8 +129,7 @@ module lobby.view.chip {
 		}
 		
 		 public turning():void{
-			TweenLite.to(this.m_spChipList, define.Define.SPEED, {x:-this.m_vectorChipList[this.m_iCurrentPage].x});
-//			TweenUtil.moveToX(this.m_spChipList,50,50,10,-this.m_iCurrentPage*302,0.7);
+			egret.Tween.get(this.m_spChipList).to( {x:-this.m_vectorChipList[this.m_iCurrentPage].x}, define.Define.SPEED);
 		}
 		
 		 public onChangeLanguage():void{

@@ -18,7 +18,7 @@ module sound {
 		protected onSoundComplete(event:Event):void{
 		//	console.log("Load Sound Success");
 			
-//			Log.getInstance().log(this,"加载声音文件-->"+url+"--耗时-->"+(getTimer()-loadStart));
+//			console.log(this,"加载声音文件-->"+url+"--耗时-->"+(getTimer()-loadStart));
 			sound.removeEventListener(IOErrorEvent.IO_ERROR , onIoError);
 			sound.removeEventListener( Event.COMPLETE , onSoundComplete);
 			bLoadComplete = true;

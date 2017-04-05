@@ -26,5 +26,10 @@ module lobby.view {
 		public onChangeLanguage():void{
 
 		}
+		
+		public resize(_w:number=0, _h:number=0):void{
+			
+		}
+		
 	}
 }

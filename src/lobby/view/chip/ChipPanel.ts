@@ -54,7 +54,7 @@ module lobby.view.chip {
 					this.m_currentChipItem = this.getDefault();
 				}
 				
-				if(Player.getInstance().nCoin<this.m_currentChipItem.uValue){
+				if(model.Player.getInstance().nCoin<this.m_currentChipItem.uValue){
 					this.showHint();
 				}else{
 					this.hideHint();
@@ -207,8 +207,7 @@ module lobby.view.chip {
 		}
 		
 		public turning():void{
-			TweenLite.to(this.m_spChipList, define.Define.SPEED, {x:-this.m_iCurrentPage*600});
-//			TweenUtil.moveToX(this.m_spChipList,50,50,10,-m_iCurrentPage*600,0.7);
+			egret.Tween.get( this.m_spChipList).to( {x:-this.m_iCurrentPage*600}, define.Define.SPEED);
 		}
 		
 		public judgeArrow():void{
@@ -226,16 +225,16 @@ module lobby.view.chip {
 		
 		
 		public updateGold():void{
-			if(this.m_nValue != Player.getInstance().nCoin)
+			if(this.m_nValue != model.Player.getInstance().nCoin)
 			{
-				if(Player.getInstance().nCoin>this.m_nValue)
+				if(model.Player.getInstance().nCoin>this.m_nValue)
 				{
-					if(this.goldNum!=null)this.goldNum.addjust(Player.getInstance().nCoin,30,1800);
+					if(this.goldNum!=null)this.goldNum.addjust(model.Player.getInstance().nCoin,30,1800);
 				}else
 				{
-					this.goldNum.number = Player.getInstance().nCoin;
+					this.goldNum.number = model.Player.getInstance().nCoin;
 				}
-				this.m_nValue = Player.getInstance().nCoin;
+				this.m_nValue = model.Player.getInstance().nCoin;
 			}
 		}
 		
@@ -264,7 +263,7 @@ module lobby.view.chip {
 		
 		/** 自选页面 **/
 		public goCustomPage():void{
-			iCurrentPage = m_iTotalPage-1;
+			this.iCurrentPage = this.m_iTotalPage-1;
 		}
 		
 		/** 自选筹码 **/

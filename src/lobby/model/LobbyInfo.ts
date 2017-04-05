@@ -71,7 +71,7 @@ module lobby.model {
 			/* 各厅资料*/
 			var _arrThemeList = oLobbyInfo.ThemeList;
 			if( _arrThemeList != null ){
-				_arrThemeList.sortOn("SN", Array.NUMERIC);
+				_arrThemeList.sortOn("SN");
 				var uThemeListLen : number = _arrThemeList.length;
 				for (var j:number= 0; j < uThemeListLen; j++) 
 				{

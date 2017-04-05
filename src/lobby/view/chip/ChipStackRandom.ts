@@ -116,11 +116,8 @@ module lobby.view.chip {
 				addClip.alpha = 0;
 				var Y:number =addClip.y;
 				addClip.y -=100;
-				TweenLite.to(addClip, 0.3, {
-					delay:0.1 + (j * 0.1),
-					alpha:1, y:Y,ease:Bounce.easeOut
-					
-				});
+				
+				egret.Tween.get(addClip).to({y:Y, alpha:1, delay:0.1+(j*0.1)}, define.Define.SPEED, egret.Ease.bounceOut);
 				//onComplete:addComplete,	onCompleteParams:[addClip]
 				this.chipBox.addChild(addClip);
 			}

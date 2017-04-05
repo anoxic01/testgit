@@ -14,7 +14,7 @@ module packet.lobby {
 		
 		public execute(oData:Object):void
 		{
-//			Log.getInstance().log(this , "接收心跳" );
+//			console.log(this , "接收心跳" );
 			var _heartStruct:HeartStruct = new HeartStruct();
 			_heartStruct.PlayerID = oData.PlayerID;
 			_heartStruct.Identity = oData.Identity;

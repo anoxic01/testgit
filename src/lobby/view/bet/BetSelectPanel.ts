@@ -56,7 +56,7 @@ module lobby.view.bet {
 			this.view.cacheAsBitmap=true;
 			this.mParent = p;
 			this.unfoldPoint = new egret.Point(this.view.content.x,this.view.content.y);
-			this.this.rollUpPoint = new egret.Point(this.unfoldPoint.x,-100);
+			this.rollUpPoint = new egret.Point(this.unfoldPoint.x,-100);
 			this.initView();
 		}
 		
@@ -75,7 +75,7 @@ module lobby.view.bet {
 			this.view.mc_1.addChild(this.confirmBetView);
 			this.view.content.mc_2.addChild(this.needconfirmBetView);
 			this.view.content.mask = this.view.contentMask;
-			this.tweenContent(0.2,null,this.this.rollUpPoint,null,null,false);
+			this.tweenContent(0.2,null,this.rollUpPoint,null,null,false);
 			this.onChangeLanguage();
 		}
 		
@@ -110,7 +110,7 @@ module lobby.view.bet {
 			this.confirmBtn.clickable = false;
 			this.clearPlayEffectTimeOut();
 			this.playEffectTimeOutID = setTimeout(this.rollUp,500);
-//			Log.getInstance().log(this,"------------>playConfirmEffect: "+getTimer());
+//			console.log(this,"------------>playConfirmEffect: "+getTimer());
 		}
 		/**
 		 * 播放取消特效
@@ -119,7 +119,7 @@ module lobby.view.bet {
 		{
 			this.clearPlayEffectTimeOut();
 			this.playEffectTimeOutID = setTimeout(this.rollUp,500);
-//			Log.getInstance().log(this,"------------>playCancelEffect: "+getTimer());
+//			console.log(this,"------------>playCancelEffect: "+getTimer());
 		}
 		private clearPlayEffectTimeOut():void
 		{
@@ -164,21 +164,21 @@ module lobby.view.bet {
 				else 
 				{
 					this.isNeedReceiveSide = false;
-					if(this.direct==this.RIGHT)endPoint = new egret.Point(this.xRight,this.yRight);
+					if(this.direct==BetSelectPanel.RIGHT)endPoint = new egret.Point(this.xRight,this.yRight);
 					else endPoint = new egret.Point(this.xLeft,this.yLeft);
 				}
 			}else
 			{
 				fromAlpha = 0;
 				if(this.view.parent==null)this.mParent.addChild(view);
-				if(direct==RIGHT)
+				if(direct==BetSelectPanel.RIGHT)
 				{
 					startPoint = new egret.Point(this.xRight2,this.yRight);
 					endPoint = new egret.Point(this.xRight,this.yRight);
 				}else
 				{
-					startPoint = new egret.Point(xLeft2,yLeft);
-					endPoint = new egret.Point(xLeft,yLeft);
+					startPoint = new egret.Point(this.xLeft2,this.yLeft);
+					endPoint = new egret.Point(this.xLeft,this.yLeft);
 				}
 			}
 			this.prevDirect = this.direct;
@@ -192,7 +192,7 @@ module lobby.view.bet {
 			{
 			 let startPoint:egret.Point;
 			 let endPoint:egret.Point;
-				if(this.direct==RIGHT)
+				if(this.direct==BetSelectPanel.RIGHT)
 				{
 					startPoint = new egret.Point(this.xRight,this.yRight);
 					endPoint = new egret.Point(this.xRight2,this.yRight);
@@ -220,7 +220,7 @@ module lobby.view.bet {
 			if(this.isForcerollUp)return;/// 处于强制收起状态中展开无效
 			this.clearPlayEffectTimeOut();
 			this.tweenContent(0.2,null,this.unfoldPoint,this.onUnfoldComplete,null,isTween);
-//			Log.getInstance().log(this,"------------>unfold: 展开中。。。");
+//			console.log(this,"------------>unfold: 展开中。。。");
 		}
 		/**收起**/
 		public rollUp(isTween: boolean=true):void
@@ -231,19 +231,19 @@ module lobby.view.bet {
 			{
 				this.cancelBtn.clickable = true;
 				this.confirmBtn.clickable = true;
-//				Log.getInstance().log(this,"------------>this.rollUp: needConfirmBetNum="+needConfirmBetNum);
+//				console.log(this,"------------>this.rollUp: needConfirmBetNum="+needConfirmBetNum);
 				return;
 			}
-			if(this.view.content.x==this.this.rollUpPoint.x&&this.view.content.y==this.this.rollUpPoint.y)
+			if(this.view.content.x==this.rollUpPoint.x&&this.view.content.y==this.rollUpPoint.y)
 			{
-//				Log.getInstance().log(this,"------------>this.rollUp: 已收起");
+//				console.log(this,"------------>this.rollUp: 已收起");
 				return;///// 已经处于关闭状态
 			}
-//			Log.getInstance().log(this,"------------>this.rollUp: 收起中。。。");
+//			console.log(this,"------------>this.rollUp: 收起中。。。");
 			this.isShowNeedUnfold = false;
 			this.cancelBtn.clickable = false;
 			this.confirmBtn.clickable = false;
-			this.tweenContent(0.2,null,this.this.rollUpPoint,onrollUpComplete,Back.easeIn,isTween);
+			this.tweenContent(0.2,null,this.rollUpPoint, this.onrollUpComplete, egret.Ease.backIn,isTween);
 		}
 		public forcerollUp(isTween: boolean=true):void
 		{
@@ -256,7 +256,7 @@ module lobby.view.bet {
 		
 		private onUnfoldComplete():void
 		{
-			if(!view)return;
+			if(!this.view)return;
 			this.cancelBtn.clickable = true;
 			this.confirmBtn.clickable = true;
 			this.view.content.x=this.unfoldPoint.x;
@@ -271,9 +271,9 @@ module lobby.view.bet {
 				this.view.content.y=this.rollUpPoint.y;
 				this.isHiding = false; 
 				let endPoint:egret.Point ;
-				if(this.direct==RIGHT)endPoint = new egret.Point(this.xRight2,this.yRight);
+				if(this.direct==BetSelectPanel.RIGHT)endPoint = new egret.Point(this.xRight2,this.yRight);
 				else endPoint = new egret.Point(this.xLeft2,this.yLeft);
-				this.tweenView(this.tweenDuration,null,endPoint,this.onHideEffectComplete,Back.easeIn);
+				this.tweenView(this.tweenDuration,null,endPoint,this.onHideEffectComplete, egret.Ease.backIn);
 				this.isForcerollUp = false;
 			}else
 			{
@@ -289,7 +289,7 @@ module lobby.view.bet {
 		}
 		private onShowTransformComplete():void
 		{
-			if(!view)return;
+			if(!this.view)return;
 			if(this.isForcerollUp)//// 强制收起
 			{
 				this.rollUp(false);
@@ -335,14 +335,14 @@ module lobby.view.bet {
 		}
 		
 		public setViewX(_x:number):void{
-			TweenLite.to(view,this.tweenDuration,{x:_x});
+			var tw = egret.Tween.get( this.view );
+       		tw.to( {x:_x}, this.tweenDuration );
 		}
 		
-		private tweenView(durtion:number,startPoint:egret.Point,endPoint:egret.Point,onComplete:Function,ease:Object=null,isTween: boolean=true,fromAlpha:number = 1,toAlpha:number = 1):void
+		private tweenView(durtion:number,startPoint:egret.Point,endPoint:egret.Point,onComplete:Function,ease=null,isTween: boolean=true,fromAlpha:number = 1,toAlpha:number = 1):void
 		{
-			if(!view)return;
-			let t = view;
-			TweenLite.killTweensOf(t,true);
+			if(!this.view)return;
+			let t = this.view;
 			if(startPoint)
 			{
 				t.x = startPoint.x;
@@ -351,9 +351,12 @@ module lobby.view.bet {
 			if(isTween)
 			{
 				t.alpha = fromAlpha;
-			 	let args = {x:endPoint.x,y:endPoint.y,onComplete:onComplete,alpha:toAlpha};
-				if(ease)args.ease = ease;
-				TweenLite.to(t,durtion,args);
+				if(ease){
+					egret.Tween.get( t ).to( {x:endPoint.x, y:endPoint.y, alpha:toAlpha}, durtion , ease ).call(onComplete);
+				}else{
+					egret.Tween.get( t ).to( {x:endPoint.x, y:endPoint.y, alpha:toAlpha}, durtion ).call(onComplete);
+				}
+				
 			}else
 			{
 				t.x = endPoint.x;
@@ -361,10 +364,9 @@ module lobby.view.bet {
 				if(onComplete!=null){}
 			}
 		}
-		private tweenContent(durtion:number,startPoint:egret.Point,endPoint:egret.Point,onComplete:Function,ease:Object=null,isTween: boolean=true):void
+		private tweenContent(durtion:number,startPoint:egret.Point,endPoint:egret.Point,onComplete:Function,ease=null,isTween: boolean=true):void
 		{
 		 	let t = this.view.content;
-			TweenLite.killTweensOf(t,true);
 			if(startPoint)
 			{
 				t.x = startPoint.x;
@@ -373,8 +375,11 @@ module lobby.view.bet {
 			if(isTween)
 			{
 			 	let args = {x:endPoint.x,y:endPoint.y,onComplete:onComplete};
-				if(ease)args.ease = ease;
-				TweenLite.to(t,durtion,args);
+				if(ease){
+					egret.Tween.get(t).to( {x:endPoint.x, y:endPoint.y}, durtion, ease).call(onComplete);
+				}else{
+					egret.Tween.get(t).to( {x:endPoint.x, y:endPoint.y}, durtion).call(onComplete);
+				}
 			}else
 			{
 				t.x = endPoint.x;
@@ -403,7 +408,7 @@ module lobby.view.bet {
 		public updateTmpBetGold(gold:number):void
 		{
 			this.needConfirmBetNum=gold;
-//			Log.getInstance().log(this,"------------>updateTmpBetGold= "+needConfirmBetNum);
+//			console.log(this,"------------>updateTmpBetGold= "+needConfirmBetNum);
 			this.needconfirmBetView.bitmapData = manager.BitmapManager.getInstance().numberBetGCoin.conversionSign(gold);
 			this.needconfirmBetView.smoothing = true;
 			this.needconfirmBetView.x = -this.needconfirmBetView.width/2;
@@ -434,8 +439,6 @@ module lobby.view.bet {
 		{
 			super.destroy();
 			this.clearPlayEffectTimeOut();
-			TweenLite.killTweensOf(view,true);
-			TweenLite.killTweensOf(this.view.content,true);
 			if(this.confirmBetView)
 			{
 				this.confirmBetView.bitmapData = null;

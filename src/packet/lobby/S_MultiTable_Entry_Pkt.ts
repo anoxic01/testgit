@@ -17,7 +17,7 @@ module packet.lobby {
 			if (EntryTableInfo.TableID<=0){
 				NetWorkManager.getInstance().checkGameNetWork(Define.GameMultiTableFailed);	
 			}else{
-				Log.getInstance().log(this,"收到多桌入口桌："+String(EntryTableInfo.TableID));
+				console.log(this,"收到多桌入口桌："+String(EntryTableInfo.TableID));
 				//登陆多桌
 				LobbyManager.getInstance().connectMultiTable(EntryTableInfo);
 			}

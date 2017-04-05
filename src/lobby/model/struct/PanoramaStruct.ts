@@ -2,15 +2,15 @@ module lobby.model.struct {
 	export class PanoramaStruct {
 		 public PanoramaID		:	number;		//全景序号
 		
-        public PanoramaName_TW	:	String;		//全景名称
-        public PanoramaName_CN :	String;		//全景名称
-        public PanoramaName_EN :	String;		//全景名称
+        public PanoramaName_TW	:	string;		//全景名称
+        public PanoramaName_CN :	string;		//全景名称
+        public PanoramaName_EN :	string;		//全景名称
 		
-        public StreamUrl 		:	String;		//视讯地址
-        public StreamName 		:	String;		//视讯名称
-        public StreamAppName	:	String;		//串流名称
+        public StreamUrl 		:	string;		//视讯地址
+        public StreamName 		:	string;		//视讯名称
+        public StreamAppName	:	string;		//串流名称
 		
-        public CreateDataTime 	:	String;		//创建时间
+        public CreateDataTime 	:	string;		//创建时间
 		
 		public PriorityNo		:	number;		//优先顺序
 		public IsDef			:	 boolean;	//是否预设

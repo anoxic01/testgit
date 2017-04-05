@@ -15,7 +15,7 @@ module packet.game {
 		public execute(oData:Object):void
 		{
 			
-			Log.getInstance().log(this, "收到遊戲NAck錯誤::" + oData.SN );
+			console.log(this, "收到遊戲NAck錯誤::" + oData.SN );
 			m_controler=null;
 		}
 		

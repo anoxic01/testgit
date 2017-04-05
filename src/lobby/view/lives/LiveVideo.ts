@@ -34,7 +34,7 @@ module lobby.view.lives {
 				this.play();
 			});
 			this.m_btnRefresh.fOnOver = function():void{
-				manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Refresh),manager.TipManager.UP,this.m_parent.localToGlobal(new Point(this.m_parent.mc_refresh.x+15,this.m_parent.mc_refresh.y+30)));
+				manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Refresh),manager.TipManager.UP,this.m_parent.localToGlobal(new egret.Point(this.m_parent.mc_refresh.x+15,this.m_parent.mc_refresh.y+30)));
 			};
 			this.m_btnRefresh.fOnOut = function():void{
 				manager.TipManager.getInstance().hide();
@@ -47,7 +47,7 @@ module lobby.view.lives {
 				manager.LobbyManager.getInstance().showLiveVideo( this.m_RTMPPlayer.uVideoWidth, this.m_RTMPPlayer.uVideoHieght, this.m_sServer, this.m_sStream );
 			});
 			this.m_btnFull.fOnOver = function():void{
-				manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Video_ZoomIn),manager.TipManager.UP,this.m_parent.localToGlobal(new Point(this.m_parent.mc_scale.x+11,this.m_parent.mc_scale.y+20)),1);
+				manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Video_ZoomIn),manager.TipManager.UP,this.m_parent.localToGlobal(new egret.Point(this.m_parent.mc_scale.x+11,this.m_parent.mc_scale.y+20)),1);
 			};
 			this.m_btnFull.fOnOut = function():void{
 				manager.TipManager.getInstance().hide();
@@ -179,7 +179,7 @@ module lobby.view.lives {
 			
 		}
 		
-		protected this.loadVideoTimeOut():void {
+		protected loadVideoTimeOut():void {
 			console.log(this, "視訊連接狀態::視訊連接逾時");
 			this.hideLoding();
 			this.stop();
@@ -197,9 +197,9 @@ module lobby.view.lives {
 		
 		private notOpen():void{
 			if(!this.m_tfWarn){
-				this.m_tfWarn = new TextField();
-				this.m_tfWarn.autoSize = TextFieldAutoSize.LEFT;
-				this.m_tfWarn.defaultTextFormat = new TextFormat(null,18,0xFFFFFF,true);
+				this.m_tfWarn = new egret.TextField();
+				// this.m_tfWarn.autoSize = TextFieldAutoSize.LEFT;
+				// this.m_tfWarn.defaultTextFormat = new TextFormat(null,18,0xFFFFFF,true);
 				if(this.m_loading && this.m_loading.parent){
 					this.m_loading.parent.addChild(this.m_tfWarn);
 				}
@@ -214,12 +214,12 @@ module lobby.view.lives {
 		protected initWorn():void
 		{
 			if(!this.m_tfWarn){
-				this.m_tfWarn = new TextField();
-				this.m_tfWarn.autoSize = TextFieldAutoSize.CENTER;
-				this.m_tfWarn.selectable=false;
-				this.m_tfWarn.mouseEnabled = false;
+				this.m_tfWarn = new egret.TextField();
+				// this.m_tfWarn.autoSize = TextFieldAutoSize.CENTER;
+				// this.m_tfWarn.selectable=false;
+				this.m_tfWarn.touchEnabled = false;
 				this.m_tfWarn.multiline=true;
-				this.m_tfWarn.defaultTextFormat = new TextFormat(null,14,0xFFFFFF,null,null,null,null,null,TextFormatAlign.CENTER);
+				// this.m_tfWarn.defaultTextFormat = new TextFormat(null,14,0xFFFFFF,null,null,null,null,null,TextFormatAlign.CENTER);
 				if(this.m_loading && this.m_loading.parent){
 					this.m_loading.parent.addChild(this.m_tfWarn);
 				}
@@ -316,7 +316,7 @@ module lobby.view.lives {
 		
 		
 		public toGame():void{
-			stop();
+			this.stop();
 			
 			if(this.m_RTMPPlayer){
 				this.m_RTMPPlayer.setStageVideo(1494,-500,426,240);
@@ -327,7 +327,7 @@ module lobby.view.lives {
 			if(this.m_RTMPPlayer){
 				this.m_RTMPPlayer.setStageVideo(1494,46,426,240);
 			}
-			play();
+			this.play();
 		}
 		
 	}

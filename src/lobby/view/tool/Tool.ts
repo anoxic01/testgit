@@ -253,9 +253,9 @@ module lobby.view.tool {
 			
 			btnExit = new ui.button.SingleButtonMC(m_mcAsset.mc_exit, function(evt:MouseEvent):void{
 				
-//				Log.getInstance().log(this,"->点击退出");
+//				console.log(this,"->点击退出");
 				TipManager.getInstance().hide();
-//				Log.getInstance().log(this,"->隐藏tip");
+//				console.log(this,"->隐藏tip");
 				switch(LobbyManager.getInstance().exitLevel){
 					case Define.EXIT_LOBBY:
 						SoundManager.getInstance().play(SoundPackage.sChangePage);
@@ -270,9 +270,9 @@ module lobby.view.tool {
 					case Define.EXIT_GAME:
 						SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 						if(fExitGame!=null){
-//							Log.getInstance().log(this,"->准备执行退出行为");
+//							console.log(this,"->准备执行退出行为");
 							fExitGame();
-//							Log.getInstance().log(this,"->退出完毕");
+//							console.log(this,"->退出完毕");
 						}
 						break;
 					case Define.EXIT_TEL_LOBBY:
@@ -807,7 +807,7 @@ module lobby.view.tool {
 			if(m_mcAsset){
 				if(_uValue>4){
 					_uValue = 5;
-					Log.getInstance().log(this, "频道设置异常。。。");
+					console.log(this, "频道设置异常。。。");
 				}
 				(m_mcAsset.mc_channel.mc_label as MovieClip).gotoAndStop(_uValue);
 			}

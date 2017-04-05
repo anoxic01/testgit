@@ -1,5 +1,5 @@
 module manager {
-	export class NoticeManeger {
+	export class NoticeManager {
 		private m_nmModel				:lobby.model.NoticeModel;
 		private m_nmView				:lobby.view.notice.NoticeView;
 		private m_bIsInit				: boolean;
@@ -7,12 +7,12 @@ module manager {
 		// private m_jTimer				:JTimer;
 		private m_bIsShow				: boolean;
 		
-		private static _instance		:NoticeManeger;
+		private static _instance		:NoticeManager;
 		
 		public constructor() {
-			if(NoticeManeger._instance)
+			if(NoticeManager._instance)
 			{
-				throw new Error("NoticeManeger is singleton class");
+				throw new Error("NoticeManager is singleton class");
 			}else{
 				this.m_nmModel = new lobby.model.NoticeModel();
 				this.m_nmView = new lobby.view.notice.NoticeView();
@@ -21,13 +21,13 @@ module manager {
 			}
 			
 		}
-		public static getInstance():NoticeManeger
+		public static getInstance():NoticeManager
 		{
-			if(NoticeManeger._instance==null)
+			if(NoticeManager._instance==null)
 			{
-				NoticeManeger._instance = new NoticeManeger();
+				NoticeManager._instance = new NoticeManager();
 			}
-			return NoticeManeger._instance;
+			return NoticeManager._instance;
 		}
 		public init(container:egret.Sprite):void
 		{

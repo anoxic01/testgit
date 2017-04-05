@@ -10,7 +10,7 @@ module packet.lobby {
 				
 		public execute( _oData:Object ):void
 		{
-			Log.getInstance().log(this,"自订筹码数据包序号："+_oData.SN);
+			console.log(this,"自订筹码数据包序号："+_oData.SN);
 			Player.getInstance().gameSetting.CustChips = _oData.PlayerCustChipsInfo.CustChips;
 			
 			LobbyManager.getInstance().hidePanelChipCustom();

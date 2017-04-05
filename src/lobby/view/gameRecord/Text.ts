@@ -1,56 +1,59 @@
 module lobby.view.gameRecord {
 	export class Text {
 		
-		public txtAsset	:	TextField;
-		public sLangKey	:	String;
+		public txtAsset	:	egret.TextField;
+		public sLangKey	:	string;
 		
-		public constructor( _txtAsset:TextField , sLangLey:String = null) {
-			txtAsset = _txtAsset;
-			sLangKey = sLangLey;
+		public constructor( _txtAsset , sLangLey:string = null) {
+			this.txtAsset = _txtAsset;
+			this.sLangKey = sLangLey;
 			
-			txtAsset.mouseEnabled = false;
-			txtAsset.selectable = false;
+			this.txtAsset.touchEnabled = false;
+			// this.txtAsset.selectable = false;
 		}
 		
 		public destroy():void{
-			if(txtAsset){
-				txtAsset = null;
+			if(this.txtAsset){
+				this.txtAsset = null;
 			}
 		}
 		
 		public onChangeLanguage():void {
-			if( sLangKey ){
-				txtAsset.defaultTextFormat =  txtAsset.getTextFormat();
-				txtAsset.text = LobbyManager.getInstance().getLanguageString( sLangKey );
+			if( this.sLangKey ){
+				// this.txtAsset.defaultTextFormat =  this.txtAsset.getTextFormat();
+				this.txtAsset.text = manager.LobbyManager.getInstance().getLanguageString( this.sLangKey );
 			}
 		}
 		
-		set  text(value:String) {
-			txtAsset.defaultTextFormat =  txtAsset.getTextFormat();
-			txtAsset.text = value;
+		set  text(value:string) {
+			// this.txtAsset.defaultTextFormat =  this.txtAsset.getTextFormat();
+			this.txtAsset.text = value;
+		}
+		get text():string{
+			return this.txtAsset.text;
 		}
 		
 		set  visible(value: boolean ) {
-			txtAsset.visible = value
+			this.txtAsset.visible = value
 		}
 		get visible( ): boolean {
-			return txtAsset.visible;
+			return this.txtAsset.visible;
 		}
 		
 		set  mouseEnabled( value: boolean ) {
-			txtAsset.mouseEnabled = value;
+			this.txtAsset.touchEnabled = value;
 		}
 		
 		get mouseEnabled( ): boolean {
-			return txtAsset.mouseEnabled;
+			return this.txtAsset.touchEnabled;
 		}
 		
 		set  selectable(value: boolean ) {
-			txtAsset.selectable = value;	
+			this.txtAsset.touchEnabled = value;	
 			
 		}
 		get selectable( ): boolean {
-			return txtAsset.selectable;	
+			return this.txtAsset.touchEnabled;	
 		}
 	}
 }

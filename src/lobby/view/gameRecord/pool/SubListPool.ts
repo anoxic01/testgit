@@ -1,37 +1,39 @@
 module lobby.view.gameRecord.pool {
 	export class SubListPool {
-		public var _vecSubBetList:<SubBetList>;
+
+		public _vecSubBetList:sub.SubBetList[];
+
 		public constructor() {
-			_vecSubBetList = new <SubBetList>();
+			this._vecSubBetList = new Array<sub.SubBetList>();
 		}
 		
-		public function getSubList():SubBetList {
+		public getSubList():sub.SubBetList {
 			
-			var _subList:SubBetList;
+			var _subList;
 			
-			for( var i:number= 0 ; i < _vecSubBetList.length ; i++ ){
-				if( !_vecSubBetList[i].bIsUsed ) {
-					_subList = _vecSubBetList[i];
+			for( var i:number= 0 ; i < this._vecSubBetList.length ; i++ ){
+				if( !this._vecSubBetList[i].bIsUsed ) {
+					_subList = this._vecSubBetList[i];
 					_subList.bIsUsed = true;
 				}
 			}
 			
 			if( !_subList ){
-				_subList = new SubBetList();
+				_subList = new sub.SubBetList();
 				_subList.bIsUsed = true;
-				_vecSubBetList.push( _subList );
+				this._vecSubBetList.push( _subList );
 			}
 			
 			return _subList;
 		}
 		
-		public function reset():void {
+		public reset():void {
 			
-			for( var i:number= 0 ; i < _vecSubBetList.length ; i++ ){
-				_vecSubBetList[i].bIsUsed = false;
-				_vecSubBetList[i].reset();
-				if( _vecSubBetList[i].parent ){
-					_vecSubBetList[i].parent.removeChild( _vecSubBetList[i] );
+			for( var i:number= 0 ; i < this._vecSubBetList.length ; i++ ){
+				this._vecSubBetList[i].bIsUsed = false;
+				this._vecSubBetList[i].reset();
+				if( this._vecSubBetList[i].parent ){
+					this._vecSubBetList[i].parent.removeChild( this._vecSubBetList[i] );
 				}
 			}	
 			
@@ -41,9 +43,9 @@ module lobby.view.gameRecord.pool {
 		/**
 		 * @param _gameNo : 訂單號 
 		 */
-		public function find( _sGameNo:string ): boolean {
-			for( var i:number= 0 ; i < _vecSubBetList.length ; i++ ){
-				if( _sGameNo == _vecSubBetList[i].complexGameRecordStruct.BaseRecord.RecordGameNumber ){
+		public find( _sGameNo:string ): boolean {
+			for( var i:number= 0 ; i < this._vecSubBetList.length ; i++ ){
+				if( _sGameNo == this._vecSubBetList[i].complexGameRecordStruct.BaseRecord.RecordGameNumber ){
 					return true;
 				}
 			}
