@@ -3,37 +3,36 @@ module lobby.view.panel {
 //		private m_bg				:	BitmapScale9Grid;
 		private m_btnOk				:	ui.button.SingleButtonMC;
 		private m_btnNo				:	ui.button.SingleButtonMC;
-		private m_btnClose			:	ui.button.SingleButtonMC;
 		private m_btnExplain		:	ui.button.SingleButtonMC;
-		public 	select				:	Select;
+		public 	select				:	PanelGoodRoadSettingSelect;
 		
-		private m_vecItems			:	<Item>;
+		private m_vecItems			:	PanelGoodRoadSettingItem[];
 		private m_bOk				:	 boolean;
 		
 		public constructor($bShake: boolean=false) {
 		
 			super($bShake);
 			
-			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_PANEL,"Panel_Good_Road_Setting_Asset");
-			this.addChild(m_mcAsset);
+			this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_PANEL,"Panel_Good_Road_Setting_Asset");
+			this.addChild(this.m_mcAsset);
 			
 //			m_bg = new BitmapScale9Grid(new Window_Bg_Asset(), 1, 12, 24, 12, 30);
-//			m_mcAsset.addChildAt(m_bg,0);
+//			this.m_mcAsset.addChildAt(m_bg,0);
 //			m_bg.setSize(816, 370);
 //			m_bg.x = -408;
 //			m_bg.y = -182;
 			
-			m_mcHot = m_mcAsset.mc_hot;
+			this.m_mcHot = this.m_mcAsset.mc_hot;
 			
-			nAssetWidth = 816;
-			nAssetHeight = 368;
+			this.nAssetWidth = 816;
+			this.nAssetHeight = 368;
 			
-			m_btnOk = new ui.button.SingleButtonMC(m_mcAsset.mc_ok, function(event:MouseEvent):void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
+			this.m_btnOk = new ui.button.SingleButtonMC(this.m_mcAsset.mc_ok, function(event:MouseEvent):void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
 				var _bOk :  boolean;
 				for (var j:number= 0; j < 10; j++) 
 				{
-					if(m_vecItems[j].bSelect){
+					if(this.m_vecItems[j].bSelect){
 						_bOk = true;
 						break;
 					}
@@ -42,61 +41,61 @@ module lobby.view.panel {
 				if(_bOk){
 					for (var k:number= 0; k < 10; k++) 
 					{
-						SharedObjectManager.setGoodRoadSetting(k,m_vecItems[k].bSelect);
+						manager.SharedObjectManager.setGoodRoadSetting(k,this.m_vecItems[k].bSelect);
 						
-						if(m_vecItems[k].bSelect){
-							LobbyData.getInstance().addGoodRoadType(k+1);
+						if(this.m_vecItems[k].bSelect){
+							model.LobbyData.getInstance().addGoodRoadType(k+1);
 						}else{
-							LobbyData.getInstance().removeGoodRoadType(k+1);
+							model.LobbyData.getInstance().removeGoodRoadType(k+1);
 						}
 					}
-					LobbyData.getInstance().resetGoodRoadTemp();
-					SharedObjectManager.flush();
+					model.LobbyData.getInstance().resetGoodRoadTemp();
+					manager.SharedObjectManager.flush();
 					
-					LobbyManager.getInstance().hideGoodRoadSetting();
-					LobbyManager.getInstance().setGoodRoadSetting();
+					manager.LobbyManager.getInstance().hideGoodRoadSetting();
+					manager.LobbyManager.getInstance().setGoodRoadSetting();
 					
 				}else{
-					LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sSelectOne));
+					manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sSelectOne));
 				}
 			});
 			
-			m_btnNo = new ui.button.SingleButtonMC(m_mcAsset.mc_no, function(event:MouseEvent):void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				LobbyManager.getInstance().hideGoodRoadSetting();
+			this.m_btnNo = new ui.button.SingleButtonMC(this.m_mcAsset.mc_no, function(event:MouseEvent):void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+				manager.LobbyManager.getInstance().hideGoodRoadSetting();
 			});
-			m_btnClose = new ui.button.SingleButtonMC(m_mcAsset.mc_close, function(event:MouseEvent):void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				LobbyManager.getInstance().hideGoodRoadSetting();
+			this.m_btnClose = new ui.button.SingleButtonMC(this.m_mcAsset.mc_close, function(event:MouseEvent):void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+				manager.LobbyManager.getInstance().hideGoodRoadSetting();
 			});
 			
-			var aStatus : any[] = SharedObjectManager.getGoodRoadSetting();
-			m_vecItems = new <Item>();
-			var _item	:	Item;
+			var aStatus : any[] = manager.SharedObjectManager.getGoodRoadSetting();
+			this.m_vecItems = new Array<PanelGoodRoadSettingItem>();
+			var _item;
 			var _bStatus :  boolean = true;
 			for (var i:number= 0; i < 10; i++) 
 			{
-				_item = new Item(m_mcAsset.getChildByName("mc_" + String(i)) as MovieClip, i);
-				m_vecItems.push(_item);
+				_item = new PanelGoodRoadSettingItem(this.m_mcAsset.getChildByName("mc_" + String(i)), i);
+				this.m_vecItems.push(_item);
 				_item.setStatus(aStatus[i]);
 				if(_bStatus && aStatus[i]==false){
 					_bStatus = false;
 				}
 			}
 			
-			select = new Select(m_mcAsset.mc_10);
-			select.setStatus(_bStatus);
+			this.select = new PanelGoodRoadSettingSelect(this.m_mcAsset.mc_10);
+			this.select.setStatus(_bStatus);
 			
-			onChangeLanguage();
+			this.onChangeLanguage();
 		}
 		
 		public selectAll():void
 		{
-			select.setStatus(!select.bSelect);
-			var _item	:	Item;
+			this.select.setStatus(!this.select.bSelect);
+			var _item;
 			for (var i:number= 0; i < 10; i++) {
-				_item = m_vecItems[i];
-				_item.setStatus(select.bSelect);
+				_item = this.m_vecItems[i];
+				_item.setStatus(this.select.bSelect);
 			}
 			
 		}
@@ -110,61 +109,61 @@ module lobby.view.panel {
 //				m_bg = null;
 //			}
 			
-			if(m_btnOk){
-				m_btnOk.destroy();
-				m_btnOk = null;
+			if(this.m_btnOk){
+				this.m_btnOk.destroy();
+				this.m_btnOk = null;
 			}
-			if(m_btnNo){
-				m_btnNo.destroy();
-				m_btnNo = null;
-			}
-			
-			if(m_btnExplain){
-				m_btnExplain.destroy();
-				m_btnExplain = null;
+			if(this.m_btnNo){
+				this.m_btnNo.destroy();
+				this.m_btnNo = null;
 			}
 			
-			if(m_mcAsset){
-				(m_mcAsset.mc_10 as MovieClip).removeEventListener(egret.TouchEvent.TOUCH_TAP,selectAll);
-				this.removeChild(m_mcAsset);
-				m_mcAsset = null;
+			if(this.m_btnExplain){
+				this.m_btnExplain.destroy();
+				this.m_btnExplain = null;
+			}
+			
+			if(this.m_mcAsset){
+				(this.m_mcAsset.mc_10 ).removeEventListener(egret.TouchEvent.TOUCH_TAP, this.selectAll);
+				this.removeChild(this.m_mcAsset);
+				this.m_mcAsset = null;
 			}
 			
 			super.destroy();
 		}
 		
 		 public onChangeLanguage():void{
-			m_mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);// LobbyManager.getInstance().getLanguageString(Language.sGoodRoadSetting);
+			this.m_mcAsset.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);// manager.LobbyManager.getInstance().getLanguageString(language.Language.sGoodRoadSetting);
 			
-			(m_mcAsset.mc_ok.mc_label as MovieClip).gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			(m_mcAsset.mc_no.mc_label as MovieClip).gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+			(this.m_mcAsset.mc_ok.mc_label ).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			(this.m_mcAsset.mc_no.mc_label ).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			
-			m_mcAsset.mc_0.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_1.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_2.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_3.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_4.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_5.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_6.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_7.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_8.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_9.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_10.tf_label.text = LobbyManager.getInstance().getLanguageString(Language.sGoodRoadSetting_0);
+			this.m_mcAsset.mc_0.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_1.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_2.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_3.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_4.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_5.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_6.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_7.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_8.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_9.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_10.tf_label.text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sGoodRoadSetting_0);
 			
-			if(m_btnExplain){
-				m_btnExplain.destroy();
-				m_btnExplain = null;
+			if(this.m_btnExplain){
+				this.m_btnExplain.destroy();
+				this.m_btnExplain = null;
 			}
-			m_btnExplain = new ui.button.SingleButtonMC(m_mcAsset.mc_11,function(event:MouseEvent):void{
+			this.m_btnExplain = new ui.button.SingleButtonMC(this.m_mcAsset.mc_11,function(event:MouseEvent):void{
 				navigateToURL(new URLRequest("http://www.help.com"),"_blank");
 			})
 		}
 		
 		public judgeSelectAll(): boolean{
-			var _len : int = m_vecItems.length;
+			var _len  = this.m_vecItems.length;
 			for (var i:number= 0; i < _len; i++) 
 			{
-				if(m_vecItems[i].bSelect == false){
+				if(this.m_vecItems[i].bSelect == false){
 					return false;
 				}
 			}
@@ -174,166 +173,4 @@ module lobby.view.panel {
 		
 		
 	}
-}
-import flash.display.BitmapData;
-import flash.display.MovieClip;
-import flash.events.MouseEvent;
-
-import IInterface.ISprite;
-
-import bitmap.BitmapScale9Grid;
-
-import define.Define;
-
-import manager.LobbyManager;
-import manager.ResourceManager;
-import manager.SoundManager;
-
-import sounds.SoundPackage;
-
-class Item implements iface.ISprite{
-	public ID			:	number;
-	public bSelect		:	 boolean;
-	private m_mcAsset 	: 	MovieClip;
-	private m_glow		:	BitmapScale9Grid;
-	
-	public Item(_mcAsset:MovieClip, _id:number){
-		m_mcAsset = _mcAsset;
-		ID = _id;
-		
-		m_glow = new BitmapScale9Grid(ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_LOBBY, "General_Rollover_Select_Asset") as BitmapData, 1,10,15,10,15);
-		m_mcAsset.addChild(m_glow);
-		m_glow.setSize(156,102);
-		m_glow.alpha = 0;
-		
-		m_mcAsset.buttonMode = true;
-		m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OVER, itemOver);
-		m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OUT, itemOut);
-		m_mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP, itemClick);
-	}
-	public destroy():void{
-		
-		if(m_glow){
-			if(m_glow.parent){
-				m_glow.parent.removeChild(m_glow);
-			}
-			m_glow.dispose();
-			m_glow = null;
-		}
-		
-		if(m_mcAsset){
-			
-			m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OVER, itemOver);
-			m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OUT, itemOut);
-			m_mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP, itemClick);
-			
-			m_mcAsset = null;
-		}
-	}
-	
-	public setStatus(_bValue: boolean):void{
-		if(bSelect != _bValue){
-			bSelect = _bValue;
-			if(bSelect){
-				m_glow.alpha = 1;
-			}else{
-				m_glow.alpha = 0;
-			}
-		}
-	}
-	
-	protected itemOver(event:MouseEvent):void
-	{
-		if(bSelect){
-			return;
-		}
-		m_glow.alpha = 1;
-	}
-	
-	protected itemOut(event:MouseEvent):void
-	{
-		if(bSelect){
-			return;
-		}
-		m_glow.alpha = 0;
-	}
-	
-	protected itemClick(event:MouseEvent):void
-	{
-		SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-		
-		bSelect = !bSelect;
-		if(bSelect){
-			m_glow.alpha = 1;
-		}else{
-			m_glow.alpha = 0;
-		}
-		
-		if(bSelect){
-			if(LobbyManager.getInstance().panelGoodRoadType.judgeSelectAll()){
-				LobbyManager.getInstance().panelGoodRoadType.select.setStatus(true);
-			}
-		}else{
-			if(LobbyManager.getInstance().panelGoodRoadType.select.bSelect){
-				LobbyManager.getInstance().panelGoodRoadType.select.setStatus(false);
-			}
-		}
-		
-	}
-}
-
-class Select implements iface.ISprite{
-	private m_mcAsset	:	MovieClip;
-//	private m_glow		:	Bitmap;
-	public bSelect		:	 boolean;
-	
-	public Select(_mcAsset:MovieClip){
-		m_mcAsset = _mcAsset;
-		
-//		m_glow = new Bitmap(new General_Rollover_Select_Asset(),"auto", true);
-//		m_mcAsset.addChildAt(m_glow,1);
-//		m_glow.visible = false;
-//		m_glow.y = 2;
-		
-		m_mcAsset.gotoAndStop(1);
-		m_mcAsset.buttonMode = true;
-		m_mcAsset.mouseChildren = false;
-		m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OVER, selectOver);
-		m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OUT, selectOut);
-		m_mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP,selectClick);
-	}
-	public destroy():void{
-		if(m_mcAsset){
-			m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OVER, selectOver);
-			m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OUT, selectOut);
-			m_mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP,selectClick);
-			
-			m_mcAsset = null;
-		}
-	}
-	
-	protected selectClick(event:MouseEvent):void
-	{
-		SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-		LobbyManager.getInstance().panelGoodRoadType.selectAll();
-	}
-	
-	public setStatus(_bValue: boolean):void{
-		bSelect = _bValue;
-		
-		m_mcAsset.mc_label.visible = bSelect;
-	}
-	
-	protected selectOver(event:MouseEvent):void
-	{
-//		m_glow.visible = true;
-		m_mcAsset.gotoAndStop(2);
-	}
-	
-	protected selectOut(event:MouseEvent):void
-	{
-//		m_glow.visible = false;
-		m_mcAsset.gotoAndStop(1);
-	}
-	
 }

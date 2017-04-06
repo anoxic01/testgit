@@ -1,37 +1,36 @@
 module lobby.view.multi {
 	export class MultiTableRecordItem implements iface.ISprite{
-		private m_mcAsset	:	MovieClip;
-		private m_spRed		:	Sprite;			//对子标识
-		private m_spBlue	:	Sprite;			//对子标识
-		private m_bmp		:	Bitmap;
+		private m_mcAsset	;
+		private m_spRed		;			//对子标识
+		private m_spBlue	;			//对子标识
+		private m_bmp		;
 //		private m_tfTable	:	TextField;
 //		private m_tfBetPos	:	TextField;
 //		private m_tfAmt		:	TextField;
 //		private m_tfPayout	:	TextField;
 		
-		private m_struct	:	RecordBetStruct;
+		private m_struct	;
 		
-		public constructor(_mcAsset:MovieClip) {
-			super();
+		public constructor(_mcAsset) {
 			
-			m_mcAsset = _mcAsset;
+			this.m_mcAsset = _mcAsset;
 			
-			m_bmp = new Bitmap();
-			m_mcAsset.mc_0.addChild(m_bmp);
-			m_spRed = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_TABLE,"Road_Pair_Red_Asset");
-//			m_spRed.width = 8;
-//			m_spRed.height =8;
-			m_mcAsset.mc_0.addChild(m_spRed);
+			this.m_bmp = new egret.Bitmap();
+			this.m_mcAsset.mc_0.addChild(this.m_bmp);
+			this.m_spRed = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_TABLE,"Road_Pair_Red_Asset");
+//			this.m_spRed.width = 8;
+//			this.m_spRed.height =8;
+			this.m_mcAsset.mc_0.addChild(this.m_spRed);
 			
-			m_spBlue = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_TABLE,"Road_Pair_Blue_Asset");
-//			m_spBlue.width = 8;
-//			m_spBlue.height =8;
-			m_spBlue.x=17;
-			m_spBlue.y=17;
-			m_mcAsset.mc_0.addChild(m_spBlue);
+			this.m_spBlue = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_TABLE,"Road_Pair_Blue_Asset");
+//			this.m_spBlue.width = 8;
+//			this.m_spBlue.height =8;
+			this.m_spBlue.x=17;
+			this.m_spBlue.y=17;
+			this.m_mcAsset.mc_0.addChild(this.m_spBlue);
 			
-			m_spRed.visible = false;
-			m_spBlue.visible = false;
+			this.m_spRed.visible = false;
+			this.m_spBlue.visible = false;
 			
 //			m_tfTable = new TextField();
 //			this.addChild(m_tfTable);
@@ -65,86 +64,86 @@ module lobby.view.multi {
 //			}
 			
 			
-			if(m_spRed){
-				m_mcAsset.mc_0.removeChild(m_spRed);
-				m_spRed = null;
+			if(this.m_spRed){
+				this.m_mcAsset.mc_0.removeChild(this.m_spRed);
+				this.m_spRed = null;
 			}
-			if(m_spBlue){
-				m_mcAsset.mc_0.removeChild(m_spBlue);
-				m_spBlue = null;
-			}
-			
-			if(m_mcAsset){
-				m_mcAsset = null;
+			if(this.m_spBlue){
+				this.m_mcAsset.mc_0.removeChild(this.m_spBlue);
+				this.m_spBlue = null;
 			}
 			
-			if(m_struct){
-				m_struct = null;
+			if(this.m_mcAsset){
+				this.m_mcAsset = null;
+			}
+			
+			if(this.m_struct){
+				this.m_struct = null;
 			}
 		}
 		
-		public setData(_struct:RecordBetStruct):void{
+		public setData(_struct):void{
 			if(_struct==null){
-				m_mcAsset.visible = false;
+				this.m_mcAsset.visible = false;
 			}else{
-				m_mcAsset.visible = true;
-				m_struct = _struct;
-				onChangeLanguage();
+				this.m_mcAsset.visible = true;
+				this.m_struct = _struct;
+				this.onChangeLanguage();
 			}
 		}
 		
 		public onChangeLanguage():void{
-			m_spRed.visible = false;
-			m_spBlue.visible = false;
+			this.m_spRed.visible = false;
+			this.m_spBlue.visible = false;
 			
-			if(m_struct == null){
+			if(this.m_struct == null){
 				return;
 			}
 			
-			m_mcAsset.tf_0.text = LobbyManager.getInstance().getLanguageString(Language.sGame_Name_Bac) + " " + m_struct.TableID;
-			switch(m_struct.BetPos){
+			this.m_mcAsset.tf_0.text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sGame_Name_Bac) + " " + this.m_struct.TableID;
+			switch(this.m_struct.BetPos){
 				case "B1":
-					m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_BANKER);
-					m_mcAsset.tf_1.text = /*LobbyManager.getInstance().getLanguageString(Language.sBanker) +*/ m_struct.Amt.toString();
+					this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_BANKER);
+					this.m_mcAsset.tf_1.text = /*manager.LobbyManager.getInstance().getLanguageString(language.Language.sBanker) +*/ this.m_struct.Amt.toString();
 					break;
 				case "B2":
-					m_spRed.visible = true;
-					m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_BANKER);
-					m_mcAsset.tf_1.text = /*LobbyManager.getInstance().getLanguageString(Language.sBankerPair) +*/ m_struct.Amt.toString();
+					this.m_spRed.visible = true;
+					this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_BANKER);
+					this.m_mcAsset.tf_1.text = /*manager.LobbyManager.getInstance().getLanguageString(language.Language.sBankerPair) +*/ this.m_struct.Amt.toString();
 					break;
 				case "B3":
-					m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_TIE);
-					m_mcAsset.tf_1.text = /*LobbyManager.getInstance().getLanguageString(Language.sTie) +*/ m_struct.Amt.toString();
+					this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_TIE);
+					this.m_mcAsset.tf_1.text = /*manager.LobbyManager.getInstance().getLanguageString(language.Language.sTie) +*/ this.m_struct.Amt.toString();
 					break;
 				case "B4":
-					m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_PLAYER);
-					m_mcAsset.tf_1.text = /*LobbyManager.getInstance().getLanguageString(Language.sPlayer) +*/ m_struct.Amt.toString();
+					this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_PLAYER);
+					this.m_mcAsset.tf_1.text = /*manager.LobbyManager.getInstance().getLanguageString(language.Language.sPlayer) +*/ this.m_struct.Amt.toString();
 					break;
 				case "B5":
-					m_spBlue.visible = true;
-					m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_PLAYER);
-					m_mcAsset.tf_1.text = /*LobbyManager.getInstance().getLanguageString(Language.sPlayerPair) +*/ m_struct.Amt.toString();
+					this.m_spBlue.visible = true;
+					this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_PLAYER);
+					this.m_mcAsset.tf_1.text = /*manager.LobbyManager.getInstance().getLanguageString(language.Language.sPlayerPair) +*/ this.m_struct.Amt.toString();
 					break;
 				case "B6":
-					m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_BIG_DZ);
-					m_mcAsset.tf_1.text = /*LobbyManager.getInstance().getLanguageString(Language.sBig) +*/ m_struct.Amt.toString();
+					this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_BIG_DZ);
+					this.m_mcAsset.tf_1.text = /*manager.LobbyManager.getInstance().getLanguageString(language.Language.sBig) +*/ this.m_struct.Amt.toString();
 					break;
 				case "B7":
-					m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_SMALL_DZ);
-					m_mcAsset.tf_1.text = /*LobbyManager.getInstance().getLanguageString(Language.sSmall) +*/ m_struct.Amt.toString();
+					this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_SMALL_DZ);
+					this.m_mcAsset.tf_1.text = /*manager.LobbyManager.getInstance().getLanguageString(language.Language.sSmall) +*/ this.m_struct.Amt.toString();
 					break;
 			}
-			m_bmp.smoothing = true;
+			this.m_bmp.smoothing = true;
 			
-			if(m_struct.Payout>0){
-				m_mcAsset.tf_2.text = "+" + String(m_struct.Payout-m_struct.Amt);
-				(m_mcAsset.tf_2 as TextField).textColor = 0xff0000;
-			}else if(m_struct.Payout==0){
-				m_mcAsset.tf_2.text = "-" + m_struct.Amt.toString();
-				(m_mcAsset.tf_2 as TextField).textColor = 0x00ff00;
-			}else if(m_struct.Payout==m_struct.Amt){
-				m_mcAsset.tf_2.text = "0"
-				(m_mcAsset.tf_2 as TextField).textColor = 0x00ff00;
+			if(this.m_struct.Payout>0){
+				this.m_mcAsset.tf_2.text = "+" + String(this.m_struct.Payout-this.m_struct.Amt);
+				(this.m_mcAsset.tf_2 ).textColor = 0xff0000;
+			}else if(this.m_struct.Payout==0){
+				this.m_mcAsset.tf_2.text = "-" + this.m_struct.Amt.toString();
+				(this.m_mcAsset.tf_2 ).textColor = 0x00ff00;
+			}else if(this.m_struct.Payout==this.m_struct.Amt){
+				this.m_mcAsset.tf_2.text = "0";
+				(this.m_mcAsset.tf_2).textColor = 0x00ff00;
 			}
 			
 		}

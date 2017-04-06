@@ -299,7 +299,7 @@ module manager {
 		private calculateRightPoints():void
 		{
 			this.isNeedCalculateRightPoints = false;
-			var rightWidth:number= number.MAX_VALUE;
+			var rightWidth:number= define.Define.MAX_VALUE;
 			if(this.rightDistance!=null)
 			{
 				rightWidth = (this.rightDistance);
@@ -350,7 +350,7 @@ module manager {
 		private calculateButtomPoints():void
 		{
 			this.isNeedCalculateButtomPoints = false;
-			var buttomHeight:number= number.MAX_VALUE;
+			var buttomHeight:number= define.Define.MAX_VALUE;
 			if(this.buttomDistance!=null)
 			{
 				buttomHeight = (this.buttomDistance);

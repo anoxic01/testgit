@@ -330,7 +330,7 @@ module manager {
 			// 	var color:number = RouData.getInstance().getColor(i);
 			// 	m_rouBead.gotoAndStop(color);
 			// 	m_rouBead.contentTxt.text = string(i);
-			// 	m_dicBeads[Define.BEAD_NUMBER+i] = BitmapUtil.snapshot(m_rouBead);
+			// 	m_dicBeads[Define.BEAD_NUMBER+i] = util.bitmap.BitmapUtil.snapshot(m_rouBead);
 			// }
 			// m_rouBead = null;
 			
@@ -449,17 +449,17 @@ module manager {
 			var card : any;
 			var cardBB : any = ResourceManager.getInstance().createBitmapByName("Card_BB");
 			var cardBg : any = ResourceManager.getInstance().createBitmapByName("Card_Bg");
-			// this.m_dicCard["BB"] = tool.BitmapUtil.snapshot(cardBB);
-			// this.m_dicCard["Bg"] = tool.BitmapUtil.snapshot(cardBg);
-			// this.m_dicCardSmall["BB"] = tool.BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_BB"));
-			// this.m_dicCardSmall["Bg"] = tool.BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_Bg"));
+			// this.m_dicCard["BB"] = tool.util.bitmap.BitmapUtil.snapshot(cardBB);
+			// this.m_dicCard["Bg"] = tool.util.bitmap.BitmapUtil.snapshot(cardBg);
+			// this.m_dicCardSmall["BB"] = tool.util.bitmap.BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_BB"));
+			// this.m_dicCardSmall["Bg"] = tool.util.bitmap.BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_Bg"));
 			
 			cardBB.width = _w;
 			cardBB.height = _h;
-			// this.m_dicCardBig["BB"] = tool.BitmapUtil.snapshot(cardBB,_w,_h);
+			// this.m_dicCardBig["BB"] = tool.util.bitmap.BitmapUtil.snapshot(cardBB,_w,_h);
 			cardBg.width = _w;
 			cardBg.height = _h;
-			// this.m_dicCardBig["Bg"] = tool.BitmapUtil.snapshot(cardBg,_w,_h);
+			// this.m_dicCardBig["Bg"] = tool.util.bitmap.BitmapUtil.snapshot(cardBg,_w,_h);
 			
 			for (var i:number = 0; i < 4; i++) 
 			{
@@ -468,52 +468,52 @@ module manager {
 					switch(j){
 						case 0:
 							card = ResourceManager.getInstance().createBitmapByName("Card_"+strA+arr[i]);
-							// this.m_dicCard[strA+arr[i]] = BitmapUtil.snapshot(card);
-							// this.m_dicCardSmall[strA+arr[i]] = BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_"+strA+arr[i]));
+							// this.m_dicCard[strA+arr[i]] = util.bitmap.BitmapUtil.snapshot(card);
+							// this.m_dicCardSmall[strA+arr[i]] = util.bitmap.BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_"+strA+arr[i]));
 							card.width = 214;
 							card.height = 292;
-							// this.m_dicCardBig[strA+arr[i]] = BitmapUtil.snapshot(card,214,292);
+							// this.m_dicCardBig[strA+arr[i]] = util.bitmap.BitmapUtil.snapshot(card,214,292);
 							break;
 						case 9:
 							card = ResourceManager.getInstance().createBitmapByName("Card_"+strT+arr[i]);
-							// this.m_dicCard[strT+arr[i]] = BitmapUtil.snapshot(card);
-							// this.m_dicCardSmall[strT+arr[i]] = BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_"+strT+arr[i]));
+							// this.m_dicCard[strT+arr[i]] = util.bitmap.BitmapUtil.snapshot(card);
+							// this.m_dicCardSmall[strT+arr[i]] = util.bitmap.BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_"+strT+arr[i]));
 							card.width = 214;
 							card.height = 292;
-							// this.m_dicCardBig[strT+arr[i]] = BitmapUtil.snapshot(card,214,292);
+							// this.m_dicCardBig[strT+arr[i]] = util.bitmap.BitmapUtil.snapshot(card,214,292);
 							break;
 						case 10:
 							card = ResourceManager.getInstance().createBitmapByName("Card_"+strJ+arr[i]);
-							// this.m_dicCard[strJ+arr[i]] = BitmapUtil.snapshot(card);
-							// this.m_dicCardSmall[strJ+arr[i]] =  BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_"+strJ+arr[i]));
+							// this.m_dicCard[strJ+arr[i]] = util.bitmap.BitmapUtil.snapshot(card);
+							// this.m_dicCardSmall[strJ+arr[i]] =  util.bitmap.BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_"+strJ+arr[i]));
 							card.width = 214;
 							card.height = 292;
-							// this.m_dicCardBig[strJ+arr[i]] = BitmapUtil.snapshot(card,214,292);
+							// this.m_dicCardBig[strJ+arr[i]] = util.bitmap.BitmapUtil.snapshot(card,214,292);
 							break;
 						case 11:
 							card = ResourceManager.getInstance().createBitmapByName("Card_"+strQ+arr[i]);
-							// this.m_dicCard[strQ+arr[i]] = BitmapUtil.snapshot(card);
-							// this.m_dicCardSmall[strQ+arr[i]] = BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_"+strQ+arr[i]));
+							// this.m_dicCard[strQ+arr[i]] = util.bitmap.BitmapUtil.snapshot(card);
+							// this.m_dicCardSmall[strQ+arr[i]] = util.bitmap.BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_"+strQ+arr[i]));
 							card.width = 214;
 							card.height = 292;
-							// this.m_dicCardBig[strQ+arr[i]] = BitmapUtil.snapshot(card,214,292);
+							// this.m_dicCardBig[strQ+arr[i]] = util.bitmap.BitmapUtil.snapshot(card,214,292);
 							break;
 						case 12:
 							card = ResourceManager.getInstance().createBitmapByName("Card_"+strK+arr[i]);
-							// this.m_dicCard[strK+arr[i]] = BitmapUtil.snapshot(card);
-							// this.m_dicCardSmall[strK+arr[i]] = BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_"+strK+arr[i]));
+							// this.m_dicCard[strK+arr[i]] = util.bitmap.BitmapUtil.snapshot(card);
+							// this.m_dicCardSmall[strK+arr[i]] = util.bitmap.BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_"+strK+arr[i]));
 							card.width = 214;
 							card.height = 292;
-							// this.m_dicCardBig[strK+arr[i]] = BitmapUtil.snapshot(card,214,292);
+							// this.m_dicCardBig[strK+arr[i]] = util.bitmap.BitmapUtil.snapshot(card,214,292);
 							break;
 						
 						default:
 							card = ResourceManager.getInstance().createBitmapByName("Card_"+(j+1).toString()+arr[i]);
-							// this.m_dicCard[string(j+1)+arr[i]] = BitmapUtil.snapshot(card);
-							// this.m_dicCardSmall[string(j+1)+arr[i]] = BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_"+string(j+1)+arr[i]));
+							// this.m_dicCard[string(j+1)+arr[i]] = util.bitmap.BitmapUtil.snapshot(card);
+							// this.m_dicCardSmall[string(j+1)+arr[i]] = util.bitmap.BitmapUtil.snapshot(ResourceManager.getInstance().createBitmapByName("CardX_"+string(j+1)+arr[i]));
 							card.width = 214;
 							card.height = 292;
-							// this.m_dicCardBig[string(j+1)+arr[i]] = BitmapUtil.snapshot(card,214,292);
+							// this.m_dicCardBig[string(j+1)+arr[i]] = util.bitmap.BitmapUtil.snapshot(card,214,292);
 							break;
 					}
 				}
@@ -529,27 +529,27 @@ module manager {
 			
 			// _mc : MovieClip = ResourceManager.getInstance().createBitmapByName("Multi_Table_Item_Asset_4_default");
 			// _mc.gotoAndStop(Define.LANGUAGE_CN+1);
-			// this.m_dicMultiTrans[Define.LANGUAGE_CN+Define.MULTI_TABLE_MODE_4] = BitmapUtil.snapshot(_mc);
+			// this.m_dicMultiTrans[Define.LANGUAGE_CN+Define.MULTI_TABLE_MODE_4] = util.bitmap.BitmapUtil.snapshot(_mc);
 			// _mc.gotoAndStop(Define.LANGUAGE_TW+1);
-			// this.m_dicMultiTrans[Define.LANGUAGE_TW+Define.MULTI_TABLE_MODE_4] = BitmapUtil.snapshot(_mc);
+			// this.m_dicMultiTrans[Define.LANGUAGE_TW+Define.MULTI_TABLE_MODE_4] = util.bitmap.BitmapUtil.snapshot(_mc);
 			// _mc.gotoAndStop(Define.LANGUAGE_EN+1);
-			// this.m_dicMultiTrans[Define.LANGUAGE_EN+Define.MULTI_TABLE_MODE_4] = BitmapUtil.snapshot(_mc);
+			// this.m_dicMultiTrans[Define.LANGUAGE_EN+Define.MULTI_TABLE_MODE_4] = util.bitmap.BitmapUtil.snapshot(_mc);
 			
 			// _mc = ResourceManager.getInstance().createBitmapByName("Multi_Table_Item_Asset_8_default");
 			// _mc.gotoAndStop(Define.LANGUAGE_CN+1);
-			// this.m_dicMultiTrans[Define.LANGUAGE_CN+Define.MULTI_TABLE_MODE_8] = BitmapUtil.snapshot(_mc);
+			// this.m_dicMultiTrans[Define.LANGUAGE_CN+Define.MULTI_TABLE_MODE_8] = util.bitmap.BitmapUtil.snapshot(_mc);
 			// _mc.gotoAndStop(Define.LANGUAGE_TW+1);
-			// this.m_dicMultiTrans[Define.LANGUAGE_TW+Define.MULTI_TABLE_MODE_8] = BitmapUtil.snapshot(_mc);
+			// this.m_dicMultiTrans[Define.LANGUAGE_TW+Define.MULTI_TABLE_MODE_8] = util.bitmap.BitmapUtil.snapshot(_mc);
 			// _mc.gotoAndStop(Define.LANGUAGE_EN+1);
-			// this.m_dicMultiTrans[Define.LANGUAGE_EN+Define.MULTI_TABLE_MODE_8] = BitmapUtil.snapshot(_mc);
+			// this.m_dicMultiTrans[Define.LANGUAGE_EN+Define.MULTI_TABLE_MODE_8] = util.bitmap.BitmapUtil.snapshot(_mc);
 			
 			// _mc = ResourceManager.getInstance().createBitmapByName("Multi_Table_Item_Asset_16_default");
 			// _mc.gotoAndStop(Define.LANGUAGE_CN+1);
-			// this.m_dicMultiTrans[Define.LANGUAGE_CN+Define.MULTI_TABLE_MODE_16] = BitmapUtil.snapshot(_mc);
+			// this.m_dicMultiTrans[Define.LANGUAGE_CN+Define.MULTI_TABLE_MODE_16] = util.bitmap.BitmapUtil.snapshot(_mc);
 			// _mc.gotoAndStop(Define.LANGUAGE_TW+1);
-			// this.m_dicMultiTrans[Define.LANGUAGE_TW+Define.MULTI_TABLE_MODE_16] = BitmapUtil.snapshot(_mc);
+			// this.m_dicMultiTrans[Define.LANGUAGE_TW+Define.MULTI_TABLE_MODE_16] = util.bitmap.BitmapUtil.snapshot(_mc);
 			// _mc.gotoAndStop(Define.LANGUAGE_EN+1);
-			// this.m_dicMultiTrans[Define.LANGUAGE_EN+Define.MULTI_TABLE_MODE_16] = BitmapUtil.snapshot(_mc);
+			// this.m_dicMultiTrans[Define.LANGUAGE_EN+Define.MULTI_TABLE_MODE_16] = util.bitmap.BitmapUtil.snapshot(_mc);
 			
 			// if(_mc){
 			// 	_mc = null;
@@ -561,10 +561,10 @@ module manager {
 			// _mc:MovieClip = ResourceManager.getInstance().createBitmapByName("Table_bg_Asset");
 			
 			// _mc.gotoAndStop(1);
-			// this.m_aTableBg[0] =  BitmapUtil.snapshot(_mc);
+			// this.m_aTableBg[0] =  util.bitmap.BitmapUtil.snapshot(_mc);
 			
 			// _mc.gotoAndStop(2);
-			// this.m_aTableBg[1] =  BitmapUtil.snapshot(_mc);
+			// this.m_aTableBg[1] =  util.bitmap.BitmapUtil.snapshot(_mc);
 			
 			// if(_mc){
 			// 	_mc = null;
@@ -598,7 +598,7 @@ module manager {
 			// _fillBmd:BitmapData 
 			// pt:Point = new Point(0,0);
 			// _mc = ResourceManager.getInstance().createBitmapByName("Table_bg_Asset_4");
-			// _bmd = BitmapUtil.snapshot(_mc);
+			// _bmd = util.bitmap.BitmapUtil.snapshot(_mc);
 			// _fillBmd = new BitmapData(426,240);
 			// _fillBmd.copyPixels(_bmd,new Rectangle(11,11,426,240),pt);
 			// _bmd.fillRect(new Rectangle(11,11,426,240),0x00000000);
@@ -606,7 +606,7 @@ module manager {
 			// this.m_dicMultitableBg[Define.MULTI_TABLE_MODE_4+100]=_fillBmd;
 			
 			// _mc = ResourceManager.getInstance().createBitmapByName("Table_bg_Asset_8");
-			// _bmd = BitmapUtil.snapshot(_mc);
+			// _bmd = util.bitmap.BitmapUtil.snapshot(_mc);
 			// _fillBmd = new BitmapData(426,240);
 			// _fillBmd.copyPixels(_bmd,new Rectangle(11,11,426,240),pt);
 			// _bmd.fillRect(new Rectangle(11,11,426,240),0x00000000);
@@ -614,7 +614,7 @@ module manager {
 			// this.m_dicMultitableBg[Define.MULTI_TABLE_MODE_8+100]=_fillBmd;
 			
 			// _mc = ResourceManager.getInstance().createBitmapByName("Table_bg_Asset_16");
-			// _bmd = BitmapUtil.snapshot(_mc);
+			// _bmd = util.bitmap.BitmapUtil.snapshot(_mc);
 			// _fillBmd = new BitmapData(389,242);
 			// _fillBmd.copyPixels(_bmd,new Rectangle(11,11,389,242),pt);
 			// _bmd.fillRect(new Rectangle(11,11,389,242),0x00000000);
@@ -630,13 +630,13 @@ module manager {
 			this.m_dicTable = new Object();
 			// _mc : MovieClip = ResourceManager.getInstance().createBitmapByName("Table_Default_Asset");
 			// _mc.gotoAndStop(1);
-			// this.m_dicTable[Define.LANGUAGE_CN] = BitmapUtil.snapshot(_mc);
+			// this.m_dicTable[Define.LANGUAGE_CN] = util.bitmap.BitmapUtil.snapshot(_mc);
 			
 			// _mc.gotoAndStop(2);
-			// this.m_dicTable[Define.LANGUAGE_TW] = BitmapUtil.snapshot(_mc);
+			// this.m_dicTable[Define.LANGUAGE_TW] = util.bitmap.BitmapUtil.snapshot(_mc);
 			
 			// _mc.gotoAndStop(3);
-			// this.m_dicTable[Define.LANGUAGE_EN] = BitmapUtil.snapshot(_mc);
+			// this.m_dicTable[Define.LANGUAGE_EN] = util.bitmap.BitmapUtil.snapshot(_mc);
 		}
 		
 	}

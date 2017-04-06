@@ -1,59 +1,59 @@
 module lobby.view.multi {
 	export class MultiTableItem extends BSprite{
-		protected m_mcAsset			:	MovieClip;
+		protected m_mcAsset			;
 		
-		public bTableClearing		:	 boolean;					//清桌标记
-		public goodRoadStruct		:	GoodRoadStruct;				//好路数据
-		public gameApp				:	Game;
+		public bTableClearing		:	boolean;					//清桌标记
+		public goodRoadStruct		;				//好路数据
+		public gameApp				;
 		public uPage				:	number;
 		public index				:   number;
 		public constructor(_iMode:number, multitableList:MultiTableList, _uPage:number) {
 			
 			super();
-			uPage = _uPage;
+			this.uPage = _uPage;
 			
-			var _gameClass:Class = getDefinitionByName(GameDefine.BAC_MULTI_NAME) as Class;
-			gameApp = new _gameClass(_iMode, this, multitableList);
-			this.addChild(gameApp);
-			onChangeLanguage();
+			var _gameClass = getDefinitionByName(define.GameDefine.BAC_MULTI_NAME);
+			this.gameApp = new _gameClass(_iMode, this, multitableList);
+			this.addChild(this.gameApp);
+			this.onChangeLanguage();
 			
-			this.addEventListener(mouse.MouseEvent.MOUSE_OVER, bgOver);
-			this.addEventListener(mouse.MouseEvent.MOUSE_OUT, bgOut);
+			this.addEventListener(mouse.MouseEvent.MOUSE_OVER, this.bgOver, this);
+			this.addEventListener(mouse.MouseEvent.MOUSE_OUT, this.bgOut, this);
 		}
 		
 		 public destroy():void{
 			
-			this.removeEventListener(mouse.MouseEvent.MOUSE_OVER, bgOver);
-			this.removeEventListener(mouse.MouseEvent.MOUSE_OUT, bgOut);
+			this.removeEventListener(mouse.MouseEvent.MOUSE_OVER, this.bgOver, this);
+			this.removeEventListener(mouse.MouseEvent.MOUSE_OUT, this.bgOut, this);
 			
-			if(gameApp){
-				if(gameApp.parent){
-					gameApp.parent.removeChild(gameApp);
+			if(this.gameApp){
+				if(this.gameApp.parent){
+					this.gameApp.parent.removeChild(this.gameApp);
 				}
-				gameApp.destroy();
-				gameApp = null;
+				this.gameApp.destroy();
+				this.gameApp = null;
 			}
 			
 		}
 		
-		public setDataOnAddGoodRoad(_goodRoadStruct:GoodRoadStruct):void{
-			goodRoadStruct = _goodRoadStruct;
+		public setDataOnAddGoodRoad(_goodRoadStruct):void{
+			this.goodRoadStruct = _goodRoadStruct;
 			
-			if(goodRoadStruct==null){
-				bTableClearing = true;
+			if(this.goodRoadStruct==null){
+				this.bTableClearing = true;
 				
 				//游戏结算动画播放完后执行
 //				gameApp.reset();			
 //				return;
 			}
 			
-			gameApp.receiveGoodRoadStruct(goodRoadStruct);
+			this.gameApp.receiveGoodRoadStruct(this.goodRoadStruct);
 		}
 		
-		public setData(_goodRoadStruct:GoodRoadStruct):void{
-			goodRoadStruct = _goodRoadStruct;
+		public setData(_goodRoadStruct):void{
+			this.goodRoadStruct = _goodRoadStruct;
 		
-			gameApp.receiveGoodRoadStruct(goodRoadStruct);
+			this.gameApp.receiveGoodRoadStruct(this.goodRoadStruct);
 			
 		}
 		
@@ -61,7 +61,7 @@ module lobby.view.multi {
 		
 		/** 是否空桌 **/
 		public isEmptyTable(): boolean{
-			if(goodRoadStruct || bTableClearing){
+			if(this.goodRoadStruct || this.bTableClearing){
 				return false;
 			}
 			
@@ -70,14 +70,14 @@ module lobby.view.multi {
 		
 		/**清空数据、标识  */
 		public clear():void{
-			goodRoadStruct = null;
-			bTableClearing = false;
+			this.goodRoadStruct = null;
+			this.bTableClearing = false;
 		}
 		
 		/**清空移除  */
 		public clearTable():void{
-			clear();
-		    gameApp.clearGoodRoad();
+			this.clear();
+		   this. gameApp.clearGoodRoad();
 		}
 		
 		//等待好路
@@ -91,7 +91,7 @@ module lobby.view.multi {
 		}
 		
 		 public onChangeLanguage():void{
-			gameApp.onChangeLanguage();
+			this.gameApp.onChangeLanguage();
 		}
 		
 		//临时处理

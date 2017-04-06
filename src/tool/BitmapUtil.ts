@@ -1,10 +1,10 @@
 module tool {
-	export class BitmapUtil {
+	export class util.bitmap.BitmapUtil {
 		private static matrix:number[]=[0.3086, 0.6094, 0.0820, 0, 0,  
 			0.3086, 0.6094, 0.0820, 0, 0,  
 			0.3086, 0.6094, 0.0820, 0, 0,  
 			0,      0,      0,      1, 0];
-		private static myfilter:egret.ColorMatrixFilter = new egret.ColorMatrixFilter(BitmapUtil.matrix);
+		private static myfilter:egret.ColorMatrixFilter = new egret.ColorMatrixFilter(util.bitmap.BitmapUtil.matrix);
 		
 		public constructor() {
 		}
@@ -129,7 +129,7 @@ module tool {
 		 *	颜色滤镜 
 		 */		
 		public static gray($bmp:egret.Bitmap):egret.BitmapData{
-			$bmp.filters = [BitmapUtil.myfilter];
+			$bmp.filters = [util.bitmap.BitmapUtil.myfilter];
 			let _tw : egret.RenderTexture = new egret.RenderTexture();
 			_tw.drawToTexture($bmp, new egret.Rectangle(0,0,$bmp.width, $bmp.height), 1);
 			return _tw.bitmapData;

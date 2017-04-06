@@ -1,20 +1,20 @@
 module lobby.view.other {
 	export class OnOff extends BSprite{
-		private m_mcAsset	:	*;
+		private m_mcAsset;
 
 		get volumeBar():VolumeBar
 		{
-			return m_volumeBar;
+			return this.m_volumeBar;
 		}
 
 		set  volumeBar(value:VolumeBar)
 		{
-			m_volumeBar = value;
-			if(m_volumeBar){
-				if(bStatus){
-					m_volumeBar.enable = true;
+			this.m_volumeBar = value;
+			if(this.m_volumeBar){
+				if(this.bStatus){
+					this.m_volumeBar.enable = true;
 				}else{
-					m_volumeBar.enable = false;
+					this.m_volumeBar.enable = false;
 				}
 			}
 		}
@@ -22,143 +22,143 @@ module lobby.view.other {
 		private m_fOn		:	Function;
 		private m_fOff		:	Function;
 		private m_iType		:	number;
-		public bStatus		:	 boolean;
+		public bStatus		:	boolean;
 		private m_volumeBar	:	VolumeBar;
-		private m_nVolume	:	Number;
+		private m_nVolume	:	number;
 		
 		public constructor(_iType:number) {
 			super();
-			m_iType = _iType;
+			this.m_iType = _iType;
 			
-			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_PANEL,"On_off_Asset");
-			this.addChild(m_mcAsset);
+			this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_PANEL,"On_off_Asset");
+			this.addChild(this.m_mcAsset);
 			
-			m_mcAsset.mc_0.gotoAndStop(1);
-			m_mcAsset.mc_1.mouseChildren = false;
+			this.m_mcAsset.mc_0.gotoAndStop(1);
+			this.m_mcAsset.mc_1.mouseChildren = false;
 			
-			switch(m_iType){
-				case Define.MUSIC:
-					m_nVolume = SharedObjectManager.getMusicVolume();
-					bStatus = SharedObjectManager.getMusicOnOff();
+			switch(this.m_iType){
+				case define.Define.MUSIC:
+					this.m_nVolume = manager.SharedObjectManager.getMusicVolume();
+					this.bStatus = manager.SharedObjectManager.getMusicOnOff();
 					break;
-				case Define.EFFECT:
-					m_nVolume = SharedObjectManager.getEffectVolume();
-					bStatus = SharedObjectManager.getEffectOnOff();
+				case define.Define.EFFECT:
+					this.m_nVolume = manager.SharedObjectManager.getEffectVolume();
+					this.bStatus = manager.SharedObjectManager.getEffectOnOff();
 					break;
-				case Define.LIVE:
-					m_nVolume = SharedObjectManager.getLiveVolume();
-					bStatus = SharedObjectManager.getLiveOnOff();
+				case define.Define.LIVE:
+					this.m_nVolume = manager.SharedObjectManager.getLiveVolume();
+					this.bStatus = manager.SharedObjectManager.getLiveOnOff();
 					break;
 			}
 
-			if(bStatus){
-				m_mcAsset.mc_0.x = 38;
-				m_mcAsset.mc_1.gotoAndStop(2);
+			if(this.bStatus){
+				this.m_mcAsset.mc_0.x = 38;
+				this.m_mcAsset.mc_1.gotoAndStop(2);
 			}else{
-				m_mcAsset.mc_0.x = 0;
-				m_mcAsset.mc_1.gotoAndStop(1);
+				this.m_mcAsset.mc_0.x = 0;
+				this.m_mcAsset.mc_1.gotoAndStop(1);
 			}
 			
-			this.buttonMode = true;
-			this.addEventListener(mouse.MouseEvent.MOUSE_OUT, out);
-			this.addEventListener(mouse.MouseEvent.MOUSE_OVER, over);
-			this.addEventListener(egret.TouchEvent.TOUCH_TAP, change);
+			this.touchEnabled = true;
+			this.addEventListener(mouse.MouseEvent.MOUSE_OUT, this.out, this);
+			this.addEventListener(mouse.MouseEvent.MOUSE_OVER, this.over, this);
+			this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.change, this);
 		}
 		 public destroy():void{
-			this.removeEventListener(mouse.MouseEvent.MOUSE_OUT, out);
-			this.removeEventListener(mouse.MouseEvent.MOUSE_OVER, over);
-			this.removeEventListener(egret.TouchEvent.TOUCH_TAP, change);
+			this.removeEventListener(mouse.MouseEvent.MOUSE_OUT, this.out, this);
+			this.removeEventListener(mouse.MouseEvent.MOUSE_OVER, this.over, this);
+			this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.change, this);
 			
-			if(m_fOn != null){
-				m_fOn = null;
+			if(this.m_fOn != null){
+				this.m_fOn = null;
 			}
 			
-			if(m_fOff != null){
-				m_fOff = null;
+			if(this.m_fOff != null){
+				this.m_fOff = null;
 			}
 			
-			if(m_mcAsset){
-				this.removeChild(m_mcAsset);
-				m_mcAsset = null;
+			if(this.m_mcAsset){
+				this.removeChild(this.m_mcAsset);
+				this.m_mcAsset = null;
 			}
 			
-			if(volumeBar){
-				volumeBar = null;
+			if(this.volumeBar){
+				this.volumeBar = null;
 			}
 		}
 		
 
 		
 		public on():void{
-			if(bStatus){
+			if(this.bStatus){
 				return;
 			}
-			m_mcAsset.mc_0.x = 38;
-			m_mcAsset.mc_1.gotoAndStop(2);
-			bStatus = true;
-			volumeBar.setvolume(m_nVolume==0?0.6:m_nVolume);
-			volumeBar.enable = true;
+			this.m_mcAsset.mc_0.x = 38;
+			this.m_mcAsset.mc_1.gotoAndStop(2);
+			this.bStatus = true;
+			this.volumeBar.setvolume(this.m_nVolume==0?0.6:this.m_nVolume);
+			this.volumeBar.enable = true;
 		}
 		
 		public off():void{
-			if(bStatus){
-				m_mcAsset.mc_0.x = 0;
-				m_mcAsset.mc_1.gotoAndStop(1);
-				bStatus = false;
-				m_nVolume = volumeBar.nVolume;
-				volumeBar.setvolume(0);
-				volumeBar.enable = false;
+			if(this.bStatus){
+				this.m_mcAsset.mc_0.x = 0;
+				this.m_mcAsset.mc_1.gotoAndStop(1);
+				this.bStatus = false;
+				this.m_nVolume = this.volumeBar.nVolume;
+				this.volumeBar.setvolume(0);
+				this.volumeBar.enable = false;
 			}
 			
 		}
 		
 		public on_off():void{
-			if(bStatus){
-				off();
+			if(this.bStatus){
+				this.off();
 			}else{
-				on();
+				this.on();
 			}
 			
 		}
 		
 		protected change(event:MouseEvent):void
 		{
-			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
+			manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
 			
-			on_off();
-			switch(m_iType){
-				case Define.MUSIC:
-					MusicManager.singleton.enabled = bStatus;
+			this.on_off();
+			switch(this.m_iType){
+				case define.Define.MUSIC:
+					manager.MusicManager.singleton.enabled = this.bStatus;
 					break;
-				case Define.EFFECT:
-					SoundManager.getInstance().soundEffectSwitch = bStatus;
+				case define.Define.EFFECT:
+					manager.SoundManager.getInstance().soundEffectSwitch = this.bStatus;
 					break;
-				case Define.LIVE:
-					LobbyManager.getInstance().bLiveStatus = bStatus;
+				case define.Define.LIVE:
+					manager.LobbyManager.getInstance().bLiveStatus = this.bStatus;
 					break;
 			}
-			onChangeLanguage();
+			this.onChangeLanguage();
 		}
 		
 		protected out(event:MouseEvent):void
 		{
-			m_mcAsset.mc_0.gotoAndStop(1);
+			this.m_mcAsset.mc_0.gotoAndStop(1);
 		}
 		
 		protected over(event:MouseEvent):void
 		{
-			m_mcAsset.mc_0.gotoAndStop(2);
+			this.m_mcAsset.mc_0.gotoAndStop(2);
 		}
 		
 		 public onChangeLanguage():void{
-			m_mcAsset.mc_1.tf_label.text = LobbyManager.getInstance().getLanguageString(bStatus?Language.sOn:Language.sOff);
+			this.m_mcAsset.mc_1.tf_label.text = manager.LobbyManager.getInstance().getLanguageString(this.bStatus?language.Language.sOn:language.Language.sOff);
 		}
 		
-		get volume():Number {
-			return m_nVolume;
+		get volume():number {
+			return this.m_nVolume;
 		}
-		set  volume(_nValue:Number) {
-			m_nVolume = _nValue;
+		set  volume(_nValue:number) {
+			this.m_nVolume = _nValue;
 		}
 	}
 }

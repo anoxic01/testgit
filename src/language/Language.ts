@@ -697,5 +697,23 @@ module language {
 		 */	
 		public constructor() {
 		}
+		
+		public getString( _string:string):string{
+			if(this.dictionaryString[_string]){
+				return this.dictionaryString[_string];
+			}
+			
+			console.log("没有对应项-",_string);
+			return _string;
+		}
+		
+		public getBmpd( _string:string):egret.BitmapData{
+			if(this.dictionaryBmpd[_string]){
+				return this.dictionaryBmpd[_string];
+			}
+			
+			console.log("没有对应项-"+_string);
+			return new egret.BitmapData(null);
+		}
 	}
 }

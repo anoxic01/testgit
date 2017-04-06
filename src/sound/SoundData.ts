@@ -2,32 +2,32 @@ module sound {
 	export class SoundData {
 		private static m_instance:SoundData;
 		
-		public nSoundVolume		:	Number 	= 	-1;
-		public nMusicVolume		:	Number 	= 	-1;
-		private m_nLiveVolume	:	Number 	= 	-1;
+		public nSoundVolume		:	number 	= 	-1;
+		public nMusicVolume		:	number 	= 	-1;
+		private m_nLiveVolume	:	number 	= 	-1;
 		
 		
 		public constructor() {
 		}
 		
-		get nLiveVolume():Number
+		get nLiveVolume():number
 		{
-			return m_nLiveVolume;
+			return this.m_nLiveVolume;
 		}
 
-		set  nLiveVolume(value:Number)
+		set  nLiveVolume(value:number)
 		{
-			m_nLiveVolume = value;
+			this.m_nLiveVolume = value;
 			
 			//控制视讯
 		}
 
 		public static getInstance():SoundData{
 			
-			if(m_instance == null){
-				m_instance = new SoundData(new Singleton());
+			if(SoundData.m_instance == null){
+				SoundData.m_instance = new SoundData();
 			}
-			return m_instance;
+			return SoundData.m_instance;
 		}
 		
 	}

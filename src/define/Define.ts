@@ -225,7 +225,7 @@ module define {
 		/** 嵌入字 **/
 		public static FONT_WRYH_BOLD						:	string	=	"微软雅黑 Bold";	
 
-			
+		public static MAX_VALUE								:	number	=	2147483647;
 
 		public constructor() {
 		}

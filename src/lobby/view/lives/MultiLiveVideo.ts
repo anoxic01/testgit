@@ -310,18 +310,16 @@ module lobby.view.lives {
 		public zoomIn() : void
 		{
 			if (this.bTween)return;
-			var xx:Number= -this.zoomPt.x;
-			var yy:Number= -this.zoomPt.y;
-			var ww:Number
-			var hh:Number
+			var xx:number= -this.zoomPt.x;
+			var yy:number= -this.zoomPt.y;
 			this.m_btnZoomIn.enabled=false;
 			this.m_btnZoomOut.enabled = false;
-			TweenLite.to(this.m_mcVideo, define.GameDefine.TWEEN_SPEED, {x:xx, y:yy, scaleX:2, scaleY:2,onComplete:function():void{
+			egret.Tween.get(this.m_mcVideo).to({x:xx, y:yy, scaleX:2, scaleY:2}, define.GameDefine.TWEEN_SPEED).call(function():void{
 				this.bTween=false;
 				if(this.m_btnZoomOut){
 					this.m_btnZoomOut.enabled = true;
 				}
-			}});
+			});
 			this.bTween = true;
 			return;
 		}
@@ -329,18 +327,16 @@ module lobby.view.lives {
 		public zoomOut() : void
 		{
 			if (this.bTween)return;
-			var xx:Number= 0;
-			var yy:Number= 0;
-			var ww:Number
-			var hh:Number
+			var xx:number= 0;
+			var yy:number= 0;
 			this.m_btnZoomIn.enabled=false;
 			this.m_btnZoomOut.enabled = false;
-			TweenLite.to(this.m_mcVideo, define.GameDefine.TWEEN_SPEED, {x:xx, y:yy, scaleX:1, scaleY:1,onComplete:function():void{
+			egret.Tween.get(this.m_mcVideo).to({x:xx, y:yy, scaleX:1, scaleY:1}, define.GameDefine.TWEEN_SPEED).call(function():void{
 				this.bTween=false
 				if(this.m_btnZoomIn){
 					this.m_btnZoomIn.enabled=true;
 				}
-			}});
+			});
 			this.bTween = true;
 			return;
 		}

@@ -294,13 +294,11 @@ module lobby.view.lives {
 			if(this.m_bControl){
 				this.m_RTMPPlayer.stop();
 				manager.LobbyManager.getInstance().lobbyView.advertisement.resize(this.m_parent.x+this.m_parent.width-35, 140);
-				TweenLite.to(this.m_parent, define.Define.SPEED, {x:this.m_parent.x+this.m_parent.width-35});
-//				TweenUtil.moveToX(this.m_parent,50,30,10,this.m_parent.x+this.m_parent.width-35,0.75);
+				egret.Tween.get(this.m_parent).to({x:this.m_parent.x+this.m_parent.width-35}, define.Define.SPEED)
 			}else{
 				this.play();
 				manager.LobbyManager.getInstance().lobbyView.advertisement.resize(this.m_parent.x-this.m_parent.width+35, 140);
-				TweenLite.to(this.m_parent, define.Define.SPEED, {x:this.m_parent.x-this.m_parent.width+35});
-//				TweenUtil.moveToX(this.m_parent,50,30,10,this.m_parent.x-this.m_parent.width+35,0.75);
+				egret.Tween.get(this.m_parent).to({x:this.m_parent.x-this.m_parent.width+35}, define.Define.SPEED);
 			}
 			
 			this.m_bControl = !this.m_bControl;

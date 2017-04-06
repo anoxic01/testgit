@@ -1,47 +1,46 @@
 module lobby.view.other {
 	export class MouseFollow  extends BFrame{
-		private m_bmpAsset	:	Bitmap;
+		private m_bmpAsset	;
 		
 		public constructor() {
 			super();
 			
-			m_bmpAsset = new Bitmap();
-			this.addChild(m_bmpAsset);
+			this.m_bmpAsset = new egret.Bitmap();
+			this.addChild(this.m_bmpAsset);
 			
-			this.mouseEnabled = false;
-			this.mouseChildren = false;
+			this.touchEnabled = false;
+			this.touchChildren = false;
 			this.visible = false;
 		}
 		 public destroy():void{
-			if(m_bmpAsset){
-				this.removeChild(m_bmpAsset);
-				m_bmpAsset = null;
+			if(this.m_bmpAsset){
+				this.removeChild(this.m_bmpAsset);
+				this.m_bmpAsset = null;
 			}
 		}
 		
-		set  bitmapdata(_bmpd:BitmapData){
-			m_bmpAsset.bitmapData = _bmpd;
-			m_bmpAsset.smoothing = true;
-			if(m_bmpAsset.bitmapData==null){
+		set  bitmapdata(_bmpd){
+			this.m_bmpAsset.bitmapData = _bmpd;
+			this.m_bmpAsset.smoothing = true;
+			if(this.m_bmpAsset.bitmapData==null){
 				return;
 			}
-			m_bmpAsset.x = -int(m_bmpAsset.width*0.5);
-			m_bmpAsset.y = -int(m_bmpAsset.height*0.5);
+			this.m_bmpAsset.x = -(this.m_bmpAsset.width*0.5);
+			this.m_bmpAsset.y = -(this.m_bmpAsset.height*0.5);
 		}
 		
 		set  scale(value:Number){
-			m_bmpAsset.scaleX = m_bmpAsset.scaleY=value;
+			this.m_bmpAsset.scaleX = this.m_bmpAsset.scaleY=value;
 			
 		}
 		
 		 public exe():void{
-			this.x = stage.mouseX;
-			this.y = stage.mouseY;
+			this.x = this.stage.x;
+			this.y = this.stage.y;
 		}
 		
 		 public exit():void{
-			
-			LobbyManager.getInstance().lobbyView.removeFrame(this);
+			manager.LobbyManager.getInstance().lobbyView.removeFrame(this);
 		}
 	}
 }

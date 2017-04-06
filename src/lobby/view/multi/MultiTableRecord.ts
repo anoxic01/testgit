@@ -1,6 +1,6 @@
 module lobby.view.multi {
 	export class MultiTableRecord extends BSprite{
-		private m_mcAsset		:	*;
+		private m_mcAsset		;
 		
 		private m_recordList	:	MultiTableRecordList;
 		
@@ -13,61 +13,63 @@ module lobby.view.multi {
 		private m_uTotalPage	:	number	=	10;					//最多10页
 		private m_uTotalCount	:	number	=	100;				//最高100条记录，超过覆盖旧记录
 		private m_uCurrent		:	number	=	1;					//当前页数
-		private m_vecRecordData	:	<RecordBetStruct>;		//所有记录
+		private m_vecRecordData	:	model.struct.RecordBetStruct[];		//所有记录
 		
 		public constructor() {
-			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_MULTITABLE, "Multi_Record_Asset");
-			m_mcAsset.cacheAsBitmap=true;
-			this.addChild(m_mcAsset);
-			m_btnSetting = new ui.button.SingleButtonMC(m_mcAsset.mc_setting, function(evt:MouseEvent):void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-//				LobbyManager.getInstance().showDialog("暂未开放！");
-				LobbyManager.getInstance().showGoodRoadSetting();
+			super();
+
+			this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_MULTITABLE, "Multi_Record_Asset");
+			this.m_mcAsset.cacheAsBitmap=true;
+			this.addChild(this.m_mcAsset);
+			this.m_btnSetting = new ui.button.SingleButtonMC(this.m_mcAsset.mc_setting, function(evt:MouseEvent):void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+//				manager.LobbyManager.getInstance().showDialog("暂未开放！");
+				manager.LobbyManager.getInstance().showGoodRoadSetting();
 			});
-			m_btnSetting.fOnOver = function():void{
-				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_GoodRood_Setting),TipManager.RIGHT,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_setting.x-5,m_mcAsset.mc_setting.y+15)));
+			this.m_btnSetting.fOnOver = function():void{
+				manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_GoodRood_Setting),manager.TipManager.RIGHT,this.m_mcAsset.localToGlobal(new egret.Point(this.m_mcAsset.mc_setting.x-5,this.m_mcAsset.mc_setting.y+15)));
 			};
-			m_btnSetting.fOnOut = function():void{
-				TipManager.getInstance().hide();
+			this.m_btnSetting.fOnOut = function():void{
+				manager.TipManager.getInstance().hide();
 			};
-			m_btnFirst = new ui.button.SingleButtonMC(m_mcAsset.mc_0, function(evt:MouseEvent):void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				uCurrent = 1;
+			this.m_btnFirst = new ui.button.SingleButtonMC(this.m_mcAsset.mc_0, function(evt:MouseEvent):void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+				this.uCurrent = 1;
 			});
-			m_btnLeft = new ui.button.SingleButtonMC(m_mcAsset.mc_1, function(evt:MouseEvent):void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				m_uCurrent--;
-				if(m_uCurrent<1){
-					uCurrent = 1;
+			this.m_btnLeft = new ui.button.SingleButtonMC(this.m_mcAsset.mc_1, function(evt:MouseEvent):void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+				this.m_uCurrent--;
+				if(this.m_uCurrent<1){
+					this.uCurrent = 1;
 				}else{
-					uCurrent = m_uCurrent;
+					this.uCurrent = this.m_uCurrent;
 				}
 			});
-			m_btnNext = new ui.button.SingleButtonMC(m_mcAsset.mc_2, function(evt:MouseEvent):void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				m_uCurrent++;
-				if(m_uCurrent>m_uTotalPage){
-					uCurrent = m_uTotalPage;
+			this.m_btnNext = new ui.button.SingleButtonMC(this.m_mcAsset.mc_2, function(evt:MouseEvent):void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+				this.m_uCurrent++;
+				if(this.m_uCurrent>this.m_uTotalPage){
+					this.uCurrent = this.m_uTotalPage;
 				}else{
-					uCurrent = m_uCurrent;
+					this.uCurrent = this.m_uCurrent;
 				}
 				
 			});
-			m_btnLast = new ui.button.SingleButtonMC(m_mcAsset.mc_3, function(evt:MouseEvent):void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				uCurrent = m_uTotalPage;
+			this.m_btnLast = new ui.button.SingleButtonMC(this.m_mcAsset.mc_3, function(evt:MouseEvent):void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+				this.uCurrent = this.m_uTotalPage;
 			});
 			
-			m_vecRecordData = new <RecordBetStruct>();
+			this.m_vecRecordData = new Array<model.struct.RecordBetStruct>();
 			
-			m_recordList = new MultiTableRecordList(m_mcAsset);
-			m_mcAsset.addChild(m_recordList);
+			this.m_recordList = new MultiTableRecordList(this.m_mcAsset);
+			this.m_mcAsset.addChild(this.m_recordList);
 			
-			m_uTotalPage = 1;
-			uCurrent = 1;
+			this.m_uTotalPage = 1;
+			this.uCurrent = 1;
 			
-			judgeBtn();
-			onChangeLanguage();
+			this.judgeBtn();
+			this.onChangeLanguage();
 			
 			//虚拟数据——测试
 //			var vec : <RecordBetStruct> = new <RecordBetStruct>();
@@ -86,38 +88,38 @@ module lobby.view.multi {
 		
 		 public destroy():void
 		{
-			if(m_btnSetting){
-				m_btnSetting.destroy();
-				m_btnSetting = null;
+			if(this.m_btnSetting){
+				this.m_btnSetting.destroy();
+				this.m_btnSetting = null;
 			}
-			if(m_btnFirst){
-				m_btnFirst.destroy();
-				m_btnFirst = null;
+			if(this.m_btnFirst){
+				this.m_btnFirst.destroy();
+				this.m_btnFirst = null;
 			}
-			if(m_btnLeft){
-				m_btnLeft.destroy();
-				m_btnLeft = null;
+			if(this.m_btnLeft){
+				this.m_btnLeft.destroy();
+				this.m_btnLeft = null;
 			}
-			if(m_btnNext){
-				m_btnNext.destroy();
-				m_btnNext = null;
+			if(this.m_btnNext){
+				this.m_btnNext.destroy();
+				this.m_btnNext = null;
 			}
-			if(m_btnLast){
-				m_btnLast.destroy();
-				m_btnLast = null;
+			if(this.m_btnLast){
+				this.m_btnLast.destroy();
+				this.m_btnLast = null;
 			}
-			if(m_mcAsset){
-				this.removeChild(m_mcAsset);
-				m_mcAsset = null;
-			}
-			
-			if(m_vecRecordData){
-				m_vecRecordData = null;
+			if(this.m_mcAsset){
+				this.removeChild(this.m_mcAsset);
+				this.m_mcAsset = null;
 			}
 			
-			if(m_recordList){
-				m_recordList.destroy();
-				m_recordList=null;
+			if(this.m_vecRecordData){
+				this.m_vecRecordData = null;
+			}
+			
+			if(this.m_recordList){
+				this.m_recordList.destroy();
+				this.m_recordList=null;
 			}
 		}
 		
@@ -125,63 +127,63 @@ module lobby.view.multi {
 			var _len : number = _vecStruct.length
 			for (var i:number= 0; i < _len; i++) 
 			{
-				m_vecRecordData.unshift(_vecStruct[i]);
+				this.m_vecRecordData.unshift(_vecStruct[i]);
 			}
-			while(m_vecRecordData.length>=100){
-				m_vecRecordData.pop();
+			while(this.m_vecRecordData.length>=100){
+				this.m_vecRecordData.pop();
 			}
-			m_recordList.setData(m_vecRecordData,m_uCurrent-1);
-			m_uTotalPage = Math.ceil(m_vecRecordData.length/10);
+			this.m_recordList.setData(this.m_vecRecordData,this.m_uCurrent-1);
+			this.m_uTotalPage = Math.ceil(this.m_vecRecordData.length/10);
 			
-			m_mcAsset.tf_page.text = String(m_uCurrent) + "/" + String(m_uTotalPage);
-			judgeBtn();
+			this.m_mcAsset.tf_page.text = String(this.m_uCurrent) + "/" + String(this.m_uTotalPage);
+			this.judgeBtn();
 		}
 		
 		 public onChangeLanguage():void{
-//			m_mcAsset.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_title.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+//			this.m_mcAsset.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_title.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			
-			if(m_recordList){
-				m_recordList.onChangeLanguage();
+			if(this.m_recordList){
+				this.m_recordList.onChangeLanguage();
 			}
 			
-//			m_mcAsset.tf_0.text = LobbyManager.getInstance().getLanguageString(Language.sMulti_Table_ID);
-//			m_mcAsset.tf_1.text = LobbyManager.getInstance().getLanguageString(Language.sMulti_Table_Bet);
-//			m_mcAsset.tf_2.text = LobbyManager.getInstance().getLanguageString(Language.sMulti_Table_Payout);
+//			this.m_mcAsset.tf_0.text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sMulti_Table_ID);
+//			this.m_mcAsset.tf_1.text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sMulti_Table_Bet);
+//			this.m_mcAsset.tf_2.text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sMulti_Table_Payout);
 		}
 				
 		private judgeBtn():void{
-			if(m_uTotalPage==1){
-				m_btnFirst.enabled = false;
-				m_btnLeft.enabled = false;
-				m_btnNext.enabled = false;
-				m_btnLast.enabled = false;
+			if(this.m_uTotalPage==1){
+				this.m_btnFirst.enabled = false;
+				this.m_btnLeft.enabled = false;
+				this.m_btnNext.enabled = false;
+				this.m_btnLast.enabled = false;
 			}else{
-				if(m_uCurrent==1){
-					m_btnFirst.enabled = false;
-					m_btnLeft.enabled = false;
-					m_btnNext.enabled = true;
-					m_btnLast.enabled = true;
-				}else if(m_uCurrent==m_uTotalPage){
-					m_btnFirst.enabled = true;
-					m_btnLeft.enabled = true;
-					m_btnNext.enabled = false;
-					m_btnLast.enabled = false;
+				if(this.m_uCurrent==1){
+					this.m_btnFirst.enabled = false;
+					this.m_btnLeft.enabled = false;
+					this.m_btnNext.enabled = true;
+					this.m_btnLast.enabled = true;
+				}else if(this.m_uCurrent==this.m_uTotalPage){
+					this.m_btnFirst.enabled = true;
+					this.m_btnLeft.enabled = true;
+					this.m_btnNext.enabled = false;
+					this.m_btnLast.enabled = false;
 				}else{
-					m_btnFirst.enabled = true;
-					m_btnLeft.enabled = true;
-					m_btnNext.enabled = true;
-					m_btnLast.enabled = true;
+					this.m_btnFirst.enabled = true;
+					this.m_btnLeft.enabled = true;
+					this.m_btnNext.enabled = true;
+					this.m_btnLast.enabled = true;
 				}
 			}
 			
 		}
 		set  uCurrent(_uValue:number){
-			m_uCurrent = _uValue;
-			judgeBtn();
-			m_recordList.setData(m_vecRecordData,m_uCurrent-1);
+			this.m_uCurrent = _uValue;
+			this.judgeBtn();
+			this.m_recordList.setData(this.m_vecRecordData,this.m_uCurrent-1);
 			
-			m_mcAsset.tf_page.text = String(m_uCurrent) + "/" + String(m_uTotalPage);
+			this.m_mcAsset.tf_page.text = String(this.m_uCurrent) + "/" + String(this.m_uTotalPage);
 		}
 	}
 }

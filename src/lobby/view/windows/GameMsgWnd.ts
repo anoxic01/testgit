@@ -15,8 +15,29 @@ module lobby.view.windows {
 														language.Language.sBalanceNoEnough]
 		
 
-		public constructor() {
-			super();
+		public constructor(w=0,h=0,size=38) {
+			super(w,h,size);
+			
+			this.m_bg = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY,"Message_Bg_Asset");
+			this.m_bg.touchEnabled=false;
+			this.addChildAt(this.m_bg,0);
+			
+			if (w==0 && h==0){
+				w=this.m_bg.width;
+				h=this.m_bg.height;
+			}else{
+				this.m_bg.width=w;
+			}
+			
+			this.m_bmp = new egret.Bitmap;
+//			m_bmp.x = (w - m_bmp.width) >> 1;
+//			m_bmp.y = (h - m_bmp.height) >> 1;
+			this.addChild(this.m_bmp);
+			this.m_bmp2 = new egret.Bitmap;
+			//			m_bmp.x = (w - m_bmp.width) >> 1;
+			//			m_bmp.y = (h - m_bmp.height) >> 1;
+			this.addChild(this.m_bmp2);
+			
 		}
 
 		public resize(_w:number=0, _h:number=0):void {

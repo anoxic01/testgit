@@ -1,66 +1,66 @@
 module lobby.view.route.game.bac {
 	export class BacRoadCanvas extends RoadCanvas{
-		public var askCell:DisplayObject;
+		public askCell;
 		public constructor() {
 		super();
 		}
 		
-		 public function init():void {
-			if (askCell){
-				askCell.visible=true;
-				askCell = null;
+		 public init():void {
+			if (this.askCell){
+				this.askCell.visible=true;
+				this.askCell = null;
 			}
 			super.init();
 		
 		}
 		
-		 public function destroy():void {
+		 public destroy():void {
 			super.destroy();
 			
-			if(askCell){
-				if(askCell.parent){
-					askCell.parent.removeChild(askCell);
+			if(this.askCell){
+				if(this.askCell.parent){
+					this.askCell.parent.removeChild(this.askCell);
 				}
-				askCell = null;
+				this.askCell = null;
 			}
 		}		
 		
-		 public function getRoadCell(type:string ,data:string):DisplayObject{
-			var mc:MovieClip= this._roadBallPool.getBall( type );
+		 public getRoadCell(type:string ,data:string ):egret.DisplayObject{
+			var mc : any = this._roadBallPool.getBall( type );
 			mc.gotoAndStop(1);
 			mc.bead.gotoAndStop(data);
 			return mc;
 		}
 		
-		 public function put(ball:DisplayObject, symbol:string, x:Number, y:Number):void {
+		 public put(ball, symbol:string, x:number, y:number):void {
 			super.put(ball,symbol,x,y);
 		}
 		
-		public function flash():void{
-			if (askCell ){
-				askCell.visible=!askCell.visible;
+		public flash():void{
+			if (this.askCell ){
+				this.askCell.visible=!this.askCell.visible;
 			}
 		}
 		
 		
-		 public function drawBigRoadDataGrid( readerDataGrid:any[] , roadType:string , isAsk: boolean = false ):void {
+		 public drawBigRoadDataGrid( readerDataGrid:any[] , roadType:string , isAsk: boolean = false ):void {
 			//this.init();
-			//var ss:Number = getTimer();
+			//var ss:number = getTimer();
 			//this.resetPool();
 			this.drawBigGrid( readerDataGrid[0]  , roadType , isAsk ,readerDataGrid[3]);
 			this.drawTieGrid( readerDataGrid[0], readerDataGrid[1] , roadType , isAsk);
 			//console.log("-----耗时----->",getTimer()-ss);
 		}
-		 protected function drawBigGrid(  readerDataGrid:any[], roadType:string , isAsk: boolean = false ,lastPoint:Point=null ):void {
+		 protected drawBigGrid(  readerDataGrid:any[], roadType:string , isAsk: boolean = false ,lastPoint=null ):void {
 			var symbol:string;
 			var startX:number= readerDataGrid.length <= this._beadInfo.gridWidth ? 0 : readerDataGrid.length - this._beadInfo.gridWidth;
-			var ball:MovieClip;
-			var offtenWidth:Number;
-			var offtenHeight:Number;
-			var offtenX:Number;
-			var offtenY:Number;
-			var ballW:Number;
-			var ballH:Number;
+			var ball;
+			var offtenWidth:number;
+			var offtenHeight:number;
+			var offtenX:number;
+			var offtenY:number;
+			var ballW:number;
+			var ballH:number;
 			
 			offtenWidth = this._beadInfo.bigRoad_OfftenWidth;
 			offtenHeight = this._beadInfo.bigRoad_OfftenHeight;
@@ -70,7 +70,7 @@ module lobby.view.route.game.bac {
 //			var tf:TextFormat = new TextFormat();
 //				tf.bold = false;
 			//	readerDataGrid.unshift([]); //不能用此方法推格
-			var tempChildVector:<DisplayObject> = childconcat();
+			var tempChildVector = childconcat();
 			for (var x:number= startX,  colIndex:number= 0, cols:number= readerDataGrid.length; x < cols; x++) 
 			{
 				for (var y:number= 0, rows:number= readerDataGrid[x].length; y < rows; y++) {
@@ -78,7 +78,7 @@ module lobby.view.route.game.bac {
 					if (x >= startX && symbol && symbol != "null")
 					{
 						ball = null;
-						var childData:Object = childDataDict[x+"_"+y];//={};
+						var childData = this.childDataDict[x+"_"+y];//={};
 						if(childData)
 						{
 							if(childData.symbol==symbol)// 相同
@@ -141,7 +141,7 @@ module lobby.view.route.game.bac {
 			}
 			while(tempChildlength>0)
 			{
-				var child:DisplayObject = tempChildshift();
+				var child = tempChildshift();
 				var cindex:number= childindexOf(child);
 				if(cindex>=0)
 				{
@@ -155,16 +155,16 @@ module lobby.view.route.game.bac {
 				askCell=null
 			}
 		}
-		 protected function drawTieGrid(readerDataGrid:any[] ,  readerDataTieGrid:any[], roadType:string , isAsk: boolean = false ):void {
+		 protected drawTieGrid(readerDataGrid:any[] ,  readerDataTieGrid:any[], roadType:string , isAsk: boolean = false ):void {
 			var symbol:string;
 			var startX:number= readerDataGrid.length <= this._beadInfo.gridWidth ? 0 : readerDataGrid.length - this._beadInfo.gridWidth;
 			var ball:MovieClip;
-			var offtenWidth:Number;
-			var offtenHeight:Number;
-			var offtenX:Number;
-			var offtenY:Number;
-			var ballW:Number;
-			var ballH:Number;
+			var offtenWidth:number;
+			var offtenHeight:number;
+			var offtenX:number;
+			var offtenY:number;
+			var ballW:number;
+			var ballH:number;
 			var pos:Point = new Point();
 			offtenWidth = this._beadInfo.bigRoad_OfftenWidth;
 			offtenHeight = this._beadInfo.bigRoad_OfftenHeight;
@@ -257,7 +257,7 @@ module lobby.view.route.game.bac {
 			}
 			while(tempChildlength>0)
 			{
-				var child:DisplayObject = tempChildshift();
+				var child = tempChildshift();
 				var cindex:number= childindexOf(child);
 				if(cindex>=0)
 				{
@@ -268,7 +268,7 @@ module lobby.view.route.game.bac {
 		}
 		
 		
-		 public function resetPool():void {
+		 public resetPool():void {
 			if (askCell){ 
 				askCell.visible=true;
 				askCell=null;
@@ -282,7 +282,7 @@ module lobby.view.route.game.bac {
 			this._roadBallPool.resetPool(RoadBallPool.COCKROACH_ROAD);
 		}
 		
-		 public function drawReaderDataGrid(readerDataGrid:any[], isAsk: boolean = false, roadType:string = "",lastPoint:Point=null):void {
+		 public drawReaderDataGrid(readerDataGrid:any[], isAsk: boolean = false, roadType:string = "",lastPoint:Point=null):void {
 			//this.init();
 			
 			
@@ -291,12 +291,12 @@ module lobby.view.route.game.bac {
 			var startX:number= readerDataGrid[0].length <= this._beadInfo.gridWidth ? 0 : readerDataGrid[0].length - this._beadInfo.gridWidth;
 			
 			var ball:MovieClip;
-			var offtenWidth:Number;
-			var offtenHeight:Number;
-			var offtenX:Number;
-			var offtenY:Number;
-			var ballW:Number;
-			var ballH:Number;
+			var offtenWidth:number;
+			var offtenHeight:number;
+			var offtenX:number;
+			var offtenY:number;
+			var ballW:number;
+			var ballH:number;
 			
 			switch (roadType) {
 				case RoadBallPool.BIG_ROAD: 
@@ -419,7 +419,7 @@ module lobby.view.route.game.bac {
 			}
 			while(tempChildlength>0)
 			{
-				var child:DisplayObject = tempChildshift();
+				var child = tempChildshift();
 				var cindex:number= childindexOf(child);
 				if(cindex>=0)
 				{

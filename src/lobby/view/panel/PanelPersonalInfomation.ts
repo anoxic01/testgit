@@ -1,38 +1,37 @@
 module lobby.view.panel {
 	export class PanelPersonalinformation extends PanelWindow{
-		private m_btnClose		:	ui.button.SingleButtonMC;			//关闭按钮
 //		private m_bg			:	BitmapScale9Grid;		//背景
 				
 		public constructor() {
 		
 			super();
-			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_PANEL,"Personal_Asset");
-			this.addChild(m_mcAsset);
+			this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_PANEL,"Personal_Asset");
+			this.addChild(this.m_mcAsset);
 			
 //			m_bg = new BitmapScale9Grid(new Window_Bg_Asset(), 1, 12, 24, 12, 30);
 //			m_bg.setSize(192, 180);
-//			m_mcAsset.addChildAt(m_bg, 0);
+//			this.m_mcAsset.addChildAt(m_bg, 0);
 //			m_bg.x = -96;
 //			m_bg.y = -83;
 			
-			nAssetWidth = 192;
-			nAssetHeight = 180;
+			this.nAssetWidth = 192;
+			this.nAssetHeight = 180;
 			
-			m_mcHot = m_mcAsset.mc_hot;
+			this.m_mcHot = this.m_mcAsset.mc_hot;
 			
-			m_btnClose = new ui.button.SingleButtonMC(m_mcAsset.mc_close,function(event:MouseEvent):void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				LobbyManager.getInstance().hidePersonalinformation();
+			this.m_btnClose = new ui.button.SingleButtonMC(this.m_mcAsset.mc_close,function(event:MouseEvent):void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+				manager.LobbyManager.getInstance().hidePersonalinformation();
 			});
-			m_btnClose.enabled = false;
+			this.m_btnClose.enabled = false;
 //			m_btnClose.fOnOver = function():void{
 //				SoundManager.getInstance().play(SoundPackage.sLobbyMouseOver);
 //			};
 			
-			refresh();
-			onChangeLanguage();			
+			this.refresh();
+			this.onChangeLanguage();			
 			
-			this.addEventListener(egret.TouchEvent.TOUCH_TAP,onclick);
+			this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick, this);
 		}
 		
 		protected onclick(event:MouseEvent):void
@@ -50,71 +49,67 @@ module lobby.view.panel {
 //				m_bg.dispose();
 //				m_bg = null;
 //			}
-			this.removeEventListener(egret.TouchEvent.TOUCH_TAP,onclick);
+			this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick, this);
 			
-			if(m_btnClose){
-				m_btnClose.destroy();
-				m_btnClose = null;
-			}
-			if(m_mcAsset){
-				this.removeChild(m_mcAsset);
-				m_mcAsset = null;
+			if(this.m_mcAsset){
+				this.removeChild(this.m_mcAsset);
+				this.m_mcAsset = null;
 			}
 			
 			super.destroy();
 		}
 		
 		public  refresh():void{
-			var str : String = Player.getInstance().sNickName;
-			m_mcAsset.tf_7.text = str;
-			m_mcAsset.tf_8.text = 	Player.getInstance().Country;
-			switch(LobbyManager.getInstance().lobbyAuth.Lang){
+			var str : string = model.Player.getInstance().sNickName;
+			this.m_mcAsset.tf_7.text = str;
+			this.m_mcAsset.tf_8.text = 	model.Player.getInstance().Country;
+			switch(manager.LobbyManager.getInstance().lobbyAuth.Lang){
 				case 0:
-					m_mcAsset.tf_9.text = 	LobbyManager.getInstance().getLanguageString(Language.sLanguage_CN);
+					this.m_mcAsset.tf_9.text = 	manager.LobbyManager.getInstance().getLanguageString(language.Language.sLanguage_CN);
 					break;
 				case 1:
-					m_mcAsset.tf_9.text = 	LobbyManager.getInstance().getLanguageString(Language.sLanguage_TW);
+					this.m_mcAsset.tf_9.text = 	manager.LobbyManager.getInstance().getLanguageString(language.Language.sLanguage_TW);
 					break;
 				case 2:
-					m_mcAsset.tf_9.text = 	LobbyManager.getInstance().getLanguageString(Language.sLanguage_EN);
+					this.m_mcAsset.tf_9.text = 	manager.LobbyManager.getInstance().getLanguageString(language.Language.sLanguage_EN);
 					break;
 			}
-			m_mcAsset.tf_10.text = 	String(Player.getInstance().nCoin);
-//			m_mcAsset.tf_11.text = 	String(Player.getInstance().nCoin);
-//			m_mcAsset.tf_12.text = 	String(Player.getInstance().uOnline);
-//			m_mcAsset.tf_13.text = 	String(Player.getInstance().gameSetting.UpperBetLimitId);
+			this.m_mcAsset.tf_10.text = 	(model.Player.getInstance().nCoin).toString;
+//			this.m_mcAsset.tf_11.text = 	String(Player.getInstance().nCoin);
+//			this.m_mcAsset.tf_12.text = 	String(Player.getInstance().uOnline);
+//			this.m_mcAsset.tf_13.text = 	String(Player.getInstance().gameSetting.UpperBetLimitId);
 		}
 		
 		 public onChangeLanguage():void{
-//			m_mcAsset.tf_label.text = LobbyManager.getInstance().getLanguageString(Language.sPersonal_Label);
-			m_mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			switch(LobbyManager.getInstance().lobbyAuth.Lang){
+//			this.m_mcAsset.tf_label.text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sPersonal_Label);
+			this.m_mcAsset.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			switch(manager.LobbyManager.getInstance().lobbyAuth.Lang){
 				case 0:
-					m_mcAsset.tf_9.text = 	LobbyManager.getInstance().getLanguageString(Language.sLanguage_CN);
+					this.m_mcAsset.tf_9.text = 	manager.LobbyManager.getInstance().getLanguageString(language.Language.sLanguage_CN);
 					break;
 				case 1:
-					m_mcAsset.tf_9.text = 	LobbyManager.getInstance().getLanguageString(Language.sLanguage_TW);
+					this.m_mcAsset.tf_9.text = 	manager.LobbyManager.getInstance().getLanguageString(language.Language.sLanguage_TW);
 					break;
 				case 2:
-					m_mcAsset.tf_9.text = 	LobbyManager.getInstance().getLanguageString(Language.sLanguage_EN);
+					this.m_mcAsset.tf_9.text = 	manager.LobbyManager.getInstance().getLanguageString(language.Language.sLanguage_EN);
 					break;
 			}
-//			m_mcAsset.tf_0.text = 	LobbyManager.getInstance().getLanguageString(Language.sPersonal_0) + ":";
-//			m_mcAsset.tf_1.text = 	LobbyManager.getInstance().getLanguageString(Language.sPersonal_1) + ":";
-//			m_mcAsset.tf_2.text = 	LobbyManager.getInstance().getLanguageString(Language.sPersonal_2) + ":";
-//			m_mcAsset.tf_3.text = 	LobbyManager.getInstance().getLanguageString(Language.sPersonal_3) + ":";
-//			m_mcAsset.tf_4.text = 	LobbyManager.getInstance().getLanguageString(Language.sPersonal_4) + ":";
-//			m_mcAsset.tf_5.text = 	LobbyManager.getInstance().getLanguageString(Language.sPersonal_5) + ":";
-//			m_mcAsset.tf_6.text = 	LobbyManager.getInstance().getLanguageString(Language.sPersonal_6) + ":";
+//			this.m_mcAsset.tf_0.text = 	manager.LobbyManager.getInstance().getLanguageString(language.Language.sPersonal_0) + ":";
+//			this.m_mcAsset.tf_1.text = 	manager.LobbyManager.getInstance().getLanguageString(language.Language.sPersonal_1) + ":";
+//			this.m_mcAsset.tf_2.text = 	manager.LobbyManager.getInstance().getLanguageString(language.Language.sPersonal_2) + ":";
+//			this.m_mcAsset.tf_3.text = 	manager.LobbyManager.getInstance().getLanguageString(language.Language.sPersonal_3) + ":";
+//			this.m_mcAsset.tf_4.text = 	manager.LobbyManager.getInstance().getLanguageString(language.Language.sPersonal_4) + ":";
+//			this.m_mcAsset.tf_5.text = 	manager.LobbyManager.getInstance().getLanguageString(language.Language.sPersonal_5) + ":";
+//			this.m_mcAsset.tf_6.text = 	manager.LobbyManager.getInstance().getLanguageString(language.Language.sPersonal_6) + ":";
 			
 		}
 		
 		private getOnlineTime():String{
-			var ms : int  = getTimer();
-			var s : int = ms*0.001;
-			var m : int = s/60;
-			var h : int = m/60;
-			var d : int = ms*0.001/60/60/24;
+			var ms   = egret.getTimer();
+			var s  = ms*0.001;
+			var m  = s/60;
+			var h  = m/60;
+			var d  = ms*0.001/60/60/24;
 			var str : String = String(d) + " ";
 			
 			if(h<10){

@@ -36,7 +36,7 @@ module lobby.view {
 		
 //		public urgentNotice				:	UrgentNoticeList;				//紧急公告
 //		public urgentNotice_game		:	UrgentNoticeList;				//游戏中使用
-		public noticeMgr				:	manager.NoticeManeger;
+		public noticeMgr				:	manager.NoticeManager;
 		
 		public vecTablesFront			:	table.Table[];					//前页列表
 		public vecTablesCurrent			:	table.Table[];					//当前列表
@@ -139,8 +139,8 @@ module lobby.view {
 			// _scroll.resize( 1920, m_uScrollHeight );
 			
 			//大厅列表
-			let _themeVec : struct.ThemeStruct[] = lobby.model.LobbyData.getInstance().lobbyInfo.themeVec;
-			let _tableVec : struct.TableStruct[] = _themeVec[_iIndex].TableList;
+			let _themeVec  = lobby.model.LobbyData.getInstance().lobbyInfo.themeVec;
+			let _tableVec  = _themeVec[_iIndex].TableList;
 			
 			this.uCurrentThemeID = _themeVec[_iIndex].ThemeID;
 			
@@ -149,7 +149,7 @@ module lobby.view {
 			
 			var _tableVecLen : number = _tableVec.length;
 			var _table : table.Table;
-			var _tableStruct : lobby.struct.TableStruct;
+			var _tableStruct ;
 			for (var i:number = 0; i < _tableVecLen; i++) 
 			{
 				_tableStruct = _tableVec[i];
@@ -216,7 +216,7 @@ module lobby.view {
 			
 			//恢复厅馆按钮
 			this.themeList.enable(true);
-			var _ve : struct.ThemeStruct[] = model.LobbyData.getInstance().lobbyInfo.themeVec;
+			var _ve  = model.LobbyData.getInstance().lobbyInfo.themeVec;
 			
 			// console.log("初始桌子需要时间：",getTimer()-time, "********************************************************************************");
 			

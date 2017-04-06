@@ -85,8 +85,8 @@ module manager {
 				var timer = new egret.Timer(10);
 				timer.start();
 				timer.addEventListener(egret.TimerEvent.TIMER, function fade():void{
-					var _newTransform : SoundTransform = null;
-					var _oldTrandform : SoundTransform = null;
+					var _newTransform  = null;
+					var _oldTrandform  = null;
 					if (this.m_oldSound.soundTransform.volume <= 0)
 					{
 						this.m_oldSound.stop();
@@ -111,7 +111,7 @@ module manager {
 			
 			if (loops == -1)
 			{
-				loops = int.MAX_VALUE;
+				loops = define.Define.MAX_VALUE;
 			}
 			
 			if (!this.m_resources[songName])

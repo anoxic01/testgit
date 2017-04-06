@@ -130,9 +130,7 @@ module lobby.view.chip {
 			for (var i:number= 0; i < this.chipBox.numChildren; i++) 
 			{
 				var chip = this.chipBox.getChildAt(i);
-				TweenLite.to(chip, 0.4, {
-					delay: (i * 0.02),x:0, y:0
-				});
+				egret.Tween.get(chip).to({x:0, y:0, delay:(i*0.02)}, 0.4);
 			}
 			
 		}

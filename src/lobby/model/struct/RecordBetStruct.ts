@@ -1,9 +1,9 @@
 module lobby.model.struct {
 	export class RecordBetStruct {
 		public TableID	:	number;			//桌子台号
-		public Amt		:	Number;			//下注金额
-		public BetPos	:	String;			//下注区域	B1-B7
-		public Payout	:	Number;			//下注结果
+		public Amt		:	number;			//下注金额
+		public BetPos	:	string;			//下注区域	B1-B7
+		public Payout	:	number;			//下注结果
 		public Result	:	any[];			//开局结果	B1-庄	B3-和	B4-闲
 		
 		public constructor() {

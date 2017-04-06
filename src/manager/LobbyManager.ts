@@ -34,14 +34,14 @@ module manager {
 		
 		get videoMaxBytePerSecond():lobby.view.lives.BLiveVideo
 		{
-			return this.this.m_videoMaxBytePerSecond;
+			return this.m_videoMaxBytePerSecond;
 		}
 		
 		set videoMaxBytePerSecond(value:lobby.view.lives.BLiveVideo)
 		{
-			this.this.m_videoMaxBytePerSecond = value;
+			this.m_videoMaxBytePerSecond = value;
 			
-			if( this.this.m_videoMaxBytePerSecond == null ){
+			if( this.m_videoMaxBytePerSecond == null ){
 				return;
 			}
 			
@@ -146,7 +146,7 @@ module manager {
 		
 		private static m_instance		:	manager.LobbyManager;
 		public iReTryConnect			:	number;								//重連次數
-//		private m_tHeart				:	JTimer;
+//		private m_tHeart				:	timer.JTimer;
 //		public iSendHeartFailCount		:	number;								//送大廳心跳包失敗次數
 		public nRevServerTime			:	number = 0;							//紀錄接收心跳包時間
 		public nHeartRate				:	number	= 5000;						//心跳包送的速率
@@ -163,7 +163,7 @@ module manager {
 		public bImportant				:	 boolean;							//保留重要弹窗提示，取消网络断开的提示
 		
 		public bStageVideoAvailable		:	 boolean;							//支持显卡渲染
-		private m_timer					:	JTimer;
+		private m_timer					:	timers.JTimer;
 		public transparentLayer			:	egret.Sprite;
 		
 		public uDialogCount				:	number;								//提示框数量
@@ -284,7 +284,7 @@ module manager {
 			this.cacheWinMc();
 			/*m_timer = new Timer(50,1);
 			m_timer.addEventListener(TimerEvent.TIMER_COMPLETE,handleTimerComplete);*/
-			this.m_timer = JTimer.getTimer(50,1);
+			this.m_timer = timers.JTimer.getTimer(50,1);
 			this.m_timer.addTimerCallback(null,this.handleTimerComplete);
 			this.stage.addEventListener(egret.Event.FULLSCREEN , this.stageChangeSizeHandle, this);
 			this.stage.addEventListener(egret.FullScreenEvent.FULL_SCREEN_INTERACTIVE_ACCEPTED,this.handleFSIA, this);
@@ -375,7 +375,7 @@ module manager {
 							
 							_byte = data.enterLobby(this.lobbyAuth, this.socketParser);
 							
-							Utils.DumpBinary( "", _byte, 0, 11);
+							util.Utils.DumpBinary( "", _byte, 0, 11);
 							this.m_socket.send( _byte, 0,  _byte.length);
 							
 							console.log(this, "登陆大厅..." );
@@ -388,7 +388,7 @@ module manager {
 				
 //				var byte:egret.ByteArray = dataPacket.pack( define.PacketDefine.LOGIN_IN , _lobbyLoginReqPkt );
 //				console.log("登陆大厅..." , _lobbyLoginReqPkt.AuthInfo.ThemeType );
-//				Utils.DumpBinary( "", _byte, 0, 11);
+//				util.Utils.DumpBinary( "", _byte, 0, 11);
 //				m_socket.send( _byte, 0,  _byte.length);
 //				
 //				console.log(this, "登陆大厅..." );
@@ -401,12 +401,12 @@ module manager {
 		public sendLoginLobbySuccess():void {
 			if ( this.lobbyAuth != null ) {
 				var _pkt = new packet.lobby.C_Lobby_Login_OK_Pkt();
-				_pkt.AuthToken = <string>(Player.getInstance().iPlayerID);
+				_pkt.AuthToken = "" + lobby.model.Player.getInstance().iPlayerID.toString;
 				_pkt.Identity  = this.lobbyAuth.Identity;
 				
 				var byte:egret.ByteArray = this.dataPacket.pack( define.PacketDefine.C_LOGIN_LOBBY_OK , _pkt );
 				console.log("回復 確認登陆大厅成功消息...");
-				Utils.DumpBinary( "", byte, 0, 11);
+				util.Utils.DumpBinary( "", byte, 0, 11);
 				this.m_socket.send( byte, 0,  byte.length);
 				
 			}
@@ -466,7 +466,7 @@ module manager {
 			_customChip.PlayerCustChipsInfo.CustChips	=	_sData;
 			var byte:egret.ByteArray = this.dataPacket.pack( define.PacketDefine.C_SET_CHIP , _customChip );
 			console.log(this,"自订筹码...");
-			Utils.DumpBinary( "", byte, 0, 11);
+			util.Utils.DumpBinary( "", byte, 0, 11);
 			this.m_socket.send( byte, 0,  byte.length);
 		}
 		
@@ -478,10 +478,10 @@ module manager {
 				console.log(this," 请求个人资料 >>> 执行类"+_class);
 				var data = new _class();
 				data.fUserDataComplete = function(oData):void{
-					Player.getInstance().Country = oData.CountryCode;
+					lobby.model.Player.getInstance().Country = oData.CountryCode;
 				};
-				data.getUserData(Player.getInstance().iPlayerID);
-				console.log(this," 请求用户资料 >>> playerID"+Player.getInstance().iPlayerID);
+				data.getUserData(lobby.model.Player.getInstance().iPlayerID);
+				console.log(this," 请求用户资料 >>> playerID"+lobby.model.Player.getInstance().iPlayerID);
 			}else{
 				console.log(this," 请求个人资料 >>> _class=null");
 			}
@@ -520,7 +520,7 @@ module manager {
 				jsonStr = this.m_aData.decryptStringFromBase64(jsonStr);
 				var oData  = JSON.parse(jsonStr);
 				console.log(oData);
-				Player.getInstance().Country = oData.Country;
+				lobby.model.Player.getInstance().Country = oData.Country;
 			}
 			
 		}		
@@ -587,22 +587,22 @@ module manager {
 				this.personalinformation.x = _x;
 				this.personalinformation.y = _y;
 				
-				TweenLite.to(this.personalinformation, define.Define.SPEED, {y:move_y});
+				egret.Tween.get(this.personalinformation).to({y:move_y}, define.Define.SPEED);
 			}else{
-				this.hidepersonalinformation();
+				this.hidePersonalinformation();
 			}
 			
 		}
-		public hidepersonalinformation():void{
+		public hidePersonalinformation():void{
 			if(this.personalinformation){
 				//				PopupManager.getInstance().close( m_this.personalinformation );
-				TweenLite.to(this.personalinformation, define.Define.SPEED,{y:define.Define.PERSON_INFO_OUT_POSY, ease:Back.easeIn, onComplete:function():void{
+				egret.Tween.get(this.personalinformation).to({y:define.Define.PERSON_INFO_OUT_POSX}, define.Define.SPEED, egret.Ease.backIn).call(function():void{
 					if(this.personalinformation){
 						this.lobbyView.spWindowLayer.removeChild(this.personalinformation);
 						this.personalinformation.destroy();
 						this.personalinformation = null;
 					}
-				}});
+				});
 				//				this.uWindowIndex--;
 			}
 			
@@ -626,13 +626,13 @@ module manager {
 				
 				
 				
-				this.panelLiveVideo.initializeutil.rtmp.RTMPPlayer(_sServer, _sStream);
+				this.panelLiveVideo.initializeRTMPPlayer(_sServer, _sStream);
 				this.panelLiveVideo.x = this.stage.stageWidth * 0.5 + this.uWindowIndex * 50;
 				this.panelLiveVideo.y = this.stage.stageHeight * 0.5 + this.uWindowIndex * 50;
 				//				PopupManager.getInstance().show( m_liveVideo );
 				this.panelLiveVideo.scaleX = define.Define.SCALE_MIN;
 				this.panelLiveVideo.scaleY = define.Define.SCALE_MIN;
-				TweenLite.to(this.panelLiveVideo, define.Define.SPEED, {scaleX:1, scaleY:1});
+				egret.Tween.get(this.panelLiveVideo).to({scaleX:1, scaleY:1}, define.Define.SPEED)
 				this.uWindowIndex++;
 			}else{
 				this.hideLiveVideo();
@@ -644,7 +644,7 @@ module manager {
 //				this.lobbyView.spShieldLayer.graphics.clear();
 				//				PopupManager.getInstance().close( m_liveVideo );
 				this.uWindowIndex--;
-				TweenLite.to(this.panelLiveVideo, define.Define.SPEED, {scaleX:define.Define.SCALE_MIN, scaleY:define.Define.SCALE_MIN, onComplete:function():void{
+				egret.Tween.get(this.panelLiveVideo).to({scaleX:define.Define.SCALE_MIN, scaleY:define.Define.SCALE_MIN}, define.Define.SPEED).call(function():void{
 					
 					if(this.panelLiveVideo){
 						this.lobbyView.spWindowLayer.removeChild(this.panelLiveVideo);
@@ -652,10 +652,10 @@ module manager {
 						this.panelLiveVideo = null;
 					}
 					
-					TweenLite.to(this.lobbyView.spShieldLayer, define.Define.SPEED, {alpha:0, onComplete:function():void{
+					egret.Tween.get(this.lobbyView.spShieldLayer).to({alpha:0}, define.Define.SPEED).call(function():void{
 						this.lobbyView.spShieldLayer.graphics.clear();
-					}});
-				}});
+					});
+				});
 			}
 			
 		}
@@ -694,7 +694,7 @@ module manager {
 				this.channel.y = -180;
 				
 				
-				TweenLite.to(this.channel, define.Define.SPEED,{y:move_y});
+				egret.Tween.get(this.channel).to({y:move_y}, define.Define.SPEED);
 			}else{
 				if(_default){
 					this.hideChannel();
@@ -712,7 +712,7 @@ module manager {
 				//				this.uWindowIndex--;
 				
 				this.m_bChannelTween = true;
-				TweenLite.to(this.channel, define.Define.SPEED,{y:-300, ease:Back.easeIn, onComplete:function():void{
+				egret.Tween.get(this.channel).to({y:-300}, define.Define.SPEED, egret.Ease.backIn).call(function():void{
 					if(this.channel){
 						this.lobbyView.spWindowLayer.removeChild(this.channel);
 						
@@ -723,7 +723,7 @@ module manager {
 					if(this.m_fDelayTween!=null){
 						this.m_fDelayTween();
 					}
-				}});
+				});
 			}
 			
 			
@@ -920,12 +920,12 @@ module manager {
 			
 			
 			//显示loading
-//			if(LoaderManager.getInstance().IsLoaded(_gameName)){
+//			if(manager.LoaderManager.getInstance().IsLoaded(_gameName)){
 				this.lobbyView.showLoading();
 //			}
 			
 			//加载游戏
-			LoaderManager.getInstance().loadGame(_gameName, function():void{
+			manager.LoaderManager.getInstance().loadGame(_gameName, function():void{
 				_gameClass = getDefinitionByName(_gameName);
 				/*
 				 * 记录实例，登入失败销毁
@@ -1037,10 +1037,10 @@ module manager {
 //				}});	
 			}
 			
-			this.hidepersonalinformation();	//收合個人資訊面板
+			this.hidePersonalinformation();	//收合個人資訊面板
 			//隐藏紧急公告
 //			this.lobbyView.urgentNotice.hide();
-			NoticeManeger.getInstance().hide();
+			manager.NoticeManager.getInstance().hide();
 			
 			//機械百家例外處裡
 			if( this.currentTableStruct.TableType != define.Define.TABLE_TYPE_ROBOT ){
@@ -1051,7 +1051,7 @@ module manager {
 						this.m_nowScene.init();
 //						this.lobbyView.urgentNotice_game.enterGame();		//过滤维护消息
 //						this.lobbyView.urgentNotice_game.show();				//显示紧急公告
-						NoticeManeger.getInstance().refresh();
+						manager.NoticeManager.getInstance().refresh();
 					}
 					this.m_gameTransition.addLeftAreaObject([this.lobbyView.quickThemeList]);
 					this.m_gameTransition.addTopAreaObject([this.lobbyView.spToolLayer, this.m_nowScene.transitionDict[define.GameDefine.Transition_CountDown]]);
@@ -1068,7 +1068,7 @@ module manager {
 //				this.lobbyView.urgentNotice_game.show();				//显示紧急公告
 				this.m_nowScene.init();
 				this.m_nowScene.setTool();
-				NoticeManeger.getInstance().refresh();
+				manager.NoticeManager.getInstance().refresh();
 			}
 			
 			switch(this.m_nowScene.tableStruct.GameID){
@@ -1127,7 +1127,7 @@ module manager {
 			//			this.lobbyView.iCurrentQuick = 255;
 			
 			//收合個人資訊面板
-			this.hidepersonalinformation();
+			this.hidePersonalinformation();
 			//收和客服面板
 			this.lobbyView.toolView.toolContact.hide();
 			//收好路设置面板
@@ -1137,8 +1137,8 @@ module manager {
 //			this.lobbyView.urgentNotice.show();
 //			this.lobbyView.urgentNotice.toLobbyUrgentNotice();
 //			this.lobbyView.urgentNotice_game.hide();
-			NoticeManeger.getInstance().hide();
-			NoticeManeger.getInstance().toLobbyUrgentNotice();
+			manager.NoticeManager.getInstance().hide();
+			manager.NoticeManager.getInstance().toLobbyUrgentNotice();
 			
 			//隐藏app面板
 //			this.lobbyView.mobileApp.hidePannel();
@@ -1191,7 +1191,7 @@ module manager {
 			if(this.m_nowScene && this.m_nowScene.GameID==define.GameDefine.MACHINE_BAC){
 				this.lobbyView.exitMachineBac();
 			}
-			TweenLite.to(this.lobbyView.spGame, 0.6,{alpha:0,onComplete:function():void{
+			egret.Tween.get(this.lobbyView.spGame).to({alpha:0}, 0.6).call(function():void{
 				
 				//退出等级
 				this.exitLevel = define.Define.EXIT_LOBBY;
@@ -1211,7 +1211,7 @@ module manager {
 				
 				//显示紧急公告
 //				this.lobbyView.urgentNotice.show();
-//				NoticeManeger.getInstance().refresh();//此处TableID还在
+//				manager.NoticeManager.getInstance().refresh();//此处TableID还在
 				
 				//转桌列表
 				this.lobbyView.hideQuickThemeList();
@@ -1256,20 +1256,20 @@ module manager {
 				
 				this.lobbyView.toLobby();
 				
-				NoticeManeger.getInstance().refresh();
+				manager.NoticeManager.getInstance().refresh();
 				
 				// Memory.gc();
 				
-			}});
+			});
 			
 		}
 		
 		private snapshotGame():egret.BitmapData{
-			var bmpd  = BitmapUtil.snapshot_1(this.lobbyView.spGame);
+			var bmpd  = util.bitmap.BitmapUtil.snapshot_1(this.lobbyView.spGame);
 			if(bmpd){
-				return BitmapUtil.snapshot_3(bmpd,1920,1080,0,578);
+				return util.bitmap.BitmapUtil.snapshot_3(bmpd,1920,1080,0,578);
 			}
-			return new BitmapData(2,2);
+			return new egret.BitmapData(null);
 		}
 		
 		public destroyGame(bGC: boolean=true):void {
@@ -1354,19 +1354,19 @@ module manager {
 			
 //			clearSnapshotGame();
 			
-			/*if(!this.this.socketParser_multi){
-				this.this.socketParser_multi = new this.socketParser();
-				this.this.socketParser_multi.setCData(define.PacketDefine.GAME);
+			/*if(!this.socketParser_multi){
+				this.socketParser_multi = new this.socketParser();
+				this.socketParser_multi.setCData(define.PacketDefine.GAME);
 			}
 			
 			if(!this.dataPacket_multi){
-				this.dataPacket_multi = new DataPacket(this.this.socketParser_multi);
+				this.dataPacket_multi = new DataPacket(this.socketParser_multi);
 			}
 			
 			if(!this.socket_multi){
 				if(!this.multiTableSocketSink){
 					this.multiTableSocketSink = new MultiTableTCPSink();
-					this.multiTableSocketSink.this.socketParser = this.this.socketParser_multi;
+					this.multiTableSocketSink.this.socketParser = this.socketParser_multi;
 				}
 				
 				this.socket_multi = new socket.TCPSocket(this.multiTableSocketSink, 0, 0);
@@ -1394,8 +1394,8 @@ module manager {
 //			this.lobbyView.urgentNotice.hide();
 //			this.lobbyView.urgentNotice.toMultiUrgentNotice();
 //			this.lobbyView.urgentNotice.show();
-			NoticeManeger.getInstance().refresh();
-			NoticeManeger.getInstance().toMultiUrgentNotice();
+			manager.NoticeManager.getInstance().refresh();
+			manager.NoticeManager.getInstance().toMultiUrgentNotice();
 			this.bMultiExit=false;
 			if(this.multiTableView==null){
 				this.multiTableView = new lobby.view.multi.MultiTableView();
@@ -1408,11 +1408,11 @@ module manager {
 				this.multiTableView.scaleY = 0.3;
 				this.multiTableView.alpha = 1;
 				
-				TweenLite.to(this.multiTableView,define.Define.SPEED,{scaleX:1, scaleY:1, alpha:1, onComplete:function():void{
+				egret.Tween.get(this.multiTableView).to({scaleX:1, scaleY:1, alpha:1}, define.Define.SPEED).call(function():void{
 					if(this.multiTableView){
 						this.multiTableView.onInit();
 					}
-				}});
+				});
 			}else{
 				if(this.multiTableView){
 					this.multiTableView.onInit();
@@ -1480,7 +1480,7 @@ module manager {
 			this.destroyMultiSocket();
 			
 			//隐藏个人资讯
-			this.hidepersonalinformation();
+			this.hidePersonalinformation();
 			
 			//退出等级
 			this.exitLevel = define.Define.EXIT_LOBBY;
@@ -1497,7 +1497,7 @@ module manager {
 			}
 			
 			//收合個人資訊面板
-			this.hidepersonalinformation();
+			this.hidePersonalinformation();
 			//收和客服面板
 			this.lobbyView.toolView.toolContact.hide();
 			//收好路设置面板
@@ -1507,8 +1507,8 @@ module manager {
 //			this.lobbyView.urgentNotice.hide();
 //			this.lobbyView.urgentNotice.toLobbyUrgentNotice();
 //			this.lobbyView.urgentNotice.show();
-			NoticeManeger.getInstance().refresh();
-			NoticeManeger.getInstance().toLobbyUrgentNotice();
+			manager.NoticeManager.getInstance().refresh();
+			manager.NoticeManager.getInstance().toLobbyUrgentNotice();
 			
 			this.lobbyView.toLobby();
 			SoundManager.getInstance().stopAllSound();
@@ -1582,7 +1582,7 @@ module manager {
 					}
 				}
 				
-				var ob  = {};
+				var ob : any  = {};
 				ob.TableID = _TableID;
 				
 				if(this.m_vecLive.length<4){
@@ -1727,7 +1727,7 @@ module manager {
 			this.addMultiTablePacket();
 			//			var _struct : lobby.model.struct.TableStruct = lobby.model.LobbyData.getInstance().getMultiTableStruct(define.GameDefine.BAC);
 			if(_struct){
-				console.log(this,"连接游戏...struct.ServerIP:" + <string>(_struct.ServerIP)+ "struct.ServerPort:"+<string>(_struct.ServerPort));
+				console.log(this,"连接游戏...struct.ServerIP:" + (_struct.ServerIP).toString+ "struct.ServerPort:"+(_struct.ServerPort).toString);
 				
 				console.log("连接游戏...","m_this.socket_multi:", this.socket_multi.getUid(), "struct.ServerIP:", _struct.ServerIP, "struct.ServerPort:", _struct.ServerPort,"###");
 				this.socket_multi.connect( _struct.ServerIP, _struct.ServerPort );
@@ -1748,9 +1748,9 @@ module manager {
 				if(_class){
 					var data  = new _class();
 					
-					var byte:egret.ByteArray = data.enterMultiTable(manager.LobbyManager.getInstance().this.lobbyAuth);
+					var byte:egret.ByteArray = data.enterMultiTable(manager.LobbyManager.getInstance().lobbyAuth);
 					
-					Utils.DumpBinary( "", byte, 0, 11);
+					util.Utils.DumpBinary( "", byte, 0, 11);
 					this.socket_multi.send( byte, 0,  byte.length);
 					
 					console.log(this, "登陆好路多桌..." );
@@ -1764,7 +1764,7 @@ module manager {
 //				_gameLoginPkt.AuthInfo.Platform = this.lobbyAuth.Platform;
 //				_gameLoginPkt.AuthInfo.GameID = this.multiTableEntryStruct.GameID ;
 //				_gameLoginPkt.AuthInfo.TableID = this.multiTableEntryStruct.TableID;
-//				_gameLoginPkt.AuthInfo.LobbyServer = Player.getInstance().sLobbyServer; 					//連線Server
+//				_gameLoginPkt.AuthInfo.LobbyServer = model.Player.getInstance().sLobbyServer; 					//連線Server
 //				_gameLoginPkt.AuthInfo.JoinTbType = define.GameDefine.MULTIPLE;									//進桌類型
 //				_gameLoginPkt.AuthInfo.BetLimitID = this.multiTableEntryStruct.BetLimitID;
 //				//				_gameLoginPkt.AuthInfo.BetLimitID = judgeBetLimitId(this.multiTableEntryStruct.joinTableType , this.multiTableEntryStruct );	//限紅
@@ -1796,12 +1796,12 @@ module manager {
 		/** 登陆多桌 **/
 		public sendLoginMultiTableOK():void  {
 			var _pkt = new packet.game.C_Game_Login_OK_Pkt();
-			_pkt.AuthToken = <string>(Player.getInstance().iPlayerID);
+			_pkt.AuthToken = "" + (lobby.model.Player.getInstance().iPlayerID).toString;
 			_pkt.Identity  = this.lobbyAuth.Identity;
 			
 			var byte:egret.ByteArray = this.dataPacket_multi.pack( define.PacketDefine.C_ENTER_TABLE_OK , _pkt );
 			console.log("回復 多桌登录成功消息...");
-			Utils.DumpBinary( "", byte, 0, 11);
+			util.Utils.DumpBinary( "", byte, 0, 11);
 			this.socket_multi.send( byte, 0,  byte.length);
 		}
 		
@@ -1823,7 +1823,7 @@ module manager {
 			}
 			else {//急速,一般 ,手臂 用玩家選擇限紅
 			
-			betLimitId = Player.getInstance().gameSetting.BetLimitId;  //玩家限紅
+			betLimitId = model.Player.getInstance().gameSetting.BetLimitId;  //玩家限紅
 			}*/
 			//玩家沒選限紅(額)
 			if ( betLimitId == 0 ) {
@@ -1844,7 +1844,7 @@ module manager {
 				var byte:egret.ByteArray = this.dataPacket_multi.pack( define.PacketDefine.C_MULTI_TABLE_REQ , _subscriptionPkt );
 				
 		//		console.log("订阅多桌..."+_aData);
-				Utils.DumpBinary( "", byte, 0, 11);
+				util.Utils.DumpBinary( "", byte, 0, 11);
 				this.socket_multi.send( byte, 0,  byte.length);
 				byte.clear();
 //可能出现没响应的桌子				TimeManager.getInstance().start(define.PacketDefine.ENTER_TABLE.toString(16) ,warnConnect);
@@ -1869,7 +1869,7 @@ module manager {
 					
 					var byte:egret.ByteArray = this.dataPacket_multi.pack( define.PacketDefine.C_MULTI_TABLE_UNSUBSCRIBE , _unsubscribePkt );
 				//	console.log("取消订阅..."+_aData);
-					Utils.DumpBinary( "", byte, 0, 11);
+					util.Utils.DumpBinary( "", byte, 0, 11);
 					this.socket_multi.send( byte, 0,  byte.length);
 				}else{
 					console.log("取消订阅的桌子未订阅。。。");
@@ -1952,8 +1952,8 @@ module manager {
 					this.m_nowScene.chipSetSprite.addChild(this.m_panelChipCustom);
 					this.m_nowScene.chipSetSprite.mask = this.lobbyView.spChipMask;
 				}else{
-					this.lobbyView.spChipLayer.addChild(this.m_panelChipCustom);
-					this.lobbyView.spChipLayer.mask = this.lobbyView.spChipMask;
+					this.lobbyView.spChimodel.Player.addChild(this.m_panelChipCustom);
+					this.lobbyView.spChimodel.Player.mask = this.lobbyView.spChipMask;
 				}
 				
 				
@@ -1967,14 +1967,14 @@ module manager {
 						this.lobbyView.spChipMask.graphics.drawRect(0,50,1920,823);
 						this.lobbyView.spChipMask.graphics.endFill();
 						
-						TweenLite.to(this.m_panelChipCustom,define.Define.SPEED,{y:630, ease:Back.easeOut, onComplete:function():void{
+						egret.Tween.get(this.m_panelChipCustom).to({y:630}, define.Define.SPEED, egret.Ease.backOut).call(function():void{
 							if(this.m_panelChipCustom){
 								this.m_panelChipCustom.init();
 							}
 							this.chipPanelLobby.btnSetting.enabled = true;
 							this.chipPanelGame_1.btnSetting.enabled = true;
 							this.chipPanelGame_2.btnSetting.enabled = true;
-						}});
+						});
 						break;
 					
 					case 1:
@@ -1986,14 +1986,14 @@ module manager {
 						this.lobbyView.spChipMask.graphics.drawRect(0,50,1920,866);
 						this.lobbyView.spChipMask.graphics.endFill();
 						
-						TweenLite.to(this.m_panelChipCustom,define.Define.SPEED,{y:630, ease:Back.easeOut, onComplete:function():void{
+						egret.Tween.get(this.m_panelChipCustom).to({y:630}, define.Define.SPEED, egret.Ease.backOut).call(function():void{
 							if(this.m_panelChipCustom){
 								this.m_panelChipCustom.init();
 							}
 							this.chipPanelLobby.btnSetting.enabled = true;
 							this.chipPanelGame_1.btnSetting.enabled = true;
 							this.chipPanelGame_2.btnSetting.enabled = true;
-						}});
+						});
 						break;
 					
 					case 2:
@@ -2004,14 +2004,14 @@ module manager {
 						this.lobbyView.spChipMask.graphics.drawRect(0,50,1616,1080);
 						this.lobbyView.spChipMask.graphics.endFill();
 						
-						TweenLite.to(this.m_panelChipCustom,define.Define.SPEED,{x:1355, ease:Back.easeOut, onComplete:function():void{
+						egret.Tween.get(this.m_panelChipCustom).to({x:1355}, define.Define.SPEED, egret.Ease.backOut).call(function():void{
 							if(this.m_panelChipCustom){
 								this.m_panelChipCustom.init();
 							}
 							this.chipPanelLobby.btnSetting.enabled = true;
 							this.chipPanelGame_1.btnSetting.enabled = true;
 							this.chipPanelGame_2.btnSetting.enabled = true;
-						}});
+						});
 						break;
 				}
 				
@@ -2029,7 +2029,7 @@ module manager {
 				switch(this.m_uPanelChipCustom){
 					case 0:
 					case 1:
-						TweenLite.to(this.m_panelChipCustom,define.Define.SPEED,{y:1500, ease:Back.easeIn, onComplete:function():void{
+						egret.Tween.get(this.m_panelChipCustom).to({y:1500}, define.Define.SPEED, egret.Ease.backIn).call(function():void{
 							if(this.m_panelChipCustom.parent){
 								this.m_panelChipCustom.parent.removeChild(this.m_panelChipCustom);
 							}
@@ -2039,11 +2039,10 @@ module manager {
 							this.chipPanelLobby.btnSetting.enabled = true;
 							this.chipPanelGame_1.btnSetting.enabled = true;
 							this.chipPanelGame_2.btnSetting.enabled = true;
-						}});
-						
+						});
 						break;
 					case 2:
-						TweenLite.to(this.m_panelChipCustom,define.Define.SPEED,{x:2500, ease:Back.easeIn, onComplete:function():void{
+						egret.Tween.get(this.m_panelChipCustom).to({x:2500}, define.Define.SPEED, egret.Ease.backIn).call(function():void{
 							if(this.m_panelChipCustom){
 								if(this.m_panelChipCustom.parent){
 									this.m_panelChipCustom.parent.removeChild(this.m_panelChipCustom);
@@ -2055,7 +2054,7 @@ module manager {
 							this.chipPanelLobby.btnSetting.enabled = true;
 							this.chipPanelGame_1.btnSetting.enabled = true;
 							this.chipPanelGame_2.btnSetting.enabled = true;
-						}});
+						});
 				}
 				
 				
@@ -2257,7 +2256,7 @@ module manager {
 			//			PopupManager.getInstance().show(_dialog);
 			_dialog.scaleX = define.Define.SCALE_MIN;
 			_dialog.scaleY = define.Define.SCALE_MIN;
-			TweenLite.to(_dialog,define.Define.SPEED,{scaleX:1, scaleY:1});
+			egret.Tween.get(_dialog).to({scaleX:1, scaleY:1}, define.Define.SPEED);
 			this.uWindowIndex++;
 			return _dialog;
 		}
@@ -2307,30 +2306,27 @@ module manager {
 				}
 				
 				this.systemSetting.y = -300;
-				TweenLite.to(this.systemSetting,define.Define.SPEED,{y:move_y});
-				
+				egret.Tween.get(this.systemSetting).to({y:move_y}, define.Define.SPEED);
 				//				PopupManager.getInstance().show( this.systemSetting );
 				//				this.uWindowIndex++;
 			}else{
-				this.hidesystemSetting();
+				this.hideSystemSetting();
 			}
 		}
-		public hidesystemSetting():void{
+		public hideSystemSetting():void{
 			if(this.systemSetting){
 				
-				//				PopupManager.getInstance().close( this.systemSetting );
-				TweenLite.to(this.systemSetting,define.Define.SPEED,{y:-400, ease:Back.easeIn, onComplete:function():void{
-					TweenLite.to(this.lobbyView.spShieldLayer, define.Define.SPEED, {alpha:0, onComplete:function():void{
+				egret.Tween.get(this.systemSetting).to({y:-400}, define.Define.SPEED, egret.Ease.backIn).call(function():void{
+					egret.Tween.get(this.lobbyView.spShieldLayer).to({alpha:0}, define.Define.SPEED).call(function():void{
 						this.lobbyView.spShieldLayer.graphics.clear();
-					}});
+					});
 					if(this.systemSetting){
 						this.lobbyView.spWindowLayer.removeChild(this.systemSetting);
 						this.systemSetting.defaultState();
 						this.systemSetting.destroy();
 						this.systemSetting = null;
 					}
-				}});
-				
+				});
 				
 				//				this.uWindowIndex--;
 			}
@@ -2364,20 +2360,19 @@ module manager {
 				//				PopupManager.getInstance().show( this.m_tableSetting );
 				this.m_tableSetting.scaleX = define.Define.SCALE_MIN;
 				this.m_tableSetting.scaleY = define.Define.SCALE_MIN;
-				TweenLite.to(this.m_tableSetting,define.Define.SPEED,{scaleX:1, scaleY:1});
+				egret.Tween.get(this.m_tableSetting).to({scaleX:1, scaleY:1}, define.Define.SPEED);
 				this.uWindowIndex++;
 			}
 		}
 		public hideTableSetting(_bTween: boolean=true):void{
 			if(this.m_tableSetting){
 				if(_bTween){
-					//					PopupManager.getInstance().close( this.m_tableSetting );
-					TweenLite.to(this.m_tableSetting,define.Define.SPEED,{scaleX:define.Define.SCALE_MIN, scaleY:define.Define.SCALE_MIN, onComplete:function():void
+					egret.Tween.get(this.m_tableSetting).to({scaleX:define.Define.SCALE_MIN, scaleY:define.Define.SCALE_MIN}, define.Define.SPEED).call(function():void
 					{
-						TweenLite.to(this.lobbyView.spShieldLayer, define.Define.SPEED, {alpha:0, onComplete:function():void
+						egret.Tween.get(this.lobbyView.spShieldLayer).to({alpha:0}, define.Define.SPEED).call(function():void
 						{
 							this.lobbyView.spShieldLayer.graphics.clear();
-						}});
+						});
 						if(this.m_tableSetting)
 						{
 							if(this.m_tableSetting.parent){
@@ -2386,7 +2381,7 @@ module manager {
 							this.m_tableSetting.destroy();
 							this.m_tableSetting = null;
 						}
-					}});
+					});
 				}else{
 					this.lobbyView.spShieldLayer.graphics.clear();
 					if(this.m_tableSetting)
@@ -2424,7 +2419,7 @@ module manager {
 				//				PopupManager.getInstance().show( this.m_tableEnter );
 				this.m_tableEnter.scaleX = define.Define.SCALE_MIN;
 				this.m_tableEnter.scaleY = define.Define.SCALE_MIN;
-				TweenLite.to(this.m_tableEnter,define.Define.SPEED,{scaleX:1, scaleY:1});
+				egret.Tween.get(this.m_tableEnter).to({scaleX:1, scaleY:1}, define.Define.SPEED);
 				this.uWindowIndex++;
 			}
 		}
@@ -2433,10 +2428,10 @@ module manager {
 				
 				if(_bTween){
 					//					PopupManager.getInstance().close( this.m_tableEnter );
-					TweenLite.to(this.m_tableEnter,define.Define.SPEED,{scaleX:define.Define.SCALE_MIN, scaleY:define.Define.SCALE_MIN, onComplete:function():void{
-						TweenLite.to(this.lobbyView.spShieldLayer, define.Define.SPEED, {alpha:0, onComplete:function():void{
+					egret.Tween.get(this.m_tableEnter).to({scaleX:define.Define.SCALE_MIN, scaleY:define.Define.SCALE_MIN}, define.Define.SPEED).call(function():void{
+						egret.Tween.get(this.lobbyView.spShieldLayer).to({alpha:0}, define.Define.SPEED).call(function():void{
 							this.lobbyView.spShieldLayer.graphics.clear();
-						}});
+						});
 						if(this.m_tableEnter){
 							if(this.m_tableEnter.parent){
 								this.m_tableEnter.parent.removeChild(this.m_tableEnter);
@@ -2445,7 +2440,7 @@ module manager {
 							this.m_tableEnter = null;
 						}
 						
-					}});
+					});
 				}else{
 					this.lobbyView.spShieldLayer.graphics.clear();
 					if(this.m_tableEnter){
@@ -2483,7 +2478,7 @@ module manager {
 				//				PopupManager.getInstance().show( this.m_limitBet );
 				this.m_limitBet.scaleX = define.Define.SCALE_MIN;
 				this.m_limitBet.scaleY = define.Define.SCALE_MIN;
-				TweenLite.to(this.m_limitBet,define.Define.SPEED,{scaleX:1, scaleY:1});
+				egret.Tween.get(this.m_limitBet).to({scaleX:1, scaleY:1}, define.Define.SPEED);
 				this.uWindowIndex++;
 			}
 		}
@@ -2491,11 +2486,10 @@ module manager {
 			if(this.m_limitBet){
 				
 				if(_bTween){
-					//					PopupManager.getInstance().close( this.m_limitBet );
-					TweenLite.to(this.m_limitBet,define.Define.SPEED,{scaleX:define.Define.SCALE_MIN, scaleY:define.Define.SCALE_MIN, onComplete:function():void{
-						TweenLite.to(this.lobbyView.spShieldLayer, define.Define.SPEED, {alpha:0, onComplete:function():void{
+					egret.Tween.get(this.m_limitBet).to({scaleX:define.Define.SCALE_MIN, scaleY:define.Define.SCALE_MIN}, define.Define.SPEED).call(function():void{
+						egret.Tween.get(this.lobbyView.spShieldLayer).to({alpha:0}, define.Define.SPEED).call(function():void{
 							this.lobbyView.spShieldLayer.graphics.clear();
-						}});
+						});
 						if(this.m_limitBet){
 							if(this.m_limitBet.parent){
 								this.m_limitBet.parent.removeChild(this.m_limitBet);
@@ -2504,7 +2498,7 @@ module manager {
 							this.m_limitBet = null;
 						}
 						
-					}});
+					})
 				}else{
 					this.lobbyView.spShieldLayer.graphics.clear();
 					if(this.m_limitBet){
@@ -2617,17 +2611,16 @@ module manager {
 				//				PopupManager.getInstance().show( this.panelGoodRoadType );
 				this.panelGoodRoadType.scaleX = define.Define.SCALE_MIN;
 				this.panelGoodRoadType.scaleY = define.Define.SCALE_MIN;
-				TweenLite.to(this.panelGoodRoadType,0.5,{scaleX:1, scaleY:1});
+				egret.Tween.get(this.panelGoodRoadType).to({scaleX:1, scaleY:1}, 0.5);
 				this.uWindowIndex++;
 			}
 		}
 		public hideGoodRoadSetting():void{
 			if(this.panelGoodRoadType){
-				//				PopupManager.getInstance().close( this.panelGoodRoadType );
-				TweenLite.to(this.panelGoodRoadType,define.Define.SPEED,{scaleX:define.Define.SCALE_MIN, scaleY:define.Define.SCALE_MIN, onComplete:function():void{
-					TweenLite.to(this.lobbyView.spShieldLayer, define.Define.SPEED, {alpha:0, onComplete:function():void{
+				egret.Tween.get(this.panelGoodRoadType).to({scaleX:define.Define.SCALE_MIN, scaleY:define.Define.SCALE_MIN}, define.Define.SPEED).call(function():void{
+					egret.Tween.get(this.lobbyView.spShieldLayer).to({alpha:0}, define.Define.SPEED).call(function():void{
 						this.lobbyView.spShieldLayer.graphics.clear();
-					}});
+					});
 					if(this.panelGoodRoadType){
 						if(this.panelGoodRoadType.parent){
 							this.panelGoodRoadType.parent.removeChild(this.panelGoodRoadType);
@@ -2636,8 +2629,7 @@ module manager {
 						this.panelGoodRoadType = null;
 					}
 					
-				}});
-				
+				});
 				this.uWindowIndex--;
 			}
 		}
@@ -2665,7 +2657,7 @@ module manager {
 			var _ack  = new packet.C_Ack_Pkt();
 			_ack.SN = _sn;
 			var byte:egret.ByteArray = this.dataPacket.pack( define.PacketDefine.ACK , _ack );
-			Utils.DumpBinary( "", byte, 0, 11);
+			util.Utils.DumpBinary( "", byte, 0, 11);
 			switch(_type){
 				case 0:
 					this.m_socket.send( byte, 0,  byte.length);
@@ -2682,7 +2674,7 @@ module manager {
 			var _nack  = new packet.C_NAck_Pkt();
 			_nack.SN = _sn;
 			var byte:egret.ByteArray = this.dataPacket.pack( define.PacketDefine.N_ACK , _nack );
-			Utils.DumpBinary( "", byte, 0, 11);
+			util.Utils.DumpBinary( "", byte, 0, 11);
 			switch(_type){
 				case 0:
 					this.m_socket.send( byte, 0,  byte.length);
@@ -2701,9 +2693,9 @@ module manager {
 		 * 送給服務端 大廳登出
 		 */
 		public sendLobbyLogout():void {
-			var _oData = {};
-			_oData.PlayerID = Player.getInstance().iPlayerID;
-			_oData.Identity = Player.getInstance().iIdentity;
+			var _oData : any = {};
+			_oData.PlayerID = lobby.model.Player.getInstance().iPlayerID;
+			_oData.Identity = lobby.model.Player.getInstance().iIdentity;
 			_oData.Reason   = 1;
 			
 			var _logoutLobbyPkt = new packet.lobby.LobbyLogoutReqPkt();
@@ -2711,7 +2703,7 @@ module manager {
 			
 			var byte:egret.ByteArray = this.dataPacket.pack( define.PacketDefine.C_LOGIN_OUT , _logoutLobbyPkt );
 			console.log("登出大廳...");
-			Utils.DumpBinary( "", byte, 0, 11);
+			util.Utils.DumpBinary( "", byte, 0, 11);
 			this.m_socket.send( byte, 0,  byte.length);
 		}
 		
@@ -2895,7 +2887,7 @@ module manager {
 		/**
 		 *	另一種 提示对话框 
 		 */		
-		public showDialog_2( _sValue:string , bShowMask: boolean = false , bSingleMode: boolean = false ,_fOk:Function = null ,_fRetry:Function = null):PanelDialog_2{
+		public showDialog_2( _sValue:string , bShowMask: boolean = false , bSingleMode: boolean = false ,_fOk:Function = null ,_fRetry:Function = null):lobby.view.panel.PanelDialog_2{
 			this.uDialogCount++;
 			var _dialog  = new lobby.view.panel.PanelDialog_2(false, bShowMask , bSingleMode ,_fOk , _fRetry );
 			
@@ -2914,7 +2906,7 @@ module manager {
 			//			PopupManager.getInstance().show(_dialog);
 			_dialog.scaleX = define.Define.SCALE_MIN;
 			_dialog.scaleY = define.Define.SCALE_MIN;
-			TweenLite.to(_dialog,define.Define.SPEED,{scaleX:1, scaleY:1});
+			egret.Tween.get(_dialog).to({scaleX:1, scaleY:1}, define.Define.SPEED)
 			this.uWindowIndex++;
 			return _dialog;
 		}		
@@ -3050,7 +3042,7 @@ module manager {
 				/*var timer:Timer = new Timer( 1500 , 1); 
 				timer.addEventListener(TimerEvent.TIMER_COMPLETE , onRetryLogin );
 				timer.start();*/
-				var timer:JTimer = JTimer.getTimer(1500,1);
+				var timer = timer.JTimer.getTimer(1500,1);
 				timer.addTimerCallback(null,this.onRetryLogin);
 				timer.start();
 				return true;
@@ -3149,11 +3141,11 @@ module manager {
 		public sendHeartPkt():void {
 			var _lobbyHeartPkt 	=	new packet.lobby.C_Lobby_Heart_Pkt();
 			_lobbyHeartPkt.Identity = this.lobbyAuth.Identity;
-			_lobbyHeartPkt.PlayerID = Player.getInstance().iPlayerID;
+			_lobbyHeartPkt.PlayerID = lobby.model.Player.getInstance().iPlayerID;
 			var byte:egret.ByteArray = this.dataPacket.pack( define.PacketDefine.C_Heart , _lobbyHeartPkt );
 			
 			
-			Utils.DumpBinary( "", byte, 0, 11);
+			util.Utils.DumpBinary( "", byte, 0, 11);
 			this.m_socket.send( byte, 0,  byte.length);
 			
 //			console.log(this, "送出心跳..." );
@@ -3165,11 +3157,11 @@ module manager {
 		public responseHeartPkt():void {
 			var _lobbyHeartPkt  	=	new packet.lobby.C_Lobby_Heart_Pkt();
 			_lobbyHeartPkt.Identity = this.lobbyAuth.Identity;
-			_lobbyHeartPkt.PlayerID = Player.getInstance().iPlayerID;
+			_lobbyHeartPkt.PlayerID = lobby.model.Player.getInstance().iPlayerID;
 			var byte:egret.ByteArray = this.dataPacket.pack( define.PacketDefine.S_Heart , _lobbyHeartPkt );
 			
 			
-			Utils.DumpBinary( "", byte, 0, 11);
+			util.Utils.DumpBinary( "", byte, 0, 11);
 			
 			this.m_socket.send( byte, 0,  byte.length);
 		}		
@@ -3238,11 +3230,11 @@ module manager {
 		 */
 		public sendMultiHeartPkt():void {
 			var _pkt = new packet.game.C_Game_Heart_Pkt();
-			_pkt.PlayerID = Player.getInstance().iPlayerID;
+			_pkt.PlayerID = lobby.model.Player.getInstance().iPlayerID;
 			_pkt.Identity = this.lobbyAuth.Identity;
 			
 			var byte:egret.ByteArray = this.dataPacket_multi.pack( define.PacketDefine.C_Heart , _pkt );
-			Utils.DumpBinary( "", byte, 0, 11);
+			util.Utils.DumpBinary( "", byte, 0, 11);
 			
 			this.socket_multi.send( byte, 0,  byte.length);
 			
@@ -3256,11 +3248,11 @@ module manager {
 			this.nRevServerTimeM = egret.getTimer();
 			
 			var _pkt = new packet.game.C_Game_Heart_Pkt();
-			_pkt.PlayerID = Player.getInstance().iPlayerID;
+			_pkt.PlayerID = lobby.model.Player.getInstance().iPlayerID;
 			_pkt.Identity = this.lobbyAuth.Identity;
 			
 			var byte:egret.ByteArray = this.dataPacket_multi.pack( define.PacketDefine.S_Heart , _pkt );
-			Utils.DumpBinary( "", byte, 0, 11);
+			util.Utils.DumpBinary( "", byte, 0, 11);
 			
 			this.socket_multi.send( byte, 0,  byte.length);
 		}		
@@ -3331,7 +3323,7 @@ module manager {
 					/*var timer:Timer = new Timer( 1500 , 1); 
 					timer.addEventListener(TimerEvent.TIMER_COMPLETE , onRetryLogin );
 					timer.start();*/
-					var timer:JTimer = JTimer.getTimer(1500.1);
+					var timer = timer.timer.JTimer.getTimer(1500.1);
 					timer.addTimerCallback(null,this.onRetryLogin);
 					timer.start();
 					
@@ -3380,7 +3372,7 @@ module manager {
 		public hideAllPanel():void{
 			this.hideChannel();
 			this.hidePanelDetail();
-			this.hidepersonalinformation();
+			this.hidePersonalinformation();
 			this.lobbyView.toolView.toolContact.hide();
 		}
 		
@@ -3432,21 +3424,21 @@ module manager {
 			
 			var win1=ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_MULTITABLE, "WinRedMc");
 			var win3=ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_MULTITABLE, "WinGreenMc");
-			if(CacheManager.getInstance().hasCache("win11")==false){
-				CacheManager.getInstance().cacheMovieClip("win11",win1);
+			if(manager.CacheManager.getInstance().hasCache("win11")==false){
+				manager.CacheManager.getInstance().cacheMovieClip("win11",win1);
 			}
-			if(CacheManager.getInstance().hasCache("win31")==false){
-				CacheManager.getInstance().cacheMovieClip("win31",win3);
+			if(manager.CacheManager.getInstance().hasCache("win31")==false){
+				manager.CacheManager.getInstance().cacheMovieClip("win31",win3);
 			}
 			
 			win1.mc.gotoAndStop(3);
 			win3.mc.gotoAndStop(3);
 			
-			if(CacheManager.getInstance().hasCache("win13")==false){
-				CacheManager.getInstance().cacheMovieClip("win13",win1);
+			if(manager.CacheManager.getInstance().hasCache("win13")==false){
+				manager.CacheManager.getInstance().cacheMovieClip("win13",win1);
 			}
-			if(CacheManager.getInstance().hasCache("win33")==false){
-				CacheManager.getInstance().cacheMovieClip("win33",win3);
+			if(manager.CacheManager.getInstance().hasCache("win33")==false){
+				manager.CacheManager.getInstance().cacheMovieClip("win33",win3);
 			}
 			win1=null;
 			win3=null;

@@ -118,13 +118,13 @@ module manager {
 		public static setEffectOnOff(_bValue: boolean):void{
 			this.data["SystemSetting"]["effect on_off"] = _bValue;
 		}
-		public static getEffectOnOff():number{
+		public static getEffectOnOff():boolean{
 			return this.data["SystemSetting"]["effect on_off"];
 		}
 		public static setLiveOnOff(_bValue: boolean):void{
 			this.data["SystemSetting"]["live on_off"] = _bValue;
 		}
-		public static getLiveOnOff():number{
+		public static getLiveOnOff():boolean{
 			return this.data["SystemSetting"]["live on_off"];
 		}
 		

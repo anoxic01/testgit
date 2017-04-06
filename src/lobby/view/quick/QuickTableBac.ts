@@ -1,52 +1,52 @@
 module lobby.view.quick {
 	export class QuickTableBac extends QuickTable{
-		private m_road			:	QuickTableRoadMapBac;			//路纸
+		private m_road			;			//路纸
 		
 //		private m_btnLimit		:	ButtonMcLanguage;				//限红选择
-		private m_btnLogin		:	ButtonMcLanguage;				//进入游戏
+		private m_btnLogin		;				//进入游戏
 		
-		private m_btnSideBet	:	ButtonMcLanguage;				//旁观下注
-		private m_btnLoginBet	:	ButtonMcLanguage;				//进座下注
+		private m_btnSideBet	;				//旁观下注
+		private m_btnLoginBet	;				//进座下注
 		
-		private m_btnVip		:	ButtonMcLanguage;				//包桌
+		private m_btnVip		;				//包桌
 		
 		private m_bEnable		:	 boolean;
 		
 		public constructor() {
-		
-			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_TABLE,"Quick_Table_Baccarat_Asset");
-			this.addChild(m_mcAsset);
+			super();
+
+			this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_TABLE,"Quick_Table_Baccarat_Asset");
+			this.addChild(this.m_mcAsset);
 			
-			m_glow = m_mcAsset.mc_glow;
-			m_glow.visible = false;
-			m_glow.mouseEnabled = false;
-			m_glow.mouseChildren = false;
+			this.m_glow = this.m_mcAsset.mc_glow;
+			this.m_glow.visible = false;
+			this.m_glow.touchEnabled = false;
 			
-			m_mcAsset.mc_hint.tf_mask.text = "";
+			this.m_mcAsset.mc_hint.tf_mask.text = "";
 			
-			m_bmpTableID = new Bitmap();
-			m_mcAsset.mc_5.addChild(m_bmpTableID);
+			this.m_bmpTableID = new egret.Bitmap();
+			this.m_mcAsset.mc_5.addChild(this.m_bmpTableID);
 			
-			m_bmpTableHint = new Bitmap();
-			m_mcAsset.mc_hint.addChild(m_bmpTableHint);
-			m_mcAsset.mc_hint.mouseEnabled = false;
-			m_mcAsset.mc_hint.mouseChildren = false;
+			this.m_bmpTableHint = new egret.Bitmap();
+			this.m_mcAsset.mc_hint.addChild(this.m_bmpTableHint);
+			this.m_mcAsset.mc_hint.mouseEnabled = false;
+			this.m_mcAsset.mc_hint.mouseChildren = false;
 			
 //			m_bmpTable = new Bitmap();
-//			m_mcAsset.mc_bg.mc_2.addChild(m_bmpTable);
+//			this.m_mcAsset.mc_bg.mc_2.addChild(m_bmpTable);
 			
 			//			m_bmpFace = new Bitmap();
-			//			m_mcAsset.mc_face.addChild(m_bmpFace);
+			//			this.m_mcAsset.mc_face.addChild(m_bmpFace);
 			
-			m_road = new QuickTableRoadMapBac(m_mcAsset);
-//			m_mcAsset.mc_bg.gotoAndStop(1);
+			this.m_road = new route.quick.QuickTableRoadMapBac(this.m_mcAsset);
+//			this.m_mcAsset.mc_bg.gotoAndStop(1);
 			
-//			m_mcAsset.mc_1.y = -30;
-			m_mcAsset.mc_bg.y = 165;
-			m_mcAsset.mc_bg.mouseEnabled = false;
+//			this.m_mcAsset.mc_1.y = -30;
+			this.m_mcAsset.mc_bg.y = 165;
+			this.m_mcAsset.mc_bg.mouseEnabled = false;
 			
-			m_mcAsset.mc_alone.mouseEnabled = false;
-			m_mcAsset.mc_alone.mouseChildren = false;
+			this.m_mcAsset.mc_alone.mouseEnabled = false;
+			this.m_mcAsset.mc_alone.mouseChildren = false;
 			
 			super();
 		}
@@ -61,79 +61,79 @@ module lobby.view.quick {
 //			}
 			
 			
-			if(m_road){
-				m_road.destroy();
-				m_road = null;
+			if(this.m_road){
+				this.m_road.destroy();
+				this.m_road = null;
 			}
 			
 //			if(m_btnLimit){
 //				m_btnLimit.destroy();
 //				m_btnLimit = null;
 //			}
-			if(m_btnLogin){
-				m_btnLogin.destroy();
-				m_btnLogin = null;
+			if(this.m_btnLogin){
+				this.m_btnLogin.destroy();
+				this.m_btnLogin = null;
 			}
 			
 			
-			if(m_btnSideBet){
-				m_btnSideBet.destroy();
-				m_btnSideBet = null;
+			if(this.m_btnSideBet){
+				this.m_btnSideBet.destroy();
+				this.m_btnSideBet = null;
 			}
-			if(m_btnLoginBet){
-				m_btnLoginBet.destroy();
-				m_btnLoginBet = null;
+			if(this.m_btnLoginBet){
+				this.m_btnLoginBet.destroy();
+				this.m_btnLoginBet = null;
 			}
 			
 			
-			if(m_btnVip){
-				m_btnVip.destroy();
-				m_btnVip = null;
+			if(this.m_btnVip){
+				this.m_btnVip.destroy();
+				this.m_btnVip = null;
 			}
 			
 			super.destroy();
 		}
 		
-		 public setData(_tableStruct:TableStruct):void{
+		 public setData(_tableStruct):void{
 			super.setData(_tableStruct);
 			
 			//一般,急速,機械手臂
-			switch(m_struct.TableType){
-				case Define.TABLE_TYPE_NORMAL:
-					m_mcTableName = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_TABLE,"Table_Label_Bac_Asset");
-					initNormal();
+			switch(this.m_struct.TableType){
+				case define.Define.TABLE_TYPE_NORMAL:
+					this.m_mcTableName = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_TABLE,"Table_Label_Bac_Asset");
+					this.initNormal();
 					break;
-				case Define.TABLE_TYPE_SPEEDY:
-					m_mcTableName = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_TABLE,"Table_Label_Bac_Speed_Asset");
-					initNormal();
+				case define.Define.TABLE_TYPE_SPEEDY:
+					this.m_mcTableName = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_TABLE,"Table_Label_Bac_Speed_Asset");
+					this.initNormal();
 					break;
-				case Define.TABLE_TYPE_ROBOT:
-					m_mcTableName = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_TABLE,"Table_Label_Bac_Robot_Asset");
-					initNormal();
-					break;
-				
-				case Define.TABLE_TYPE_PEEK:
-					m_mcTableName = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_TABLE,"Table_Label_Bac_Peek_Asset");
-					initbid();
+				case define.Define.TABLE_TYPE_ROBOT:
+					this.m_mcTableName = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_TABLE,"Table_Label_Bac_Robot_Asset");
+					this.initNormal();
 					break;
 				
-				case Define.TABLE_TYPE_CHARTER:
-					m_mcTableName = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_TABLE,"Table_Label_Bac_Charter_Asset");
-					initVip();
+				case define.Define.TABLE_TYPE_PEEK:
+					this.m_mcTableName = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_TABLE,"Table_Label_Bac_Peek_Asset");
+					this.initbid();
+					break;
+				
+				case define.Define.TABLE_TYPE_CHARTER:
+					this.m_mcTableName = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_TABLE,"Table_Label_Bac_Charter_Asset");
+					this.initVip();
 					break;
 			}
 			
-			m_mcAsset.mc_4.addChild(m_mcTableName);
-			m_bmpTableID.bitmapData = BitmapManager.getInstance().numberTable.conversion(m_struct.TableID);
-			m_bmpTableID.smoothing = true;
-			m_mcAsset.mc_5.x = int(m_mcAsset.mc_4.x + m_mcAsset.mc_4.width);
-			m_mcAsset.mc_6.x = int(m_mcAsset.mc_5.x + m_mcAsset.mc_5.width);
+			this.m_mcAsset.mc_4.addChild(this.m_mcTableName);
+			this.m_bmpTableID.bitmapData = manager.BitmapManager.getInstance().numberTable.conversion(this.m_struct.TableID);
+			this.m_bmpTableID.smoothing = true;
+			this.m_mcAsset.mc_5.x = (this.m_mcAsset.mc_4.x + this.m_mcAsset.mc_4.width);
+			this.m_mcAsset.mc_6.x = (this.m_mcAsset.mc_5.x + this.m_mcAsset.mc_5.width);
 			
-			update(true);
+			this.update(true);
 			
-			updateStatus();
+			this.updateStatus();
 			
-			onChangeLanguage();
+			this.onChangeLanguage();
 			
 		}
 		
@@ -141,163 +141,163 @@ module lobby.view.quick {
 			super.onChangeLanguage();
 			
 			//一般,急速,機械手臂
-//			switch(m_struct.TableType){
-//				case Define.TABLE_TYPE_NORMAL:
-//				case Define.TABLE_TYPE_TELBET:
-//					m_sLabel = Language.sGame_Name_Bac;
+//			switch(this.m_struct.TableType){
+//				case define.Define.TABLE_TYPE_NORMAL:
+//				case define.Define.TABLE_TYPE_TELBET:
+//					m_sLabel = language.Language.sGame_Name_Bac;
 //					break;
 //				
-//				case Define.TABLE_TYPE_SPEEDY:
-//					m_sLabel = Language.sGame_Name_Bac_Speed;
+//				case define.Define.TABLE_TYPE_SPEEDY:
+//					m_sLabel = language.Language.sGame_Name_Bac_Speed;
 //					break;
 //				
-//				case Define.TABLE_TYPE_ROBOT:
-//					m_sLabel = Language.sGame_Name_Bac_Rebot;
+//				case define.Define.TABLE_TYPE_ROBOT:
+//					m_sLabel = language.Language.sGame_Name_Bac_Rebot;
 //					break;
 //				
-//				case Define.TABLE_TYPE_PEEK:
-//					m_sLabel = Language.sGame_Name_Bac_Peek;
+//				case define.Define.TABLE_TYPE_PEEK:
+//					m_sLabel = language.Language.sGame_Name_Bac_Peek;
 //					break;
 //				
-//				case Define.TABLE_TYPE_CHARTER:
-//					m_sLabel = Language.sGame_Name_Bac_Charter;
+//				case define.Define.TABLE_TYPE_CHARTER:
+//					m_sLabel = language.Language.sGame_Name_Bac_Charter;
 //					break;
 //			}
-			m_mcAsset.tf_label.text = "";//LobbyManager.getInstance().getLanguageString(m_sLabel) + String(m_struct.TableID) + LobbyManager.getInstance().getLanguageString(Language.sTable);
+			this.m_mcAsset.tf_label.text = "";//manager.LobbyManager.getInstance().getLanguageString(m_sLabel) + String(this.m_struct.TableID) + manager.LobbyManager.getInstance().getLanguageString(language.Language.sTable);
 			
-			m_mcTableName.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_6.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcTableName.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_6.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			
-//			m_mcAsset.mc_1.tf_label.text = LobbyManager.getInstance().getLanguageString(Language.sLimitSelect);
-			m_mcAsset.mc_bg.mc_2.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_bg.mc_3.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_bg.mc_4.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_bg.mc_5.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+//			this.m_mcAsset.mc_1.tf_label.text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sLimitSelect);
+			this.m_mcAsset.mc_bg.mc_2.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_bg.mc_3.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_bg.mc_4.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_bg.mc_5.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			
-			m_mcAsset.mc_5.x = int(m_mcAsset.mc_4.x + m_mcAsset.mc_4.width);
-			m_mcAsset.mc_6.x = int(m_mcAsset.mc_5.x + m_mcAsset.mc_5.width);
-			m_bmpTime.x = int(m_mcAsset.mc_6.x + m_mcAsset.mc_6.width + 20);
+			this.m_mcAsset.mc_5.x = (this.m_mcAsset.mc_4.x + this.m_mcAsset.mc_4.width);
+			this.m_mcAsset.mc_6.x = (this.m_mcAsset.mc_5.x + this.m_mcAsset.mc_5.width);
+			this.m_bmpTime.x = (this.m_mcAsset.mc_6.x + this.m_mcAsset.mc_6.width + 20);
 			
-			m_mcAsset.mc_alone.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_alone.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			
-			m_road.onChangeLanguage();
+			this.m_road.onChangeLanguage();
 			
-			updateMaintenanceStatus();
+			this.updateMaintenanceStatus();
 			
 		}
 		
 		 public update(_bInit: boolean=false):void{
-			if(m_road==null){
+			if(this.m_road==null){
 				return;
 			}
-			updateRoad(_bInit);
-			updateCountDown();
+			this.updateRoad(_bInit);
+			this.updateCountDown();
 			
-			m_mcAsset.mc_alone.visible = m_struct.IsAlone;
+			this.m_mcAsset.mc_alone.visible = this.m_struct.IsAlone;
 						
-			updateStatus();
+			this.updateStatus();
 			
-			if(m_struct.GameStatus==GameStatus.CHANG_SHOE_COMPLETED){
-				m_bNotFinished = false;
-				if( m_iShoeNo!=m_struct.ShoeNo){
-					m_iShoeNo = m_struct.ShoeNo;
-					m_iGameNo = 0;
-					m_road.clearRoad();
+			if(this.m_struct.GameStatus==model.status.GameStatus.CHANG_SHOE_COMPLETED){
+				this.m_bNotFinished = false;
+				if( this.m_iShoeNo!=this.m_struct.ShoeNo){
+					this.m_iShoeNo = this.m_struct.ShoeNo;
+					this.m_iGameNo = 0;
+					this.m_road.clearRoad();
 				}
-				if(m_struct.GameNo==0){
+				if(this.m_struct.GameNo==0){
 					//显示“未开局”
 					
 				}
-			}else if(m_struct.GameStatus==GameStatus.WAIT_NEXT_NEWGAME && m_struct.GameNo==0){
-				if( m_iShoeNo!=m_struct.ShoeNo){
-					m_iShoeNo = m_struct.ShoeNo;
-					m_road.clearRoad();
+			}else if(this.m_struct.GameStatus==model.status.GameStatus.WAIT_NEXT_NEWGAME && this.m_struct.GameNo==0){
+				if( this.m_iShoeNo!=this.m_struct.ShoeNo){
+					this.m_iShoeNo = this.m_struct.ShoeNo;
+					this.m_road.clearRoad();
 				}
-				m_iGameNo = 0;
+				this.m_iGameNo = 0;
 				//显示“未开局”
 				
-			}else if(m_struct.GameStatus==GameStatus.FAILING_GAME||m_struct.GameStatus==GameStatus.FAIL_GAME)
+			}else if(this.m_struct.GameStatus==model.status.GameStatus.FAILING_GAME||this.m_struct.GameStatus==model.status.GameStatus.FAIL_GAME)
 			{
-				if(!m_struct.IsAlone){//已独享不显示此局作废
-					updateHint(Language.sQuickFailGame);
-					m_mcAsset.mc_mask.visible = false;
+				if(!this.m_struct.IsAlone){//已独享不显示此局作废
+					this.updateHint(language.Language.sQuickFailGame);
+					this.m_mcAsset.mc_mask.visible = false;
 				}
 //				showMaintain(false);
 			}
 			
-			updateMaintenanceStatus();
+			this.updateMaintenanceStatus();
 						
 		}
 		
 		//游戏进行中
 		 public isGameStart(): boolean{
 			// 如果游戏处于下注或者发牌阶段，说明游戏已经开始
-			switch(m_struct.GameStatus){
-				case GameStatus.BETTING:
-				case GameStatus.DEALING:
-				case GameStatus.SETTLING:
-				case GameStatus.FIRST_PEEK:
-				case GameStatus.PLAYER_SECOND_PEEK:
-				case GameStatus.BANKER_SECOND_PEEK:
+			switch(this.m_struct.GameStatus){
+				case model.status.GameStatus.BETTING:
+				case model.status.GameStatus.DEALING:
+				case model.status.GameStatus.SETTLING:
+				case model.status.GameStatus.FIRST_PEEK:
+				case model.status.GameStatus.PLAYER_SECOND_PEEK:
+				case model.status.GameStatus.BANKER_SECOND_PEEK:
 					return true;
 			}
 			return false;
 		}
 		 public initRoad(_sRoad:String):void{
-			m_iGameNo = isGameStart()?m_struct.GameNo-1:m_struct.GameNo;
+			this.m_iGameNo = this.isGameStart()?this.m_struct.GameNo-1:this.m_struct.GameNo;
 			
-			m_road.clearRoad();
-			m_road.addRoad(_sRoad);
+			this.m_road.clearRoad();
+			this.m_road.addRoad(_sRoad);
 		}
 		
 		//更新路纸
 		 public updateRoad(_bInit: boolean):void{
-			if(m_struct.IsCurrFailGame){
-				if(m_struct.RoadMaps.length==1){
-					m_struct.RoadMaps = m_struct.RoadMaps.replace("#","");
+			if(this.m_struct.IsCurrFailGame){
+				if(this.m_struct.RoadMaps.length==1){
+					this.m_struct.RoadMaps = this.m_struct.RoadMaps.replace("#","");
 				}else{
-					m_struct.RoadMaps = m_struct.RoadMaps.replace(/.\#/g,"");
+					this.m_struct.RoadMaps = this.m_struct.RoadMaps.replace(/.\#/g,"");
 				}
 			}
 			
 			//换靴后GameNo为0时，路纸为"#"
-			if(m_struct.RoadMaps.indexOf("#")!=-1){
-				m_road.bError = true;
+			if(this.m_struct.RoadMaps.indexOf("#")!=-1){
+				this.m_road.bError = true;
 			}else{
-				m_road.bError = false;
+				this.m_road.bError = false;
 				
 				if(_bInit){
 					var _len : number;
-					if(m_struct.RoadMaps!="" && m_struct.RoadMaps!=null){
-						_len = m_struct.RoadMaps.split(".").length;
+					if(this.m_struct.RoadMaps!="" && this.m_struct.RoadMaps!=null){
+						_len = this.m_struct.RoadMaps.split(".").length;
 					}
-					if(m_struct.GameNo == _len){
-						initRoad(m_struct.RoadMaps);
+					if(this.m_struct.GameNo == _len){
+						this.initRoad(this.m_struct.RoadMaps);
 					}else{
-						if(m_struct.GameNo == (_len+1)){
-							if(m_struct.GameStatus!=GameStatus.SETTLED){
-								initRoad(m_struct.RoadMaps);
+						if(this.m_struct.GameNo == (_len+1)){
+							if(this.m_struct.GameStatus!=model.status.GameStatus.SETTLED){
+								this.initRoad(this.m_struct.RoadMaps);
 							}else{
-								if(m_struct.LastRoadMap.length>0){
-									if(m_struct.RoadMaps=="" || m_struct.RoadMaps==null){
-										initRoad(m_struct.LastRoadMap);
+								if(this.m_struct.LastRoadMap.length>0){
+									if(this.m_struct.RoadMaps=="" || this.m_struct.RoadMaps==null){
+										this.initRoad(this.m_struct.LastRoadMap);
 									}else{
-										initRoad(m_struct.RoadMaps+"."+m_struct.LastRoadMap);
-										m_iGameNo = m_struct.GameNo;
+										this.initRoad(this.m_struct.RoadMaps+"."+this.m_struct.LastRoadMap);
+										this.m_iGameNo = this.m_struct.GameNo;
 									}
 								}else{
-									LobbyManager.getInstance().getRoadmapReqInfo([m_struct.TableID]);
+									manager.LobbyManager.getInstance().getRoadmapReqInfo([this.m_struct.TableID]);
 								}
 							}
 						}else{
-							LobbyManager.getInstance().getRoadmapReqInfo([m_struct.TableID]);
+							manager.LobbyManager.getInstance().getRoadmapReqInfo([this.m_struct.TableID]);
 						}
 					}
 				}else{
-					if(m_struct.GameStatus==GameStatus.SETTLED && m_iGameNo!=m_struct.GameNo && m_struct.GameNo!=0){
-						if(m_struct.LastRoadMap!=null && m_struct.LastRoadMap!=""){
-							m_iGameNo = m_struct.GameNo;
-							m_road.addRoad(m_struct.LastRoadMap);
+					if(this.m_struct.GameStatus==model.status.GameStatus.SETTLED && this.m_iGameNo!=this.m_struct.GameNo && this.m_struct.GameNo!=0){
+						if(this.m_struct.LastRoadMap!=null && this.m_struct.LastRoadMap!=""){
+							this.m_iGameNo = this.m_struct.GameNo;
+							this.m_road.addRoad(this.m_struct.LastRoadMap);
 						}
 					}
 				}
@@ -305,100 +305,100 @@ module lobby.view.quick {
 		}
 		
 		 public updateMaintenanceStatus():void{
-			if(struct.IsMaintaining){
-				updateHint(Language.sMaintenance);
-				showMaintain();
+			if(this.struct.IsMaintaining){
+				this.updateHint(language.Language.sMaintenance);
+				this.showMaintain();
 				return;
 			}
 			
 			//厅馆维护
-			var currcurrentTheme:QuickThemeItem = LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme;
+			var currcurrentTheme = manager.LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme;
 			if(currcurrentTheme && currcurrentTheme.struct.IsMaintaining){
-				hideMaintain();
+				this.hideMaintain();
 				return;
 			}
 			
 			//身份判断
-			if(Player.getInstance().iIdentity==2){
-				var _bTrial :  boolean = isSupportTrial();
+			if(model.Player.getInstance().iIdentity==2){
+				var _bTrial :  boolean = this.isSupportTrial();
 				if(_bTrial){
-					otherCheck();
+					this.otherCheck();
 				}else{
 					//不支持试玩
-					updateHint(Language.sNoTrial);
-					showMaintain();
+					this.updateHint(language.Language.sNoTrial);
+					this.showMaintain();
 				}
 			}else{
-				otherCheck();
+				this.otherCheck();
 			}
 		}
 		
 		private otherCheck():void{
-			if(isNotFinish()){
+			if(this.isNotFinish()){
 				//游戏未完成
-				m_bNotFinished = true;
-				updateHint(Language.sMaintenance);
-				showMaintain();
-			}else if(!isHaveDealer()){
+				this.m_bNotFinished = true;
+				this.updateHint(language.Language.sMaintenance);
+				this.showMaintain();
+			}else if(!this.isHaveDealer()){
 				//没有荷官
-				updateHint(Language.sMaintenance);
-				showMaintain();
-			}else if(m_road.bError){
+				this.updateHint(language.Language.sMaintenance);
+				this.showMaintain();
+			}else if(this.m_road.bError){
 				//路纸出错
-				updateHint(Language.sMaintenance);
-				showMaintain();
-			}else if(m_struct.IsPaused){
+				this.updateHint(language.Language.sMaintenance);
+				this.showMaintain();
+			}else if(this.m_struct.IsPaused){
 				//桌子维护
-				updateHint(Language.sMaintenance);
-				showMaintain();
-			}else if(m_struct.IsAlone){
+				this.updateHint(language.Language.sMaintenance);
+				this.showMaintain();
+			}else if(this.m_struct.IsAlone){
 				//独享
-				playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_struct.TableID);
-				if(playerTableOwnStatusStruct && playerTableOwnStatusStruct.IsTableOwner && playerTableOwnStatusStruct.PlayerID==Player.getInstance().iPlayerID){
+				this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_struct.TableID);
+				if(this.playerTableOwnStatusStruct && this.playerTableOwnStatusStruct.IsTableOwner && this.playerTableOwnStatusStruct.PlayerID==model.Player.getInstance().iPlayerID){
 					this.m_bEnable = true;
-					m_mcAsset.mc_alone.visible = false;
+					this.m_mcAsset.mc_alone.visible = false;
 				}else{
-					m_mcAsset.mc_alone.visible = m_mcAsset.mc_hint.visible?false:true;
+					this.m_mcAsset.mc_alone.visible = this.m_mcAsset.mc_hint.visible?false:true;
 				}
 				
-				if(IsTableOwnerLeave()){//逾时踢出
-					updateHint( Language.sOwnerLeave);
-					m_mcAsset.mc_alone.visible = false;
+				if(this.IsTableOwnerLeave()){//逾时踢出
+					this.updateHint( language.Language.sOwnerLeave);
+					this.m_mcAsset.mc_alone.visible = false;
 				}else{
-					hideMaintain();
+					this.hideMaintain();
 				}
 				
-				this.mouseEnabled = !m_mcAsset.mc_alone.visible;
-				this.mouseChildren = !m_mcAsset.mc_alone.visible;
-				m_mcAsset.mc_mask.visible = false;
-			}else if(IsTableOwnerLeave()){
-				updateHint( Language.sOwnerLeave);
-				m_mcAsset.mc_mask.visible = false;
-			}else if(m_struct.GameStatus!=GameStatus.FAILING_GAME&&m_struct.GameStatus!=GameStatus.FAIL_GAME)
+				this.touchEnabled = !this.m_mcAsset.mc_alone.visible;
+				this.touchChildren = !this.m_mcAsset.mc_alone.visible;
+				this.m_mcAsset.mc_mask.visible = false;
+			}else if(this.IsTableOwnerLeave()){
+				this.updateHint( language.Language.sOwnerLeave);
+				this.m_mcAsset.mc_mask.visible = false;
+			}else if(this.m_struct.GameStatus!=model.status.GameStatus.FAILING_GAME&&this.m_struct.GameStatus!=model.status.GameStatus.FAIL_GAME)
 			{
-				hideMaintain();
+				this.hideMaintain();
 			}
 			
-			if(m_bMaintance){
+			if(this.m_bMaintance){
 				return;
 			}
 			
-			m_bSettled =  boolean(m_struct.GameStatus==GameStatus.SETTLED);
-			if(m_struct.IsChangingShoe){
+			this.m_bSettled =  <boolean>(this.m_struct.GameStatus==model.status.GameStatus.SETTLED);
+			if(this.m_struct.IsChangingShoe){
 				//洗牌中
-				switch(m_struct.GameStatus){
-					case GameStatus.WAIT_NEXT_NEWGAME:
-					case GameStatus.SETTLED:
-						m_mcAsset.mc_hint.visible = false;
+				switch(this.m_struct.GameStatus){
+					case model.status.GameStatus.WAIT_NEXT_NEWGAME:
+					case model.status.GameStatus.SETTLED:
+						this.m_mcAsset.mc_hint.visible = false;
 						break;
 					
-					case GameStatus.CHANGING_SHOE:
-						if(m_struct.IsAlone){
-							m_mcAsset.mc_hint.visible = false;
-						}else if(!m_bSettled){
-							updateHint(Language.sChangeShoe);
-							m_mcAsset.mc_mask.visible = false;
-							m_mcAsset.mc_hint.visible = true;
+					case model.status.GameStatus.CHANGING_SHOE:
+						if(this.m_struct.IsAlone){
+							this.m_mcAsset.mc_hint.visible = false;
+						}else if(!this.m_bSettled){
+							this.updateHint(language.Language.sChangeShoe);
+							this.m_mcAsset.mc_mask.visible = false;
+							this.m_mcAsset.mc_hint.visible = true;
 						}
 						break;
 				}
@@ -407,301 +407,299 @@ module lobby.view.quick {
 				
 		 public showMaintain(_bMc: boolean=true):void{
 			
-			m_bMaintance = true;
-			m_mcAsset.mc_mask.visible = _bMc;
-			m_mcAsset.mc_hint.visible = true;
-			this.mouseChildren = false;
-			this.mouseEnabled = false;
+			this.m_bMaintance = true;
+			this.m_mcAsset.mc_mask.visible = _bMc;
+			this.m_mcAsset.mc_hint.visible = true;
+			this.touchChildren = false;
+			this.touchEnabled = false;
 			
-			if(m_mcAsset.mc_alone){
-				m_mcAsset.mc_alone.visible = false;
+			if(this.m_mcAsset.mc_alone){
+				this.m_mcAsset.mc_alone.visible = false;
 			}
 		}
 		 public hideMaintain():void{
 			
-			m_bMaintance = false;
-			m_mcAsset.mc_mask.visible = false;
-			m_mcAsset.mc_hint.visible = false;
-			this.mouseChildren = true;
-			this.mouseEnabled = true;
+			this.m_bMaintance = false;
+			this.m_mcAsset.mc_mask.visible = false;
+			this.m_mcAsset.mc_hint.visible = false;
+			this.touchChildren = true;
+			this.touchEnabled = true;
 		}
 		
 		 protected bgOver(event:MouseEvent):void{
 			super.bgOver(event);
-			if(!m_bEnable){
+			if(!this.m_bEnable){
 				return;
 			}
-			if(m_mcAsset){
-				TweenLite.to(m_mcAsset.mc_bg, Define.SPEED,{y:122});
-//				TweenLite.to(m_mcAsset.mc_1, Define.SPEED,{y:6});
+			if(this.m_mcAsset){
+				egret.Tween.get(this.m_mcAsset.mc_bg).to({y:122}, define.Define.SPEED);
 			}
 		}
 		 protected bgOut(event:MouseEvent):void{
 			super.bgOut(event);
-			if(!m_bEnable){
+			if(!this.m_bEnable){
 				return;
 			}
-			if(m_mcAsset){
-				TweenLite.to(m_mcAsset.mc_bg, Define.SPEED,{y:165});
-//				TweenLite.to(m_mcAsset.mc_1, Define.SPEED,{y:-30});
+			if(this.m_mcAsset){
+				egret.Tween.get(this.m_mcAsset.mc_bg).to({y:165}, define.Define.SPEED);
 			}
 		}
 		
 		private initNormal():void{
-			m_mcAsset.mc_bg.removeChild(m_mcAsset.mc_bg.mc_3);
-			m_mcAsset.mc_bg.removeChild(m_mcAsset.mc_bg.mc_4);
-			m_mcAsset.mc_bg.removeChild(m_mcAsset.mc_bg.mc_5);
-//			m_btnLimit = new ButtonMcLanguage(m_mcAsset.mc_1, function():void{
-//				SoundManager.getInstance().play(SoundPackage.sEnterGame);
+			this.m_mcAsset.mc_bg.removeChild(this.m_mcAsset.mc_bg.mc_3);
+			this.m_mcAsset.mc_bg.removeChild(this.m_mcAsset.mc_bg.mc_4);
+			this.m_mcAsset.mc_bg.removeChild(this.m_mcAsset.mc_bg.mc_5);
+//			m_btnLimit = new ButtonMcLanguage(this.m_mcAsset.mc_1, function():void{
+//				manager.SoundManager.getInstance().play(sound.SoundPackage.sEnterGame);
 //				
-//				if(LobbyManager.getInstance().IsCanChangeTable()){
+//				if(manager.LobbyManager.getInstance().IsCanChangeTable()){
 //					if(isSelf()){
-//						LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sHaveIn)+String(m_struct.TableID)+LobbyManager.getInstance().getLanguageString(Language.sTable) + "!");
+//						manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sHaveIn)+String(this.m_struct.TableID)+manager.LobbyManager.getInstance().getLanguageString(language.Language.sTable) + "!");
 //					}else{
-//						playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_struct.TableID);
-//						if(playerTableOwnStatusStruct){
-//							m_struct.BetLimitID = playerTableOwnStatusStruct.CurrBetLimitID;
-//							LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sGame_Relogin), function():void{
+//						this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_struct.TableID);
+//						if(this.playerTableOwnStatusStruct){
+//							this.m_struct.BetLimitID = this.playerTableOwnStatusStruct.CurrBetLimitID;
+//							manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sGame_Relogin), function():void{
 //								changeGame();
 //							});
 //						}else{
-//							LobbyManager.getInstance().bQuickChangeTable = true;
-//							LobbyManager.getInstance().showLimitBet(m_struct);
+//							manager.LobbyManager.getInstance().bQuickChangeTable = true;
+//							manager.LobbyManager.getInstance().showLimitBet(this.m_struct);
 //						}
 //					}
 //				}else{
-//					LobbyManager.getInstance().showGameMessage(LobbyManager.getInstance().getLanguageString(Language.sCanNotExitGame));
+//					manager.LobbyManager.getInstance().showGameMessage(manager.LobbyManager.getInstance().getLanguageString(language.Language.sCanNotExitGame));
 //				}
 //				
 //			});
-			m_btnLogin = new ButtonMcLanguage(m_mcAsset.mc_bg.mc_2, function():void{
-				SoundManager.getInstance().play(SoundPackage.sEnterGame);
+			this.m_btnLogin = new ui.button.ButtonMcLanguage(this.m_mcAsset.mc_bg.mc_2, function():void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sEnterGame);
 				
-				if(LobbyManager.getInstance().IsCanChangeTable()){
-					if(isSelf()){
-						LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sHaveIn)+ m_sTableName + "!");
+				if(manager.LobbyManager.getInstance().IsCanChangeTable()){
+					if(this.isSelf()){
+						manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sHaveIn)+ this.m_sTableName + "!");
 					}else{
-						playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_struct.TableID);
-						if(playerTableOwnStatusStruct){
-							m_struct.BetLimitID = playerTableOwnStatusStruct.CurrBetLimitID;
-//							LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sGame_Relogin), function():void{
-								changeGame();
+						this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_struct.TableID);
+						if(this.playerTableOwnStatusStruct){
+							this.m_struct.BetLimitID = this.playerTableOwnStatusStruct.CurrBetLimitID;
+//							manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sGame_Relogin), function():void{
+								this.changeGame();
 //							});
 						}else{
-							if(IsAllowToLogin()){
-								m_struct.BetLimitID = 1;
-								changeGame();
+							if(this.IsAllowToLogin()){
+								this.m_struct.BetLimitID = 1;
+								this.changeGame();
 							}
 						}
 					}
 					
 				}else{
-					LobbyManager.getInstance().showGameMessage(LobbyManager.getInstance().getLanguageString(Language.sCanNotExitGame));
+					manager.LobbyManager.getInstance().showGameMessage(manager.LobbyManager.getInstance().getLanguageString(language.Language.sCanNotExitGame));
 				}
 			});
-			m_mcAsset.mc_bg.mc_2.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_bg.mc_2.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 		}
 		private initbid():void{
-//			m_mcAsset.removeChild(m_mcAsset.mc_1);
-			m_mcAsset.mc_bg.removeChild(m_mcAsset.mc_bg.mc_2);
-			m_mcAsset.mc_bg.removeChild(m_mcAsset.mc_bg.mc_5);
-			m_mcAsset.mc_bg.mc_3.x = 43;
-			m_btnSideBet = new ButtonMcLanguage(m_mcAsset.mc_bg.mc_3, function():void{
-				SoundManager.getInstance().play(SoundPackage.sEnterGame);
+//			this.m_mcAsset.removeChild(this.m_mcAsset.mc_1);
+			this.m_mcAsset.mc_bg.removeChild(this.m_mcAsset.mc_bg.mc_2);
+			this.m_mcAsset.mc_bg.removeChild(this.m_mcAsset.mc_bg.mc_5);
+			this.m_mcAsset.mc_bg.mc_3.x = 43;
+			this.m_btnSideBet = new ui.button.ButtonMcLanguage(this.m_mcAsset.mc_bg.mc_3, function():void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sEnterGame);
 				
-				if(LobbyManager.getInstance().IsCanChangeTable()){
-					if(isSelf()){
-						LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sHaveIn)+ m_sTableName + "!");
-//						LobbyManager.getInstance().showDialog("您已在"+String(m_struct.TableID)+"桌!");
+				if(manager.LobbyManager.getInstance().IsCanChangeTable()){
+					if(this.isSelf()){
+						manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sHaveIn)+ this.m_sTableName + "!");
+//						manager.LobbyManager.getInstance().showDialog("您已在"+String(this.m_struct.TableID)+"桌!");
 					}else{
-						playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_struct.TableID);
-						if(playerTableOwnStatusStruct){
-//							LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sGame_Relogin), function():void{
-								m_struct.joinTableType = JoinTableType.PEEK_OTHER;
-								enterGame();
+						this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_struct.TableID);
+						if(this.playerTableOwnStatusStruct){
+//							manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sGame_Relogin), function():void{
+								this.m_struct.model.type.JoinTableType = model.type.JoinTableType.PEEK_OTHER;
+								this.enterGame();
 //							});
 						}else{
-							m_struct.joinTableType = JoinTableType.PEEK_OTHER;
-							enterGame();
+							this.m_struct.model.type.JoinTableType = model.type.JoinTableType.PEEK_OTHER;
+							this.enterGame();
 						}
 					}
 				}else{
-					LobbyManager.getInstance().showGameMessage(LobbyManager.getInstance().getLanguageString(Language.sCanNotExitGame));
+					manager.LobbyManager.getInstance().showGameMessage(manager.LobbyManager.getInstance().getLanguageString(language.Language.sCanNotExitGame));
 				}
 				
 			});
-			m_mcAsset.mc_bg.mc_4.x = 213;
-			m_btnLoginBet = new ButtonMcLanguage(m_mcAsset.mc_bg.mc_4, function():void{
-				SoundManager.getInstance().play(SoundPackage.sEnterGame);
+			this.m_mcAsset.mc_bg.mc_4.x = 213;
+			this.m_btnLoginBet = new ui.button.ButtonMcLanguage(this.m_mcAsset.mc_bg.mc_4, function():void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sEnterGame);
 				
-				if(LobbyManager.getInstance().IsCanChangeTable()){
-					if(isSelf()){
-						LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sHaveIn)+ m_sTableName + "!");
+				if(manager.LobbyManager.getInstance().IsCanChangeTable()){
+					if(this.isSelf()){
+						manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sHaveIn)+ this.m_sTableName + "!");
 					}else{
-						playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_struct.TableID);
-						if(playerTableOwnStatusStruct){
-//							LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sGame_Relogin), function():void{
-								m_struct.joinTableType = JoinTableType.PEEK_TABLEER;
-								enterGame();
+						this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_struct.TableID);
+						if(this.playerTableOwnStatusStruct){
+//							manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sGame_Relogin), function():void{
+								this.m_struct.model.type.JoinTableType = model.type.JoinTableType.PEEK_TABLEER;
+								this.enterGame();
 //							});
 						}else{
-							if(IsAllowToLogin()){
-								m_struct.joinTableType = JoinTableType.PEEK_TABLEER;
-								enterGame();
+							if(this.IsAllowToLogin()){
+								this.m_struct.model.type.JoinTableType = model.type.JoinTableType.PEEK_TABLEER;
+								this.enterGame();
 							}
 						}
 					}
 				}else{
-					LobbyManager.getInstance().showGameMessage(LobbyManager.getInstance().getLanguageString(Language.sCanNotExitGame));
+					manager.LobbyManager.getInstance().showGameMessage(manager.LobbyManager.getInstance().getLanguageString(language.Language.sCanNotExitGame));
 				}
 				
 			});
 			
-			m_mcAsset.mc_bg.mc_3.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_bg.mc_4.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			updateStatus();
+			this.m_mcAsset.mc_bg.mc_3.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_bg.mc_4.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.updateStatus();
 		}
 		private initVip():void{
-//			m_mcAsset.removeChild(m_mcAsset.mc_1);
-			m_mcAsset.mc_bg.removeChild(m_mcAsset.mc_bg.mc_2);
-//			m_mcAsset.mc_bg.removeChild(m_mcAsset.mc_bg.mc_5);
+//			this.m_mcAsset.removeChild(this.m_mcAsset.mc_1);
+			this.m_mcAsset.mc_bg.removeChild(this.m_mcAsset.mc_bg.mc_2);
+//			this.m_mcAsset.mc_bg.removeChild(this.m_mcAsset.mc_bg.mc_5);
 			
-			m_btnSideBet = new ButtonMcLanguage(m_mcAsset.mc_bg.mc_3, function():void{
-				SoundManager.getInstance().play(SoundPackage.sEnterGame);
+			this.m_btnSideBet = new ui.button.ButtonMcLanguage(this.m_mcAsset.mc_bg.mc_3, function():void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sEnterGame);
 				
-				if(LobbyManager.getInstance().IsCanChangeTable()){
-					if(isSelf()){
-						LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sHaveIn)+ m_sTableName + "!");						
-//						LobbyManager.getInstance().showDialog("您已在"+String(m_struct.TableID)+"桌!");
+				if(manager.LobbyManager.getInstance().IsCanChangeTable()){
+					if(this.isSelf()){
+						manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sHaveIn) + this.m_sTableName + "!");						
+//						manager.LobbyManager.getInstance().showDialog("您已在"+String(this.m_struct.TableID)+"桌!");
 					}else{
-						playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_struct.TableID);
-						if(playerTableOwnStatusStruct){
-//							LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sGame_Relogin), function():void{
-								LobbyManager.getInstance().bQuickChangeTable = true;
-								m_struct.joinTableType = JoinTableType.CHARTER_OTHER;
-								needPwd(m_struct);
+						this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_struct.TableID);
+						if(this.playerTableOwnStatusStruct){
+//							manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sGame_Relogin), function():void{
+								manager.LobbyManager.getInstance().bQuickChangeTable = true;
+								this.m_struct.model.type.JoinTableType = model.type.JoinTableType.CHARTER_OTHER;
+								this.needPwd(this.m_struct);
 //							});
 						}else{
-							LobbyManager.getInstance().bQuickChangeTable = true;
-							m_struct.joinTableType = JoinTableType.CHARTER_OTHER;
-							needPwd(m_struct);
+							manager.LobbyManager.getInstance().bQuickChangeTable = true;
+							this.m_struct.model.type.JoinTableType = model.type.JoinTableType.CHARTER_OTHER;
+							this.needPwd(this.m_struct);
 						}
 					}
 				}else{
-					LobbyManager.getInstance().showGameMessage(LobbyManager.getInstance().getLanguageString(Language.sCanNotExitGame));
+					manager.LobbyManager.getInstance().showGameMessage(manager.LobbyManager.getInstance().getLanguageString(language.Language.sCanNotExitGame));
 				}
 				
 			});
-			m_btnLoginBet = new ButtonMcLanguage(m_mcAsset.mc_bg.mc_4, function():void{
-				SoundManager.getInstance().play(SoundPackage.sEnterGame);
+			this.m_btnLoginBet = new ui.button.ButtonMcLanguage(this.m_mcAsset.mc_bg.mc_4, function():void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sEnterGame);
 				
-				if(LobbyManager.getInstance().IsCanChangeTable()){
-					if(isSelf()){
-						LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sHaveIn)+ m_sTableName + "!");						
-//						LobbyManager.getInstance().showDialog("您已在"+String(m_struct.TableID)+"桌!");
+				if(manager.LobbyManager.getInstance().IsCanChangeTable()){
+					if(this.isSelf()){
+						manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sHaveIn) + this.m_sTableName + "!");						
+//						manager.LobbyManager.getInstance().showDialog("您已在"+String(this.m_struct.TableID)+"桌!");
 					}else{
-						playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_struct.TableID);
-						if(playerTableOwnStatusStruct){
-//							LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sGame_Relogin), function():void{
-								LobbyManager.getInstance().bQuickChangeTable = true;
-								m_struct.joinTableType = JoinTableType.CHARTER_TABLER;
-								needPwd(m_struct);
+						this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_struct.TableID);
+						if(this.playerTableOwnStatusStruct){
+//							manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sGame_Relogin), function():void{
+								manager.LobbyManager.getInstance().bQuickChangeTable = true;
+								this.m_struct.model.type.JoinTableType = model.type.JoinTableType.CHARTER_TABLER;
+								this.needPwd(this.m_struct);
 //							});
 						}else{
-							if(IsAllowToLogin()){
-								LobbyManager.getInstance().bQuickChangeTable = true;
-								m_struct.joinTableType = JoinTableType.CHARTER_TABLER;
-								needPwd(m_struct);
+							if(this.IsAllowToLogin()){
+								manager.LobbyManager.getInstance().bQuickChangeTable = true;
+								this.m_struct.model.type.JoinTableType = model.type.JoinTableType.CHARTER_TABLER;
+								this.needPwd(this.m_struct);
 							}
 						}
 					}
 				}else{
-					LobbyManager.getInstance().showGameMessage(LobbyManager.getInstance().getLanguageString(Language.sCanNotExitGame));
+					manager.LobbyManager.getInstance().showGameMessage(manager.LobbyManager.getInstance().getLanguageString(language.Language.sCanNotExitGame));
 				}
 				
 			});
-			m_btnVip = new ButtonMcLanguage(m_mcAsset.mc_bg.mc_5, function():void{
-				SoundManager.getInstance().play(SoundPackage.sEnterGame);
+			this.m_btnVip = new ui.button.ButtonMcLanguage(this.m_mcAsset.mc_bg.mc_5, function():void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sEnterGame);
 				
-				if(LobbyManager.getInstance().IsCanChangeTable()){
-					if(isSelf()){
-						LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sHaveIn)+ m_sTableName + "!");
-//						LobbyManager.getInstance().showDialog("您已在"+String(m_struct.TableID)+"桌!");
+				if(manager.LobbyManager.getInstance().IsCanChangeTable()){
+					if(this.isSelf()){
+						manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sHaveIn)+ this.m_sTableName + "!");
+//						manager.LobbyManager.getInstance().showDialog("您已在"+String(this.m_struct.TableID)+"桌!");
 					}else{
-						playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_struct.TableID);
-						if(playerTableOwnStatusStruct && playerTableOwnStatusStruct.IsTableOwner && playerTableOwnStatusStruct.PlayerID==Player.getInstance().iPlayerID){
-//							LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sGame_Relogin), function():void{
-								LobbyManager.getInstance().bQuickChangeTable = true;
-								m_struct.joinTableType = JoinTableType.CHARTER_TABLE_OWNER;
-								LobbyManager.getInstance().enterGame(m_struct);
+						this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_struct.TableID);
+						if(this.playerTableOwnStatusStruct && this.playerTableOwnStatusStruct.IsTableOwner && this.playerTableOwnStatusStruct.PlayerID==model.Player.getInstance().iPlayerID){
+//							manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sGame_Relogin), function():void{
+								manager.LobbyManager.getInstance().bQuickChangeTable = true;
+								this.m_struct.model.type.JoinTableType = model.type.JoinTableType.CHARTER_TABLE_OWNER;
+								manager.LobbyManager.getInstance().enterGame(this.m_struct);
 //							});
 						}else{
-							if(IsAllowToLogin(true)){
-								LobbyManager.getInstance().bQuickChangeTable = true;
-								LobbyManager.getInstance().showTableSetting(m_struct,enterGame);
+							if(this.IsAllowToLogin(true)){
+								manager.LobbyManager.getInstance().bQuickChangeTable = true;
+								manager.LobbyManager.getInstance().showTableSetting(this.m_struct,this.enterGame);
 							}
 						}
 					}
 				}else{
-					LobbyManager.getInstance().showGameMessage(LobbyManager.getInstance().getLanguageString(Language.sCanNotExitGame));
+					manager.LobbyManager.getInstance().showGameMessage(manager.LobbyManager.getInstance().getLanguageString(language.Language.sCanNotExitGame));
 				}
 				
 			});
 			
-			m_mcAsset.mc_bg.mc_3.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_bg.mc_4.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_bg.mc_5.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_bg.mc_3.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_bg.mc_4.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_bg.mc_5.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			
-			updateStatus();
+			this.updateStatus();
 		}
 		 public updateStatus():void{
 			super.updateStatus();
 			
-			playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_struct.TableID);
+			this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_struct.TableID);
 			
-			if(playerTableOwnStatusStruct && playerTableOwnStatusStruct.IsTableOwner && playerTableOwnStatusStruct.PlayerID==Player.getInstance().iPlayerID){
-				m_mcAsset.mc_alone.visible = false;
-				m_btnVip.enable(true);
-				m_btnSideBet.enable(false);
-				m_btnLoginBet.enable(false);
+			if(this.playerTableOwnStatusStruct && this.playerTableOwnStatusStruct.IsTableOwner && this.playerTableOwnStatusStruct.PlayerID==model.Player.getInstance().iPlayerID){
+				this.m_mcAsset.mc_alone.visible = false;
+				this.m_btnVip.enable(true);
+				this.m_btnSideBet.enable(false);
+				this.m_btnLoginBet.enable(false);
 				return;
 			}
 			
-			var arr : any[] = m_struct.JoinTbStatus.split("");
-			if(m_btnVip){
+			var arr : any[] = this.m_struct.JoinTbStatus.split("");
+			if(this.m_btnVip){
 				if(arr[0] == 0){
-					m_btnVip.enable(false);
+					this.m_btnVip.enable(false);
 				}else{
-					m_btnVip.enable(true);
+					this.m_btnVip.enable(true);
 				}
 			}
-			if(m_btnLoginBet){
+			if(this.m_btnLoginBet){
 				if(arr[1] == 0){
-					m_btnLoginBet.enable(false);
+					this.m_btnLoginBet.enable(false);
 				}else{
-					if(playerTableOwnStatusStruct){
-						m_btnLoginBet.enable(!playerTableOwnStatusStruct.IsOtherBeter);
+					if(this.playerTableOwnStatusStruct){
+						this.m_btnLoginBet.enable(!this.playerTableOwnStatusStruct.IsOtherBeter);
 					}else{
-						m_btnLoginBet.enable(true);
+						this.m_btnLoginBet.enable(true);
 					}
 				}
 				
 			}
-			if(m_btnSideBet){
+			if(this.m_btnSideBet){
 				if(arr[2] == 0){
-					m_btnSideBet.enable(false);
+					this.m_btnSideBet.enable(false);
 				}else{
-					if(playerTableOwnStatusStruct){
-						m_btnSideBet.enable(playerTableOwnStatusStruct.IsOtherBeter);
+					if(this.playerTableOwnStatusStruct){
+						this.m_btnSideBet.enable(this.playerTableOwnStatusStruct.IsOtherBeter);
 					}else{
-						m_btnSideBet.enable(true);
+						this.m_btnSideBet.enable(true);
 					}
 				}
 			}
 		}
 		
 		public IsTableOwnerLeave(): boolean{
-			var arr : any[] = m_struct.JoinTbStatus.split("");
+			var arr : any[] = this.m_struct.JoinTbStatus.split("");
 			
 			if(arr[3] == "1"){//独享
 				if(arr[8] == "1"){
@@ -709,12 +707,12 @@ module lobby.view.quick {
 				}
 			}else{
 				if(arr[0]=="0" && arr[1]=="0" && arr[2]=="0"){
-					m_bEnable = false;
+					this.m_bEnable = false;
 					if(arr[7]=="1"){
 						return true;
 					}
 				}else{
-					m_bEnable = true;
+					this.m_bEnable = true;
 				}
 			}
 			

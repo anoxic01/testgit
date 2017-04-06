@@ -46,7 +46,7 @@ module lobby.view.route.quick {
 			LobbyData.getInstance().beadRoad_sic.tf_0.text = str;
 			LobbyData.getInstance().beadRoad_sic.tf_0.autoSize = TextFieldAutoSize.LEFT;		
 			
-			return BitmapUtil.snapshot(LobbyData.getInstance().beadRoad_sic);
+			return util.bitmap.util.bitmap.BitmapUtil.snapshot(LobbyData.getInstance().beadRoad_sic);
 		}
 		
 		

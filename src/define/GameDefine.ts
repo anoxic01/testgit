@@ -136,9 +136,9 @@ module define {
 		
 		public static CHIP_LIST								:	number[]	= 	[10,50,100,300,500,1000,3000,5000,10000,30000,50000,100000,300000,500000];
 		/** 缓动速度 **/
-		public static CHIP_SPEED							:	Number	=	0.8;
-		public static COUNTDOWN_SPEED						:	Number	=	0.3;
-		public static TWEEN_SPEED							:	Number	=	0.35;
+		public static CHIP_SPEED							:	number	=	0.8;
+		public static COUNTDOWN_SPEED						:	number	=	0.3;
+		public static TWEEN_SPEED							:	number	=	0.35;
 		public static Transition_TableInfo				:	string	=   "Transition_TableInfo";
 		public static Transition_Route					:	string	=   "Transition_Route";
 		public static Transition_CountDown				:	string	=   "Transition_CountDown";

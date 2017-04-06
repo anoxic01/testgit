@@ -1,72 +1,72 @@
 module lobby.view.other {
 	export class VolumeBar extends BSprite{
-		private m_mcAsset			:	*;
-		private m_bar				:	MovieClip;
-		private m_rec				:	Rectangle;
-		private m_bDown				:	 boolean;
-		private m_nVolume			:	Number;
+		private m_mcAsset			;
+		private m_bar				;
+		private m_rec				;
+		private m_bDown				:	boolean;
+		private m_nVolume			:	number;
 		private m_iType				:	number;
 		private m_on_off			:	OnOff;
 		
 		public constructor(_iType:number) {
 			super();
-			m_iType = _iType;
+			this.m_iType = _iType;
 			
-			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_PANEL,"VolumeLineAsset");
-			this.addChild(m_mcAsset);
+			this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_PANEL,"VolumeLineAsset");
+			this.addChild(this.m_mcAsset);
 			
-			m_rec = new Rectangle(0,5,105, 0);
+			this.m_rec = new egret.Rectangle(0,5,105, 0);
 			
-			m_bar = m_mcAsset.mc_bar;
-			m_bar.gotoAndStop(1);
+			this.m_bar = this.m_mcAsset.mc_bar;
+			this.m_bar.gotoAndStop(1);
 			
-			m_mcAsset.mc_value.mask = m_bar.mc_mask;
+			this.m_mcAsset.mc_value.mask = this.m_bar.mc_mask;
 			
-			m_bar.buttonMode = true;
+			this.m_bar.buttonMode = true;
 			
 			
-			switch(m_iType){
-				case Define.MUSIC:
-					setvolume(SharedObjectManager.getMusicVolume());
+			switch(this.m_iType){
+				case define.Define.MUSIC:
+					this.setvolume(manager.SharedObjectManager.getMusicVolume());
 					break;
-				case Define.EFFECT:
-					setvolume(SharedObjectManager.getEffectVolume());
+				case define.Define.EFFECT:
+					this.setvolume(manager.SharedObjectManager.getEffectVolume());
 					break;
-				case Define.LIVE:
-					setvolume(SharedObjectManager.getLiveVolume());				
+				case define.Define.LIVE:
+					this.setvolume(manager.SharedObjectManager.getLiveVolume());				
 					break;
 			}
 			
-			m_bar.addEventListener(mouse.MouseEvent.MOUSE_OVER, over);
-			m_bar.addEventListener(mouse.MouseEvent.MOUSE_OUT, out);
-			m_bar.addEventListener(egret.TouchEvent.TOUCH_BEGIN, down);
-			LobbyManager.getInstance().stage.addEventListener(egret.TouchEvent.TOUCH_END, up);
+			this.m_bar.addEventListener(mouse.MouseEvent.MOUSE_OVER, this.over);
+			this.m_bar.addEventListener(mouse.MouseEvent.MOUSE_OUT, this.out);
+			this.m_bar.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.down);
+			manager.LobbyManager.getInstance().stage.addEventListener(egret.TouchEvent.TOUCH_END, this.up, this);
 		}
-		get nVolume():Number
+		get nVolume():number
 		{
-			return m_nVolume;
+			return this.m_nVolume;
 		}
 
-		set  nVolume(value:Number)
+		set  nVolume(value:number)
 		{
-			m_nVolume = value;
+			this.m_nVolume = value;
 		}
 
 		 public destroy():void{
-			m_bar.removeEventListener(mouse.MouseEvent.MOUSE_OVER, over);
-			m_bar.removeEventListener(mouse.MouseEvent.MOUSE_OUT, out);
-			m_bar.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, down);
-			LobbyManager.getInstance().stage.removeEventListener(egret.TouchEvent.TOUCH_END, up);
+			this.m_bar.removeEventListener(mouse.MouseEvent.MOUSE_OVER, this.over);
+			this.m_bar.removeEventListener(mouse.MouseEvent.MOUSE_OUT, this.out);
+			this.m_bar.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.down);
+			manager.LobbyManager.getInstance().stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.up, this);
 			
-			if(m_mcAsset){
-				this.removeChild(m_mcAsset);
-				m_mcAsset = null;
+			if(this.m_mcAsset){
+				this.removeChild(this.m_mcAsset);
+				this.m_mcAsset = null;
 			}
 		}
 		
-		public setvolume(_nValue:Number ):void{
-			nVolume = _nValue;	
-			var _nX:Number = (_nValue*105);
+		public setvolume(_nValue:number ):void{
+			this.nVolume = _nValue;	
+			var _nX:number = (_nValue*105);
 			
 			if( _nX > 105 ){
 				_nX = 105;
@@ -75,17 +75,17 @@ module lobby.view.other {
 				_nX = 0;
 			}
 			
-			m_bar.x = _nX;
+			this.m_bar.x = _nX;
 			
-			switch(m_iType){
-				case Define.MUSIC:
-					MusicManager.singleton.nVolume = nVolume;
+			switch(this.m_iType){
+				case define.Define.MUSIC:
+					manager.MusicManager.singleton.nVolume = this.nVolume;
 					break;
-				case Define.EFFECT:
-					SoundManager.getInstance().nVolume = nVolume;
+				case define.Define.EFFECT:
+					manager.SoundManager.getInstance().nVolume = this.nVolume;
 					break;
-				case Define.LIVE:
-					LobbyManager.getInstance().nLiveVolume = nVolume;
+				case define.Define.LIVE:
+					manager.LobbyManager.getInstance().nLiveVolume = this.nVolume;
 					break;
 			}			
 		}		
@@ -93,67 +93,67 @@ module lobby.view.other {
 		
 		protected over(event:MouseEvent):void
 		{
-			m_bar.gotoAndStop(2);
+			this.m_bar.gotoAndStop(2);
 		}
 		
 		protected out(event:MouseEvent):void
 		{
-			if(m_bDown){
+			if(this.m_bDown){
 				return;
 			}
-			m_bar.gotoAndStop(1);
+			this.m_bar.gotoAndStop(1);
 		}
 		
 		protected down(event:MouseEvent):void
 		{
-			m_bDown = true;
-			m_bar.gotoAndStop(3);
-			m_bar.startDrag(false, m_rec);
+			this.m_bDown = true;
+			this.m_bar.gotoAndStop(3);
+			this.m_bar.startDrag(false, this.m_rec);
 		}
 		
 		protected up(event:MouseEvent):void
 		{
-			if(m_bDown){
-				m_bDown = false;
-				m_bar.gotoAndStop(1);
-				m_bar.stopDrag();
+			if(this.m_bDown){
+				this.m_bDown = false;
+				this.m_bar.gotoAndStop(1);
+				this.m_bar.stopDrag();
 				
-				switch(m_iType){
-					case Define.MUSIC:
-						setvolume(m_bar.x/m_rec.width);
+				switch(this.m_iType){
+					case define.Define.MUSIC:
+						this.setvolume(this.m_bar.x/this.m_rec.width);
 						break;
-					case Define.EFFECT:
-						setvolume(m_bar.x/m_rec.width);
+					case define.Define.EFFECT:
+						this.setvolume(this.m_bar.x/this.m_rec.width);
 						break;
-					case Define.LIVE:
-						setvolume(m_bar.x/m_rec.width);
+					case define.Define.LIVE:
+						this.setvolume(this.m_bar.x/this.m_rec.width);
 						break;
 				}
 			}
 		}
 		
 		set  on_off( _on_off:OnOff ) {
-			m_on_off = _on_off;
+			this.m_on_off = _on_off;
 			
-			switch(m_iType){
-				case Define.MUSIC:
-					if( SoundData.getInstance().nMusicVolume != -1 )
-						m_on_off.volume = SoundData.getInstance().nMusicVolume;
+			switch(this.m_iType){
+				case define.Define.MUSIC:
+					if( sound.SoundData.getInstance().nMusicVolume != -1 )
+						this.m_on_off.volume = sound.SoundData.getInstance().nMusicVolume;
 					break;
-				case Define.EFFECT:
-					if( SoundData.getInstance().nSoundVolume != -1 )
-						m_on_off.volume = SoundData.getInstance().nSoundVolume;
+				case define.Define.EFFECT:
+					if( sound.SoundData.getInstance().nSoundVolume != -1 )
+						this.m_on_off.volume = sound.SoundData.getInstance().nSoundVolume;
 					break;
-				case Define.LIVE:
-					if( SoundData.getInstance().nLiveVolume != -1 )
-						m_on_off.volume = SoundData.getInstance().nLiveVolume;
+				case define.Define.LIVE:
+					if( sound.SoundData.getInstance().nLiveVolume != -1 )
+						this.m_on_off.volume = sound.SoundData.getInstance().nLiveVolume;
 					break;
 			}	
 		}
 		
 		set  enable(_bValue: boolean){
-			m_bar.mouseEnabled = _bValue;
-			m_bar.mouseChildren = _bValue;
+			this.m_bar.mouseEnabled = _bValue;
+			this.m_bar.mouseChildren = _bValue;
 		}
 
 	}
