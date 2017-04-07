@@ -38,7 +38,7 @@ module lobby.view.chip {
 				_chipItem = new ChipItem( _uMode!=0?true:false,_aChips[i], this.m_chipPanel);
 				_mc = this.m_mcAsset.getChildByName("mc_" + i.toString());
 				_mc.addChild(_chipItem);
-				_mc.mouseEnabled = false;
+				_mc.touchEnabled = false;
 				this.aChipItems.push(_chipItem);
 //				if(i>=_uLen){
 //					_mc.visible = false;
@@ -48,8 +48,8 @@ module lobby.view.chip {
 			_chipItem = null;
 		}
 		
-		private setChips( _sChip:String ):String {
-			var _sStr:String = _sChip;
+		private setChips( _sChip:string ):string {
+			var _sStr:string = _sChip;
 			var _iId:number= _sChip.indexOf("k");
 			if( _iId != -1 ){
 				_sStr = _sChip.substr( 0 , _iId-1 );
@@ -84,7 +84,7 @@ module lobby.view.chip {
 			_mc.visible = true;
 			var _chipItem : ChipItem = new ChipItem(this.m_uMode!=0?true:false, _uValue, this.m_chipPanel);
 			_mc.addChild(_chipItem);
-			_mc.mouseEnabled = false;
+			_mc.touchEnabled = false;
 			this.aChipItems.push(_chipItem);
 		}
 		

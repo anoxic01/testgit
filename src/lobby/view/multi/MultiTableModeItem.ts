@@ -13,7 +13,7 @@ module lobby.view.multi {
 			
 			this.m_mcAsset.gotoAndStop("DEFAULT");
 			this.m_mcAsset.buttonMode = true;
-			this.m_mcAsset.mouseChildren = false;
+			this.m_mcAsset.touchChildren = false;
 			this.m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OVER, this.over);
 			this.m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OUT, this.out);
 			this.m_mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP, this.click);
@@ -75,7 +75,7 @@ module lobby.view.multi {
 		
 		set  enable(bValue: boolean){
 			if(this.m_mcAsset){
-				this.m_mcAsset.mouseEnabled = bValue;
+				this.m_mcAsset.touchEnabled = bValue;
 				this.m_mcAsset.buttonMode = bValue;
 			}
 		}

@@ -13,14 +13,14 @@ module lobby.view.theme {
 			var bm:Bitmap;
 			for (var i:number= 0; i < 8; i++) 
 			{
-				bm = new Bitmap();
+				bm = new egret.Bitmap();
 				bm.x = i%2 * 950;
 				bm.y = int(i/2) * 281;
 				this.addChild(bm);
 				m_bms.push(bm);
 				m_objs.push({});
 			}
-			this.mouseEnabled=this.mouseChildren=false;
+			this.touchEnabled=this.touchChildren=false;
 		}
 		public start():void
 		{

@@ -596,7 +596,7 @@ module manager {
 			// _mc:MovieClip;
 			// _bmd:BitmapData;
 			// _fillBmd:BitmapData 
-			// pt:Point = new Point(0,0);
+			// pt:Point = new egret.Point(0,0);
 			// _mc = ResourceManager.getInstance().createBitmapByName("Table_bg_Asset_4");
 			// _bmd = util.bitmap.BitmapUtil.snapshot(_mc);
 			// _fillBmd = new BitmapData(426,240);

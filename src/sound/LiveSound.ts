@@ -4,8 +4,8 @@ module sound {
 		private m_fLoadComplete		:	Function;
 		private m_fLoadError		:	Function;
 		public bLoadComplete		:	 boolean;
-		private url:String;
-		private loadStart:Number = 0;
+		private url:string;
+		private loadStart:number = 0;
 		public constructor(_stream:URLRequest , _context:SoundLoaderContext , _fLoadComplete:Function = null , _fLoadError:Function = null ) { 
 			url = _stream.url;
 			loadStart = getTimer();

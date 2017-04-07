@@ -18,7 +18,7 @@ module lobby.view.animation {
 				this.m_mcAsset = null;
 			}
 		}
-		set  value(_nValue:Number){
+		set  value(_nValue:number){
 			if(this.m_mcAsset){
 				this.m_mcAsset.mc_label.tf_label.text = _nValue.toString();
 			}

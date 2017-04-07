@@ -1,52 +1,53 @@
 module lobby.view.status {
 	export class GameStatusPanel extends BSprite{
-		protected view:MovieClip;
+		protected view;
 		protected countDownView:GameCountDownView;
-		protected currentStatus:String;
-		protected countDownContainer:MovieClip;
+		protected currentStatus:string;
+		protected countDownContainer;
 		protected watcher:CountDownWatcher;
 		protected isUnfold: boolean = true;
-		protected mParent:Sprite;
-		protected frameDict:Dictionary;
-		public constructor(p:Sprite) {
+		protected mParent;
+		protected frameDict;
+		public constructor(p) {
+			super();
 		
 			this.mParent = p;
-			initViews();
-			rollUpCountDown(false);
-			setGameStatus(GameStatus.WAIT_NEXT_NEWGAME);
+			this.initViews();
+			this.rollUpCountDown(false);
+			this.setGameStatus(model.status.GameStatus.WAIT_NEXT_NEWGAME);
 		}
 		
 		protected initViews():void
 		{
-			this.view = createPanel();
+			this.view = this.createPanel();
 			this.view.cacheAsBitmap=true;
-			setFrameLabels(view.mc_1);
+			this.setFrameLabels(this.view.mc_1);
 			
-			mParent.addChild(view);
-			countDownView = new GameCountDownView();
-			countDownView.x = 65;
-			countDownView.y = 10;
-			countDownContainer = view.mc_0;
-			countDownContainer.stop();
-			watcher = new CountDownWatcher(countDownContainer,countDownView);
+			this.mParent.addChild(view);
+			this.countDownView = new GameCountDownView();
+			this.countDownView.x = 65;
+			this.countDownView.y = 10;
+			this.countDownContainer = this.view.mc_0;
+			this.countDownContainer.stop();
+			this.watcher = new CountDownWatcher(this.countDownContainer,this.countDownView);
 		}
 		
 		//存储状态帧标签 
-		protected setFrameLabels(statusMc:MovieClip):void{
+		protected setFrameLabels(statusMc):void{
 			
-			frameDict = new Dictionary;
+			this.frameDict = {};
 			var len:number = statusMc.currentLabels.length;
-			var fr:FrameLabel;
+			var fr;
 			for (var i:number= 0; i < len; i++) 
 			{
 				fr = statusMc.currentLabels[i];
-				frameDict[fr.name]=fr.frame;
+				this.frameDict[fr.name]=fr.frame;
 			}
 		}
 		
-		protected createPanel():MovieClip
+		protected createPanel():egret.MovieClip
 		{
-			var v:MovieClip = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_PANEL,"Game_Status_Asset");
+			var v = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_PANEL,"Game_Status_Asset");
 			v.x = 128;
 			v.y = 12;
 		
@@ -54,148 +55,145 @@ module lobby.view.status {
 			
 			return v;
 		}
-		public getView():DisplayObject
+		public getView():egret.DisplayObject
 		{
-			return view;
+			return this.view;
 		}
 		 public onChangeLanguage():void
 		{
 			super.onChangeLanguage();
-			setGameStatus(currentStatus);
+			this.setGameStatus(this.currentStatus);
 		}
 		/**
 		 * 增加直接通过gameModel显示倒计时和更新状态
 		 */		
-		public updateGameModel(model:GameModel):void
+		public updateGameModel(model):void
 		{
-			setGameStatus(model.tableStruct.GameStatus);
-			if(model.tableStruct && model.tableStruct.GameStatus==GameStatus.BETTING){
-				setCountDown(model.tableStruct.CountDownTime);
+			this.setGameStatus(model.tableStruct.GameStatus);
+			if(model.tableStruct && model.tableStruct.GameStatus==model.status.GameStatus.BETTING){
+				this.setCountDown(model.tableStruct.CountDownTime);
 			}
 		}
 		public setCountDown(value:number):void
 		{
-			countDownView.setCountDown(value,currentStatus);
+			this.countDownView.setCountDown(value,this.currentStatus);
 		}
-		public setGameStatus(value:String):void
+		public setGameStatus(value:string):void
 		{
-			currentStatus = value;
-			var statusMc:MovieClip=view.mc_1;
+			this.currentStatus = value;
+			var statusMc=this.view.mc_1;
 			var frame:number=0;	
-			if(currentStatus==GameStatus.WAIT_NEXT_NEWGAME)// 等待新局
+			if(this.currentStatus==model.status.GameStatus.WAIT_NEXT_NEWGAME)// 等待新局
 			{
-				frame = frameDict[Language.sGameStaus_WaitNextNewgame];
-				rollUpCountDown();
-			}else if(currentStatus==GameStatus.BETTING)// 下注中
+				frame = this.frameDict[language.Language.sGameStaus_WaitNextNewgame];
+				this.rollUpCountDown();
+			}else if(this.currentStatus==model.status.GameStatus.BETTING)// 下注中
 			{
-				frame = frameDict[Language.sGameStaus_Betting];
-				unfoldCountDown();
-			}else if(currentStatus==GameStatus.DEALING)// 发牌中
+				frame = this.frameDict[language.Language.sGameStaus_Betting];
+				this.unfoldCountDown();
+			}else if(this.currentStatus==model.status.GameStatus.DEALING)// 发牌中
 			{
-				frame = frameDict[Language.sGameStaus_Dealing];
-				rollUpCountDown();
-			}else if(currentStatus==GameStatus.SETTLING)// 结算中
+				frame = this.frameDict[language.Language.sGameStaus_Dealing];
+				this.rollUpCountDown();
+			}else if(this.currentStatus==model.status.GameStatus.SETTLING)// 结算中
 			{
-				frame = frameDict[Language.sGameStaus_Settling];
-				rollUpCountDown();
-			}else if(currentStatus==GameStatus.SETTLED)// 结算完
+				frame = this.frameDict[language.Language.sGameStaus_Settling];
+				this.rollUpCountDown();
+			}else if(this.currentStatus==model.status.GameStatus.SETTLED)// 结算完
 			{
-				frame = frameDict[Language.sGameStaus_Settled];
-				rollUpCountDown();
-			}else if(currentStatus==GameStatus.FIRST_PEEK||currentStatus==GameStatus.BANKER_SECOND_PEEK||currentStatus==GameStatus.PLAYER_SECOND_PEEK)// 咪牌
+				frame = this.frameDict[language.Language.sGameStaus_Settled];
+				this.rollUpCountDown();
+			}else if(this.currentStatus==model.status.GameStatus.FIRST_PEEK||this.currentStatus==model.status.GameStatus.BANKER_SECOND_PEEK||this.currentStatus==model.status.GameStatus.PLAYER_SECOND_PEEK)// 咪牌
 			{
-				frame = frameDict[Language.sGameStaus_Peeking];
-				unfoldCountDown();
-			}else if(currentStatus==GameStatus.CHANGING_SHOE)// 清靴
+				frame = this.frameDict[language.Language.sGameStaus_Peeking];
+				this.unfoldCountDown();
+			}else if(this.currentStatus==model.status.GameStatus.CHANGING_SHOE)// 清靴
 			{
-				frame = frameDict[Language.sGameStaus_Changing_Shoe];
-				rollUpCountDown();
-			}else if(currentStatus==GameStatus.FAILING_GAME||currentStatus==GameStatus.FAIL_GAME)// 废局
+				frame = this.frameDict[language.Language.sGameStaus_Changing_Shoe];
+				this.rollUpCountDown();
+			}else if(this.currentStatus==model.status.GameStatus.FAILING_GAME||this.currentStatus==model.status.GameStatus.FAIL_GAME)// 废局
 			{
-				frame = frameDict[Language.sGameStaus_Fail_Game];
-				rollUpCountDown();
-			}else if(currentStatus==GameStatus.READY)
+				frame = this.frameDict[language.Language.sGameStaus_Fail_Game];
+				this.rollUpCountDown();
+			}else if(this.currentStatus==model.status.GameStatus.READY)
 			{
-				frame = frameDict[Language.sGameStaus_WaitNextNewgame];
-				rollUpCountDown();
+				frame = this.frameDict[language.Language.sGameStaus_WaitNextNewgame];
+				this.rollUpCountDown();
 			}
-			frame = frame+ LobbyManager.getInstance().lobbyAuth.Lang;
+			frame = frame+ manager.LobbyManager.getInstance().lobbyAuth.Lang;
 			statusMc.gotoAndStop(frame);
 		}
-		protected getStatusString(s:String):String
+		protected getStatusString(s:string):string
 		{
-			return LobbyManager.getInstance().getLanguageString(s);
+			return manager.LobbyManager.getInstance().getLanguageString(s);
 		}
 		/**
 		 * 展开倒计时面板
 		 */		
 		public unfoldCountDown(isTween: boolean = true):void
 		{
-			var frame:number= countDownContainer.totalFrames;
-			if(isUnfold)return;
-			isUnfold = true;
-			if(isTween)watcher.startWatch(int(frame/2)+1,frame);
-			else countDownContainer.gotoAndStop(frame);
+			var frame:number= this.countDownContainer.totalFrames;
+			if(this.isUnfold)return;
+			this.isUnfold = true;
+			if(isTween)this.watcher.startWatch((frame/2)+1,frame);
+			else this.countDownContainer.gotoAndStop(frame);
 		}
 		/**
 		 * 收起倒计时面板
 		 */		
 		public rollUpCountDown(isTween: boolean = true):void
 		{
-			var frame:number= countDownContainer.totalFrames;
-			if(isUnfold==false)return;
-			isUnfold = false;
-			if(isTween)watcher.startWatch(1,int(frame/2));
-			else countDownContainer.gotoAndStop(int(frame/2));
+			var frame:number= this.countDownContainer.totalFrames;
+			if(this.isUnfold==false)return;
+			this.isUnfold = false;
+			if(isTween)this.watcher.startWatch(1,(frame/2));
+			else this.countDownContainer.gotoAndStop((frame/2));
 		}
 		 public destroy():void
 		{
 			super.destroy();
-			watcher&&watcher.dispose();
-			countDownView&&countDownView.dispose();
+			this.watcher&&this.watcher.dispose();
+			this.countDownView&&this.countDownView.dispose();
 		}
 	}
 }
-import flash.display.MovieClip;
-import flash.events.Event;
 
-import views.status.GameCountDownView;
 class CountDownWatcher
 {
-	private view:GameCountDownView;
-	private mc:MovieClip;
+	private view;
+	private mc;
 	private currentFrame:number=-1;
 	private totalFrames:number= 0;
 	private playStartFrame:number= 0;
 	private playEndFrame:number= 0;
 	
-	public CountDownWatcher(mc:MovieClip,panel:GameCountDownView)
+	public constructor(mc,panel)
 	{
 		this.mc = mc;
 		this.view = panel;
-		totalFrames = mc.totalFrames;
+		this.totalFrames = mc.totalFrames;
 	}
 	private onWatchFrame(e:Event):void
 	{
-		mc.gotoAndStop(playStartFrame);
-		playStartFrame++;
-		if(playStartFrame>=playEndFrame)stopWatch();
-		if(mc.content&&view.parent!=mc.content)mc.content.addChild(view);
-		currentFrame = mc.currentFrame;
+		this.mc.gotoAndStop(this.playStartFrame);
+		this.playStartFrame++;
+		if(this.playStartFrame>=this.playEndFrame)this.stopWatch();
+		if(this.mc.content&&this.view.parent!=this.mc.content)this.mc.content.addChild(this.view);
+		this.currentFrame = this.mc.currentFrame;
 	}
 	public startWatch(startFrame:number,endFrame:number):void
 	{
-		stopWatch();
+		this.stopWatch();
 		this.playStartFrame = startFrame;
 		this.playEndFrame = endFrame;
-		mc&&mc.addEventListener(Event.ENTER_FRAME,onWatchFrame);
+		this.mc&&this.mc.addEventListener(egret.Event.ENTER_FRAME,this.onWatchFrame);
 	}
 	public stopWatch():void
 	{
-		mc&&mc.removeEventListener(Event.ENTER_FRAME,onWatchFrame);
+		this.mc&&this.mc.removeEventListener(egret.Event.ENTER_FRAME,this.onWatchFrame);
 	}
 	public dispose():void
 	{
-		stopWatch();
+		this.stopWatch();
 	}
 }

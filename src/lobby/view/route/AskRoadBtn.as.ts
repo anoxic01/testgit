@@ -19,7 +19,7 @@ module lobby.view.route {
 		}
 		
 		private btnHandler(e:MouseEvent):void {
-			var tmp:MovieClip = e.currentTarget as MovieClip;
+			var tmp:MovieClip = e.currentTarget;
 			
 			switch (e.type) {
 				case MouseEvent.MOUSE_OVER: 

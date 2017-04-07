@@ -1,69 +1,69 @@
 module lobby.view.route.game.sic {
 	export class SicData {
-		private static var sicData:SicData;
+		private static sicData:SicData;
 		
 		
-		public static const SMALL:string = "b";
-		public static const BIG:string = "c";
-		public static const EVEN:string = "d";
-		public static const ODD:string = "f";
+		public static SMALL:string = "b";
+		public static BIG:string = "c";
+		public static EVEN:string = "d";
+		public static ODD:string = "f";
 		/**圍榖*/
-		public static const SURROUND_DICE:string = "g";
+		public static SURROUND_DICE:string = "g";
 		
 		
 		
 
 		
-		private var _bigSmallStructure:Dictionary;
-		private var _oddEvenData:Dictionary;
-		private var _beadData:Dictionary;
+		private _bigSmallStructure;
+		private _oddEvenData;
+		private _beadData;
 		
-		protected var _surroundData:Dictionary;
+		protected _surroundData;
 
 		
-		public constructor(s:Singleton) {
+		public constructor() {
 		
 			
 			//圍骰  只有單雙 跟 大小 才有 圍骰
-			_surroundData = {};
-			_surroundData["111"] = SURROUND_DICE;
-			_surroundData["222"] = SURROUND_DICE;
-			_surroundData["333"] = SURROUND_DICE;
-			_surroundData["444"] = SURROUND_DICE;
-			_surroundData["555"] = SURROUND_DICE;
-			_surroundData["666"] = SURROUND_DICE;
+			this._surroundData = {};
+			this._surroundData["111"] = SicData.SURROUND_DICE;
+			this._surroundData["222"] = SicData.SURROUND_DICE;
+			this._surroundData["333"] = SicData.SURROUND_DICE;
+			this._surroundData["444"] = SicData.SURROUND_DICE;
+			this._surroundData["555"] = SicData.SURROUND_DICE;
+			this._surroundData["666"] = SicData.SURROUND_DICE;
 			
 			//大小
-			_bigSmallStructure = {};
+			this._bigSmallStructure = {};
 
 			for (var l:number= 4; l <= 10; l++) 
 			{
-				_bigSmallStructure[l] = SMALL;
+				this._bigSmallStructure[l] = SicData.SMALL;
 			}
 			for (l = 11; l <= 17; l++) 
 			{
-				_bigSmallStructure[l] = BIG;
+				this._bigSmallStructure[l] = SicData.BIG;
 			}
 			
 			
 			//單雙
-			_oddEvenData = {};
+			this._oddEvenData = {};
 			
 			for (var k:number= 5; k <= 17; k+=2) 
 			{
-				_oddEvenData[k] = ODD;
+				this._oddEvenData[k] = SicData.ODD;
 			}
 			for (var j:number= 4; j <= 16; j+=2) 
 			{
-				_oddEvenData[j] = EVEN;
+				this._oddEvenData[j] = SicData.EVEN;
 			}
 
 			
 
 		}
-		public static function getInstance( ):SicData {
+		public static getInstance( ):SicData {
 			if ( SicData.sicData == null ) {
-				SicData.sicData = new SicData( new Singleton() );
+				SicData.sicData = new SicData( );
 			}
 			
 			return SicData.sicData;
@@ -75,7 +75,7 @@ module lobby.view.route.game.sic {
 		 * @param	str
 		 * @return
 		 */
-		public function findTie(str:string):string {
+		public findTie(str:string):string {
 			var ar:any[] = str.split('.');
 			var len:number= ar.length;
 			var temp:string = '';
@@ -88,11 +88,11 @@ module lobby.view.route.game.sic {
 				totalPoint = 0;
 				
 				for (var j:number= 0; j < ar2.length; j++) {
-					totalPoint += int(ar2[j]);
+					totalPoint += (ar2[j]);
 				}
 				
 				temp = '';
-				temp = string(totalPoint);
+				temp = ""+(totalPoint).toString;
 				
 				if ( result != '' ) {
 					result += '.'+temp;
@@ -112,7 +112,7 @@ module lobby.view.route.game.sic {
 		 * @param	str
 		 * @return
 		 */
-		public function findBigSmall(str:string):string {
+		public findBigSmall(str:string):string {
 			var ar:any[] = str.split('.');
 			var len:number= ar.length;
 			var temp:string = '';
@@ -123,7 +123,7 @@ module lobby.view.route.game.sic {
 			var surround:string = "";
 			
 			for (var i:number= 0; i < len; i++) {
-				surround = _surroundData[ar[i]];
+				surround = this._surroundData[ar[i]];
 				
 				//判斷圍骰
 				if ( surround == null ) {
@@ -131,11 +131,11 @@ module lobby.view.route.game.sic {
 					totalPoint = 0;
 					
 					for (var j:number= 0; j < ar2.length; j++) {
-						totalPoint += int(ar2[j]);
+						totalPoint += (ar2[j]);
 					}
 					
 					temp = '';
-					temp = _bigSmallStructure[totalPoint];
+					temp = this._bigSmallStructure[totalPoint];
 					
 					if ( result != '' ) {
 						result += '.'+temp;
@@ -172,7 +172,7 @@ module lobby.view.route.game.sic {
 		 * @param	str
 		 * @return
 		 */
-		public function findOddEven(str:string):string {
+		public findOddEven(str:string):string {
 			var ar:any[] = str.split('.');
 			var len:number= ar.length;
 			var temp:string = '';
@@ -183,7 +183,7 @@ module lobby.view.route.game.sic {
 			var surround:string = "";
 			
 			for (var i:number= 0; i < len; i++) {
-				surround = _surroundData[ar[i]];
+				surround = this._surroundData[ar[i]];
 				
 				//判斷圍骰
 				if ( surround == null ) {
@@ -191,11 +191,11 @@ module lobby.view.route.game.sic {
 					totalPoint = 0;
 					
 					for (var j:number= 0; j < ar2.length; j++) {
-						totalPoint += int(ar2[j]);
+						totalPoint += (ar2[j]);
 					}
 					
 					temp = '';
-					temp = _oddEvenData[totalPoint];
+					temp = this._oddEvenData[totalPoint];
 					
 					if ( result != '' ) {
 						result += '.'+temp;
@@ -235,11 +235,4 @@ module lobby.view.route.game.sic {
 		
 	}
 
-}
-
-class Singleton {
-	public function Singleton():void 
-	{
-		
-	}
 }

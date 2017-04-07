@@ -1,7 +1,7 @@
 module lobby.view.route {
-	export class RouteMgr extends EventDispatcher {
-		private _view:MovieClip;
-		private _routeView:MovieClip;
+	export class RouteMgr extends egret.EventDispatcher {
+		private _view;
+		private _routeView;
 		
 		private _isBtnOpen: boolean = false;
 		
@@ -9,7 +9,7 @@ module lobby.view.route {
 		private _isUp: boolean = false;
 		
 		/**當前顯示路*/
-		private _nowRoad:String = "";
+		private _nowRoad:string = "";
 		
 		private _askBankerRoad:AskRoadBtn;
 		private _askPlayerRoad:AskRoadBtn;
@@ -17,24 +17,25 @@ module lobby.view.route {
 		private _beadPlate:BeadPlate;
 		
 		private _roadString:RoadStringObject = new RoadStringObject;
-		private _bigSprite:RoadCanvas = new BacRoadCanvas;
-		private _bigEyeSprite:RoadCanvas = new BacRoadCanvas;
-		private _smallSprite:RoadCanvas = new BacRoadCanvas;
-		private _roachSprite:RoadCanvas = new BacRoadCanvas;
+		private _bigSprite:RoadCanvas = new game.bac.BacRoadCanvas;
+		private _bigEyeSprite:RoadCanvas = new game.bac.BacRoadCanvas;
+		private _smallSprite:RoadCanvas = new game.bac.BacRoadCanvas;
+		private _roachSprite:RoadCanvas = new game.bac.BacRoadCanvas;
 		
-		protected _roadUpdateTimer:JTimer;
+		protected _roadUpdateTimer;
 		protected _roadBufferTime:number = 100;
 		private _beadInfo:BeadInfo;
 		
-		public constructor(view:MovieClip) {
+		public constructor(view) {
+			super();
 		
 			this._routeView = view;
 			
 			this._askBankerRoad = new AskRoadBtn(this._routeView.btn_AskBankerRoad);
 			this._askPlayerRoad = new AskRoadBtn(this._routeView.btn_AskPlayerRoad);
 			
-			this._askBankerRoad.addEventListener(RouteEvent.ASK_ROAD , onAskRoad ); //莊問路
-			this._askPlayerRoad.addEventListener(RouteEvent.ASK_ROAD , onAskRoad );//閒問路
+			this._askBankerRoad.addEventListener(events.RouteEvent.ASK_ROAD , this.onAskRoad, this ); //莊問路
+			this._askPlayerRoad.addEventListener(events.RouteEvent.ASK_ROAD , this.onAskRoad, this );//閒問路
 			
 
 			
@@ -45,11 +46,11 @@ module lobby.view.route {
 			this._routeView.boxSmallRoad.addChild(this._smallSprite); //小路
 			this._routeView.boxCockroachRoad.addChild(this._roachSprite); //蟑螂路
 			
-			this._beadPlate.mouseChildren = this._beadPlate.mouseEnabled = false;
-			this._routeView.boxBigRoad.mouseChildren = this._routeView.boxBigRoad.mouseEnabled = false;
-			this._routeView.boxBigEye.mouseChildren = this._routeView.boxBigEye.mouseEnabled = false;
-			this._routeView.boxSmallRoad.mouseChildren = this._routeView.boxSmallRoad.mouseEnabled = false;
-			this._routeView.boxCockroachRoad.mouseChildren = this._routeView.boxCockroachRoad.mouseEnabled = false;
+			this._beadPlate.touchChildren = this._beadPlate.touchEnabled = false;
+			this._routeView.boxBigRoad.touchChildren = this._routeView.boxBigRoad.touchEnabled = false;
+			this._routeView.boxBigEye.touchChildren = this._routeView.boxBigEye.touchEnabled = false;
+			this._routeView.boxSmallRoad.touchChildren = this._routeView.boxSmallRoad.touchEnabled = false;
+			this._routeView.boxCockroachRoad.touchChildren = this._routeView.boxCockroachRoad.touchEnabled = false;
 			
 			
 			
@@ -95,15 +96,15 @@ module lobby.view.route {
 			
 			/*this._roadUpdateTimer = new Timer(_roadBufferTime,1);
 			this._roadUpdateTimer.addEventListener(TimerEvent.TIMER_COMPLETE , updateRoadHandler );*/
-			_roadUpdateTimer = JTimer.getTimer(_roadBufferTime,1);
-			_roadUpdateTimer.addTimerCallback(null,updateRoadHandler);
+			this._roadUpdateTimer = timers.JTimer.getTimer(this._roadBufferTime,1);
+			this._roadUpdateTimer.addTimerCallback(null,this.updateRoadHandler);
 		}
 		
 		/**
 		 * 變更語系
 		 * @param	lang
 		 */
-		public  onChangeLanguage( lang:String ):void{
+		public  onChangeLanguage( lang:string ):void{
 			
 			
 			
@@ -115,35 +116,35 @@ module lobby.view.route {
 		 * 清空資源
 		 */
 		public destory():void {
-			if(_bigSprite)
+			if(this._bigSprite)
 			{
-				_bigSprite.parent.removeChild(_bigSprite);
-				_bigSprite.destroy();
-				_bigSprite=null;
+				this._bigSprite.parent.removeChild(this._bigSprite);
+				this._bigSprite.destroy();
+				this._bigSprite=null;
 			}
-			if(_bigEyeSprite)
+			if(this._bigEyeSprite)
 			{
-				_bigEyeSprite.parent.removeChild(_bigEyeSprite);
-				_bigEyeSprite.destroy();
-				_bigEyeSprite=null;
+				this._bigEyeSprite.parent.removeChild(this._bigEyeSprite);
+				this._bigEyeSprite.destroy();
+				this._bigEyeSprite=null;
 			}
-			if(_smallSprite)
+			if(this._smallSprite)
 			{
-				_smallSprite.parent.removeChild(_smallSprite);
-				_smallSprite.destroy();
-				_smallSprite=null;
+				this._smallSprite.parent.removeChild(this._smallSprite);
+				this._smallSprite.destroy();
+				this._smallSprite=null;
 			}
-			if(_roachSprite)
+			if(this._roachSprite)
 			{
-				_roachSprite.parent.removeChild(_roachSprite);
-				_roachSprite.destroy();
-				_roachSprite=null;
+				this._roachSprite.parent.removeChild(this._roachSprite);
+				this._roachSprite.destroy();
+				this._roachSprite=null;
 			}
 			/*this._roadUpdateTimer.removeEventListener(TimerEvent.TIMER_COMPLETE , updateRoadHandler );*/
-			_roadUpdateTimer.dispose();
+			this._roadUpdateTimer.dispose();
 			this._roadUpdateTimer = null;
-			this._askBankerRoad.removeEventListener(RouteEvent.ASK_ROAD , onAskRoad ); //莊問路
-			this._askPlayerRoad.removeEventListener(RouteEvent.ASK_ROAD , onAskRoad );//閒問路
+			this._askBankerRoad.removeEventListener(events.RouteEvent.ASK_ROAD , this.onAskRoad, this ); //莊問路
+			this._askPlayerRoad.removeEventListener(events.RouteEvent.ASK_ROAD , this.onAskRoad, this );//閒問路
 			
 			
 			
@@ -184,7 +185,7 @@ module lobby.view.route {
 		}		
 		
 		/** 更新路單 */
-		public addRoad(road:String):void {
+		public addRoad(road:string):void {
 			//console.log("更新路單 : " + road);
 			//road = "iiaaaeeeaeaaeeaeaaaaeaaeiaiia";
 			//road = "aaaaabcaeeeifeaaiabaaeaibaeeeafaeeaaeafeeeaeaaehlgahaeeeefieeieeeeeegeeefaeikagaeeaagaaejiiaaaaaakabceaaaeeeeeeeeaaaaaeeeeaeaeaaaaaabbbbbbbbbbbbbeeeeeeeeeeee";
@@ -225,7 +226,7 @@ module lobby.view.route {
 			//this.cacheToBmp(true);
 		}
 		
-		private showRoad(road:String, isAsk: boolean = false):void {
+		private showRoad(road:string, isAsk: boolean = false):void {
 			//this.showRoadViewInit();
 			this._roadString = BeadRoad.createRoadReanderString(road);
 			this._beadPlate.addRoad(road, isAsk);
@@ -296,13 +297,13 @@ module lobby.view.route {
 			}
 		}
 		
-		private onAskRoad(e:RouteEvent):void {
+		private onAskRoad(e:egret.Event):void {
 			if ( this._nowRoad.indexOf( "#" ) != -1 ) {
 				return;
 			}	
 			
 //			this.cacheToBmp(false);
-			this._beadPlate.addEventListener(RouteEvent.ASK_Road_END, onAskRoadEnd);
+			this._beadPlate.addEventListener(events.RouteEvent.ASK_Road_END, this.onAskRoadEnd, this);
 			console.log("onAskRoad::::" + String(e.data) );
 		
 			switch (String(e.data)) {
@@ -317,10 +318,10 @@ module lobby.view.route {
 		
 		}
 		
-		private onAskRoadEnd(e:RouteEvent):void {
+		private onAskRoadEnd(e:egret.Event):void {
 			console.log("onAskRoadEnd::" + ",nowRoad::" + this._nowRoad );
 			this.showRoadViewInit();
-			this._beadPlate.removeEventListener(RouteEvent.ASK_Road_END, onAskRoadEnd);
+			this._beadPlate.removeEventListener(events.RouteEvent.ASK_Road_END, this.onAskRoadEnd, this);
 			this.showRoad(this._nowRoad);
 //			this.cacheToBmp(true);
 		}

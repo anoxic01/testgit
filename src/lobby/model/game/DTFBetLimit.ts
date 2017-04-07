@@ -2,11 +2,11 @@ module lobby.model.game {
 	export class DTFBetLimit extends GameBetLimitBase{
 		
 
-		public TieBetUpperLimit		:Number;
-		public TieBetUnderLimit		:Number;
+		public TieBetUpperLimit		:number;
+		public TieBetUnderLimit		:number;
 		
-		public SingleBetUnderLimit	:Number;
-		public SingleBetUpperLimit	:Number;
+		public SingleBetUnderLimit	:number;
+		public SingleBetUpperLimit	:number;
 		
 		public constructor() {
 			super();

@@ -115,8 +115,8 @@ module lobby.view.gameRecord {
 			
 //			mc_input = new Btn2( _mcAsset.mc_input );
 			_mcAsset.mc_input.gotoAndStop(1);
-			// MovieClip(_mcAsset.mc_input).mouseChildren = false;
-			// MovieClip(_mcAsset.mc_input).mouseEnabled = false;
+			// MovieClip(_mcAsset.mc_input).touchChildren = false;
+			// MovieClip(_mcAsset.mc_input).touchEnabled = false;
 			
 			this.addChild( this.m_mcAsset );
 			
@@ -659,7 +659,7 @@ module lobby.view.gameRecord {
 			
 			if( this.m_iMaxPage == 1 ){			//只有一頁 鎖按鈕
 				this.btnGo.enabled = false;
-				this.m_txtInput.mouseEnabled = false;
+				this.m_txtInput.touchEnabled = false;
 				this.btnFirstPage.enabled = false;
 				this.btnLastPage.enabled = false;
 				this.btnPreviousPage.enabled = false;
@@ -667,7 +667,7 @@ module lobby.view.gameRecord {
 			}
 			else {
 				this.btnGo.enabled = true;
-				this.m_txtInput.mouseEnabled = true;
+				this.m_txtInput.touchEnabled = true;
 				this.btnFirstPage.enabled = true;
 				this.btnLastPage.enabled = true;
 				this.btnPreviousPage.enabled = true;

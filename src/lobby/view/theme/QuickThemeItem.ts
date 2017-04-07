@@ -1,195 +1,195 @@
 module lobby.view.theme {
 	export class QuickThemeItem extends BSprite{
-		private m_bSelect			:	 boolean;					//选中状态
-		public struct				:	ThemeStruct;				//数据结构
+		private m_bSelect			:	boolean;					//选中状态
+		public struct				;				//数据结构
 		private m_quickThemeList	:	QuickThemeList;				//厅别列表
-		private m_bmpLabel			:	Bitmap;						//标签位图
+		private m_bmpLabel			;						//标签位图
 		public sKey					:	String;						//标签键值
 		
-		private m_mcAsset			:	MovieClip;					//美术资源
+		private m_mcAsset			;					//美术资源
 		
-		public constructor(_themeStruct:ThemeStruct, _quickThemeList:QuickThemeList, _themeID:number) {
+		public constructor(_themeStruct, _quickThemeList:QuickThemeList, _themeID:number) {
 		
 			super();
 			
-			struct = _themeStruct;
-			m_quickThemeList = _quickThemeList;
+			this.struct = _themeStruct;
+			this.m_quickThemeList = _quickThemeList;
 			
 			switch(_themeID){
-				case Define.THEME_DIAMOND:
-					m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_THEME,"Quick_ThemeItem_ZS_Asset") ;
-					sKey = Language.sQuickBitmapdataZS;
+				case define.Define.THEME_6:
+					this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_THEME,"Quick_ThemeItem_ZS_Asset") ;
+					this.sKey = language.Language.sQuickBitmapdataZS;
 					break;
-				case Define.THEME_PLATINUM:
-					m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_THEME,"Quick_ThemeItem_BJ_Asset") ;
-					sKey = Language.sQuickBitmapdataBJ;
+				case define.Define.THEME_0:
+					this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_THEME,"Quick_ThemeItem_BJ_Asset") ;
+					this.sKey = language.Language.sQuickBitmapdataBJ;
 					break;
-				case Define.THEME_BID:
-					m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_THEME,"Quick_ThemeItem_JM_Asset") ;
-					sKey = Language.sQuickBitmapdataJM;
-					break;
-				
-				case Define.THEME_ARM:
-					m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_THEME,"Quick_ThemeItem_JB_Asset") ;
-					sKey = Language.sQuickBitmapdataJB;
-					break;
-				case Define.THEME_VIP:
-					m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_THEME,"Quick_ThemeItem_GB_Asset") ;
-					sKey = Language.sQuickBitmapdataGB;
-					break;
-				case Define.THEME_TELPHONE:
-					m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_THEME,"Quick_ThemeItem_DT_Asset") ;
-					sKey = Language.sQuickBitmapdataDT;
+				case define.Define.THEME_5:
+					this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_THEME,"Quick_ThemeItem_JM_Asset") ;
+					this.sKey = language.Language.sQuickBitmapdataJM;
 					break;
 				
-				case Define.THEME_MULTI_TABLE:
-					m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_THEME,"Quick_ThemeItem_DZ_Asset") ;
-					sKey = Language.sQuickBitmapdataDZ;
+				case define.Define.THEME_3:
+					this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_THEME,"Quick_ThemeItem_JB_Asset") ;
+					this.sKey = language.Language.sQuickBitmapdataJB;
+					break;
+				case define.Define.THEME_4:
+					this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_THEME,"Quick_ThemeItem_GB_Asset") ;
+					this.sKey = language.Language.sQuickBitmapdataGB;
+					break;
+				case define.Define.THEME_1:
+					this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_THEME,"Quick_ThemeItem_DT_Asset") ;
+					this.sKey = language.Language.sQuickBitmapdataDT;
+					break;
+				
+				case define.Define.THEME_2:
+					this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_THEME,"Quick_ThemeItem_DZ_Asset") ;
+					this.sKey = language.Language.sQuickBitmapdataDZ;
 					break;
 			}
-			if(m_mcAsset==null){
+			if(this.m_mcAsset==null){
 				return;
 			}
-			this.addChild(m_mcAsset);
+			this.addChild(this.m_mcAsset);
 			
-			m_bmpLabel = new Bitmap();
-			m_mcAsset.mc_label.addChild(m_bmpLabel);
-			m_mcAsset.mouseChildren = false;
+			this.m_bmpLabel = new egret.Bitmap();
+			this.m_mcAsset.mc_label.addChild(this.m_bmpLabel);
+			this.m_mcAsset.touchChildren = false;
 									
-			onChangeLanguage();
+			this.onChangeLanguage();
 			
-			this.buttonMode = true;
-			this.addEventListener(mouse.MouseEvent.MOUSE_OVER, onOver);
-			this.addEventListener(mouse.MouseEvent.MOUSE_OUT, onOut);
-			this.addEventListener(egret.TouchEvent.TOUCH_TAP, onClick);
+			this.touchEnabled = true;
+			this.addEventListener(mouse.MouseEvent.MOUSE_OVER, this.onOver, this);
+			this.addEventListener(mouse.MouseEvent.MOUSE_OUT, this.onOut, this);
+			this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClick, this);
 		}
 		
 		get bSelect(): boolean
 		{
-			return m_bSelect;
+			return this.m_bSelect;
 		}
 
 		set  bSelect(value: boolean)
 		{
-			m_bSelect = value;
+			this.m_bSelect = value;
 		}
 
 		 public destroy():void{
-			this.removeEventListener(mouse.MouseEvent.MOUSE_OVER, onOver);
-			this.removeEventListener(mouse.MouseEvent.MOUSE_OUT, onOut);
-			this.removeEventListener(egret.TouchEvent.TOUCH_TAP, onClick);
+			this.removeEventListener(mouse.MouseEvent.MOUSE_OVER, this.onOver, this);
+			this.removeEventListener(mouse.MouseEvent.MOUSE_OUT, this.onOut, this);
+			this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onClick, this);
 			
-			if(m_bmpLabel){
-				if(m_bmpLabel.parent){
-					m_bmpLabel.parent.removeChild(m_bmpLabel);
+			if(this.m_bmpLabel){
+				if(this.m_bmpLabel.parent){
+					this.m_bmpLabel.parent.removeChild(this.m_bmpLabel);
 				}
-				m_bmpLabel = null;
+				this.m_bmpLabel = null;
 			}
 			
-			if(m_quickThemeList){
-				m_quickThemeList = null;
+			if(this.m_quickThemeList){
+				this.m_quickThemeList = null;
 			}
 			
 		}
 		
 		 public onChangeLanguage():void{
-			if(m_bmpLabel){
-				if(m_bSelect){
-					m_bmpLabel.bitmapData = BitmapManager.getInstance().getBmpdLanguage(LobbyManager.getInstance().lobbyAuth.Lang, sKey+"_"+Language.sMouseOver);
-					m_bmpLabel.smoothing = true;
+			if(this.m_bmpLabel){
+				if(this.m_bSelect){
+					this.m_bmpLabel.bitmapData = manager.BitmapManager.getInstance().getBmpdLanguage(manager.LobbyManager.getInstance().lobbyAuth.Lang, this.sKey+"_"+language.Language.sMouseOver);
+					this.m_bmpLabel.smoothing = true;
 					return;
 				}
-				onDefault();
+				this.onDefault();
 			}
-			if(m_mcAsset && m_mcAsset.mc_label){
-				m_mcAsset.mc_label.x = int((116-m_mcAsset.mc_label.width)*0.5);
+			if(this.m_mcAsset && this.m_mcAsset.mc_label){
+				this.m_mcAsset.mc_label.x = ((116-this.m_mcAsset.mc_label.width)*0.5);
 			}
 		}
 		
 		public setSelect(_bSelect: boolean, _bTween: boolean=true):void{
 			if(!_bSelect){
-				onDefault();
+				this.onDefault();
 			}
 			//进入选择游戏
-			if(m_bSelect != _bSelect){
+			if(this.m_bSelect != _bSelect){
 				
-				m_bSelect = _bSelect;
+				this.m_bSelect = _bSelect;
 				
-				if(m_bSelect){
+				if(this.m_bSelect){
 					
-					onMouseDown();
-					SoundManager.getInstance().play(SoundPackage.sChangePage);
-					LobbyManager.getInstance().lobbyView.quickThemeList.iCurrentTheme = struct.ThemeID;
+					this.onMouseDown();
+					manager.SoundManager.getInstance().play(sound.SoundPackage.sChangePage);
+					manager.LobbyManager.getInstance().lobbyView.quickThemeList.iCurrentTheme = this.struct.ThemeID;
 					
-					if(struct.IsTelBet){
-						LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sLeaveToTel),function():void{
-								LobbyManager.getInstance().enterTelLobby();
-								//								LobbyManager.getInstance().lobbyView.iCurrentQuick = 255;
-								LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme.setSelect(false);
+					if(this.struct.IsTelBet){
+						manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sLeaveToTel),function():void{
+								manager.LobbyManager.getInstance().enterTelLobby();
+								//								manager.LobbyManager.getInstance().lobbyView.iCurrentQuick = 255;
+								manager.LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme.setSelect(false);
 							
 							
 						},function():void{
-							//								LobbyManager.getInstance().lobbyView.iCurrentQuick = 255;
-							LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme.setSelect(false);
+							//								manager.LobbyManager.getInstance().lobbyView.iCurrentQuick = 255;
+							manager.LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme.setSelect(false);
 						});
 						return;
 					}
-					switch(struct.ThemeID){
-						case Define.THEME_MULTI_TABLE:
-							LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sLeaveToMultitable),function():void{
+					switch(this.struct.ThemeID){
+						case define.Define.THEME_2:
+							manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sLeaveToMultitable),function():void{
 								
-								if(LobbyManager.getInstance().IsCanChangeTable()){
-									LobbyManager.getInstance().bQuickToMultiTable = true;
-									LobbyManager.getInstance().lobbyView.quickThemeList.enable(false);
-	//LobbyManager.getInstance().changeGame();
-									LobbyManager.getInstance().setMultiSocket();
-									LobbyManager.getInstance().sendMultiTableEntry();
-									//LobbyManager.getInstance().showMultiTable();
+								if(manager.LobbyManager.getInstance().IsCanChangeTable()){
+									manager.LobbyManager.getInstance().bQuickToMultiTable = true;
+									manager.LobbyManager.getInstance().lobbyView.quickThemeList.enable(false);
+	//manager.LobbyManager.getInstance().changeGame();
+									manager.LobbyManager.getInstance().setMultiSocket();
+									manager.LobbyManager.getInstance().sendMultiTableEntry();
+									//manager.LobbyManager.getInstance().showMultiTable();
 									
 								}else{
-									LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme.setSelect(false);
-									LobbyManager.getInstance().showGameMessage(LobbyManager.getInstance().getLanguageString(Language.sCanNotExitGame));
+									manager.LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme.setSelect(false);
+									manager.LobbyManager.getInstance().showGameMessage(manager.LobbyManager.getInstance().getLanguageString(language.Language.sCanNotExitGame));
 								}
 							},function():void{
-//								LobbyManager.getInstance().lobbyView.iCurrentQuick = 255;
-								LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme.setSelect(false);
+//								manager.LobbyManager.getInstance().lobbyView.iCurrentQuick = 255;
+								manager.LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme.setSelect(false);
 							});
 							break;
 						
 						
 						default:
-							LobbyManager.getInstance().lobbyView.showQuickTableList(true);
+							manager.LobbyManager.getInstance().lobbyView.showQuickTableList(true);
 							break;
 						
 					}
 				}else{
-					SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-					LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme = null;
-					LobbyManager.getInstance().lobbyView.hideQuickTableList(_bTween);
+					manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+					manager.LobbyManager.getInstance().lobbyView.quickThemeList.currentTheme = null;
+					manager.LobbyManager.getInstance().lobbyView.hideQuickTableList(_bTween);
 				}
 			}
 		}
 		
 		protected onOver(event:MouseEvent):void
 		{
-			if(m_bSelect){
+			if(this.m_bSelect){
 				return;
 			}
-			onMouseOver();
+			this.onMouseOver();
 		}
 		
 		protected onOut(event:MouseEvent):void
 		{
-			if(m_bSelect){
+			if(this.m_bSelect){
 				return;
 			}
-			onDefault();
+			this.onDefault();
 		}
 		
 		
 		//		protected onDown(event:MouseEvent):void
 		//		{
-		//			if(m_bSelect){
+		//			if(this.m_bSelect){
 		//				return;
 		//			}
 		//			onMouseDown();
@@ -198,14 +198,14 @@ module lobby.view.theme {
 		
 		protected onClick(event:MouseEvent):void
 		{
-			if(struct==null){
-				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
+			if(this.struct==null){
+				manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sPlease_Wait));
 				return;
 			}
 			
-			if(m_quickThemeList){
-				m_quickThemeList.setCurrent(this);
-				LobbyManager.getInstance().lobbyView.uCurrentThemeIDTemp = struct.ThemeID;
+			if(this.m_quickThemeList){
+				this.m_quickThemeList.setCurrent(this);
+				manager.LobbyManager.getInstance().lobbyView.uCurrentThemeIDTemp = this.struct.ThemeID;
 			}
 			
 			
@@ -213,36 +213,36 @@ module lobby.view.theme {
 		
 		public onDefault():void{
 //			m_bmpAsset.gotoAndStop("DEFAULT");
-			if(m_bmpLabel){
-				m_bmpLabel.bitmapData = BitmapManager.getInstance().getBmpdLanguage(LobbyManager.getInstance().lobbyAuth.Lang, sKey+"_"+Language.sDefault);
-				m_bmpLabel.smoothing = true;
+			if(this.m_bmpLabel){
+				this.m_bmpLabel.bitmapData = manager.BitmapManager.getInstance().getBmpdLanguage(manager.LobbyManager.getInstance().lobbyAuth.Lang, this.sKey+"_"+language.Language.sDefault);
+				this.m_bmpLabel.smoothing = true;
 			}
 			
-			if(m_mcAsset){
-				m_mcAsset.gotoAndStop("DEFAULT");
+			if(this.m_mcAsset){
+				this.m_mcAsset.gotoAndStop("DEFAULT");
 			}
 		}
 		private onMouseOver():void{
 //			m_bmpAsset.gotoAndStop("HOVER");
-			if(m_bmpLabel){
-				m_bmpLabel.bitmapData = BitmapManager.getInstance().getBmpdLanguage(LobbyManager.getInstance().lobbyAuth.Lang, sKey+"_"+Language.sMouseOver);
-				m_bmpLabel.smoothing = true;
+			if(this.m_bmpLabel){
+				this.m_bmpLabel.bitmapData = manager.BitmapManager.getInstance().getBmpdLanguage(manager.LobbyManager.getInstance().lobbyAuth.Lang, this.sKey+"_"+language.Language.sMouseOver);
+				this.m_bmpLabel.smoothing = true;
 			}
 			
-			if(m_mcAsset){
-				m_mcAsset.gotoAndStop("HOVER");
+			if(this.m_mcAsset){
+				this.m_mcAsset.gotoAndStop("HOVER");
 			}
-//			SoundManager.getInstance().play(SoundPackage.sLobbyMouseOver);
+//			manager.SoundManager.getInstance().play(sound.SoundPackage.sLobbyMouseOver);
 		}
 		private onMouseDown():void{
 //			m_bmpAsset.gotoAndStop("HDOWN");
-			if(m_bmpLabel){
-				m_bmpLabel.bitmapData = BitmapManager.getInstance().getBmpdLanguage(LobbyManager.getInstance().lobbyAuth.Lang, sKey+"_"+Language.sMouseOver);
-				m_bmpLabel.smoothing = true;
+			if(this.m_bmpLabel){
+				this.m_bmpLabel.bitmapData = manager.BitmapManager.getInstance().getBmpdLanguage(manager.LobbyManager.getInstance().lobbyAuth.Lang, this.sKey+"_"+language.Language.sMouseOver);
+				this.m_bmpLabel.smoothing = true;
 			}
 			
-			if(m_mcAsset){
-				m_mcAsset.gotoAndStop("HOVER");
+			if(this.m_mcAsset){
+				this.m_mcAsset.gotoAndStop("HOVER");
 			}
 		}	
 		

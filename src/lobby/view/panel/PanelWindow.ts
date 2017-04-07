@@ -20,7 +20,7 @@ module lobby.view.panel {
 		public initilize() : void
         {
             this.addEventListener("addedToStage", this.addStage, this);
-//            m_mcHot = m_mcAsset.getChildByName("mc_hot") as MovieClip;
+//            m_mcHot = m_mcAsset.getChildByName("mc_hot");
         }
 
         public destroy() : void

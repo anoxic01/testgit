@@ -15,7 +15,7 @@ module lobby.view.gameRecord.dates {
 			this.mcAsset.tf_label.text = "";
 			this.mcAsset.mc_0.visible = false;
 			this.mcAsset.buttonMode = true;
-			this.mcAsset.mouseChildren =false;
+			this.mcAsset.touchChildren =false;
 			this.mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OVER , this.mouseHandler, this );
 			this.mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OUT , this.mouseHandler, this );
 			this.mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP , this.mouseHandler, this );
@@ -68,7 +68,7 @@ module lobby.view.gameRecord.dates {
 	}
 	
 	set enable( _bValue: boolean ) {
-		this.mcAsset.mouseEnabled = _bValue;
+		this.mcAsset.touchEnabled = _bValue;
 		this.mcAsset.enabled = _bValue;
 		this.mcAsset.buttonMode = _bValue;
 	}
@@ -87,7 +87,7 @@ module lobby.view.gameRecord.dates {
 	}
 	
 	public lightState():void {
-		this.mcAsset.mouseEnabled = false;
+		this.mcAsset.touchEnabled = false;
 		this.mcAsset.enabled = false;
 		this.mcAsset.buttonMode = false;
 		this.mcAsset.mc_0.visible = true;
@@ -96,7 +96,7 @@ module lobby.view.gameRecord.dates {
 	}
 	
 	public defaultState():void {
-		this.mcAsset.mouseEnabled = true;
+		this.mcAsset.touchEnabled = true;
 		this.mcAsset.enabled = true;
 		this.mcAsset.buttonMode = true;
 		this.mcAsset.mc_0.visible = false;

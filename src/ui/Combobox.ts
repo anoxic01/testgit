@@ -23,10 +23,10 @@ module ui {
 			m_mcAsset = new _comboboxClass();
 			this.addChild(m_mcAsset);
 			
-			tfLabel = m_mcAsset.getChildByName("tf_label") as TextField;
+			tfLabel = m_mcAsset.getChildByName("tf_label");
 			
 			var this2 : Sprite = this;
-//			m_btnPullDown = new ui.button.SingleButtonMC(m_mcAsset.getChildByName("mc_0") as MovieClip, function(evt:MouseEvent):void{
+//			m_btnPullDown = new ui.button.SingleButtonMC(m_mcAsset.getChildByName("mc_0"), function(evt:MouseEvent):void{
 //				
 //			});
 			m_mcAsset.mc_0.gotoAndStop(1);

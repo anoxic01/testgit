@@ -29,10 +29,10 @@ module lobby.view.quick {
 			this.m_mcAsset.mc_hint.touchEnabled = false;
 			this.m_mcAsset.mc_hint.touchChildren = false;
 			
-			//			m_bmpTable = new Bitmap();
+			//			m_bmpTable = new egret.Bitmap();
 			//			this.m_mcAsset.mc_2.addChild(m_bmpTable);
 			
-			//			m_bmpFace = new Bitmap();
+			//			m_bmpFace = new egret.Bitmap();
 			//			this.m_mcAsset.mc_face.addChild(m_bmpFace);
 			
 			this.m_mcAsset.mc_bg.mc_3.gotoAndStop(1);

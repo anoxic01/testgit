@@ -10,7 +10,7 @@ module util {
 		/**
 		 * K is an hex string with 32 digits.
 		 */
-		public static parseKey(K:String):XTeaKey {
+		public static parseKey(K:string):XTeaKey {
 			var a:egret.ByteArray = new egret.ByteArray;
 			a.writeUnsignedInt(parseInt(K.substr(0,8),16));
 			a.writeUnsignedInt(parseInt(K.substr(8,8),16));

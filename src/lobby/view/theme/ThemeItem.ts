@@ -1,17 +1,18 @@
 module lobby.view.theme {
 	export class ThemeItem extends egret.DisplayObjectContainer {
 
-		private m_mcAsset 		:	ui.button.theme.Button_Theme;		//美术资源
-		private m_bSelect		:	 boolean	=	false;					//选中状态
-		public themeStruct		:	struct.ThemeStruct;				//数据结构
+		private m_mcAsset 		;		//美术资源
+		private m_bSelect		:	boolean	=	false;					//选中状态
+		public themeStruct		;				//数据结构
 		private m_themeList 	:	ThemeList;				//厅别列表
 		private m_bmpLabel;												//标签位图
-		private m_buttonMode 	: 	 boolean	=	false;					//鼠标手型
+		private m_buttonMode 	: 	boolean	=	false;					//鼠标手型
+		private sKey			:	string;						//标签键值
 		
-		public constructor($themeID:number, $themeList:ThemeList) {
+		public constructor($themeStruct, $themeID:number, $themeList:ThemeList) {
 			super();
 			this.m_themeList = $themeList;
-			this.themeStruct = new struct.ThemeStruct();
+			this.themeStruct = $themeStruct;
 			this.themeStruct.ThemeID = $themeID;
 
 			switch($themeID){			
@@ -52,76 +53,76 @@ module lobby.view.theme {
 		
 		 public destroy():void{
 			
-			m_mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP, onClick);
-			m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OVER, onOver);
-			m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OUT, onOut);
-//			m_mcAsset.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, onDown);
+			this.m_mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onClick, this);
+			this.m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OVER, this.onOver, this);
+			this.m_mcAsset.removeEventListener(mouse.MouseEvent.MOUSE_OUT, this.onOut, this);
+//			this.m_mcAsset.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, onDown);
 			
-			if(m_bmpLabel){
-				if(m_bmpLabel.parent){
-					m_bmpLabel.parent.removeChild(m_bmpLabel);
+			if(this.m_bmpLabel){
+				if(this.m_bmpLabel.parent){
+					this.m_bmpLabel.parent.removeChild(this.m_bmpLabel);
 				}
-				m_bmpLabel = null;
+				this.m_bmpLabel = null;
 			}
 			
-			if(m_themeList){
-				m_themeList = null;
+			if(this.m_themeList){
+				this.m_themeList = null;
 			}
 			
-			if(m_mcAsset){
-				this.removeChild(m_mcAsset);
-				m_mcAsset = null;
+			if(this.m_mcAsset){
+				this.removeChild(this.m_mcAsset);
+				this.m_mcAsset = null;
 			}
 		}
 		
 		 public onChangeLanguage():void{
-			if(m_bmpLabel){
-				if(m_bSelect){
-					m_bmpLabel.bitmapData = BitmapManager.getInstance().getBmpdLanguage(LobbyManager.getInstance().lobbyAuth.Lang, sKey+"_"+Language.sMouseOver);
-					m_bmpLabel.smoothing = true;
+			if(this.m_bmpLabel){
+				if(this.m_bSelect){
+					this.m_bmpLabel.bitmapData = manager.BitmapManager.getInstance().getBmpdLanguage(manager.LobbyManager.getInstance().lobbyAuth.Lang, this.sKey+"_"+language.Language.sMouseOver);
+					this.m_bmpLabel.smoothing = true;
 					return;
 				}
-				onDefault();
+				this.onDefault();
 			}
 		}
 		
 		public setSelect(_bSelect: boolean):void{
-			if(m_bSelect != _bSelect){
-				m_bSelect = _bSelect;
-				if(m_bSelect){
+			if(this.m_bSelect != _bSelect){
+				this.m_bSelect = _bSelect;
+				if(this.m_bSelect){
 //					onMouseDown();
-					onMouseOver();
+					this.onMouseOver();
 				}else{
-					onDefault();
+					this.onDefault();
 				}
 			}
 		}
 		
-		get struct():ThemeStruct{
-			return m_themeStruct;
+		get struct():model.struct.ThemeStruct{
+			return this.themeStruct;
 		}
 		
 		protected onOver(event:MouseEvent):void
 		{
-			if(m_bSelect){
+			if(this.m_bSelect){
 				return;
 			}
-//			SoundManager.getInstance().play(SoundPackage.sLobbyMouseOver);
-			onMouseOver();
+//			manager.SoundManager.getInstance().play(sound.SoundPackage.sLobbyMouseOver);
+			this.onMouseOver();
 		}
 		
 		protected onOut(event:MouseEvent):void
 		{
-			if(m_bSelect){
+			if(this.m_bSelect){
 				return;
 			}
-			onDefault();
+			this.onDefault();
 		}
 		
 		
 //		protected onDown(event:MouseEvent):void
 //		{
-//			if(m_bSelect){
+//			if(this.m_bSelect){
 //				return;
 //			}
 //			onMouseDown();
@@ -129,57 +130,57 @@ module lobby.view.theme {
 		
 		public autoClick():void
 		{
-			onClick(null);
+			this.onClick(null);
 		}
 		
 		protected onClick(event:MouseEvent):void
 		{
-			if(m_themeStruct==null){
-				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
+			if(this.themeStruct==null){
+				manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sPlease_Wait));
 				return;
 			}
-			if(m_bSelect){
+			if(this.m_bSelect){
 				return;
 			}
 			
-			if(m_themeList){
-				m_themeList.setCurrent(this);
+			if(this.m_themeList){
+				this.m_themeList.setCurrent(this);
 			}
 			
-			console.log("themeID:" +  m_themeStruct.ThemeID );
+			console.log("themeID:" +  this.themeStruct.ThemeID );
 			
 			//屏蔽厅馆按钮
-			if( m_themeStruct.ThemeID != TemConfig.getInstance().PhoneBetID ){   //臨時處理
-				LobbyManager.getInstance().lobbyView.themeList.enable(false);
+			if( this.themeStruct.ThemeID != config.TemConfig.getInstance().PhoneBetID ){   //臨時處理
+				manager.LobbyManager.getInstance().lobbyView.themeList.enable(false);
 			}
 			
-			SoundManager.getInstance().play(SoundPackage.sChangePage);
-			console.log("切换厅别。。。", this.mouseEnabled);
+			manager.SoundManager.getInstance().play(sound.SoundPackage.sChangePage);
+			console.log("切换厅别。。。", this.touchEnabled);
 		}
 		
 		private onDefault():void{
-			if(m_mcAsset){
-				m_mcAsset.gotoAndStop("DEFAULT");
+			if(this.m_mcAsset){
+				this.m_mcAsset.gotoAndStop("DEFAULT");
 			}
-			if(m_bmpLabel){
-				m_bmpLabel.bitmapData = BitmapManager.getInstance().getBmpdLanguage(LobbyManager.getInstance().lobbyAuth.Lang, sKey+"_"+Language.sDefault);
-				m_bmpLabel.smoothing = true;
+			if(this.m_bmpLabel){
+				this.m_bmpLabel.bitmapData = manager.BitmapManager.getInstance().getBmpdLanguage(manager.LobbyManager.getInstance().lobbyAuth.Lang, this.sKey+"_"+language.Language.sDefault);
+				this.m_bmpLabel.smoothing = true;
 			}
 			
 		}
 		private onMouseOver():void{
-			if(m_mcAsset){
-				m_mcAsset.gotoAndStop("HOVER");
+			if(this.m_mcAsset){
+				this.m_mcAsset.gotoAndStop("HOVER");
 			}
-			if(m_bmpLabel){
-				m_bmpLabel.bitmapData = BitmapManager.getInstance().getBmpdLanguage(LobbyManager.getInstance().lobbyAuth.Lang, sKey+"_"+Language.sMouseOver);
-				m_bmpLabel.smoothing = true;
+			if(this.m_bmpLabel){
+				this.m_bmpLabel.bitmapData = manager.BitmapManager.getInstance().getBmpdLanguage(manager.LobbyManager.getInstance().lobbyAuth.Lang, this.sKey+"_"+language.Language.sMouseOver);
+				this.m_bmpLabel.smoothing = true;
 			}
 			
 			
 		}
 //		private onMouseDown():void{
-//			m_mcAsset.gotoAndStop("HDOWN");
+//			this.m_mcAsset.gotoAndStop("HDOWN");
 //		}
 		
 	}

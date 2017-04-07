@@ -25,7 +25,7 @@ module lobby.view.quick {
 			this.addChild(this.m_bmpTime);
 			this.m_bmpTime.y = 5;
 			
-//			this.buttonMode = true;
+//			this.touchEnabled = true;
 			this.addEventListener(mouse.MouseEvent.ROLL_OVER, this.bgOver, this);
 			this.addEventListener(mouse.MouseEvent.ROLL_OUT, this.bgOut, this);
 		}
@@ -172,7 +172,7 @@ module lobby.view.quick {
 		}
 		
 		//重绘路纸
-		public initRoad(_sRoad:String):void{
+		public initRoad(_sRoad:string):void{
 			
 		}
 		

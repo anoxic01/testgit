@@ -29,12 +29,12 @@ module lobby.model.struct {
 			this.charterSettingInfo = value;
 		}
 		
-		get JoinTbPwd():String 
+		get JoinTbPwd():string 
 		{
 			return this.joinTbPwd;
 		}
 		
-		set  JoinTbPwd(value:String) 
+		set  JoinTbPwd(value:string) 
 		{
 			this.joinTbPwd = value;
 		}
@@ -59,12 +59,12 @@ module lobby.model.struct {
 			this.joinTbType = value;
 		}
 		
-		get LobbyServer():String 
+		get LobbyServer():string 
 		{
 			return this.lobbyServer;
 		}
 		
-		set  LobbyServer(value:String) 
+		set  LobbyServer(value:string) 
 		{
 			this.lobbyServer = value;
 		}
@@ -99,12 +99,12 @@ module lobby.model.struct {
 			this.identity = value;
 		}
 		
-		get AuthToken():String 
+		get AuthToken():string 
 		{
 			return this.authToken;
 		}
 		
-		set  AuthToken(value:String) 
+		set  AuthToken(value:string) 
 		{
 			this.authToken = value;
 		}

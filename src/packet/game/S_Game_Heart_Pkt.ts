@@ -48,7 +48,7 @@ module packet.game {
 		}
 		
 		public illegalOperation():void {
-			var _sMsg:String;
+			var _sMsg:string;
 			var _panelDialog:PanelWindow;
 			var _fExitLobby:Function = LobbyManager.getInstance().leaveLobby;		
 			LobbyManager.getInstance().closeAllDialog();

@@ -15,7 +15,7 @@ module lobby.model.player {
         /// <summary>
         /// 帳戶種類
         /// </summary>
-        public AccountType:String;
+        public AccountType:string;
 
         /// <summary>
         /// 身份 - 0: 玩家, 1: 槍手
@@ -25,12 +25,12 @@ module lobby.model.player {
         /// <summary>
         /// 暱稱
         /// </summary>
-        public NickName:String;
+        public NickName:string;
 
         /// <summary>
         /// 暱稱
         /// </summary>
-        public HiddenNickName:String;
+        public HiddenNickName:string;
 
         /// <summary>
         /// 配對桌ID
@@ -56,23 +56,23 @@ module lobby.model.player {
         /// <summary>
         /// 玩家加/解秘金鑰
         /// </summary>
-        public PrivateKey:String;
+        public PrivateKey:string;
 
         /// <summary>
         /// 廣播金鑰
         /// </summary>
-        public BroadcastKey:String;
+        public BroadcastKey:string;
 
 
         /// <summary>
         /// 代理金鑰
         /// </summary>
-        public AgentKey:String
+        public AgentKey:string
 
         /// <summary>
         /// Lobby Server
         /// </summary>
-        public LobbyServer:String;
+        public LobbyServer:string;
 
 
         /// <summary>

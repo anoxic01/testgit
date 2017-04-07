@@ -19,7 +19,7 @@ module lobby.view.panel {
 			
 			this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_PANEL,"Dialog_Asset_2");
 			this.addChild(this.m_mcAsset);
-			this.m_mcAsset.tf_0.mouseEnabled=false;
+			this.m_mcAsset.tf_0.touchEnabled=false;
 //			m_bg = new BitmapScale9Grid(new Window_Bg_Asset(), 1, 12, 24, 12, 30);
 //			this.m_mcAsset.addChildAt(m_bg,0);
 //			m_bg.setSize(342, 220);
@@ -151,7 +151,7 @@ module lobby.view.panel {
 			});
 		}
 		
-		public text( _sValue:String ):void{
+		public text( _sValue:string ):void{
 			this.m_mcAsset.tf_0.text = _sValue;
 			this.m_mcAsset.tf_0.y = (this.m_mcAsset.height - (this.m_mcAsset.tf_0).textHeight)/2 -105 ;
 			this.m_mcAsset.tf_0.x = (this.m_mcAsset.width - (this.m_mcAsset.tf_0).textWidth)/2 - this.m_mcAsset.width/2

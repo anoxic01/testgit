@@ -1,6 +1,6 @@
 module lobby.view.route.transTable {
-	export class TransBacRouteMgr extends BacRouteMgr{
-		public constructor(view:MovieClip) {
+	export class TransBacRouteMgr extends game.bac.BacRouteMgr{
+		public constructor(view) {
 			super( view );
 			this.m_bigSprite.visible = false;
 			this.m_bigEyeSprite.visible = false;

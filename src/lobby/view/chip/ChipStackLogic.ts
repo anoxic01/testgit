@@ -26,7 +26,7 @@ module lobby.view.chip {
 			
 			len = stackAr.length;
 			var gold:number;
-			var realFrameGold:String = "";
+			var realFrameGold:string = "";
 			for (var k:number= 0; k < len; k++) {
 				realFrameGold = "";
 				gold = stackAr[k] / 1000;

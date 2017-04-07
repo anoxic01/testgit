@@ -104,7 +104,7 @@ module lobby.view.panel {
 			
 		}
 		
-		private getOnlineTime():String{
+		private getOnlineTime():string{
 			var ms   = egret.getTimer();
 			var s  = ms*0.001;
 			var m  = s/60;

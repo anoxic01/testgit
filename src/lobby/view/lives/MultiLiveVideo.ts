@@ -20,7 +20,7 @@ module lobby.view.lives {
 			this.bClosed=true;
 		//	super(_mcParent.width,_mcParent.height);
 			super(_uWidth,_uHeight);
-//			m_mask= new Sprite();
+//			m_mask= new egret.Sprite();
 //			m_mask.graphics.beginFill(0x999999);
 //		//	m_mask.graphics.drawRect(0, 0, uWidth, uHeight);
 //			m_mask.graphics.drawRect(0, 0, uWidth, uHeight);
@@ -30,10 +30,10 @@ module lobby.view.lives {
 			
 			this.fontSize=14;
 			
-//			this.zoomPt = new Point();
+//			this.zoomPt = new egret.Point();
 //			this.zoomPt.x = 210;
 //			this.zoomPt.y = 120;
-			this.mcAsset.mc_bg.mouseEnabled=this.mcAsset.mc_bg.mouseChildren=false;
+			this.mcAsset.mc_bg.touchEnabled=this.mcAsset.mc_bg.touchChildren=false;
 			var mc1=_mcParent.getChildByName("mc_1");
 			this.m_btnRefresh = new ui.button.SingleButtonMC(mc1, function(event:MouseEvent):void{
 				manager.TipManager.getInstance().hide();
@@ -58,7 +58,7 @@ module lobby.view.lives {
 				zoomIn();
 			});
 			this.m_btnZoomIn.fOnOver = function():void{
-				manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Video_ZoomIn),manager.TipManager.DOWN,_mcParent.localToGlobal(new Point(_mcParent.mc_2.x+9,_mcParent.mc_2.y)));
+				manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Video_ZoomIn),manager.TipManager.DOWN,_mcParent.localToGlobal(new egret.Point(_mcParent.mc_2.x+9,_mcParent.mc_2.y)));
 			};
 			this.m_btnZoomIn.fOnOut = function():void{
 				manager.TipManager.getInstance().hide();
@@ -73,7 +73,7 @@ module lobby.view.lives {
 					zoomOut();
 				});
 				this.m_btnZoomOut.fOnOver = function():void{
-					manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Video_ZoomOut),manager.TipManager.DOWN,_mcParent.localToGlobal(new Point(_mcParent.mc_3.x+9,_mcParent.mc_3.y)));
+					manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Video_ZoomOut),manager.TipManager.DOWN,_mcParent.localToGlobal(new egret.Point(_mcParent.mc_3.x+9,_mcParent.mc_3.y)));
 				};
 				this.m_btnZoomOut.fOnOut = function():void{
 					manager.TipManager.getInstance().hide();
@@ -185,7 +185,7 @@ module lobby.view.lives {
 		 protected init():void{
 		
 			this.m_mcVideo = new egret.MovieClip();
-			this.m_mcVideo.mouseEnabled=this.m_mcVideo.mouseChildren=false;
+			this.m_mcVideo.touchEnabled=this.m_mcVideo.touchChildren=false;
 			this.initializeRTMPPlayer();
 //			m_RTMPPlayer.bClear = true;
 		
@@ -208,7 +208,7 @@ module lobby.view.lives {
 			this.m_tfWarn.visible = true;
 		}
 		
-		protected traceHandler(str:String):void
+		protected traceHandler(str:string):void
 		{
 			if(this.tableId == 8 ){
 				console.log(this,this.tableId+"桌视讯情况："+str);

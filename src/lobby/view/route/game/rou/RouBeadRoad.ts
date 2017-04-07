@@ -1,13 +1,13 @@
 module lobby.view.route.game.rou {
 	export class RouBeadRoad {
-		public static var _posX:number=  0;
-		public static var _posY:number=  0;
+		public static _posX:number=  0;
+		public static _posY:number=  0;
 		
 		
 		public constructor() {
 		}
 		
-		public static function createBeadGrid(roadMap:string, skipChars:any[], rowHeight:number= 6):any[] {
+		public static createBeadGrid(roadMap:string, skipChars:any[], rowHeight:number= 6):any[] {
 			
 			// 資料格與行列索引、標記用的參數
 			var grid:any[] = [], x:number= 0, y:number= -1, offsetX:number= 0, currentSymbol:string = null, prevSymbol:string = null;
@@ -54,8 +54,8 @@ module lobby.view.route.game.rou {
 				grid[x + offsetX] = grid[x + offsetX] || [];
 				grid[x + offsetX][y] = currentSymbol;
 				
-				_posX = x;
-				_posY = y;
+				this._posX = x;
+				this._posY = y;
 				
 				prevSymbol = currentSymbol;
 				
@@ -68,7 +68,7 @@ module lobby.view.route.game.rou {
 		
 		
 		
-		public static function createZoenRowRenderGrid(roadMap:string, skipChars:any[], rowHeight:number= 7):any[] {
+		public static createZoenRowRenderGrid(roadMap:string, skipChars:any[], rowHeight:number= 7):any[] {
 			
 			// 資料格與行列索引、標記用的參數
 			var grid:any[] = [], x:number= 0, y:number= -1, offsetX:number= 0, currentSymbol:string = null, prevSymbol:string = null;
@@ -110,8 +110,8 @@ module lobby.view.route.game.rou {
 					
 					
 					
-					grid[x][int(zoen)] = zoen ; //
-					grid[x][int(row)] = row; //
+					grid[x][(zoen)] = zoen ; //
+					grid[x][(row)] = row; //
 					
 					
 				}
@@ -146,7 +146,7 @@ module lobby.view.route.game.rou {
 		 * @param	rowHeight
 		 * @return
 		 */
-		static public function createRoadRenderGrid(roadMap:string, skipChars:any[], rowHeight:number= 6):any[] {
+		public static createRoadRenderGrid(roadMap:string, skipChars:any[], rowHeight:number= 6):any[] {
 			
 			// 資料格與行列索引、標記用的參數
 			var grid:any[] = [], x:number= 0, y:number= -1, offsetX:number= 0, currentSymbol:string = null, prevSymbol:string = null;
@@ -202,8 +202,8 @@ module lobby.view.route.game.rou {
 				grid[x + offsetX] = grid[x + offsetX] || [];
 				grid[x + offsetX][y] = currentSymbol;
 				
-				_posX = x;
-				_posY = y;
+				this._posX = x;
+				this._posY = y;
 				
 				prevSymbol = currentSymbol;
 				

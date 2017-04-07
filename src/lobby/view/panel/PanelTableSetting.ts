@@ -54,7 +54,7 @@ module lobby.view.panel {
 			
 			this.m_mcAsset.mc_imput.gotoAndStop(2);
 			this.tf_4 =  this.m_mcAsset.mc_imput. this.tf_4;
-			this.tf_4.mouseEnabled = false;
+			this.tf_4.touchEnabled = false;
 //			this.tf_4.restrict = "^\u4e00-\u9fa5 ";
 			this.tf_4.restrict = "0-9a-zA-Z`~!@#$%\\^&*()-=_+,./;'[]{}|:\"<>?";
 			
@@ -176,7 +176,7 @@ module lobby.view.panel {
 					 this.m_mcAsset.mc_imput.gotoAndStop(1);
 					 this.mc_label =  this.m_mcAsset.mc_imput. this.mc_label;
 					 this.mc_label.gotoAndStop( manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
-					 this.tf_4.mouseEnabled = false
+					 this.tf_4.touchEnabled = false
 					 this.m_bNeedInput = false;
 					break;
 				case "mc_1":
@@ -184,7 +184,7 @@ module lobby.view.panel {
 					 this.m_mcAsset.mc_imput.gotoAndStop(1);
 					 this.mc_label =  this.m_mcAsset.mc_imput. this.mc_label;
 					 this.mc_label.gotoAndStop( manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
-					 this.tf_4.mouseEnabled = false
+					 this.tf_4.touchEnabled = false
 					 this.m_bNeedInput = false;
 					break;
 				case "mc_2":
@@ -194,7 +194,7 @@ module lobby.view.panel {
 //					 this.tf_4.restrict = "^\u4e00-\u9fa5 ";
 					 this.tf_4.restrict = "0-9a-zA-Z`~!@#$%\\^&*()-=_+,./;'[]{}|:\"<>?";
 					 manager.LobbyManager.getInstance().stage.focus =  this.tf_4;
-					 this.tf_4.mouseEnabled = true;
+					 this.tf_4.touchEnabled = true;
 					 this.m_bNeedInput = true;
 					
 					break;

@@ -5,21 +5,21 @@ module lobby.view.route {
 		}
 		
 		 public onChangeLanguage():void{
-			if(m_bmp){
-				switch(m_sLabel){
-					case A:
-						m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_DRAGON);
+			if(this.m_bmp){
+				switch(this.m_sLabel){
+					case BeadItem.A:
+						this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_DRAGON);
 						break;
 					
-					case E:
-						m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_TIGER);
+					case BeadItem.E:
+						this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_TIGER);
 						break;
 					
-					case I:
-						m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_TIE);
+					case BeadItem.I:
+						this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_TIE);
 						break;
 				}
-				m_bmp.smoothing = true;
+				this.m_bmp.smoothing = true;
 			}else{
 				console.log("设置珠子位图异常...");
 			}

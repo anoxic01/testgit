@@ -3,31 +3,31 @@ module lobby.model.game {
 		 /// <summary>
         /// 押注位置
         /// </summary>
-        private betPos:String;
+        private betPos:string;
 
         /// <summary>
         /// 押注金額
         /// </summary>
-        private amt:Number = 0;
+        private amt:number = 0;
 		public constructor() {
 		}
 		
-		get BetPos():String 
+		get BetPos():string 
 		{
 			return this.betPos;
 		}
 		
-		set  BetPos(value:String) 
+		set  BetPos(value:string) 
 		{
 			this.betPos = value;
 		}
 		
-		get Amt():Number 
+		get Amt():number 
 		{
 			return this.amt;
 		}
 		
-		set  Amt(value:Number) 
+		set  Amt(value:number) 
 		{
 			this.amt = value;
 		}

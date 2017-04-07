@@ -15,15 +15,15 @@ module lobby.view.tool {
 //			m_bg.setSize(152, 120);
 //			m_mcAsset.mcAsset.mc_bg.addChild(m_bg);
 			
-			m_btnContact = new ButtonA(_mcAsset.mcAsset.getChildByName("mc_contact") as MovieClip, function(evt:MouseEvent):void{
+			m_btnContact = new ButtonA(_mcAsset.mcAsset.getChildByName("mc_contact"), function(evt:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				LobbyManager.getInstance().js_call(Define.JS_Contact);
 //				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
 			});
-//			m_btnRecord = new ButtonA(_mcAsset.mcAsset.getChildByName("mc_record") as MovieClip, function(evt:MouseEvent):void{
+//			m_btnRecord = new ButtonA(_mcAsset.mcAsset.getChildByName("mc_record"), function(evt:MouseEvent):void{
 //				navigateToURL(new URLRequest("http://www.test2.com/record"), "_blank");
 //			});
-			m_btnRule = new ButtonA(_mcAsset.mcAsset.getChildByName("mc_rule") as MovieClip, function(evt:MouseEvent):void{
+			m_btnRule = new ButtonA(_mcAsset.mcAsset.getChildByName("mc_rule"), function(evt:MouseEvent):void{
 				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
 				LobbyManager.getInstance().js_call(Define.JS_Rule);
 //				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
@@ -152,7 +152,7 @@ class ButtonA implements iface.ISprite{
 			return;
 		}
 		mcAsset.gotoAndStop("DEFAULT");
-		(mcAsset.tf_label as TextField).textColor = 0xcccccc;
+		(mcAsset.tf_label).textColor = 0xcccccc;
 	}
 	
 	protected over(event:MouseEvent) : void
@@ -161,7 +161,7 @@ class ButtonA implements iface.ISprite{
 			return;
 		}
 		mcAsset.gotoAndStop("HOVER");
-		(mcAsset.tf_label as TextField).textColor = 0xffffff;
+		(mcAsset.tf_label).textColor = 0xffffff;
 	}
 	
 }

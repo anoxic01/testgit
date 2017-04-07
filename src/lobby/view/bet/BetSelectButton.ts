@@ -137,13 +137,13 @@ module lobby.view.bet {
 		get clickable(): boolean
 		{
 			if(!this.mc)return false;
-			return this.mc.mouseEnabled&&this.mc.mouseChildren;
+			return this.mc.touchEnabled&&this.mc.touchChildren;
 		}
 		set  clickable(value: boolean)
 		{
 			if(!this.mc)return;
-			this.mc.mouseEnabled = value;
-			this.mc.mouseChildren = value;
+			this.mc.touchEnabled = value;
+			this.mc.touchChildren = value;
 		}
 		public destroy():void
 		{

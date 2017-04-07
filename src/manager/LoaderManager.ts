@@ -28,7 +28,7 @@ module manager {
             return;
         }
 		
-		public loadGame(_sGameName:String, fOnComplete:Function):void{
+		public loadGame(_sGameName:string, fOnComplete:Function):void{
 			if(aGameSwf.indexOf(_sGameName)==-1){
 				aGameSwf.push(_sGameName);
 			}else{
@@ -127,7 +127,7 @@ module manager {
 		}
 		
 		//是否加载过该游戏
-		public IsLoaded(_sGameName:String):Boolean{
+		public IsLoaded(_sGameName:string):Boolean{
 			return aGameSwf.indexOf(_sGameName)==-1;
 		}
 

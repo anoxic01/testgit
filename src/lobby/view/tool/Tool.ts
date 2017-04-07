@@ -61,7 +61,7 @@ module lobby.view.tool {
 				toolContact.hide();
 			});
 			m_btnRefresh.fOnOver = function():void{
-				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Refresh),TipManager.UP,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_refresh.x+15,m_mcAsset.mc_refresh.y+30)),1);
+				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Refresh),TipManager.UP,m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_refresh.x+15,m_mcAsset.mc_refresh.y+30)),1);
 			};
 			m_btnRefresh.fOnOut = function():void{
 				TipManager.getInstance().hide();
@@ -81,12 +81,12 @@ module lobby.view.tool {
 				LobbyManager.getInstance().showChannel();
 			});
 			m_btnChannel.fOnOver = function():void{
-				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Channel),TipManager.UP,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_channel.x+15,m_mcAsset.mc_channel.y+30)),1);
+				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Channel),TipManager.UP,m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_channel.x+15,m_mcAsset.mc_channel.y+30)),1);
 			};
 			m_btnChannel.fOnOut = function():void{
 				TipManager.getInstance().hide();
 			};
-			(m_mcAsset.mc_channel.mc_label as MovieClip).gotoAndStop(5);
+			(m_mcAsset.mc_channel.mc_label).gotoAndStop(5);
 			
 //			var _bPersonal	:	 boolean;
 			m_btnPersonalinformation = new ui.button.SingleButtonMC(m_mcAsset.mc_personal, function(evt:MouseEvent):void{
@@ -100,7 +100,7 @@ module lobby.view.tool {
 				LobbyManager.getInstance().hideSystemSetting();
 				LobbyManager.getInstance().hidePanelDetail();
 				
-				var point:Point = m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_personal.x+15,m_mcAsset.mc_contact.y+30));
+				var point:Point = m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_personal.x+15,m_mcAsset.mc_contact.y+30));
 				switch(LobbyManager.getInstance().exitLevel){
 					case Define.EXIT_LOBBY:
 						LobbyManager.getInstance().showPersonalinformation(point.x, point.y);
@@ -120,7 +120,7 @@ module lobby.view.tool {
 //				_bPersonal = !_bPersonal;
 			});
 			m_btnPersonalinformation.fOnOver = function():void{
-				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_PersonalInfo),TipManager.UP,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_personal.x+15,m_mcAsset.mc_personal.y+30)),1);
+				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_PersonalInfo),TipManager.UP,m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_personal.x+15,m_mcAsset.mc_personal.y+30)),1);
 			};
 			m_btnPersonalinformation.fOnOut = function():void{
 				TipManager.getInstance().hide();
@@ -146,7 +146,7 @@ module lobby.view.tool {
 				if(m_bHint){
 					m_mcHintFull.gotoAndStop(1);
 				}else{
-					TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_Full),TipManager.UP,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_full.x+15,m_mcAsset.mc_full.y+30)),1);
+					TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_Full),TipManager.UP,m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_full.x+15,m_mcAsset.mc_full.y+30)),1);
 				}
 			};
 			m_btnFull.fOnOut = function():void{
@@ -164,7 +164,7 @@ module lobby.view.tool {
 				LobbyManager.getInstance().full();
 			});
 			m_btnNormal.fOnOver = function():void{
-				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_ExitFull),TipManager.UP,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_normal.x+15,m_mcAsset.mc_normal.y+30)),1);
+				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_ExitFull),TipManager.UP,m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_normal.x+15,m_mcAsset.mc_normal.y+30)),1);
 			};
 			m_btnNormal.fOnOut = function():void{
 				TipManager.getInstance().hide();
@@ -187,7 +187,7 @@ module lobby.view.tool {
 				}
 			});
 			m_btnDetail.fOnOver = function():void{
-				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_Detail),TipManager.UP,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_detail.x+15,m_mcAsset.mc_detail.y+30)),1);
+				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_Detail),TipManager.UP,m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_detail.x+15,m_mcAsset.mc_detail.y+30)),1);
 			};
 			m_btnDetail.fOnOut = function():void{
 				TipManager.getInstance().hide();
@@ -207,7 +207,7 @@ module lobby.view.tool {
 				GameRecordManager.getInstance().showBetRecordPannel();
 			});
 			m_btnRecord.fOnOver = function():void{
-				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_Record),TipManager.UP,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_record.x+15,m_mcAsset.mc_record.y+30)),1);
+				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_Record),TipManager.UP,m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_record.x+15,m_mcAsset.mc_record.y+30)),1);
 			};
 			m_btnRecord.fOnOut = function():void{
 				TipManager.getInstance().hide();
@@ -228,7 +228,7 @@ module lobby.view.tool {
 //				LobbyManager.getInstance().showGoodRoadSetting();
 			});
 			m_btnSetting.fOnOver = function():void{
-				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_System),TipManager.UP,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_setting.x+15,m_mcAsset.mc_setting.y+30)),1);
+				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_System),TipManager.UP,m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_setting.x+15,m_mcAsset.mc_setting.y+30)),1);
 			};
 			m_btnSetting.fOnOut = function():void{
 				TipManager.getInstance().hide();
@@ -245,7 +245,7 @@ module lobby.view.tool {
 				evt.stopImmediatePropagation();
 			});
 			m_btnContact.fOnOver = function():void{
-				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_Other),TipManager.UP,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_contact.x+15,m_mcAsset.mc_contact.y+30)),1);
+				TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_Other),TipManager.UP,m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_contact.x+15,m_mcAsset.mc_contact.y+30)),1);
 			};
 			m_btnContact.fOnOut = function():void{
 				TipManager.getInstance().hide();
@@ -290,11 +290,11 @@ module lobby.view.tool {
 			btnExit.fOnOver = function():void{
 				switch(LobbyManager.getInstance().exitLevel){
 					case Define.EXIT_LOBBY:
-						TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_Exit),TipManager.UP,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_exit.x+15,m_mcAsset.mc_exit.y+30)),1);
+						TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_Exit),TipManager.UP,m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_exit.x+15,m_mcAsset.mc_exit.y+30)),1);
 						break;
 					case Define.EXIT_GAME:
 					case Define.EXIT_MULTI_TABLE:
-						TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Back_To_Lobby),TipManager.UP,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_exit.x+15,m_mcAsset.mc_exit.y+30)),1);
+						TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Back_To_Lobby),TipManager.UP,m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_exit.x+15,m_mcAsset.mc_exit.y+30)),1);
 						break;
 				}
 				
@@ -476,19 +476,19 @@ module lobby.view.tool {
 		
 		//个人资讯
 		public getBtnDetailPoint():Point{
-			var point:Point = m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_detail.x+15,m_mcAsset.mc_detail.y+30));;
+			var point:Point = m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_detail.x+15,m_mcAsset.mc_detail.y+30));;
 			return point;
 		}
 		
 		//频道
 		public getBtnChannelPoint():Point{
-			var point:Point = m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_channel.x+15,m_mcAsset.mc_channel.y+30));;
+			var point:Point = m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_channel.x+15,m_mcAsset.mc_channel.y+30));;
 			return point;
 		}
 		
 		//系统设置
 		public getBtnSettingPoint():Point{
-			var point:Point = m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_setting.x+15,m_mcAsset.mc_setting.y+30));;
+			var point:Point = m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_setting.x+15,m_mcAsset.mc_setting.y+30));;
 			return point;
 		}
 		
@@ -809,7 +809,7 @@ module lobby.view.tool {
 					_uValue = 5;
 					console.log(this, "频道设置异常。。。");
 				}
-				(m_mcAsset.mc_channel.mc_label as MovieClip).gotoAndStop(_uValue);
+				(m_mcAsset.mc_channel.mc_label).gotoAndStop(_uValue);
 			}
 		}
 		
@@ -932,7 +932,7 @@ class Resolution{
 			LobbyManager.getInstance().lobbyView.toolView.toolContact.hide();
 		});
 		m_btnSD.fOnOver = function():void{
-			TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_SD),TipManager.UP,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_sd.x+15,m_mcAsset.mc_sd.y+30)),1);
+			TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_SD),TipManager.UP,m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_sd.x+15,m_mcAsset.mc_sd.y+30)),1);
 		};
 		m_btnSD.fOnOut = function():void{
 			TipManager.getInstance().hide();
@@ -965,7 +965,7 @@ class Resolution{
 			LobbyManager.getInstance().lobbyView.toolView.toolContact.hide();
 		});
 		m_btnHD.fOnOver = function():void{
-			TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_HD),TipManager.UP,m_mcAsset.localToGlobal(new Point(m_mcAsset.mc_hd.x+15,m_mcAsset.mc_hd.y+30)),1);
+			TipManager.getInstance().show(LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_HD),TipManager.UP,m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_hd.x+15,m_mcAsset.mc_hd.y+30)),1);
 		};
 		m_btnHD.fOnOut = function():void{
 			TipManager.getInstance().hide();

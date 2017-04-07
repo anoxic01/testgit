@@ -163,7 +163,7 @@ module lobby.view.panel {
 			this.m_mcAsset.mc_no.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 		}
 		
-		private getCustomChip():String{
+		private getCustomChip():string{
 			if(this.m_aCustom){
 				while(this.m_aCustom.length<5){
 					this.m_aCustom.push(0);

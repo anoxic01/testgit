@@ -1,6 +1,6 @@
 module lobby.view.table {
 	export class Table extends BSprite {
-		protected m_mcAsset						:	egret.MovieClip;					//房间资源
+		protected m_mcAsset						;					//房间资源
 		protected m_mcContent					;					//缓存内容
 		protected m_bmpBg						;						//桌子背景
 		protected m_bmpIcon						;						//桌子图标
@@ -14,17 +14,17 @@ module lobby.view.table {
 		protected m_spFaceContainer				;
 		
 		protected m_mcHot						;					//鼠标热区
-		protected m_struct						:	struct.Struct_Table;				//数据结构
+		protected m_struct						;				//数据结构
 		
 //		protected m_btnLimit					;			//限红选择
 		public tableLoginType					:	TableLogin;					//进桌方式
 		protected m_iCountDown					:	number;						//时间记录
 		protected m_iGameNo						:	number;						//本地局号
 		protected m_iShoeNo						:	number;						//本地靴号
-		protected m_bNotFinished				:	 boolean;					//路纸异常
-		protected m_bSettled					:	 boolean;					//结算状态
+		protected m_bNotFinished				:	boolean;					//路纸异常
+		protected m_bSettled					:	boolean;					//结算状态
 		
-		protected m_bHotOver					:	 boolean;					//
+		protected m_bHotOver					:	boolean;					//
 		
 		protected m_timer						;
 		protected m_bmpBgOver					;
@@ -37,7 +37,7 @@ module lobby.view.table {
 		protected m_btnStatistics_cn			;				//统计按钮
 		protected m_btnStatistics_tw			;				//统计按钮
 		protected m_btnStatistics_en			;				//统计按钮
-		protected m_bStatistic					:	 boolean;					//按钮状态
+		protected m_bStatistic					:	boolean;					//按钮状态
 		
 		protected m_Statistic_topY				:	number;
 		protected m_Statistic_bottomY			:	number;
@@ -100,8 +100,8 @@ module lobby.view.table {
 			this.m_spstatisticContain.y = this.m_Statistic_bottomY;
 			this.addChild(this.m_spStatisticMask);
 			this.m_spstatisticContain.mask = this.m_spStatisticMask;
-//			m_spstatisticContain.mouseChildren = false;
-//			m_spstatisticContain.mouseEnabled = false;
+//			m_spstatisticContain.touchChildren = false;
+//			m_spstatisticContain.touchEnabled = false;
 			
 		}
 		
@@ -306,7 +306,7 @@ module lobby.view.table {
 			}
 		}
 		
-		public setData(_struct:struct.Struct_Table):void{
+		public setData(_struct):void{
 			if(_struct==null){
 //				m_struct.removeEventListener(TableEvent.CHANGE, onChange);
 //				console.log("移除struct侦听，tableid：",m_struct.TableID);
@@ -349,7 +349,7 @@ module lobby.view.table {
 				return;
 			}
 			
-			if(this.m_struct.GameStatus == define.GameStatus.BETTING){
+			if(this.m_struct.GameStatus == model.status.GameStatus.BETTING){
 				if(this.m_iCountDown!= this.m_struct.CountDownTime){
 					this.m_iCountDown = this.m_struct.CountDownTime;
 					
@@ -432,7 +432,7 @@ module lobby.view.table {
 		public showMaintain(_bMc: boolean=true):void{
 			// this.m_mcAsset.mc_mask.visible = _bMc;
 			// this.m_mcAsset.mc_hint.visible = true;
-			if(this.m_struct.GameStatus==define.GameStatus.FAILING_GAME||this.m_struct.GameStatus==define.GameStatus.FAIL_GAME)
+			if(this.m_struct.GameStatus==model.status.GameStatus.FAILING_GAME||this.m_struct.GameStatus==model.status.GameStatus.FAIL_GAME)
 			{
 				
 			}else{
@@ -463,7 +463,7 @@ module lobby.view.table {
 		
 		public onChangeLanguage():void{
 //			if(m_btnLimit){
-//				(m_btnLimit.mcAsset.getChildByName("mc_label") as MovieClip).gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+//				(m_btnLimit.mcAsset.getChildByName("mc_label")).gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
 //			}
 			
 			switch(manager.LobbyManager.getInstance().lobbyAuth.Lang){
@@ -487,7 +487,7 @@ module lobby.view.table {
 			}
 		}
 		
-		get struct():struct.Struct_Table{
+		get struct():model.struct.TableStruct{
 			return this.m_struct;
 		}
 		
@@ -525,9 +525,9 @@ module lobby.view.table {
 		public isGameStart(): boolean{
 			// 如果游戏处于下注或者发牌阶段，说明游戏已经开始
 			switch(this.m_struct.GameStatus){
-				case define.GameStatus.BETTING:
-				case define.GameStatus.DEALING:
-				case define.GameStatus.SETTLING:
+				case model.status.GameStatus.BETTING:
+				case model.status.GameStatus.DEALING:
+				case model.status.GameStatus.SETTLING:
 					return true;
 			}
 			return false;
@@ -581,7 +581,7 @@ module lobby.view.table {
 		}
 		
 		protected isNotFinish(): boolean{
-			return  boolean(this.m_struct.GameStatus==define.GameStatus.NOT_FINISHED);
+			return  <boolean>(this.m_struct.GameStatus==model.status.GameStatus.NOT_FINISHED);
 		}
 		
 		protected  over(event:MouseEvent):void

@@ -1,10 +1,10 @@
 module lobby.view.tool {
 	export class Tool_Wifi implements iface.ISprite{
-		public static const FULL	:	String	=	"FULL";			//信号满格
-		public static const WELL	:	String	=	"WELL";			//信号良好
-		public static const NORMAL	:	String	=	"NORMAL";		//信号一般
-		public static const POOR	:	String	=	"POOR";			//信号很差
-		public static const NO		:	String	=	"NO";			//没有信号
+		public static FULL	:	String	=	"FULL";			//信号满格
+		public static WELL	:	String	=	"WELL";			//信号良好
+		public static NORMAL	:	String	=	"NORMAL";		//信号一般
+		public static POOR	:	String	=	"POOR";			//信号很差
+		public static NO		:	String	=	"NO";			//没有信号
 		
 		private m_mcAsset		:	MovieClip;					//资源容器
 		
@@ -21,7 +21,7 @@ module lobby.view.tool {
 			}
 		}
 		
-		set  status( _sStatus:String )
+		set  status( _sStatus:string )
 		{
 //			console.log("测试");
 			if(m_mcAsset){

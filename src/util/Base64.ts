@@ -6,7 +6,7 @@ module util {
 		
 		private static BASE64_CHARS:string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
-		public static version:String = "1.0.0";
+		public static version:string = "1.0.0";
 
 		public static encode(data:string):string {
 			// Convert string to egret.ByteArray

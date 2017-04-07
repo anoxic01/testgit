@@ -1,52 +1,51 @@
 module lobby.view.route.quick {
 	export class QuickBeadItemSic extends BeadItem{
-		private var m_sLabel	:	string;		//标签
 		
 		public constructor(_uMode:number=0) {
-		super();
+			super();
 		}
 		
-		 public function destroy():void{
+		 public destroy():void{
 			super.destroy();
 			
 		}
 		
-		 public function setLabel(sLabel:string):void{
-			m_sLabel = sLabel;
-			m_bmp.bitmapData = getSicBead(m_sLabel);
-			m_bmp.width = 20;
-			m_bmp.height = 21;
-			m_bmp.smoothing = true;
+		 public setLabel(sLabel:string):void{
+			this.m_sLabel = sLabel;
+			this.m_bmp.bitmapData = this.getSicBead(this.m_sLabel);
+			this.m_bmp.width = 20;
+			this.m_bmp.height = 21;
+			this.m_bmp.smoothing = true;
 			//骰宝默认显示数字，不需要切换语言
 //			onChangeLanguage();
 		}
 		
-		 public function onChangeLanguage():void{
-			if(m_bmp){
+		 public onChangeLanguage():void{
+			if(this.m_bmp){
 //				m_bmp.bitmapData = getSicBead(m_sLabel);
-				switch(m_sLabel){
-					case D:
-						m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_DAN);
+				switch(this.m_sLabel){
+					case BeadItem.D:
+						this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_DAN);
 						break;
 					
-					case F:
-						m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_SHUANG);
+					case BeadItem.F:
+						this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_SHUANG);
 						break;
 				}
-				m_bmp.width = 20;
-				m_bmp.height = 21;
-				m_bmp.smoothing = true;
+				this.m_bmp.width = 20;
+				this.m_bmp.height = 21;
+				this.m_bmp.smoothing = true;
 			}else{
 				console.log("设置珠子位图异常...");
 			}
 			
 		}
 		
-		public function getSicBead( str:string ):BitmapData {
-			LobbyData.getInstance().beadRoad_sic.tf_0.text = str;
-			LobbyData.getInstance().beadRoad_sic.tf_0.autoSize = TextFieldAutoSize.LEFT;		
+		public getSicBead( str:string ):egret.BitmapData {
+			model.LobbyData.getInstance().beadRoad_sic.tf_0.text = str;
+			// LobbyData.getInstance().beadRoad_sic.tf_0.autoSize = TextFieldAutoSize.LEFT;		
 			
-			return util.bitmap.util.bitmap.BitmapUtil.snapshot(LobbyData.getInstance().beadRoad_sic);
+			return util.bitmap.BitmapUtil.snapshot(model.LobbyData.getInstance().beadRoad_sic);
 		}
 		
 		

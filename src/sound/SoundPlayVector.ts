@@ -3,7 +3,7 @@ module sound {
 		/**
 		 *停顿500毫秒 
 		 */		
-		public static const SPACE:String = "Sound_Space_500";
+		public static SPACE:string = "Sound_Space_500";
 		
 		private m_sounds:any[];
 		
@@ -17,7 +17,7 @@ module sound {
 		{
 			if(this.m_sounds.length>0)
 			{
-				var soundStr:String = m_sounds.shift();
+				var soundStr:string = m_sounds.shift();
 				if(soundStr==SPACE)
 				{
 					setTimeout(start,500);

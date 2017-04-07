@@ -1,10 +1,11 @@
 module lobby.view.route.game.sic {
 	export class SicRouteCanvas extends RoadCanvas{
 		public constructor() {
+			super();
 			this._roadBallPool = new RoadBallPool();
 		}
 		
-		 public function destroy():void{
+		 public destroy():void{
 			
 			var bead:BeadItem
 			while( this.numChildren > 0 ) {
@@ -18,7 +19,7 @@ module lobby.view.route.game.sic {
 			super.destroy();
 		}
 		
-		 public function onChangeLanguage():void{
+		 public onChangeLanguage():void{
 			var bead:BeadItem
 			for (var i:number= 0; i < this.numChildren; i++) 
 			{
@@ -30,24 +31,24 @@ module lobby.view.route.game.sic {
 			}
 			
 		}
-		 public function setBeadSize(beadInfo:BeadInfo):void
+		 public setBeadSize(beadInfo:BeadInfo):void
 		{
 			this._beadInfo = beadInfo;
 			
 		}
-		 public function init():void 
+		 public init():void 
 		{
 			while (this.numChildren > 0) {
 				this.removeChildAt(0);
 			}
 		}
-		 public function put(ball:DisplayObject, symbol:string, x:Number, y:Number):void
+		 public put(ball, symbol:string, x:number, y:number):void
 		{
-			if (ball is MovieClip ){
-				MovieClip(ball).gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+			if (ball instanceof egret.MovieClip ){
+				(ball).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			}
-			ball.x = int(x);
-			ball.y = int(y);
+			ball.x = (x);
+			ball.y = (y);
 			if(ball.parent!=this)
 			{
 				this.addChild(ball);
@@ -56,26 +57,26 @@ module lobby.view.route.game.sic {
 		/**
 		 * 畫和值路
 		 */
-		public function drawTieRoad(readerDataGrid:any[]  , isAsk: boolean = false ):void {
+		public drawTieRoad(readerDataGrid:any[]  , isAsk: boolean = false ):void {
 			var symbol:string;
 			var startX:number= readerDataGrid.length <= this._beadInfo.gridWidth ? 0 : readerDataGrid.length - this._beadInfo.gridWidth;
 			
-			var ball:Bitmap;
-			var offtenWidth:Number;
-			var offtenHeight:Number;
-			var offtenX:Number;
-			var offtenY:Number;
-			var ballW:Number;
-			var ballH:Number;
+			var ball;
+			var offtenWidth:number;
+			var offtenHeight:number;
+			var offtenX:number;
+			var offtenY:number;
+			var ballW:number;
+			var ballH:number;
 			
 			offtenWidth = this._beadInfo.tieMc_OfftenWidth;
 			offtenHeight = this._beadInfo.tieMc_OfftenHeight;
 			offtenX = this._beadInfo.tieMc_OfftenX;
 			offtenY = this._beadInfo.tieMc_OfftenY;
 			
-			var tf:TextFormat = new TextFormat();
-			tf.bold = false;
-			var tempChildVector:<DisplayObject> = childconcat();
+			// var tf:TextFormat = new TextFormat();
+			// tf.bold = false;
+			var tempChildVector = this.childVector.concat();
 			for (var x:number= startX,  colIndex:number= 0, cols:number= readerDataGrid.length; x < cols; x++)
 			{
 				for (var y:number= 0, rows:number= readerDataGrid[x].length; y < rows; y++)
@@ -84,7 +85,7 @@ module lobby.view.route.game.sic {
 					if (x >= startX && symbol) 
 					{
 						ball = null;
-						var childData:Object = childDataDict[x+"_"+y];//={};
+						var childData = this.childDataDict[x+"_"+y];//={};
 						if(childData)
 						{
 							if(childData.symbol==symbol)// 相同
@@ -100,23 +101,23 @@ module lobby.view.route.game.sic {
 						}
 						if(!ball)
 						{
-							ball = _roadBallPool.getSicSumBead(symbol);
+							ball = this._roadBallPool.getSicSumBead(symbol);
 							if(childData)childData.view = ball;
 						}
-						var tindex:number= tempChildindexOf(ball);
+						var tindex:number= tempChildVector.indexOf(ball);
 						if(tindex>=0)
 						{
-							tempChildsplice(tindex,1);
+							tempChildVector.splice(tindex,1);
 						}else
 						{
-							childpush(ball);
+							this.childVector.push(ball);
 						}
 						if(!childData)
 						{
 							childData = {};
 							childData.view = ball;
 							childData.symbol = symbol;
-							childDataDict[x+"_"+y] = childData;
+							this.childDataDict[x+"_"+y] = childData;
 						}
 						
 						
@@ -133,13 +134,13 @@ module lobby.view.route.game.sic {
 					colIndex++;
 				}
 			}	
-			while(tempChildlength>0)
+			while(tempChildVector.length>0)
 			{
-				var child:DisplayObject = tempChildshift();
-				var cindex:number= childindexOf(child);
+				var child = tempChildVector.shift();
+				var cindex:number= this.childVector.indexOf(child);
 				if(cindex>=0)
 				{
-					childsplice(cindex,1);
+					this.childVector.splice(cindex,1);
 				}
 				if(child.parent)child.parent.removeChild(child);
 			}
@@ -148,25 +149,25 @@ module lobby.view.route.game.sic {
 		/**
 		 * 畫珠仔路
 		 */
-		public function drawBeadRoad(readerDataGrid:any[]  , isAsk: boolean = false ):void
+		public drawBeadRoad(readerDataGrid:any[]  , isAsk: boolean = false ):void
 		{
 			var symbol:string;
 			var startX:number= readerDataGrid.length <= this._beadInfo.gridWidth ? 0 : readerDataGrid.length - this._beadInfo.gridWidth;
 			//console.log("startX::" + startX );
-			var ball:Bitmap;
-			var offtenWidth:Number;
-			var offtenHeight:Number;
-			var offtenX:Number;
-			var offtenY:Number;
-			var ballW:Number;
-			var ballH:Number;
+			var ball;
+			var offtenWidth:number;
+			var offtenHeight:number;
+			var offtenX:number;
+			var offtenY:number;
+			var ballW:number;
+			var ballH:number;
 			offtenWidth = this._beadInfo.beadMc_OfftenWidth;
 			offtenHeight = this._beadInfo.beadMc_OfftenHeight;
 			offtenX = this._beadInfo.beadMc_OfftenX;
 			offtenY = this._beadInfo.beadMc_OfftenY;
-			var tf:TextFormat = new TextFormat();
-			tf.bold = false;
-			var tempChildVector:<DisplayObject> = childconcat();
+			// var tf:TextFormat = new TextFormat();
+			// tf.bold = false;
+			var tempChildVector = this.childVector.concat();
 			for (var x:number= startX,  colIndex:number= 0, cols:number= readerDataGrid.length; x < cols; x++) 
 			{
 				for (var y:number= 0, rows:number= readerDataGrid[x].length; y < rows; y++)
@@ -175,7 +176,7 @@ module lobby.view.route.game.sic {
 					if (x >= startX && symbol) 
 					{
 						ball = null;
-						var childData:Object = childDataDict[x+"_"+y];//={};
+						var childData = this.childDataDict[x+"_"+y];//={};
 						if(childData)
 						{
 							if(childData.symbol==symbol)// 相同
@@ -191,23 +192,23 @@ module lobby.view.route.game.sic {
 						}
 						if(!ball)
 						{
-							ball = _roadBallPool.getSicBead(symbol);
+							ball = this._roadBallPool.getSicBead(symbol);
 							if(childData)childData.view = ball;
 						}
-						var tindex:number= tempChildindexOf(ball);
+						var tindex:number= tempChildVector.indexOf(ball);
 						if(tindex>=0)
 						{
-							tempChildsplice(tindex,1);
+							tempChildVector.splice(tindex,1);
 						}else
 						{
-							childpush(ball);
+							this.childVector.push(ball);
 						}
 						if(!childData)
 						{
 							childData = {};
 							childData.view = ball;
 							childData.symbol = symbol;
-							childDataDict[x+"_"+y] = childData;
+							this.childDataDict[x+"_"+y] = childData;
 						}
 						
 						ballW = this._beadInfo.beadW ;
@@ -222,37 +223,37 @@ module lobby.view.route.game.sic {
 					colIndex++;
 				}
 			}
-			while(tempChildlength>0)
+			while(tempChildVector.length>0)
 			{
-				var child:DisplayObject = tempChildshift();
-				var cindex:number= childindexOf(child);
+				var child = tempChildVector.shift();
+				var cindex:number= this.childVector.indexOf(child);
 				if(cindex>=0)
 				{
-					childsplice(cindex,1);
+					this.childVector.splice(cindex,1);
 				}
 				if(child.parent)child.parent.removeChild(child);
 			}
 		}	
-		public function drawBigSmallRoad(  readerDataGrid:any[], isAsk: boolean = false  ):void
+		public drawBigSmallRoad(  readerDataGrid:any[], isAsk: boolean = false  ):void
 		{
 			var symbol:string;
 			var startX:number= readerDataGrid.length <= this._beadInfo.gridWidth ? 0 : readerDataGrid.length - this._beadInfo.gridWidth;
 //			console.log("data::" + readerDataGrid );
 //			console.log("startX::" + startX );
 			var ball:BeadItem;
-			var offtenWidth:Number;
-			var offtenHeight:Number;
-			var offtenX:Number;
-			var offtenY:Number;
-			var ballW:Number;
-			var ballH:Number;
+			var offtenWidth:number;
+			var offtenHeight:number;
+			var offtenX:number;
+			var offtenY:number;
+			var ballW:number;
+			var ballH:number;
 			offtenWidth = this._beadInfo.bigMc_OfftenWidth;
 			offtenHeight = this._beadInfo.bigMc_OfftenHeight;
 			offtenX = this._beadInfo.bigMc_OfftenX;
 			offtenY = this._beadInfo.bigMc_OfftenY;
-			var tf:TextFormat = new TextFormat();
-			tf.bold = false;
-			var tempChildVector:<DisplayObject> = childconcat();
+			// var tf:TextFormat = new TextFormat();
+			// tf.bold = false;
+			var tempChildVector = this.childVector.concat();
 			for (var x:number= startX,  colIndex:number= 0, cols:number= readerDataGrid.length; x < cols; x++) 
 			{
 				for (var y:number= 0, rows:number= readerDataGrid[x].length; y < rows; y++)
@@ -261,7 +262,7 @@ module lobby.view.route.game.sic {
 					if (x >= startX && symbol && symbol != "null" )
 					{
 						ball = null;
-						var childData:Object = childDataDict[x+"_"+y];//={};
+						var childData = this.childDataDict[x+"_"+y];//={};
 						if(childData)
 						{
 							if(childData.symbol==symbol)// 相同
@@ -291,20 +292,20 @@ module lobby.view.route.game.sic {
 							ball.setLabel(symbol);
 							if(childData)childData.view = ball;
 						}
-						var tindex:number= tempChildindexOf(ball);
+						var tindex:number= tempChildVector.indexOf(ball);
 						if(tindex>=0)
 						{
-							tempChildsplice(tindex,1);
+							tempChildVector.splice(tindex,1);
 						}else
 						{
-							childpush(ball);
+							this.childVector.push(ball);
 						}
 						if(!childData)
 						{
 							childData = {};
 							childData.view = ball;
 							childData.symbol = symbol;
-							childDataDict[x+"_"+y] = childData;
+							this.childDataDict[x+"_"+y] = childData;
 						}
 						
 						ballW = this._beadInfo.beadW;
@@ -319,18 +320,18 @@ module lobby.view.route.game.sic {
 					colIndex++;
 				}
 			}
-			while(tempChildlength>0)
+			while(tempChildVector.length>0)
 			{
-				var child:DisplayObject = tempChildshift();
-				var cindex:number= childindexOf(child);
+				var child = tempChildVector.shift();
+				var cindex:number= this.childVector.indexOf(child);
 				if(cindex>=0)
 				{
-					childsplice(cindex,1);
+					this.childVector.splice(cindex,1);
 				}
 				if(child.parent)child.parent.removeChild(child);
 			}
 		}
-		 public function resetPool():void {
+		 public resetPool():void {
 			//while (this.numChildren > 0) {
 			//this.removeChildAt(0);
 			//}
@@ -345,24 +346,24 @@ module lobby.view.route.game.sic {
 		 * @param	isAsk
 		 * @param	
 		 */
-		public function drawOddEvenRoad(readerDataGrid:any[], isAsk: boolean = false):void 
+		public drawOddEvenRoad(readerDataGrid:any[], isAsk: boolean = false):void 
 		{
 			var symbol:string;
 			var startX:number= readerDataGrid.length <= this._beadInfo.gridWidth ? 0 : readerDataGrid.length - this._beadInfo.gridWidth;
 			//console.log("startX::" + startX );
 			var ball:BeadItem;
-			var offtenWidth:Number;
-			var offtenHeight:Number;
-			var offtenX:Number;
-			var offtenY:Number;
-			var ballW:Number;
-			var ballH:Number;
+			var offtenWidth:number;
+			var offtenHeight:number;
+			var offtenX:number;
+			var offtenY:number;
+			var ballW:number;
+			var ballH:number;
 			offtenWidth = this._beadInfo.oddMc_OfftenWidth;
 			offtenHeight = this._beadInfo.oddMc_OfftenHeight;
 			offtenX = this._beadInfo.oddMc_OfftenX;
 			offtenY = this._beadInfo.oddMc_OfftenY;
-			var _nOffY:Number = 0;
-			var tempChildVector:<DisplayObject> = childconcat();
+			var _nOffY:number = 0;
+			var tempChildVector = this.childVector.concat();
 			for (var x:number= startX,  colIndex:number= 0, cols:number= readerDataGrid.length; x < cols; x++)
 			{
 				for (var y:number= 0, rows:number= readerDataGrid[x].length; y < rows; y++)
@@ -372,7 +373,7 @@ module lobby.view.route.game.sic {
 					{
 						_nOffY = offtenY;
 						ball = null;
-						var childData:Object = childDataDict[x+"_"+y];//={};
+						var childData = this.childDataDict[x+"_"+y];//={};
 						if(childData)
 						{
 							if(childData.symbol==symbol)// 相同
@@ -393,20 +394,20 @@ module lobby.view.route.game.sic {
 							ball.setLabel(symbol);
 							if(childData)childData.view = ball;
 						}
-						var tindex:number= tempChildindexOf(ball);
+						var tindex:number= tempChildVector.indexOf(ball);
 						if(tindex>=0)
 						{
-							tempChildsplice(tindex,1);
+							tempChildVector.splice(tindex,1);
 						}else
 						{
-							childpush(ball);
+							this.childVector.push(ball);
 						}
 						if(!childData)
 						{
 							childData = {};
 							childData.view = ball;
 							childData.symbol = symbol;
-							childDataDict[x+"_"+y] = childData;
+							this.childDataDict[x+"_"+y] = childData;
 						}
 						
 						ballW = this._beadInfo.beadW ;
@@ -421,13 +422,13 @@ module lobby.view.route.game.sic {
 					colIndex++;
 				}
 			}
-			while(tempChildlength>0)
+			while(tempChildVector.length>0)
 			{
-				var child:DisplayObject = tempChildshift();
-				var cindex:number= childindexOf(child);
+				var child = tempChildVector.shift();
+				var cindex:number= this.childVector.indexOf(child);
 				if(cindex>=0)
 				{
-					childsplice(cindex,1);
+					this.childVector.splice(cindex,1);
 				}
 				if(child.parent)child.parent.removeChild(child);
 			}

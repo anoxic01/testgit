@@ -13,7 +13,7 @@ module lobby.view.chip {
 			this.shadowFilter.color=0x000000;
 			
 			
-			// this.mouseEnabled=this.mouseChildren=false;
+			// this.touchEnabled=this.touchChildren=false;
 
 			this._startPoint= new egret.Point(0,-80);
 			this.chipBox = new egret.Sprite;

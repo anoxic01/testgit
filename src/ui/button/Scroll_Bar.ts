@@ -111,9 +111,9 @@ module ui.button {
 			}else{
 				setCurrent("DISABLE");
 			}
-				this.mouseEnabled = m_bEnable;
-				this.mouseChildren = m_bEnable;
-				this.buttonMode = m_bEnable;
+				this.touchEnabled = m_bEnable;
+				this.touchChildren = m_bEnable;
+				this.touchEnabled = m_bEnable;
 //			}
 			
 		}
@@ -219,7 +219,7 @@ module ui.button {
 			setCurrent("HOVER");
 		}
 		
-		protected setCurrent(sFrame:String):void{
+		protected setCurrent(sFrame:string):void{
 			m_s9Default.visible = false;
 			m_s9Hover.visible = false;
 			m_s9Hdown.visible = false;

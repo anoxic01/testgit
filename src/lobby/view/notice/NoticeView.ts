@@ -16,8 +16,8 @@ module lobby.view.notice {
 		
 		public constructor() {
 			super();
-			// this.mouseChildren = false;
-			// this.mouseEnabled = false;
+			// this.touchChildren = false;
+			// this.touchEnabled = false;
 			this.touchEnabled = false;
 
 			this.m_vecShowList = new Array<model.struct.MessageStruct>();
@@ -41,7 +41,7 @@ module lobby.view.notice {
 			this.m_mcAsset.tf_0.multiline = false;
 			
 			this.m_mcAsset.tf_0.selectable = false;
-			this.m_mcAsset.tf_0.mouseEnabled = false;
+			this.m_mcAsset.tf_0.touchEnabled = false;
 			
 			this.m_spMask = new egret.Sprite();
 			this.m_spMask.graphics.beginFill(0xFFFFFF, 0.5);

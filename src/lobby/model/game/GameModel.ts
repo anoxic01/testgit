@@ -293,8 +293,8 @@ module lobby.model.game {
 		 * @return 
 		 * 
 		 */
-		get roomName():String{
-			var str:String="";
+		get roomName():string{
+			var str:string="";
 			if(this.tableStruct){
 				switch(manager.LobbyManager.getInstance().lobbyAuth.Lang)
 				{

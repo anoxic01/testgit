@@ -24,7 +24,7 @@ module lobby.view.windows {
 			}
 		}
 		
-		public show( _sMsg:String , _bKeep: boolean =false  ):void {
+		public show( _sMsg:string , _bKeep: boolean =false  ):void {
 			var _msgData:MsgData = new MsgData();
 			if( _sMsg != null && _sMsg != '') {
 				_msgData.sMsg = _sMsg;
@@ -53,7 +53,7 @@ module lobby.view.windows {
 
 }
 class MsgData {
-	public sMsg:String;
+	public sMsg:string;
 	public keep: boolean;
 	public MsgData():void {
 		

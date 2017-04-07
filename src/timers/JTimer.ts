@@ -3,7 +3,7 @@ module timers {
 		private static timerPool = new Array<JTimer>();
 		protected juggleTick;
 
-		public name:String = "";
+		public name:string = "";
 		protected timeHandler:Function = null;
 		protected completeHandler:Function = null;
 		private _repeatCount:number = -1;
@@ -135,7 +135,7 @@ module timers {
 			return $timer;
 		}
 		
-		public toString():String
+		public toString():string
 		{
 			return "[Object JTimer name="+name+" delay="+this.delay+" repeatCount="+this.lastSetRepeatCount+" tick="+this.timeHandler+" tickComplete="+this.completeHandler+"]";
 		}

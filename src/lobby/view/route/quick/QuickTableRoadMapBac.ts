@@ -1,39 +1,39 @@
 module lobby.view.route.quick {
 	export class QuickTableRoadMapBac {
-		protected var m_routeView					:	MovieClip;
+		protected m_routeView					;
 				
 		/**當前顯示路*/
-		public var nowRoad							:	string 				=	"";
+		public  nowRoad							:	string 				=	"";
 		
-		protected var m_beadPlate					:	QuickBeadPlate;
-		protected var m_beadInfo					:	BeadInfo;
+		protected m_beadPlate					:	QuickBeadPlate;
+		protected m_beadInfo					:	BeadInfo;
 		
-		public var bError							:	 boolean;														//错误状态
+		public  bError							:	 boolean;														//错误状态
 		
-		public constructor(view:MovieClip) {
+		public constructor(view) {
 		
 			this.m_routeView = view;
 			
 			this.init();
-			setRoadInf();
+			this.setRoadInf();
 		}
 		
-		protected function init():void 
+		protected  init():void 
 		{
 			//珠路盤
-			var beadMc:MovieClip =m_routeView.getChildByName("mc_0") as MovieClip
+			var beadMc = this.m_routeView.getChildByName("mc_0")
 			if (beadMc){
 				this.m_beadPlate = new QuickBeadPlate(beadMc, QuickBeadItemBaccarat); //珠路盤
 				beadMc = null;
 			}
-			if (m_beadPlate){
+			if (this.m_beadPlate){
 				
-				m_beadPlate.setBeads(0,0,21,21);
-				this.m_beadPlate.mouseChildren = this.m_beadPlate.mouseEnabled = false;
+				this.m_beadPlate.setBeads(0,0,21,21);
+				this.m_beadPlate.touchChildren = this.m_beadPlate.touchEnabled = false;
 			}
 		}
 		
-		protected function setRoadInf():void{
+		protected  setRoadInf():void{
 			//路紙參數均在此設定
 			this.m_beadInfo = new BeadInfo();
 			this.m_beadInfo.gridWidth = 21;
@@ -74,28 +74,28 @@ module lobby.view.route.quick {
 		 * 變更語系
 		 * @param	lang
 		 */
-		public function  onChangeLanguage():void{
+		public   onChangeLanguage():void{
 			
-			if(m_beadPlate){
-				m_beadPlate.onChangeLanguage();
+			if(this.m_beadPlate){
+				this.m_beadPlate.onChangeLanguage();
 			}
 			
 			
 		}
 		
-		public function destroy():void {
+		public  destroy():void {
 			
-			if(m_routeView){
-				m_routeView = null;
+			if(this.m_routeView){
+				this.m_routeView = null;
 			}
 			
-			if( m_beadPlate ){
-				m_beadPlate.destroy();
-				m_beadPlate = null;
+			if( this.m_beadPlate ){
+				this.m_beadPlate.destroy();
+				this.m_beadPlate = null;
 			}
 			
-			if( m_beadInfo ){
-				m_beadInfo = null;
+			if( this.m_beadInfo ){
+				this.m_beadInfo = null;
 			}
 			
 		}
@@ -104,14 +104,14 @@ module lobby.view.route.quick {
 		/**
 		 * 清掉路單
 		 */
-		public function clearRoad():void {
-			bError = false;
+		public  clearRoad():void {
+			this.bError = false;
 			this.nowRoad = "";			
 			this.showRoadViewInit();
 			//console.log("clearRoad:" + this._nowRoad);
 		}
 		/** 更新路單 */
-		public function addRoad(road:string):void {
+		public  addRoad(road:string):void {
 			//			if ( this._nowRoad.length > Define.BEAD_NUM ) {
 			//				this._nowRoad = "";
 			//			}
@@ -124,13 +124,13 @@ module lobby.view.route.quick {
 			if ( road.indexOf( "#" ) != -1 ) {
 				//路紙有錯
 				console.log("路紙有錯"+road);
-				bError = true
+				this.bError = true
 				return;
 			}else{
-				bError = false;
+				this.bError = false;
 			}
 			
-			if (nowRoad==""){
+			if (this.nowRoad==""){
 				this.nowRoad +=road;
 			}else{
 				this.nowRoad += "."+road;
@@ -144,28 +144,28 @@ module lobby.view.route.quick {
 			}
 		}
 		
-		protected function showRoad(road:string, isAsk: boolean = false):void {
+		protected  showRoad(road:string, isAsk: boolean = false):void {
 			//this.showRoadViewInit();
-			if(m_beadPlate){
+			if(this.m_beadPlate){
 				this.m_beadPlate.addRoad(road);
 			}
 			
 		}
 		
-		private function showProbeIcon():void{
-			drawProbeIcon("a");
-			drawProbeIcon("e");
+		private showProbeIcon():void{
+			this.drawProbeIcon("a");
+			this.drawProbeIcon("e");
 		}
 		
-		private function drawProbeIcon(probe:string):void{
-			var roadStrObj:RoadstringObject = BeadRoad.createRoadReanderstring(nowRoad+probe);
+		private drawProbeIcon(probe:string):void{
+			var roadStrObj = BeadRoad.createRoadReanderString(this.nowRoad+probe);
 			var probeArr:any[]=new Array(3);
 			probeArr[0]=roadStrObj.bigEyeRoad.charAt(roadStrObj.bigEyeRoad.length-1)
 			probeArr[1] = roadStrObj.smallRoad.charAt(roadStrObj.smallRoad.length-1)
 			probeArr[2] = roadStrObj.roachRoad.charAt(roadStrObj.roachRoad.length-1)
 			//	console.log("探路"+probe+"-----:"+probeArr);
 			
-			var sp:Sprite;
+			var sp;
 			if (probe=="a"){
 				sp=this.m_routeView.btn_AskBankerRoad
 			}else{
@@ -174,8 +174,8 @@ module lobby.view.route.quick {
 			}
 			for (var i:number= 0; i < probeArr.length; i++) 
 			{
-				if (probeArr[i] is DisplayObject){
-					var icon:Sprite=probeArr[i];
+				if (probeArr[i] instanceof egret.DisplayObject){
+					var icon=probeArr[i];
 					icon.x=i*15+10;
 					icon.y=40;
 					sp.addChild(icon);
@@ -188,9 +188,9 @@ module lobby.view.route.quick {
 		}
 		
 		/** 路單初始 */
-		protected function showRoadViewInit():void {
+		protected  showRoadViewInit():void {
 			
-			if (m_beadPlate){
+			if (this.m_beadPlate){
 				this.m_beadPlate.init();
 				
 			}

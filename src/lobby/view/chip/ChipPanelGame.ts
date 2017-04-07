@@ -13,7 +13,7 @@ module lobby.view.chip {
 			else if( _iMode == 1 ){
 				this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY,"ChipPanelGameAsset2");
 				this.m_uWidth = 700;
-				this.m_mcAsset.mouseEnabled=false;
+				this.m_mcAsset.touchEnabled=false;
 			}
 			this.addChild(this.m_mcAsset);
 			this.cacheAsBitmap=true;
@@ -32,7 +32,7 @@ module lobby.view.chip {
 //				rebet();
 //			});
 //			this.btnReBet_tw.fOnOver = function():void{
-//				manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(Language.sTip_ChipPanel_Rebet),manager.TipManager.RIGHT,this.m_mcAsset.localToGlobal(new Point(this.m_mcAsset.mc_rebet_tw.x,this.m_mcAsset.mc_rebet_tw.y+25)));
+//				manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(Language.sTip_ChipPanel_Rebet),manager.TipManager.RIGHT,this.m_mcAsset.localToGlobal(new egret.Point(this.m_mcAsset.mc_rebet_tw.x,this.m_mcAsset.mc_rebet_tw.y+25)));
 //			};
 //			this.btnReBet_tw.fOnOut = function():void{
 //				manager.TipManager.getInstance().hide();
@@ -41,7 +41,7 @@ module lobby.view.chip {
 //				rebet();
 //			});
 //			this.btnReBet_en.fOnOver = function():void{
-//				manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(Language.sTip_ChipPanel_Rebet),manager.TipManager.RIGHT,this.m_mcAsset.localToGlobal(new Point(this.m_mcAsset.mc_rebet_en.x,this.m_mcAsset.mc_rebet_en.y+25)));
+//				manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(Language.sTip_ChipPanel_Rebet),manager.TipManager.RIGHT,this.m_mcAsset.localToGlobal(new egret.Point(this.m_mcAsset.mc_rebet_en.x,this.m_mcAsset.mc_rebet_en.y+25)));
 //			};
 //			this.btnReBet_en.fOnOut = function():void{
 //				manager.TipManager.getInstance().hide();

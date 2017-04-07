@@ -50,7 +50,7 @@ module packet.lobby {
 					
 					var _bRes: boolean = LobbyManager.getInstance().reconnect();
 					if( _bRes == false ){
-						var _sMsg:String = LobbyManager.getInstance().getLanguageString( Language.sWarn_Server_Busy );
+						var _sMsg:string = LobbyManager.getInstance().getLanguageString( Language.sWarn_Server_Busy );
 						_pannelDialog = LobbyManager.getInstance().showDialog_2( _sMsg , true, false,  _fExitLobby , _fRefresh); 
 						PanelDialog_2(_pannelDialog).fDestroyRun = LobbyManager.getInstance().leaveLobby;			//關閉紐 偵聽函式	
 					}

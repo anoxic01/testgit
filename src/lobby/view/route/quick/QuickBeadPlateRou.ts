@@ -1,37 +1,37 @@
 module lobby.view.route.quick {
 	export class QuickBeadPlateRou extends BSprite{
-		protected var maxNum				:	int	=	84;					//珠子数量
-		protected var maxCol				:	int = 	14;					//路纸行数
-		protected var _beadPlate_vct		:	<BeadItem>; 			//所有珠子
-		protected var _lastIndex			:	number;						//珠子序号
-		protected var m_beadClass			:	Class;						//珠子资源
-		protected var m_mcAsset				:	MovieClip;					//显示容器
-		protected var _nowRoad				:	string	=	"";				//路纸数据
+		protected maxNum							=	84;					//珠子数量
+		protected maxCol				 			= 	14;					//路纸行数
+		protected _beadPlate_vct		; 			//所有珠子
+		protected _lastIndex			:	number;						//珠子序号
+		protected m_beadClass			;						//珠子资源
+		protected m_mcAsset				;					//显示容器
+		protected _nowRoad				:	string	=	"";				//路纸数据
 		
-		public constructor( _mcAsset:MovieClip, _class:Class=null, col:number=14 ) {
+		public constructor( _mcAsset, _class=null, col:number=14 ) {
 		
 			super();
 			
 			this.m_mcAsset = _mcAsset;
 			this.m_beadClass = _class;
 			this.maxCol = col;
-			this.maxNum = maxCol*6;
+			this.maxNum = this.maxCol*6;
 			
-			setBeads();
+			this.setBeads();
 		}
 		
 		
-		 public function destroy():void {
+		 public destroy():void {
 			super.destroy();
 			
 			
 			
-			if(_beadPlate_vct){
+			if(this._beadPlate_vct){
 				var item : BeadItem;
-				var _len : int = _beadPlate_vct.length;
+				var _len  = this._beadPlate_vct.length;
 				for (var i:number= 0; i < _len; i++) 
 				{
-					item = _beadPlate_vct.pop();
+					item = this._beadPlate_vct.pop();
 					if(item.parent){
 						item.parent.removeChild(item);
 					}
@@ -40,19 +40,19 @@ module lobby.view.route.quick {
 				if(item){
 					item = null;
 				}
-				_beadPlate_vct = null;
+				this._beadPlate_vct = null;
 			}
 			
-			if(m_beadClass){
-				m_beadClass = null;
+			if(this.m_beadClass){
+				this.m_beadClass = null;
 			}
-			if(m_mcAsset){
-				m_mcAsset = null;
+			if(this.m_mcAsset){
+				this.m_mcAsset = null;
 			}
 		}
 		
 		
-		public function init():void {
+		public init():void {
 			for (var i:number= 0; i < this.maxNum; i++) {
 				if (this._beadPlate_vct[i]){
 					this._beadPlate_vct[i].visible = false;
@@ -69,12 +69,12 @@ module lobby.view.route.quick {
 		 * @param beadH
 		 * 
 		 */
-		public function setBeads(offX:Number=0,offY:Number=0,beadW:Number=0,beadH:Number=0):void{
+		public setBeads(offX:number=0,offY:number=0,beadW:number=0,beadH:number=0):void{
 			var tmp:BeadItem;
-			_beadPlate_vct		= new <BeadItem>(maxNum); //珠路盤
+			this._beadPlate_vct		= new Array<BeadItem>(); //珠路盤
 			for (var i:number= 0; i < this.maxNum; i++) {
-				tmp = new m_beadClass();
-				m_mcAsset.addChild(tmp);
+				tmp = new this.m_beadClass();
+				this.m_mcAsset.addChild(tmp);
 				if (beadW==0 || beadH ==0){
 					beadW = 21;
 					beadH = 21;
@@ -82,11 +82,11 @@ module lobby.view.route.quick {
 					offX = 2;
 					offY = 2;
 				}
-				tmp.x = offX+int(Math.floor(i/6) * (beadW));
-				tmp.y = offY+int((i%6) * (beadH));
+				tmp.x = offX+(Math.floor(i/6) * (beadW));
+				tmp.y = offY+((i%6) * (beadH));
 				tmp.visible = false;
-				if (_beadPlate_vct[i] && _beadPlate_vct[i].parent){
-					m_mcAsset.removeChild(_beadPlate_vct[i]);
+				if (this._beadPlate_vct[i] && this._beadPlate_vct[i].parent){
+					this.m_mcAsset.removeChild(this._beadPlate_vct[i]);
 				}
 				
 				this._beadPlate_vct[i] = tmp;
@@ -97,7 +97,7 @@ module lobby.view.route.quick {
 		}
 		
 		
-		public function addRoad(road:string):void {
+		public addRoad(road:string):void {
 			
 			if (road == "" || road == null || road == "null") {
 				return;
@@ -109,7 +109,7 @@ module lobby.view.route.quick {
 			var length:number= roadTips.length;
 			var colNum:number= Math.ceil(length / 6) 
 			
-			var fix:number= colNum>maxCol ? (colNum-maxCol) * 6:0 ;
+			var fix:number= colNum>this.maxCol ? (colNum-this.maxCol) * 6:0 ;
 			var label:string = "";
 			for (var i:number= 0; i < this.maxNum; i ++) {
 				if (roadTips[i + fix] != undefined ) {
@@ -127,12 +127,12 @@ module lobby.view.route.quick {
 			
 		}
 		
-		 public function onChangeLanguage():void{
-			if(_beadPlate_vct){
-				for (var i:number= 0; i < _beadPlate_vct.length; i++) 
+		 public onChangeLanguage():void{
+			if(this._beadPlate_vct){
+				for (var i:number= 0; i <this. _beadPlate_vct.length; i++) 
 				{
-					if (_beadPlate_vct[i]){
-						_beadPlate_vct[i].onChangeLanguage();
+					if (this._beadPlate_vct[i]){
+						this._beadPlate_vct[i].onChangeLanguage();
 					}
 				}
 				

@@ -2,7 +2,7 @@ module lobby.view.animation {
 	export class AnimationGameWinA extends BSprite{
 		private m_mcAsset;
 		
-		public constructor(_nValue:Number, _uCount:number=1) {
+		public constructor(_nValue:number, _uCount:number=1) {
 			super();
 			
 			this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_WINA,"Game_Win_A_Asset");
@@ -23,7 +23,7 @@ module lobby.view.animation {
 				this.m_mcAsset = null;
 			}
 		}
-		set  value(_nValue:Number){
+		set  value(_nValue:number){
 			if(this.m_mcAsset){
 				this.m_mcAsset.label.tf_label.text = _nValue.toString();
 			}

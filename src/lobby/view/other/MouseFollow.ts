@@ -29,7 +29,7 @@ module lobby.view.other {
 			this.m_bmpAsset.y = -(this.m_bmpAsset.height*0.5);
 		}
 		
-		set  scale(value:Number){
+		set  scale(value:number){
 			this.m_bmpAsset.scaleX = this.m_bmpAsset.scaleY=value;
 			
 		}

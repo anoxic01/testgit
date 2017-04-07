@@ -92,7 +92,7 @@ module ui.button {
 				}
                 this.mcAsset.mousethis.enabled = this.m_bEnable;
                 this.mcAsset.this.enabled = this.m_bEnable;
-                this.mcAsset.mouseChildren = this.m_bEnable;
+                this.mcAsset.touchChildren = this.m_bEnable;
                 this.mcAsset.buttonMode = this.m_bEnable;
             }
             

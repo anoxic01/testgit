@@ -38,7 +38,7 @@ module lobby.view.panel {
 //			m_bg.setSize(342, 390);
 //			m_bg.x = -171;
 //			m_bg.y = -191;
-//			m_bg = new Sprite();
+//			m_bg = new egret.Sprite();
 //			m_bg.graphics.beginFill(0x000000,0.5);
 //			m_bg.graphics.drawRect(0,0,330,300);
 //			m_bg.graphics.endFill();
@@ -146,7 +146,7 @@ module lobby.view.panel {
 			
 			this.comboboxMusic.setCurrentItem(this.comboboxMusic.vecList[this.musicSelectIndex]);
 			
-			this.comboboxMusic.fSelectItem = function( _sKey:String ):void {
+			this.comboboxMusic.fSelectItem = function( _sKey:string ):void {
 				this.musicSelectIndex = this.m_aMusicKey.indexOf(_sKey);
 				if(this.musicSelectIndex==-1)this.musicSelectIndex=0;
 				
@@ -337,17 +337,17 @@ module lobby.view.panel {
 		
 		
 		 public onChangeLanguage():void{
-//			(this.m_mcAsset.tf_label as TextField).text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sSystem_Setting);
+//			(this.m_mcAsset.tf_label).text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sSystem_Setting);
 			
 			(this.m_mcAsset.mc_ok.mc_label ).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			(this.m_mcAsset.mc_no.mc_label ).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			
 			this.m_mcAsset.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
-//			(this.m_mcAsset.tf_0 as TextField).text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sLanguage_setting);
-//			(this.m_mcAsset.tf_1 as TextField).text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sMusic_BG);
-//			(this.m_mcAsset.tf_2 as TextField).text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sSound_Effect);
-//			(this.m_mcAsset.tf_3 as TextField).text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sSound_Effect);
-//			(this.m_mcAsset.tf_4 as TextField).text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sSound_Live);
+//			(this.m_mcAsset.tf_0).text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sLanguage_setting);
+//			(this.m_mcAsset.tf_1).text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sMusic_BG);
+//			(this.m_mcAsset.tf_2).text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sSound_Effect);
+//			(this.m_mcAsset.tf_3).text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sSound_Effect);
+//			(this.m_mcAsset.tf_4).text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sSound_Live);
 			
 			this.onoffMusicGame.onChangeLanguage();
 			this.onoffEffect.onChangeLanguage();

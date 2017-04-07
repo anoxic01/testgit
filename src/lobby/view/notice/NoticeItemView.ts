@@ -12,7 +12,7 @@ module lobby.view.notice {
 			this.m_tfLabel.defaultTextFormat = this.m_format;
 			this.m_tfLabel.autoSize = "left";
 			this.m_tfLabel.selectable = false;
-			this.m_tfLabel.mouseEnabled = false;
+			this.m_tfLabel.touchEnabled = false;
 			this.m_tfLabel.cacheAsBitmap = true;
 		}
 		 public destroy():void

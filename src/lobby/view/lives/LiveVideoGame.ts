@@ -34,7 +34,7 @@ module lobby.view.lives {
 //			this.mcAsset.graphics.endFill();
 			
 			this.m_mcVideo = new egret.MovieClip();
-			this.m_mcVideo.mouseEnabled=this.m_mcVideo.mouseChildren=false;
+			this.m_mcVideo.touchEnabled=this.m_mcVideo.touchChildren=false;
 			this.mcAsset.addChild(this.m_mcVideo);
 			this.m_mcVideo.graphics.beginFill(0x000000,0.1);
 			this.m_mcVideo.graphics.drawRect(0,0,this.uWidth,this.uHeight);
@@ -223,7 +223,7 @@ module lobby.view.lives {
 				this.m_tfWarn = new egret.TextField();
 				//this.m_tfWarn.width=400;
 				this.m_tfWarn.selectable=false;
-				this.m_tfWarn.mouseEnabled = false;
+				this.m_tfWarn.touchEnabled = false;
 				this.m_tfWarn.multiline=true;
 			//	this.m_tfWarn.width=250;
 				// if this.(m_format==null){

@@ -11,11 +11,11 @@ module lobby.model.struct {
 			this.CustChips			=	oPlayerGameSetting.CustChips;
 			
 		}
-		set  CustChips(_sValue:String){
+		set  CustChips(_sValue:string){
 			this.m_sCustChips		=	_sValue;
 			this.aCustChips			=	_sValue.split(",");
 		}
-		get CustChips():String{
+		get CustChips():string{
 			return this.m_sCustChips;
 		}
 	}

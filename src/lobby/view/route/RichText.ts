@@ -1,17 +1,17 @@
 module lobby.view.route {
 	export class RichText extends BSprite{
-		private static const PREFIX:String = "#";//#25
-		private static const EMPTY:String = "　";
+		private static PREFIX:string = "#";//#25
+		private static EMPTY:string = "　";
 		
-		private static const FACE_COUNT:number= 99;
-		private static const FACE_SIZE:number= 30;
+		private static FACE_COUNT:number= 99;
+		private static FACE_SIZE:number= 30;
 		
-		private _tf:TextField;
-		private _box:Sprite;
+		private _tf;
+		private _box;
 		
-		private _text:String;
-		private _width:Number;
-		private _convertStr:String;
+		private _text:string;
+		private _width:number;
+		private _convertStr:string;
 		
 		private _faces:any[];
 		
@@ -20,158 +20,157 @@ module lobby.view.route {
 		private _emptyLen:number;
 		private _timer:number= -1;
 
-		private _textFormat:TextFormat;
-		private _faceFormat:TextFormat;
+		// private _textFormat:TextFormat;
+		// private _faceFormat:TextFormat;
 		
 		public constructor() {
 		
 			super();
-			_faceIdLen = String(FACE_COUNT).length;
-			_faceLen = PREFIX.length + _faceIdLen;
-			_emptyLen = EMPTY.length;
-			_faces = [];
+			this._faceIdLen = (RichText.FACE_COUNT.toString).length;
+			this._faceLen = RichText.PREFIX.length + this._faceIdLen;
+			this._emptyLen = RichText.EMPTY.length;
+			this._faces = [];
 			
-			_textFormat = new TextFormat("Arial",16,0xffffff);
-			_textFormat.letterSpacing = 2;
-			_faceFormat = new TextFormat("Arial",FACE_SIZE,0xffffff);
-			_faceFormat.letterSpacing = 12;
+			// _textFormat = new TextFormat("Arial",16,0xffffff);
+			// _textFormat.letterSpacing = 2;
+			// _faceFormat = new TextFormat("Arial",FACE_SIZE,0xffffff);
+			// _faceFormat.letterSpacing = 12;
 			
-			_tf = new TextField();
-			_tf.defaultTextFormat = _textFormat;
-			_tf.autoSize = TextFieldAutoSize.LEFT;
-			_tf.wordWrap = true;
-			_tf.multiline = true;
-			_tf.border = true;
-			this.addChild(_tf);
-			_box = new Sprite();
-//			_box.mouseEnabled=_box.mouseChildren=false;
-			this.addChild(_box);
+			this._tf = new egret.TextField();
+			// this._tf.defaultTextFormat = _textFormat;
+			// this._tf.autoSize = TextFieldAutoSize.LEFT;
+			this._tf.wordWrap = true;
+			this._tf.multiline = true;
+			this._tf.border = true;
+			this.addChild(this._tf);
+			this._box = new egret.Sprite();
+//			_box.touchEnabled=_box.touchChildren=false;
+			this.addChild(this._box);
 			
-			this.mouseEnabled=this.mouseChildren=false;
+			this.touchEnabled=this.touchChildren=false;
 		}
 		 public destroy():void
 		{
-			_faces = null;
-			if(_box.numChildren>0)
+			this._faces = null;
+			if(this._box.numChildren>0)
 			{
-				_box.removeChildren();
+				this._box.removeChildren();
 			}
-			if(_timer > -1)
+			if(this._timer > -1)
 			{
-				clearTimeout(_timer);
-				_timer = -1;
+				clearTimeout(this._timer);
+				this._timer = -1;
 			}
 		}
 		public clear():void
 		{
-			_faces.length = 0;
-			if(_box.numChildren>0)
+			this._faces.length = 0;
+			if(this._box.numChildren>0)
 			{
-				_box.removeChildren();
+				this._box.removeChildren();
 			}
-			if(_timer > -1)
+			if(this._timer > -1)
 			{
-				clearTimeout(_timer);
-				_timer = -1;
+				clearTimeout(this._timer);
+				this._timer = -1;
 			}
 		}
-		 set  width(value:Number)
+		 set  width(value:number)
 		{
-			_width = value;
-			_tf.width = _width;
-			super.width = _width;
+			this._width = value;
+			this._tf.width = this._width;
 		}
-		get text():String
+		get text():string
 		{
-			return _text;
+			return this._text;
 		}
-		set  text(value:String)
+		set  text(value:string)
 		{
-			clear();
+			this.clear();
 			
-			_text = value;
-			_convertStr = convert(value);
-			_tf.text = _convertStr;
-			changeFaceFormat();
+			this._text = value;
+			this._convertStr = this.convert(value);
+			this._tf.text = this._convertStr;
+			this.changeFaceFormat();
 			//setTextFormat之后立即执行getCharBoundaries，得不到正确的矩形
-			_timer = setTimeout(onTimer,80);
+			this._timer = setTimeout(this.onTimer,80);
 		}
 		private changeFaceFormat():void
 		{
-			var len:number= _faces.length;
+			var len:number= this._faces.length;
 			if(len > 0)
 			{
 				var vo:FaceVO;
-				var rect:Rectangle;
+				var rect;
 				var face:Face;
 				for (var i:number= 0; i < len; i++) 
 				{
-					vo = _faces[i];
-					_tf.setTextFormat(_faceFormat,vo.index,vo.index+1);
+					vo = this._faces[i];
+					// _tf.setTextFormat(_faceFormat,vo.index,vo.index+1);
 				}
 			}
 		}
 		private onTimer():void
 		{
-			if(_timer > -1)
+			if(this._timer > -1)
 			{
-				clearTimeout(_timer);
-				_timer = -1;
+				clearTimeout(this._timer);
+				this._timer = -1;
 			}
-			addFace();
+			this.addFace();
 		}
 		/**
 		 * setTextFormat之后立即执行getCharBoundaries，得不到正确的矩形
 		 */		
 		private addFace():void
 		{
-			var len:number= _faces.length;
+			var len:number= this._faces.length;
 			if(len > 0)
 			{
 				var vo:FaceVO;
-				var rect:Rectangle;
+				var rect;
 				var face:Face;
 				for (var i:number= 0; i < len; i++) 
 				{
-					vo = _faces[i];
-					rect = _tf.getCharBoundaries(vo.index);
-					face = new Face(FACE_SIZE);
+					vo = this._faces[i];
+					rect = this._tf.getCharBoundaries(vo.index);
+					face = new Face(RichText.FACE_SIZE);
 					face.x = rect.x + (rect.width-face.width)*0.5;
 					face.y = rect.y + rect.height - face.height - 2;
-					_box.addChild(face);
+					this._box.addChild(face);
 				}
 			}
 		}
-		private convert(value:String):String
+		private convert(value:string):string
 		{
 			if(value==null || value.length==0)
 			{
 				return "";
 			}
 			var startIndex:number;
-			var faceStr:String;
+			var faceStr:string;
 			var faceId:number;
-			var faceIdStr:String;
+			var faceIdStr;
 			while(true)
 			{
-				startIndex = value.indexOf(PREFIX,startIndex);
+				startIndex = value.indexOf(RichText.PREFIX,startIndex);
 				if(startIndex!= -1)
 				{
-					if(startIndex + _faceLen <= value.length)
+					if(startIndex + this._faceLen <= value.length)
 					{
-						faceStr = value.substr(startIndex,_faceLen);
-						faceIdStr = value.substr(startIndex+1,_faceLen-1);
-						faceId = int(faceIdStr);
-						if(faceId > 0 && faceId <= FACE_COUNT)
+						faceStr = value.substr(startIndex,this._faceLen);
+						faceIdStr = value.substr(startIndex+1,this._faceLen-1);
+						faceId = <number>faceIdStr;
+						if(faceId > 0 && faceId <= RichText.FACE_COUNT)
 						{
 							//匹配成功
 							var vo:FaceVO = new FaceVO();
 							vo.faceID = faceId;
 							vo.index = startIndex;
-							_faces.push(vo);
+							this._faces.push(vo);
 							
-							value = value.replace(faceStr,EMPTY);
-							startIndex = startIndex + _emptyLen;
+							value = value.replace(faceStr, RichText.EMPTY);
+							startIndex = startIndex + this._emptyLen;
 						}
 						else
 						{
@@ -195,19 +194,18 @@ module lobby.view.route {
 	}
 }
 
-import flash.display.Sprite;
-
 class FaceVO
 {
 	public faceID:number;
 	public index:number;
 }
-class Face extends Sprite
+class Face extends lobby.view.BSprite
 {
-	public Face(size:number):void
+	public constructor(size:number)
 	{
-		graphics.beginFill(0xff0000,0.6);
-		graphics.drawRect(0,0,size,size);
-		graphics.endFill();
+		super();
+		this.graphics.beginFill(0xff0000,0.6);
+		this.graphics.drawRect(0,0,size,size);
+		this.graphics.endFill();
 	}
 }

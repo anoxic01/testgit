@@ -14,10 +14,10 @@ module lobby.view.route {
 		 * @param	rowHeight
 		 * @return
 		 */
-		static public createRoadRenderGrid(roadMap:String, skipChars:any[], rowHeight:number= 6):any[] {
+		public static  createRoadRenderGrid(roadMap:string, skipChars:any[], rowHeight:number= 6):any[] {
 			
 			// 資料格與行列索引、標記用的參數
-			var grid:any[] = [], x:number= 0, y:number= -1, offsetX:number= 0, currentSymbol:String = null, prevSymbol:String = null;
+			var grid:any[] = [], x:number= 0, y:number= -1, offsetX:number= 0, currentSymbol:string = null, prevSymbol:string = null;
 			var ignoreChars:any[] = skipChars || ["i"];
 			var nextY:number;
 			
@@ -72,14 +72,14 @@ module lobby.view.route {
 				grid[x + offsetX] = grid[x + offsetX] || [];
 				grid[x + offsetX][y] = currentSymbol;
 				
-				_posX = x;
-				_posY = y;
+				this._posX = x;
+				this._posY = y;
 				if (ignoreChars.indexOf(currentSymbol) == -1) {
 					prevSymbol = currentSymbol;
 				}
 			}
 			
-			var lastPoint:Point=new Point((x + offsetX),_posY)
+			var lastPoint=new egret.Point((x + offsetX), this._posY)
 				
 			return [grid,offX,lastPoint];
 		}
@@ -92,10 +92,10 @@ module lobby.view.route {
 		 * @param	rowHeight
 		 * @return
 		 */
-		static public createBigRoadRenderGrid(roadMap:String, skipChars:any[], rowHeight:number= 6):any[] {
+		public static  createBigRoadRenderGrid(roadMap:string, skipChars:any[], rowHeight:number= 6):any[] {
 			
 			// 資料格與行列索引、標記用的參數
-			var grid:any[] = [], x:number= 0, y:number= -1, offsetX:number= 0, currentSymbol:String = null, prevSymbol:String = null;
+			var grid:any[] = [], x:number= 0, y:number= -1, offsetX:number= 0, currentSymbol:string = null, prevSymbol:string = null;
 			var ignoreChars:any[] = skipChars || ["i"];
 			var nextY:number;
 			
@@ -105,7 +105,7 @@ module lobby.view.route {
 			// 簡化來源字串
 			var roadMapArray:any[] = roadMap.split(".");
 			
-			var roadValue:String = '';
+			var roadValue:string = '';
 			var iGrid:any[] = [];  //和的資料格
 			
 			var offX:number= 0;
@@ -185,15 +185,15 @@ module lobby.view.route {
 					grid[x + offsetX] = grid[x + offsetX] || [];
 					grid[x + offsetX][y] = currentSymbol;
 					
-					_posX = x;
-					_posY = y;					
+					this._posX = x;
+					this._posY = y;					
 					
 				}
 				
 				//console.log("offsetX::" + offsetX) ;
 				
 			}
-			var lastPoint:Point=new Point((x + offsetX),_posY)
+			var lastPoint=new egret.Point((x + offsetX), this._posY)
 			//console.log("offX::" + offX );
 						
 			return [grid, iGrid , offX,lastPoint];  //一個是沒有和的grid  , 一個是有和的grid
@@ -204,9 +204,9 @@ module lobby.view.route {
 		 * @radMapString {String} 要分析的資料字串，會自動簡化剩下莊(a)閒(e)和(i)再分析
 		 * @returns {Array} 轉換過的"大路"資料格
 		 */
-		static public createRoadReanderString(roadMap:String):RoadStringObject {
+		public static  createRoadReanderString(roadMap:string):RoadStringObject {
 			// 資料格與行列索引、標記用的參數
-			var grid:any[] = [], x:number= 0, y:number= -1, currentSymbol:String = null, prevSymbol:String = null, mark:any[] = [], result:RoadStringObject = new RoadStringObject();
+			var grid:any[] = [], x:number= 0, y:number= -1, currentSymbol:string = null, prevSymbol:string = null, mark:any[] = [], result:RoadStringObject = new RoadStringObject();
 			// 簡化來源字串
 			result.bigRoad = roadMap.replace(/[abcd]/gi, 'a').replace(/[efgh]/gi, 'e').replace(/[ijkl]/gi, 'i');
 			
@@ -277,14 +277,14 @@ module lobby.view.route {
 			return result;
 		}
 		
-		static public drawReaderDataGrid(readerDataGrid:any[], ballClass:Class, width:number, height:number, isAsk: boolean = false):RoadCanvas {
-			var symbol:String;
+		public static  drawReaderDataGrid(readerDataGrid:any[], ballClass, width:number, height:number, isAsk: boolean = false):RoadCanvas {
+			var symbol:string;
 			var gridWidth:number= width || 14;
 			var gridHeight:number= height || 6;
 			var startX:number= readerDataGrid.length <= 14 ? 0 : readerDataGrid.length - gridWidth;
 			
 			var canvas:RoadCanvas = new RoadCanvas;
-			var ball:MovieClip;
+			var ball;
 			
 			for (var x:number= 0, colIndex:number= 0, cols:number= readerDataGrid.length; x < cols; x++) {
 				for (var y:number= 0, rows:number= readerDataGrid[x].length; y < rows; y++) {

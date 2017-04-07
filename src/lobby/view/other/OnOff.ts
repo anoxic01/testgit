@@ -34,7 +34,7 @@ module lobby.view.other {
 			this.addChild(this.m_mcAsset);
 			
 			this.m_mcAsset.mc_0.gotoAndStop(1);
-			this.m_mcAsset.mc_1.mouseChildren = false;
+			this.m_mcAsset.mc_1.touchChildren = false;
 			
 			switch(this.m_iType){
 				case define.Define.MUSIC:

@@ -11,40 +11,40 @@ module lobby.view {
 //		private m_mcMarquee		:	egret.MovieClip;				//滚动消息
 //		public marquee			:	MarqueeList;			//滚动消息
 		
-		public constructor( _mcParent:egret.MovieClip ) {
+		public constructor( _mcParent ) {
 			
 			super();
-			this.m_mcAsset		=	 manager.ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_LOBBY,"InfomationAsset");
+			this.m_mcAsset		=	 manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY,"InfomationAsset");
 			_mcParent.addChild(this.m_mcAsset);
 			this.m_mcAsset.x = 0;
 			this.m_mcAsset.y = 5;
 			
 			// TextUtils.setEmbedFont(this.m_mcAsset.tf_1,"微软雅黑 Bold");
 			// TextUtils.setEmbedFont(this.m_mcAsset.tf_2,"微软雅黑 Bold");
-//			m_mcMarquee 	=	m_mcAsset.getChildByName("mc_marquee") as MovieClip;
+//			m_mcMarquee 	=	m_mcAsset.getChildByName("mc_marquee");
 			
 			this.m_bmpFace		=	new egret.Bitmap();
 			this.m_mcAsset.mc_0.addChild(this.m_bmpFace);
 			
-//			m_bmpGold		=	new Bitmap();
+//			m_bmpGold		=	new egret.Bitmap();
 //			m_mcAsset.mc_2.addChild(m_bmpGold);
 			
 			this.m_btnRecharge	=	new ui.button.SingleButtonMC(this.m_mcAsset.mc_3, function(event:MouseEvent):void{
-				 manager.SoundManager.getInstance().play(SoundPackage.sClick_Tools);
+				 manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
 				 manager.TipManager.getInstance().hide();
 				 manager.LobbyManager.getInstance().hideAllPanel();
 //				 manager.LobbyManager.getInstance().showDialog( manager.LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
 				 manager.LobbyManager.getInstance().recharge();
 			});
 			this.m_btnRecharge.fOnOver = function():void{
-				 manager.TipManager.getInstance().show( manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_recharge), manager.TipManager.UP,this.m_mcAsset.localToGlobal(new Point(this.m_mcAsset.mc_3.x+18,this.m_mcAsset.mc_3.y+34)),1);
+				 manager.TipManager.getInstance().show( manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_recharge), manager.TipManager.UP,this.m_mcAsset.localToGlobal(new egret.Point(this.m_mcAsset.mc_3.x+18,this.m_mcAsset.mc_3.y+34)),1);
 			};
 			this.m_btnRecharge.fOnOut = function():void{
 				 manager.TipManager.getInstance().hide();
 			};
 			
 			this.m_btnRegist = new ui.button.SingleButtonMC(this.m_mcAsset.mc_regist, function(event:MouseEvent):void{
-				 manager.SoundManager.getInstance().play(SoundPackage.sClick_Tools);
+				 manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
 				 manager.TipManager.getInstance().hide();
 				 manager.LobbyManager.getInstance().hideAllPanel();
 				
@@ -56,7 +56,7 @@ module lobby.view {
 				},true);
 			});
 			this.m_btnRegist.fOnOver = function():void{
-				 manager.TipManager.getInstance().show( manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Regist), manager.TipManager.UP,this.m_mcAsset.localToGlobal(new Point(this.m_mcAsset.mc_regist.x+43,this.m_mcAsset.mc_regist.y+34)),1);
+				 manager.TipManager.getInstance().show( manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Regist), manager.TipManager.UP,this.m_mcAsset.localToGlobal(new egret.Point(this.m_mcAsset.mc_regist.x+43,this.m_mcAsset.mc_regist.y+34)),1);
 			};
 			this.m_btnRegist.fOnOut = function():void{
 				 manager.TipManager.getInstance().hide();
@@ -114,10 +114,10 @@ module lobby.view {
 			this.m_mcAsset.tf_1.text = String(model.Player.getInstance().nCoin);
 //			m_mcAsset.mc_2.x = m_mcAsset.mc_1.x + int(m_mcAsset.mc_1.width) + SPACE;
 //			m_mcAsset.mc_3.x = m_mcAsset.mc_2.x + int(m_mcAsset.mc_2.width);
-//			m_mcAsset.tf_1.text =  manager.LobbyManager.getInstance().getLanguageString(Language.sOnlinemodel.Players) + " |";
-			this.m_mcAsset.tf_1.autoSize = TextFieldAutoSize.LEFT;
-			(this.m_mcAsset.tf_1 as TextField).mouseEnabled = false;
-			(this.m_mcAsset.tf_1 as TextField).selectable = false;
+//			m_mcAsset.tf_1.text =  manager.LobbyManager.getInstance().getLanguageString(Language.sOnlinemPlayers) + " |";
+			// this.m_mcAsset.tf_1.autoSize = TextFieldAutoSize.LEFT;
+			(this.m_mcAsset.tf_1).touchEnabled = false;
+			(this.m_mcAsset.tf_1).selectable = false;
 			this.updateOnline();
 //			m_mcAsset.tf_2.x = m_mcAsset.tf_1.x + m_mcAsset.tf_1.textWidth + 10;
 			
@@ -130,17 +130,17 @@ module lobby.view {
 			}
 		}
 		public updateOnline():void{
-			this.m_mcAsset.tf_2.text = model.LobbyData.getInstance().lobbyInfo.Onlinemodel.Players.toString();
+			this.m_mcAsset.tf_2.text = model.LobbyData.getInstance().lobbyInfo.OnlinePlayers.toString();
 		}
 				
 		public setFace( _uFaceID:number ):void{
-			this.m_bmpFace.bitmapData =  FaceManager.getInstance().getFaceByID(_uFaceID);
+			this.m_bmpFace.bitmapData =  manager.FaceManager.getInstance().getFaceByID(_uFaceID);
 		}
 		
 		onChangeLanguage():void{
 //			marquee.onChangeLanguage();
 			if(this.m_btnRegist){
-				(this.m_btnRegist.mcAsset.mc_label as MovieClip).gotoAndStop( manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+				(this.m_btnRegist.mcAsset.mc_label).gotoAndStop( manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			}
 		}
 		

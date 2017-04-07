@@ -38,8 +38,8 @@ module manager {
 			this.m_aTip = [ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY,"Tip_Up_Asset"), ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY,"Tip_Down_Asset") , ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY,"Tip_Left_Asset"), ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY,"Tip_Right_Asset")];
 			for (var i:number= 0; i < 4; i++) 
 			{
-				this.m_aTip[i].mouseChildren = false;
-				this.m_aTip[i].mouseEnabled = false;
+				this.m_aTip[i].touchChildren = false;
+				this.m_aTip[i].touchEnabled = false;
 				LobbyManager.getInstance().lobbyView.spTextLayer.addChild(this.m_aTip[i]);
 				(this.m_aTip[i]).visible = false;
 			}
@@ -50,8 +50,8 @@ module manager {
 			this.m_aTip2 = [ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY,"Tip_Down_Asset2"), ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY,"Tip_Down_Asset2")];
 			for (var i:number= 0; i < 2; i++) 
 			{
-				this.m_aTip2[i].mouseChildren = false;
-				this.m_aTip2[i].mouseEnabled = false;
+				this.m_aTip2[i].touchChildren = false;
+				this.m_aTip2[i].touchEnabled = false;
 				LobbyManager.getInstance().lobbyView.spTextLayer.addChild(this.m_aTip2[i]);
 				(this.m_aTip2[i]).visible = false;
 			}

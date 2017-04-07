@@ -1,60 +1,61 @@
 module lobby.view.route.game.bac {
-	export class BacRouteMgr extends EventDispatcher{
-		public static const ASK_MODE_BANKER			:	number				=	0;
-		public static const ASK_MODE_PLAYER			:	number				=	1;
+	export class BacRouteMgr extends egret.EventDispatcher{
+		public static ASK_MODE_BANKER			:	number				=	0;
+		public static ASK_MODE_PLAYER			:	number				=	1;
 		
-		protected var m_routeView					:	MovieClip;
+		protected m_routeView					;
 		
-		private var m_isBtnOpen						:	 boolean 			= 	false;
+		private m_isBtnOpen						:	boolean 			= 	false;
 		
-		private var m_islock						:	 boolean 			= 	true;
-		private var m_isUp							:	 boolean 			= 	false;
+		private m_islock						:	boolean 			= 	true;
+		private m_isUp							:	boolean 			= 	false;
 		
 		/**當前顯示路*/
-		protected var _nowRoad						:	string 				=	"";
+		protected _nowRoad						:	string 				=	"";
 		
-		protected var m_beadPlate					:	BeadPlate;
+		protected m_beadPlate					:	BeadPlate;
 		
-		private var m_roadString					:	RoadStringObject 	= 	new RoadStringObject;
-		protected var m_bigSprite					:	BacRoadCanvas 		= 	new BacRoadCanvas();
-		protected var m_bigEyeSprite				:	BacRoadCanvas 		= 	new BacRoadCanvas();
-		protected var m_smallSprite					:	BacRoadCanvas 		= 	new BacRoadCanvas();
-		protected var m_roachSprite					:	BacRoadCanvas 		= 	new BacRoadCanvas();
+		private m_roadString					:	RoadStringObject 	= 	new RoadStringObject;
+		protected m_bigSprite					:	BacRoadCanvas 		= 	new BacRoadCanvas();
+		protected m_bigEyeSprite				:	BacRoadCanvas 		= 	new BacRoadCanvas();
+		protected m_smallSprite					:	BacRoadCanvas 		= 	new BacRoadCanvas();
+		protected m_roachSprite					:	BacRoadCanvas 		= 	new BacRoadCanvas();
 		
-		protected var m_beadInfo					:	BeadInfo;
-		protected var m_askTimer					:	JTimer;
-		private var m_bAsk							:	 boolean;														//问路状态
+		protected m_beadInfo					:	BeadInfo;
+		protected m_askTimer					;
+		private m_bAsk							:	boolean;														//问路状态
 		
-		public var bError							:	 boolean;														//错误状态
+		public bError							:	boolean;														//错误状态
 		
-		public constructor(view:MovieClip) {
-		this.m_routeView = view;
+		public constructor(view) {
+			super();
+			this.m_routeView = view;
 			
 //			this._beadPlate = new BeadPlate(this._routeView.mcBeadPlate); //珠路盤
 			
 			this.init();
-			setRoadInf();
+			this.setRoadInf();
 				
 			
 			/*this.m_askTimer = new Timer(300,6);
 			this.m_askTimer.addEventListener(TimerEvent.TIMER,flash);
 			this.m_askTimer.addEventListener(TimerEvent.TIMER_COMPLETE,stopAsk);*/
-			m_askTimer = JTimer.getTimer(300,6);
-			m_askTimer.addTimerCallback(flash,stopAsk);
+			this.m_askTimer = timers.JTimer.getTimer(300,6);
+			this.m_askTimer.addTimerCallback(flash,this.stopAsk);
 			
 		}
 		
-		protected function init():void 
+		protected init():void 
 		{
 			//珠路盤
-			var beadMc:MovieClip =m_routeView.getChildByName("mc_0") as MovieClip
+			var beadMc = this.m_routeView.getChildByName("mc_0");
 			if (beadMc){
 				this.m_beadPlate = new BeadPlate(beadMc, BeadItemBaccarat); //珠路盤
 			}
-			if (m_beadPlate){
+			if (this.m_beadPlate){
 				
-				m_beadPlate.setBeads();
-				this.m_beadPlate.mouseChildren = this.m_beadPlate.mouseEnabled = false;
+				this.m_beadPlate.setBeads();
+				this.m_beadPlate.touchChildren = this.m_beadPlate.touchEnabled = false;
 			}
 			
 			
@@ -64,13 +65,13 @@ module lobby.view.route.game.bac {
 			this.m_routeView.boxCockroachRoad.addChild(this.m_roachSprite); //蟑螂路
 			
 			
-			this.m_routeView.boxBigRoad.mouseChildren = this.m_routeView.boxBigRoad.mouseEnabled = false;
-			this.m_routeView.boxBigEye.mouseChildren = this.m_routeView.boxBigEye.mouseEnabled = false;
-			this.m_routeView.boxSmallRoad.mouseChildren = this.m_routeView.boxSmallRoad.mouseEnabled = false;
-			this.m_routeView.boxCockroachRoad.mouseChildren = this.m_routeView.boxCockroachRoad.mouseEnabled = false;	
+			this.m_routeView.boxBigRoad.touchChildren = this.m_routeView.boxBigRoad.touchEnabled = false;
+			this.m_routeView.boxBigEye.touchChildren = this.m_routeView.boxBigEye.touchEnabled = false;
+			this.m_routeView.boxSmallRoad.touchChildren = this.m_routeView.boxSmallRoad.touchEnabled = false;
+			this.m_routeView.boxCockroachRoad.touchChildren = this.m_routeView.boxCockroachRoad.touchEnabled = false;	
 		}
 		
-		protected function setRoadInf():void{
+		protected setRoadInf():void{
 			//路紙參數均在此設定
 			this.m_beadInfo = new BeadInfo();
 			this.m_beadInfo.gridWidth = 40;
@@ -117,52 +118,52 @@ module lobby.view.route.game.bac {
 		 * 變更語系
 		 * @param	lang
 		 */
-		public function  onChangeLanguage():void{
+		public  onChangeLanguage():void{
 			
-			if(m_beadPlate){
-				m_beadPlate.onChangeLanguage();
+			if(this.m_beadPlate){
+				this.m_beadPlate.onChangeLanguage();
 			}
 		}
 		
-		public function destroy():void {
-			if (m_askTimer){
+		public destroy():void {
+			if (this.m_askTimer){
 				/*m_askTimer.removeEventListener(TimerEvent.TIMER,flash);
 				m_askTimer.removeEventListener(TimerEvent.TIMER_COMPLETE,stopAsk);*/
-				m_askTimer.dispose();
-				m_askTimer = null;
+				this.m_askTimer.dispose();
+				this.m_askTimer = null;
 			}
-			if( m_bigSprite ){
-				m_bigSprite.destroy();
-				m_bigSprite = null;
+			if( this.m_bigSprite ){
+				this.m_bigSprite.destroy();
+				this.m_bigSprite = null;
 			}
-			if( m_bigEyeSprite ){
-				m_bigEyeSprite.destroy();
-				m_bigEyeSprite = null;
+			if( this.m_bigEyeSprite ){
+				this.m_bigEyeSprite.destroy();
+				this.m_bigEyeSprite = null;
 			}
-			if( m_smallSprite ){
-				m_smallSprite.destroy();
-				m_smallSprite = null;
+			if(	this.m_smallSprite ){
+				this.m_smallSprite.destroy();
+				this.m_smallSprite = null;
 			}
-			if( m_roachSprite ){
-				m_roachSprite.destroy();
-				m_roachSprite = null;
-			}
-			
-			if( m_beadPlate ){
-				m_beadPlate.destroy();
-				m_beadPlate = null;
+			if( this.m_roachSprite ){
+				this.m_roachSprite.destroy();
+				this.m_roachSprite = null;
 			}
 			
-			if(m_roadString){
-				m_roadString = null;
+			if( this.m_beadPlate ){
+				this.m_beadPlate.destroy();
+				this.m_beadPlate = null;
 			}
 			
-			if( m_beadInfo ){
-				m_beadInfo = null;
+			if(	this.m_roadString){
+				this.m_roadString = null;
 			}
 			
-			if (m_routeView){
-				m_routeView=null;
+			if( this.m_beadInfo ){
+				this.m_beadInfo = null;
+			}
+			
+			if (this.m_routeView){
+				this.m_routeView=null;
 			}
 			
 		}
@@ -172,29 +173,28 @@ module lobby.view.route.game.bac {
 		 * @return 
 		 * 
 		 */
-		public function get roadNum():number{
+		get roadNum():number{
 			if (this._nowRoad==null ||this._nowRoad==""){
 				return 0;
 			}else{
-				var len:number= _nowRoad.split(".").length;
+				var len:number= this._nowRoad.split(".").length;
 				return len;
 			}
-			return 0;
 		}
 		
 		
 		/**
 		 * 清掉路單
 		 */
-		public function clearRoad():void {
-			bError = false;
+		public clearRoad():void {
+			this.bError = false;
 			this._nowRoad = "";			
 			this.showRoadViewInit();
 			//console.log("clearRoad:" + this._nowRoad);
 		}
 		
 		/** 更新路單 */
-		public function addRoad(road:string):void {
+		public addRoad(road:string):void {
 //			if ( this._nowRoad.length > Define.BEAD_NUM ) {
 //				this._nowRoad = "";
 //			}
@@ -204,14 +204,14 @@ module lobby.view.route.game.bac {
 			
 			if ( road.indexOf( "#" ) != -1 ) {
 				//路紙有錯
-				bError = true;
+				this.bError = true;
 				console.log("路紙有錯"+road);
 				return;
 			}else{
-				bError = false;
+				this.bError = false;
 			}
 			
-			if(_nowRoad==""){
+			if(this._nowRoad==""){
 				this._nowRoad += road;
 			}else{
 				this._nowRoad += "." + road;
@@ -226,10 +226,10 @@ module lobby.view.route.game.bac {
 			}
 		}
 		
-		protected function showRoad(road:String, isAsk: boolean = false):void {
+		protected showRoad(road:string, isAsk: boolean = false):void {
 			//this.showRoadViewInit();
 			this.m_roadString = BeadRoad.createRoadReanderString(road);
-			if(m_beadPlate){
+			if(this.m_beadPlate){
 				this.m_beadPlate.addRoad(road, isAsk);
 			}
 			
@@ -247,13 +247,13 @@ module lobby.view.route.game.bac {
 			
 		}
 		
-		private function showProbeIcon():void{
-			drawProbeIcon(".a");
-			drawProbeIcon(".e");
+		private showProbeIcon():void{
+			this.drawProbeIcon(".a");
+			this.drawProbeIcon(".e");
 		}
 		
-		private function drawProbeIcon(probe:string):void{
-			var roadStrObj:RoadStringObject = BeadRoad.createRoadReanderString(_nowRoad+probe);
+		private drawProbeIcon(probe:string):void{
+			var roadStrObj:RoadStringObject = BeadRoad.createRoadReanderString(this._nowRoad+probe);
 			var probeArr:any[]=new Array(3);
 			probeArr[0]=roadStrObj.bigEyeRoad.charAt(roadStrObj.bigEyeRoad.length-1)
 			probeArr[1] = roadStrObj.smallRoad.charAt(roadStrObj.smallRoad.length-1)
@@ -261,13 +261,13 @@ module lobby.view.route.game.bac {
 		//	console.log("探路"+probe+"-----:"+probeArr);
 			
 			if(probeArr[0])
-				probeArr[0]=m_bigEyeSprite.getRoadCell(RoadBallPool.BIG_EYE_ROAD,probeArr[0])
+				probeArr[0]=this.m_bigEyeSprite.getRoadCell(RoadBallPool.BIG_EYE_ROAD,probeArr[0])
 			if(probeArr[1])
-				probeArr[1]=m_smallSprite.getRoadCell(RoadBallPool.SMALL_EYE_ROAD,probeArr[1])
+				probeArr[1]=this.m_smallSprite.getRoadCell(RoadBallPool.SMALL_EYE_ROAD,probeArr[1])
 			if(probeArr[2])
-				probeArr[2]=m_roachSprite.getRoadCell(RoadBallPool.COCKROACH_ROAD,probeArr[2]);
+				probeArr[2]=this.m_roachSprite.getRoadCell(RoadBallPool.COCKROACH_ROAD,probeArr[2]);
 			
-			var sp:Sprite;
+			var sp;
 			if (probe==".a"){
 				sp=this.m_routeView.btn_AskBankerRoad
 			}else{
@@ -276,8 +276,8 @@ module lobby.view.route.game.bac {
 			}
 			for (var i:number= 0; i < probeArr.length; i++) 
 			{
-				if (probeArr[i] is DisplayObject){
-					var icon:Sprite=probeArr[i];
+				if (probeArr[i] instanceof egret.DisplayObject){
+					var icon=probeArr[i];
 					icon.x=i*15+10;
 					icon.y=40;
 					sp.addChild(icon);
@@ -290,9 +290,9 @@ module lobby.view.route.game.bac {
 		}
 		
 		/** 路單初始 */
-		protected function showRoadViewInit():void {
+		protected showRoadViewInit():void {
 		
-			if (m_beadPlate){
+			if (this.m_beadPlate){
 				this.m_beadPlate.init();
 				
 			}
@@ -302,13 +302,13 @@ module lobby.view.route.game.bac {
 			this.m_smallSprite.init();
 		}
 		
-		public function onAskRoad(_iMode:number):void {
+		public onAskRoad(_iMode:number):void {
 		//	if(!m_bAsk){
-				if(m_bAsk){
-					stopAsk();
+				if(this.m_bAsk){
+					this.stopAsk();
 				}
 				
-				m_bAsk = true;
+				this.m_bAsk = true;
 				//this._beadPlate.addEventListener(RouteEvent.ASK_Road_END, onAskRoadEnd);
 				
 				var key:string="";
@@ -316,16 +316,16 @@ module lobby.view.route.game.bac {
 					key=".";
 				}
 				switch (_iMode) {
-					case ASK_MODE_BANKER: 
+					case BacRouteMgr.ASK_MODE_BANKER: 
 						key+="a";
 						break;
-					case ASK_MODE_PLAYER: 
+					case BacRouteMgr.ASK_MODE_PLAYER: 
 						key+="e";
 						break;
 				}
 				this.showRoad(this._nowRoad + key, true);
-				m_askTimer.reset();
-				m_askTimer.start();
+				this.m_askTimer.reset();
+				this.m_askTimer.start();
 // 			}
 			
 //			else{
@@ -334,33 +334,33 @@ module lobby.view.route.game.bac {
 			
 		}
 		
-		protected function flash():void{
-			if (m_beadPlate){
-				m_beadPlate.flash();
+		protected flash():void{
+			if (this.m_beadPlate){
+				this.m_beadPlate.flash();
 			}
-				m_bigSprite.flash();
-				m_bigEyeSprite.flash();
-				m_smallSprite.flash();
-				m_roachSprite.flash();
+				this.m_bigSprite.flash();
+				this.m_bigEyeSprite.flash();
+				this.m_smallSprite.flash();
+				this.m_roachSprite.flash();
 		}
 		
 		
-		protected function stopAsk() : void
+		protected stopAsk() : void
 		{
-			m_bAsk = false;
-			m_askTimer.stop();
+			this.m_bAsk = false;
+			this.m_askTimer.stop();
 			this.showRoadViewInit();
 			this.showRoad(this._nowRoad);
 		}
 		
 		
 		
-		public function disable():void {
+		public disable():void {
 			this.m_isBtnOpen = false;
 
 		}
 		
-		public function enable():void {
+		public enable():void {
 			this.m_isBtnOpen = true;
 
 		}

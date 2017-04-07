@@ -206,7 +206,7 @@ module lobby.view.gameRecord {
 			this.m_sicTotalPoints = 0;	
 		}
 		
-		private checkBacPoker( _sPoker:String ): boolean {
+		private checkBacPoker( _sPoker:string ): boolean {
 			var _bCheckOK: boolean = false;
 			if( _sPoker.indexOf( "s" ) != -1 ){
 				_bCheckOK = true;
@@ -610,8 +610,8 @@ module lobby.view.gameRecord {
 			this.createSubList( _ar , _ar2 );	
 		}
 		
-		private transDtfPoints(_iPoint:number):String {
-			var _str:String = "";
+		private transDtfPoints(_iPoint:number):string {
+			var _str:string = "";
 			
 			if( _iPoint == 1 ){
 				_str = "A";

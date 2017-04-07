@@ -1,43 +1,45 @@
 module lobby.view.route.game.rou {
 	export class RouRouteMgr extends BSprite{
-		public var m_routeView			:	MovieClip;
+		public m_routeView			;
 		
-		private var _isBtnOpen			:	 boolean 			= 	false;
+		private _isBtnOpen			:	 boolean 			= 	false;
 		
-		private var _islock				:	 boolean 			= 	true;
-		private var _isUp				:	 boolean 			= 	false;
+		private _islock				:	 boolean 			= 	true;
+		private _isUp				:	 boolean 			= 	false;
 		
 		/**當前顯示路*/
-		private var _nowRoad			:	string 				= 	"";
+		private _nowRoad			:	string 				= 	"";
 		
 		
-		//private var _beadPlate:BeadPlate;
-		protected var _roadString		:	RoadStringObject	= 	new RoadStringObject;
-		protected var _beadSp			:	RouRoadCanvas 		= 	new RouRoadCanvas();
-		protected var _bigSmallSp		:	RouRoadCanvas 		= 	new RouRoadCanvas;
-		protected var _oddEvenSp		:	RouRoadCanvas 		= 	new RouRoadCanvas;
-		protected var _redBlackSp		:	RouRoadCanvas 		= 	new RouRoadCanvas;
-		protected var _dozenRowSp		:	RouRoadCanvas 		= 	new RouRoadCanvas;
+		//private _beadPlate:BeadPlate;
+		protected _roadString		:	RoadStringObject	= 	new RoadStringObject;
+		protected _beadSp			:	RouRoadCanvas 		= 	new RouRoadCanvas();
+		protected _bigSmallSp		:	RouRoadCanvas 		= 	new RouRoadCanvas;
+		protected _oddEvenSp		:	RouRoadCanvas 		= 	new RouRoadCanvas;
+		protected _redBlackSp		:	RouRoadCanvas 		= 	new RouRoadCanvas;
+		protected _dozenRowSp		:	RouRoadCanvas 		= 	new RouRoadCanvas;
 		
-		public var m_beadInfo			:	BeadInfo;
-		private const LIMITDATA			:	int = 372;
+		public m_beadInfo			:	BeadInfo;
+		private LIMITDATA		 = 372;
 		
 		
-		public var bError				:	 boolean;														//错误状态
+		public bError				:	 boolean;														//错误状态
 		
 
-		public constructor(view:MovieClip) {
-			this.m_routeView = view.getChildByName("mc_0") as MovieClip;
+		public constructor(view) {
+			super();
+
+			this.m_routeView = view.getChildByName("mc_0") ;
 			//this._beadPlate = new BeadPlate(this._routeView.rouRoad); //珠路盤
 			this.init();
 			//路紙參數均在此設定
 			this.m_beadInfo = new BeadInfo();
 			
-			setRoadInf();
+			this.setRoadInf();
 			
 		}
 		
-		protected function init():void 
+		protected init():void 
 		{
 			
 			this._bigSmallSp.x=240;
@@ -52,11 +54,11 @@ module lobby.view.route.game.rou {
 			this.m_routeView.addChildAt(this._beadSp,0); 
 			
 			
-			//this._beadPlate.mouseChildren = this._beadPlate.mouseEnabled = false;
-//			this._routeView.bigSmall.mouseChildren = this._routeView.bigSmall.mouseEnabled = false;
-//			this._routeView.oddEven.mouseChildren = this._routeView.oddEven.mouseEnabled = false;
-//			this._routeView.dozenRow.mouseChildren = this._routeView.dozenRow.mouseEnabled = false;
-//			this._routeView.redBlack.mouseChildren = this._routeView.redBlack.mouseEnabled = false;	
+			//this._beadPlate.touchChildren = this._beadPlate.touchEnabled = false;
+//			this._routeView.bigSmall.touchChildren = this._routeView.bigSmall.touchEnabled = false;
+//			this._routeView.oddEven.touchChildren = this._routeView.oddEven.touchEnabled = false;
+//			this._routeView.dozenRow.touchChildren = this._routeView.dozenRow.touchEnabled = false;
+//			this._routeView.redBlack.touchChildren = this._routeView.redBlack.touchEnabled = false;	
 			
 			this._dozenRowSp.visible = false;
 			//this._routeView.zoenRowRoadBg.visible = true;
@@ -66,25 +68,25 @@ module lobby.view.route.game.rou {
 			//this._beadSp.visible = false;
 		}
 		
-		 public function destroy():void {
-			_beadSp.destroy();
-			_bigSmallSp.destroy();
-			_oddEvenSp.destroy();
-			_redBlackSp.destroy();
-			_dozenRowSp.destroy();
+		 public destroy():void {
+			this._beadSp.destroy();
+			this._bigSmallSp.destroy();
+			this._oddEvenSp.destroy();
+			this._redBlackSp.destroy();
+			this._dozenRowSp.destroy();
 			
 		}
 		
-		 public function onChangeLanguage():void{
-			_bigSmallSp.onChangeLanguage();
-			_oddEvenSp.onChangeLanguage();
-			_redBlackSp.onChangeLanguage();
-			_dozenRowSp.onChangeLanguage();
+		 public onChangeLanguage():void{
+			this._bigSmallSp.onChangeLanguage();
+			this._oddEvenSp.onChangeLanguage();
+			this._redBlackSp.onChangeLanguage();
+			this._dozenRowSp.onChangeLanguage();
 			
 			
 		}
 		
-		protected function setRoadInf():void{
+		protected setRoadInf():void{
 			
 			this.m_beadInfo.gridWidth = 19;
 			this.m_beadInfo.gridHeight = 6;
@@ -157,12 +159,12 @@ module lobby.view.route.game.rou {
 				
 		}
 		
-		public function setHead():void{
+		public setHead():void{
 			
 		}
 		
 		
-		public function changeRoad( type:string ):void {
+		public changeRoad( type:string ):void {
 			switch (type) 
 			{
 				case RouRoadType.BIG_SMALL:
@@ -209,28 +211,27 @@ module lobby.view.route.game.rou {
 		 * @return 
 		 * 
 		 */
-		public function get roadNum():number{
+		get roadNum():number{
 			if (this._nowRoad==null ||this._nowRoad==""){
 				return 0;
 			}else{
-				var len:number= _nowRoad.split(".").length;
+				var len:number= this._nowRoad.split(".").length;
 				return len;
 			}
-			return 0;
 		}
 		
 		
 		/**
 		 * 清掉路單
 		 */
-		public function clearRoad():void {
-			bError = false;
+		public clearRoad():void {
+			this.bError = false;
 			this._nowRoad = "";			
 			this.showRoadViewInit();
 			//console.log("clearRoad:" + this._nowRoad);
 		}
 		/** 更新路單 */
-		public function addRoad(road:string):void {
+		public addRoad(road:string):void {
 			//console.log("更新路單 : " + road);
 			//road+="2.3.4.5.6.7.8.9.0.1.2.7.15.16.19.17.36"
 //			if ( this._nowRoad.length > LIMITDATA ) {
@@ -244,13 +245,13 @@ module lobby.view.route.game.rou {
 			
 			if ( road.indexOf( "#" ) != -1 ) {
 				//路紙有錯
-				bError = true;
+				this.bError = true;
 				return;
 			}else{
-				bError = false;
+				this.bError = false;
 			}
 			
-			if (_nowRoad==""){
+			if (this._nowRoad==""){
 				this._nowRoad +=road;
 			}else{
 				this._nowRoad += "."+road;
@@ -266,7 +267,7 @@ module lobby.view.route.game.rou {
 			}
 		}
 		
-		private function showRoad(road:string, isAsk: boolean = false):void {
+		private showRoad(road:string, isAsk: boolean = false):void {
 			//this.showRoadViewInit();
 			var roadString:string   
 			var bigSmallAr:any[] 
@@ -301,7 +302,7 @@ module lobby.view.route.game.rou {
 		}
 		
 		/** 路單初始 */
-		private function showRoadViewInit():void {
+		private showRoadViewInit():void {
 			//this._beadPlate.init();
 			this._bigSmallSp.init();
 			this._oddEvenSp.init();
@@ -311,7 +312,7 @@ module lobby.view.route.game.rou {
 		}
 		
 		
-		private function cacheToBmp(isCache: boolean):void {
+		private cacheToBmp(isCache: boolean):void {
 			this._bigSmallSp.cacheAsBitmap = isCache;
 			this._oddEvenSp.cacheAsBitmap = isCache;
 			this._redBlackSp.cacheAsBitmap = isCache;
@@ -319,14 +320,14 @@ module lobby.view.route.game.rou {
 			this._beadSp.cacheAsBitmap = isCache;
 		}
 		
-		public function disable():void {
+		public disable():void {
 			this._isBtnOpen = false;
 			this._isUp = false;
 			//this.DelMainEvent();
 			//this.addMainEvent();
 		}
 		
-		public function enable():void {
+		public enable():void {
 			this._isBtnOpen = true;
 			this._isUp = true;
 			//this.DelMainEvent();

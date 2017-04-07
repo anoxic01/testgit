@@ -32,7 +32,7 @@ module lobby.view.multi {
 			this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_MULTITABLE, "Multi_View_Asset");
 			this.addChild(this.m_mcAsset);
 			this.m_vecBg = new Array<egret.BitmapData>(4);
-			this.m_vecBg[0] = util.bitmap.util.bitmap.BitmapUtil.snapshot(manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_MULTITABLE, "Multitable_Bg_Asset"));
+			this.m_vecBg[0] = util.bitmap.BitmapUtil.snapshot(manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_MULTITABLE, "Multitable_Bg_Asset"));
 			this.m_bmpBg = new egret.Bitmap();
 //暂时隐藏多桌底图			
 			this.m_mcAsset.mc_bg.addChild(this.m_bmpBg);
@@ -53,7 +53,7 @@ module lobby.view.multi {
 			this.m_spContent = new egret.Sprite();
 			this.m_mcAsset.mc_content.addChild(this.m_spContent);
 			this.spChips= new egret.Sprite();
-			this.spChips.mouseEnabled = this.spChips.mouseChildren=false;
+			this.spChips.touchEnabled = this.spChips.touchChildren=false;
 			this.spChips.x=-960;
 			this.spChips.y=-540;
 			this.addChild(this.spChips);

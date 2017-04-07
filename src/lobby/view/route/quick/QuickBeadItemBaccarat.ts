@@ -1,106 +1,105 @@
 module lobby.view.route.quick {
 	export class QuickBeadItemBaccarat extends BeadItem{
-		private var m_spRed		:	Sprite;		//对子标识
-		private var m_spBlue	:	Sprite;		//对子标识
-		private var m_sLabel	:	string;		//标签
-		private var m_uMode		:	number;		//珠子类型	0-大厅	1-转桌	2-好路通知	3-好路多桌	4-游戏	
+		private m_spRed		 ;		//对子标识
+		private m_spBlue	 ;		//对子标识
+		private m_uMode		:	number;		//珠子类型	0-大厅	1-转桌	2-好路通知	3-好路多桌	4-游戏	
 		
 		
 		public constructor(_uMode:number=0) {
 		
 			super();
-			m_uMode = _uMode;
+			this.m_uMode = _uMode;
 			
-			m_spRed = new Sprite();
-			this.addChild(m_spRed);
-			m_spRed.graphics.beginFill(0xff0000);
-			m_spRed.graphics.drawCircle(0,0,4);
-			m_spRed.graphics.endFill();
-			m_spRed.x = 4;
-			m_spRed.y = 4;
+			this.m_spRed = new egret.Sprite();
+			this.addChild(this.m_spRed);
+			this.m_spRed.graphics.beginFill(0xff0000);
+			this.m_spRed.graphics.drawCircle(0,0,4);
+			this.m_spRed.graphics.endFill();
+			this.m_spRed.x = 4;
+			this.m_spRed.y = 4;
 			
-			m_spBlue = new Sprite();
-			this.addChild(m_spBlue);
-			m_spBlue.graphics.beginFill(0x0000ff);
-			m_spBlue.graphics.drawCircle(0,0,4);
-			m_spBlue.graphics.endFill();
-			m_spBlue.x = 16;
-			m_spBlue.y = 17;
+			this.m_spBlue = new egret.Sprite();
+			this.addChild(this.m_spBlue);
+			this.m_spBlue.graphics.beginFill(0x0000ff);
+			this.m_spBlue.graphics.drawCircle(0,0,4);
+			this.m_spBlue.graphics.endFill();
+			this.m_spBlue.x = 16;
+			this.m_spBlue.y = 17;
 			
 			
-			m_spRed.visible = false;
-			m_spBlue.visible = false;
+			this.m_spRed.visible = false;
+			this.m_spBlue.visible = false;
 		}
 		
 		
-		 public function destroy():void{
+		 public destroy():void{
 			super.destroy();
 			
-			if(m_spRed){
-				this.removeChild(m_spRed);
-				m_spRed = null;
+			if(this.m_spRed){
+				this.removeChild(this.m_spRed);
+				this.m_spRed = null;
 			}
-			if(m_spBlue){
-				this.removeChild(m_spBlue);
-				m_spBlue = null;
+			if(this.m_spBlue){
+				this.removeChild(this.m_spBlue);
+				this.m_spBlue = null;
 			}
 		}
 		
-		 public function setLabel(sLabel:string):void{
-			m_sLabel = sLabel;
-			m_spRed.visible = false;
-			m_spBlue.visible = false;
+		 public setLabel(sLabel:string):void{
+			this.m_sLabel = sLabel;
+			this.m_spRed.visible = false;
+			this.m_spBlue.visible = false;
 			
-			switch(m_sLabel){
-				case B:
-				case F:
-				case J:
-					m_spRed.visible = true;
+			switch(this.m_sLabel){
+				case BeadItem.B:
+				case BeadItem.F:
+				case BeadItem.J:
+					this.m_spRed.visible = true;
 					break;
-				case C:
-				case G:
-				case K:
-					m_spBlue.visible = true;
+				case BeadItem.C:
+				case BeadItem.G:
+				case BeadItem.K:
+					this.m_spBlue.visible = true;
 					break;
-				case D: 
-				case H:
-				case L:
-					m_spRed.visible = true;
-					m_spBlue.visible = true;
+				case BeadItem.D: 
+				case BeadItem.H:
+				case BeadItem.L:
+					this.m_spRed.visible = true;
+					this.m_spBlue.visible = true;
 					break;
 			}
 			
-			onChangeLanguage();
+			this.onChangeLanguage();
 		}
 		
-		 public function onChangeLanguage():void{
-			if(m_bmp){
-				switch(m_sLabel){
-					case A:
-					case B:
-					case C:
-					case D:
-						m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_BANKER);
+		 public onChangeLanguage():void{
+			if(this.m_bmp){
+				switch(this.m_sLabel){
+					case BeadItem.A:
+					case BeadItem.B:
+					case BeadItem.C:
+					case BeadItem.D:
+						this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_BANKER);
 						break;
 					
-					case E:
-					case F:
-					case G:
-					case H:
-						m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_PLAYER);
+					case BeadItem.E:
+					case BeadItem.F:
+					case BeadItem.G:
+					case BeadItem.H:
+						this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_PLAYER);
 						break;
 					
-					case I:
-					case J:
-					case K:
-					case L:
-						m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_TIE);
+					case BeadItem.I:
+					case BeadItem.J:
+					case BeadItem.K:
+					case BeadItem.L:
+						this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_TIE);
 						break;
 					
 				}
-				m_bmp.smoothing = true;
-				m_bmp.width = 20;
-				m_bmp.height = 21;
+				this.m_bmp.smoothing = true;
+				this.m_bmp.width = 20;
+				this.m_bmp.height = 21;
 			}else{
 				console.log("设置珠子位图异常...");
 			}

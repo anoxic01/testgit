@@ -7,7 +7,7 @@ module sound {
 		 * @param num
 		 * @return 
 		 */		
-		public static getCardSoundString(num:number):String
+		public static getCardSoundString(num:number):string
 		{
 			if(num<=10)
 			{

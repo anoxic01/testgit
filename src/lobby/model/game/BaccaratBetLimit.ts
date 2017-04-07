@@ -1,37 +1,37 @@
 module lobby.model.game {
 	export class BaccaratBetLimit extends GameBetLimitBase {
 		
-        private singleBetUpperLimit:Number;
+        private singleBetUpperLimit:number;
 
 
-        private singleBetUnderLimit:Number;
+        private singleBetUnderLimit:number;
 
 
-        private tieBetUpperLimit:Number
+        private tieBetUpperLimit:number
 
 
-        private tieBetUnderLimit:Number
+        private tieBetUnderLimit:number
 
 
-        private pairBetUpperLimit:Number
+        private pairBetUpperLimit:number
 
 
-        private pairBetUnderLimit:Number
-
-
-
-        private bigBetUpperLimit:Number;
+        private pairBetUnderLimit:number
 
 
 
-        private bigBetUnderLimit :Number
+        private bigBetUpperLimit:number;
 
 
 
-        private smallBetUpperLimit :Number
+        private bigBetUnderLimit :number
 
 
-        private smallBetUnderLimit :Number
+
+        private smallBetUpperLimit :number
+
+
+        private smallBetUnderLimit :number
 		/**
 		 * @private
 		 */
@@ -42,126 +42,126 @@ module lobby.model.game {
 		/**
 		 * 庄/閒 押注上限
 		 */
-		get SingleBetUpperLimit():Number 
+		get SingleBetUpperLimit():number 
 		{
 			return this.singleBetUpperLimit;
 		}
 		/**
 		 * 庄/閒 押注上限
 		 */
-		set  SingleBetUpperLimit(value:Number) 
+		set  SingleBetUpperLimit(value:number) 
 		{
 			this.singleBetUpperLimit = value;
 		}
         /**
          * 庄/閒 押注下限
          */
-		get SingleBetUnderLimit():Number 
+		get SingleBetUnderLimit():number 
 		{
 			return this.singleBetUnderLimit;
 		}
         /**
          * 庄/閒 押注下限
          */
-		set  SingleBetUnderLimit(value:Number) 
+		set  SingleBetUnderLimit(value:number) 
 		{
 			this.singleBetUnderLimit = value;
 		}
        /**
          * 和 押注上限
          */
-		get TieBetUpperLimit():Number 
+		get TieBetUpperLimit():number 
 		{
 			return this.tieBetUpperLimit;
 		}
 		/**
          * 和 押注上限
          */
-		set  TieBetUpperLimit(value:Number) 
+		set  TieBetUpperLimit(value:number) 
 		{
 			this.tieBetUpperLimit = value;
 		}
         /**
          * 和 押注下限
          */
-		get TieBetUnderLimit():Number 
+		get TieBetUnderLimit():number 
 		{
 			return this.tieBetUnderLimit;
 		}
         /**
          * 和 押注下限
          */
-		set  TieBetUnderLimit(value:Number) 
+		set  TieBetUnderLimit(value:number) 
 		{
 			this.tieBetUnderLimit = value;
 		}
         /**
          * 庄/閒對 押注上限
          */
-		get PairBetUpperLimit():Number 
+		get PairBetUpperLimit():number 
 		{
 			return this.pairBetUpperLimit;
 		}
         /**
          * 庄/閒對 押注上限
          */
-		set  PairBetUpperLimit(value:Number) 
+		set  PairBetUpperLimit(value:number) 
 		{
 			this.pairBetUpperLimit = value;
 		}
         /**
          * 庄/閒對 押注下限
          */
-		get PairBetUnderLimit():Number 
+		get PairBetUnderLimit():number 
 		{
 			return this.pairBetUnderLimit;
 		}
         /**
          * 庄/閒對 押注下限
          */
-		set  PairBetUnderLimit(value:Number) 
+		set  PairBetUnderLimit(value:number) 
 		{
 			this.pairBetUnderLimit = value;
 		}
         /**
          * 大 押注上限
          */
-		get BigBetUpperLimit():Number 
+		get BigBetUpperLimit():number 
 		{
 			return this.bigBetUpperLimit;
 		}
         /**
          * 大 押注上限
          */
-		set  BigBetUpperLimit(value:Number) 
+		set  BigBetUpperLimit(value:number) 
 		{
 			this.bigBetUpperLimit = value;
 		}
        /**
         * 大押注下限
         */
-		get BigBetUnderLimit():Number 
+		get BigBetUnderLimit():number 
 		{
 			return this.bigBetUnderLimit;
 		}
 	    /**
         * 大押注下限
         */
-		set  BigBetUnderLimit(value:Number) 
+		set  BigBetUnderLimit(value:number) 
 		{
 			this.bigBetUnderLimit = value;
 		}
 		/**
 		 * 小 押注上限
 		 */
-		get SmallBetUpperLimit():Number 
+		get SmallBetUpperLimit():number 
 		{
 			return this.smallBetUpperLimit;
 		}
 		/**
 		 * 小 押注上限
 		 */
-		set  SmallBetUpperLimit(value:Number) 
+		set  SmallBetUpperLimit(value:number) 
 		{
 			this.smallBetUpperLimit = value;
 		}
@@ -169,7 +169,7 @@ module lobby.model.game {
         /**
          *  小 押注下限
          */
-		get SmallBetUnderLimit():Number 
+		get SmallBetUnderLimit():number 
 		{
 			return this.smallBetUnderLimit;
 		}
@@ -177,7 +177,7 @@ module lobby.model.game {
         /**
          *  小 押注下限
          */
-		set  SmallBetUnderLimit(value:Number) 
+		set  SmallBetUnderLimit(value:number) 
 		{
 			this.smallBetUnderLimit = value;
 		}

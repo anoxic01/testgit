@@ -17,8 +17,8 @@ module ui.button {
 			
 			this.addChild(this.m_mcAsset);
 			this.m_mcAsset.mc_hot.buttonMode = true;
-			this.m_mcAsset.mc_content.mouseChildren = false;
-			this.m_mcAsset.mc_content.mouseEnabled = false;
+			this.m_mcAsset.mc_content.touchChildren = false;
+			this.m_mcAsset.mc_content.touchEnabled = false;
 			
 			this.m_mcAsset.mc_hot.addEventListener(mouse.MouseEvent.MOUSE_OVER,this.over);
 			this.m_mcAsset.mc_hot.addEventListener(mouse.MouseEvent.MOUSE_OUT,this.out);

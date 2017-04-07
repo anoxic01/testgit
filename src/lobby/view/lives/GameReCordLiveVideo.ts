@@ -36,7 +36,7 @@ module lobby.view.lives {
 				play();
 			});
 			this.m_btnRefresh.fOnOver = function():void{
-				TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Refresh),TipManager.DOWN,_mcParent.localToGlobal(new Point(_mcParent.mc_1.x+15,_mcParent.mc_1.y)));
+				TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Refresh),TipManager.DOWN,_mcParent.localToGlobal(new egret.Point(_mcParent.mc_1.x+15,_mcParent.mc_1.y)));
 			};
 			this.m_btnRefresh.fOnOut = function():void{
 				TipManager.getInstance().hide();
@@ -50,7 +50,7 @@ module lobby.view.lives {
 				zoomIn();
 			});
 			this.m_btnZoomIn.fOnOver = function():void{
-				TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Video_ZoomIn),TipManager.DOWN,_mcParent.localToGlobal(new Point(_mcParent.mc_2.x+9,_mcParent.mc_2.y)));
+				TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Video_ZoomIn),TipManager.DOWN,_mcParent.localToGlobal(new egret.Point(_mcParent.mc_2.x+9,_mcParent.mc_2.y)));
 			};
 			this.m_btnZoomIn.fOnOut = function():void{
 				TipManager.getInstance().hide();
@@ -64,7 +64,7 @@ module lobby.view.lives {
 					zoomOut();
 				});
 				this.m_btnZoomOut.fOnOver = function():void{
-					TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Video_ZoomOut),TipManager.DOWN,_mcParent.localToGlobal(new Point(_mcParent.mc_3.x+9,_mcParent.mc_3.y)));
+					TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Video_ZoomOut),TipManager.DOWN,_mcParent.localToGlobal(new egret.Point(_mcParent.mc_3.x+9,_mcParent.mc_3.y)));
 				};
 				this.m_btnZoomOut.fOnOut = function():void{
 					TipManager.getInstance().hide();
@@ -77,7 +77,7 @@ module lobby.view.lives {
 					
 				});
 				this.btnBack.fOnOver = function():void{
-					TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Video_Close),TipManager.DOWN,_mcParent.localToGlobal(new Point(_mcParent.mc_4.x+15,_mcParent.mc_4.y)));
+					TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Video_Close),TipManager.DOWN,_mcParent.localToGlobal(new egret.Point(_mcParent.mc_4.x+15,_mcParent.mc_4.y)));
 				};
 				this.btnBack.fOnOut = function():void{
 					TipManager.getInstance().hide();
@@ -194,7 +194,7 @@ module lobby.view.lives {
 					break;
 			}
 			
-			//			var str:String = manager.LobbyManager.getInstance().getLanguageString( language.Language.sLiveError );
+			//			var str:string = manager.LobbyManager.getInstance().getLanguageString( language.Language.sLiveError );
 			//			manager.LobbyManager.getInstance().showDialog_2(str,false,true);
 			
 			if(!this.m_tfWarn.visible){
@@ -215,7 +215,7 @@ module lobby.view.lives {
 			if(this.uCount<3){
 				this.play();
 			}else{
-//				var str:String = manager.LobbyManager.getInstance().getLanguageString( language.Language.sLiveError );
+//				var str:string = manager.LobbyManager.getInstance().getLanguageString( language.Language.sLiveError );
 //				manager.LobbyManager.getInstance().showDialog_2(str,false,true);
 //				manager.LobbyManager.getInstance().showChannel(true,channelX);
 				this.m_tfWarn.visible = true;

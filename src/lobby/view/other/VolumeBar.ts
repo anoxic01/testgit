@@ -152,8 +152,8 @@ module lobby.view.other {
 		}
 		
 		set  enable(_bValue: boolean){
-			this.m_bar.mouseEnabled = _bValue;
-			this.m_bar.mouseChildren = _bValue;
+			this.m_bar.touchEnabled = _bValue;
+			this.m_bar.touchChildren = _bValue;
 		}
 
 	}

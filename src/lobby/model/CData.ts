@@ -28,7 +28,7 @@ module lobby.model {
 		 * @return
 		 */
 		public decryptStringFromBase64( str:string ):string {
-			//var str:String = aes.decryptStringFromBase64( "ufXkzMRFwCqi4dmYVoaVKw==");
+			//var str:string = aes.decryptStringFromBase64( "ufXkzMRFwCqi4dmYVoaVKw==");
 			try {
 				var Cstr:string = this._a.decryptStringFromBase64( str );
 				return Cstr;

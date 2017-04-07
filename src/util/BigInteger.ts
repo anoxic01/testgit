@@ -43,7 +43,7 @@ module util {
 			// Memory.gc();
 		}
 		
-		public toString(radix:Number=16):String {
+		public toString(radix:number=16):string {
 			if (this.s<0) return "-"+this.negate().toString(radix);
 			var k:number;
 			switch (radix) {
@@ -58,7 +58,7 @@ module util {
 			var km:number = (1<<k)-1;
 			var d:number = 0;
 			var m:Boolean = false;
-			var r:String = "";
+			var r:string = "";
 			var i:number = this.t;
 			var p:number = BigInteger.DB-(i*BigInteger.DB)%k;
 			if (i-->0) {
@@ -491,7 +491,7 @@ module util {
 			while(y.t<ys) y.(y.t++, 0);
 			while(--j >= 0) {
 				// Estimate quotient digit
-				var qd:number = (r.a[--i]==y0)?BigInteger.DM:Number(r.a[i])*d1+(Number(r.a[i-1])+e)*d2;
+				var qd:number = (r.a[--i]==y0)?BigInteger.DM:number(r.a[i])*d1+(Number(r.a[i-1])+e)*d2;
 				if ((r.a[i]+= y.am(0, qd, r, j, 0, ys))<qd) { // Try it out
 					y.dlShiftTo(j, t);
 					r.subTo(t,r);
@@ -571,7 +571,7 @@ module util {
 			}
 			return z.revert(r);
 		}
-		 public intAt(str:String, index:number):number {
+		 public intAt(str:string, index:number):number {
 			return parseInt(str.charAt(index), 36);
 		}
 
@@ -672,7 +672,7 @@ module util {
 		 * @return a string representing the integer converted to the radix.
 		 * 
 		 */
-		protected toRadix(b:number=10):String {
+		protected toRadix(b:number=10):string {
 			if (this.sigNum()==0 || b<2 || b>32) return "0";
 			var cs:number = this.chunkSize(b);
 			var a:number = Math.pow(b, cs);

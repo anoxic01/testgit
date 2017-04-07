@@ -19,7 +19,7 @@ module lobby.view.advertisements {
 			console.log(this,"广告加载："+this.m_struct.AdsUrl);
 			if (bClick)
 			{
-				// this.buttonMode = true;
+				// this.touchEnabled = true;
 				this.addEventListener(mouse.MouseEvent.MOUSE_OVER,this.over, this);
 				this.addEventListener(mouse.MouseEvent.MOUSE_OUT, this.out, this);
 				this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClick, this);

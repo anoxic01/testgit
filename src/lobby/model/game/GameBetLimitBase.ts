@@ -5,13 +5,13 @@ module lobby.model.game {
 
         private betLimitID :number;
 
-        private maxBetLimit :Number;
+        private maxBetLimit :number;
 
 
-        private minBetLimit:Number;
+        private minBetLimit:number;
 
-		public TotalLimit:Number;
-		public EnterTbLimit:Number;
+		public TotalLimit:number;
+		public EnterTbLimit:number;
 		public constructor() {
 		}
 		
@@ -46,26 +46,26 @@ module lobby.model.game {
 		/**
 		 * 最大押注上限
 		 */
-		get MaxBetLimit():Number 
+		get MaxBetLimit():number 
 		{
 			return this.maxBetLimit;
 		}
 		/**
 		 * 最大押注上限
 		 */
-		set  MaxBetLimit(value:Number) 
+		set  MaxBetLimit(value:number) 
 		{
 			this.maxBetLimit = value;
 		}
 		
-		get MinBetLimit():Number 
+		get MinBetLimit():number 
 		{
 			return this.minBetLimit;
 		}
 		/**
 		 * 最小押注下限
 		 */
-		set  MinBetLimit(value:Number) 
+		set  MinBetLimit(value:number) 
 		{
 			this.minBetLimit = value;
 		}

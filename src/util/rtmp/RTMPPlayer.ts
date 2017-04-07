@@ -183,7 +183,7 @@ module util.rtmp {
 		 * @param _nBufferTime		缓冲时间
 		 * 
 		 */		
-		public play(_sServer:String, _sStreamName:String, _sTea:String, _nBufferTime:Number=0.1):void{
+		public play(_sServer:string, _sStreamName:string, _sTea:string, _nBufferTime:number=0.1):void{
 //			console.log("|--->>播放视频号："+stageVideoIndex)
 			this.played = true;
 			if(this.m_bPause){
@@ -295,7 +295,7 @@ module util.rtmp {
 		}
 		private stageVideoStateChange(event:StageVideoEvent):void       
 		{          
-			var status:String = event.status;       
+			var status:string = event.status;       
 		//	console.log("stageVideoStateChange:------------------",status);
 			this.stageVideoResize();       
 		}
@@ -440,7 +440,7 @@ module util.rtmp {
 					
 					if (evt.info.secureToken != undefined) {
 //						console.log("sss::"+evt.info.secureToken);
-						var sTea:String = TEA.decrypt(evt.info.secureToken, this.m_sSharedSecuret);
+						var sTea:string = TEA.decrypt(evt.info.secureToken, this.m_sSharedSecuret);
 						this.m_connection.call("secureTokenResponse", null, sTea);
 					}
 					if(this. m_connection ){
@@ -536,7 +536,7 @@ module util.rtmp {
 			}
 		}
 		
-		public setVolume( vol:Number , panning:Number = 0):void {
+		public setVolume( vol:number , panning:number = 0):void {
 			this.m_nVolume = vol;
 //			console.log(this,"准备设置现场声音音量。。。"+ String(m_nVolume) + "this.video.name:" +this.video.name);
 			if( this.m_stream ){

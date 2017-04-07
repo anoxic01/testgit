@@ -63,7 +63,7 @@ module lobby.view.chip {
 			}
 			
 			
-			// this.mouseEnabled=this.mouseChildren=false;
+			// this.touchEnabled=this.touchChildren=false;
 			
 			
 			

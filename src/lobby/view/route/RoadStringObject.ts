@@ -1,9 +1,9 @@
 module lobby.view.route {
 	export class RoadStringObject {
-		public bigRoad:String = "";
-		public bigEyeRoad:String = "";
-		public smallRoad:String = "";
-		public roachRoad:String = "";
+		public bigRoad:string = "";
+		public bigEyeRoad:string = "";
+		public smallRoad:string = "";
+		public roachRoad:string = "";
 		
 		public constructor() {
 		}

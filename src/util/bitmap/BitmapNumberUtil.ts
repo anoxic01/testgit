@@ -1,4 +1,4 @@
-module tool {
+module util.bitmap {
 	export class BitmapNumberUtil {
 
 		private  m_data					:	egret.Bitmap[];

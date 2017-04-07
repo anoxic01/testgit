@@ -64,7 +64,7 @@ module lobby.view.lives {
 			
 		}
 		
-		public setVolume( vol:Number , panning:Number = 0):void {
+		public setVolume( vol:number , panning:number = 0):void {
 			if( this.m_RTMPPlayer ){
 				this.m_RTMPPlayer.setVolume( vol , panning );
 			}

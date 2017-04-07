@@ -15,7 +15,7 @@ module ui.button {
 			
 			this.mcAsset.gotoAndStop("DEFAULT");
 			this.mcAsset.buttonMode = true;
-			this.mcAsset.mouseChildren = false;
+			this.mcAsset.touchChildren = false;
 			
 			if( this.m_mcLabel ){
 				this.m_mcLabel.gotoAndStop(1);
@@ -95,9 +95,9 @@ module ui.button {
 			if (this.mcAsset)
 			{
 				this.mcAsset.gotoAndStop(bValue ? ("DEFAULT") : ("DISABLE"));
-				this.mcAsset.mouseEnabled = bValue;
+				this.mcAsset.touchEnabled = bValue;
 				this.mcAsset.enabled = bValue;
-				this.mcAsset.mouseChildren = bValue;
+				this.mcAsset.touchChildren = bValue;
 				this.mcAsset.buttonMode = bValue;
 				if(this.m_mcLabel2){
 					if(bValue){

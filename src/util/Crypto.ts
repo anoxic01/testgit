@@ -26,7 +26,7 @@ module util {
 		 *  "rc4"
 		 *  "simple-aes-cbc"
 		 */
-		public static getCipher(name:String, key:egret.ByteArray, pad:IPad=null):ICipher {
+		public static getCipher(name:string, key:egret.ByteArray, pad:IPad=null):ICipher {
 			// split name into an array.
 			var keys = name.split("-");
 			switch (keys[0]) {
@@ -140,7 +140,7 @@ module util {
 			return 0; // unknown;
 		}
 		
-		private static getMode(name:String, alg:ISymmetricKey, padding:IPad=null):IMode {
+		private static getMode(name:string, alg:ISymmetricKey, padding:IPad=null):IMode {
 			switch (name) {
 				case "ecb":
 					return new ECBMode(alg, padding);
@@ -192,7 +192,7 @@ module util {
 		 * "hmac-sha256-192"
 		 * etc.
 		 */
-		public static getHMAC(name:String):HMAC {
+		public static getHMAC(name:string):HMAC {
 			var keys = name.split("-");
 			if (keys[0]=="hmac") keys.shift();
 			var bits:number = 0;

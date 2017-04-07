@@ -1,12 +1,12 @@
 module lobby.view.route.game.dtf {
 	export class DtfBeadPlate extends BeadPlate{
-		public constructor(view:MovieClip, _class:Class) {
+		public constructor(view, _class) {
 		
 			super(view, _class);
 			
 		}
 		
-		 public function addRoad(road:string, isAsk: boolean = false):void {
+		 public addRoad(road:string, isAsk: boolean = false):void {
 			if (road == "" || road == null || road == "null") {
 				return;
 			}
@@ -17,7 +17,7 @@ module lobby.view.route.game.dtf {
 			var length:number= roadTips.length;
 			var fix:number= length > this.maxNum ? (Math.ceil(length / 6) - this.maxCol) * 6 : 0;
 			var label:string = "";
-			var mcChild:MovieClip;
+			var mcChild;
 			for (var i:number= 0; i < this.maxNum; i ++) {
 				if (roadTips[i + fix] != undefined ) {
 					this._beadPlate_vct[i].visible = true;
@@ -34,7 +34,7 @@ module lobby.view.route.game.dtf {
 			}
 			
 			if (isAsk) {
-				ask();
+				this.ask();
 			}
 		}		
 		

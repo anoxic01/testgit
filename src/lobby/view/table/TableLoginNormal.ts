@@ -1,90 +1,90 @@
 module lobby.view.table {
 	export class TableLoginNormal extends TableLogin{
-//		private m_btnLogin	:	ButtonMcLanguage;			//进入游戏
-		private m_btnLogin	:	MMovieClip;
-		private m_btnLimit	:	ButtonMcLanguage;			//限红选择
+//		private this.m_btnLogin	:	ButtonMcLanguage;			//进入游戏
+		private m_btnLogin	;
+		private m_btnLimit	;			//限红选择
 		
-		public constructor( _tableStruct:TableStruct ) {
+		public constructor( _tableStruct ) {
 		
 			super();
 			
-			m_tableStruct = _tableStruct;
+			this.m_tableStruct = _tableStruct;
 			
-			m_tableStruct.BetLimitID = 1;	//默认为限红选择第一个
-			m_limitStruct = LobbyData.getInstance().getBetLimitByGL(m_tableStruct.GameID, m_tableStruct.BetLimitID);
+			this.m_tableStruct.BetLimitID = 1;	//默认为限红选择第一个
+			this.m_limitStruct = model.LobbyData.getInstance().getBetLimitByGL(this.m_tableStruct.GameID, this.m_tableStruct.BetLimitID);
 			
-			switch(m_tableStruct.GameID){
-				case GameDefine.BAC:
-				case GameDefine.DTF:
-					m_tableStruct.joinTableType = JoinTableType.NORMAL_PAIR_TABLE_SEAT;
+			switch(this.m_tableStruct.GameID){
+				case define.GameDefine.BAC:
+				case define.GameDefine.DTF:
+					this.m_tableStruct.joinTableType = model.type.JoinTableType.NORMAL_PAIR_TABLE_SEAT;
 					break;
-				case GameDefine.ROU:
-				case GameDefine.SIC:
-					m_tableStruct.joinTableType = JoinTableType.SINGEL;
+				case define.GameDefine.ROU:
+				case define.GameDefine.SIC:
+					this.m_tableStruct.joinTableType = model.type.JoinTableType.SINGEL;
 					break;
 			}
 			
-			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_TABLE,"Table_Login_Normal_Asset") ;
-			this.addChild(m_mcAsset);
+			this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_TABLE,"Table_Login_Normal_Asset") ;
+			this.addChild(this.m_mcAsset);
 			
-			m_btnLogin = new MMovieClip(m_mcAsset.mc_1);
-			m_btnLogin.mcAsset.buttonMode = true;
-			m_btnLogin.mcAsset.mouseChildren = false;
-			m_btnLogin.mcAsset.visible = false;
-			m_btnLogin.gotoAndStop(normal);
-			m_btnLogin.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OVER,over);
-			m_btnLogin.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OUT,out);
-			m_btnLogin.mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP,onClick);
-			m_btnLogin.mcAsset.x = 430;
+			this.m_btnLogin = new egret.MovieClip(this.m_mcAsset.mc_1);
+			this.m_btnLogin.mcAsset.buttonMode = true;
+			this.m_btnLogin.mcAsset.touchChildren = false;
+			this.m_btnLogin.mcAsset.visible = false;
+			this.m_btnLogin.gotoAndStop(this.normal);
+			this.m_btnLogin.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OVER,this.over);
+			this.m_btnLogin.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OUT,this.out);
+			this.m_btnLogin.mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onClick);
+			this.m_btnLogin.mcAsset.x = 430;
 			
-			m_btnLogin.addFrameScript(19,function():void{
-				if(m_btnLogin){
-					m_btnLogin.currentFrame = 2;
+			this.m_btnLogin.addFrameScript(19,function():void{
+				if(this.m_btnLogin){
+					this.m_btnLogin.currentFrame = 2;
 				}
 			});
-			m_btnLogin.addFrameScript(28,function():void{
-				if(m_btnLogin){
-					m_btnLogin.gotoAndStop(29);
+			this.m_btnLogin.addFrameScript(28,function():void{
+				if(this.m_btnLogin){
+					this.m_btnLogin.gotoAndStop(29);
 				}
 			});
-			m_btnLogin.addFrameScript(39,function():void{
-				if(m_btnLogin){
-					m_btnLogin.gotoAndStop(40);
+			this.m_btnLogin.addFrameScript(39,function():void{
+				if(this.m_btnLogin){
+					this.m_btnLogin.gotoAndStop(40);
 				}
 			});
 			
-			m_btnLimit = new ButtonMcLanguage(m_mcAsset.mc_30, function():void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_tableStruct.TableID);
-				if(playerTableOwnStatusStruct){
-					LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sGame_Relogin), function():void{
-						m_tableStruct.BetLimitID = playerTableOwnStatusStruct.CurrBetLimitID;
-						LobbyManager.getInstance().gamePoint = getGlobalPoint();
-						LobbyManager.getInstance().enterGame(m_tableStruct);	
+			this.m_btnLimit = new ui.button.ButtonMcLanguage(this.m_mcAsset.mc_30, function():void{
+				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+				this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_tableStruct.TableID);
+				if(this.playerTableOwnStatusStruct){
+					manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sGame_Relogin), function():void{
+						this.m_tableStruct.BetLimitID = this.playerTableOwnStatusStruct.CurrBetLimitID;
+						manager.LobbyManager.getInstance().gamePoint = this.getGlobalPoint();
+						manager.LobbyManager.getInstance().enterGame(this.m_tableStruct);	
 					});
 				}else{
-					LobbyManager.getInstance().showLimitBet(m_tableStruct);
+					manager.LobbyManager.getInstance().showLimitBet(this.m_tableStruct);
 				}
 			});
-			m_btnLimit.mcAsset.alpha = 0;
-			m_btnLimit.mcAsset.visible = false;
+			this.m_btnLimit.mcAsset.alpha = 0;
+			this.m_btnLimit.mcAsset.visible = false;
 			
-			onChangeLanguage();
+			this.onChangeLanguage();
 		}
 		
 		 public destroy():void{
 			
-			if(m_btnLimit){
-				m_btnLimit.destroy();
-				m_btnLimit = null;
+			if(this.m_btnLimit){
+				this.m_btnLimit.destroy();
+				this.m_btnLimit = null;
 			}
 			
-			if(m_btnLogin){
-				m_btnLogin.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OVER,over);
-				m_btnLogin.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OUT,out);
-				m_btnLogin.mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP,onClick);
-				m_btnLogin.dispose();
-				m_btnLogin = null;
+			if(this.m_btnLogin){
+				this.m_btnLogin.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OVER,this.over);
+				this.m_btnLogin.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OUT,this.out);
+				this.m_btnLogin.mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onClick);
+				this.m_btnLogin.dispose();
+				this.m_btnLogin = null;
 			}
 			
 			super.destroy();
@@ -94,29 +94,27 @@ module lobby.view.table {
 		 public show():void{
 			super.show();
 			
-			if(m_btnLogin){
-				m_btnLogin.mcAsset.visible = true;
-				m_btnLogin.gotoAndPlay("SHOW");
+			if(this.m_btnLogin){
+				this.m_btnLogin.mcAsset.visible = true;
+				this.m_btnLogin.gotoAndPlay("SHOW");
 			}
-			if(m_btnLimit){
-				m_btnLimit.mcAsset.visible = true;
-				TweenLite.killTweensOf(m_btnLimit.mcAsset);
-				TweenLite.to(m_btnLimit.mcAsset, Define.SPEED,{alpha:1});
+			if(this.m_btnLimit){
+				this.m_btnLimit.mcAsset.visible = true;
+				egret.Tween.get(this.m_btnLimit.mcAsset).to({alpha:1}, define.Define.SPEED);
 			}
 		}
 		 public hide():void{
 			super.hide();
 			
-			if(m_btnLogin){
-				m_btnLogin.gotoAndPlay("HIDE");
+			if(this.m_btnLogin){
+				this.m_btnLogin.gotoAndPlay("HIDE");
 			}
-			if(m_btnLimit){
-				TweenLite.killTweensOf(m_btnLimit.mcAsset);
-				TweenLite.to(m_btnLimit.mcAsset, Define.SPEED,{alpha:0, onComplete:function():void{
-					if(m_btnLimit){
-						m_btnLimit.mcAsset.visible = false;
+			if(this.m_btnLimit){
+				egret.Tween.get(this.m_btnLimit.mcAsset).to({alpha:0}, define.Define.SPEED).call(function():void{
+					if(this.m_btnLimit){
+						this.m_btnLimit.mcAsset.visible = false;
 					}
-				}});
+				});
 			}
 		}
 		
@@ -127,12 +125,12 @@ module lobby.view.table {
 //				m_bInit = true;
 //			}
 //			
-//			if(m_btnLogin){
-//				if(m_bShow)
+//			if(this.m_btnLogin){
+//				if(this.m_bShow)
 //				{
-//					m_btnLogin.gotoAndPlay("SHOW");
+//					this.m_btnLogin.gotoAndPlay("SHOW");
 //				}else{
-//					m_btnLogin.gotoAndStop(normal);
+//					this.m_btnLogin.gotoAndStop(normal);
 //				}
 //			}
 //			
@@ -141,47 +139,47 @@ module lobby.view.table {
 		protected over(event:MouseEvent):void
 		{
 			// TODO Auto-generated method stub
-			if(m_btnLogin){
-				m_btnLogin.gotoAndPlay("HOVER");
+			if(this.m_btnLogin){
+				this.m_btnLogin.gotoAndPlay("HOVER");
 			}
 		}
 		
 		protected out(event:MouseEvent):void
 		{
-			if(m_btnLogin){
-				m_btnLogin.gotoAndStop("DEFAULT");
+			if(this.m_btnLogin){
+				this.m_btnLogin.gotoAndStop("DEFAULT");
 			}
 			
 		}
 		
 		protected onClick(event:MouseEvent):void
 		{
-			playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_tableStruct.TableID);
-			if(playerTableOwnStatusStruct){
-				m_tableStruct.BetLimitID = playerTableOwnStatusStruct.CurrBetLimitID;
-				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sGame_Relogin), function():void{
-					enterGame();
+			this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_tableStruct.TableID);
+			if(this.playerTableOwnStatusStruct){
+				this.m_tableStruct.BetLimitID = this.playerTableOwnStatusStruct.CurrBetLimitID;
+				manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sGame_Relogin), function():void{
+					this.enterGame();
 				});
 			}else{
-				if(IsAllowToLogin()){
-					m_tableStruct.BetLimitID = 1;
-					enterGame();
+				if(this.IsAllowToLogin()){
+					this.m_tableStruct.BetLimitID = 1;
+					this.enterGame();
 				}
 			}
-			SoundManager.getInstance().play(SoundPackage.sEnterGame);
+			manager.SoundManager.getInstance().play(sound.SoundPackage.sEnterGame);
 		}
 		
 		 public onChangeLanguage():void{
-//			m_mcAsset.mc_0.tf_label.text = LobbyManager.getInstance().getLanguageString(Language.sLimitSelect);
-			m_mcAsset.mc_1.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			if(m_btnLimit){
-				(m_btnLimit.mcAsset.getChildByName("mc_label") as MovieClip).gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+//			this.m_mcAsset.mc_0.tf_label.text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sLimitSelect);
+			this.m_mcAsset.mc_1.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			if(this.m_btnLimit){
+				(this.m_btnLimit.mcAsset.getChildByName("mc_label")).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			}
 		}
 		
 		private enterGame():void{
-			LobbyManager.getInstance().gamePoint = getGlobalPoint();
-			LobbyManager.getInstance().enterGame(m_tableStruct);	
+			manager.LobbyManager.getInstance().gamePoint = this.getGlobalPoint();
+			manager.LobbyManager.getInstance().enterGame(this.m_tableStruct);	
 		}
 		
 		

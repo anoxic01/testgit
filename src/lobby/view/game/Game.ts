@@ -121,7 +121,7 @@ module lobby.view.game {
 			
 		}
 		
-		public showMessage( msg:String ):void{
+		public showMessage( msg:string ):void{
 			
 		}
 		

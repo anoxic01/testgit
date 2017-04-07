@@ -241,7 +241,7 @@ module packet.sink {
 		}
 		
 		private loginErrHandler(ret:number):void{
-			var msg:String= "";
+			var msg:string= "";
 			var bOneBtn: boolean = false;
 			if( ret == define.GameDefine.ENTER_FAIL) {
 				msg=manager.LobbyManager.getInstance().getLanguageString( language.Language.sEnterFail ) ;

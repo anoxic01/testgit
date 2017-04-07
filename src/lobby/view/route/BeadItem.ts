@@ -1,45 +1,45 @@
 module lobby.view.route {
 	export class BeadItem extends BSprite{
-		public static const	A	:	String	=	"a";
-		public static const	B	:	String	=	"b";
-		public static const	C	:	String	=	"c";
-		public static const	D	:	String	=	"d";
-		public static const	E	:	String	=	"e";
-		public static const	F	:	String	=	"f";
-		public static const	G	:	String	=	"g";
-		public static const	H	:	String	=	"h";
-		public static const	I	:	String	=	"i";
-		public static const	J	:	String	=	"j";
-		public static const	K	:	String	=	"k";
-		public static const	L	:	String	=	"l";
+		public static A	:	string	=	"a";
+		public static B	:	string	=	"b";
+		public static C	:	string	=	"c";
+		public static D	:	string	=	"d";
+		public static E	:	string	=	"e";
+		public static F	:	string	=	"f";
+		public static G	:	string	=	"g";
+		public static H	:	string	=	"h";
+		public static I	:	string	=	"i";
+		public static J	:	string	=	"j";
+		public static K	:	string	=	"k";
+		public static L	:	string	=	"l";
 		
-		protected m_bmp		:	Bitmap;
-		protected m_sLabel	:	String;		//标签
+		protected m_bmp		:	egret.Bitmap;
+		protected m_sLabel	:	string;		//标签
 		
 		public constructor() {
 		
 			super();
 			
-			m_bmp = new Bitmap();
+			this.m_bmp = new egret.Bitmap();
 			
-			this.addChild(m_bmp);
+			this.addChild(this.m_bmp);
 			
 		}
 		
 		 public destroy():void{
-			if(m_bmp){
-				this.removeChild(m_bmp);
-				if(m_bmp.bitmapData){
-					m_bmp.bitmapData = null;
+			if(this.m_bmp){
+				this.removeChild(this.m_bmp);
+				if(this.m_bmp.bitmapData){
+					this.m_bmp.bitmapData = null;
 				}
-				m_bmp = null;
+				this.m_bmp = null;
 			}
 			super.destroy();
 		}
 		
-		public setLabel(sLabel:String):void{
-			m_sLabel = sLabel;
-			onChangeLanguage();
+		public setLabel(sLabel:string):void{
+			this.m_sLabel = sLabel;
+			this.onChangeLanguage();
 		}
 		
 	}

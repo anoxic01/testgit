@@ -1,7 +1,7 @@
 module sound {
 	export class GameSoundPlayVector {
 		private soundVector:<String> = new <String>();
-		private playSoundURL:String;
+		private playSoundURL:string;
 		/**
 		 *延时播放时间 
 		 */		
@@ -18,7 +18,7 @@ module sound {
 		private soundDatas:Dictionary = {};
 		private currentGameModel:Object = null;
 		
-		public constructor(welcomeSound:String) {
+		public constructor(welcomeSound:string) {
 			addSound(welcomeSound);// 将欢迎声音放在最开始
 			timeOutId = setTimeout(setCanPlaySound,delayPlayInterval);
 		}
@@ -39,7 +39,7 @@ module sound {
 		 * @param value 声音
 		 * @param stopStatus 
 		 */		
-		public addSound(value:String,stopStatus:String=null,stopCountDown:Object = null):void
+		public addSound(value:string,stopStatus:string=null,stopCountDown:Object = null):void
 		{
 			if(SoundManager.getInstance().soundEffectSwitch==false)return;
 			if(soundDatas[value]==null)soundDatas[value] = [];

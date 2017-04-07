@@ -98,7 +98,7 @@ module manager {
 		
 		//*****************//
 		
-		public addFun( _func:Function , _interval:Number ):void {
+		public addFun( _func:Function , _interval:number ):void {
 			var _bRes: boolean = false;
 			for( var i:number= 0; i < m_vecFunc.length ; i++ ){
 				if( m_vecFunc[i].func == _func ){

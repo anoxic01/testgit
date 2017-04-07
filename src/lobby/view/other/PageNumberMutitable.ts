@@ -15,7 +15,7 @@ module lobby.view.other {
 			this.addChild(this.m_mAsset);
 			this.m_mAsset.tf_label.text = String(this.m_uPage+1);
 			
-			this.m_mAsset.mouseChildren = false;
+			this.m_mAsset.touchChildren = false;
 			
 			this.touchEnabled = true;
 			this.addEventListener(mouse.MouseEvent.MOUSE_OVER, this.over, this);

@@ -1,242 +1,242 @@
 module lobby.view.table {
-	export class TableLoginVip {
-//		private m_btnSideBet						:	ButtonMcLanguage;					//旁观下注
-//		private m_btnLogin							:	ButtonMcLanguage;					//进座下注
-//		private m_btnVip							:	ButtonMcLanguage;					//包桌
+	export class TableLoginVip extends TableLogin{
+//		private this.m_btnSideBet						:	ButtonMcLanguage;					//旁观下注
+//		private this.m_btnLogin							:	ButtonMcLanguage;					//进座下注
+//		private this.m_btnVip							:	ButtonMcLanguage;					//包桌
 		
-		private m_btnSideBet	:	MMovieClip;					//旁观下注
-		private m_btnLogin		:	MMovieClip;					//进座下注
-		private m_btnVip		:	MMovieClip;					//包桌
+		private m_btnSideBet	;					//旁观下注
+		private m_btnLogin		;					//进座下注
+		private m_btnVip		;					//包桌
 //		private m_bAnimation	:	 boolean;					//播放状态
 		private m_bSideVisible	:	 boolean;
 		private m_bLoginVisible	:	 boolean;
 		private m_bVipVisible	:	 boolean;
 		
 		
-		public constructor( _tableStruct:TableStruct ) {
+		public constructor( _tableStruct ) {
 		
 			super();
 			
-			m_tableStruct = _tableStruct;
+			this.m_tableStruct = _tableStruct;
 			
-			m_limitStruct = LobbyData.getInstance().getBetLimitByGL(m_tableStruct.GameID, m_tableStruct.BetLimitID);
+			this.m_limitStruct = model.LobbyData.getInstance().getBetLimitByGL(this.m_tableStruct.GameID, this.m_tableStruct.BetLimitID);
 			
-			m_mcAsset = ResourceManager.getInstance().getInstanceByNameFromDomain(Define.SWF_TABLE,"Table_Login_Vip_Asset") ;
-			this.addChild(m_mcAsset);
+			this.m_mcAsset = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_TABLE,"Table_Login_Vip_Asset") ;
+			this.addChild(this.m_mcAsset);
 			
-			m_btnSideBet = new MMovieClip(m_mcAsset.mc_0);
-			m_btnSideBet.mcAsset.buttonMode = true;
-			m_btnSideBet.mcAsset.mouseChildren = false;
-			m_btnSideBet.mcAsset.visible = false;
-			m_btnSideBet.gotoAndStop(normal);
-			m_btnSideBet.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OVER,btnSideBetover);
-			m_btnSideBet.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OUT,btnSideBetout);
-			m_btnSideBet.mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP,btnSideBetonClick);
-			m_btnSideBet.addFrameScript(19,function():void{
-				if(m_btnSideBet){
-					m_btnSideBet.currentFrame = 2;
+			this.m_btnSideBet = new egret.MovieClip(this.m_mcAsset.mc_0);
+			this.m_btnSideBet.mcAsset.buttonMode = true;
+			this.m_btnSideBet.mcAsset.touchChildren = false;
+			this.m_btnSideBet.mcAsset.visible = false;
+			this.m_btnSideBet.gotoAndStop(this.normal);
+			this.m_btnSideBet.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OVER,this.btnSideBetover);
+			this.m_btnSideBet.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OUT,this.btnSideBetout);
+			this.m_btnSideBet.mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP,this.btnSideBetonClick);
+			this.m_btnSideBet.addFrameScript(19,function():void{
+				if(this.m_btnSideBet){
+					this.m_btnSideBet.currentFrame = 2;
 				}
 			});
-			m_btnSideBet.addFrameScript(28,function():void{
-				if(m_btnSideBet){
-					m_btnSideBet.gotoAndStop(29);
+			this.m_btnSideBet.addFrameScript(28,function():void{
+				if(this.m_btnSideBet){
+					this.m_btnSideBet.gotoAndStop(29);
 				}
 			});
-			m_btnSideBet.addFrameScript(39,function():void{
-				if(m_btnSideBet){
-					m_btnSideBet.gotoAndStop(40);
+			this.m_btnSideBet.addFrameScript(39,function():void{
+				if(this.m_btnSideBet){
+					this.m_btnSideBet.gotoAndStop(40);
 				}
 			});
-//			m_btnSideBet.addFrameScript(showFrame,checkStatus);
+//			this.m_btnSideBet.addFrameScript(showFrame,checkStatus);
 			
 			
-			m_btnLogin = new MMovieClip(m_mcAsset.mc_1);
-			m_btnLogin.mcAsset.buttonMode = true;
-			m_btnLogin.mcAsset.mouseChildren = false;
-			m_btnLogin.mcAsset.visible = false;
-			m_btnLogin.gotoAndStop(normal);
-			m_btnLogin.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OVER,Loginover);
-			m_btnLogin.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OUT,Loginout);
-			m_btnLogin.mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP,LoginonClick);
-			m_btnLogin.addFrameScript(19,function():void{
-				m_btnLogin.currentFrame = 2;
+			this.m_btnLogin = new egret.MovieClip(this.m_mcAsset.mc_1);
+			this.m_btnLogin.mcAsset.buttonMode = true;
+			this.m_btnLogin.mcAsset.touchChildren = false;
+			this.m_btnLogin.mcAsset.visible = false;
+			this.m_btnLogin.gotoAndStop(this.normal);
+			this.m_btnLogin.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OVER,this.Loginover);
+			this.m_btnLogin.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OUT,this.Loginout);
+			this.m_btnLogin.mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP,this.LoginonClick);
+			this.m_btnLogin.addFrameScript(19,function():void{
+				this.m_btnLogin.currentFrame = 2;
 			});
-			m_btnLogin.addFrameScript(28,function():void{
-				if(m_btnLogin){
-					m_btnLogin.gotoAndStop(29);
+			this.m_btnLogin.addFrameScript(28,function():void{
+				if(this.m_btnLogin){
+					this.m_btnLogin.gotoAndStop(29);
 				}
 			});
-			m_btnLogin.addFrameScript(39,function():void{
-				if(m_btnLogin){
-					m_btnLogin.gotoAndStop(40);
-				}
-			});
-			
-			m_btnVip = new MMovieClip(m_mcAsset.mc_2);
-			m_btnVip.mcAsset.buttonMode = true;
-			m_btnVip.mcAsset.mouseChildren = false;
-			m_btnVip.mcAsset.visible = false;
-			m_btnVip.gotoAndStop(normal);
-			m_btnVip.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OVER,Vipover);
-			m_btnVip.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OUT,Vipout);
-			m_btnVip.mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP,ViponClick);
-			m_btnVip.addFrameScript(19,function():void{
-				if(m_btnVip){
-					m_btnVip.currentFrame = 2;
-				}
-			});
-			m_btnVip.addFrameScript(28,function():void{
-				if(m_btnVip){
-					m_btnVip.gotoAndStop(29);
-				}
-			});
-			m_btnVip.addFrameScript(39,function():void{
-				if(m_btnVip){
-					m_btnVip.gotoAndStop(40);
+			this.m_btnLogin.addFrameScript(39,function():void{
+				if(this.m_btnLogin){
+					this.m_btnLogin.gotoAndStop(40);
 				}
 			});
 			
-			updateStatus();
-			onChangeLanguage();
+			this.m_btnVip = new egret.MovieClip(this.m_mcAsset.mc_2);
+			this.m_btnVip.mcAsset.buttonMode = true;
+			this.m_btnVip.mcAsset.touchChildren = false;
+			this.m_btnVip.mcAsset.visible = false;
+			this.m_btnVip.gotoAndStop(this.normal);
+			this.m_btnVip.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OVER,this.Vipover);
+			this.m_btnVip.mcAsset.addEventListener(mouse.MouseEvent.ROLL_OUT,this.Vipout);
+			this.m_btnVip.mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP,this.ViponClick);
+			this.m_btnVip.addFrameScript(19,function():void{
+				if(this.m_btnVip){
+					this.m_btnVip.currentFrame = 2;
+				}
+			});
+			this.m_btnVip.addFrameScript(28,function():void{
+				if(this.m_btnVip){
+					this.m_btnVip.gotoAndStop(29);
+				}
+			});
+			this.m_btnVip.addFrameScript(39,function():void{
+				if(this.m_btnVip){
+					this.m_btnVip.gotoAndStop(40);
+				}
+			});
+			
+			this.updateStatus();
+			this.onChangeLanguage();
 		}
 		
 		protected btnSideBetover(event:MouseEvent):void
 		{
-//			if(m_bAnimation){
+//			if(this.m_bAnimation){
 //				return;
 //			}
-			if(m_btnSideBet){
-				m_btnSideBet.gotoAndPlay("HOVER");
+			if(this.m_btnSideBet){
+				this.m_btnSideBet.gotoAndPlay("HOVER");
 			}
 		}
 		
 		protected btnSideBetout(event:MouseEvent):void
 		{
-//			if(m_bAnimation){
+//			if(this.m_bAnimation){
 //				return;
 //			}
-			if(m_btnSideBet){
-				m_btnSideBet.gotoAndStop("DEFAULT");
+			if(this.m_btnSideBet){
+				this.m_btnSideBet.gotoAndStop("DEFAULT");
 			}
 		}
 		
 		protected btnSideBetonClick(event:MouseEvent):void
 		{
-			playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_tableStruct.TableID);
-			if(playerTableOwnStatusStruct){
-				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sGame_Relogin), function():void{
-					m_tableStruct.joinTableType = JoinTableType.CHARTER_OTHER;
-					needPwd(m_tableStruct);
+			this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_tableStruct.TableID);
+			if(this.playerTableOwnStatusStruct){
+				manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sGame_Relogin), function():void{
+					this.m_tableStruct.joinTableType = model.type.JoinTableType.CHARTER_OTHER;
+					this.needPwd(this.m_tableStruct);
 				});
 			}else{
-				m_tableStruct.joinTableType = JoinTableType.CHARTER_OTHER;
-				needPwd(m_tableStruct);
+				this.m_tableStruct.joinTableType = model.type.JoinTableType.CHARTER_OTHER;
+				this.needPwd(this.m_tableStruct);
 			}
 			
-			SoundManager.getInstance().play(SoundPackage.sEnterGame);
+			manager.SoundManager.getInstance().play(sound.SoundPackage.sEnterGame);
 		}
 		
 		protected Loginover(event:MouseEvent):void
 		{
-//			if(m_bAnimation){
+//			if(this.m_bAnimation){
 //				return;
 //			}
-			if(m_btnLogin){
-				m_btnLogin.gotoAndPlay("HOVER");
+			if(this.m_btnLogin){
+				this.m_btnLogin.gotoAndPlay("HOVER");
 			}
 		}
 		
 		protected Loginout(event:MouseEvent):void
 		{
-//			if(m_bAnimation){
+//			if(this.m_bAnimation){
 //				return;
 //			}
-			if(m_btnLogin){
-				m_btnLogin.gotoAndStop("DEFAULT");
+			if(this.m_btnLogin){
+				this.m_btnLogin.gotoAndStop("DEFAULT");
 			}
 		}
 		
 		protected LoginonClick(event:MouseEvent):void
 		{
-			playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_tableStruct.TableID);
-			if(playerTableOwnStatusStruct){
-				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sGame_Relogin), function():void{
-					m_tableStruct.joinTableType = JoinTableType.CHARTER_TABLER;
-					needPwd(m_tableStruct);
+			this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_tableStruct.TableID);
+			if(this.playerTableOwnStatusStruct){
+				manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sGame_Relogin), function():void{
+					this.m_tableStruct.joinTableType = model.type.JoinTableType.CHARTER_TABLER;
+					this.needPwd(this.m_tableStruct);
 				});
 			}else{
-				if(IsAllowToLogin()){
-					m_tableStruct.joinTableType = JoinTableType.CHARTER_TABLER;
-					needPwd(m_tableStruct);
+				if(this.IsAllowToLogin()){
+					this.m_tableStruct.joinTableType = model.type.JoinTableType.CHARTER_TABLER;
+					this.needPwd(this.m_tableStruct);
 				}
 			}
 			
-			SoundManager.getInstance().play(SoundPackage.sEnterGame);
+			manager.SoundManager.getInstance().play(sound.SoundPackage.sEnterGame);
 		}
 		
 		protected Vipover(event:MouseEvent):void
 		{
-//			if(m_bAnimation){
+//			if(this.m_bAnimation){
 //				return;
 //			}
-			if(m_btnVip){
-				m_btnVip.gotoAndPlay("HOVER");
+			if(this.m_btnVip){
+				this.m_btnVip.gotoAndPlay("HOVER");
 			}
 		}
 		
 		protected Vipout(event:MouseEvent):void
 		{
-//			if(m_bAnimation){
+//			if(this.m_bAnimation){
 //				return;
 //			}
-			if(m_btnVip){
-				m_btnVip.gotoAndStop("DEFAULT");
+			if(this.m_btnVip){
+				this.m_btnVip.gotoAndStop("DEFAULT");
 			}
 		}
 		
 		protected ViponClick(event:MouseEvent):void
 		{
-			playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_tableStruct.TableID);
+			this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_tableStruct.TableID);
 			
-			if(playerTableOwnStatusStruct && playerTableOwnStatusStruct.IsTableOwner && playerTableOwnStatusStruct.PlayerID==Player.getInstance().iPlayerID){
-				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sGame_Relogin), function():void{
-					LobbyManager.getInstance().gamePoint = getGlobalPoint();
+			if(this.playerTableOwnStatusStruct && this.playerTableOwnStatusStruct.IsTableOwner && this.playerTableOwnStatusStruct.PlayerID==model.Player.getInstance().iPlayerID){
+				manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sGame_Relogin), function():void{
+					manager.LobbyManager.getInstance().gamePoint = this.getGlobalPoint();
 					//桌主保留进桌 ，CType需填3
-					m_tableStruct.joinTableType = JoinTableType.CHARTER_TABLE_OWNER;
-					m_tableStruct.CharterSettingInfo.CType = 3;
-					LobbyManager.getInstance().enterGame(m_tableStruct);
+					this.m_tableStruct.joinTableType = model.type.JoinTableType.CHARTER_TABLE_OWNER;
+					this.m_tableStruct.CharterSettingInfo.CType = 3;
+					manager.LobbyManager.getInstance().enterGame(this.m_tableStruct);
 				});
 			}else{
-				if(IsAllowToLogin(true)){
-					LobbyManager.getInstance().showTableSetting(m_tableStruct);
+				if(this.IsAllowToLogin(true)){
+					manager.LobbyManager.getInstance().showTableSetting(this.m_tableStruct);
 				}
 			}
-			SoundManager.getInstance().play(SoundPackage.sEnterGame);
+			manager.SoundManager.getInstance().play(sound.SoundPackage.sEnterGame);
 		}
 		
 		 public destroy():void{
 			
-			if(m_btnSideBet){
-				m_btnSideBet.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OVER,btnSideBetover);
-				m_btnSideBet.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OUT,btnSideBetout);
-				m_btnSideBet.mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP,btnSideBetonClick);
-				m_btnSideBet.dispose();
-				m_btnSideBet = null;
+			if(this.m_btnSideBet){
+				this.m_btnSideBet.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OVER,this.btnSideBetover);
+				this.m_btnSideBet.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OUT,this.btnSideBetout);
+				this.m_btnSideBet.mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.btnSideBetonClick);
+				this.m_btnSideBet.dispose();
+				this.m_btnSideBet = null;
 			}
-			if(m_btnLogin){
-				m_btnLogin.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OVER,Loginover);
-				m_btnLogin.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OUT,Loginout);
-				m_btnLogin.mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP,LoginonClick);
-				m_btnLogin.dispose();
-				m_btnLogin = null;
+			if(this.m_btnLogin){
+				this.m_btnLogin.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OVER,this.Loginover);
+				this.m_btnLogin.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OUT,this.Loginout);
+				this.m_btnLogin.mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.LoginonClick);
+				this.m_btnLogin.dispose();
+				this.m_btnLogin = null;
 			}
 			
-			if(m_btnVip){
-				m_btnVip.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OVER,Vipover);
-				m_btnVip.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OUT,Vipout);
-				m_btnVip.mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP,ViponClick);
-				m_btnVip.dispose();
-				m_btnVip = null;
+			if(this.m_btnVip){
+				this.m_btnVip.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OVER,this.Vipover);
+				this.m_btnVip.mcAsset.removeEventListener(mouse.MouseEvent.ROLL_OUT,this.Vipout);
+				this.m_btnVip.mcAsset.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.ViponClick);
+				this.m_btnVip.dispose();
+				this.m_btnVip = null;
 			}
 			
 			super.destroy();
@@ -244,33 +244,33 @@ module lobby.view.table {
 		
 		 public show():void{
 			super.show();
-//			m_bAnimation = true;
+//			this.m_bAnimation = true;
 			
-			m_btnSideBet.mcAsset.visible = m_bSideVisible;
-			m_btnLogin.mcAsset.visible = m_bLoginVisible;
-			m_btnVip.mcAsset.visible = m_bVipVisible;
+			this.m_btnSideBet.mcAsset.visible = this.m_bSideVisible;
+			this.m_btnLogin.mcAsset.visible = this.m_bLoginVisible;
+			this.m_btnVip.mcAsset.visible = this.m_bVipVisible;
 			
-			if(m_btnSideBet && m_bSideVisible){
-				m_btnSideBet.gotoAndPlay("SHOW");
+			if(this.m_btnSideBet && this.m_bSideVisible){
+				this.m_btnSideBet.gotoAndPlay("SHOW");
 			}
-			if(m_btnLogin && m_bLoginVisible){
-				m_btnLogin.gotoAndPlay("SHOW");
+			if(this.m_btnLogin && this.m_bLoginVisible){
+				this.m_btnLogin.gotoAndPlay("SHOW");
 			}
-			if(m_btnVip && m_bVipVisible){
-				m_btnVip.gotoAndPlay("SHOW");
+			if(this.m_btnVip && this.m_bVipVisible){
+				this.m_btnVip.gotoAndPlay("SHOW");
 			}
 		}
 		 public hide():void{
 			super.hide();
 			
-			if(m_btnSideBet && m_bSideVisible){
-				m_btnSideBet.gotoAndPlay("HIDE");
+			if(this.m_btnSideBet && this.m_bSideVisible){
+				this.m_btnSideBet.gotoAndPlay("HIDE");
 			}
-			if(m_btnLogin && m_bLoginVisible){
-				m_btnLogin.gotoAndPlay("HIDE");
+			if(this.m_btnLogin && this.m_bLoginVisible){
+				this.m_btnLogin.gotoAndPlay("HIDE");
 			}
-			if(m_btnVip && m_bVipVisible){
-				m_btnVip.gotoAndPlay("HIDE");
+			if(this.m_btnVip && this.m_bVipVisible){
+				this.m_btnVip.gotoAndPlay("HIDE");
 			}
 		}
 		
@@ -281,87 +281,87 @@ module lobby.view.table {
 //				m_bInit = true;
 //			}
 //			
-//			if(m_btnSideBet){
-//				m_btnSideBet.gotoAndStop(normal);
+//			if(this.m_btnSideBet){
+//				this.m_btnSideBet.gotoAndStop(normal);
 //			}
-//			if(m_btnLogin){
-//				m_btnLogin.gotoAndStop(normal);
+//			if(this.m_btnLogin){
+//				this.m_btnLogin.gotoAndStop(normal);
 //			}
-//			if(m_btnVip){
-//				m_btnVip.gotoAndStop(normal);
+//			if(this.m_btnVip){
+//				this.m_btnVip.gotoAndStop(normal);
 //			}
 //		}
 		
 		 public onChangeLanguage():void{
-			m_btnSideBet.mcAsset.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_btnLogin.mcAsset.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_btnVip.mcAsset.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_btnSideBet.mcAsset.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_btnLogin.mcAsset.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_btnVip.mcAsset.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 		}
 		
-		private needPwd(_struct:TableStruct):void{
+		private needPwd(_struct):void{
 			if(_struct.IsNeedPwd){
-				LobbyManager.getInstance().showTableEnterPwd(_struct);
+				manager.LobbyManager.getInstance().showTableEnterPwd(_struct);
 			}else{
-				LobbyManager.getInstance().gamePoint = getGlobalPoint();
-				LobbyManager.getInstance().enterGame(_struct);
+				manager.LobbyManager.getInstance().gamePoint = this.getGlobalPoint();
+				manager.LobbyManager.getInstance().enterGame(_struct);
 			}
 		}
 		
 		 public updateStatus():void{
 			
-			if(m_tableStruct.TableID==17){
-				m_aShow = [];
+			if(this.m_tableStruct.TableID==17){
+				this.m_aShow = [];
 			}
-			m_aShow = [];
-			playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_tableStruct.TableID);
+			this.m_aShow = [];
+			this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_tableStruct.TableID);
 			
-			if(playerTableOwnStatusStruct){
-				if(playerTableOwnStatusStruct.IsTableOwner && playerTableOwnStatusStruct.PlayerID==Player.getInstance().iPlayerID){
-					vipEnable(true);
-					loginEnable(false);
-					sideEnable(false);
-					m_aShow.push(m_btnVip);
+			if(this.playerTableOwnStatusStruct){
+				if(this.playerTableOwnStatusStruct.IsTableOwner && this.playerTableOwnStatusStruct.PlayerID==model.Player.getInstance().iPlayerID){
+					this.vipEnable(true);
+					this.loginEnable(false);
+					this.sideEnable(false);
+					this.m_aShow.push(this.m_btnVip);
 				}else{
-					vipEnable(false);
-					sideEnable(playerTableOwnStatusStruct.IsOtherBeter);
-					loginEnable(!playerTableOwnStatusStruct.IsOtherBeter);
-					if(playerTableOwnStatusStruct.IsOtherBeter){
-						m_aShow.push(m_btnSideBet);
+					this.vipEnable(false);
+					this.sideEnable(this.playerTableOwnStatusStruct.IsOtherBeter);
+					this.loginEnable(!this.playerTableOwnStatusStruct.IsOtherBeter);
+					if(this.playerTableOwnStatusStruct.IsOtherBeter){
+						this.m_aShow.push(this.m_btnSideBet);
 					}else{
-						m_aShow.push(m_btnLogin);
+						this.m_aShow.push(this.m_btnLogin);
 					}
 				}
 				
-				sortBtn();
+				this.sortBtn();
 				return;
 			}
 			
-			var arr : any[] = m_tableStruct.JoinTbStatus.split("");
+			var arr : any[] = this.m_tableStruct.JoinTbStatus.split("");
 			
 			if(arr[2] == 0){	//旁注
-				sideEnable(false);
+				this.sideEnable(false);
 			}else{
-				sideEnable(true);
-				m_aShow.push(m_btnSideBet);
+				this.sideEnable(true);
+				this.m_aShow.push(this.m_btnSideBet);
 			}
 			
 			if(arr[1] == 0){	//进桌
-				loginEnable(false);
+				this.loginEnable(false);
 			}else{
-				loginEnable(true);
-				m_aShow.push(m_btnLogin);
+				this.loginEnable(true);
+				this.m_aShow.push(this.m_btnLogin);
 			}
 			
 			
 			if(arr[0] == 0){	//包桌
-				vipEnable(false);
+				this.vipEnable(false);
 			}else{
-				vipEnable(true);
-				m_aShow.push(m_btnVip);
+				this.vipEnable(true);
+				this.m_aShow.push(this.m_btnVip);
 			}
 			
 			
-			sortBtn();
+			this.sortBtn();
 			
 			if(arr[3] == 0){	//独享
 				
@@ -396,12 +396,12 @@ module lobby.view.table {
 		}
 		
 		 public IsTableOwnerLeave(): boolean{
-			if(m_tableStruct.JoinTbStatus.slice(3,4)=="1"){//独享
-				if(m_tableStruct.JoinTbStatus.slice(8)=="1"){
+			if(this.m_tableStruct.JoinTbStatus.slice(3,4)=="1"){//独享
+				if(this.m_tableStruct.JoinTbStatus.slice(8)=="1"){
 					return true;
 				}
 			}else{
-				if(m_aShow.length==0 && m_tableStruct.JoinTbStatus.slice(7,8)=="1"){
+				if(this.m_aShow.length==0 && this.m_tableStruct.JoinTbStatus.slice(7,8)=="1"){
 					return true;		
 				}
 			}
@@ -409,80 +409,80 @@ module lobby.view.table {
 		}
 		
 		 public IsTableOwner(): boolean{
-			playerTableOwnStatusStruct = LobbyData.getInstance().getPlayerTableOwnStatusStruct(m_tableStruct.TableID);
+			this.playerTableOwnStatusStruct = model.LobbyData.getInstance().getPlayerTableOwnStatusStruct(this.m_tableStruct.TableID);
 			
-			if(playerTableOwnStatusStruct && playerTableOwnStatusStruct.IsTableOwner && playerTableOwnStatusStruct.PlayerID==Player.getInstance().iPlayerID){
+			if(this.playerTableOwnStatusStruct && this.playerTableOwnStatusStruct.IsTableOwner && this.playerTableOwnStatusStruct.PlayerID==model.Player.getInstance().iPlayerID){
 				return true;
 			}
 			
 			return false;
 		}
 		private sideEnable(_bEnable: boolean):void{
-			m_bSideVisible = _bEnable;
-			if(m_bShow){
-				m_btnSideBet.mcAsset.visible = _bEnable;
-				m_btnSideBet.mcAsset.gotoAndStop(showEnd);
+			this.m_bSideVisible = _bEnable;
+			if(this.m_bShow){
+				this.m_btnSideBet.mcAsset.visible = _bEnable;
+				this.m_btnSideBet.mcAsset.gotoAndStop(this.showEnd);
 			}
 			
-			m_btnSideBet.mcAsset.mouseEnabled = _bEnable;
-			m_btnSideBet.mcAsset.enabled = _bEnable;
-			m_btnSideBet.mcAsset.buttonMode = _bEnable;
+			this.m_btnSideBet.mcAsset.touchEnabled = _bEnable;
+			this.m_btnSideBet.mcAsset.enabled = _bEnable;
+			this.m_btnSideBet.mcAsset.buttonMode = _bEnable;
 		}
 		private loginEnable(_bEnable: boolean):void{
-			m_bLoginVisible = _bEnable;
-			if(m_bShow){
-				m_btnLogin.mcAsset.gotoAndStop(showEnd);
-				m_btnLogin.mcAsset.visible = _bEnable;
+			this.m_bLoginVisible = _bEnable;
+			if(this.m_bShow){
+				this.m_btnLogin.mcAsset.gotoAndStop(this.showEnd);
+				this.m_btnLogin.mcAsset.visible = _bEnable;
 			}
 			
-			m_btnLogin.mcAsset.mouseEnabled = _bEnable;
-			m_btnLogin.mcAsset.enabled = _bEnable;
-			m_btnLogin.mcAsset.buttonMode = _bEnable;
+			this.m_btnLogin.mcAsset.touchEnabled = _bEnable;
+			this.m_btnLogin.mcAsset.enabled = _bEnable;
+			this.m_btnLogin.mcAsset.buttonMode = _bEnable;
 		}
 		private vipEnable(_bEnable: boolean):void{
-			m_bVipVisible = _bEnable;
-			if(m_bShow){
-				m_btnVip.mcAsset.gotoAndStop(showEnd);
-				m_btnVip.mcAsset.visible = _bEnable;
+			this.m_bVipVisible = _bEnable;
+			if(this.m_bShow){
+				this.m_btnVip.mcAsset.gotoAndStop(this.showEnd);
+				this.m_btnVip.mcAsset.visible = _bEnable;
 			}
 			
-			m_btnVip.mcAsset.mouseEnabled = _bEnable;
-			m_btnVip.mcAsset.enabled = _bEnable;
-			m_btnVip.mcAsset.buttonMode = _bEnable;
+			this.m_btnVip.mcAsset.touchEnabled = _bEnable;
+			this.m_btnVip.mcAsset.enabled = _bEnable;
+			this.m_btnVip.mcAsset.buttonMode = _bEnable;
 		}
 		
 		private checkStatus():void{
-			m_btnSideBet.gotoAndStop(showEnd);
-//			m_bAnimation = false;
+			this.m_btnSideBet.gotoAndStop(this.showEnd);
+//			this.m_bAnimation = false;
 			
-			if(playerTableOwnStatusStruct && playerTableOwnStatusStruct.IsTableOwner && playerTableOwnStatusStruct.PlayerID==Player.getInstance().iPlayerID){
-				m_btnLogin.gotoAndStop("DISABLE");
-				m_btnSideBet.gotoAndStop("DISABLE");
+			if(this.playerTableOwnStatusStruct && this.playerTableOwnStatusStruct.IsTableOwner && this.playerTableOwnStatusStruct.PlayerID==model.Player.getInstance().iPlayerID){
+				this.m_btnLogin.gotoAndStop("DISABLE");
+				this.m_btnSideBet.gotoAndStop("DISABLE");
 				return;
 			}
 			
-			var arr : any[] = m_tableStruct.JoinTbStatus.split("");
+			var arr : any[] = this.m_tableStruct.JoinTbStatus.split("");
 			
 			if(arr[0] == 0){	//包桌
-				m_btnVip.gotoAndStop("DISABLE");
+				this.m_btnVip.gotoAndStop("DISABLE");
 			}
 			
 			if(arr[1] == 0){	//进桌
-				m_btnLogin.gotoAndStop("DISABLE");
+				this.m_btnLogin.gotoAndStop("DISABLE");
 			}else{
-				if(playerTableOwnStatusStruct){
-					if(playerTableOwnStatusStruct.IsOtherBeter){
-						m_btnLogin.gotoAndStop("DISABLE");
+				if(this.playerTableOwnStatusStruct){
+					if(this.playerTableOwnStatusStruct.IsOtherBeter){
+						this.m_btnLogin.gotoAndStop("DISABLE");
 					}
 				}
 			}
 			
 			if(arr[2] == 0){	//旁注
-				m_btnSideBet.gotoAndStop("DISABLE");
+				this.m_btnSideBet.gotoAndStop("DISABLE");
 			}else{
-				if(playerTableOwnStatusStruct){
-					if(!playerTableOwnStatusStruct.IsOtherBeter){
-						m_btnSideBet.gotoAndStop("DISABLE");
+				if(this.playerTableOwnStatusStruct){
+					if(!this.playerTableOwnStatusStruct.IsOtherBeter){
+						this.m_btnSideBet.gotoAndStop("DISABLE");
 					}
 				}
 			}

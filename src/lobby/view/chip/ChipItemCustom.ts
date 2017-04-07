@@ -19,12 +19,12 @@ module lobby.view.chip {
 			this.m_btnChip.width = 91;
 			this.m_btnChip.height = 93;
 			
-//			m_bmpAsset = new Bitmap();
+//			m_bmpAsset = new egret.Bitmap();
 //			this.addChild(m_bmpAsset);
 //			m_bmpAsset.bitmapData = BitmapManager.getInstance().getBmpdChip(_uValue);
 //			m_bmpAsset.smoothing = true;
 //			
-//			this.buttonMode = true;
+//			this.touchEnabled = true;
 			this.addEventListener(mouse.MouseEvent.MOUSE_OVER, this.onOver, this);
 //			this.addEventListener(mouse.MouseEvent.MOUSE_OUT, onOut);
 			this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClick, this);

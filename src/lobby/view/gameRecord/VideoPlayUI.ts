@@ -246,8 +246,8 @@ module lobby.view.gameRecord {
 
 		}
 		
-		private transDtfPoints(_iPoint:number):String {
-			var _str:String = "";
+		private transDtfPoints(_iPoint:number):string {
+			var _str:string = "";
 			
 			if( _iPoint == 1 ){
 				_str = "A";
@@ -347,7 +347,7 @@ module lobby.view.gameRecord {
 			
 		}	
 		
-		private checkBacPoker( _sPoker:String ): boolean {
+		private checkBacPoker( _sPoker:string ): boolean {
 			var _bCheckOK: boolean = false;
 			if( _sPoker.indexOf( "s" ) != -1 ){
 				_bCheckOK = true;
@@ -536,10 +536,10 @@ module lobby.view.gameRecord {
 			//"rtmp://125.227.81.211/vodCache/flv:originCache/Tb002/2016/03/11/TB2_S130_N16_17497.flv"
 //			_stream::flv:originCache/Tb015/2016/03/07/TB15_S9_N35_671.flv
 //			_server:rtmp://125.227.81.211/vodCache			
-			var _url:String = _complexGameRecordStruct.BaseRecord.VideoUrl;	
+			var _url:string = _complexGameRecordStruct.BaseRecord.VideoUrl;	
 			var _ar:any[] = _url.split("/");
-			var _server:String = _ar[0]+"//" + _ar[2] + "/" + _ar[3];
-			var _stream:String = "";
+			var _server:string = _ar[0]+"//" + _ar[2] + "/" + _ar[3];
+			var _stream:string = "";
 			for( var i:number= 4 ; i < _ar.length-1; i++ ){
 				_stream += _ar[i] + "/";
 			}

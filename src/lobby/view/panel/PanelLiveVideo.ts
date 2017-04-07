@@ -304,7 +304,7 @@ module lobby.view.panel {
 		/**
 		 * 設置音量
 		 */
-		public setVolume( _nVol:Number , _nPannging:Number = 0 ):void {
+		public setVolume( _nVol:number , _nPannging:number = 0 ):void {
 			if( this.m_RTMPPlayer ){
 				this.m_RTMPPlayer.setVolume( _nVol  , _nPannging );
 			}

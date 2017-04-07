@@ -29,13 +29,13 @@ module lobby.view.quick {
 			
 			this.m_bmpTableHint = new egret.Bitmap();
 			this.m_mcAsset.mc_hint.addChild(this.m_bmpTableHint);
-			this.m_mcAsset.mc_hint.mouseEnabled = false;
-			this.m_mcAsset.mc_hint.mouseChildren = false;
+			this.m_mcAsset.mc_hint.touchEnabled = false;
+			this.m_mcAsset.mc_hint.touchChildren = false;
 			
-//			m_bmpTable = new Bitmap();
+//			m_bmpTable = new egret.Bitmap();
 //			this.m_mcAsset.mc_bg.mc_2.addChild(m_bmpTable);
 			
-			//			m_bmpFace = new Bitmap();
+			//			m_bmpFace = new egret.Bitmap();
 			//			this.m_mcAsset.mc_face.addChild(m_bmpFace);
 			
 			this.m_road = new route.quick.QuickTableRoadMapBac(this.m_mcAsset);
@@ -43,10 +43,10 @@ module lobby.view.quick {
 			
 //			this.m_mcAsset.mc_1.y = -30;
 			this.m_mcAsset.mc_bg.y = 165;
-			this.m_mcAsset.mc_bg.mouseEnabled = false;
+			this.m_mcAsset.mc_bg.touchEnabled = false;
 			
-			this.m_mcAsset.mc_alone.mouseEnabled = false;
-			this.m_mcAsset.mc_alone.mouseChildren = false;
+			this.m_mcAsset.mc_alone.touchEnabled = false;
+			this.m_mcAsset.mc_alone.touchChildren = false;
 			
 			super();
 		}
@@ -243,7 +243,7 @@ module lobby.view.quick {
 			}
 			return false;
 		}
-		 public initRoad(_sRoad:String):void{
+		 public initRoad(_sRoad:string):void{
 			this.m_iGameNo = this.isGameStart()?this.m_struct.GameNo-1:this.m_struct.GameNo;
 			
 			this.m_road.clearRoad();

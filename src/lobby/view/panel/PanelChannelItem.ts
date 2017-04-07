@@ -12,7 +12,7 @@ module lobby.view.panel {
 			this.mcAsset.alpha = 1;
 			this.mcAsset.gotoAndStop("DEFAULT");
 			this.mcAsset.buttonMode = true;
-			this.mcAsset.mouseChildren = false;
+			this.mcAsset.touchChildren = false;
 	//		this.m_mcAsset.tf_label.text = String(uID);
 			this.mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OVER, this.over);
 			this.mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OUT, this.out);

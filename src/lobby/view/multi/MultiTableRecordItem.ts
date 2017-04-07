@@ -32,16 +32,16 @@ module lobby.view.multi {
 			this.m_spRed.visible = false;
 			this.m_spBlue.visible = false;
 			
-//			m_tfTable = new TextField();
+//			m_tfTable = new egret.TextField();
 //			this.addChild(m_tfTable);
 //			
-//			m_tfBetPos = new TextField();
+//			m_tfBetPos = new egret.TextField();
 //			this.addChild(m_tfBetPos);
 //			
-//			m_tfAmt = new TextField();
+//			m_tfAmt = new egret.TextField();
 //			this.addChild(m_tfAmt);
 //			
-//			m_tfPayout = new TextField();
+//			m_tfPayout = new egret.TextField();
 //			this.addChild(m_tfPayout);
 		}
 		

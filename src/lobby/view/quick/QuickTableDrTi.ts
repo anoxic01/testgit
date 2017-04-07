@@ -235,7 +235,7 @@ module lobby.view.quick {
 			}
 		}
 		
-		 public initRoad(_sRoad:String):void{
+		 public initRoad(_sRoad:string):void{
 			this.m_iGameNo = this.isGameStart()?this.m_struct.GameNo-1:this.m_struct.GameNo;
 			
 			this.m_road.clearRoad();

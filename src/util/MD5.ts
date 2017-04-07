@@ -3,7 +3,7 @@ module util {
 		public constructor() {
 		}
 		
-		public static const HASH_SIZE:number = 16;
+		public static HASH_SIZE:number = 16;
 		
 		public getInputSize():number
 		{

@@ -42,7 +42,7 @@ module lobby.view.chip {
 				manager.TipManager.getInstance().hide();
 			};
 			
-			this.goldNum = new JNumber();
+			this.goldNum = new display.JNumber();
 			this.goldNum.number = model.Player.getInstance().nCoin;
 			this.m_mcAsset.mc_pos_2.addChild(this.goldNum);
 						
@@ -135,10 +135,10 @@ module lobby.view.chip {
 		 public onChangeLanguage():void{
 //			this.m_mcAsset.tf_0.text = manager.LobbyManager.getInstance().getLanguageString(Language.sBetCount);
 //			this.m_mcAsset.tf_1.text = manager.LobbyManager.getInstance().getLanguageString(Language.sBetedCount);
-//			(this.m_mcAsset.mc_total as MovieClip).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
-//			(this.m_mcAsset.mc_rebet.mc_label as MovieClip).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
-//			(this.m_mcAsset.mc_cancel.mc_label as MovieClip).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
-//			(this.m_mcAsset.mc_ok.mc_label as MovieClip).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+//			(this.m_mcAsset.mc_total).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+//			(this.m_mcAsset.mc_rebet.mc_label).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+//			(this.m_mcAsset.mc_cancel.mc_label).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+//			(this.m_mcAsset.mc_ok.mc_label).gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			if(this.m_mcAsset ){
 				this.btnSettingTip();
 				

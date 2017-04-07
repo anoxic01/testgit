@@ -4,7 +4,7 @@ module lobby.view.theme {
 		private m_vecTheme		:	ThemeItem[];				//所有厅馆
 		private m_vectorThemeList;										//主题数据
 		
-		public currentTheme 	: 	ThemeItem;				//当前主题
+		public m_currentTheme 	: 	ThemeItem;				//当前主题
 		
 		private _index;
 		private _count;
@@ -13,7 +13,7 @@ module lobby.view.theme {
 		public constructor() {
 			
 			super();
-			m_vecTheme = new <ThemeItem>();
+			this.m_vecTheme = new Array<ThemeItem>();
 			
 //			var time:JTimer = JTimer.getTimer(1500,int.MAX_VALUE);
 //			time.addTimerCallback(autoClick);
@@ -23,38 +23,38 @@ module lobby.view.theme {
 		
 		private autoClick():void
 		{
-			var len:number= m_vecTheme.length-1;
+			var len:number= this.m_vecTheme.length-1;
 			var index:number;
 			do
 			{
 				index = len*Math.random();
 			}
-			while(index==0 || index==_index);
+			while(index==0 || index==this._index);
 			
-			_index = index;
-			_count++;
-			var now:number= getTimer();
-			console.log(this,"index: "+index+" time: "+(now-_time)+" count: "+_count);
-			_time = now;
-			var i:ThemeItem = m_vecTheme[index];
+			this._index = index;
+			this._count++;
+			var now:number= egret.getTimer();
+			console.log(this,"index: "+index+" time: "+(now-this._time)+" count: "+this._count);
+			this._time = now;
+			var i:ThemeItem = this.m_vecTheme[index];
 			i.autoClick();
 		}
 		
 		get currentTheme():ThemeItem
 		{
-			return m_currentTheme;
+			return this.m_currentTheme;
 		}
 
 		set  currentTheme(value:ThemeItem)
 		{
-			m_currentTheme = value;
+			this.m_currentTheme = value;
 		}
 
 		 public destroy():void{
-			if(m_vecTheme){
+			if(this.m_vecTheme){
 				var themeItem : ThemeItem;
-				while(m_vecTheme.length>0){
-					themeItem = m_vecTheme.pop();
+				while(this.m_vecTheme.length>0){
+					themeItem = this.m_vecTheme.pop();
 					this.removeChild(themeItem);
 					themeItem.destroy();
 				}
@@ -65,32 +65,32 @@ module lobby.view.theme {
 		}
 		
 		public setData():void{
-			m_vectorThemeList = LobbyData.getInstance().lobbyInfo.themeVec;
+			this.m_vectorThemeList = model.LobbyData.getInstance().lobbyInfo.themeVec;
 			var themeItem : ThemeItem;
-			var _aTheme	:	any[] =  TemConfig.getInstance().ThemeList.slice();
+			var _aTheme	:	any[] =  config.TemConfig.getInstance().ThemeList.slice();
 			
-			var _iLen  : int = m_vectorThemeList.length;
+			var _iLen   = this.m_vectorThemeList.length;
 			var _index : number;
 			
 			//临时模拟多桌
-			var _multiThemeStruct : ThemeStruct = new ThemeStruct({"ThemeID":Define.THEME_MULTI_TABLE,"TableList":[]});
+			var _multiThemeStruct  = new model.struct.ThemeStruct({"ThemeID":Define.THEME_MULTI_TABLE,"TableList":[]});
 			themeItem = new ThemeItem(_multiThemeStruct, this, Define.THEME_MULTI_TABLE);
 			this.addChild(themeItem);
 			themeItem.x = (themeItem.width) * _index;
-			m_vecTheme.push(themeItem);
+			this.m_vecTheme.push(themeItem);
 			_index++;
 			
 			for (var i:number= 0; i < _iLen; i++) 
 			{
-				themeItem = new ThemeItem(m_vectorThemeList[i], this, m_vectorThemeList[i].ThemeID);
-				_aTheme.splice(_aTheme.indexOf(m_vectorThemeList[i].ThemeID),1);
+				themeItem = new ThemeItem(this.m_vectorThemeList[i], this, this.m_vectorThemeList[i].ThemeID);
+				_aTheme.splice(_aTheme.indexOf(this.m_vectorThemeList[i].ThemeID),1);
 				this.addChild(themeItem);
 				themeItem.x = (themeItem.width) * _index;
-				m_vecTheme.push(themeItem);
+				this.m_vecTheme.push(themeItem);
 				_index++;
 				
-				if(m_vectorThemeList[i].ThemeID==LobbyData.getInstance().lobbyInfo.DefThemeID){
-					currentTheme = themeItem;
+				if(this.m_vectorThemeList[i].ThemeID==LobbyData.getInstance().lobbyInfo.DefThemeID){
+					this.currentTheme = themeItem;
 				}
 				
 			}
@@ -99,14 +99,14 @@ module lobby.view.theme {
 				themeItem = new ThemeItem(null, this, _aTheme[j]);
 				this.addChild(themeItem);
 				themeItem.x = (themeItem.width) * _index;
-				m_vecTheme.push(themeItem);
+				this.m_vecTheme.push(themeItem);
 				_index++;
 			}
 			
 			themeItem = null;
 			
-			if(currentTheme){
-				currentTheme.setSelect(true);
+			if(this.currentTheme){
+				this.currentTheme.setSelect(true);
 			}else{
 				console.log("没有设置默认厅馆...");
 			}
@@ -114,60 +114,60 @@ module lobby.view.theme {
 		
 		public setCurrent(_themeItem:ThemeItem):void{
 			if(_themeItem.struct.IsTelBet){
-				LobbyManager.getInstance().enterTelLobby();
+				manager.LobbyManager.getInstance().enterTelLobby();
 				return;
 			}
 			
 			
 			if(_themeItem.struct.ThemeID == Define.THEME_MULTI_TABLE){
 				//屏蔽退出按钮
-				LobbyManager.getInstance().lobbyView.toolView.btnExit.enabled = false;
-				LobbyManager.getInstance().lobbyView.enableQuick(false);
-				LobbyManager.getInstance().sendSubscribeTheme(-1, currentTheme.struct.ThemeID);
+				manager.LobbyManager.getInstance().lobbyView.toolView.btnExit.enabled = false;
+				manager.LobbyManager.getInstance().lobbyView.enableQuick(false);
+				manager.LobbyManager.getInstance().sendSubscribeTheme(-1, this.currentTheme.struct.ThemeID);
 				//请求多桌 接口 不直接显示界面
-				LobbyManager.getInstance().lobbyView.showLoading();
-				LobbyManager.getInstance().setMultiSocket();
-				LobbyManager.getInstance().sendMultiTableEntry();
-				//LobbyManager.getInstance().showMultiTable();
+				manager.LobbyManager.getInstance().lobbyView.showLoading();
+				manager.LobbyManager.getInstance().setMultiSocket();
+				manager.LobbyManager.getInstance().sendMultiTableEntry();
+				//manager.LobbyManager.getInstance().showMultiTable();
 			}
 			else{
-				LobbyManager.getInstance().sendSubscribeTheme(_themeItem.struct.ThemeID, currentTheme.struct.ThemeID);
+				manager.LobbyManager.getInstance().sendSubscribeTheme(_themeItem.struct.ThemeID, this.currentTheme.struct.ThemeID);
 				
-				currentTheme.setSelect(false);
+				this.currentTheme.setSelect(false);
 				_themeItem.setSelect(true);
-				currentTheme = _themeItem;
+				this.currentTheme = _themeItem;
 			}
 			
-			TimeManager.getInstance().addFun(LobbyManager.getInstance().subscripThemeTimeToShowLoading, 1000);
-			TimeManager.getInstance().addFun(LobbyManager.getInstance().subscripThemeTimeToHint, 15000);
+			manager.TimeManager.getInstance().addFun(manager.LobbyManager.getInstance().subscripThemeTimeToShowLoading, 1000);
+			manager.TimeManager.getInstance().addFun(manager.LobbyManager.getInstance().subscripThemeTimeToHint, 15000);
 			
 		}
 		
 		public setDefaultThemeButtonSelect():void{
-			if(m_vectorThemeList.length>0){
-				setCurrentThemeButtonSelect(m_vectorThemeList[0].ThemeID);
+			if(this.m_vectorThemeList.length>0){
+				this.setCurrentThemeButtonSelect(this.m_vectorThemeList[0].ThemeID);
 			}else{
-				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sAll_Table_Maintenance));
+				manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(Language.sAll_Table_Maintenance));
 			}
 		}
 		
 		public setCurrentThemeButtonSelect( _iThemeId:number):void {
-			if( m_vecTheme[_iThemeId] ){
-				if(currentTheme){
-					currentTheme.setSelect(false);
+			if( this.m_vecTheme[_iThemeId] ){
+				if(this.currentTheme){
+					this.currentTheme.setSelect(false);
 				}
-				currentTheme = m_vecTheme[_iThemeId];
-				currentTheme.setSelect(true);	
+				this.currentTheme = this.m_vecTheme[_iThemeId];
+				this.currentTheme.setSelect(true);	
 			}
 		}
 		
 		 public onChangeLanguage():void{
-			if(m_vecTheme){
-				var _len : int = m_vecTheme.length;
+			if(this.m_vecTheme){
+				var _len  = this.m_vecTheme.length;
 				var themeItem : ThemeItem;
 				for (var i:number= 0; i < _len; i++) 
 				{
-					themeItem = m_vecTheme[i];
+					themeItem = this.m_vecTheme[i];
 					themeItem.onChangeLanguage();
 //					if(m_aTheme[i-1]){
 //						themeItem.x = m_aTheme[i-1].x + m_aTheme[i-1].width + 20;
@@ -181,21 +181,21 @@ module lobby.view.theme {
 		}
 		
 		public enable(_bValue: boolean):void{
-			var _len : int = m_vecTheme.length;
+			var _len  = this.m_vecTheme.length;
 			for (var i:number= 0; i < _len; i++) 
 			{
-				m_vecTheme[i].mouseEnabled = _bValue;
-				m_vecTheme[i].mouseChildren = _bValue;
-				m_vecTheme[i].buttonMode = _bValue;
+				this.m_vecTheme[i].touchEnabled = _bValue;
+				this.m_vecTheme[i].touchChildren = _bValue;
+				this.m_vecTheme[i].touchEnabled = _bValue;
 			}
 		}
 		
 		public setMaintain(_themeID:number, bMaintain: boolean):void{
-			var _len : int = m_vecTheme.length;
+			var _len  = this.m_vecTheme.length;
 			for (var i:number= 0; i < _len; i++) 
 			{
-				if(m_vecTheme[i].struct.ThemeID == _themeID){
-					m_vecTheme[i].struct.IsMaintaining = bMaintain;
+				if(this.m_vecTheme[i].struct.ThemeID == _themeID){
+					this.m_vecTheme[i].struct.IsMaintaining = bMaintain;
 					break;
 				}
 			}

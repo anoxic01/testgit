@@ -14,7 +14,7 @@ module lobby.view.panel {
 			
 			this.m_mcAsset.gotoAndStop(1);
 			this.m_mcAsset.buttonMode = true;
-			this.m_mcAsset.mouseChildren = false;
+			this.m_mcAsset.touchChildren = false;
 			this.m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OVER, this.selectOver);
 			this.m_mcAsset.addEventListener(mouse.MouseEvent.MOUSE_OUT, this.selectOut);
 			this.m_mcAsset.addEventListener(egret.TouchEvent.TOUCH_TAP, this.selectClick);

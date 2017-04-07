@@ -1,8 +1,8 @@
 module packet {
 	export class SocketParser {
-		public static const bKey		:	string	=	"b";
-		public static const pKey		:	string	=	"p";
-		public static const aKey		:	string	=	"a";
+		public static bKey		:	string	=	"b";
+		public static pKey		:	string	=	"p";
+		public static aKey		:	string	=	"a";
 		
 		private const TYPE				:	int = 1;
 		

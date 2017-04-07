@@ -29,7 +29,7 @@ module lobby.view.bet {
 		private cancelBtn:BetSelectButton;
 		private confirmBtn:BetSelectButton;
 		/**
-		 *設置下注狀態更改囘調  onBetChange(state:String);
+		 *設置下注狀態更改囘調  onBetChange(state:string);
 		 */		
 		public onBetChange:Function = null;
 		private isHiding: boolean = false;
@@ -389,7 +389,7 @@ module lobby.view.bet {
 		/**
 		 * 切換下注狀態
 		 */		
-		private excuteBetChange(state:String):void
+		private excuteBetChange(state:string):void
 		{
 			if(this.onBetChange!=null)
 				this.onBetChange(state);

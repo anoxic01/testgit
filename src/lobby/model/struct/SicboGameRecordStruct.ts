@@ -3,14 +3,14 @@ module lobby.model.struct {
 		public Dice_1 :number;
 		public Dice_2 :number;
 		public Dice_3 :number;
-		public Bet_Big:Number;
-		public Bet_Small:Number;
-		public Bet_Odd:Number;
-		public Bet_Even:Number;
-		public Win_Big:Number;
-		public Win_Small:Number;
-		public Win_Odd:Number;
-		public Win_Even:Number;
+		public Bet_Big:number;
+		public Bet_Small:number;
+		public Bet_Odd:number;
+		public Bet_Even:number;
+		public Win_Big:number;
+		public Win_Small:number;
+		public Win_Odd:number;
+		public Win_Even:number;
 		/// <summary>下注物件</summary>
 		public SicboObjectBet :Object;
 		

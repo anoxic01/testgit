@@ -16,10 +16,10 @@ module lobby.model.struct {
 		public GameID:number;
 		
 		//查詢開始時間    
-		public StartDateTime:String;
+		public StartDateTime:string;
 		
 		//查詢結束時間 
-		public EndDateTime:String;		
+		public EndDateTime:string;		
 		
 		public constructor() {
 		}

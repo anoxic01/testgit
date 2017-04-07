@@ -6,14 +6,14 @@ module lobby.view.route {
 		 *用于存放所有的元素 
 		 */		
 		protected childDataDict = {};	
-		protected childVector = new Array<egret.DisplayObject>();
+		protected childVector;
 		
 		//private m_bg:Sprite;
 		
 		public constructor() {
 			super();
 			this._roadBallPool = new RoadBallPool();
-//			m_bg=new Sprite();
+//			m_bg=new egret.Sprite();
 //			addChild(m_bg);
 		}
 		
@@ -83,10 +83,10 @@ module lobby.view.route {
 		public put(ball, symbol:string, x:number, y:number):void {
 			if (ball instanceof egret.MovieClip){
 				
-				(ball).gotoAndStop(1);
+				ball.gotoAndStop(1);
 				
 				//if( MovieClip(ball.bead).currentFrameLabel != symbol )
-				(ball).bead.gotoAndStop(symbol);
+				ball.bead.gotoAndStop(symbol);
 			}
 			
 			
@@ -170,7 +170,7 @@ module lobby.view.route {
 			// 	tf.bold = true;
 				
 			var iCount:number= 0;
-			var tempChildVector = new Array<egret.DisplayObject>();//this.childVector.concat();
+			let tempChildVector:any = new Array<egret.DisplayObject>();//this.childVector.concat();
 			for(var symbol in this.childDataDict) 
 			{
 				if(symbol.indexOf("_i")!=-1)

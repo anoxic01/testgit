@@ -9,7 +9,7 @@ module lobby.model.struct {
 		public constructor() {
 		}
 		
-		public getResult():String{
+		public getResult():string{
 			if(this.Result){
 				if(this.Result.indexOf("B1")!=-1){
 					return define.Define.BEAD_BANKER;

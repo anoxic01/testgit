@@ -113,10 +113,10 @@ module lobby.model.status {
 		 */
 		public static isNeedUpdateRoadMap(table:struct.TableStruct): boolean
 		{
-			var roadMap:String = table.getRoadMaps();
+			var roadMap:string = table.getRoadMaps();
 			//// 路纸数据出错时不更新
 			if(roadMap.indexOf("#")!=-1)return false;
-			var gameStatus:String = table.GameStatus;
+			var gameStatus:string = table.GameStatus;
 			var gameNo:number= table.GameNo;
 			var roadMapLen:number= 0;
 			if(roadMap!="")roadMapLen = roadMap.split(".").length;

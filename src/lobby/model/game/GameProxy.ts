@@ -48,7 +48,7 @@ module lobby.model.game {
 			}
 		}
 		
-		public connect(_sServerIP:String, _iServerPort:number):void{
+		public connect(_sServerIP:string, _iServerPort:number):void{
 			
 			console.log("连接游戏...","m_socket:", socket.getUid(), "_sServerIP:", _sServerIP, "_iServerPort:",_iServerPort,"###");
 			socket.connect( _sServerIP, _iServerPort );

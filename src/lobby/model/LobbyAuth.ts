@@ -16,7 +16,7 @@ module lobby.model {
 			var _sVersion : String;
 			var obj; 
 			
-			var sData:String;
+			var sData:string;
 			
 			// _sVersion = _parameters.Data;
 			// if(_sVersion){

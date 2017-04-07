@@ -90,7 +90,7 @@ module lobby.view.multi {
 			this.addChild(this.m_pageNumberList);
 			this.m_pageNumberList.x = (1600-this.m_pageNumberList.width);
 			this.m_pageNumberList.y = -45;
-			this.m_pageNumberList.mouseChildren=false;
+			this.m_pageNumberList.touchChildren=false;
 			console.log("多桌列表初始化需要时间: ",egret.getTimer()-date,"**************");
 			
 			setTimeout(function() {
@@ -165,7 +165,7 @@ module lobby.view.multi {
 				this.setMultitableItemStruct(_goodRoadStruct);
 			}
 			if(this.m_pageNumberList){
-				this.m_pageNumberList.mouseChildren=true;
+				this.m_pageNumberList.touchChildren=true;
 			}
 			
 			if(this.bCheckDetection==false){
@@ -189,7 +189,7 @@ module lobby.view.multi {
 		
 		public turning():void{
 			this.m_vecSpList[this.m_iCurrentPage].visible = true;
-			this.m_pageNumberList.mouseChildren=false;
+			this.m_pageNumberList.touchChildren=false;
 			
 			
 			var _len  = this.m_vecList.length;

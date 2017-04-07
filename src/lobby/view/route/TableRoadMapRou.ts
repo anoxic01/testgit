@@ -1,6 +1,6 @@
 module lobby.view.route {
-	export class TableRoadMapRou extends RouRouteMgr{
-		private m_mcAsset	:	MovieClip;
+	export class TableRoadMapRou extends route.game.rou.RouRouteMgr{
+		private m_mcAsset	;
 		private roadBtn_0	:	ui.button.SingleButtonMC;			//红黑
 		private roadBtn_1	:	ui.button.SingleButtonMC;			//打列
 		private roadBtn_2	:	ui.button.SingleButtonMC;			//大小
@@ -8,22 +8,22 @@ module lobby.view.route {
 		
 		private m_current	:	ui.button.SingleButtonMC;			//当前选中
 		
-		public constructor(_mcAsset:MovieClip) {
-		
-			m_mcAsset = _mcAsset;
+		public constructor(_mcAsset) {
+			
 			super(_mcAsset);
+
+			this.m_mcAsset = _mcAsset;
+			this.roadBtn_0 = new ui.button.SingleButtonMC(_mcAsset.mc_7,this.onChangeRoad);
+			this.roadBtn_1 = new ui.button.SingleButtonMC(_mcAsset.mc_8,this.onChangeRoad);
+			this.roadBtn_2 = new ui.button.SingleButtonMC(_mcAsset.mc_9,this.onChangeRoad);
+			this.roadBtn_3 = new ui.button.SingleButtonMC(_mcAsset.mc_10,this.onChangeRoad);
 			
-			this.roadBtn_0 = new ui.button.SingleButtonMC(_mcAsset.mc_7,onChangeRoad);
-			this.roadBtn_1 = new ui.button.SingleButtonMC(_mcAsset.mc_8,onChangeRoad);
-			this.roadBtn_2 = new ui.button.SingleButtonMC(_mcAsset.mc_9,onChangeRoad);
-			this.roadBtn_3 = new ui.button.SingleButtonMC(_mcAsset.mc_10,onChangeRoad);
+			this.m_current = this.roadBtn_2;
+			this.m_current.setSelectedStatus(true);
+			this.changeRoad(route.game.rou.RouRoadType.BIG_SMALL);
+			this.onChangeLanguage();
 			
-			m_current = roadBtn_2;
-			m_current.setSelectedStatus(true);
-			changeRoad(RouRoadType.BIG_SMALL);
-			onChangeLanguage();
-			
-			setDozen(false);
+			this.setDozen(false);
 		}
 		
 		
@@ -75,7 +75,7 @@ module lobby.view.route {
 //			this._oddEvenSp.drawBg(_colNum,6,26);
 			this._redBlackSp.setBeadSize(this.m_beadInfo);
 //			this._redBlackSp.drawBg(_colNum,6,26);
-			m_beadInfo.gridWidth = 13;
+			this.m_beadInfo.gridWidth = 13;
 			this._dozenRowSp.setBeadSize(this.m_beadInfo);
 //			this._dozenRowSp.headW=80;
 //			this._dozenRowSp.drawHeadBg(_colNum,7,22.3);
@@ -86,11 +86,11 @@ module lobby.view.route {
 			beadInfo0.gridHeight = 6;
 			beadInfo0.beadW =  28;				
 			beadInfo0.beadH =  27;
-			m_beadInfo.gridWidth = 15;
+			this.m_beadInfo.gridWidth = 15;
 			this._beadSp.setBeadSize(beadInfo0);
 //			this._beadSp.drawBg(10,6,26)
 			
-			var X:Number= 262
+			var X:number= 262
 			this._bigSmallSp.x=X;
 			this._oddEvenSp.x=X;
 			this._dozenRowSp.x=X;
@@ -100,66 +100,66 @@ module lobby.view.route {
 		
 		 public onChangeLanguage():void{
 //			this._dozenRowSp.setTxtName([
-//				LobbyManager.getInstance().lang.getString(Language.sBetType_Dozen_1),
-//				LobbyManager.getInstance().lang.getString(Language.sBetType_Dozen_2),
-//				LobbyManager.getInstance().lang.getString(Language.sBetType_Dozen_3),
-//				LobbyManager.getInstance().lang.getString(Language.sZero),
-//				LobbyManager.getInstance().lang.getString(Language.sBetType_Col_1),
-//				LobbyManager.getInstance().lang.getString(Language.sBetType_Col_2),
-//				LobbyManager.getInstance().lang.getString(Language.sBetType_Col_3),
+//				manager.LobbyManager.getInstance().lang.getString(Language.sBetType_Dozen_1),
+//				manager.LobbyManager.getInstance().lang.getString(Language.sBetType_Dozen_2),
+//				manager.LobbyManager.getInstance().lang.getString(Language.sBetType_Dozen_3),
+//				manager.LobbyManager.getInstance().lang.getString(Language.sZero),
+//				manager.LobbyManager.getInstance().lang.getString(Language.sBetType_Col_1),
+//				manager.LobbyManager.getInstance().lang.getString(Language.sBetType_Col_2),
+//				manager.LobbyManager.getInstance().lang.getString(Language.sBetType_Col_3),
 //			]);
 //			
-			roadBtn_0.mcAsset.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			roadBtn_1.mcAsset.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			roadBtn_2.mcAsset.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			roadBtn_3.mcAsset.mc_label.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.roadBtn_0.mcAsset.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.roadBtn_1.mcAsset.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.roadBtn_2.mcAsset.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.roadBtn_3.mcAsset.mc_label.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			
-			m_mcAsset.mc_dalie_0.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_dalie_1.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_dalie_2.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_dalie_3.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_dalie_4.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_dalie_5.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_mcAsset.mc_dalie_6.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_dalie_0.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_dalie_1.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_dalie_2.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_dalie_3.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_dalie_4.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_dalie_5.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_mcAsset.mc_dalie_6.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
 			
 			super.onChangeLanguage();
 		}
 		
-		protected onChangeRoad(e:MouseEvent):void {
-			LobbyManager.getInstance().hideAllPanel();
-			SoundManager.getInstance().play(SoundPackage.sClick_Tools);
+		protected onChangeRoad(e:egret.Event):void {
+			manager.LobbyManager.getInstance().hideAllPanel();
+			manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
 			
-			var mcbtn:MovieClip = e.currentTarget as MovieClip;
+			var mcbtn = e.currentTarget;
 			//this._beadPlate.addEventListener(RouteEvent.ASK_Road_END, onAskRoadEnd);
 			//console.log("onRoad::" +mcbtn );
 			switch (mcbtn.name) {
-				case roadBtn_0.mcAsset.name: 
-					setDozen(false);
-					if(m_current != roadBtn_0){
-						current = roadBtn_0;
-						this.changeRoad(RouRoadType.RED_BLACK);
+				case this.roadBtn_0.mcAsset.name: 
+					this.setDozen(false);
+					if(this.m_current != this.roadBtn_0){
+						this.current = this.roadBtn_0;
+						this.changeRoad(route.game.rou.RouRoadType.RED_BLACK);
 					}
 					
 					break;
-				case roadBtn_1.mcAsset.name: 
-					setDozen(true);
-					if(m_current != roadBtn_1){
-						current = roadBtn_1;
-						this.changeRoad(RouRoadType.ZOEN_ROW);
+				case this.roadBtn_1.mcAsset.name: 
+					this.setDozen(true);
+					if(this.m_current != this.roadBtn_1){
+						this.current = this.roadBtn_1;
+						this.changeRoad(route.game.rou.RouRoadType.ZOEN_ROW);
 					}
 					break;
-				case roadBtn_2.mcAsset.name: 
-					setDozen(false);
-					if(m_current != roadBtn_2){
-						current = roadBtn_2;
-						this.changeRoad(RouRoadType.BIG_SMALL);
+				case this.roadBtn_2.mcAsset.name: 
+					this.setDozen(false);
+					if(this.m_current != this.roadBtn_2){
+						this.current = this.roadBtn_2;
+						this.changeRoad(route.game.rou.RouRoadType.BIG_SMALL);
 					}
 					break;
-				case roadBtn_3.mcAsset.name: 
-					setDozen(false);
-					if(m_current != roadBtn_3){
-						current = roadBtn_3;
-						this.changeRoad(RouRoadType.ODD_EVEN);
+				case this.roadBtn_3.mcAsset.name: 
+					this.setDozen(false);
+					if(this.m_current != this.roadBtn_3){
+						this.current = this.roadBtn_3;
+						this.changeRoad(route.game.rou.RouRoadType.ODD_EVEN);
 					}
 					break;
 				
@@ -168,21 +168,21 @@ module lobby.view.route {
 			
 		}
 		
-		private set current(_btn:ui.button.SingleButtonMC):void{
-			m_current.setSelectedStatus(false);
-			m_current = _btn;
-			m_current.setSelectedStatus(true);
+		set current(_btn:ui.button.SingleButtonMC){
+			this.m_current.setSelectedStatus(false);
+			this.m_current = _btn;
+			this.m_current.setSelectedStatus(true);
 		}
 		
 		private setDozen(_bValue: boolean):void{
-			m_mcAsset.mc_dalie.visible = _bValue;
-			m_mcAsset.mc_dalie_0.visible = _bValue;
-			m_mcAsset.mc_dalie_1.visible = _bValue;
-			m_mcAsset.mc_dalie_2.visible = _bValue;
-			m_mcAsset.mc_dalie_3.visible = _bValue;
-			m_mcAsset.mc_dalie_4.visible = _bValue;
-			m_mcAsset.mc_dalie_5.visible = _bValue;
-			m_mcAsset.mc_dalie_6.visible = _bValue;
+			this.m_mcAsset.mc_dalie.visible = _bValue;
+			this.m_mcAsset.mc_dalie_0.visible = _bValue;
+			this.m_mcAsset.mc_dalie_1.visible = _bValue;
+			this.m_mcAsset.mc_dalie_2.visible = _bValue;
+			this.m_mcAsset.mc_dalie_3.visible = _bValue;
+			this.m_mcAsset.mc_dalie_4.visible = _bValue;
+			this.m_mcAsset.mc_dalie_5.visible = _bValue;
+			this.m_mcAsset.mc_dalie_6.visible = _bValue;
 		}
 		
 		

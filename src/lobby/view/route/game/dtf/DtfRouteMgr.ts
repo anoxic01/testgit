@@ -1,42 +1,42 @@
 module lobby.view.route.game.dtf {
 	export class DtfRouteMgr implements iface.ISprite {
-		public static const ASK_MODE_DRAGON	:	int					=	0;
-		public static const ASK_MODE_TIGER	:	int					=	1;
+		public static ASK_MODE_DRAGON							=	0;
+		public static ASK_MODE_TIGER							=	1;
 		
-		protected var m_view				:	MovieClip;
-		protected var m_routeView			:	MovieClip;
+		protected m_view				;
+		protected m_routeView			;
 		
-		protected var m_isBtnOpen			:	 boolean 			= 	false;
+		protected m_isBtnOpen			:	boolean 			= 	false;
 		
-		protected var m_islock				:	 boolean 			=	true;
-		protected var m_isUp				:	 boolean 			= 	false;
+		protected m_islock				:	boolean 			=	true;
+		protected m_isUp				:	boolean 			= 	false;
 		
 		/**當前顯示路*/
-		protected var m_nowRoad				:	string = "";
+		protected m_nowRoad				:	string = "";
 		
-		protected var m_beadPlate			:	DtfBeadPlate;
+		protected m_beadPlate			:	DtfBeadPlate;
 		
-		protected var m_roadString			:	RoadStringObject 	= 	new RoadStringObject;
-		protected var m_bigSprite			:	DtfRoadCanvas 		= 	new DtfRoadCanvas;
-		protected var m_bigEyeSprite		:	DtfRoadCanvas 		= 	new DtfRoadCanvas;
-		protected var m_smallSprite			:	DtfRoadCanvas 		= 	new DtfRoadCanvas;
-		protected var m_roachSprite			:	DtfRoadCanvas 		= 	new DtfRoadCanvas;
+		protected m_roadString			:	RoadStringObject 	= 	new RoadStringObject;
+		protected m_bigSprite			:	DtfRoadCanvas 		= 	new DtfRoadCanvas;
+		protected m_bigEyeSprite		:	DtfRoadCanvas 		= 	new DtfRoadCanvas;
+		protected m_smallSprite			:	DtfRoadCanvas 		= 	new DtfRoadCanvas;
+		protected m_roachSprite			:	DtfRoadCanvas 		= 	new DtfRoadCanvas;
 		
-		/*protected var m_roadUpdateTimer		:	JTimer;*/
-		protected var m_roadBufferTime		:	number 				= 	100;
-		protected var m_beadInfo			:	BeadInfo;
-		private var m_askTimer				:	JTimer;
-		private var m_bAsk					:	 boolean;														//问路状态
+		/*protected m_roadUpdateTimer		:	JTimer;*/
+		protected m_roadBufferTime		:	number 				= 	100;
+		protected m_beadInfo			:	BeadInfo;
+		private m_askTimer				;
+		private m_bAsk					:	boolean;														//问路状态
 		
-		public var bError					:	 boolean;														//错误状态
+		public bError					:	boolean;														//错误状态
 		
 		
-		public constructor(view:MovieClip) {
+		public constructor(view) {
 		
 			this.m_routeView = view;
 			
 //			this._beadPlate = new DtfBeadPlate(this._routeView.mcBeadPlate); //珠路盤
-			this.m_beadPlate = new DtfBeadPlate(m_routeView.getChildByName("mc_0") as MovieClip, BeadItemDTF); //珠路盤
+			this.m_beadPlate = new DtfBeadPlate(this.m_routeView.getChildByName("mc_0"), BeadItemDTF); //珠路盤
 			this.init();
 			this.setRoadInf();
 			
@@ -49,11 +49,11 @@ module lobby.view.route.game.dtf {
 			/*this.m_askTimer = new Timer(300,6);
 			this.m_askTimer.addEventListener(TimerEvent.TIMER,flash);
 			this.m_askTimer.addEventListener(TimerEvent.TIMER_COMPLETE,stopAsk);	*/
-			m_askTimer = JTimer.getTimer(300,6);
-			m_askTimer.addTimerCallback(flash,stopAsk);
+			this.m_askTimer = timers.JTimer.getTimer(300,6);
+			this.m_askTimer.addTimerCallback(flash,this.stopAsk);
 		}
 		
-		public function destroy():void {
+		public destroy():void {
 			if( this.m_routeView != null){
 				this.m_routeView = null;
 			}
@@ -88,7 +88,7 @@ module lobby.view.route.game.dtf {
 			if( this.m_askTimer != null) {
 				/*this.m_askTimer.removeEventListener(TimerEvent.TIMER,flash);
 				this.m_askTimer.removeEventListener(TimerEvent.TIMER_COMPLETE,stopAsk);	*/
-				m_askTimer.dispose();
+				this.m_askTimer.dispose();
 				this.m_askTimer = null;
 			}
 
@@ -116,9 +116,9 @@ module lobby.view.route.game.dtf {
 			
 		}
 		
-		private function stopAsk() : void {
-			m_bAsk = false;
-			m_askTimer.stop();
+		private stopAsk() : void {
+			this.m_bAsk = false;
+			this.m_askTimer.stop();
 			this.showRoadViewInit();
 			this.showRoad(this.m_nowRoad);
 //			this.cacheToBmp(true);
@@ -128,28 +128,27 @@ module lobby.view.route.game.dtf {
 		 * @return 
 		 * 
 		 */
-		public function get roadNum():number{
+		get roadNum():number{
 			if (this.m_nowRoad==null ||this.m_nowRoad==""){
 				return 0;
 			}else{
-				var len:number= m_nowRoad.split(".").length;
+				var len:number= this.m_nowRoad.split(".").length;
 				return len;
 			}
-			return 0;
 		}
 		
 		/**
 		 * 清掉路單
 		 */
-		public function clearRoad():void {
-			bError = false;
+		public clearRoad():void {
+			this.bError = false;
 			this.m_nowRoad = "";			
 			this.showRoadViewInit();
 			//console.log("clearRoad:" + this._nowRoad);
 		}		
 		
 		/** 更新路單 */
-		public function addRoad(road:string):void {
+		public addRoad(road:string):void {
 			//console.log("更新路單 : " + road);
 			//road = "iiaaaeeeaeaaeeaeaaaaeaaeiaiia";
 			//road = "aaaaabcaeeeifeaaiabaaeaibaeeeafaeeaaeafeeeaeaaehlgahaeeeefieeieeeeeegeeefaeikagaeeaagaaejiiaaaaaakabceaaaeeeeeeeeaaaaaeeeeaeaeaaaaaabbbbbbbbbbbbbeeeeeeeeeeee";
@@ -166,15 +165,15 @@ module lobby.view.route.game.dtf {
 			
 			if ( road.indexOf( "#" ) != -1 ) {
 				//路紙有錯
-				bError = true;
+				this.bError = true;
 				return;
 			}else{
-				bError = false;
+				this.bError = false;
 			}
 			
 			
 			
-			if(m_nowRoad==""){
+			if(this.m_nowRoad==""){
 				this.m_nowRoad += road;
 			}else{
 				this.m_nowRoad += "." + road;
@@ -186,7 +185,7 @@ module lobby.view.route.game.dtf {
 			/*if ( !this.m_roadUpdateTimer.running ) {
 				this.m_roadUpdateTimer.start();
 			}*/
-			updateRoadHandler();
+			this.updateRoadHandler();
 			
 			//this.cacheToBmp(false);
 			//this.showRoadViewInit();
@@ -199,13 +198,13 @@ module lobby.view.route.game.dtf {
 			//this.cacheToBmp(true);
 		}
 		
-		public function onChangeLanguage():void{
-			if(m_beadPlate){
-				m_beadPlate.onChangeLanguage();
+		public onChangeLanguage():void{
+			if(this.m_beadPlate){
+				this.m_beadPlate.onChangeLanguage();
 			}
 		}
 		
-		protected function showRoad(road:string, isAsk: boolean = false):void {
+		protected showRoad(road:string, isAsk: boolean = false):void {
 			//this.showRoadViewInit();
 			this.m_roadString = BeadRoad.createRoadReanderString(road);
 			this.m_beadPlate.addRoad(road, isAsk);
@@ -219,7 +218,7 @@ module lobby.view.route.game.dtf {
 		}		
 		
 		/** 路單初始 */
-		protected function showRoadViewInit():void {
+		protected showRoadViewInit():void {
 			
 			this.m_beadPlate.init();
 			this.m_bigEyeSprite.init();
@@ -228,17 +227,17 @@ module lobby.view.route.game.dtf {
 			this.m_smallSprite.init();
 		}
 		
-		protected function flash():void{
-			m_beadPlate.flash();
-			m_bigSprite.flash();
-			m_bigEyeSprite.flash();
-			m_smallSprite.flash();
-			m_roachSprite.flash();
+		protected flash():void{
+			this.m_beadPlate.flash();
+			this.m_bigSprite.flash();
+			this.m_bigEyeSprite.flash();
+			this.m_smallSprite.flash();
+			this.m_roachSprite.flash();
 		}	
 		
-		protected function updateRoadHandler():void {
-			console.log("updateRoadHandler::" + m_nowRoad);
-			if ( ( this.m_nowRoad != "null" ) && (this.m_nowRoad != null) && ( m_nowRoad != "") )  {
+		protected updateRoadHandler():void {
+			console.log("updateRoadHandler::" + this.m_nowRoad);
+			if ( ( this.m_nowRoad != "null" ) && (this.m_nowRoad != null) && ( this.m_nowRoad != "") )  {
 //				this.cacheToBmp(false);
 				this.showRoadViewInit();
 				this.showRoad( this.m_nowRoad);
@@ -247,7 +246,7 @@ module lobby.view.route.game.dtf {
 			
 		}			
 		
-		protected function setRoadInf():void{
+		protected setRoadInf():void{
 			//路紙參數均在此設定
 			this.m_beadInfo = new BeadInfo();
 			this.m_beadInfo.gridWidth = 40;
@@ -289,26 +288,26 @@ module lobby.view.route.game.dtf {
 		}
 				
 		
-		protected function init():void {
+		protected init():void {
 			this.m_routeView.boxBigRoad.addChild(this.m_bigSprite);	//大路
 			this.m_routeView.boxBigEye.addChild(this.m_bigEyeSprite);	//大眼
 			this.m_routeView.boxSmallRoad.addChild(this.m_smallSprite); //小路
 			this.m_routeView.boxCockroachRoad.addChild(this.m_roachSprite); //蟑螂路
 			
-			this.m_beadPlate.mouseChildren = this.m_beadPlate.mouseEnabled = false;
-			this.m_routeView.boxBigRoad.mouseChildren = this.m_routeView.boxBigRoad.mouseEnabled = false;
-			this.m_routeView.boxBigEye.mouseChildren = this.m_routeView.boxBigEye.mouseEnabled = false;
-			this.m_routeView.boxSmallRoad.mouseChildren = this.m_routeView.boxSmallRoad.mouseEnabled = false;
-			this.m_routeView.boxCockroachRoad.mouseChildren = this.m_routeView.boxCockroachRoad.mouseEnabled = false;	
+			this.m_beadPlate.touchChildren = this.m_beadPlate.touchEnabled = false;
+			this.m_routeView.boxBigRoad.touchChildren = this.m_routeView.boxBigRoad.touchEnabled = false;
+			this.m_routeView.boxBigEye.touchChildren = this.m_routeView.boxBigEye.touchEnabled = false;
+			this.m_routeView.boxSmallRoad.touchChildren = this.m_routeView.boxSmallRoad.touchEnabled = false;
+			this.m_routeView.boxCockroachRoad.touchChildren = this.m_routeView.boxCockroachRoad.touchEnabled = false;	
 		}
 		
 		
-		public function onAskRoad(_iMode:number):void {
-				if(m_bAsk){
-					stopAsk();
+		public onAskRoad(_iMode:number):void {
+				if(this.m_bAsk){
+					this.stopAsk();
 				}
 			
-				m_bAsk = true;
+				this.m_bAsk = true;
 				
 				
 				//this._beadPlate.addEventListener(RouteEvent.ASK_Road_END, onAskRoadEnd);
@@ -317,19 +316,19 @@ module lobby.view.route.game.dtf {
 					key=".";
 				}
 				switch (_iMode) {
-					case ASK_MODE_DRAGON: 
+					case DtfRouteMgr.ASK_MODE_DRAGON: 
 						key+="a";
 						break;
-					case ASK_MODE_TIGER: 
+					case DtfRouteMgr.ASK_MODE_TIGER: 
 						key+="e";
 						break;
 				}
 				this.showRoad(this.m_nowRoad + key, true);
-				m_askTimer.reset();
-				m_askTimer.start();
+				this.m_askTimer.reset();
+				this.m_askTimer.start();
 			
 		}		
-		protected function cacheToBmp(isCache: boolean):void {
+		protected cacheToBmp(isCache: boolean):void {
 			this.m_beadPlate.cacheAsBitmap = isCache;
 			this.m_bigSprite.cacheAsBitmap = isCache;
 			this.m_bigEyeSprite.cacheAsBitmap = isCache;

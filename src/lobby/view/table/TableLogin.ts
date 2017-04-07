@@ -5,12 +5,12 @@ module lobby.view.table {
 		protected showFrame					:	number		=	39;
 		protected showEnd					:	number		=	40;
 				
-		protected m_mcAsset					:	egret.MovieClip;
-		protected m_tableStruct				:	struct.Struct_Table;
+		protected m_mcAsset					;
+		protected m_tableStruct				;
 		protected m_point 					: 	egret.Point = new egret.Point();
-		protected m_limitStruct 			: 	BetLimitStruct;					//限红数据
-		public playerTableOwnStatusStruct 	: 	PlayerTableOwnStatusStruct;
-		protected m_bShow					:	 boolean;
+		protected m_limitStruct 			;					//限红数据
+		public playerTableOwnStatusStruct 	;
+		protected m_bShow					:	boolean;
 		protected m_aShow					:	any[];							//显示按钮
 
 		public constructor() {
@@ -43,7 +43,7 @@ module lobby.view.table {
 			this.m_bShow = false;
 		}
 
-		public setStruct(_tableStruct:TableStruct):void{
+		public setStruct(_tableStruct):void{
 			this.m_tableStruct = _tableStruct;
 		}
 		
@@ -52,7 +52,7 @@ module lobby.view.table {
 			this.m_point.y =<number>(this.parent.y+50);
 			
 //			console.log("********************************************************** 局部坐标：",m_point);
-			return this.m_mcAsset.localToGlobal(this.m_point);
+			return this.m_mcAsset.localToGlobal(this.m_point.x, this.m_point.y);
 		}
 		
 		public updateStatus():void{
@@ -62,7 +62,7 @@ module lobby.view.table {
 		protected sortBtn():void{
 			if(this.m_aShow){
 				
-				var len : int = this.m_aShow.length;
+				var len  = this.m_aShow.length;
 				switch(len){
 					case 1:
 						this.m_aShow[0].mcAsset.x = 430;
@@ -84,10 +84,10 @@ module lobby.view.table {
 		
 		protected IsAllowToLogin(_bAlone: boolean=false): boolean{
 			var bAllow :  boolean;
-			var _str : String;
+			var _str : string;
 			
 			if(this.m_limitStruct){
-				bAllow = (Player.getInstance().nCoin >= (this.m_limitStruct.EnterTbLimit))?true:false;
+				bAllow = (model.Player.getInstance().nCoin >= (this.m_limitStruct.EnterTbLimit))?true:false;
 				
 				if(_bAlone){
 					_str = manager.LobbyManager.getInstance().getLanguageString(language.Language.sTableLogin_NoMoney) + "(" + String(this.m_limitStruct.EnterTbLimit) + ")" + manager.LobbyManager.getInstance().getLanguageString(language.Language.sCannotCharter);

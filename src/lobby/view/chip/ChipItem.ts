@@ -44,15 +44,15 @@ module lobby.view.chip {
 				return;
 			}
 			
-//			m_bmpAsset = new Bitmap();
+//			m_bmpAsset = new egret.Bitmap();
 //			this.addChild(m_bmpAsset);
 //			m_bmpAsset.bitmapData = BitmapManager.getInstance().getBmpdChip(_uValue);
 //			m_bmpAsset.smoothing = true;
 			
-			this.m_mcAsset.mouseChildren = false;
-			this.m_mcAsset.mouseEnabled = false;
-			this.m_mcAsset.mc_content.mouseChildren = false;
-			this.m_mcAsset.mc_content.mouseEnabled = false;
+			this.m_mcAsset.touchChildren = false;
+			this.m_mcAsset.touchEnabled = false;
+			this.m_mcAsset.mc_content.touchChildren = false;
+			this.m_mcAsset.mc_content.touchEnabled = false;
 			
 			this.m_spHot.buttonMode = true;
 			this.m_spHot.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClick,this);

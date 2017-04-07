@@ -1,14 +1,14 @@
 module lobby.view.route.game.sic {
 	export class SicDataRoad {
-		public static var _posX:number=  0;
-		public static var _posY:number=  0;
+		public static _posX:number=  0;
+		public static _posY:number=  0;
 		
 		public constructor() {
 			throw Error("禁止建立物件");
 		}
 		
 		
-		public static function createBeadGrid(roadMap:string, skipChars:any[], rowHeight:number= 6):any[] {
+		public static createBeadGrid(roadMap:string, skipChars:any[], rowHeight:number= 6):any[] {
 			
 			// 資料格與行列索引、標記用的參數
 			var grid:any[] = [], x:number= 0, y:number= -1, offsetX:number= 0, currentSymbol:string = null, prevSymbol:string = null;
@@ -53,8 +53,8 @@ module lobby.view.route.game.sic {
 				grid[x + offsetX] = grid[x + offsetX] || [];
 				grid[x + offsetX][y] = currentSymbol;
 				
-				_posX = x;
-				_posY = y;
+				this._posX = x;
+				this._posY = y;
 				
 				prevSymbol = currentSymbol;
 				
@@ -75,7 +75,7 @@ module lobby.view.route.game.sic {
 		 * @param	rowHeight
 		 * @return
 		 */
-		public static function createRoadRenderGrid(roadMap:string, skipChars:any[], rowHeight:number= 6):any[] {
+		public static createRoadRenderGrid(roadMap:string, skipChars:any[], rowHeight:number= 6):any[] {
 			
 			// 資料格與行列索引、標記用的參數
 			var grid:any[] = [], x:number= 0, y:number= -1, offsetX:number= 0, currentSymbol:string = null, prevSymbol:string = null;
@@ -119,7 +119,7 @@ module lobby.view.route.game.sic {
 					x++;
 					
 					//更改的換行邏輯, 之後需要時,可以打開,把底下while 注釋掉
-					/*for( var k:number= 0; k < height ; k++ ){
+					/*for( k:number= 0; k < height ; k++ ){
 						if (grid[x] ) {
 							if( grid[x][k] ) {
 								x++;
@@ -142,8 +142,8 @@ module lobby.view.route.game.sic {
 				grid[x + offsetX] = grid[x + offsetX] || [];
 				grid[x + offsetX][y] = currentSymbol;
 				
-				_posX = x;
-				_posY = y;
+				this._posX = x;
+				this._posY = y;
 				
 				prevSymbol = currentSymbol;
 				

@@ -1,40 +1,39 @@
 module lobby.view.route.quick {
 	export class QuickBeadItemDTF extends BeadItem{
-		private var m_sLabel	:	string;
 		
 		public constructor() {
 		
 			super();
 		}
 		
-		 public function destroy():void{
+		 public destroy():void{
 			super.destroy();
 			
 		}
 		
-		 public function setLabel(sLabel:string):void{
-			m_sLabel = sLabel;
-			onChangeLanguage();
+		 public setLabel(sLabel:string):void{
+			this.m_sLabel = sLabel;
+			this.onChangeLanguage();
 		}
 		
-		 public function onChangeLanguage():void{
-			if(m_bmp){
-				switch(m_sLabel){
-					case A:
-						m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_DRAGON);
+		 public onChangeLanguage():void{
+			if(this.m_bmp){
+				switch(this.m_sLabel){
+					case BeadItem.A:
+						this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_DRAGON);
 						break;
 					
-					case E:
-						m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_TIGER);
+					case BeadItem.E:
+						this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_TIGER);
 						break;
 					
-					case I:
-						m_bmp.bitmapData = BitmapManager.getInstance().getBmpdBead(Define.BEAD_TIE);
+					case BeadItem.I:
+						this.m_bmp.bitmapData = manager.BitmapManager.getInstance().getBmpdBead(define.Define.BEAD_TIE);
 						break;
 				}
-				m_bmp.width = 20;
-				m_bmp.height = 21;
-				m_bmp.smoothing = true;
+				this.m_bmp.width = 20;
+				this.m_bmp.height = 21;
+				this.m_bmp.smoothing = true;
 			}else{
 				console.log("设置珠子位图异常...");
 			}
