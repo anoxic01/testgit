@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GameUISkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="15a5e87f79e" ></w:Config>
+	<e:Image width="1795" height="500" x="125" y="373" anchorOffsetX="0" anchorOffsetY="0" source="game_bg_png"/>
+	<ns1:BetAreaUI id="betAreaUI" width="1692" height="299" x="170" y="577"/>
+	<ns1:RoadMapUI id="roadMapUI" width="1212" height="207" x="0" y="873"/>
+	<ns1:DealCardUI id="dealCardUI" width="421" height="300" x="150" y="0" anchorOffsetX="0" anchorOffsetY="0"/>
+	<ns1:BetSubmitUI width="181" height="183" x="0" y="342" anchorOffsetX="0" anchorOffsetY="0"/>
+</e:Skin>

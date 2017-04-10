@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RoadMapUISkin" width="1212" height="207" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="15a5eb10d7a" ></w:Config>
+	<e:Image source="roadMap_bg_png" x="0" y="0"/>
+	<e:Label id="big" text="0" x="1140" y="93" textColor="0xA72423" anchorOffsetX="0" width="62.6" textAlign="right" size="20"/>
+	<e:Label id="small" text="0" x="1140" y="122" anchorOffsetX="0" width="62.6" textAlign="right" size="20" textColor="0x17439a"/>
+	<e:Label id="bankerPair" text="0" x="1140" y="150" textColor="0xA72423" anchorOffsetX="0" width="62.6" textAlign="right" size="20"/>
+	<e:Label id="tie" text="0" x="1140" y="65" anchorOffsetX="0" width="62.6" textAlign="right" size="20" textColor="0x19522b"/>
+	<e:Label id="player" text="0" x="1140" y="35" textColor="0xA72423" anchorOffsetX="0" width="62.6" textAlign="right" size="20"/>
+	<e:Label id="banker" text="0" x="1140" y="6" textColor="0xa72423" anchorOffsetX="0" width="62.6" textAlign="right" size="20"/>
+	<e:Label id="playerPair" text="0" x="1140" y="180" anchorOffsetX="0" width="62.6" textAlign="right" size="20" textColor="0x17439a"/>
+	<e:Button id="playerAskBtn" label="" x="975" y="154" width="117" height="52">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="p_ask_btn0001_png" source.down="p_ask_btn0002_png" source.disabled="p_ask_btn0004_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button id="bankerAskBtn" label="" x="856" y="154" width="117" height="52">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="b_ask_btn0001_png" source.down="b_ask_btn0002_png" source.disabled="b_ask_btn0004_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button id="staBtn" label="" x="736" y="154" width="117" height="52">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="sta_btn0001_png" source.down="sta_btn0002_png" source.disabled="sta_btn0004_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Label text="统  计" x="761" y="170" size="20" touchEnabled="false"/>
+	<e:Label text="庄问路" x="861" y="170" size="20" touchEnabled="false"/>
+	<e:Label text="闲问路" x="979" y="170" size="20" touchEnabled="false"/>
+</e:Skin>
