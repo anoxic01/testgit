@@ -5,7 +5,7 @@ module lobby.model.struct {
 		public constructor(oData) {
 			this.OnlinePlayers = oData.OnlinePlayers;
 			
-			lobby.model.LobbyData.getInstance().lobbyInfo.OnlinePlayers = this.OnlinePlayers;
+			model.LobbyData.getInstance().lobbyInfo.OnlinePlayers = this.OnlinePlayers;
 			if( manager.LobbyManager.getInstance().lobbyAuth.LoginMode == define.Define.INTERNET_BET_LOBBY ){
 				manager.LobbyManager.getInstance().lobbyView.information.updateOnline();
 				manager.LobbyManager.getInstance().lobbyView.quickThemeList.updateOnline();

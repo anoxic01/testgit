@@ -221,7 +221,7 @@ module packet.sink {
 			 let protocolClass : iface.IProtocolStruct;
 			 
 			 if (bSelf){
-				protocolClass  = manager.PacketManager.getInstance().getProtocolClass( define.PacketDefine.GAME_BAC, _oData.Type,myTableType)
+				protocolClass  = manager.PacketManager.getInstance().getProtocolClass( define.PacketDefine.GAME_BAC, _oData.Type, this.myTableType)
 			 }else{
 				 protocolClass  = manager.PacketManager.getInstance().getProtocolClass(define.PacketDefine.GAME_BAC_GOOD,_oData.Type)
 			 }
@@ -335,8 +335,8 @@ module packet.sink {
 			manager.LobbyManager.getInstance().lobbyView.hideLoading();
 			
 			if( msg != "" ){
-				var dialog_2:PanelDialog_2 = manager.LobbyManager.getInstance().showDialog_2( msg, false, true , exit );
-				dialog_2.fDestroyRun = exit;
+				var dialog_2 = manager.LobbyManager.getInstance().showDialog_2( msg, false, true , this.exit );
+				dialog_2.fDestroyRun = this.exit;
 			}
 
 		}

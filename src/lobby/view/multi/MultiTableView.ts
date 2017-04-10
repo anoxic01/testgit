@@ -23,7 +23,7 @@ module lobby.view.multi {
 		private m_video_Enter	;
 		private m_video_Normal	;
 		private m_video_Out		;
-		private m_vecBg			:	egret.BitmapData[];
+		private m_vecBg			;
 		public dictVideoPos		;
 		
 		public constructor() {
@@ -653,7 +653,7 @@ module lobby.view.multi {
 				fillSp.y=250*i+56;
 				fillSp.width=426;
 				fillSp.height=240;
-				bmd.draw(fillSp,fillSp.transform.matrix,null,BlendMode.ERASE);
+				bmd.draw(fillSp,fillSp.transform.matrix,null, egret.BlendMode.ERASE);
 				rect = new egret.Rectangle(7,250*i+56,426,240);
 				//bmd.fillRect(rect,0x00000000);
 				this.dictVideoPos[define.Define.MULTI_TABLE_MODE_4][i]=rect;
@@ -670,7 +670,7 @@ module lobby.view.multi {
 				fillSp.y=clipY;
 				fillSp.width=426;
 				fillSp.height=240;
-				bmd.draw(fillSp,fillSp.transform.matrix,null,BlendMode.ERASE);
+				bmd.draw(fillSp,fillSp.transform.matrix,null, egret.BlendMode.ERASE);
 				rect = new egret.Rectangle(clipX,clipY,426,240);
 				//bmd.fillRect(rect,0x00000000);
 				this.dictVideoPos[define.Define.MULTI_TABLE_MODE_8][i]=rect;
@@ -693,7 +693,7 @@ module lobby.view.multi {
 				//fillSp.width=226;
 				fillSp.width=389;
 				fillSp.height=242;
-				bmd.draw(fillSp,fillSp.transform.matrix,null,BlendMode.ERASE);
+				bmd.draw(fillSp,fillSp.transform.matrix,null,egret.BlendMode.ERASE);
 				rect = new egret.Rectangle(clipX,clipY,389,242);
 			//	console.log("16桌："+rect);
 			//	bmd.fillRect(rect,0x00000000);

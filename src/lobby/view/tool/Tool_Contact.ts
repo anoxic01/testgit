@@ -1,167 +1,162 @@
 module lobby.view.tool {
 	export class Tool_Contact implements iface.ISprite{
-		private m_mcAsset		:	MovieClip;				//资源容器
+		private m_mcAsset		;				//资源容器
 		private m_btnContact	:	ButtonA;				//联系客服
 //		private m_btnRecord		:	ButtonA;				//账户记录
 		private m_btnRule		:	ButtonA;				//游戏规则
-		private m_bStatus		:	 boolean	=	true;
+		private m_bStatus		:	boolean	=	true;
 //		private m_bg			:	BitmapScale9Grid;		//背景
 		
-		public constructor( _mcAsset:MovieClip ) {
-		
-			m_mcAsset = _mcAsset;
+		public constructor( _mcAsset ) {
+			
+			this.m_mcAsset = _mcAsset;
 			
 //			m_bg = new BitmapScale9Grid(new Window_Bg_Asset(), 1, 12, 24, 12, 30);
 //			m_bg.setSize(152, 120);
-//			m_mcAsset.mcAsset.mc_bg.addChild(m_bg);
+//			this.m_mcAsset.mcAsset.mc_bg.addChild(m_bg);
 			
-			m_btnContact = new ButtonA(_mcAsset.mcAsset.getChildByName("mc_contact"), function(evt:MouseEvent):void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				LobbyManager.getInstance().js_call(Define.JS_Contact);
-//				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
-			});
+// 			this.m_btnContact = new ButtonA(_mcAsset.mcAsset.mc_contact, function(evt:MouseEvent):void{
+// 				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+// 				manager.LobbyManager.getInstance().js_call(define.Define.JS_Contact);
+// //				manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
+// 			});
 //			m_btnRecord = new ButtonA(_mcAsset.mcAsset.getChildByName("mc_record"), function(evt:MouseEvent):void{
 //				navigateToURL(new URLRequest("http://www.test2.com/record"), "_blank");
 //			});
-			m_btnRule = new ButtonA(_mcAsset.mcAsset.getChildByName("mc_rule"), function(evt:MouseEvent):void{
-				SoundManager.getInstance().play(SoundPackage.sClick_Tools);
-				LobbyManager.getInstance().js_call(Define.JS_Rule);
-//				LobbyManager.getInstance().showDialog(LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
-			});
-			hide();
+// 			this.m_btnRule = new ButtonA(_mcAsset.mcAsset.mc_rule, function(evt:MouseEvent):void{
+// 				manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
+// 				manager.LobbyManager.getInstance().js_call(define.Define.JS_Rule);
+// //				manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(Language.sPlease_Wait));
+// 			});
+			this.hide();
 			
-			onChangeLanguage();
+			this.onChangeLanguage();
 		}
 		
 		public destroy():void
 		{
-			if(m_btnContact){
-				m_btnContact.destroy();
-				m_btnContact = null;
+			if(this.m_btnContact){
+				this.m_btnContact.destroy();
+				this.m_btnContact = null;
 			}
 //			if(m_btnRecord){
 //				m_btnRecord.destroy();
 //				m_btnRecord = null;
 //			}
-			if(m_btnRule){
-				m_btnRule.destroy();
-				m_btnRule = null;
+			if(this.m_btnRule){
+				this.m_btnRule.destroy();
+				this.m_btnRule = null;
 			}
-			if(m_mcAsset){
-				m_mcAsset = null;
+			if(this.m_mcAsset){
+				this.m_mcAsset = null;
 			}
 		}
 		
 		public showOrHide():void{
-			if(m_bStatus){
-				hide();
+			if(this.m_bStatus){
+				this.hide();
 			}else{
-				show();
+				this.show();
 			}
 		}
 		
 		public show():void{
-			if(!m_bStatus){
-				m_mcAsset.gotoAndPlay("SHOW");
-				m_bStatus = true;
+			if(!this.m_bStatus){
+				this.m_mcAsset.gotoAndPlay("SHOW");
+				this.m_bStatus = true;
 			}
 			
 		}
 		public hide():void{
-			if(m_bStatus){
-				m_mcAsset.gotoAndPlay("HIDE");
-				m_bStatus = false;
+			if(this.m_bStatus){
+				this.m_mcAsset.gotoAndPlay("HIDE");
+				this.m_bStatus = false;
 			}
 		}
 		
 		public onChangeLanguage():void{
-			m_mcAsset.mcAsset.gotoAndStop(LobbyManager.getInstance().lobbyAuth.Lang+1);
-			m_btnContact.mcAsset.tf_label.text = LobbyManager.getInstance().getLanguageString(Language.sTool_ContactService);
-//			m_btnRecord.mcAsset.tf_label.text = LobbyManager.getInstance().getLanguageString(Language.sTool_AccountRecord);
-			m_btnRule.mcAsset.tf_label.text = LobbyManager.getInstance().getLanguageString(Language.sTool_GameRule);
+			this.m_mcAsset.mcAsset.gotoAndStop(manager.LobbyManager.getInstance().lobbyAuth.Lang+1);
+			this.m_btnContact.mcAsset.tf_label.text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sTool_ContactService);
+//			m_btnRecord.mcAsset.tf_label.text = manager.LobbyManager.getInstance().getLanguageString(Language.sTool_AccountRecord);
+			this.m_btnRule.mcAsset.tf_label.text = manager.LobbyManager.getInstance().getLanguageString(language.Language.sTool_GameRule);
 			
 		}
 		
 		
 	}
-}
-import flash.display.MovieClip;
-import flash.events.MouseEvent;
-import flash.text.TextField;
-
-import IInterface.ISprite;
-
-class ButtonA implements iface.ISprite{
-	public mcAsset			:	MovieClip;
-	public fOnClick			:	Function;
-	private m_bSelectStatus	:	 boolean;
-	
-	public ButtonA(mcButton:MovieClip, $fOnClick:Function){
-		fOnClick = $fOnClick;
-		mcAsset = mcButton;
-		mcAsset.gotoAndStop("DEFAULT");
+	export class ButtonA implements iface.ISprite{
+		public mcAsset			;
+		public fOnClick			:	Function;
+		private m_bSelectStatus	:	 boolean;
 		
-		addEvent();
-	}
-	
-	public destroy() : void
-	{
-		removeEvent();
-		if (mcAsset)
-		{
-			mcAsset = null;
-		}
-		if (fOnClick != null)
-		{
-			fOnClick = null;
+		public ButtonA(mcButton, $fOnClick:Function){
+			this.fOnClick = $fOnClick;
+			this.mcAsset = mcButton;
+			this.mcAsset.gotoAndStop("DEFAULT");
+			
+			this.addEvent();
 		}
 		
-	}
-	
-	private addEvent() : void
-	{
-		if (mcAsset)
+		public destroy() : void
 		{
-			mcAsset.addEventListener("click", onClick);
-			mcAsset.addEventListener("rollOver", over);
-			mcAsset.addEventListener("rollOut", out);
+			this.removeEvent();
+			if (this.mcAsset)
+			{
+				this.mcAsset = null;
+			}
+			if (this.fOnClick != null)
+			{
+				this.fOnClick = null;
+			}
+			
 		}
-	}
-	
-	private removeEvent() : void
-	{
-		if (mcAsset)
+		
+		private addEvent() : void
 		{
-			mcAsset.removeEventListener("click", onClick);
-			mcAsset.removeEventListener("rollOver", over);
-			mcAsset.removeEventListener("rollOut", out);
+			if (this.mcAsset)
+			{
+				this.mcAsset.addEventListener("click", this.onClick);
+				this.mcAsset.addEventListener("rollOver", this.over);
+				this.mcAsset.addEventListener("rollOut", this.out);
+			}
 		}
-	}
-	
-	private onClick(event:MouseEvent) : void
-	{
-		if (fOnClick != null && !m_bSelectStatus)
+		
+		private removeEvent() : void
 		{
-			this.fOnClick(event);
+			if (this.mcAsset)
+			{
+				this.mcAsset.removeEventListener("click", this.onClick);
+				this.mcAsset.removeEventListener("rollOver", this.over);
+				this.mcAsset.removeEventListener("rollOut", this.out);
+			}
 		}
-	}
-	
-	protected out(event:MouseEvent) : void
-	{
-		if(m_bSelectStatus){
-			return;
+		
+		private onClick(event:MouseEvent) : void
+		{
+			if (this.fOnClick != null && !this.m_bSelectStatus)
+			{
+				this.fOnClick(event);
+			}
 		}
-		mcAsset.gotoAndStop("DEFAULT");
-		(mcAsset.tf_label).textColor = 0xcccccc;
-	}
-	
-	protected over(event:MouseEvent) : void
-	{
-		if(m_bSelectStatus){
-			return;
+		
+		protected out(event:MouseEvent) : void
+		{
+			if(this.m_bSelectStatus){
+				return;
+			}
+			this.mcAsset.gotoAndStop("DEFAULT");
+			(this.mcAsset.tf_label).textColor = 0xcccccc;
 		}
-		mcAsset.gotoAndStop("HOVER");
-		(mcAsset.tf_label).textColor = 0xffffff;
+		
+		protected over(event:MouseEvent) : void
+		{
+			if(this.m_bSelectStatus){
+				return;
+			}
+			this.mcAsset.gotoAndStop("HOVER");
+			(this.mcAsset.tf_label).textColor = 0xffffff;
+		}
+		
 	}
-	
 }
+

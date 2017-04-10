@@ -41,7 +41,7 @@ module lobby.view.route.game.bac {
 			this.m_askTimer.addEventListener(TimerEvent.TIMER,flash);
 			this.m_askTimer.addEventListener(TimerEvent.TIMER_COMPLETE,stopAsk);*/
 			this.m_askTimer = timers.JTimer.getTimer(300,6);
-			this.m_askTimer.addTimerCallback(flash,this.stopAsk);
+			this.m_askTimer.addTimerCallback(this.flash,this.stopAsk);
 			
 		}
 		

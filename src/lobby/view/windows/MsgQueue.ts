@@ -1,26 +1,26 @@
 module lobby.view.windows {
 	export class MsgQueue {
-		protected   m_vecMsg		:		<MsgData>;
+		protected   m_vecMsg		:		MsgData[];
 		protected   m_window		:		MessageWindow;
-		protected   m_timer			:		JTimer;
+		protected   m_timer			:		timers.JTimer;
 		public constructor(_window:MessageWindow) {
-		m_vecMsg   = new <MsgData>();
-			m_window   = _window;
-			m_timer    = JTimer.getTimer(1000);//new Timer(1000);
-			m_timer.addTimerCallback(onTimer);
+			this.m_vecMsg   = new Array<MsgData>();
+			this.m_window   = _window;
+			this.m_timer    = timers.JTimer.getTimer(1000);//new Timer(1000);
+			this.m_timer.addTimerCallback(this.onTimer);
 			//m_timer.addEventListener(TimerEvent.TIMER , onTimer );
-			m_timer.start();
+			this.m_timer.start();
 		}
 		
 		protected onTimer():void {
-			if( m_vecMsg.length > 0 ){
-				var _msgData:MsgData = m_vecMsg.shift();
+			if( this.m_vecMsg.length > 0 ){
+				var _msgData:MsgData = this.m_vecMsg.shift();
 			
-					m_window.show( _msgData.sMsg , _msgData.keep );
+					this.m_window.show( _msgData.sMsg , _msgData.keep );
 				
 			}
-			else if( m_vecMsg.length == 0){
-				m_timer.stop();
+			else if( this.m_vecMsg.length == 0){
+				this.m_timer.stop();
 			}
 		}
 		
@@ -29,21 +29,21 @@ module lobby.view.windows {
 			if( _sMsg != null && _sMsg != '') {
 				_msgData.sMsg = _sMsg;
 				_msgData.keep = _bKeep;
-				m_vecMsg.push( _msgData );
-				if( !m_timer.running ){
-					m_timer.start();
+				this.m_vecMsg.push( _msgData );
+				if( !this.m_timer.running ){
+					this.m_timer.start();
 				}		
 			}
 		}
 		
 		public destroy():void{
-			m_window=null;
-			m_vecMsg=null;
-			if(m_timer){
+			this.m_window=null;
+			this.m_vecMsg=null;
+			if(this.m_timer){
 				//m_timer.stop();
 				//m_timer.removeEventListener(TimerEvent.TIMER , onTimer );
-				m_timer.dispose();
-				m_timer= null;
+				this.m_timer.dispose();
+				this.m_timer= null;
 			}
 		}
 		
@@ -51,12 +51,12 @@ module lobby.view.windows {
 		
 	}
 
-}
-class MsgData {
-	public sMsg:string;
-	public keep: boolean;
-	public MsgData():void {
+	export class MsgData {
+		public sMsg:string;
+		public keep: boolean;
+		public MsgData():void {
+			
+		}
 		
 	}
-	
 }

@@ -16,8 +16,8 @@ module lobby.model {
 		
 	
 	}
+	export class PKT{
+		
+	}
 }
 
-export class PKT{
-
-}

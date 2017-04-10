@@ -1,56 +1,56 @@
 module sound {
 	export class LiveSound {
-		public sound				:	Sound;
+		public sound				:	egret.Sound;
 		private m_fLoadComplete		:	Function;
 		private m_fLoadError		:	Function;
-		public bLoadComplete		:	 boolean;
+		public bLoadComplete		:	boolean;
 		private url:string;
 		private loadStart:number = 0;
-		public constructor(_stream:URLRequest , _context:SoundLoaderContext , _fLoadComplete:Function = null , _fLoadError:Function = null ) { 
-			url = _stream.url;
-			loadStart = getTimer();
-			sound = new Sound( _stream, _context );
-			sound.addEventListener(IOErrorEvent.IO_ERROR , onIoError);
-			sound.addEventListener( Event.COMPLETE , onSoundComplete);
-			m_fLoadComplete = _fLoadComplete;
-			m_fLoadError 	= _fLoadError;
+		public constructor(_stream , _context , _fLoadComplete:Function = null , _fLoadError:Function = null ) { 
+			this.url = _stream.url;
+			this.loadStart = egret.getTimer();
+			this.sound = new egret.Sound( _stream, _context );
+			sound.addEventListener(egret.IOErrorEvent.IO_ERROR , this.onIoError);
+			sound.addEventListener( egret.Event.COMPLETE , this.onSoundComplete);
+			this.m_fLoadComplete = _fLoadComplete;
+			this.m_fLoadError 	= _fLoadError;
 		}
 		protected onSoundComplete(event:Event):void{
 		//	console.log("Load Sound Success");
 			
 //			console.log(this,"加载声音文件-->"+url+"--耗时-->"+(getTimer()-loadStart));
-			sound.removeEventListener(IOErrorEvent.IO_ERROR , onIoError);
-			sound.removeEventListener( Event.COMPLETE , onSoundComplete);
-			bLoadComplete = true;
-			if( m_fLoadComplete != null ){
-				m_fLoadComplete(this);
+			sound.removeEventListener(egret.IOErrorEvent.IO_ERROR , this.onIoError);
+			sound.removeEventListener( egret.Event.COMPLETE , this.onSoundComplete);
+			this.bLoadComplete = true;
+			if( this.m_fLoadComplete != null ){
+				this.m_fLoadComplete(this);
 			}
 			
 		}
 		
-		protected onIoError(event:IOErrorEvent):void{
+		protected onIoError(event:egret.IOErrorEvent):void{
 			console.log("Load Sound Path Error::" + event.text );
-			sound.removeEventListener(IOErrorEvent.IO_ERROR , onIoError);
-			sound.removeEventListener( Event.COMPLETE , onSoundComplete);		
-			bLoadComplete = false;
-			if( m_fLoadError != null ){
-				m_fLoadError(sound);
+			sound.removeEventListener( egret.IOErrorEvent.IO_ERROR , this.onIoError);
+			sound.removeEventListener( egret.Event.COMPLETE , this.onSoundComplete);		
+			this.bLoadComplete = false;
+			if( this.m_fLoadError != null ){
+				this.m_fLoadError(sound);
 			}			
 			
 		}
 		
 		public destroy():void {
-			sound.removeEventListener(IOErrorEvent.IO_ERROR , onIoError);
-			sound.removeEventListener( Event.COMPLETE , onSoundComplete);
+			sound.removeEventListener( egret.IOErrorEvent.IO_ERROR , this.onIoError);
+			sound.removeEventListener( egret.Event.COMPLETE , this.onSoundComplete);
 			sound.close();
-			sound = null;
-			if( m_fLoadComplete != null ){
-				m_fLoadComplete = null;
+			this.sound = null;
+			if( this.m_fLoadComplete != null ){
+				this.m_fLoadComplete = null;
 			}
-			if( m_fLoadError != null ){
-				m_fLoadError = null;
+			if( this.m_fLoadError != null ){
+				this.m_fLoadError = null;
 			}
-			bLoadComplete = false;
+			this.bLoadComplete = false;
 		}
 		
 	}

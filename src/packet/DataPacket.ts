@@ -1,24 +1,24 @@
 module packet {
-	export class DataPacket  implements IPacket{
+	export class DataPacket  implements iface.IPacket{
 		/**送出資料列表*/ 
-		protected m_zip				:	GZIPBytesEncoder;
+		protected m_zip				;
 		protected m_socketParser	:	SocketParser;
 		
 		public constructor(_socketParser:SocketParser) {
-			init();
-			m_socketParser = _socketParser;
+			this.init();
+			this.m_socketParser = _socketParser;
 		}
 		public destroy():void{
-			if(m_socketParser){
-				m_socketParser = null;
+			if(this.m_socketParser){
+				this.m_socketParser = null;
 			}
-			if(m_zip){
-				m_zip = null;
+			if(this.m_zip){
+				this.m_zip = null;
 			}
 		}
 				
 		protected init():void  {
-			m_zip  = new GZIPBytesEncoder();
+			this.m_zip  = new GZIPBytesEncoder();
 			
 		}
 		
@@ -28,59 +28,59 @@ module packet {
 		 * @param	sendData
 		 * @return
 		 */
-		public pack( type:number , sendData:Object ):ByteArray {
+		public pack( type:number , sendData ):egret.ByteArray {
 			
 			//init();
 			
-			var data:Object = sendData;
+			var data = sendData;
 			var key:string = "";
 			
 			
-			var byteData:ByteArray = new ByteArray();
+			var byteData = new egret.ByteArray();
 			byteData.writeByte( type ); //寫入type
 			
 			
 			if ( sendData != null ) {
 				//data[key] = sendData;
-				PacketSN.SN = PacketSN.SN + 1;				//送出消息序號加1
-				data.SN = PacketSN.SN % 65536;
+				lobby.model.PacketSN.SN = lobby.model.PacketSN.SN + 1;				//送出消息序號加1
+				data.SN = lobby.model.PacketSN.SN % 65536;
 				
 				
 				
 				var jsonData:string = JSON.stringify( data ); //json 資料字串
 				
 				var twoWay:string = null;
-				if ( type == PacketDefine.PEEK_PROGRESS ) {
-					twoWay = PacketDefine.SEND;
-				}else if( type == PacketDefine.C_LOGIN_LOBBY_OK ) {		
-					ClientPacketSN.instance().Login_Lobby_Check_SN = data.SN;		//需要比對的SN,目前用於電投,電投在收到登入確認封包SN後 ,  才可以送配槍手
+				if ( type == define.PacketDefine.PEEK_PROGRESS ) {
+					twoWay = define.PacketDefine.SEND;
+				}else if( type == define.PacketDefine.C_LOGIN_LOBBY_OK ) {		
+					lobby.model.ClientPacketSN.instance().Login_Lobby_Check_SN = data.SN;		//需要比對的SN,目前用於電投,電投在收到登入確認封包SN後 ,  才可以送配槍手
 				}
-				else if( type == PacketDefine.C_ENTER_TABLE_OK ){
-					ClientPacketSN.instance().Login_Game_Check_SN = data.SN;		//需要比對的SN,目前用於電投,電投在收到登入確認封包SN後 ,  才可以送配槍手
+				else if( type == define.PacketDefine.C_ENTER_TABLE_OK ){
+					lobby.model.ClientPacketSN.instance().Login_Game_Check_SN = data.SN;		//需要比對的SN,目前用於電投,電投在收到登入確認封包SN後 ,  才可以送配槍手
 				}
-				else if( type == PacketDefine.C_Heart ) {
-					ClientPacketSN.instance().Lobby_Heart_SN = data.SN;
+				else if( type == define.PacketDefine.C_Heart ) {
+					lobby.model.ClientPacketSN.instance().Lobby_Heart_SN = data.SN;
 				}
-				else if( type == PacketDefine.S_Heart){								//客戶端 回送服務端心跳包
-					twoWay = PacketDefine.SEND;
+				else if( type == define.PacketDefine.S_Heart){								//客戶端 回送服務端心跳包
+					twoWay = define.PacketDefine.SEND;
 				}
 				
-				var jsonByte:ByteArray = jsonToByteArray( jsonData );  //轉成byteArray
+				var jsonByte = this.jsonToByteArray( jsonData );  //轉成byteArray
 				jsonByte.position = 0;
 				
 				
 				
-				jsonByte = m_socketParser.judgeCData( type , jsonByte , twoWay );
+				jsonByte = this.m_socketParser.judgeCData( type , jsonByte , twoWay );
 				
 				
-				var compress: boolean = m_socketParser.judgeUncompress( type );
+				var compress: boolean = this.m_socketParser.judgeUncompress( type );
 				
 				//console.log("compress:::::::::" + compress );
 				//判斷是否壓縮
 				if ( compress ) {
 					
 					jsonByte.position = 0;
-					jsonByte = m_zip.compressToByteArray( jsonByte );
+					jsonByte = this.m_zip.compressToByteArray( jsonByte );
 					
 				}
 				
@@ -103,8 +103,8 @@ module packet {
 			}	
 			
 			
-			var len:number= getDataLength( byteData  ); //獲得資料長度
-			var checkCode:number = getChekCode( byteData );	//檢查碼
+			var len:number= this.getDataLength( byteData  ); //獲得資料長度
+			var checkCode:number = this.getChekCode( byteData );	//檢查碼
 			
 			
 			//console.log("checkCode:::" + checkCode );
@@ -114,7 +114,7 @@ module packet {
 			packData.writeInt( checkCode ); //寫入檢查碼
 			this.trans8bit( len , packData );
 			packData.writeBytes( byteData );//寫入送的資料*/
-			var packData:ByteArray = SocketHeader.setData( len , checkCode , byteData );
+			var packData = socket.SocketHeader.setData( len , checkCode , byteData );
 			
 			
 			
@@ -127,7 +127,7 @@ module packet {
 			
 			console.log("crcObj::" +crcObj.valueOf() );*/
 			
-			var outData:ByteArray = new ByteArray();
+			var outData = new egret.ByteArray();
 			outData.writeBytes(packData, 0, packData.length);
 			outData.position = 0;	
 			
@@ -136,7 +136,7 @@ module packet {
 			
 		}
 		
-		protected trans8bit(value:number, packData:ByteArray ):void {
+		protected trans8bit(value:number, packData ):void {
 			var str:string = value.toString(16);
 			//console.log("str:" + str );
 			////console.log("value:" + value );
@@ -157,9 +157,9 @@ module packet {
 		/**
 		 * 取得檢查碼
 		 */
-		protected getChekCode( byte:ByteArray ):number {
+		protected getChekCode( byte ):number {
 			
-			var crcObj:CRC16 = new CRC16();	
+			var crcObj = new util.CRC16();	
 			crcObj.reset();
 			crcObj.update(byte);
 			
@@ -173,8 +173,8 @@ module packet {
 		 * @param	jsonStr
 		 * @return
 		 */
-		protected jsonToByteArray( jsonStr:string ):ByteArray  {
-			var byte:ByteArray = new ByteArray();	
+		protected jsonToByteArray( jsonStr:string ):egret.ByteArray  {
+			var byte = new egret.ByteArray();	
 			byte.writeUTFBytes( jsonStr);
 			return byte;
 		}
@@ -184,7 +184,7 @@ module packet {
 		 * @param	byte
 		 * @return
 		 */
-		protected getDataLength( byte:ByteArray ):number{
+		protected getDataLength( byte ):number{
 			
 			var len:number= byte.length ;		
 			return len;

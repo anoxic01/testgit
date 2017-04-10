@@ -27,7 +27,9 @@ module lobby.view.quick {
 			this.m_mcClose = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY,"Button_Close_Asset");
 			this.addChild(this.m_mcClose);
 			
-			this.m_bg = new BitmapScale9Grid(manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY,"Window_Bg_Asset") , 1, 12, 24, 12, 30);
+			this.m_bg = new egret.Bitmap();
+			this.m_bg.texture = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY, "Window_Bg_Asset");
+			this.m_bg.scale9Grid = new egret.Rectangle(12,24,this.m_bg.with-24,this.m_bg.height-54);
 			this.addChildAt(this.m_bg,0);
 			this.m_bg.setSize(772, 756);
 			this.m_bg.x = 130;
@@ -45,7 +47,7 @@ module lobby.view.quick {
 			
 			
 			this.m_loading = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY,"LoadingLiveAsset");
-			this.mmc = new MMovieClip(this.m_loading,60);
+			this.mmc = new egret.MovieClip(this.m_loading);
 			this.spLoading.addChild(this.m_loading);
 			this.m_loading.tf_label.text = "";
 			this.m_loading.x = 435;

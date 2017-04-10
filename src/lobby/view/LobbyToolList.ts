@@ -27,8 +27,8 @@ module lobby.view {
 		
 		private m_currentResolution		:	number;						//当前模式
 		
-		private m_mcHint				:	egret.MovieClip;					//全屏提示
-		private m_mcHintFull			:	MMovieClip;
+		private m_mcHint				;					//全屏提示
+		private m_mcHintFull			;
 		private m_btnHintClose			:	ui.button.SingleButtonMC;				//关闭按钮
 		private m_mcHintLabel			:	egret.MovieClip;					//提示标签
 		private m_bHint					:	number;					//提示状态
@@ -46,7 +46,6 @@ module lobby.view {
 		private btn_other;					//其他功能
 		private btn_setting;				//系统设置
 		private btn_exit;					//退出游戏、退出大厅
-		public btnExit;
 
 		public constructor() {
 			super();
@@ -634,7 +633,7 @@ module lobby.view {
 				
 		
 		
-		public screenFull(_bValue:Boolean):void{
+		public screenFull(_bValue:boolean):void{
 			this.m_btnNormal.visible = _bValue;
 			this.m_btnFull.visible = !_bValue;
 		}
@@ -727,15 +726,14 @@ module lobby.view {
 		}
 		
 	}
-}
 
-class Resolution{
+	export class Resolution{
 	private m_btnSD					:	ui.button.SingleButtonMC;				//标清频道
 	private m_btnHD					:	ui.button.SingleButtonMC;				//高清频道
 	private m_btnCurrent			:	ui.button.SingleButtonMC;
 	private m_mcAsset				;
 	
-	public Resolution(_mcAsset){
+	public constructor(_mcAsset){
 		this.m_mcAsset = _mcAsset;
 		
 		this.m_btnSD = new ui.button.SingleButtonMC(_mcAsset.mc_sd, function(evt:MouseEvent):void{
@@ -744,7 +742,7 @@ class Resolution{
 				manager.LobbyManager.getInstance().bClickResolution = true;
 			}
 			
-			manager.SoundManager.getInstance().play(SoundPackage.sClick_Tools);
+			manager.SoundManager.getInstance().play(sound.SoundPackage.sClick_Tools);
 			manager.TipManager.getInstance().hide();
 
 			manager.LobbyManager.getInstance().lobbyView.toolView.currentResolution = define.Define.HD;
@@ -760,11 +758,11 @@ class Resolution{
 			
 			manager.LobbyManager.getInstance().hideChannel();
 			manager.LobbyManager.getInstance().hidePanelDetail();
-			manager.LobbyManager.getInstance().hidePersonalInfomation();
+			manager.LobbyManager.getInstance().hidePersonalInformation();
 			manager.LobbyManager.getInstance().lobbyView.toolView.toolContact.hide();
 		});
 		this.m_btnSD.fOnOver = function():void{
-			manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(Language.sTip_Tool_SD),manager.TipManager.UP,m_mcAsset.localToGlobal(new egret.Point(m_mcAsset.mc_sd.x+15,m_mcAsset.mc_sd.y+30)),1);
+			manager.TipManager.getInstance().show(manager.LobbyManager.getInstance().getLanguageString(language.Language.sTip_Tool_SD),manager.TipManager.UP, this.m_mcAsset.localToGlobal(new egret.Point(this.m_mcAsset.mc_sd.x+15, this.m_mcAsset.mc_sd.y+30)),1);
 		};
 		this.m_btnSD.fOnOut = function():void{
 			manager.TipManager.getInstance().hide();
@@ -793,7 +791,7 @@ class Resolution{
 			
 			manager.LobbyManager.getInstance().hideChannel();
 			manager.LobbyManager.getInstance().hidePanelDetail();
-			manager.LobbyManager.getInstance().hidePersonalInfomation();
+			manager.LobbyManager.getInstance().hidePersonalInformation();
 			manager.LobbyManager.getInstance().lobbyView.toolView.toolContact.hide();
 		});
 		this.m_btnHD.fOnOver = function():void{
@@ -899,3 +897,5 @@ class Resolution{
 		
 	}
 }
+}
+

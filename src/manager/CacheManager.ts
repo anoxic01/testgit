@@ -81,13 +81,13 @@ module manager {
 				rect.width = 1;
 				rect.height = 1;
 			}
-			var bitData = new egret.BitmapData(rect.width, rect.height, true, 0x00000000);
-			bitData.draw(dis, new egret.Matrix(1, 0, 0, 1, -info.x, -info.y), null, null, null, true);
+			var bitData : egret.RenderTexture = new egret.RenderTexture();
+			bitData.drawToTexture(dis );
 			//剔除边缘空白像素
-			var realRect = bitData.getColorBoundsRect(0xFF000000, 0x00000000, false);
-			if (!realRect.isEmpty() && (bitData.width != realRect.width || bitData.height != realRect.height))
+			var realRect = bitData.bitmapData.getColorBoundsRect(0xFF000000, 0x00000000, false);
+			if (!realRect.isEmpty() && (bitData.bitmapData.width != realRect.width || bitData.bitmapData.height != realRect.height))
 			{
-				var realBitData = new egret.BitmapData(realRect.width, realRect.height, true, 0x00000000);
+				var realBitData = new egret.BitmapData();
 				realBitData.copyPixels(bitData, realRect, CacheManager.pot);
 				bitData.dispose();
 				bitData = realBitData;

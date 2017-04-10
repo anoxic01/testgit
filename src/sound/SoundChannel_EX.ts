@@ -1,33 +1,33 @@
 module sound {
 	export class SoundChannel_EX {
-		public soundChannel			:	SoundChannel;
+		public soundChannel			:	egret.SoundChannel;
 		public fPlayComplete		:	Function;
 
-		public constructor(_soundChannel:SoundChannel , _fPlayComplete:Function ) {
-			soundChannel = _soundChannel;
-			fPlayComplete = _fPlayComplete;
+		public constructor(_soundChannel , _fPlayComplete:Function ) {
+			this.soundChannel = _soundChannel;
+			this.fPlayComplete = _fPlayComplete;
 		}
 		public destroy():void {
-			if(soundChannel) {
-				soundChannel.stop();
-				soundChannel = null;
+			if(this.soundChannel) {
+				this.soundChannel.stop();
+				this.soundChannel = null;
 			}
-			if( fPlayComplete != null ){
-				fPlayComplete = null;
+			if( this.fPlayComplete != null ){
+				this.fPlayComplete = null;
 			}
 		}
 		
 		public end():void {
-			if(soundChannel) {
-				soundChannel.stop();
+			if(this.soundChannel) {
+				this.soundChannel.stop();
 			}
-			if( fPlayComplete != null ){
-				fPlayComplete(soundChannel);
+			if( this.fPlayComplete != null ){
+				this.fPlayComplete(this.soundChannel);
 			}
 		}
 		public stop():void {
-			if(soundChannel) {
-				soundChannel.stop();
+			if(this.soundChannel) {
+				this.soundChannel.stop();
 			}
 		}
 		

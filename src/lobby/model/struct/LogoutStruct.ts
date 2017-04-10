@@ -19,7 +19,7 @@ module lobby.model.struct {
 		public constructor(_oData) {
 			this.PlayerID	=	_oData.PlayerID;
 			this.Identity 	= 	_oData.Identity;
-			this.Reason 		= 	_oData.Reason;
+			this.Reason 	= 	_oData.Reason;
 		}
 	}
 }

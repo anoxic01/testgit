@@ -75,7 +75,7 @@ module lobby.view.route.game.dtf {
 			{
 				if(symbol.indexOf("_i")!=-1)
 				{
-					tempchildVector.push(this.childDataDict[symbol].view);
+					tempChildVector.push(this.childDataDict[symbol].view);
 				}
 			}
 			for (var x:number= 0,  colIndex:number= 0, cols:number= readerDataTieGrid.length; x < cols; x++) 

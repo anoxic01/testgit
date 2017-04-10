@@ -2,24 +2,24 @@ module manager {
 	export class BitmapManager {
 
 		/** 位图数字 **/
-		public numberTable			:	tool.BitmapNumberUtil;			//桌子数字
-		public numberChip			:	tool.BitmapNumberUtil;			//筹码数字
-		public numberOnline			:	tool.BitmapNumberUtil;			//在线人数
-		public numberBet			:	tool.BitmapNumberUtil;			//下注统计
-		public numberTime			:	tool.BitmapNumberUtil;			//计时数字
-		public numberTimeRed			:	tool.BitmapNumberUtil;			//计时数字
-		public numberCountdown			:	tool.BitmapNumberUtil;			//游戏倒计时数字
-		public numberCountdownRed		:	tool.BitmapNumberUtil;			//游戏倒计时数字
-		public statistics_red			:	tool.BitmapNumberUtil;			//红色统计
-		public statistics_blue			:	tool.BitmapNumberUtil;			//蓝色统计
-		public statistics_green			:	tool.BitmapNumberUtil;			//绿色统计
-		public numberGameGCoin			:	tool.BitmapNumberUtil;			//遊戲G幣
-		public numberBetGCoin			:	tool.BitmapNumberUtil;			//下注金額
-		public numberBetedGCoin			:	tool.BitmapNumberUtil;			//已确认下注金額
-		public numberGold			:	tool.BitmapNumberUtil;			//输赢金额
-		public numberMachineBacCountDown	:	tool.BitmapNumberUtil;			//機械百家倒計時數字
-		public numberMachineBacRedCountDown	:	tool.BitmapNumberUtil;			//機械百家倒計時數字
-		public numberPoolBac			:	tool.BitmapNumberUtil;			//百家彩池数字
+		public numberTable			:	util.bitmap.BitmapNumberUtil;			//桌子数字
+		public numberChip			:	util.bitmap.BitmapNumberUtil;			//筹码数字
+		public numberOnline			:	util.bitmap.BitmapNumberUtil;			//在线人数
+		public numberBet			:	util.bitmap.BitmapNumberUtil;			//下注统计
+		public numberTime			:	util.bitmap.BitmapNumberUtil;			//计时数字
+		public numberTimeRed			:	util.bitmap.BitmapNumberUtil;			//计时数字
+		public numberCountdown			:	util.bitmap.BitmapNumberUtil;			//游戏倒计时数字
+		public numberCountdownRed		:	util.bitmap.BitmapNumberUtil;			//游戏倒计时数字
+		public statistics_red			:	util.bitmap.BitmapNumberUtil;			//红色统计
+		public statistics_blue			:	util.bitmap.BitmapNumberUtil;			//蓝色统计
+		public statistics_green			:	util.bitmap.BitmapNumberUtil;			//绿色统计
+		public numberGameGCoin			:	util.bitmap.BitmapNumberUtil;			//遊戲G幣
+		public numberBetGCoin			:	util.bitmap.BitmapNumberUtil;			//下注金額
+		public numberBetedGCoin			:	util.bitmap.BitmapNumberUtil;			//已确认下注金額
+		public numberGold			:	util.bitmap.BitmapNumberUtil;			//输赢金额
+		public numberMachineBacCountDown	:	util.bitmap.BitmapNumberUtil;			//機械百家倒計時數字
+		public numberMachineBacRedCountDown	:	util.bitmap.BitmapNumberUtil;			//機械百家倒計時數字
+		public numberPoolBac			:	util.bitmap.BitmapNumberUtil;			//百家彩池数字
 		
 		/** 筹码位图 **/
 		private m_dicChips			:	Object;
@@ -186,21 +186,21 @@ module manager {
 		}
 		
 		private initNumber():void{
-			this.numberTable = new tool.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Table_Asset"), 16);
-			this.numberTime = new tool.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Time_Asset"), 10);
-			this.numberTimeRed = new tool.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Time_Red_Asset") , 10);
-			this.numberCountdown = new tool.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Countdown_Asset") , 10);
-			this.numberCountdownRed = new tool.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Countdown_Red_Asset") , 10);
-			this.numberChip = new tool.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Chip_Asset") , 16);
-			this.numberOnline = new tool.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Chip_Asset") , 16);
-			this.numberBet  = new tool.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Chip_Asset") , 16);
-			this.numberGameGCoin = new tool.BitmapNumberUtil( ResourceManager.getInstance().createBitmapByName("Number_Chip_Asset") , 16 );
-			this.numberBetGCoin = new tool.BitmapNumberUtil( ResourceManager.getInstance().createBitmapByName("Number_Chip_Asset") , 16 );
-			this.numberBetedGCoin = new tool.BitmapNumberUtil( ResourceManager.getInstance().createBitmapByName("Number_Game_Asset_01") , 16 );
-			this.numberGold = new tool.BitmapNumberUtil( ResourceManager.getInstance().createBitmapByName("Number_Gold_Asset") , 16 );
-			this.numberMachineBacCountDown = new tool.BitmapNumberUtil( ResourceManager.getInstance().createBitmapByName("Number_Countdown_Machine_Bac_Asset")  , 10 );
-			this.numberMachineBacRedCountDown = new tool.BitmapNumberUtil( ResourceManager.getInstance().createBitmapByName("Number_Countdown_Machine_Bac_Red_Asset")  , 10 );
-			this.numberPoolBac = new tool.BitmapNumberUtil( ResourceManager.getInstance().createBitmapByName("Number_Pool_Bet_Asset")  , 13 );
+			this.numberTable = new util.bitmap.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Table_Asset"), 16);
+			this.numberTime = new util.bitmap.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Time_Asset"), 10);
+			this.numberTimeRed = new util.bitmap.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Time_Red_Asset") , 10);
+			this.numberCountdown = new util.bitmap.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Countdown_Asset") , 10);
+			this.numberCountdownRed = new util.bitmap.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Countdown_Red_Asset") , 10);
+			this.numberChip = new util.bitmap.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Chip_Asset") , 16);
+			this.numberOnline = new util.bitmap.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Chip_Asset") , 16);
+			this.numberBet  = new util.bitmap.BitmapNumberUtil(ResourceManager.getInstance().createBitmapByName("Number_Chip_Asset") , 16);
+			this.numberGameGCoin = new util.bitmap.BitmapNumberUtil( ResourceManager.getInstance().createBitmapByName("Number_Chip_Asset") , 16 );
+			this.numberBetGCoin = new util.bitmap.BitmapNumberUtil( ResourceManager.getInstance().createBitmapByName("Number_Chip_Asset") , 16 );
+			this.numberBetedGCoin = new util.bitmap.BitmapNumberUtil( ResourceManager.getInstance().createBitmapByName("Number_Game_Asset_01") , 16 );
+			this.numberGold = new util.bitmap.BitmapNumberUtil( ResourceManager.getInstance().createBitmapByName("Number_Gold_Asset") , 16 );
+			this.numberMachineBacCountDown = new util.bitmap.BitmapNumberUtil( ResourceManager.getInstance().createBitmapByName("Number_Countdown_Machine_Bac_Asset")  , 10 );
+			this.numberMachineBacRedCountDown = new util.bitmap.BitmapNumberUtil( ResourceManager.getInstance().createBitmapByName("Number_Countdown_Machine_Bac_Red_Asset")  , 10 );
+			this.numberPoolBac = new util.bitmap.BitmapNumberUtil( ResourceManager.getInstance().createBitmapByName("Number_Pool_Bet_Asset")  , 13 );
 		}
 		
 		private initChip():void

@@ -41,8 +41,8 @@ module lobby.model.struct {
 		public RecoveryData		:	any[];
 		
 		
-		public StartTime		:	Number;							//开始维护时间
-		public EndTime			:	Number;							//结束维护时间
+		public StartTime		:	number;							//开始维护时间
+		public EndTime			:	number;							//结束维护时间
 		
 		public m_len 				: 	number;
 		
@@ -186,7 +186,7 @@ module lobby.model.struct {
 							}
 							break;
 						case define.Define.EXIT_GAME:
-							var tableid : int = manager.LobbyManager.getInstance().getGameTableID();
+							var tableid  = manager.LobbyManager.getInstance().getGameTableID();
 							if(this.MaintainData_game && this.MaintainData_game.length>0){
 								for(var j:number= 0;j<this.MaintainData_game.length;j++){
 									_tableStruct = LobbyData.getInstance().getTableStructByTableID(this.MaintainData_game[j].TableID);
@@ -261,37 +261,37 @@ module lobby.model.struct {
 			switch(this.MaintainType){
 				case lobby.model.type.SysMaintainType.Maintenance_FullSite:
 					if(this.MaintainStatus==1){
-						sValue = this.combinationTime("{0}",manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Whole_1));
+						sValue = this.combinationTime("{0}",manager.LobbyManager.getInstance().getLanguageString(language.Language.sMaintain_Notice_Whole_1));
 					}else if(this.MaintainStatus==3){
-						sValue = this.combination(manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Whole));;
+						sValue = this.combination(manager.LobbyManager.getInstance().getLanguageString(language.Language.sMaintain_Notice_Whole));;
 					}
 					break;
 				
 				case lobby.model.type.SysMaintainType.Maintenance_TopAgent:
 					if(this.MaintainStatus==1){
-						sValue = this.combinationTime("{0}",manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Agent_1));
+						sValue = this.combinationTime("{0}",manager.LobbyManager.getInstance().getLanguageString(language.Language.sMaintain_Notice_Agent_1));
 					}else if(this.MaintainStatus==3){
-						sValue = this.combination(manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Agent));
+						sValue = this.combination(manager.LobbyManager.getInstance().getLanguageString(language.Language.sMaintain_Notice_Agent));
 					}
 					break;
 				
 				case lobby.model.type.SysMaintainType.Maintenance_Theme:
 					if(this.MaintainStatus==1){
-						sValue = manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Theme_1);
+						sValue = manager.LobbyManager.getInstance().getLanguageString(language.Language.sMaintain_Notice_Theme_1);
 						sValue = this.combinationName("{0}",sValue);
 						sValue = this.combinationTime("{1}",sValue);
-					}else if(MaintainStatus==3){
-						sValue = this.combination(manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Theme));
+					}else if(this.MaintainStatus==3){
+						sValue = this.combination(manager.LobbyManager.getInstance().getLanguageString(language.Language.sMaintain_Notice_Theme));
 					}
 					break;
 				
 				case lobby.model.type.SysMaintainType.Maintenance_Table:
 					if(this.MaintainStatus==1){
-						sValue = manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Table_1);
+						sValue = manager.LobbyManager.getInstance().getLanguageString(language.Language.sMaintain_Notice_Table_1);
 						sValue = this.combinationName("{0}",sValue);
 						sValue = this.combinationTime("{1}",sValue);
 					}else if(this.MaintainStatus==3){
-						sValue = this.combination(manager.LobbyManager.getInstance().getLanguagestring(language.Language.sMaintain_Notice_Table));
+						sValue = this.combination(manager.LobbyManager.getInstance().getLanguageString(language.Language.sMaintain_Notice_Table));
 					}
 					break;
 			}
@@ -305,7 +305,7 @@ module lobby.model.struct {
 			
 			if(aObj instanceof Array && aObj.length == bObj.length){
 				for(var i in aObj){
-					if(aObj[i] instanceof number){//厅馆维护	List<int>
+					if(typeof(aObj[i]) == "number" ){//厅馆维护	List<int>
 						if(aObj[i] != bObj[i]){
 							return false;
 						}
@@ -353,13 +353,13 @@ module lobby.model.struct {
 						}
 						switch(manager.LobbyManager.getInstance().lobbyAuth.Lang){
 							case define.Define.LANGUAGE_CN:
-								_name += "("+<string>(i+1)+")"+theme.CN + ";";
+								_name += "("+(i+1).toString+")"+theme.CN + ";";
 								break;
 							case define.Define.LANGUAGE_TW:
-								_name += "("+<string>(i+1)+")"+theme.TW + ";";
+								_name += "("+(i+1).toString+")"+theme.TW + ";";
 								break;
 							case define.Define.LANGUAGE_EN:
-								_name += "("+<string>(i+1)+")"+theme.EN + ";";
+								_name += "("+(i+1).toString+")"+theme.EN + ";";
 								break;
 						}
 						
@@ -372,13 +372,13 @@ module lobby.model.struct {
 						}
 						switch(manager.LobbyManager.getInstance().lobbyAuth.Lang){
 							case define.Define.LANGUAGE_CN:
-								_name += "("+<string>(i+1)+")"+table.CN + ";";
+								_name += "("+(i+1).toString +")"+table.CN + ";";
 								break;
 							case define.Define.LANGUAGE_TW:
-								_name += "("+<string>(i+1)+")"+table.TW + ";";
+								_name += "("+(i+1).toString +")"+table.TW + ";";
 								break;
 							case define.Define.LANGUAGE_EN:
-								_name += "("+<string>(i+1)+")"+table.EN + ";";
+								_name += "("+(i+1).toString +")"+table.EN + ";";
 								break;
 						}
 					}

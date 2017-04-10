@@ -86,7 +86,9 @@ module lobby.view.gameRecord {
 			this.nAssetHeight = 794;
 			this.m_mcHot = this.m_mcAsset.mc_hot;
 			
-			this.m_bg = new BitmapScale9Grid(manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_BET_CORD,"Link_Windows_Bg_Asset"), 1, 12, 24, 12, 30);
+			this.m_bg = new egret.Bitmap();
+			this.m_bg.texture = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_BET_CORD, "Link_Windows_Bg_Asset");
+			this.m_bg.scale9Grid = new egret.Rectangle(12,24,this.m_bg.with-24,this.m_bg.height-54);
 			this.m_mcAsset.addChildAt(this.m_bg,0);
 			this.m_bg.setSize(897, 726);
 			this.m_bg.x = -451;

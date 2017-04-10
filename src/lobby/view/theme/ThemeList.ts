@@ -73,8 +73,8 @@ module lobby.view.theme {
 			var _index : number;
 			
 			//临时模拟多桌
-			var _multiThemeStruct  = new model.struct.ThemeStruct({"ThemeID":Define.THEME_MULTI_TABLE,"TableList":[]});
-			themeItem = new ThemeItem(_multiThemeStruct, this, Define.THEME_MULTI_TABLE);
+			var _multiThemeStruct  = new model.struct.ThemeStruct({"ThemeID":define.Define.THEME_2,"TableList":[]});
+			themeItem = new ThemeItem(_multiThemeStruct, this, define.Define.THEME_2);
 			this.addChild(themeItem);
 			themeItem.x = (themeItem.width) * _index;
 			this.m_vecTheme.push(themeItem);
@@ -89,7 +89,7 @@ module lobby.view.theme {
 				this.m_vecTheme.push(themeItem);
 				_index++;
 				
-				if(this.m_vectorThemeList[i].ThemeID==LobbyData.getInstance().lobbyInfo.DefThemeID){
+				if(this.m_vectorThemeList[i].ThemeID==model.LobbyData.getInstance().lobbyInfo.DefThemeID){
 					this.currentTheme = themeItem;
 				}
 				
@@ -119,7 +119,7 @@ module lobby.view.theme {
 			}
 			
 			
-			if(_themeItem.struct.ThemeID == Define.THEME_MULTI_TABLE){
+			if(_themeItem.struct.ThemeID == define.Define.THEME_2){
 				//屏蔽退出按钮
 				manager.LobbyManager.getInstance().lobbyView.toolView.btnExit.enabled = false;
 				manager.LobbyManager.getInstance().lobbyView.enableQuick(false);
@@ -147,7 +147,7 @@ module lobby.view.theme {
 			if(this.m_vectorThemeList.length>0){
 				this.setCurrentThemeButtonSelect(this.m_vectorThemeList[0].ThemeID);
 			}else{
-				manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(Language.sAll_Table_Maintenance));
+				manager.LobbyManager.getInstance().showDialog(manager.LobbyManager.getInstance().getLanguageString(language.Language.sAll_Table_Maintenance));
 			}
 		}
 		

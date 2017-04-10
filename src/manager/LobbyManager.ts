@@ -400,7 +400,7 @@ module manager {
 		/** 登陆确认**/
 		public sendLoginLobbySuccess():void {
 			if ( this.lobbyAuth != null ) {
-				var _pkt = new packet.lobby.C_Lobby_Login_OK_Pkt();
+				var _pkt = new packet.pack_lobby.C_Lobby_Login_OK_Pkt();
 				_pkt.AuthToken = "" + lobby.model.Player.getInstance().iPlayerID.toString;
 				_pkt.Identity  = this.lobbyAuth.Identity;
 				
@@ -440,7 +440,7 @@ module manager {
 		
 		/** 多桌入口 **/
 		public sendMultiTableEntry():void{
-			var _entry = new packet.lobby.C_MultiTable_Entry_Pkt();
+			var _entry = new packet.pack_lobby.C_MultiTable_Entry_Pkt();
 			
 			var byte:egret.ByteArray = this.dataPacket.pack( define.PacketDefine.C_MultiTable_Entry , _entry );
 			console.log(this,"请求多桌入口...");
@@ -450,7 +450,7 @@ module manager {
 		/** 订阅厅馆 **/
 		public sendSubscribeTheme(_iSubscribe:number=-1, _iUnsubscribe:number=-1):void{
 			this.bSubscribeTheme = true;
-			var _subscribeTheme  = new packet.lobby.C_Lobby_Theme_Subscribe_Pkt();
+			var _subscribeTheme  = new packet.pack_lobby.C_Lobby_Theme_Subscribe_Pkt();
 			_subscribeTheme.SubscribleThemeID = _iSubscribe;
 			_subscribeTheme.UnsubscribleThemeID = _iUnsubscribe;
 			
@@ -462,7 +462,7 @@ module manager {
 		
 		/** 自订筹码 **/
 		public sendCustomChipData(_sData:string):void{
-			var _customChip	=	new packet.lobby.C_CustomChip_Pkt();
+			var _customChip	=	new packet.pack_lobby.C_CustomChip_Pkt();
 			_customChip.PlayerCustChipsInfo.CustChips	=	_sData;
 			var byte:egret.ByteArray = this.dataPacket.pack( define.PacketDefine.C_SET_CHIP , _customChip );
 			console.log(this,"自订筹码...");
@@ -527,7 +527,7 @@ module manager {
 		
 		
 		public getRoadmapReqInfo(_tableList:any[]):void{
-			var c_lobby_info = new packet.lobby.C_Lobby_Info_Pkt();
+			var c_lobby_info = new packet.pack_lobby.C_Lobby_Info_Pkt();
 			c_lobby_info.ReqType = 0;
 			c_lobby_info.ArgInfo.TableIDList = _tableList;
 			
@@ -555,7 +555,7 @@ module manager {
 		/**
 		 *	个人资讯
 		 */		
-		public showpersonalinformation(_x:number, _y:number):void{
+		public showPersonalinformation(_x:number, _y:number):void{
 			if(!this.lobbyView ){
 				console.log("大厅未初始化，显示异常...");
 				return;
@@ -589,11 +589,11 @@ module manager {
 				
 				egret.Tween.get(this.personalinformation).to({y:move_y}, define.Define.SPEED);
 			}else{
-				this.hidePersonalinformation();
+				this.hidePersonalInformation();
 			}
 			
 		}
-		public hidePersonalinformation():void{
+		public hidePersonalInformation():void{
 			if(this.personalinformation){
 				//				PopupManager.getInstance().close( m_this.personalinformation );
 				egret.Tween.get(this.personalinformation).to({y:define.Define.PERSON_INFO_OUT_POSX}, define.Define.SPEED, egret.Ease.backIn).call(function():void{
@@ -1037,7 +1037,7 @@ module manager {
 //				}});	
 			}
 			
-			this.hidePersonalinformation();	//收合個人資訊面板
+			this.hidePersonalInformation();	//收合個人資訊面板
 			//隐藏紧急公告
 //			this.lobbyView.urgentNotice.hide();
 			manager.NoticeManager.getInstance().hide();
@@ -1795,7 +1795,7 @@ module manager {
 		
 		/** 登陆多桌 **/
 		public sendLoginMultiTableOK():void  {
-			var _pkt = new packet.game.C_Game_Login_OK_Pkt();
+			var _pkt = new packet.pack_game.C_Game_Login_OK_Pkt();
 			_pkt.AuthToken = "" + (lobby.model.Player.getInstance().iPlayerID).toString;
 			_pkt.Identity  = this.lobbyAuth.Identity;
 			
@@ -1838,7 +1838,7 @@ module manager {
 		public sendSubscription(_aData:any[]):void{
 			if(this.socket_multi){
 				//				_aData.push( 1 ); 	//測試代碼
-				var _subscriptionPkt = new packet.lobby.C_Multi_Table_Subscription_Pkt();
+				var _subscriptionPkt = new packet.pack_lobby.C_Multi_Table_Subscription_Pkt();
 				_subscriptionPkt.TableSubscriptionList = _aData;
 				
 				var byte:egret.ByteArray = this.dataPacket_multi.pack( define.PacketDefine.C_MULTI_TABLE_REQ , _subscriptionPkt );
@@ -1864,7 +1864,7 @@ module manager {
 						return;
 					}
 					
-					var _unsubscribePkt  = new packet.lobby.C_Multi_Table_Unsubscribe_Pkt();
+					var _unsubscribePkt  = new packet.pack_lobby.C_Multi_Table_Unsubscribe_Pkt();
 					_unsubscribePkt.TableSubscriptionList = _aData;
 					
 					var byte:egret.ByteArray = this.dataPacket_multi.pack( define.PacketDefine.C_MULTI_TABLE_UNSUBSCRIBE , _unsubscribePkt );
@@ -1899,7 +1899,7 @@ module manager {
 		
 		/** 退出多桌 **/
 		public sendExitMultiTable():void{
-			var _exitPkt = new packet.lobby.C_Multi_Table_Exit_Pkt();
+			var _exitPkt = new packet.pack_lobby.C_Multi_Table_Exit_Pkt();
 			
 			var byte:egret.ByteArray = this.dataPacket_multi.pack( define.PacketDefine.C_EXIT_TABLE , _exitPkt );
 			console.log("退出多桌...");
@@ -2280,7 +2280,7 @@ module manager {
 		/**
 		 *	系统设置 
 		 */		
-		public showsystemSetting():void{
+		public showSystemSetting():void{
 			if(!this.lobbyView ){
 				console.log("大厅未初始化，显示异常...");
 				return;
@@ -2698,7 +2698,7 @@ module manager {
 			_oData.Identity = lobby.model.Player.getInstance().iIdentity;
 			_oData.Reason   = 1;
 			
-			var _logoutLobbyPkt = new packet.lobby.LobbyLogoutReqPkt();
+			var _logoutLobbyPkt = new packet.pack_lobby.LobbyLogoutReqPkt();
 			_logoutLobbyPkt.LogoutInfo = new lobby.model.struct.LogoutStruct( _oData );
 			
 			var byte:egret.ByteArray = this.dataPacket.pack( define.PacketDefine.C_LOGIN_OUT , _logoutLobbyPkt );
@@ -2712,7 +2712,7 @@ module manager {
 		 * 
 		 */		
 		public sendLog(sLog:string):void{
-			var _encryptData  = new packet.lobby.C_Log_Req_Pkt();
+			var _encryptData  = new packet.pack_lobby.C_Log_Req_Pkt();
 			_encryptData.LogID = lobby.model.LobbyData.LTK;
 			_encryptData.Log = sLog;
 			var _encryptStr:string = JSON.stringify(_encryptData);
@@ -3139,7 +3139,7 @@ module manager {
 		 *  大廳心跳包
 		 */
 		public sendHeartPkt():void {
-			var _lobbyHeartPkt 	=	new packet.lobby.C_Lobby_Heart_Pkt();
+			var _lobbyHeartPkt 	=	new packet.pack_lobby.C_Lobby_Heart_Pkt();
 			_lobbyHeartPkt.Identity = this.lobbyAuth.Identity;
 			_lobbyHeartPkt.PlayerID = lobby.model.Player.getInstance().iPlayerID;
 			var byte:egret.ByteArray = this.dataPacket.pack( define.PacketDefine.C_Heart , _lobbyHeartPkt );
@@ -3155,7 +3155,7 @@ module manager {
 		 * 回送服務器傳來心跳包消息
 		 */
 		public responseHeartPkt():void {
-			var _lobbyHeartPkt  	=	new packet.lobby.C_Lobby_Heart_Pkt();
+			var _lobbyHeartPkt  	=	new packet.pack_lobby.C_Lobby_Heart_Pkt();
 			_lobbyHeartPkt.Identity = this.lobbyAuth.Identity;
 			_lobbyHeartPkt.PlayerID = lobby.model.Player.getInstance().iPlayerID;
 			var byte:egret.ByteArray = this.dataPacket.pack( define.PacketDefine.S_Heart , _lobbyHeartPkt );
@@ -3229,7 +3229,7 @@ module manager {
 		 *  多桌心跳包
 		 */
 		public sendMultiHeartPkt():void {
-			var _pkt = new packet.game.C_Game_Heart_Pkt();
+			var _pkt = new packet.pack_game.C_Game_Heart_Pkt();
 			_pkt.PlayerID = lobby.model.Player.getInstance().iPlayerID;
 			_pkt.Identity = this.lobbyAuth.Identity;
 			
@@ -3247,7 +3247,7 @@ module manager {
 		public responseMultiHeartPkt():void {
 			this.nRevServerTimeM = egret.getTimer();
 			
-			var _pkt = new packet.game.C_Game_Heart_Pkt();
+			var _pkt = new packet.pack_game.C_Game_Heart_Pkt();
 			_pkt.PlayerID = lobby.model.Player.getInstance().iPlayerID;
 			_pkt.Identity = this.lobbyAuth.Identity;
 			
@@ -3372,7 +3372,7 @@ module manager {
 		public hideAllPanel():void{
 			this.hideChannel();
 			this.hidePanelDetail();
-			this.hidePersonalinformation();
+			this.hidePersonalInformation();
 			this.lobbyView.toolView.toolContact.hide();
 		}
 		

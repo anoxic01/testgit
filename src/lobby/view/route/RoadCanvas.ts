@@ -81,7 +81,7 @@ module lobby.view.route {
 		}
 		
 		public put(ball, symbol:string, x:number, y:number):void {
-			if (ball instanceof egret.MovieClip){
+			if (ball){
 				
 				ball.gotoAndStop(1);
 				

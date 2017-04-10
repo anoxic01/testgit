@@ -115,7 +115,7 @@ module lobby.model.game {
 		 * 
 		 */
 		public enterOK():void {
-			var pkt : packet.game.C_Game_Login_OK_Pkt = new packet.game.C_Game_Login_OK_Pkt();
+			var pkt : packet.pack_game.C_Game_Login_OK_Pkt = new packet.pack_game.C_Game_Login_OK_Pkt();
 			pkt.AuthToken = String(Player.getInstance().iPlayerID); 			//認證碼
 			pkt.Identity = manager.LobbyManager.getInstance().lobbyAuth.Identity;		//身分
 			this.send(define.PacketDefine.C_ENTER_TABLE_OK , pkt);
@@ -152,7 +152,7 @@ module lobby.model.game {
 		 * 送心跳包
 		 */
 		public sendHeart():void {
-			var _pkt:packet.game.C_Game_Heart_Pkt = new packet.game.C_Game_Heart_Pkt();
+			var _pkt:packet.pack_game.C_Game_Heart_Pkt = new packet.pack_game.C_Game_Heart_Pkt();
 			_pkt.PlayerID = Player.getInstance().iPlayerID;
 			_pkt.Identity = manager.LobbyManager.getInstance().lobbyAuth.Identity;
 			
@@ -168,7 +168,7 @@ module lobby.model.game {
 		 * 回送服務器傳來心跳包消息
 		 */
 		public responseHeartPkt():void {
-			var _pkt:packet.game.C_Game_Heart_Pkt = new packet.game.C_Game_Heart_Pkt();
+			var _pkt:packet.pack_game.C_Game_Heart_Pkt = new packet.pack_game.C_Game_Heart_Pkt();
 			_pkt.PlayerID = Player.getInstance().iPlayerID;
 			_pkt.Identity = manager.LobbyManager.getInstance().lobbyAuth.Identity;
 			

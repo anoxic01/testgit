@@ -2,14 +2,14 @@ module lobby.model.struct {
 	export class TableAuthStruct {
 		private gameID				:	number;						//遊戲ID
         private tableID				:	number;						//桌號
-        private authToken			:	String						//認證碼 - 由Web端取得
+        private authToken			:	string						//認證碼 - 由Web端取得
         private identity			:	number;						//身份 - 0: 玩家, 1: 槍手
         private lang 				:	number;						//語系 0: CN, 1: TW, 2: EN
         private platform 			:	number;						//遊戲平台 - 0: Web, 1: Mobile
-        private lobbyServer			:	String						//Lobby Server
+        private lobbyServer			:	string						//Lobby Server
         private joinTbType			:	number;						//进桌模式
         private betLimitID			:	number;						//限紅模式
-        private joinTbPwd			:	String;						//進桌密碼
+        private joinTbPwd			:	string;						//進桌密碼
         private charterSettingInfo	:	CharterSettingStruct;		//包桌設定
 		
         public ProtocolVer			:	number;						//通訊版號

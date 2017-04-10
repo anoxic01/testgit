@@ -171,12 +171,12 @@ module lobby.view.route.game.bac {
 			offtenX = this._beadInfo.bigRoad_OfftenX;
 			offtenY = this._beadInfo.bigRoad_OfftenY;
 			var iCount:number= 0;
-			var tempChildVector = new Array<egret.DisplayObject>();//childVector.concat();
+			let tempChildVector = new Array<egret.DisplayObject>();//childVector.concat();
 			for(symbol in this.childDataDict) 
 			{
 				if(symbol.indexOf("_i")!=-1)
 				{
-					tempchildVector.push(this.childDataDict[symbol].view);
+					tempChildVector.push(this.childDataDict[symbol].view);
 				}
 			}
 			for (var x:number= 0,  colIndex:number= 0, cols:number= readerDataTieGrid.length; x < cols; x++) 

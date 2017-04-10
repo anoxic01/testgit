@@ -19,7 +19,7 @@ module lobby.view.route {
 		//	_beadPlate_vct = new <BeadItem>(maxNum); //珠路盤
 		//	setBeads();
 			this._timer = timers.JTimer.getTimer(1000,5);
-			this._timer.addTimerCallback(flash,this.onAskEnd);
+			this._timer.addTimerCallback(this.flash,this.onAskEnd);
 		}
 		
 		 public destroy():void {

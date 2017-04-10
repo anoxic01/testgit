@@ -1,6 +1,6 @@
 module sound {
 	export class GameSoundPlayVector {
-		private soundVector:<String> = new <String>();
+		private soundVector = new Array<string>();
 		private playSoundURL:string;
 		/**
 		 *延时播放时间 
@@ -15,23 +15,23 @@ module sound {
 		 */		
 		private isSetPlaySound: boolean = false;
 		private timeOutId:number= 0;
-		private soundDatas:Dictionary = {};
-		private currentGameModel:Object = null;
+		private soundDatas = {};
+		private currentGameModel = null;
 		
 		public constructor(welcomeSound:string) {
-			addSound(welcomeSound);// 将欢迎声音放在最开始
-			timeOutId = setTimeout(setCanPlaySound,delayPlayInterval);
+			this.addSound(welcomeSound);// 将欢迎声音放在最开始
+			this.timeOutId = setTimeout(this.setCanPlaySound, this.delayPlayInterval);
 		}
 		
 		private setCanPlaySound():void
 		{
-			timeOutId = 0;
-			isCanPlaySound = true;
-			if(isSetPlaySound)autoStart();
+			this.timeOutId = 0;
+			this.isCanPlaySound = true;
+			if(this.isSetPlaySound)this.autoStart();
 		}
 		public setGameModel(value:Object):void
 		{
-			currentGameModel = value;
+			this.currentGameModel = value;
 			
 		}
 		/**
@@ -41,89 +41,89 @@ module sound {
 		 */		
 		public addSound(value:string,stopStatus:string=null,stopCountDown:Object = null):void
 		{
-			if(SoundManager.getInstance().soundEffectSwitch==false)return;
-			if(soundDatas[value]==null)soundDatas[value] = [];
-			soundDatas[value].push({stopStatus:stopStatus,stopCountDown:stopCountDown});
-			var findex:number= soundindexOf("sFinal_Round");////// 播放顺序：   欢迎语----->阶段提示语---->本轮最后一局
+			if(manager.SoundManager.getInstance().soundEffectSwitch==false)return;
+			if(this.soundDatas[value]==null)this.soundDatas[value] = [];
+			this.soundDatas[value].push({stopStatus:stopStatus,stopCountDown:stopCountDown});
+			var findex:number= this.soundVector.indexOf("sFinal_Round");////// 播放顺序：   欢迎语----->阶段提示语---->本轮最后一局
 			if(findex>-1)
 			{
-				if(soundindexOf(value)<0)
-					soundsplice(findex,0,value);
+				if(this.soundVector.indexOf(value)<0)
+					this.soundVector.splice(findex,0,value);
 			}else
 			{
-				if(soundindexOf(value)<0)
-					soundpush(value);
+				if(this.soundVector.indexOf(value)<0)
+					this.soundVector.push(value);
 			}
 		}
-		public addSounds(mSounds:any[]):void
+		public addSounds(mSounds):void
 		{
-			if(SoundManager.getInstance().soundEffectSwitch==false)return;
+			if(manager.SoundManager.getInstance().soundEffectSwitch==false)return;
 			while(mSounds.length>0)
-				soundpush(mSounds.shift());
+				this.soundVector.push(mSounds.shift());
 		}
 		/**
 		 * 自动开始
 		 */		
 		public autoStart():void
 		{
-			isSetPlaySound = true;
-			playNextSound();
+			this.isSetPlaySound = true;
+			this.playNextSound();
 		}
 		/**
 		 * 清空所有的声音
 		 */		
 		public clearSounds():void
 		{
-			soundlength = 0;
-			playSoundURL = null;
+			this.soundVector.length = 0;
+			this.playSoundURL = null;
 		}
 		
 		private playNextSound():void
 		{
-			if(isCanPlaySound&&isSetPlaySound&&playSoundURL==null)
+			if(this.isCanPlaySound && this.isSetPlaySound && this.playSoundURL==null)
 			{
-				if(soundlength>0)
+				if(this.soundVector.length>0)
 				{
-					playSoundURL = soundshift();
-					if(isCanPlayCurrentSound())
+					this.playSoundURL = this.soundVector.shift();
+					if(this.isCanPlayCurrentSound())
 					{
-						SoundManager.getInstance().play(playSoundURL,0,true,null,onSoundPlayComplete,false,onSoundError);
+						manager.SoundManager.getInstance().play(this.playSoundURL,0,true,null, this.onSoundPlayComplete,false, this.onSoundError);
 					}else 
 					{
-						onSoundPlayComplete(null);
+						this.onSoundPlayComplete(null);
 					}
 				}
 			}
 		}
 		
-		private onSoundError(sound:Sound):void
+		private onSoundError(sound):void
 		{
-			if(playSoundURL!=null)
+			if(this.playSoundURL!=null)
 			{
-				console.log(this,"加载声音失败--->"+playSoundURL);
-				delete soundDatas[playSoundURL];
-				playSoundURL = null;
+				console.log(this,"加载声音失败--->"+this.playSoundURL);
+				delete this.soundDatas[this.playSoundURL];
+				this.playSoundURL = null;
 			}
-			setTimeout(playNextSound,1);
+			setTimeout(this.playNextSound,1);
 		}
 		
 		private isCanPlayCurrentSound(): boolean
 		{
-			if(playSoundURL!=null)
+			if(this.playSoundURL!=null)
 			{
-				var stopArr:any[] =  soundDatas[playSoundURL];
+				var stopArr:any[] =  this.soundDatas[this.playSoundURL];
 				if(stopArr&&stopArr.length>0)
 				{
 					for (var i:number= 0; i < stopArr.length; i++) 
 					{
-						var stopData:Object = stopArr[i];
+						var stopData = stopArr[i];
 						if(stopData.stopStatus!=null)
 						{
-							if(currentGameModel.tableStruct.GameStatus==stopData.stopStatus)
+							if(this.currentGameModel.tableStruct.GameStatus==stopData.stopStatus)
 							{
 								if(stopData.stopCountDown!=null)
 								{
-									if(currentGameModel.tableStruct.CountDownTime<int(stopData.stopCountDown))
+									if(this.currentGameModel.tableStruct.CountDownTime<(stopData.stopCountDown))
 									{
 										//  播放时机在快倒计时结束时跳过
 										return false;
@@ -144,23 +144,23 @@ module sound {
 		/**
 		 * 声音播放完成
 		 */		
-		private onSoundPlayComplete(sound:SoundChannel):void
+		private onSoundPlayComplete(sound):void
 		{
-			if(playSoundURL!=null)
+			if(this.playSoundURL!=null)
 			{
-				delete soundDatas[playSoundURL];
-				playSoundURL = null;
+				delete this.soundDatas[this.playSoundURL];
+				this.playSoundURL = null;
 			}
-			setTimeout(playNextSound,1);
+			setTimeout(this.playNextSound,1);
 		}
 		public dispose():void
 		{
-			isCanPlaySound = false;
-			isSetPlaySound = false;
-			soundlength = 0;
-			playSoundURL = null;
-			soundDatas = null;
-			if(timeOutId!=0)clearTimeout(timeOutId);
+			this.isCanPlaySound = false;
+			this.isSetPlaySound = false;
+			this.soundVector.length = 0;
+			this.playSoundURL = null;
+			this.soundDatas = null;
+			if(this.timeOutId!=0)clearTimeout(this.timeOutId);
 		}
 	}
 }

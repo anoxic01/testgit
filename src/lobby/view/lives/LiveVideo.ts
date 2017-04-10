@@ -17,7 +17,7 @@ module lobby.view.lives {
 		public bAddToStage			:	boolean;							//是否添加到舞台
 		private m_bSetData			:	boolean;							//是否读取到数据
 		
-		public constructor( _mcParent:egret.MovieClip) {
+		public constructor( _mcParent) {
 			super();
 
 			this.m_parent = _mcParent;

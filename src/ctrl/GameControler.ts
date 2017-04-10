@@ -70,7 +70,7 @@ module ctrl {
 				console.log(this,"重新登入遊戲..");
 				if( this.proxy ){
 					this.loginN = this.loginN + 1;			
-					var timer:JTimer = JTimer.getTimer(1500,1);
+					var timer = timers.JTimer.getTimer(1500,1);
 					timer.addTimerCallback(null,this.onRetryLogin);
 					timer.start();
 					this.bRetry = true;
@@ -89,7 +89,7 @@ module ctrl {
 			return this.bRetry;
 		}	
 		
-		protected onRetryLogin(timer:JTimer):void{
+		protected onRetryLogin(timer):void{
 			timer.dispose();
 			var table:lobby.model.struct.TableStruct = this.model.tableStruct;
 				this.proxy.connect(table.ServerIP , table.ServerPort);
@@ -167,8 +167,8 @@ module ctrl {
 		
 		protected addServerListener():void{
 			console.log("gameType::"  + this.gameType);
-			manager.PacketManager.getInstance().addProtocol(this.gameType,define.PacketDefine.ACK ,			packet.game.S_Game_Ack_Pkt);					//ACK
-			manager.PacketManager.getInstance().addProtocol(this.gameType,define.PacketDefine.N_ACK ,		packet.game.S_Game_NAck_Pkt);					//NACK
+			manager.PacketManager.getInstance().addProtocol(this.gameType,define.PacketDefine.ACK ,			packet.pack_game.S_Game_Ack_Pkt);					//ACK
+			manager.PacketManager.getInstance().addProtocol(this.gameType,define.PacketDefine.N_ACK ,		packet.pack_game.S_Game_NAck_Pkt);					//NACK
 			
 		}
 		
@@ -241,15 +241,15 @@ module ctrl {
 		public judgeDestroy():void {
 		
 //			m_bIsLeaveGame = true;		
-			destroy();
+			this.destroy();
 		}
 		
 		/**
 		 *  收到登入確認封包才 啟動遊戲心跳包
 		 */
 		public runGameHeart():void {
-			manager.PacketManager.getInstance().addProtocol(this.gameType,define.PacketDefine.S_Heart , packet.game.S_Game_Heart_Pkt);				//客戶端主動發起心跳回復	
-			manager.PacketManager.getInstance().addProtocol(this.gameType,define.PacketDefine.C_Heart , packet.game.S_Game_Heart_Pkt);				//服務端主動發起心跳回復
+			manager.PacketManager.getInstance().addProtocol(this.gameType,define.PacketDefine.S_Heart , packet.pack_game.S_Game_Heart_Pkt);				//客戶端主動發起心跳回復	
+			manager.PacketManager.getInstance().addProtocol(this.gameType,define.PacketDefine.C_Heart , packet.pack_game.S_Game_Heart_Pkt);				//服務端主動發起心跳回復
 		//	manager.TimeManager.getInstance().addFun(onHeart,manager.LobbyManager.getInstance().nHeartRate);
 		}
 		

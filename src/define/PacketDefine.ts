@@ -43,7 +43,7 @@ module define {
 		
 		//槍手 -> Client -> Server
 		/**老闆要求配槍手*/
-		public static const	 C_BOSS_DEPUTY_REQUEST		:	number 	= 	0x0D;		
+		public static C_BOSS_DEPUTY_REQUEST		:	number 	= 	0x0D;		
 		/**老闆取消配槍手*/
 		public static  C_BOSS_CANCEL_DEPUTY		:	number 	= 	0x0F;
 		/**咪牌*/
@@ -66,25 +66,25 @@ module define {
 		/**公告訊息*/
 		public static  S_ANNOUNCELIST				:	number 	= 	0x00; 
 		/**大廳登入*/
-		public static const	 S_LOGIN_IN					:	number 	= 	0x02;	
+		public static S_LOGIN_IN					:	number 	= 	0x02;	
 		/**大廳登出*/
-		public static const	 S_LOGIN_OUT				:	number 	= 	0x04;	
+		public static S_LOGIN_OUT				:	number 	= 	0x04;	
 		/**通知幣別改變*/
-		public static const	 S_CHANGE_CURRENCY			:	number 	= 	0x05   
+		public static S_CHANGE_CURRENCY			:	number 	= 	0x05   
 		/**更新賭桌資訊*/
-		public static const	 S_UPDATE_TABLE_INFO		:	number 	= 	0x06; 
+		public static S_UPDATE_TABLE_INFO		:	number 	= 	0x06; 
 		/**通知荷官資訊*/
-		public static const	 S_UPDATE_DEALER_INFO		:	number 	= 	0x07; 
+		public static S_UPDATE_DEALER_INFO		:	number 	= 	0x07; 
 		/**更新跑馬燈*/
-		public static const	 S_UPDATE_MARQUEE			:	number 	= 	0x08;		
+		public static S_UPDATE_MARQUEE			:	number 	= 	0x08;		
 		/**清除跑馬燈*/
-		public static const	 S_CLEAR_MARQUEE			:	number 	= 	0x09;		
+		public static S_CLEAR_MARQUEE			:	number 	= 	0x09;		
 		/**大廳 通知玩家可進桌的賭桌狀態**/
 		public static S_CAN_ENTER_TABLE_STATUS	:	number	=	0x1A;			
 		/** 收到大厅信息 **/
 		public static S_LOBBY_INFO				:	number	=	0x1C;
 		/**取的最熱門的三個賭桌*/
-		public static const	 S_GET_HOT_TABLE			:	number 	= 	0x0B;
+		public static S_GET_HOT_TABLE			:	number 	= 	0x0B;
 		/**更新大廳資訊*/
 		public static S_UPDATE_LOBBY_INFO			:	number 	= 	0x14;
 		
@@ -97,11 +97,11 @@ module define {
 		public static S_TABLE_SEAT_UPDATE			:	number 	= 	0x03;
 		
 		/**回復老闆要求配槍手*/
-		public static const	 S_BOSS_DEPUTY_REQUEST		:	number 	= 	0xE;	
+		public static S_BOSS_DEPUTY_REQUEST		:	number 	= 	0xE;	
 		/**回復老闆取消配槍手*/
 		public static  S_BOSS_CANCEL_DEPUTY		:	number 	= 	0x10;		
 		/**槍手老闆轉桌要求*/
-		public static const	 S_BOSS_TRANS_TABLE			:	number 	= 	0x11;	
+		public static S_BOSS_TRANS_TABLE			:	number 	= 	0x11;	
 		/**槍手登入或登出 通知老闆*/
 		public static S_DEPUTY_LOGIN				:	number 	= 	0x12;
 		/**回復老闆給小費要求*/
@@ -110,13 +110,13 @@ module define {
 		/**回復切換押注模式*/	   
 		public static  S_CHANGE_BET_MODE			:	number 	= 	0x14;	   
 		/**通知此靴為最後一局*/
-		public static const	 S_LAST_GAME				:	number 	= 	0x39;		
+		public static S_LAST_GAME				:	number 	= 	0x39;		
 		/**Server通知例外錯誤給玩家*/	
-		public static const	 S_ERROR_MSG				:	number 	= 	0x15;		
+		public static S_ERROR_MSG				:	number 	= 	0x15;		
 		/**Server通知賭桌暫停*/	
-		public static const	 S_TABLE_PAUSE				:	number 	= 	0x16;		
+		public static S_TABLE_PAUSE				:	number 	= 	0x16;		
 		/**Server通知玩家閒置資訊*/	
-		public static const	 S_PLAYER_IDLE_INFO			:	number 	= 	0x17;	
+		public static S_PLAYER_IDLE_INFO			:	number 	= 	0x17;	
 		/**Server進入賭桌*/
 		public static S_ENTER_TABLE				:	number 	= 	0x01;
 		/**Server回覆押注資訊跟發牌資訊*/
@@ -184,22 +184,22 @@ module define {
 		public static SEND						:	string 	= 	"SEND";
 		
 		/**連線類型:大廳*/
-		public static LOBBY						:	int 	= 	0;
+		public static LOBBY						:	number 	= 	0;
 		/**連線類型:遊戲*/
-		public static GAME						:	int 	= 	999;
-		public static GAME_BAC					:	int		=	991;
-		public static GAME_DTF					:	int		=	992;
-		public static GAME_SIC					:	int		=	993;
-		public static GAME_ROU					:	int		=	994;
-		public static GAME_BAC_GOOD				:	int		=	1001;
+		public static GAME						:	number 	= 	999;
+		public static GAME_BAC					:	number		=	991;
+		public static GAME_DTF					:	number		=	992;
+		public static GAME_SIC					:	number		=	993;
+		public static GAME_ROU					:	number		=	994;
+		public static GAME_BAC_GOOD				:	number		=	1001;
 		
 		
 		/**連線類型:多桌遊戲*/
-		public static MULTI						:	int 	= 	1000;
+		public static MULTI						:	number 	= 	1000;
 		/**連線類型:印表機*/
-		public static PRINTER						:	int		=	2;
+		public static PRINTER						:	number		=	2;
 		/**連線類型:轉桌*/
-		public static TRANSTABLE					:	int		=	3;
+		public static TRANSTABLE					:	number		=	3;
 
 		
 		

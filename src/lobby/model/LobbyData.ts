@@ -70,9 +70,7 @@ module lobby.model {
 		
 		public constructor(single:Singleton) {
 			if(single==null){
-				
-				console.log("models.LobbyModel初始化异常...");
-				
+				console.log("error: new LobbyData");
 			}
 		}
 
@@ -804,5 +802,10 @@ module lobby.model {
 		}
 
 		
+	}
+	export class Singleton{
+		constructor(){
+
+		}
 	}
 }

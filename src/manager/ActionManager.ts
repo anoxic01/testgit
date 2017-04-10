@@ -45,5 +45,5 @@ module manager {
 			}
 		}
 	}
+	class Singleton{}
 }
-export class Singleton{}

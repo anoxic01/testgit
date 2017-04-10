@@ -271,22 +271,22 @@ module socket {
 		private configureListeners():void
 		{
 			if(this.m_socket){
-				this.m_socket.addEventListener(Event.CLOSE, closeHandler);
-				this.m_socket.addEventListener(Event.CONNECT, connectHandler);
-				this.m_socket.addEventListener(ProgressEvent.SOCKET_DATA, socketDataHandler);
-				this.m_socket.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
-				this.m_socket.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
+				this.m_socket.addEventListener(Event.CLOSE, this.closeHandler);
+				this.m_socket.addEventListener(Event.CONNECT, this.connectHandler);
+				this.m_socket.addEventListener(ProgressEvent.SOCKET_DATA, this.socketDataHandler);
+				this.m_socket.addEventListener(IOErrorEvent.IO_ERROR, this.ioErrorHandler);
+				this.m_socket.addEventListener(SecurityErrorEvent.SECURITY_ERROR, this.securityErrorHandler);
 			}
 		} 
 		
 		private removeListeners():void
 		{
 			if(this.m_socket){
-				this.m_socket.removeEventListener(egret.Event.CLOSE, closeHandler);
-				this.m_socket.removeEventListener(egret.Event.CONNECT, connectHandler);
-				this.m_socket.removeEventListener(egret.ProgressEvent.SOCKET_DATA, socketDataHandler);
-				this.m_socket.removeEventListener(egret.IOErrorEvent.IO_ERROR, ioErrorHandler);
-				this.m_socket.removeEventListener(egret.SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
+				this.m_socket.removeEventListener(egret.Event.CLOSE, this.closeHandler);
+				this.m_socket.removeEventListener(egret.Event.CONNECT, this.connectHandler);
+				this.m_socket.removeEventListener(egret.ProgressEvent.SOCKET_DATA, this.socketDataHandler);
+				this.m_socket.removeEventListener(egret.IOErrorEvent.IO_ERROR, this.ioErrorHandler);
+				this.m_socket.removeEventListener(egret.SecurityErrorEvent.SECURITY_ERROR, this.securityErrorHandler);
 			}
 		} 
 		

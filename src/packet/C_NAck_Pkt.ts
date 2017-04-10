@@ -4,7 +4,8 @@ module packet {
 		public SN	:	number;
 		
 		public constructor() {
-			Type = PacketDefine.N_ACK;
+			super();
+			this.Type = define.PacketDefine.N_ACK;
 		}
 	}
 }

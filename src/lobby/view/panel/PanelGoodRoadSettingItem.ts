@@ -10,7 +10,9 @@ module lobby.view.panel {
 			this.m_mcAsset = _mcAsset;
 			this.ID = _id;
 			
-			this.m_glow = new BitmapScale9Grid(manager.SoundManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY, "General_Rollover_Select_Asset"), 1,10,15,10,15);
+			this.m_glow = new egret.Bitmap();
+			this.m_glow.texture = manager.ResourceManager.getInstance().getInstanceByNameFromDomain(define.Define.SWF_LOBBY, "General_Rollover_Select_Asset");
+			this.m_glow.scale9Grid = new egret.Rectangle(10,15,this.m_glow.with-20,this.m_glow.height-30);
 			this.m_mcAsset.addChild(this.m_glow);
 			this.m_glow.setSize(156,102);
 			this.m_glow.alpha = 0;

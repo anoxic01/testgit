@@ -2,7 +2,7 @@ module lobby.view.table {
 	export class TextUtils {
 		public constructor() {
 		}
-		public static setEmbedFont(tf,font:String = "微软雅黑"):void
+		public static setEmbedFont(tf,font:string = "微软雅黑"):void
 		{
 			if(tf.embedFonts==true&&tf.defaultTextFormat.font==font)return;
 			var fonts = Font.enumerateFonts();

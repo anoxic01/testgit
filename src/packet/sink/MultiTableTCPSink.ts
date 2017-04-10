@@ -89,12 +89,12 @@ module packet.sink {
 			}*/
 			
 			if(_oData.Type == define.PacketDefine.S_Heart){
-				manager.LobbyManager.getInstance().nRevServerTimeM = getTimer();
+				manager.LobbyManager.getInstance().nRevServerTimeM = egret.getTimer();
 				return;
 			}
 			
 			if(_oData.Type == define.PacketDefine.C_Heart){
-				var _heartStruct = new model.struct.HeartStruct();
+				var _heartStruct = new lobby.model.struct.HeartStruct();
 				_heartStruct.PlayerID = _oData.PlayerID;
 				_heartStruct.Identity = _oData.Identity;
 				manager.LobbyManager.getInstance().responseMultiHeartPkt();
@@ -311,7 +311,7 @@ module packet.sink {
 			manager.LobbyManager.getInstance().lobbyView.hideLoading();
 			
 			if( msg != "" ){
-				var dialog_2:panel.PanelDialog_2 = manager.LobbyManager.getInstance().showDialog_2( msg, false, true  );
+				var dialog_2 = manager.LobbyManager.getInstance().showDialog_2( msg, false, true  );
 				//dialog_2.fDestroyRun = exit;
 			}
 			

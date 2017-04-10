@@ -9,7 +9,7 @@ module lobby.view.theme {
 		private m_buttonMode 	: 	boolean	=	false;					//鼠标手型
 		private sKey			:	string;						//标签键值
 		
-		public constructor($themeStruct, $themeID:number, $themeList:ThemeList) {
+		public constructor($themeStruct, $themeList:ThemeList, $themeID:number) {
 			super();
 			this.m_themeList = $themeList;
 			this.themeStruct = $themeStruct;

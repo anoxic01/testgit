@@ -1,7 +1,7 @@
 module lobby.view.gameRecord {
 	export class Text {
 		
-		public txtAsset	:	egret.TextField;
+		public txtAsset	;
 		public sLangKey	:	string;
 		
 		public constructor( _txtAsset , sLangLey:string = null) {

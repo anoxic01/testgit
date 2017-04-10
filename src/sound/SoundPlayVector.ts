@@ -17,24 +17,24 @@ module sound {
 		{
 			if(this.m_sounds.length>0)
 			{
-				var soundStr:string = m_sounds.shift();
-				if(soundStr==SPACE)
+				var soundStr:string = this.m_sounds.shift();
+				if(soundStr==SoundPlayVector.SPACE)
 				{
-					setTimeout(start,500);
+					setTimeout(this.start,500);
 				}else
 				{
-					SoundManager.getInstance().play(soundStr,0,true,null,onSoundPlayComplete);
+					manager.SoundManager.getInstance().play(soundStr,0,true,null, this.onSoundPlayComplete);
 				}
 			}else
 			{
-				if(onComplete!=null)
-					onComplete();
+				if(this.onComplete!=null)
+					this.onComplete();
 			}
 		}
 		
 		private onSoundPlayComplete(value:Object=null):void
 		{
-			setTimeout(start,1);
+			setTimeout(this.start,1);
 		}
 	}
 }

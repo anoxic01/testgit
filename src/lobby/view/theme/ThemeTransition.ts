@@ -4,21 +4,21 @@ module lobby.view.theme {
 		
 		private m_bms:any[];
 		private m_objs:any[];
-		private m_spParent:Sprite;
-		public constructor(parent:Sprite) {
+		private m_spParent;
+		public constructor(parent) {
 			super();
-			m_spParent = parent;
-			m_bms = [];
-			m_objs = [];
-			var bm:Bitmap;
+			this.m_spParent = parent;
+			this.m_bms = [];
+			this.m_objs = [];
+			var bm;
 			for (var i:number= 0; i < 8; i++) 
 			{
 				bm = new egret.Bitmap();
 				bm.x = i%2 * 950;
-				bm.y = int(i/2) * 281;
+				bm.y = (i/2) * 281;
 				this.addChild(bm);
-				m_bms.push(bm);
-				m_objs.push({});
+				this.m_bms.push(bm);
+				this.m_objs.push({});
 			}
 			this.touchEnabled=this.touchChildren=false;
 		}
@@ -26,17 +26,17 @@ module lobby.view.theme {
 		{
 			if(this.parent)
 				return;
-			m_spParent.addChild(this);
-			var bm:Bitmap;
-			var obj:Object;
-			for (var i:number= 0; i < m_bms.length; i++) 
+			this.m_spParent.addChild(this);
+			var bm;
+			var obj;
+			for (var i:number= 0; i < this.m_bms.length; i++) 
 			{
-				bm = m_bms[i];
-				bm.y = int(i/2) * 281;
-				bm.bitmapData = BitmapManager.getInstance().getTableDefault(LobbyManager.getInstance().lobbyAuth.Lang);
-				obj = m_objs[i];
+				bm = this.m_bms[i];
+				bm.y = (i/2) * 281;
+				bm.bitmapData = manager.BitmapManager.getInstance().getTableDefault(manager.LobbyManager.getInstance().lobbyAuth.Lang);
+				obj = this.m_objs[i];
 				obj.y = bm.y+200;
-				obj.delay = int(i/2) * 0.1;
+				obj.delay = (i/2) * 0.1;
 				if(i<2)
 				{
 					obj.ease = Quad.easeOut;
@@ -45,26 +45,26 @@ module lobby.view.theme {
 				{
 					obj.ease = Back.easeOut;
 				}
-				if(i == m_bms.length-1)
+				if(i == this.m_bms.length-1)
 				{
-					obj.onComplete = onComplete;
+					obj.onComplete = this.onComplete;
 				}
 				TweenLite.from(bm,0.2,obj);
 			}
 		}
 		private onComplete():void
 		{
-			if(parent)
+			if(this.parent)
 			{
-				parent.removeChild(this);
+				this.parent.removeChild(this);
 			}
-			fOnComp();
+			this.fOnComp();
 		}
 		public removeFromParent():void
 		{
-			if(parent)
+			if(this.parent)
 			{
-				parent.removeChild(this);
+				this.parent.removeChild(this);
 			}
 		}
 	}

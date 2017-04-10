@@ -253,7 +253,7 @@ module sound {
 			this.m_DictionarySoundPath[SoundPackage.sTeen]							= "Teen.mp3";
 			
 			//添加音效路徑...
-			this.m_sUrl = UrlManager.getInstance().getCurrentDomain();
+			this.m_sUrl = manager.UrlManager.getInstance().getCurrentDomain();
 		}
 
 		

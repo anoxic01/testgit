@@ -37,7 +37,7 @@ module sound {
 					mSounds.push(SoundPackage.sTeen);
 				}else
 				{
-					mSounds.push(SoundPackage["s"+int(num/10)+"0"]);
+					mSounds.push(SoundPackage["s"+(num/10)+"0"]);
 					if((num%10)>0)mSounds.push(SoundPackage["s"+(num%10)]);
 				}
 			}else// 中文
@@ -49,7 +49,7 @@ module sound {
 				{
 					if(num>=20)
 					{
-						mSounds.push(SoundPackage["s"+int(num/10)]);
+						mSounds.push(SoundPackage["s"+(num/10)]);
 					}
 					mSounds.push(SoundPackage.s10);
 					if((num%10)!=0)

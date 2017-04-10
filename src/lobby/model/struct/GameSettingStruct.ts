@@ -2,7 +2,7 @@ module lobby.model.struct {
 	export class GameSettingStruct {
 		public BetLimitId		:	number;		//押注模式
         public UpperBetLimitId	:	number;		//押注上限
-        private m_sCustChips	:	String;		//自订筹码
+        private m_sCustChips	:	string;		//自订筹码
 		public aCustChips		:	any[];		//自订筹码
 		
 		public constructor( oPlayerGameSetting=null ) {
